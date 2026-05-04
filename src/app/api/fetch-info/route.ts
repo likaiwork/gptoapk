@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server';
 import gplay from 'google-play-scraper';
 import { gplayRequestOptions as requestOptions } from '@/lib/proxy';
 
+export const maxDuration = 60;
+
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const query = searchParams.get('url');

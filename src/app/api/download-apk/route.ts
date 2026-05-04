@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import { fetchApkVariants, pickBestVariant } from '@/lib/apk-source';
 
+export const maxDuration = 60;
+
 export async function POST(request: Request) {
   try {
     const { appId } = await request.json();
@@ -38,6 +40,9 @@ export async function POST(request: Request) {
   } catch (error: unknown) {
     const message = error instanceof Error ? error.message : 'Unknown error';
     console.error('[API download-apk] ERROR:', message);
-    return NextResponse.json({ error: 'Failed to resolve download link' }, { status: 502 });
+    return NextResponse.json(
+      { error: `Failed to resolve download link: ${message}` },
+      { status: 502 },
+    );
   }
 }
