@@ -1,7 +1,4 @@
 import { NextResponse } from 'next/server';
-import { fetchApkVariants, pickBestVariant } from '@/lib/apk-source';
-
-export const maxDuration = 60;
 
 export async function POST(request: Request) {
   try {
@@ -11,38 +8,16 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Missing appId' }, { status: 400 });
     }
 
-    console.log(`[API download-apk] Resolving APK for "${appId}" via APKCombo...`);
-
-    const variants = await fetchApkVariants(appId);
-    const apk = pickBestVariant(variants);
-
-    if (!apk) {
-      console.warn(`[API download-apk] No variants found for ${appId}`);
-      return NextResponse.json(
-        { error: 'No APK available for this package on the upstream mirror' },
-        { status: 404 },
-      );
-    }
-
-    console.log(
-      `[API download-apk] OK ${appId}: type=${apk.type} filename="${apk.filename}"`,
-    );
-
+    // Cloudflare bot detection blocks our datacenter IP from scraping APKCombo
+    // directly. Instead, hand the user's browser the APKCombo download page —
+    // their residential IP clears the challenge automatically.
     return NextResponse.json({
       success: true,
-      // Wrapper URL: the browser will follow APKCombo's redirect and solve any
-      // Cloudflare challenge with its own JS engine, then download the APK.
-      downloadUrl: apk.wrapperUrl,
-      fileName: apk.filename || `${appId}.apk`,
-      type: apk.type,
-      variantCount: variants.length,
+      downloadUrl: `https://apkcombo.com/x/${encodeURIComponent(appId)}/download/apk`,
+      fileName: `${appId}.apk`,
+      type: 'APK',
     });
-  } catch (error: unknown) {
-    const message = error instanceof Error ? error.message : 'Unknown error';
-    console.error('[API download-apk] ERROR:', message);
-    return NextResponse.json(
-      { error: `Failed to resolve download link: ${message}` },
-      { status: 502 },
-    );
+  } catch {
+    return NextResponse.json({ error: 'Bad request' }, { status: 400 });
   }
 }
