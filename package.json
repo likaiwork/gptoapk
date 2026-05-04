@@ -9,6 +9,10 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "cheerio": "^1.2.0",
+    "google-play-scraper": "^10.1.2",
+    "got": "^15.0.3",
+    "hpagent": "^1.2.0",
     "next": "16.2.4",
     "react": "19.2.4",
     "react-dom": "19.2.4"
