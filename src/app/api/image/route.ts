@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
-import got from 'got';
-import { gotProxyAgent } from '@/lib/proxy';
+
+export const maxDuration = 30;
 
 const ALLOWED_HOSTS = new Set([
   'play-lh.googleusercontent.com',
@@ -30,17 +30,20 @@ export async function GET(request: Request) {
   }
 
   try {
-    const upstream = await got(parsed.toString(), {
-      agent: gotProxyAgent,
-      timeout: { request: 15000 },
-      retry: { limit: 1 },
-      responseType: 'buffer',
-    });
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 15000);
+    const upstream = await fetch(parsed.toString(), { signal: controller.signal });
+    clearTimeout(timer);
 
-    return new NextResponse(new Uint8Array(upstream.rawBody), {
+    if (!upstream.ok) {
+      return NextResponse.json({ error: `Upstream ${upstream.status}` }, { status: 502 });
+    }
+
+    const buf = await upstream.arrayBuffer();
+    return new NextResponse(buf, {
       status: 200,
       headers: {
-        'Content-Type': upstream.headers['content-type'] || 'image/jpeg',
+        'Content-Type': upstream.headers.get('content-type') || 'image/jpeg',
         'Cache-Control': 'public, max-age=86400, immutable',
       },
     });

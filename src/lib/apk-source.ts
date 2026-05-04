@@ -1,6 +1,4 @@
-import got from 'got';
 import * as cheerio from 'cheerio';
-import { gotProxyAgent } from './proxy';
 
 export interface ApkVariant {
   type: 'APK' | 'XAPK';
@@ -58,48 +56,66 @@ function parseVariants(html: string): ApkVariant[] {
   return variants;
 }
 
+async function fetchWithTimeout(url: string, init: RequestInit, timeoutMs: number): Promise<Response> {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    return await fetch(url, { ...init, signal: controller.signal });
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
 export async function fetchApkVariants(packageName: string): Promise<ApkVariant[]> {
   // Step 1: hit /x/{pkg}/... — APKCombo redirects to /{slug}/{pkg}/download/apk.
   // The HTML is just a skeleton; the variant list is fetched client-side via XHR.
   const skeletonUrl = `https://apkcombo.com/x/${packageName}/download/apk`;
-  const skeleton = await got(skeletonUrl, {
-    headers: BROWSER_HEADERS,
-    agent: gotProxyAgent,
-    timeout: { request: 20000 },
-    followRedirect: true,
-    retry: { limit: 1 },
-  });
+  const skeletonRes = await fetchWithTimeout(
+    skeletonUrl,
+    { headers: BROWSER_HEADERS, redirect: 'follow' },
+    20000,
+  );
+  if (!skeletonRes.ok) {
+    throw new Error(`Skeleton page returned ${skeletonRes.status}`);
+  }
+  const skeletonHtml = await skeletonRes.text();
+  const finalUrl = skeletonRes.url;
 
   // Inline pass: in case APKCombo ever inlines variants again.
-  const inline = parseVariants(skeleton.body);
+  const inline = parseVariants(skeletonHtml);
   if (inline.length > 0) return inline;
 
   // Step 2: replicate the page's XHR call to /{slug}/{pkg}/{xid}/dl.
   // The slug comes from the redirected URL; xid is hardcoded in a <script>.
-  const finalUrl = skeleton.url; // e.g. https://apkcombo.com/{slug}/{pkg}/download/apk
   const slugMatch = finalUrl.match(/^https?:\/\/apkcombo\.com\/([^/]+)\/[^/]+\/download\/apk/);
   if (!slugMatch) return [];
   const slug = slugMatch[1];
 
-  const xidMatch = skeleton.body.match(/var\s+xid\s*=\s*"([^"]+)"/);
+  const xidMatch = skeletonHtml.match(/var\s+xid\s*=\s*"([^"]+)"/);
   if (!xidMatch) return [];
   const xid = xidMatch[1];
 
   const dlUrl = `https://apkcombo.com/${slug}/${packageName}/${xid}/dl`;
+  const form = new URLSearchParams({ package_name: packageName, version: '' });
 
-  const dlBody = await got
-    .post(dlUrl, {
+  const dlRes = await fetchWithTimeout(
+    dlUrl,
+    {
+      method: 'POST',
       headers: {
         ...BROWSER_HEADERS,
         Referer: finalUrl,
         'X-Requested-With': 'XMLHttpRequest',
+        'Content-Type': 'application/x-www-form-urlencoded',
       },
-      form: { package_name: packageName, version: '' },
-      agent: gotProxyAgent,
-      timeout: { request: 25000 },
-      retry: { limit: 1 },
-    })
-    .text();
+      body: form.toString(),
+    },
+    25000,
+  );
+  if (!dlRes.ok) {
+    throw new Error(`XHR /dl returned ${dlRes.status}`);
+  }
+  const dlBody = await dlRes.text();
 
   return parseVariants(dlBody);
 }
