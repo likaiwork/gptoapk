@@ -3,12 +3,15 @@ import { fetchDispatcher } from '@/lib/proxy';
 
 export const maxDuration = 30;
 
+// All responses use HTTP 200 with `success` flag, because Cloudflare (in front
+// of this site) intercepts 4xx/5xx and replaces the body with its own HTML
+// error page — the client would never see our JSON.
 export async function POST(request: Request) {
   try {
     const { appId } = await request.json();
 
     if (!appId || typeof appId !== 'string') {
-      return NextResponse.json({ error: 'Missing appId' }, { status: 400 });
+      return NextResponse.json({ success: false, error: 'Missing appId' });
     }
 
     const cleanId = appId.trim();
@@ -21,22 +24,21 @@ export async function POST(request: Request) {
       dispatcher: fetchDispatcher,
     });
 
-    if (!apiRes.ok) {
-      return NextResponse.json(
-        { error: `APK source returned HTTP ${apiRes.status}` },
-        { status: 502 }
-      );
+    let json: { data?: { file?: { path?: string; path_alt?: string; vername?: string; filesize?: number; md5sum?: string } } } | null = null;
+    try {
+      json = await apiRes.json();
+    } catch {
+      // non-JSON body (rare); fall through to error response below
     }
 
-    const json = await apiRes.json();
     const file = json?.data?.file;
     const path: string | undefined = file?.path ?? file?.path_alt;
 
     if (!path) {
-      return NextResponse.json(
-        { error: 'This APK is not available from our source.' },
-        { status: 404 }
-      );
+      return NextResponse.json({
+        success: false,
+        error: 'This APK is not available from our source.',
+      });
     }
 
     return NextResponse.json({
@@ -44,11 +46,14 @@ export async function POST(request: Request) {
       downloadUrl: path,
       fileName: `${cleanId}.apk`,
       type: 'APK',
-      version: file.vername ?? null,
-      size: file.filesize ?? null,
-      md5: file.md5sum ?? null,
+      version: file?.vername ?? null,
+      size: file?.filesize ?? null,
+      md5: file?.md5sum ?? null,
     });
-  } catch {
-    return NextResponse.json({ error: 'Bad request' }, { status: 400 });
+  } catch (err) {
+    return NextResponse.json({
+      success: false,
+      error: err instanceof Error ? err.message : 'Download preparation failed',
+    });
   }
 }
