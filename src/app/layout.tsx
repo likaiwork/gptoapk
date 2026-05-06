@@ -5,6 +5,7 @@ import "./globals.css";
 
 const CLARITY_PROJECT_ID = "wlqyr64bhf";
 const GTM_ID = "GTM-MXXWHJTP";
+const GA_MEASUREMENT_ID = "G-429ERYFHCQ";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -75,6 +76,18 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             <p className="mt-2 text-xs">This tool is not affiliated with Google or Google Play in any way.</p>
           </div>
         </footer>
+
+        <Script
+          id="ga4-src"
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+          strategy="afterInteractive"
+        />
+        <Script id="ga4-init" strategy="afterInteractive">
+          {`window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', '${GA_MEASUREMENT_ID}');`}
+        </Script>
 
         <Script id="ms-clarity" strategy="afterInteractive">
           {`(function(c,l,a,r,i,t,y){
