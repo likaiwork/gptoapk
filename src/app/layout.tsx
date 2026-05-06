@@ -5,7 +5,7 @@ import "./globals.css";
 
 const CLARITY_PROJECT_ID = "wlqyr64bhf";
 const GTM_ID = "GTM-MXXWHJTP";
-const GA_MEASUREMENT_ID = "G-429ERYFHCQ";
+const GA_MEASUREMENT_ID = "G-DB1E6ERNFQ";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
