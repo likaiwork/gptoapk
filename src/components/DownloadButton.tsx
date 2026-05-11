@@ -1,16 +1,32 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 type Status = "idle" | "preparing" | "started";
+
+const ESTIMATED_SECONDS = 5;
 
 export default function DownloadButton({ appId }: { appId: string, appName: string }) {
   const [status, setStatus] = useState<Status>("idle");
   const [error, setError] = useState("");
+  const [countdown, setCountdown] = useState(ESTIMATED_SECONDS);
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+    };
+  }, []);
 
   const handleDownload = async () => {
     setStatus("preparing");
     setError("");
+    setCountdown(ESTIMATED_SECONDS);
+
+    if (intervalRef.current) clearInterval(intervalRef.current);
+    intervalRef.current = setInterval(() => {
+      setCountdown((prev) => (prev > 0 ? prev - 1 : 0));
+    }, 1000);
 
     try {
       const res = await fetch("/api/download-apk", {
@@ -24,10 +40,6 @@ export default function DownloadButton({ appId }: { appId: string, appName: stri
         throw new Error(data.error || "Failed to prepare download");
       }
 
-      // The source serves the .apk with Content-Type:
-      // application/vnd.android.package-archive and CORS *. Triggering an
-      // anchor click in the same tab makes the browser start a native
-      // download without navigating away from the current page.
       const a = document.createElement("a");
       a.href = data.downloadUrl;
       a.download = data.fileName || `${appId}.apk`;
@@ -36,9 +48,11 @@ export default function DownloadButton({ appId }: { appId: string, appName: stri
       a.click();
       a.remove();
 
+      if (intervalRef.current) clearInterval(intervalRef.current);
       setStatus("started");
       setTimeout(() => setStatus("idle"), 3500);
     } catch (err: unknown) {
+      if (intervalRef.current) clearInterval(intervalRef.current);
       setError(err instanceof Error ? err.message : "Download failed");
       setStatus("idle");
     }
@@ -60,7 +74,7 @@ export default function DownloadButton({ appId }: { appId: string, appName: stri
               <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
               <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
             </svg>
-            Preparing...
+            {countdown > 0 ? `Starting in ${countdown}s...` : "Almost ready..."}
           </>
         ) : isStarted ? (
           <>
@@ -78,6 +92,27 @@ export default function DownloadButton({ appId }: { appId: string, appName: stri
           </>
         )}
       </button>
+
+      {isPreparing && (
+        <div className="w-full mt-1">
+          <div className="h-1.5 w-full bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
+            <div
+              className="h-full bg-green-500 transition-[width] duration-1000 ease-linear"
+              style={{
+                width: `${Math.min(
+                  100,
+                  ((ESTIMATED_SECONDS - countdown) / ESTIMATED_SECONDS) * 90 + (countdown === 0 ? 5 : 0)
+                )}%`,
+              }}
+            />
+          </div>
+          <p className="text-xs text-slate-500 mt-1">
+            {countdown > 0
+              ? "Fetching the latest APK from our verified source..."
+              : "Just a moment, finalizing your download..."}
+          </p>
+        </div>
+      )}
 
       {error && (
         <p className="text-red-500 text-sm mt-2">{error}</p>
