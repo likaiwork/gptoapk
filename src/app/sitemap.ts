@@ -8,6 +8,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "apk-downloader-tool-comparison",
     "what-is-an-apk-file",
     "how-to-install-apk-on-android",
+    "google-play-link-to-apk-troubleshooting",
+    "google-play-link-to-apk-tips",
+    "google-play-link-to-apk-step-by-step",
   ];
 
   const staticPages = [
