@@ -104,6 +104,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
               <a href="/" className="hover:text-blue-600 transition-colors">Home</a>
               <a href="/blog" className="hover:text-blue-600 transition-colors">Blog</a>
               <a href="/faq" className="hover:text-blue-600 transition-colors">FAQ</a>
+              <a href="/zh" className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg border border-slate-300 dark:border-slate-600 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors text-xs font-medium">
+                <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+                </svg>
+                中文
+              </a>
             </nav>
           </div>
         </header>
@@ -127,6 +133,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 <a href="/" className="hover:text-blue-600 transition-colors">Home</a>
                 <a href="/blog" className="hover:text-blue-600 transition-colors">Blog</a>
                 <a href="/faq" className="hover:text-blue-600 transition-colors">FAQ</a>
+                <a href="/zh" className="hover:text-blue-600 transition-colors">中文</a>
               </nav>
             </div>
             <div className="text-center text-sm text-slate-500 border-t border-slate-200 dark:border-slate-800 pt-6">

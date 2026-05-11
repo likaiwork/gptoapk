@@ -1,0 +1,105 @@
+{
+  "site": {
+    "name": "APK 下载器",
+    "tagline": "从Google Play直接下载APK。",
+    "description": "只需粘贴Google Play链接或应用ID，立即生成下载链接。",
+    "footer": {
+      "copyright": "© {year} APK 下载器。保留所有权利。",
+      "disclaimer": "本工具与Google或Google Play没有任何关联。"
+    }
+  },
+  "nav": {
+    "home": "首页",
+    "blog": "博客",
+    "faq": "常见问题"
+  },
+  "hero": {
+    "title": "APK 下载器",
+    "description": "从 Google Play 商店直接下载 APK。只需粘贴 Google Play 链接或应用 ID，立即生成下载链接。"
+  },
+  "features": {
+    "fast": {
+      "title": "快速下载",
+      "desc": "无需等待，无需验证码，立即生成直接下载链接。"
+    },
+    "safe": {
+      "title": "安全可靠",
+      "desc": "文件直接从 Google 服务器获取。无修改，100% 原始 APK。"
+    },
+    "noreg": {
+      "title": "无需注册",
+      "desc": "完全免费使用，无需创建账号或下载任何扩展程序。"
+    }
+  },
+  "howto": {
+    "title": "如何从 Google Play 下载 APK",
+    "step1": { "title": "复制 Google Play 链接", "desc": "在 Google Play 商店中找到应用，从地址栏复制其 URL。" },
+    "step2": { "title": "粘贴并生成", "desc": "将链接粘贴到上方输入框，点击生成下载链接按钮。" },
+    "step3": { "title": "下载你的 APK", "desc": "点击下载链接保存 APK 文件，然后在 Android 设备上安装。" }
+  },
+  "why": {
+    "title": "为什么选择 gptoapk.com？",
+    "points": [
+      { "title": "源自 Google", "desc": "文件直接从 Google 服务器获取" },
+      { "title": "不上传", "desc": "文件经过服务器但不存储" },
+      { "title": "100% 免费", "desc": "无隐藏费用，无高级套餐" },
+      { "title": "无需注册", "desc": "立即开始下载" }
+    ]
+  },
+  "blog": {
+    "previewTitle": "APK 下载指南与技巧",
+    "previewDesc": "了解更多关于 APK 文件、安装方法和最佳 APK 提取工具的信息。",
+    "viewAll": "查看全部文章 →"
+  },
+  "faq": {
+    "homeTitle": "常见问题",
+    "homeFaqs": [
+      {
+        "q": "如何从 Google Play 下载 APK？",
+        "a": "只需将 Google Play 链接粘贴到本页面，点击生成链接即可，几秒钟就准备好 APK 下载。"
+      },
+      {
+        "q": "下载 APK 文件安全吗？",
+        "a": "安全。我们的工具直接从 Google 服务器获取文件，APK 100% 原始且未修改。"
+      },
+      {
+        "q": "需要安装任何东西吗？",
+        "a": "不需要。gptoapk.com 完全在浏览器中运行，无需扩展程序或软件。"
+      }
+    ],
+    "viewAll": "查看全部常见问题 →",
+    "title": "常见问题 - APK 下载器 | gptoapk.com",
+    "metaDesc": "关于使用 gptoapk.com 从 Google Play 商店下载 APK 的常见问题。了解工作原理、安全性和故障排除技巧。",
+    "items": [
+      { "q": "什么是 gptoapk.com？", "a": "gptoapk.com 是一个免费在线工具，可以让你直接从 Google Play 商店生成 APK 下载链接。只需粘贴 Google Play URL 或包名，立即获得直接下载链接。" },
+      { "q": "使用完全免费吗？", "a": "是的，完全免费。无需注册，无隐藏费用，无高级套餐。" },
+      { "q": "它是如何工作的？", "a": "当你粘贴 Google Play 链接时，我们的服务器直接从 Google 的 CDN 获取 APK 文件，并提供下载链接。我们从不修改或存储文件。" },
+      { "q": "从 gptoapk.com 下载 APK 安全吗？", "a": "绝对安全。文件直接从 Google 服务器获取。我们从不触碰或修改文件，所以你获得的是 100% 原始、签名验证的 APK。" },
+      { "q": "可以在手机上使用吗？", "a": "可以！只需在移动浏览器中打开 gptoapk.com 并粘贴链接即可。手机和电脑都可以使用。" },
+      { "q": "付费应用也能下载吗？", "a": "可以，但你的 Google 账号需要已经购买了该应用才能生成有效的下载链接。" },
+      { "q": "需要安装软件或浏览器扩展吗？", "a": "不需要。gptoapk.com 完全在浏览器中运行。无需下载、无需扩展、无需插件。" },
+      { "q": "可以在任何国家使用吗？", "a": "可以，gptoapk.com 在全球范围都可以使用。不过某些应用在 Google Play 上可能有地区限制。" }
+    ]
+  },
+  "search": {
+    "placeholder": "粘贴 Google Play 链接或 App ID...",
+    "button": "生成下载链接",
+    "generating": "生成中...",
+    "error": "生成下载链接失败，请检查 URL 后重试。",
+    "noPackage": "无法从 URL 提取包名。"
+  },
+  "app": {
+    "download": "下载 APK",
+    "details": "应用详情",
+    "version": "版本",
+    "size": "大小",
+    "updated": "更新于",
+    "developer": "开发者",
+    "notFound": "未找到应用",
+    "notFoundDesc": "在 Google Play 上未找到该应用。请检查 URL 或包名后重试。"
+  },
+  "locale": {
+    "switchTo": "English",
+    "current": "中文"
+  }
+}

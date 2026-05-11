@@ -1,0 +1,105 @@
+{
+  "site": {
+    "name": "APK Downloader",
+    "tagline": "Download APK directly from Google Play Store.",
+    "description": "Just paste the Google Play link or App ID below and generate your download link instantly.",
+    "footer": {
+      "copyright": "© {year} APK Downloader. All rights reserved.",
+      "disclaimer": "This tool is not affiliated with Google or Google Play in any way."
+    }
+  },
+  "nav": {
+    "home": "Home",
+    "blog": "Blog",
+    "faq": "FAQ"
+  },
+  "hero": {
+    "title": "APK Downloader",
+    "description": "Download APK directly from Google Play Store. Just paste the Google Play link or App ID below and generate your download link instantly."
+  },
+  "features": {
+    "fast": {
+      "title": "Fast Download",
+      "desc": "Generate direct download links instantly without waiting or captchas."
+    },
+    "safe": {
+      "title": "Safe & Secure",
+      "desc": "Files are fetched directly from Google's servers. No modifications, 100% original APKs."
+    },
+    "noreg": {
+      "title": "No Registration",
+      "desc": "Completely free to use without creating an account or downloading any extensions."
+    }
+  },
+  "howto": {
+    "title": "How to Download APK from Google Play",
+    "step1": { "title": "Copy the Google Play link", "desc": "Find any app on the Google Play Store and copy its URL from the address bar." },
+    "step2": { "title": "Paste and generate", "desc": "Paste the link into the input box above and click the Generate Link button." },
+    "step3": { "title": "Download your APK", "desc": "Click the download link and save the APK file. Install it on your Android device." }
+  },
+  "why": {
+    "title": "Why Use gptoapk.com?",
+    "points": [
+      { "title": "Direct from Google", "desc": "Files come straight from Google's servers" },
+      { "title": "No Uploads", "desc": "Files pass through our servers, never stored" },
+      { "title": "100% Free", "desc": "No hidden charges, no premium plans" },
+      { "title": "No Registration", "desc": "Start downloading immediately" }
+    ]
+  },
+  "blog": {
+    "previewTitle": "APK Download Guides & Tips",
+    "previewDesc": "Learn more about APK files, installation, and the best tools for Google Play APK extraction.",
+    "viewAll": "View all articles →"
+  },
+  "faq": {
+    "homeTitle": "Frequently Asked Questions",
+    "homeFaqs": [
+      {
+        "q": "How do I download APK from Google Play?",
+        "a": "Just paste the Google Play link on this page and click Generate Link. Your APK download will be ready in seconds."
+      },
+      {
+        "q": "Is it safe to download APK files?",
+        "a": "Yes, our tool fetches files directly from Google's servers. The APKs are 100% original and unmodified."
+      },
+      {
+        "q": "Do I need to install anything?",
+        "a": "No. gptoapk.com works entirely in your browser. No extensions, no software needed."
+      }
+    ],
+    "viewAll": "View all FAQs →",
+    "title": "FAQ - APK Downloader | gptoapk.com",
+    "metaDesc": "Frequently asked questions about downloading APK from Google Play Store using gptoapk.com. Learn how it works, security, and troubleshooting tips.",
+    "items": [
+      { "q": "What is gptoapk.com?", "a": "gptoapk.com is a free online tool that allows you to generate APK download links directly from Google Play Store. Just paste a Google Play URL or package name and get a direct download link instantly." },
+      { "q": "Is it free to use?", "a": "Yes, completely free. No registration, no hidden fees, no premium plans." },
+      { "q": "How does it work?", "a": "When you paste a Google Play link, our server fetches the APK file directly from Google's CDN and provides you with a download link. We never modify or store the files." },
+      { "q": "Is it safe to download APK from gptoapk.com?", "a": "Absolutely. Files are fetched directly from Google's servers. We never touch or modify the files, so you get 100% original, signature-verified APKs." },
+      { "q": "Can I download APK on my phone?", "a": "Yes! Just open gptoapk.com in your mobile browser and paste the link. It works on both phones and computers." },
+      { "q": "Does it work for paid apps?", "a": "Yes, but you need to have purchased the app on your Google account for it to generate a valid download link." },
+      { "q": "Do I need to install any software or browser extensions?", "a": "No. gptoapk.com works entirely in your browser. No downloads, no extensions, no plugins needed." },
+      { "q": "Can I download APK files from any country?", "a": "Yes, gptoapk.com works worldwide. However, some apps may be region-restricted on Google Play." }
+    ]
+  },
+  "search": {
+    "placeholder": "Paste Google Play URL or App ID...",
+    "button": "Generate Link",
+    "generating": "Generating...",
+    "error": "Failed to generate download link. Please check the URL and try again.",
+    "noPackage": "Could not extract package name from URL."
+  },
+  "app": {
+    "download": "Download APK",
+    "details": "App Details",
+    "version": "Version",
+    "size": "Size",
+    "updated": "Updated",
+    "developer": "Developer",
+    "notFound": "App not found",
+    "notFoundDesc": "Could not find the app on Google Play. Please check the URL or package name and try again."
+  },
+  "locale": {
+    "switchTo": "中文",
+    "current": "English"
+  }
+}
