@@ -1,0 +1,61 @@
+name: 🌐 Publish Articles
+
+on:
+  workflow_dispatch:  # 手动触发
+    inputs:
+      platform:
+        description: '平台 (all / blogger / linkedin / substack / tumblr)'
+        required: true
+        default: 'all'
+        type: choice
+        options:
+          - all
+          - blogger
+          - linkedin
+          - substack
+          - tumblr
+      article_count:
+        description: '发布几篇 (1-5)'
+        required: true
+        default: '5'
+        type: number
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⬇️ Checkout
+        uses: actions/checkout@v4
+        with:
+          repository: likaiwork/gptoapk
+          token: ${{ secrets.GH_PAT }}
+
+      - name: 📥 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: 📦 Install dependencies
+        working-directory: scripts/publish
+        run: |
+          npm init -y
+          npm install playwright @playwright/test dotenv front-matter marked
+
+      - name: 🌐 Install Playwright browsers
+        working-directory: scripts/publish
+        run: npx playwright install chromium --with-deps
+
+      - name: 🚀 Run publish script
+        working-directory: scripts/publish
+        env:
+          BLOGGER_EMAIL: ${{ secrets.BLOGGER_EMAIL }}
+          BLOGGER_PASSWORD: ${{ secrets.BLOGGER_PASSWORD }}
+          LINKEDIN_EMAIL: ${{ secrets.LINKEDIN_EMAIL }}
+          LINKEDIN_PASSWORD: ${{ secrets.LINKEDIN_PASSWORD }}
+          SUBSTACK_EMAIL: ${{ secrets.SUBSTACK_EMAIL }}
+          SUBSTACK_PASSWORD: ${{ secrets.SUBSTACK_PASSWORD }}
+          TUMBLR_EMAIL: ${{ secrets.TUMBLR_EMAIL }}
+          TUMBLR_PASSWORD: ${{ secrets.TUMBLR_PASSWORD }}
+          ARTICLE_COUNT: ${{ github.event.inputs.article_count || '5' }}
+          PLATFORM: ${{ github.event.inputs.platform || 'all' }}
+        run: node publish-github.js 2>&1
