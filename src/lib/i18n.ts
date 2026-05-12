@@ -3,14 +3,11 @@
  * Simple JSON-based translation system for Next.js App Router
  */
 
-export type Locale =
-  | "en" | "zh" | "ja" | "pt" | "es" | "ru" | "id" | "hi"
-  | "ko" | "fr" | "de" | "vi" | "ar" | "tr";
+import { SITE_LOCALES, type SiteLocale } from "./site-locales";
 
-export const locales: Locale[] = [
-  "en", "zh", "ja", "pt", "es", "ru", "id", "hi",
-  "ko", "fr", "de", "vi", "ar", "tr",
-];
+export type Locale = SiteLocale;
+
+export const locales: Locale[] = [...SITE_LOCALES];
 export const defaultLocale: Locale = "en";
 
 // Messages type

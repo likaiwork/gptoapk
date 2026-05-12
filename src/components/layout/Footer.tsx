@@ -2,16 +2,11 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { localePathRegex, type SiteLocale } from "@/lib/site-locales";
 
-const localePattern = /^\/(en|zh|ja|pt|es|ru|id|hi|ko|fr|de|vi|ar|tr)(\/.*)?$/;
-
-type SupportedLocale =
-  | "en" | "zh" | "ja" | "pt" | "es" | "ru" | "id" | "hi"
-  | "ko" | "fr" | "de" | "vi" | "ar" | "tr";
-
-function getCurrentLocale(pathname: string): SupportedLocale {
-  const match = pathname.match(localePattern);
-  return (match?.[1] as SupportedLocale | undefined) ?? "en";
+function getCurrentLocale(pathname: string): SiteLocale {
+  const match = pathname.match(localePathRegex);
+  return (match?.[1] as SiteLocale | undefined) ?? "en";
 }
 
 export default function Footer() {
@@ -22,7 +17,7 @@ export default function Footer() {
   const blogHref = `/${currentLocale}/blog`;
   const faqHref = `/${currentLocale}/faq`;
 
-  const navLabels: Record<SupportedLocale, { home: string; blog: string; faq: string; contact: string; copyright: string; disclaimer: string }> = {
+  const navLabels: Record<SiteLocale, { home: string; blog: string; faq: string; contact: string; copyright: string; disclaimer: string }> = {
     en: {
       home: "Home",
       blog: "Blog",
@@ -134,6 +129,158 @@ export default function Footer() {
       contact: "İletişim",
       copyright: "© {year} APK Downloader. Tüm hakları saklıdır.",
       disclaimer: "Bu araç Google veya Google Play ile herhangi bir şekilde bağlantılı değildir.",
+    },
+    it: {
+      home: "Inizio",
+      blog: "Blog",
+      faq: "FAQ",
+      contact: "Contatti",
+      copyright: "© {year} APK Downloader. Tutti i diritti riservati.",
+      disclaimer: "Questo strumento non è affiliato a Google o Google Play in alcun modo.",
+    },
+    nl: {
+      home: "Startpagina",
+      blog: "Blog",
+      faq: "FAQ",
+      contact: "Contact",
+      copyright: "© {year} APK Downloader. Alle rechten voorbehouden.",
+      disclaimer: "Deze tool is op geen enkele manier gelieerd aan Google of Google Play.",
+    },
+    pl: {
+      home: "Strona główna",
+      blog: "Blog",
+      faq: "FAQ",
+      contact: "Kontakt",
+      copyright: "© {year} APK Downloader. Wszelkie prawa zastrzeżone.",
+      disclaimer: "To narzędzie nie jest powiązane z Google ani Google Play w żaden sposób.",
+    },
+    uk: {
+      home: "Головна",
+      blog: "Блог",
+      faq: "FAQ",
+      contact: "Контакти",
+      copyright: "© {year} APK Downloader. Усі права захищено.",
+      disclaimer: "Цей інструмент не пов’язаний із Google або Google Play жодним чином.",
+    },
+    th: {
+      home: "หน้าแรก",
+      blog: "บล็อก",
+      faq: "คำถามที่พบบ่อย",
+      contact: "ติดต่อ",
+      copyright: "© {year} APK Downloader สงวนลิขสิทธิ์",
+      disclaimer: "เครื่องมือนี้ไม่มีความเกี่ยวข้องกับ Google หรือ Google Play ไม่ว่าในลักษณะใด",
+    },
+    ms: {
+      home: "Laman utama",
+      blog: "Blog",
+      faq: "Soalan lazim",
+      contact: "Hubungi",
+      copyright: "© {year} APK Downloader. Hak cipta terpelihara.",
+      disclaimer: "Alat ini tidak berafiliasi dengan Google atau Google Play dalam apa jua cara.",
+    },
+    sv: {
+      home: "Hem",
+      blog: "Blog",
+      faq: "FAQ",
+      contact: "Kontakt",
+      copyright: "© {year} APK Downloader. Alla rättigheter förbehållna.",
+      disclaimer: "Detta verktyg är inte anslutet till Google eller Google Play på något sätt.",
+    },
+    da: {
+      home: "Hjem",
+      blog: "Blog",
+      faq: "FAQ",
+      contact: "Kontakt",
+      copyright: "© {year} APK Downloader. Alle rettigheder forbeholdes.",
+      disclaimer: "Dette værktøj er ikke tilknyttet Google eller Google Play på nogen måde.",
+    },
+    fi: {
+      home: "Etusivu",
+      blog: "Blog",
+      faq: "UKK",
+      contact: "Yhteystiedot",
+      copyright: "© {year} APK Downloader. Kaikki oikeudet pidätetään.",
+      disclaimer: "Tämä työkalu ei ole millään tavalla sidoksissa Googleen tai Google Playhin.",
+    },
+    nb: {
+      home: "Hjem",
+      blog: "Blog",
+      faq: "FAQ",
+      contact: "Kontakt",
+      copyright: "© {year} APK Downloader. Alle rettigheter reservert.",
+      disclaimer: "Dette verktøyet er ikke tilknyttet Google eller Google Play på noen måte.",
+    },
+    cs: {
+      home: "Domů",
+      blog: "Blog",
+      faq: "FAQ",
+      contact: "Kontakt",
+      copyright: "© {year} APK Downloader. Všechna práva vyhrazena.",
+      disclaimer: "Tento nástroj není nijak spojený s Google ani Google Play.",
+    },
+    ro: {
+      home: "Acasă",
+      blog: "Blog",
+      faq: "Întrebări",
+      contact: "Contact",
+      copyright: "© {year} APK Downloader. Toate drepturile rezervate.",
+      disclaimer: "Acest instrument nu este afiliat cu Google sau Google Play în niciun fel.",
+    },
+    el: {
+      home: "Αρχική",
+      blog: "Ιστολόγιο",
+      faq: "Συχνές ερωτήσεις",
+      contact: "Επικοινωνία",
+      copyright: "© {year} APK Downloader. Με την επιφύλαξη παντός δικαιώματος.",
+      disclaimer: "Αυτό το εργαλείο δεν συνδέεται με την Google ή το Google Play με οποιονδήποτε τρόπο.",
+    },
+    hu: {
+      home: "Kezdőlap",
+      blog: "Blog",
+      faq: "GYIK",
+      contact: "Kapcsolat",
+      copyright: "© {year} APK Downloader. Minden jog fenntartva.",
+      disclaimer: "Ez az eszköz semmilyen módon nem áll kapcsolatban a Google-lal vagy a Google Play-jel.",
+    },
+    bn: {
+      home: "হোম",
+      blog: "ব্লগ",
+      faq: "জিজ্ঞাসা",
+      contact: "যোগাযোগ",
+      copyright: "© {year} APK Downloader। সর্বস্বত্ব সংরক্ষিত।",
+      disclaimer: "এই টুলটি Google বা Google Play-এর সাথে কোনোভাবে সংযুক্ত নয়।",
+    },
+    tl: {
+      home: "Home",
+      blog: "Blog",
+      faq: "FAQ",
+      contact: "Contact",
+      copyright: "© {year} APK Downloader. All rights reserved.",
+      disclaimer: "Ang tool na ito ay hindi kaakibat ng Google o Google Play sa anumang paraan.",
+    },
+    he: {
+      home: "בית",
+      blog: "בלוג",
+      faq: "שאלות נפוצות",
+      contact: "צור קשר",
+      copyright: "© {year} APK Downloader. כל הזכויות שמורות.",
+      disclaimer: "כלי זה אינו קשור ל-Google או ל-Google Play בשום צורה.",
+    },
+    fa: {
+      home: "خانه",
+      blog: "وبلاگ",
+      faq: "سوالات متداول",
+      contact: "تماس",
+      copyright: "© {year} APK Downloader. تمامی حقوق محفوظ است.",
+      disclaimer: "این ابزار به هیچ عنوان وابسته به گوگل یا گوگل پلی نیست.",
+    },
+    ur: {
+      home: "ہوم",
+      blog: "بلاگ",
+      faq: "سوالات",
+      contact: "رابطہ",
+      copyright: "© {year} APK Downloader۔ جملہ حقوق محفوظ ہیں۔",
+      disclaimer: "یہ ٹول Google یا Google Play سے کسی طرح وابستہ نہیں ہے۔",
     },
   };
 

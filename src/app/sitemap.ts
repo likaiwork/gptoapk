@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { SITE_LOCALES } from "@/lib/site-locales";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://gptoapk.com";
@@ -29,61 +30,22 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ];
 
   // 检查：除 en/zh 外，其他语言只暴露首页 / FAQ / Blog 列表，blog 详情统一指向 en
-  const shellLocales = ["ja", "pt", "es", "ru", "id", "hi", "ko", "fr", "de", "vi", "ar", "tr"] as const;
+  const shellLocales = SITE_LOCALES.filter((l) => l !== "en" && l !== "zh");
 
-  const homepageAlternates: Record<string, string> = {
-    en: `${baseUrl}/en`,
-    zh: `${baseUrl}/zh`,
-    ja: `${baseUrl}/ja`,
-    pt: `${baseUrl}/pt`,
-    es: `${baseUrl}/es`,
-    ru: `${baseUrl}/ru`,
-    id: `${baseUrl}/id`,
-    hi: `${baseUrl}/hi`,
-    ko: `${baseUrl}/ko`,
-    fr: `${baseUrl}/fr`,
-    de: `${baseUrl}/de`,
-    vi: `${baseUrl}/vi`,
-    ar: `${baseUrl}/ar`,
-    tr: `${baseUrl}/tr`,
-    "x-default": `${baseUrl}/en`,
-  };
+  const homepageAlternates: Record<string, string> = Object.fromEntries(
+    SITE_LOCALES.map((loc) => [loc, `${baseUrl}/${loc}`]),
+  );
+  homepageAlternates["x-default"] = `${baseUrl}/en`;
 
-  const faqAlternates: Record<string, string> = {
-    en: `${baseUrl}/en/faq`,
-    zh: `${baseUrl}/zh/faq`,
-    ja: `${baseUrl}/ja/faq`,
-    pt: `${baseUrl}/pt/faq`,
-    es: `${baseUrl}/es/faq`,
-    ru: `${baseUrl}/ru/faq`,
-    id: `${baseUrl}/id/faq`,
-    hi: `${baseUrl}/hi/faq`,
-    ko: `${baseUrl}/ko/faq`,
-    fr: `${baseUrl}/fr/faq`,
-    de: `${baseUrl}/de/faq`,
-    vi: `${baseUrl}/vi/faq`,
-    ar: `${baseUrl}/ar/faq`,
-    tr: `${baseUrl}/tr/faq`,
-    "x-default": `${baseUrl}/en/faq`,
-  };
+  const faqAlternates: Record<string, string> = Object.fromEntries(
+    SITE_LOCALES.map((loc) => [loc, `${baseUrl}/${loc}/faq`]),
+  );
+  faqAlternates["x-default"] = `${baseUrl}/en/faq`;
 
-  const blogListAlternates: Record<string, string> = {
-    en: `${baseUrl}/en/blog`,
-    zh: `${baseUrl}/zh/blog`,
-    ja: `${baseUrl}/ja/blog`,
-    pt: `${baseUrl}/pt/blog`,
-    es: `${baseUrl}/es/blog`,
-    ru: `${baseUrl}/ru/blog`,
-    id: `${baseUrl}/id/blog`,
-    hi: `${baseUrl}/hi/blog`,
-    ko: `${baseUrl}/ko/blog`,
-    fr: `${baseUrl}/fr/blog`,
-    de: `${baseUrl}/de/blog`,
-    vi: `${baseUrl}/vi/blog`,
-    ar: `${baseUrl}/ar/blog`,
-    tr: `${baseUrl}/tr/blog`,
-    "x-default": `${baseUrl}/en/blog`,
-  };
+  const blogListAlternates: Record<string, string> = Object.fromEntries(
+    SITE_LOCALES.map((loc) => [loc, `${baseUrl}/${loc}/blog`]),
+  );
+  blogListAlternates["x-default"] = `${baseUrl}/en/blog`;
 
   const entries: MetadataRoute.Sitemap = [
     {

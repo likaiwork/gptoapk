@@ -3,8 +3,8 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useRef, useEffect } from "react";
-
-const localePattern = /^\/(en|zh|ja|pt|es|ru|id|hi|ko|fr|de|vi|ar|tr)(\/.*)?$/;
+import { LANGUAGE_SWITCHER_ITEMS } from "@/lib/language-menu";
+import { isRtlLocale, localePathRegex, type SiteLocale } from "@/lib/site-locales";
 
 const zhBlogSlugs = new Set([
   "how-to-download-apk-from-google-play",
@@ -16,14 +16,10 @@ const zhBlogSlugs = new Set([
   "google-play-link-to-apk-step-by-step",
 ]);
 
-type SupportedLocale =
-  | "en" | "zh" | "ja" | "pt" | "es" | "ru" | "id" | "hi"
-  | "ko" | "fr" | "de" | "vi" | "ar" | "tr";
+const localesWithFullContent = new Set<SiteLocale>(["en", "zh"]); // 检查：仅 en/zh 拥有完整 blog 详情和 app 详情页
 
-const localesWithFullContent = new Set<SupportedLocale>(["en", "zh"]); // 检查：仅 en/zh 拥有完整 blog 详情和 app 详情页
-
-function getSwitchHref(target: SupportedLocale, currentPath: string): string {
-  const match = currentPath.match(localePattern);
+function getSwitchHref(target: SiteLocale, currentPath: string): string {
+  const match = currentPath.match(localePathRegex);
   const rest = match?.[2] ?? currentPath; // 检查：去掉当前 locale 前缀后的纯路径
   const cleanRest = rest === "" ? "/" : rest;
 
@@ -51,9 +47,9 @@ function getSwitchHref(target: SupportedLocale, currentPath: string): string {
   return `/${target}`;
 }
 
-function getCurrentLocale(pathname: string): SupportedLocale {
-  const match = pathname.match(localePattern);
-  return (match?.[1] as SupportedLocale | undefined) ?? "en";
+function getCurrentLocale(pathname: string): SiteLocale {
+  const match = pathname.match(localePathRegex);
+  return (match?.[1] as SiteLocale | undefined) ?? "en";
 }
 
 export default function Header() {
@@ -77,7 +73,7 @@ export default function Header() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const navLabels: Record<SupportedLocale, { home: string; blog: string; faq: string }> = {
+  const navLabels: Record<SiteLocale, { home: string; blog: string; faq: string }> = {
     en: { home: "Home", blog: "Blog", faq: "FAQ" },
     zh: { home: "首页", blog: "博客", faq: "FAQ" },
     ja: { home: "ホーム", blog: "ブログ", faq: "FAQ" },
@@ -92,11 +88,30 @@ export default function Header() {
     vi: { home: "Trang chủ", blog: "Blog", faq: "FAQ" },
     ar: { home: "الرئيسية", blog: "المدونة", faq: "الأسئلة الشائعة" },
     tr: { home: "Ana Sayfa", blog: "Blog", faq: "SSS" },
+    it: { home: "Inizio", blog: "Blog", faq: "FAQ" },
+    nl: { home: "Startpagina", blog: "Blog", faq: "FAQ" },
+    pl: { home: "Strona główna", blog: "Blog", faq: "FAQ" },
+    uk: { home: "Головна", blog: "Блог", faq: "FAQ" },
+    th: { home: "หน้าแรก", blog: "บล็อก", faq: "คำถามที่พบบ่อย" },
+    ms: { home: "Laman utama", blog: "Blog", faq: "Soalan lazim" },
+    sv: { home: "Hem", blog: "Blog", faq: "FAQ" },
+    da: { home: "Hjem", blog: "Blog", faq: "FAQ" },
+    fi: { home: "Etusivu", blog: "Blog", faq: "UKK" },
+    nb: { home: "Hjem", blog: "Blog", faq: "FAQ" },
+    cs: { home: "Domů", blog: "Blog", faq: "FAQ" },
+    ro: { home: "Acasă", blog: "Blog", faq: "Întrebări" },
+    el: { home: "Αρχική", blog: "Ιστολόγιο", faq: "Συχνές ερωτήσεις" },
+    hu: { home: "Kezdőlap", blog: "Blog", faq: "GYIK" },
+    bn: { home: "হোম", blog: "ব্লগ", faq: "জিজ্ঞাসা" },
+    tl: { home: "Home", blog: "Blog", faq: "FAQ" },
+    he: { home: "בית", blog: "בלוג", faq: "שאלות נפוצות" },
+    fa: { home: "خانه", blog: "وبلاگ", faq: "سوالات متداول" },
+    ur: { home: "ہوم", blog: "بلاگ", faq: "سوالات" },
   };
 
   const labels = navLabels[currentLocale];
 
-  const buttonLabel: Record<SupportedLocale, string> = {
+  const buttonLabel: Record<SiteLocale, string> = {
     en: "EN",
     zh: "中文",
     ja: "日本語",
@@ -111,13 +126,32 @@ export default function Header() {
     vi: "VI",
     ar: "AR",
     tr: "TR",
+    it: "IT",
+    nl: "NL",
+    pl: "PL",
+    uk: "UK",
+    th: "TH",
+    ms: "MS",
+    sv: "SV",
+    da: "DA",
+    fi: "FI",
+    nb: "NB",
+    cs: "CS",
+    ro: "RO",
+    el: "EL",
+    hu: "HU",
+    bn: "BN",
+    tl: "TL",
+    he: "HE",
+    fa: "FA",
+    ur: "UR",
   };
 
   const baseItemClass = "flex items-center gap-2 px-4 py-2.5 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors";
   const activeClass = "font-semibold text-blue-600 dark:text-blue-400";
   const inactiveClass = "text-slate-700 dark:text-slate-300";
 
-  const isRtl = currentLocale === "ar"; // 检查：阿拉伯语下下拉菜单贴向 button 的对侧（屏幕左边）
+  const isRtl = isRtlLocale(currentLocale); // 检查：RTL 语言下下拉菜单贴向 button 的对侧（屏幕左边）
   const dropdownAlignClass = isRtl ? "left-0" : "right-0";
 
   return (
@@ -160,118 +194,17 @@ export default function Header() {
 
             {open && (
               <div className={`absolute ${dropdownAlignClass} mt-2 w-52 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 shadow-lg py-1 text-sm max-h-96 overflow-y-auto`}>
-                <Link
-                  href={getSwitchHref("en", pathname)}
-                  onClick={() => setOpen(false)}
-                  className={`${baseItemClass} ${currentLocale === "en" ? activeClass : inactiveClass}`}
-                >
-                  <span className="text-base">🇬🇧</span>
-                  <span>English</span>
-                </Link>
-                <Link
-                  href={getSwitchHref("zh", pathname)}
-                  onClick={() => setOpen(false)}
-                  className={`${baseItemClass} ${currentLocale === "zh" ? activeClass : inactiveClass}`}
-                >
-                  <span className="text-base">🇨🇳</span>
-                  <span>中文</span>
-                </Link>
-                <Link
-                  href={getSwitchHref("ja", pathname)}
-                  onClick={() => setOpen(false)}
-                  className={`${baseItemClass} ${currentLocale === "ja" ? activeClass : inactiveClass}`}
-                >
-                  <span className="text-base">🇯🇵</span>
-                  <span>日本語</span>
-                </Link>
-                <Link
-                  href={getSwitchHref("ko", pathname)}
-                  onClick={() => setOpen(false)}
-                  className={`${baseItemClass} ${currentLocale === "ko" ? activeClass : inactiveClass}`}
-                >
-                  <span className="text-base">🇰🇷</span>
-                  <span>한국어</span>
-                </Link>
-                <Link
-                  href={getSwitchHref("pt", pathname)}
-                  onClick={() => setOpen(false)}
-                  className={`${baseItemClass} ${currentLocale === "pt" ? activeClass : inactiveClass}`}
-                >
-                  <span className="text-base">🇧🇷</span>
-                  <span>Português</span>
-                </Link>
-                <Link
-                  href={getSwitchHref("es", pathname)}
-                  onClick={() => setOpen(false)}
-                  className={`${baseItemClass} ${currentLocale === "es" ? activeClass : inactiveClass}`}
-                >
-                  <span className="text-base">🇪🇸</span>
-                  <span>Español</span>
-                </Link>
-                <Link
-                  href={getSwitchHref("fr", pathname)}
-                  onClick={() => setOpen(false)}
-                  className={`${baseItemClass} ${currentLocale === "fr" ? activeClass : inactiveClass}`}
-                >
-                  <span className="text-base">🇫🇷</span>
-                  <span>Français</span>
-                </Link>
-                <Link
-                  href={getSwitchHref("de", pathname)}
-                  onClick={() => setOpen(false)}
-                  className={`${baseItemClass} ${currentLocale === "de" ? activeClass : inactiveClass}`}
-                >
-                  <span className="text-base">🇩🇪</span>
-                  <span>Deutsch</span>
-                </Link>
-                <Link
-                  href={getSwitchHref("ru", pathname)}
-                  onClick={() => setOpen(false)}
-                  className={`${baseItemClass} ${currentLocale === "ru" ? activeClass : inactiveClass}`}
-                >
-                  <span className="text-base">🇷🇺</span>
-                  <span>Русский</span>
-                </Link>
-                <Link
-                  href={getSwitchHref("tr", pathname)}
-                  onClick={() => setOpen(false)}
-                  className={`${baseItemClass} ${currentLocale === "tr" ? activeClass : inactiveClass}`}
-                >
-                  <span className="text-base">🇹🇷</span>
-                  <span>Türkçe</span>
-                </Link>
-                <Link
-                  href={getSwitchHref("ar", pathname)}
-                  onClick={() => setOpen(false)}
-                  className={`${baseItemClass} ${currentLocale === "ar" ? activeClass : inactiveClass}`}
-                >
-                  <span className="text-base">🇸🇦</span>
-                  <span>العربية</span>
-                </Link>
-                <Link
-                  href={getSwitchHref("hi", pathname)}
-                  onClick={() => setOpen(false)}
-                  className={`${baseItemClass} ${currentLocale === "hi" ? activeClass : inactiveClass}`}
-                >
-                  <span className="text-base">🇮🇳</span>
-                  <span>हिन्दी</span>
-                </Link>
-                <Link
-                  href={getSwitchHref("id", pathname)}
-                  onClick={() => setOpen(false)}
-                  className={`${baseItemClass} ${currentLocale === "id" ? activeClass : inactiveClass}`}
-                >
-                  <span className="text-base">🇮🇩</span>
-                  <span>Bahasa Indonesia</span>
-                </Link>
-                <Link
-                  href={getSwitchHref("vi", pathname)}
-                  onClick={() => setOpen(false)}
-                  className={`${baseItemClass} ${currentLocale === "vi" ? activeClass : inactiveClass}`}
-                >
-                  <span className="text-base">🇻🇳</span>
-                  <span>Tiếng Việt</span>
-                </Link>
+                {LANGUAGE_SWITCHER_ITEMS.map(({ locale, label, flag }) => (
+                  <Link
+                    key={locale}
+                    href={getSwitchHref(locale, pathname)}
+                    onClick={() => setOpen(false)}
+                    className={`${baseItemClass} ${currentLocale === locale ? activeClass : inactiveClass}`}
+                  >
+                    <span className="text-base">{flag}</span>
+                    <span>{label}</span>
+                  </Link>
+                ))}
               </div>
             )}
           </div>

@@ -5,12 +5,9 @@ import { headers } from "next/headers";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import "./globals.css";
+import { SITE_LOCALES, isRtlLocale } from "@/lib/site-locales";
 
-const rtlLocales = new Set(["ar"]); // 检查：仅阿拉伯语需要 RTL，新增 fa/he/ur 时在这里追加
-const supportedHtmlLocales = new Set([
-  "en", "zh", "ja", "pt", "es", "ru", "id", "hi",
-  "ko", "fr", "de", "vi", "ar", "tr",
-]);
+const supportedHtmlLocales = new Set<string>([...SITE_LOCALES]);
 
 const CLARITY_PROJECT_ID = "wlqyr64bhf";
 const GTM_ID = "GTM-MXXWHJTP";
@@ -66,7 +63,7 @@ export default async function RootLayout({
   const requestHeaders = await headers();
   const localeHeader = requestHeaders.get("x-locale");
   const htmlLang = localeHeader && supportedHtmlLocales.has(localeHeader) ? localeHeader : "en"; // 检查：proxy 没识别到时回落英文，避免错误的 lang 属性
-  const htmlDir = rtlLocales.has(htmlLang) ? "rtl" : "ltr";
+  const htmlDir = isRtlLocale(htmlLang) ? "rtl" : "ltr";
 
   const schemaJsonLd = {
     "@context": "https://schema.org",

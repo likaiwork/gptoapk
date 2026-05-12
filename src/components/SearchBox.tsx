@@ -1,7 +1,10 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
+import { localePathRegex } from "@/lib/site-locales";
+import type { SiteLocale } from "@/lib/site-locales";
+import { searchUi } from "@/lib/search-ui";
 
 export default function SearchBox() {
   const [url, setUrl] = useState("");
@@ -9,12 +12,16 @@ export default function SearchBox() {
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState("");
   const router = useRouter();
+  const pathname = usePathname();
+  const localeMatch = pathname.match(localePathRegex);
+  const locale = (localeMatch?.[1] as SiteLocale | undefined) ?? "en";
+  const ui = searchUi[locale] ?? searchUi.en;
 
   const isLoading = isFetching || isPending;
 
   const handleGenerate = async () => {
     if (!url.trim()) {
-      setError("Please enter a valid Google Play link or package name.");
+      setError(ui.emptyError);
       return;
     }
 
@@ -61,7 +68,7 @@ export default function SearchBox() {
             onChange={(e) => setUrl(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && handleGenerate()}
             className="block w-full pl-12 pr-4 py-4 text-base sm:text-lg bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all placeholder:text-slate-400 dark:text-white" 
-            placeholder="Google Play link or package name (e.g. com.example.app)" 
+            placeholder={ui.placeholder}
             disabled={isLoading}
           />
         </div>
@@ -76,11 +83,11 @@ export default function SearchBox() {
                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
               </svg>
-              Processing...
+              {ui.processing}
             </>
           ) : (
             <>
-              Generate link
+              {ui.button}
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                 <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
               </svg>
