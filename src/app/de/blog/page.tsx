@@ -28,122 +28,48 @@ export default function DeBlogPage() {
         </p>
       </div>
 
-      <div className="mb-10 mx-auto max-w-2xl text-center text-sm text-slate-500 dark:text-slate-400 bg-amber-50 dark:bg-amber-900/20 border border-amber-100 dark:border-amber-800/40 rounded-xl px-6 py-4">
-        Die vollständigen Artikel sind derzeit nur auf Englisch verfügbar. Deutsche Versionen folgen in Kürze.
-      </div>
-
       <div className="grid gap-8 md:grid-cols-2">
-        <Link href="/en/blog/how-to-download-apk-from-google-play" className="group bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 hover:shadow-lg transition-all hover:-translate-y-0.5">
+        <Link
+          href="/de/blog/how-to-download-apk-from-google-play"
+          className="group bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 hover:shadow-lg transition-all hover:-translate-y-0.5"
+        >
           <div className="flex items-center gap-3 text-sm text-slate-500 dark:text-slate-400 mb-3">
             <time dateTime="2026-05-11">2026-05-11</time>
             <span>·</span>
-            <span>6 Min</span>
+            <span>6 Min. Lesezeit</span>
           </div>
           <h2 className="text-xl font-bold mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-            How to Download APK from Google Play Store: The Complete Guide (2026)
+            So laden Sie APK von Google Play herunter: Eine vollständige Anleitung (2026)
           </h2>
           <p className="text-slate-600 dark:text-slate-400 mb-4 line-clamp-3">
-            Schritt-für-Schritt-Anleitung zum Extrahieren von APK-Dateien aus dem Google Play Store. Erfahre verschiedene Methoden: Web-Tools, ADB und Best Practices für sichere Downloads.
+            Schritt für Schritt erklärt: So extrahieren Sie APK-Dateien aus dem Google Play Store. Mehrere Methoden – Web-Tool, ADB und Best Practices für sichere Downloads.
           </p>
           <div className="flex flex-wrap gap-2">
             <span className="text-xs px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300">APK Download</span>
             <span className="text-xs px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300">Google Play</span>
-            <span className="text-xs px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300">Tutorial</span>
+            <span className="text-xs px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300">Anleitung</span>
           </div>
         </Link>
 
-        <Link href="/en/blog/apk-downloader-tool-comparison" className="group bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 hover:shadow-lg transition-all hover:-translate-y-0.5">
+        <Link
+          href="/de/blog/what-is-an-apk-file"
+          className="group bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 hover:shadow-lg transition-all hover:-translate-y-0.5"
+        >
           <div className="flex items-center gap-3 text-sm text-slate-500 dark:text-slate-400 mb-3">
             <time dateTime="2026-05-11">2026-05-11</time>
             <span>·</span>
-            <span>8 Min</span>
+            <span>7 Min. Lesezeit</span>
           </div>
           <h2 className="text-xl font-bold mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-            APK Downloader Comparison: Top 5 Tools for Google Play APK Extraction
+            Was ist eine APK-Datei? Der vollständige Leitfaden zu Android-Installationspaketen
           </h2>
           <p className="text-slate-600 dark:text-slate-400 mb-4 line-clamp-3">
-            Wir haben die beliebtesten APK-Downloader-Tools direkt verglichen. Geschwindigkeit, Sicherheit und Bedienkomfort im Vergleich — finde das beste Tool.
-          </p>
-          <div className="flex flex-wrap gap-2">
-            <span className="text-xs px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300">APK Tools</span>
-            <span className="text-xs px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300">Comparison</span>
-            <span className="text-xs px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300">Review</span>
-          </div>
-        </Link>
-
-        <Link href="/en/blog/what-is-an-apk-file" className="group bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 hover:shadow-lg transition-all hover:-translate-y-0.5">
-          <div className="flex items-center gap-3 text-sm text-slate-500 dark:text-slate-400 mb-3">
-            <time dateTime="2026-05-11">2026-05-11</time>
-            <span>·</span>
-            <span>7 Min</span>
-          </div>
-          <h2 className="text-xl font-bold mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-            What Is an APK File? A Complete Guide to Android Package Files
-          </h2>
-          <p className="text-slate-600 dark:text-slate-400 mb-4 line-clamp-3">
-            Alles, was du über APK-Dateien wissen musst — was drinsteckt, wie sie funktionieren, APK vs. AAB und warum Dateiintegrität für die Android-Sicherheit zählt.
+            Alles, was Sie über APK-Dateien wissen müssen – was darin steckt, wie sie funktionieren, der Unterschied zwischen APK und AAB und warum Dateiintegrität entscheidend ist.
           </p>
           <div className="flex flex-wrap gap-2">
             <span className="text-xs px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300">APK</span>
             <span className="text-xs px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300">Android</span>
-            <span className="text-xs px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300">Beginner Guide</span>
-          </div>
-        </Link>
-
-        <Link href="/en/blog/how-to-install-apk-on-android" className="group bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 hover:shadow-lg transition-all hover:-translate-y-0.5">
-          <div className="flex items-center gap-3 text-sm text-slate-500 dark:text-slate-400 mb-3">
-            <time dateTime="2026-05-11">2026-05-11</time>
-            <span>·</span>
-            <span>7 Min</span>
-          </div>
-          <h2 className="text-xl font-bold mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-            How to Install APK on Android: Complete Step-by-Step Guide
-          </h2>
-          <p className="text-slate-600 dark:text-slate-400 mb-4 line-clamp-3">
-            Neu beim manuellen Installieren von APKs? Diese Anleitung zeigt dir alles vom Aktivieren unbekannter Quellen bis zur Behebung gängiger Installationsfehler.
-          </p>
-          <div className="flex flex-wrap gap-2">
-            <span className="text-xs px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300">APK Installation</span>
-            <span className="text-xs px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300">Android</span>
-            <span className="text-xs px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300">Tutorial</span>
-          </div>
-        </Link>
-
-        <Link href="/en/blog/google-play-link-to-apk-troubleshooting" className="group bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 hover:shadow-lg transition-all hover:-translate-y-0.5">
-          <div className="flex items-center gap-3 text-sm text-slate-500 dark:text-slate-400 mb-3">
-            <time dateTime="2026-05-11">2026-05-11</time>
-            <span>·</span>
-            <span>7 Min</span>
-          </div>
-          <h2 className="text-xl font-bold mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-            Google Play Link to APK Failed? Common Problems and Fixes
-          </h2>
-          <p className="text-slate-600 dark:text-slate-400 mb-4 line-clamp-3">
-            Vollständiger Leitfaden zur Behebung fehlgeschlagener Google-Play-Link-zu-APK-Konvertierungen: ungültige Links, langsame Downloads, Installationsfehler und mehr.
-          </p>
-          <div className="flex flex-wrap gap-2">
-            <span className="text-xs px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300">APK Download</span>
-            <span className="text-xs px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300">Troubleshooting</span>
-            <span className="text-xs px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300">Google Play</span>
-          </div>
-        </Link>
-
-        <Link href="/en/blog/google-play-link-to-apk-tips" className="group bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 hover:shadow-lg transition-all hover:-translate-y-0.5">
-          <div className="flex items-center gap-3 text-sm text-slate-500 dark:text-slate-400 mb-3">
-            <time dateTime="2026-05-11">2026-05-11</time>
-            <span>·</span>
-            <span>6 Min</span>
-          </div>
-          <h2 className="text-xl font-bold mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-            No VPN Needed! 3 Pro Tips for Online Google Play Link to APK Converter
-          </h2>
-          <p className="text-slate-600 dark:text-slate-400 mb-4 line-clamp-3">
-            Meistere die Google-Play-Link-zu-APK-Konvertierung mit drei Profi-Tipps: Paketnamen nutzen, vom Smartphone aus herunterladen und Sharing-Links sofort generieren.
-          </p>
-          <div className="flex flex-wrap gap-2">
-            <span className="text-xs px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300">APK Tips</span>
-            <span className="text-xs px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300">Google Play</span>
-            <span className="text-xs px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300">Productivity</span>
+            <span className="text-xs px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300">Einsteiger-Guide</span>
           </div>
         </Link>
       </div>
