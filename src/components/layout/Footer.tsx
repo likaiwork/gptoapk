@@ -22,11 +22,12 @@ export default function Footer() {
   const blogHref = `/${currentLocale}/blog`;
   const faqHref = `/${currentLocale}/faq`;
 
-  const navLabels: Record<SupportedLocale, { home: string; blog: string; faq: string; copyright: string; disclaimer: string }> = {
+  const navLabels: Record<SupportedLocale, { home: string; blog: string; faq: string; contact: string; copyright: string; disclaimer: string }> = {
     en: {
       home: "Home",
       blog: "Blog",
       faq: "FAQ",
+      contact: "Contact",
       copyright: "© {year} APK Downloader. All rights reserved.",
       disclaimer: "This tool is not affiliated with Google or Google Play in any way.",
     },
@@ -34,6 +35,7 @@ export default function Footer() {
       home: "首页",
       blog: "博客",
       faq: "FAQ",
+      contact: "联系我们",
       copyright: "© {year} APK Downloader。保留所有权利。",
       disclaimer: "本工具与 Google 或 Google Play 没有任何关联。",
     },
@@ -41,6 +43,7 @@ export default function Footer() {
       home: "ホーム",
       blog: "ブログ",
       faq: "FAQ",
+      contact: "お問い合わせ",
       copyright: "© {year} APK Downloader. All rights reserved.",
       disclaimer: "このツールは Google または Google Play とは一切関係ありません。",
     },
@@ -48,6 +51,7 @@ export default function Footer() {
       home: "Início",
       blog: "Blog",
       faq: "FAQ",
+      contact: "Contato",
       copyright: "© {year} APK Downloader. Todos os direitos reservados.",
       disclaimer: "Esta ferramenta não é afiliada ao Google ou ao Google Play de nenhuma forma.",
     },
@@ -55,6 +59,7 @@ export default function Footer() {
       home: "Inicio",
       blog: "Blog",
       faq: "FAQ",
+      contact: "Contacto",
       copyright: "© {year} APK Downloader. Todos los derechos reservados.",
       disclaimer: "Esta herramienta no está afiliada de ninguna manera a Google o Google Play.",
     },
@@ -62,6 +67,7 @@ export default function Footer() {
       home: "Главная",
       blog: "Блог",
       faq: "FAQ",
+      contact: "Контакты",
       copyright: "© {year} APK Downloader. Все права защищены.",
       disclaimer: "Этот инструмент никак не связан с Google или Google Play.",
     },
@@ -69,6 +75,7 @@ export default function Footer() {
       home: "Beranda",
       blog: "Blog",
       faq: "FAQ",
+      contact: "Kontak",
       copyright: "© {year} APK Downloader. Hak cipta dilindungi undang-undang.",
       disclaimer: "Alat ini tidak berafiliasi dengan Google atau Google Play dengan cara apa pun.",
     },
@@ -76,6 +83,7 @@ export default function Footer() {
       home: "होम",
       blog: "ब्लॉग",
       faq: "FAQ",
+      contact: "संपर्क करें",
       copyright: "© {year} APK Downloader. सर्वाधिकार सुरक्षित।",
       disclaimer: "यह टूल किसी भी रूप में Google या Google Play से संबद्ध नहीं है।",
     },
@@ -83,6 +91,7 @@ export default function Footer() {
       home: "홈",
       blog: "블로그",
       faq: "FAQ",
+      contact: "문의하기",
       copyright: "© {year} APK Downloader. 모든 권리 보유.",
       disclaimer: "이 도구는 어떠한 방식으로도 Google 또는 Google Play와 제휴 관계가 아닙니다.",
     },
@@ -90,6 +99,7 @@ export default function Footer() {
       home: "Accueil",
       blog: "Blog",
       faq: "FAQ",
+      contact: "Contact",
       copyright: "© {year} APK Downloader. Tous droits réservés.",
       disclaimer: "Cet outil n'est en aucun cas affilié à Google ou Google Play.",
     },
@@ -97,6 +107,7 @@ export default function Footer() {
       home: "Startseite",
       blog: "Blog",
       faq: "FAQ",
+      contact: "Kontakt",
       copyright: "© {year} APK Downloader. Alle Rechte vorbehalten.",
       disclaimer: "Dieses Tool steht in keiner Verbindung zu Google oder Google Play.",
     },
@@ -104,6 +115,7 @@ export default function Footer() {
       home: "Trang chủ",
       blog: "Blog",
       faq: "FAQ",
+      contact: "Liên hệ",
       copyright: "© {year} APK Downloader. Bảo lưu mọi quyền.",
       disclaimer: "Công cụ này không liên kết với Google hoặc Google Play dưới bất kỳ hình thức nào.",
     },
@@ -111,6 +123,7 @@ export default function Footer() {
       home: "الرئيسية",
       blog: "المدونة",
       faq: "الأسئلة الشائعة",
+      contact: "اتصل بنا",
       copyright: "© {year} APK Downloader. جميع الحقوق محفوظة.",
       disclaimer: "هذه الأداة غير تابعة لـ Google أو Google Play بأي شكل من الأشكال.",
     },
@@ -118,6 +131,7 @@ export default function Footer() {
       home: "Ana Sayfa",
       blog: "Blog",
       faq: "SSS",
+      contact: "İletişim",
       copyright: "© {year} APK Downloader. Tüm hakları saklıdır.",
       disclaimer: "Bu araç Google veya Google Play ile herhangi bir şekilde bağlantılı değildir.",
     },
@@ -147,6 +161,9 @@ export default function Footer() {
             <Link href={faqHref} className="hover:text-blue-600 transition-colors">
               {labels.faq}
             </Link>
+            <a href="mailto:likaiwork12@gmail.com" className="hover:text-blue-600 transition-colors">
+              {labels.contact}
+            </a>
           </nav>
         </div>
         <div className="text-center text-sm text-slate-500 border-t border-slate-200 dark:border-slate-800 pt-6">
