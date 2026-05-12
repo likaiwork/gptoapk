@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "FAQ - APK Downloader | gptoapk.com",
@@ -95,7 +96,7 @@ export default function FAQPage() {
       <div className="mt-16 text-center p-8 bg-blue-50 dark:bg-blue-900/20 rounded-2xl border border-blue-100 dark:border-blue-800">
         <h2 className="text-2xl font-bold mb-3">Still have questions?</h2>
         <p className="text-slate-600 dark:text-slate-400 mb-4">
-          Try our <a href="/" className="text-blue-600 dark:text-blue-400 hover:underline font-medium">APK Downloader</a> and see it in action, or check our <a href="/blog" className="text-blue-600 dark:text-blue-400 hover:underline font-medium">blog</a> for detailed guides.
+          Try our <Link href="/en" className="text-blue-600 dark:text-blue-400 hover:underline font-medium">APK Downloader</Link> and see it in action, or check our <Link href="/en/blog" className="text-blue-600 dark:text-blue-400 hover:underline font-medium">blog</Link> for detailed guides.
         </p>
       </div>
     </div>

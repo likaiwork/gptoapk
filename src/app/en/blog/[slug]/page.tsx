@@ -1531,11 +1531,11 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
       <article className="max-w-3xl mx-auto px-4 py-16">
         {/* Breadcrumb */}
         <nav className="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400 mb-8">
-          <a href="/en" className="hover:text-blue-600 transition-colors">Home</a>
+          <Link href="/en" className="hover:text-blue-600 transition-colors">Home</Link>
           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
           </svg>
-          <a href="/blog" className="hover:text-blue-600 transition-colors">Blog</a>
+          <Link href="/en/blog" className="hover:text-blue-600 transition-colors">Blog</Link>
           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
           </svg>
@@ -1570,24 +1570,24 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
         {/* Navigation */}
         <div className="mt-16 pt-8 border-t border-slate-200 dark:border-slate-700 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-          <a
-            href="/blog"
+          <Link
+            href="/en/blog"
             className="inline-flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:underline font-medium"
           >
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
             Back to Blog
-          </a>
-          <a
-            href="/"
+          </Link>
+          <Link
+            href="/en"
             className="inline-flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:underline font-medium"
           >
             Try APK Downloader
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
             </svg>
-          </a>
+          </Link>
         </div>
       </article>
     </>

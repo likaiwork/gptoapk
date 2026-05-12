@@ -1,25 +1,11 @@
 "use client";
 
+import Link from "next/link";
 import { usePathname } from "next/navigation";
-
-const enLinks = [
-  { label: "Home", href: "/en" },
-  { label: "Blog", href: "/en/blog" },
-  { label: "FAQ", href: "/en/faq" },
-  { label: "中文", href: "/" },
-];
-
-const zhLinks = [
-  { label: "首页", href: "/" },
-  { label: "博客", href: "/blog" },
-  { label: "FAQ", href: "/faq" },
-  { label: "English", href: "/en" },
-];
 
 export default function Footer() {
   const pathname = usePathname();
   const isEn = pathname.startsWith("/en");
-  const links = isEn ? enLinks : zhLinks;
 
   return (
     <footer className="border-t bg-white dark:bg-slate-950 mt-12 py-8">
@@ -32,15 +18,37 @@ export default function Footer() {
             APK Downloader
           </div>
           <nav className="flex items-center gap-6 text-sm text-slate-500">
-            {links.map((item) => (
-              <a
-                key={item.href}
-                href={item.href}
-                className="hover:text-blue-600 transition-colors"
-              >
-                {item.label}
-              </a>
-            ))}
+            {isEn ? (
+              <>
+                <Link href="/en" className="hover:text-blue-600 transition-colors">
+                  Home
+                </Link>
+                <Link href="/en/blog" className="hover:text-blue-600 transition-colors">
+                  Blog
+                </Link>
+                <Link href="/en/faq" className="hover:text-blue-600 transition-colors">
+                  FAQ
+                </Link>
+                <Link href="/zh" className="hover:text-blue-600 transition-colors">
+                  中文
+                </Link>
+              </>
+            ) : (
+              <>
+                <Link href="/zh" className="hover:text-blue-600 transition-colors">
+                  首页
+                </Link>
+                <Link href="/zh/blog" className="hover:text-blue-600 transition-colors">
+                  博客
+                </Link>
+                <Link href="/zh/faq" className="hover:text-blue-600 transition-colors">
+                  FAQ
+                </Link>
+                <Link href="/en" className="hover:text-blue-600 transition-colors">
+                  English
+                </Link>
+              </>
+            )}
           </nav>
         </div>
         <div className="text-center text-sm text-slate-500 border-t border-slate-200 dark:border-slate-800 pt-6">

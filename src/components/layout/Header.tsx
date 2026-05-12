@@ -1,19 +1,8 @@
 "use client";
 
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useRef, useEffect } from "react";
-
-const enNav = [
-  { label: "Home", href: "/en" },
-  { label: "Blog", href: "/en/blog" },
-  { label: "FAQ", href: "/en/faq" },
-];
-
-const zhNav = [
-  { label: "首页", href: "/" },
-  { label: "博客", href: "/blog" },
-  { label: "FAQ", href: "/faq" },
-];
 
 /**
  * Map a slug between Chinese and English routes.
@@ -51,8 +40,8 @@ function getLanguageSwitchHref(pathname: string): string {
     // English → Chinese
     // /en/blog/xxx → /zh/blog/xxx (if zh slug exists) or just /zh/blog
     // /en/faq → /zh/faq
-    // /en → /
-    if (rest === "/" || rest === "") return "/";
+    // /en → /zh
+    if (rest === "/" || rest === "") return "/zh";
     // For blog/[slug] routes
     const blogMatch = rest.match(/^\/blog\/(.+)$/);
     if (blogMatch) {
@@ -92,8 +81,9 @@ function getLanguageSwitchHref(pathname: string): string {
 export default function Header() {
   const pathname = usePathname();
   const isEn = pathname.startsWith("/en");
-  const nav = isEn ? enNav : zhNav;
   const switchHref = getLanguageSwitchHref(pathname);
+  const zhHref = isEn ? switchHref : pathname.startsWith("/zh") ? pathname : "/zh";
+  const enHref = isEn ? pathname : switchHref;
 
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -111,25 +101,41 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-white/80 dark:bg-slate-950/80 backdrop-blur">
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-        <a
-          href={isEn ? "/en" : "/"}
+        <Link
+          href={isEn ? "/en" : "/zh"}
           className="flex items-center gap-2 font-bold text-xl tracking-tight text-blue-600 dark:text-blue-400"
         >
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
             <path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm3.293 13.293a1 1 0 01-1.414 0L12 13.414l-1.879 1.879a1 1 0 01-1.414-1.414L10.586 12 8.707 10.121a1 1 0 011.414-1.414L12 10.586l1.879-1.879a1 1 0 011.414 1.414L13.414 12l1.879 1.879a1 1 0 010 1.414z" />
           </svg>
           APK Downloader
-        </a>
+        </Link>
         <nav className="flex items-center gap-6 text-sm font-medium">
-          {nav.map((item) => (
-            <a
-              key={item.href}
-              href={item.href}
-              className="hover:text-blue-600 transition-colors"
-            >
-              {item.label}
-            </a>
-          ))}
+          {isEn ? (
+            <>
+              <Link href="/en" className="hover:text-blue-600 transition-colors">
+                Home
+              </Link>
+              <Link href="/en/blog" className="hover:text-blue-600 transition-colors">
+                Blog
+              </Link>
+              <Link href="/en/faq" className="hover:text-blue-600 transition-colors">
+                FAQ
+              </Link>
+            </>
+          ) : (
+            <>
+              <Link href="/zh" className="hover:text-blue-600 transition-colors">
+                首页
+              </Link>
+              <Link href="/zh/blog" className="hover:text-blue-600 transition-colors">
+                博客
+              </Link>
+              <Link href="/zh/faq" className="hover:text-blue-600 transition-colors">
+                FAQ
+              </Link>
+            </>
+          )}
 
           {/* Language Switcher Dropdown */}
           <div className="relative" ref={ref}>
@@ -148,22 +154,22 @@ export default function Header() {
 
             {open && (
               <div className="absolute right-0 mt-2 w-36 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 shadow-lg py-1 text-sm">
-                <a
-                  href={isEn ? switchHref : "/"}
+                <Link
+                  href={zhHref}
                   onClick={() => setOpen(false)}
                   className={`flex items-center gap-2 px-4 py-2.5 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors ${!isEn ? "font-semibold text-blue-600 dark:text-blue-400" : "text-slate-700 dark:text-slate-300"}`}
                 >
                   <span className="text-base">🇨🇳</span>
                   <span>中文</span>
-                </a>
-                <a
-                  href={isEn ? "/en" : switchHref}
+                </Link>
+                <Link
+                  href={enHref}
                   onClick={() => setOpen(false)}
                   className={`flex items-center gap-2 px-4 py-2.5 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors ${isEn ? "font-semibold text-blue-600 dark:text-blue-400" : "text-slate-700 dark:text-slate-300"}`}
                 >
                   <span className="text-base">🇬🇧</span>
                   <span>English</span>
-                </a>
+                </Link>
               </div>
             )}
           </div>
