@@ -41,7 +41,11 @@ const zhSlugToEn: Record<string, string> = {
 
 function getLanguageSwitchHref(pathname: string): string {
   const isEn = pathname.startsWith("/en");
-  const rest = isEn ? pathname.replace(/^\/en/, "") || "/" : pathname;
+  const isZh = pathname.startsWith("/zh");
+  // Strip prefix to get the canonical path
+  let rest = pathname;
+  if (isEn) rest = pathname.replace(/^\/en/, "") || "/";
+  else if (isZh) rest = pathname.replace(/^\/zh/, "") || "/";
 
   if (isEn) {
     // English → Chinese
