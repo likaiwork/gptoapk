@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useRef, useEffect } from "react";
 
-const localePattern = /^\/(en|zh|ja|pt|es|ru|id|hi)(\/.*)?$/;
+const localePattern = /^\/(en|zh|ja|pt|es|ru|id|hi|ko|fr|de|vi|ar|tr)(\/.*)?$/;
 
 const zhBlogSlugs = new Set([
   "how-to-download-apk-from-google-play",
@@ -16,7 +16,9 @@ const zhBlogSlugs = new Set([
   "google-play-link-to-apk-step-by-step",
 ]);
 
-type SupportedLocale = "en" | "zh" | "ja" | "pt" | "es" | "ru" | "id" | "hi";
+type SupportedLocale =
+  | "en" | "zh" | "ja" | "pt" | "es" | "ru" | "id" | "hi"
+  | "ko" | "fr" | "de" | "vi" | "ar" | "tr";
 
 const localesWithFullContent = new Set<SupportedLocale>(["en", "zh"]); // 检查：仅 en/zh 拥有完整 blog 详情和 app 详情页
 
@@ -84,6 +86,12 @@ export default function Header() {
     ru: { home: "Главная", blog: "Блог", faq: "FAQ" },
     id: { home: "Beranda", blog: "Blog", faq: "FAQ" },
     hi: { home: "होम", blog: "ब्लॉग", faq: "FAQ" },
+    ko: { home: "홈", blog: "블로그", faq: "FAQ" },
+    fr: { home: "Accueil", blog: "Blog", faq: "FAQ" },
+    de: { home: "Startseite", blog: "Blog", faq: "FAQ" },
+    vi: { home: "Trang chủ", blog: "Blog", faq: "FAQ" },
+    ar: { home: "الرئيسية", blog: "المدونة", faq: "الأسئلة الشائعة" },
+    tr: { home: "Ana Sayfa", blog: "Blog", faq: "SSS" },
   };
 
   const labels = navLabels[currentLocale];
@@ -97,6 +105,12 @@ export default function Header() {
     ru: "RU",
     id: "ID",
     hi: "हिन्दी",
+    ko: "한국어",
+    fr: "FR",
+    de: "DE",
+    vi: "VI",
+    ar: "AR",
+    tr: "TR",
   };
 
   const baseItemClass = "flex items-center gap-2 px-4 py-2.5 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors";
@@ -142,7 +156,7 @@ export default function Header() {
             </button>
 
             {open && (
-              <div className="absolute right-0 mt-2 w-48 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 shadow-lg py-1 text-sm max-h-96 overflow-y-auto">
+              <div className="absolute right-0 mt-2 w-52 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 shadow-lg py-1 text-sm max-h-96 overflow-y-auto">
                 <Link
                   href={getSwitchHref("en", pathname)}
                   onClick={() => setOpen(false)}
@@ -168,6 +182,14 @@ export default function Header() {
                   <span>日本語</span>
                 </Link>
                 <Link
+                  href={getSwitchHref("ko", pathname)}
+                  onClick={() => setOpen(false)}
+                  className={`${baseItemClass} ${currentLocale === "ko" ? activeClass : inactiveClass}`}
+                >
+                  <span className="text-base">🇰🇷</span>
+                  <span>한국어</span>
+                </Link>
+                <Link
                   href={getSwitchHref("pt", pathname)}
                   onClick={() => setOpen(false)}
                   className={`${baseItemClass} ${currentLocale === "pt" ? activeClass : inactiveClass}`}
@@ -184,12 +206,52 @@ export default function Header() {
                   <span>Español</span>
                 </Link>
                 <Link
+                  href={getSwitchHref("fr", pathname)}
+                  onClick={() => setOpen(false)}
+                  className={`${baseItemClass} ${currentLocale === "fr" ? activeClass : inactiveClass}`}
+                >
+                  <span className="text-base">🇫🇷</span>
+                  <span>Français</span>
+                </Link>
+                <Link
+                  href={getSwitchHref("de", pathname)}
+                  onClick={() => setOpen(false)}
+                  className={`${baseItemClass} ${currentLocale === "de" ? activeClass : inactiveClass}`}
+                >
+                  <span className="text-base">🇩🇪</span>
+                  <span>Deutsch</span>
+                </Link>
+                <Link
                   href={getSwitchHref("ru", pathname)}
                   onClick={() => setOpen(false)}
                   className={`${baseItemClass} ${currentLocale === "ru" ? activeClass : inactiveClass}`}
                 >
                   <span className="text-base">🇷🇺</span>
                   <span>Русский</span>
+                </Link>
+                <Link
+                  href={getSwitchHref("tr", pathname)}
+                  onClick={() => setOpen(false)}
+                  className={`${baseItemClass} ${currentLocale === "tr" ? activeClass : inactiveClass}`}
+                >
+                  <span className="text-base">🇹🇷</span>
+                  <span>Türkçe</span>
+                </Link>
+                <Link
+                  href={getSwitchHref("ar", pathname)}
+                  onClick={() => setOpen(false)}
+                  className={`${baseItemClass} ${currentLocale === "ar" ? activeClass : inactiveClass}`}
+                >
+                  <span className="text-base">🇸🇦</span>
+                  <span>العربية</span>
+                </Link>
+                <Link
+                  href={getSwitchHref("hi", pathname)}
+                  onClick={() => setOpen(false)}
+                  className={`${baseItemClass} ${currentLocale === "hi" ? activeClass : inactiveClass}`}
+                >
+                  <span className="text-base">🇮🇳</span>
+                  <span>हिन्दी</span>
                 </Link>
                 <Link
                   href={getSwitchHref("id", pathname)}
@@ -200,12 +262,12 @@ export default function Header() {
                   <span>Bahasa Indonesia</span>
                 </Link>
                 <Link
-                  href={getSwitchHref("hi", pathname)}
+                  href={getSwitchHref("vi", pathname)}
                   onClick={() => setOpen(false)}
-                  className={`${baseItemClass} ${currentLocale === "hi" ? activeClass : inactiveClass}`}
+                  className={`${baseItemClass} ${currentLocale === "vi" ? activeClass : inactiveClass}`}
                 >
-                  <span className="text-base">🇮🇳</span>
-                  <span>हिन्दी</span>
+                  <span className="text-base">🇻🇳</span>
+                  <span>Tiếng Việt</span>
                 </Link>
               </div>
             )}

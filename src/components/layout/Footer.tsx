@@ -3,9 +3,11 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-const localePattern = /^\/(en|zh|ja|pt|es|ru|id|hi)(\/.*)?$/;
+const localePattern = /^\/(en|zh|ja|pt|es|ru|id|hi|ko|fr|de|vi|ar|tr)(\/.*)?$/;
 
-type SupportedLocale = "en" | "zh" | "ja" | "pt" | "es" | "ru" | "id" | "hi";
+type SupportedLocale =
+  | "en" | "zh" | "ja" | "pt" | "es" | "ru" | "id" | "hi"
+  | "ko" | "fr" | "de" | "vi" | "ar" | "tr";
 
 function getCurrentLocale(pathname: string): SupportedLocale {
   const match = pathname.match(localePattern);
@@ -77,14 +79,57 @@ export default function Footer() {
       copyright: "© {year} APK Downloader. सर्वाधिकार सुरक्षित।",
       disclaimer: "यह टूल किसी भी रूप में Google या Google Play से संबद्ध नहीं है।",
     },
+    ko: {
+      home: "홈",
+      blog: "블로그",
+      faq: "FAQ",
+      copyright: "© {year} APK Downloader. 모든 권리 보유.",
+      disclaimer: "이 도구는 어떠한 방식으로도 Google 또는 Google Play와 제휴 관계가 아닙니다.",
+    },
+    fr: {
+      home: "Accueil",
+      blog: "Blog",
+      faq: "FAQ",
+      copyright: "© {year} APK Downloader. Tous droits réservés.",
+      disclaimer: "Cet outil n'est en aucun cas affilié à Google ou Google Play.",
+    },
+    de: {
+      home: "Startseite",
+      blog: "Blog",
+      faq: "FAQ",
+      copyright: "© {year} APK Downloader. Alle Rechte vorbehalten.",
+      disclaimer: "Dieses Tool steht in keiner Verbindung zu Google oder Google Play.",
+    },
+    vi: {
+      home: "Trang chủ",
+      blog: "Blog",
+      faq: "FAQ",
+      copyright: "© {year} APK Downloader. Bảo lưu mọi quyền.",
+      disclaimer: "Công cụ này không liên kết với Google hoặc Google Play dưới bất kỳ hình thức nào.",
+    },
+    ar: {
+      home: "الرئيسية",
+      blog: "المدونة",
+      faq: "الأسئلة الشائعة",
+      copyright: "© {year} APK Downloader. جميع الحقوق محفوظة.",
+      disclaimer: "هذه الأداة غير تابعة لـ Google أو Google Play بأي شكل من الأشكال.",
+    },
+    tr: {
+      home: "Ana Sayfa",
+      blog: "Blog",
+      faq: "SSS",
+      copyright: "© {year} APK Downloader. Tüm hakları saklıdır.",
+      disclaimer: "Bu araç Google veya Google Play ile herhangi bir şekilde bağlantılı değildir.",
+    },
   };
 
   const labels = navLabels[currentLocale];
   const year = new Date().getFullYear();
   const copyright = labels.copyright.replace("{year}", String(year));
+  const isRtl = currentLocale === "ar"; // 检查：阿拉伯语启用 RTL 文字方向
 
   return (
-    <footer className="border-t bg-white dark:bg-slate-950 mt-12 py-8">
+    <footer className="border-t bg-white dark:bg-slate-950 mt-12 py-8" dir={isRtl ? "rtl" : undefined}>
       <div className="container mx-auto px-4">
         <div className="flex flex-col sm:flex-row justify-between items-center gap-4 mb-6">
           <div className="flex items-center gap-2 font-bold text-lg text-blue-600 dark:text-blue-400">

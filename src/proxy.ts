@@ -1,12 +1,15 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-const locales = ["en", "zh", "ja", "pt", "es", "ru", "id", "hi"] as const;
+const locales = [
+  "en", "zh", "ja", "pt", "es", "ru", "id", "hi",
+  "ko", "fr", "de", "vi", "ar", "tr",
+] as const;
 const defaultLocale = "en";
 
 type Locale = (typeof locales)[number];
 
-const localeAliasPattern = /^\/(en|zh|ja|pt|es|ru|id|hi)\/(en|zh|ja|pt|es|ru|id|hi)(\/.*)?$/;
+const localeAliasPattern = /^\/(en|zh|ja|pt|es|ru|id|hi|ko|fr|de|vi|ar|tr)\/(en|zh|ja|pt|es|ru|id|hi|ko|fr|de|vi|ar|tr)(\/.*)?$/;
 
 function detectLocale(acceptLanguage: string | null): Locale {
   if (!acceptLanguage) return defaultLocale; // 检查：缺少浏览器语言时使用英文默认值
@@ -18,12 +21,18 @@ function detectLocale(acceptLanguage: string | null): Locale {
   for (const language of preferredLanguages) {
     if (language === "zh" || language.startsWith("zh-")) return "zh";
     if (language === "ja" || language.startsWith("ja-")) return "ja";
+    if (language === "ko" || language.startsWith("ko-")) return "ko";
     if (language === "pt" || language.startsWith("pt-")) return "pt";
     if (language === "es" || language.startsWith("es-")) return "es";
+    if (language === "fr" || language.startsWith("fr-")) return "fr";
+    if (language === "de" || language.startsWith("de-")) return "de";
     if (language === "ru" || language.startsWith("ru-")) return "ru";
     if (language === "id" || language.startsWith("id-")) return "id";
     if (language === "in" || language.startsWith("in-")) return "id"; // 检查：旧 ISO 标识 in 等同于 id
     if (language === "hi" || language.startsWith("hi-")) return "hi";
+    if (language === "vi" || language.startsWith("vi-")) return "vi";
+    if (language === "ar" || language.startsWith("ar-")) return "ar";
+    if (language === "tr" || language.startsWith("tr-")) return "tr";
     if (language === "en" || language.startsWith("en-")) return "en";
   }
 

@@ -29,7 +29,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ];
 
   // 检查：除 en/zh 外，其他语言只暴露首页 / FAQ / Blog 列表，blog 详情统一指向 en
-  const shellLocales = ["ja", "pt", "es", "ru", "id", "hi"] as const;
+  const shellLocales = ["ja", "pt", "es", "ru", "id", "hi", "ko", "fr", "de", "vi", "ar", "tr"] as const;
 
   const homepageAlternates: Record<string, string> = {
     en: `${baseUrl}/en`,
@@ -40,6 +40,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ru: `${baseUrl}/ru`,
     id: `${baseUrl}/id`,
     hi: `${baseUrl}/hi`,
+    ko: `${baseUrl}/ko`,
+    fr: `${baseUrl}/fr`,
+    de: `${baseUrl}/de`,
+    vi: `${baseUrl}/vi`,
+    ar: `${baseUrl}/ar`,
+    tr: `${baseUrl}/tr`,
     "x-default": `${baseUrl}/en`,
   };
 
@@ -52,6 +58,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ru: `${baseUrl}/ru/faq`,
     id: `${baseUrl}/id/faq`,
     hi: `${baseUrl}/hi/faq`,
+    ko: `${baseUrl}/ko/faq`,
+    fr: `${baseUrl}/fr/faq`,
+    de: `${baseUrl}/de/faq`,
+    vi: `${baseUrl}/vi/faq`,
+    ar: `${baseUrl}/ar/faq`,
+    tr: `${baseUrl}/tr/faq`,
     "x-default": `${baseUrl}/en/faq`,
   };
 
@@ -64,6 +76,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ru: `${baseUrl}/ru/blog`,
     id: `${baseUrl}/id/blog`,
     hi: `${baseUrl}/hi/blog`,
+    ko: `${baseUrl}/ko/blog`,
+    fr: `${baseUrl}/fr/blog`,
+    de: `${baseUrl}/de/blog`,
+    vi: `${baseUrl}/vi/blog`,
+    ar: `${baseUrl}/ar/blog`,
+    tr: `${baseUrl}/tr/blog`,
     "x-default": `${baseUrl}/en/blog`,
   };
 
