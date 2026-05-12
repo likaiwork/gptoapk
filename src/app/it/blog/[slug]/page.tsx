@@ -1,10 +1,366 @@
-import { redirect } from "next/navigation";
+import type { Metadata } from "next";
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import Script from "next/script";
 
-export default async function ItBlogSlugRedirect({
+interface BlogPost {
+  slug: string;
+  title: string;
+  description: string;
+  date: string;
+  readTime: string;
+  tags: string[];
+  content: React.ReactNode;
+}
+
+const posts: BlogPost[] = [
+  {
+    slug: "how-to-download-apk-from-google-play",
+    title: "Come Scaricare APK da Google Play Store: Guida Completa (2026)",
+    description:
+      "Guida passo passo per estrarre file APK dal Google Play Store. Scopri metodi semplici con gptoapk.com, comandi ADB avanzati e consigli di sicurezza per scaricare APK in modo sicuro. Nessun root richiesto.",
+    date: "2026-05-11",
+    readTime: "6 min",
+    tags: ["Download APK", "Google Play", "Tutorial"],
+    content: (
+      <>
+        <p>
+          Scaricare un file APK dal Google Play Store può essere utile per molti motivi: vuoi conservare una
+          versione specifica di un'app, installarla su un dispositivo senza Google Play, o semplicemente avere
+          una copia di backup. In questa guida ti mostriamo i metodi più efficaci per estrarre APK da Google Play.
+        </p>
+
+        <h2>Metodo 1: Usare gptoapk.com (Il più semplice)</h2>
+        <p>
+          Il metodo più rapido non richiede installazioni. Basta visitare{" "}
+          <a href="https://gptoapk.com">gptoapk.com</a> e incollare il link di Google Play dell&apos;app
+          desiderata.
+        </p>
+        <ol>
+          <li>
+            Apri Google Play Store sul tuo telefono o browser, cerca l&apos;app e copia il suo URL (es.
+            <code>https://play.google.com/store/apps/details?id=com.example.app</code>).
+          </li>
+          <li>
+            Vai su <a href="https://gptoapk.com">gptoapk.com</a> e incolla il link nel campo di ricerca.
+          </li>
+          <li>Clicca sul pulsante di download e attendi qualche secondo.</li>
+          <li>Scarica il file APK direttamente sul tuo dispositivo.</li>
+        </ol>
+        <p>
+          Questo metodo funziona con qualsiasi app pubblica del Google Play Store ed è completamente gratuito.
+          Non è necessario registrarsi né installare software aggiuntivo.
+        </p>
+
+        <h2>Metodo 2: Usare ADB (Per sviluppatori)</h2>
+        <p>
+          Se sei uno sviluppatore o un utente avanzato, puoi estrarre APK usando Android Debug Bridge (ADB).
+          Questo metodo richiede un computer e l&apos;abilitazione del debug USB sul telefono.
+        </p>
+        <pre><code>{`// 1. Verifica che il dispositivo sia collegato
+adb devices
+
+// 2. Elenca tutte le app installate (cerca il pacchetto desiderato)
+adb shell pm list packages | grep nomeapp
+
+// 3. Ottieni il percorso dell'APK
+adb shell pm path com.esempio.app
+
+// 4. Scarica l'APK sul computer
+adb pull /data/app/com.esempio.app-xxx/base.apk`}</code></pre>
+        <p>
+          Una volta estratto, puoi condividere l&apos;APK, installarlo su altri dispositivi o conservarlo come
+          backup. Questo metodo funziona senza root e ti dà il controllo totale sul file.
+        </p>
+
+        <h2>Metodo 3: App di terze parti (APK Extractor)</h2>
+        <p>
+          Se preferisci una soluzione dal telefono senza computer, puoi usare app come APK Extractor o
+          ML Manager disponibili sul Play Store. Queste app identificano automaticamente tutte le app
+          installate e permettono di esportare gli APK con un solo tocco.
+        </p>
+        <ul>
+          <li>
+            <strong>APK Extractor:</strong> Semplice e leggero. Seleziona l&apos;app e premi &quot;Estrai&quot;.
+          </li>
+          <li>
+            <strong>ML Manager:</strong> Offre anche la gestione dei backup e la condivisione via Wi-Fi Direct.
+          </li>
+        </ul>
+
+        <h2>Domande frequenti</h2>
+        <h3>È legale scaricare APK da Google Play?</h3>
+        <p>
+          Sì, scaricare APK di app gratuite per uso personale è legale. Per le app a pagamento, è necessario
+          averle acquistate regolarmente. L&apos;estrazione di APK per backup personale è consentita dai termini
+          di Google.
+        </p>
+        <h3>Ho bisogno del root?</h3>
+        <p>
+          No. Tutti i metodi descritti qui funzionano senza root. L&apos;estrazione di APK non richiede
+          privilegi di amministratore sul dispositivo.
+        </p>
+        <h3>Perché alcuni APK non si installano?</h3>
+        <p>
+          Potresti dover abilitare l&apos;installazione da fonti sconosciute nelle impostazioni del tuo
+          dispositivo. Vai su Impostazioni &gt; Sicurezza &gt; Installa da fonti sconosciute e attivala.
+          Su Android 8+ questa opzione è per-app.
+        </p>
+
+        <div className="bg-blue-50 dark:bg-blue-900/20 p-6 rounded-xl border border-blue-100 dark:border-blue-800 mt-8">
+          <p className="font-semibold text-lg mb-2">Prova subito gptoapk.com 🚀</p>
+          <p className="mb-3">
+            <a href="https://gptoapk.com" className="text-blue-600 dark:text-blue-400 hover:underline font-medium">
+              gptoapk.com
+            </a>{" "}
+            — Lo strumento più veloce per scaricare APK da Google Play. Incolla il link, scarica l&apos;APK
+            in un clic. Gratuito, senza registrazione, senza installazione.
+          </p>
+          <a
+            href="https://gptoapk.com"
+            className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-xl transition-colors"
+          >
+            Scarica APK ora →
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+            </svg>
+          </a>
+        </div>
+      </>
+    ),
+  },
+  {
+    slug: "what-is-an-apk-file",
+    title: "Cos&apos;è un File APK? Guida Completa ai Pacchetti Android",
+    description:
+      "Tutto quello che devi sapere sui file APK: cosa contengono, come funzionano, differenza tra APK e AAB, come verificarne l'integrità e perché la sicurezza è importante. Guida pensata per principianti e utenti esperti.",
+    date: "2026-05-11",
+    readTime: "7 min",
+    tags: ["APK", "Android", "Guida Principianti"],
+    content: (
+      <>
+        <p>
+          APK sta per <strong>Android Package Kit</strong>. È il formato di file utilizzato da Android per
+          distribuire e installare le applicazioni. Ogni app che installi sul tuo telefono Android è
+          confezionata in un file APK (o nel più recente AAB). In questa guida esploriamo a fondo la
+          struttura, il funzionamento e l&apos;importanza dei file APK.
+        </p>
+
+        <h2>Cosa contiene un file APK?</h2>
+        <p>
+          Un file APK è essenzialmente un archivio ZIP con una struttura ben definita. Al suo interno trovi:
+        </p>
+        <ul>
+          <li>
+            <strong>AndroidManifest.xml:</strong> Il cuore dell&apos;app. Contiene il nome del pacchetto, le
+            autorizzazioni richieste, le activity, i servizi e i ricevitori broadcast.
+          </li>
+          <li>
+            <strong>classes.dex:</strong> Il codice eseguibile dell&apos;app compilato in formato Dalvik
+            Executable (DEX). Qui risiede la logica dell&apos;applicazione.
+          </li>
+          <li>
+            <strong>res/:</strong> Le risorse dell&apos;app: layout XML, immagini, icone, stringhe
+            localizzate, temi e molto altro.
+          </li>
+          <li>
+            <strong>lib/:</strong> Le librerie native scritte in C/C++ per architetture specifiche
+            (armeabi-v7a, arm64-v8a, x86, x86_64).
+          </li>
+          <li>
+            <strong>META-INF/:</strong> I file di firma digitale che garantiscono l&apos;integrità e
+            l&apos;autenticità dell&apos;APK. Contiene MANIFEST.MF, CERT.SF e CERT.RSA.
+          </li>
+          <li>
+            <strong>assets/:</strong> Risorse aggiuntive accessibili tramite l&apos;API AssetManager.
+          </li>
+        </ul>
+
+        <h2>APK vs AAB: Qual è la differenza?</h2>
+        <p>
+          Dal 2021 Google richiede il formato <strong>Android App Bundle (AAB)</strong> per la pubblicazione
+          sul Play Store. L&apos;AAB non è installabile direttamente: Google Play lo elabora e genera APK
+          ottimizzati per ogni dispositivo (APK split). I vantaggi dell&apos;AAB includono:
+        </p>
+        <ul>
+          <li>App più leggere: l&apos;utente scarica solo le risorse necessarie per il suo dispositivo.</li>
+          <li>Supporto dinamico ai moduli (asset pack, feature on-demand).</li>
+          <li>Aggiornamenti più efficienti con le patch Delta.</li>
+        </ul>
+        <p>
+          Tuttavia, l&apos;APK rimane il formato universale per l&apos;installazione diretta (sideloading).
+          Puoi convertire un AAB in APK usando strumenti come{" "}
+          <code>bundletool</code> di Google.
+        </p>
+
+        <h2>Come verificare l&apos;integrità di un APK</h2>
+        <p>
+          Scaricare APK da fonti non ufficiali può essere rischioso. Ecco come controllare che un APK sia
+          autentico:
+        </p>
+        <pre><code>{`// Verifica la firma digitale
+keytool -printcert -jarfile app.apk
+
+// Controlla l'hash SHA-256
+sha256sum app.apk
+
+// Confronta con l'hash ufficiale (se disponibile)`}</code></pre>
+        <p>
+          Un APK firmato con un certificato valido e verificato è quasi certamente autentico. Diffida di
+          APK con firme sconosciute o hash diversi da quelli ufficiali.
+        </p>
+
+        <h2>Domande frequenti</h2>
+        <h3>Posso aprire un APK per vedere cosa contiene?</h3>
+        <p>
+          Sì. Rinomina il file da <code>.apk</code> a <code>.zip</code> e aprilo con qualsiasi
+            estrattore di archivi. Puoi esplorare le risorse, ma il codice DEX richiede strumenti di
+            decompilazione come JADX o APKTool per essere letto.
+        </p>
+        <h3>Cosa significa APK?</h3>
+        <p>
+          APK è l&apos;acronimo di <strong>Android Package Kit</strong> (o Android Package file).
+          È il formato standard per la distribuzione di app su Android.
+        </p>
+        <h3>Gli APK sono sicuri?</h3>
+        <p>
+          Dipende dalla fonte. Gli APK scaricati da fonti affidabili come Google Play o gptoapk.com sono
+          sicuri. Evita siti sospetti e verifica sempre la firma digitale prima di installare.
+        </p>
+
+        <div className="bg-blue-50 dark:bg-blue-900/20 p-6 rounded-xl border border-blue-100 dark:border-blue-800 mt-8">
+          <p className="font-semibold text-lg mb-2">Scarica APK in sicurezza 🛡️</p>
+          <p className="mb-3">
+            <a href="https://gptoapk.com" className="text-blue-600 dark:text-blue-400 hover:underline font-medium">
+              gptoapk.com
+            </a>{" "}
+            — Estrai APK dal Google Play Store in modo sicuro e veloce. Link diretto, senza pubblicità
+            invasive, senza rischi per la privacy. Provalo ora.
+          </p>
+          <a
+            href="https://gptoapk.com"
+            className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-xl transition-colors"
+          >
+            Vai a gptoapk.com →
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+            </svg>
+          </a>
+        </div>
+      </>
+    ),
+  },
+];
+
+export async function generateStaticParams() {
+  return posts.map((p) => ({ slug: p.slug }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const post = posts.find((p) => p.slug === slug);
+  if (!post) return {};
+  return {
+    title: `${post.title} | gptoapk.com`,
+    description: post.description,
+    alternates: {
+      canonical: `https://gptoapk.com/it/blog/${slug}`,
+      languages: {
+        en: `https://gptoapk.com/en/blog/${slug}`,
+        "x-default": `https://gptoapk.com/en/blog/${slug}`,
+      },
+    },
+  };
+}
+
+export default async function BlogPostPage({
   params,
 }: {
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  redirect(`/en/blog/${slug}`);
+  const post = posts.find((p) => p.slug === slug);
+  if (!post) notFound();
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: post.title,
+    description: post.description,
+    datePublished: post.date,
+    author: { "@type": "Organization", name: "gptoapk.com" },
+    url: `https://gptoapk.com/it/blog/${slug}`,
+    inLanguage: "it",
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": `https://gptoapk.com/it/blog/${slug}`,
+    },
+  };
+
+  return (
+    <>
+      <Script
+        id="blog-post-jsonld"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <article className="max-w-3xl mx-auto px-4 py-12">
+        <Link
+          href="/it/blog"
+          className="inline-flex items-center text-sm text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 mb-8 transition-colors"
+        >
+          <svg
+            className="w-4 h-4 mr-1"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M15 19l-7-7 7-7"
+            />
+          </svg>
+          ← Torna al blog
+        </Link>
+
+        <header className="mb-8">
+          <div className="flex flex-wrap gap-2 mb-4">
+            {post.tags.map((tag) => (
+              <span
+                key={tag}
+                className="text-xs font-medium bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 px-2.5 py-1 rounded-full"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+          <h1 className="text-3xl md:text-4xl font-bold mb-4">{post.title}</h1>
+          <div className="flex items-center gap-4 text-sm text-gray-500">
+            <time dateTime={post.date}>{post.date}</time>
+            <span>·</span>
+            <span>{post.readTime}</span>
+          </div>
+        </header>
+
+        <div className="prose prose-lg dark:prose-invert max-w-none blog-content">
+          {post.content}
+        </div>
+
+        <div className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
+          <Link
+            href="/it/blog"
+            className="text-blue-600 dark:text-blue-400 hover:underline"
+          >
+            ← Torna al blog
+          </Link>
+        </div>
+      </article>
+    </>
+  );
 }

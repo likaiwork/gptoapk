@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Blog - APK Downloader | gptoapk.com",
-  description: "راهنمای دانلود APK از Google Play. محتوای فارسی به‌زودی.",
+  title: "وبلاگ - APK Downloader | gptoapk.com",
+  description: "راهنماها و مقالات کامل درباره دانلود APK از گوگل پلی، نصب APK، امنیت و نکات کاربردی اندروید.",
   alternates: {
     canonical: "https://gptoapk.com/fa/blog",
     languages: {
@@ -14,14 +14,65 @@ export const metadata: Metadata = {
   },
 };
 
+const blogPosts = [
+  {
+    slug: "how-to-download-apk-from-google-play",
+    title: "نحوه دانلود APK از گوگل پلی: راهنمای کامل (۲۰۲۶)",
+    description: "آموزش گام به گام استخراج فایل APK از فروشگاه گوگل پلی با روش‌های مختلف.",
+    date: "2026-05-11",
+    readTime: "۶ دقیقه",
+    tags: ["دانلود APK", "گوگل پلی", "آموزش"],
+  },
+  {
+    slug: "what-is-an-apk-file",
+    title: "فایل APK چیست؟ راهنمای کامل فایل‌های بسته اندروید",
+    description: "هر آنچه باید درباره فایل‌های APK بدانید—ساختار، امنیت و تفاوت با AAB.",
+    date: "2026-05-11",
+    readTime: "۷ دقیقه",
+    tags: ["APK", "اندروید", "راهنمای مبتدیان"],
+  },
+];
+
 export default function BlogIndexPage() {
   return (
-    <div className="max-w-3xl mx-auto px-4 py-16 text-center">
-      <h1 className="text-4xl font-extrabold tracking-tight mb-4">وبلاگ APK Downloader</h1>
-      <p className="text-lg text-slate-600 dark:text-slate-400 mb-8">در حال آماده‌سازی مقالات فارسی هستید؛ فعلاً وبلاگ انگلیسی را با راهنمای کامل بخوانید.</p>
-      <div className="flex flex-col sm:flex-row gap-4 justify-center">
-        <Link href="/en/blog" className="inline-flex items-center justify-center gap-2 bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 font-medium px-6 py-3 rounded-xl hover:bg-slate-700 dark:hover:bg-slate-200 transition-colors">باز کردن وبلاگ (انگلیسی)</Link>
-        <Link href="/fa" className="inline-flex items-center justify-center gap-2 border border-slate-300 dark:border-slate-600 font-medium px-6 py-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">بازگشت به خانه</Link>
+    <div className="max-w-5xl mx-auto px-4 py-16" dir="rtl">
+      <div className="text-center mb-12">
+        <h1 className="text-4xl font-extrabold tracking-tight mb-4">وبلاگ APK Downloader</h1>
+        <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+          راهنماهای کامل دانلود APK از گوگل پلی، نصب و نکات امنیتی
+        </p>
+      </div>
+
+      <div className="grid gap-8 md:grid-cols-2">
+        {blogPosts.map((post) => (
+          <Link
+            key={post.slug}
+            href={`/fa/blog/${post.slug}`}
+            className="group block p-6 rounded-2xl border border-slate-200 dark:border-slate-700 hover:border-blue-300 dark:hover:border-blue-600 transition-all hover:shadow-lg"
+          >
+            <div className="flex items-center gap-3 text-sm text-slate-500 dark:text-slate-400 mb-3">
+              <time dateTime={post.date}>{post.date}</time>
+              <span>·</span>
+              <span>{post.readTime}</span>
+            </div>
+            <h2 className="text-xl font-bold mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+              {post.title}
+            </h2>
+            <p className="text-slate-600 dark:text-slate-400 mb-4 line-clamp-2">
+              {post.description}
+            </p>
+            <div className="flex flex-wrap gap-2">
+              {post.tags.map((tag) => (
+                <span
+                  key={tag}
+                  className="text-xs px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </Link>
+        ))}
       </div>
     </div>
   );

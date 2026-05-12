@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Blog - APK Downloader | gptoapk.com",
-  description: "Οδηγοί για λήψη APK από το Google Play. Ελληνικό περιεχόμενο έρχεται· διαβάστε προσωρινά το αγγλικό ιστολόγιο.",
+  title: "Ιστολόγιο - APK Downloader | gptoapk.com",
+  description:
+    "Οδηγοί και άρθρα για λήψη APK από το Google Play. Μάθετε πώς να εξάγετε APK, να κατανοείτε τη δομή αρχείων και να εγκαθιστάτε εφαρμογές Android με ασφάλεια.",
   alternates: {
     canonical: "https://gptoapk.com/el/blog",
     languages: {
@@ -14,14 +15,98 @@ export const metadata: Metadata = {
   },
 };
 
-export default function BlogIndexPage() {
+interface BlogPost {
+  slug: string;
+  title: string;
+  description: string;
+  date: string;
+  readTime: string;
+  tags: string[];
+}
+
+const posts: BlogPost[] = [
+  {
+    slug: "how-to-download-apk-from-google-play",
+    title: "Πώς να Κατεβάσετε APK από το Google Play Store: Πλήρης Οδηγός (2026)",
+    description:
+      "Βήμα-βήμα οδηγός για την εξαγωγή APK αρχείων από το Google Play Store. Χρησιμοποιήστε το gptoapk.com, εντολές ADB και συμβουλές ασφαλείας.",
+    date: "2026-05-11",
+    readTime: "6 min",
+    tags: ["Λήψη APK", "Google Play", "Οδηγός"],
+  },
+  {
+    slug: "what-is-an-apk-file",
+    title: "Τι είναι ένα APK Αρχείο; Πλήρης Οδηγός για Πακέτα Android",
+    description:
+      "Όλα για τα APK αρχεία: εσωτερική δομή, διαφορά μεταξύ APK και AAB, πώς να επαληθεύσετε την ακεραιότητα και συστάσεις ασφαλείας.",
+    date: "2026-05-11",
+    readTime: "7 min",
+    tags: ["APK", "Android", "Οδηγός Αρχαρίων"],
+  },
+];
+
+export default function ElBlogPage() {
   return (
-    <div className="max-w-3xl mx-auto px-4 py-16 text-center">
-      <h1 className="text-4xl font-extrabold tracking-tight mb-4">Ιστολόγιο APK Downloader</h1>
-      <p className="text-lg text-slate-600 dark:text-slate-400 mb-8">Ετοιμάζουμε άρθρα στα ελληνικά. Μπορείτε ήδη να διαβάσετε το αγγλικό ιστολόγιο με πλήρεις οδηγούς.</p>
-      <div className="flex flex-col sm:flex-row gap-4 justify-center">
-        <Link href="/en/blog" className="inline-flex items-center justify-center gap-2 bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 font-medium px-6 py-3 rounded-xl hover:bg-slate-700 dark:hover:bg-slate-200 transition-colors">Άνοιγμα ιστολογίου (αγγλικά)</Link>
-        <Link href="/el" className="inline-flex items-center justify-center gap-2 border border-slate-300 dark:border-slate-600 font-medium px-6 py-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">Αρχική σελίδα</Link>
+    <div className="max-w-5xl mx-auto px-4 py-16">
+      <div className="text-center mb-16">
+        <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight mb-4">
+          Ιστολόγιο APK Downloader
+        </h1>
+        <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+          Οδηγοί, tutorials και συμβουλές για λήψη APK αρχείων από το Google Play Store.
+        </p>
+      </div>
+
+      <div className="grid gap-8 md:grid-cols-2">
+        {posts.map((post) => (
+          <Link
+            key={post.slug}
+            href={`/el/blog/${post.slug}`}
+            className="block p-6 rounded-xl border border-gray-200 dark:border-gray-700 hover:border-blue-500 dark:hover:border-blue-500 transition-colors"
+          >
+            <div className="flex flex-wrap gap-2 mb-3">
+              {post.tags.map((tag) => (
+                <span
+                  key={tag}
+                  className="text-xs font-medium bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 px-2.5 py-1 rounded-full"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+            <h2 className="text-xl font-bold mb-2">{post.title}</h2>
+            <p className="text-gray-600 dark:text-gray-400 mb-3">
+              {post.description}
+            </p>
+            <div className="flex items-center gap-4 text-sm text-gray-500">
+              <time dateTime={post.date}>{post.date}</time>
+              <span>·</span>
+              <span>{post.readTime}</span>
+            </div>
+          </Link>
+        ))}
+      </div>
+
+      <div className="mt-16 text-center">
+        <Link
+          href="/el"
+          className="inline-flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:underline font-medium"
+        >
+          <svg
+            className="w-4 h-4"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M15 19l-7-7 7-7"
+            />
+          </svg>
+          Αρχική σελίδα
+        </Link>
       </div>
     </div>
   );

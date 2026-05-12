@@ -1,10 +1,375 @@
-import { redirect } from "next/navigation";
+import type { Metadata } from "next";
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import Script from "next/script";
 
-export default async function ItBlogSlugRedirect({
+interface BlogPost {
+  slug: string;
+  title: string;
+  description: string;
+  date: string;
+  readTime: string;
+  tags: string[];
+  content: React.ReactNode;
+}
+
+const posts: BlogPost[] = [
+  {
+    slug: "how-to-download-apk-from-google-play",
+    title: "Slik Laster du Ned APK fra Google Play Store: Komplett Guide (2026)",
+    description:
+      "Trinn-for-trinn-guide for å laste ned APK-filer fra Google Play Store. Lær enkle metoder med gptoapk.com, avanserte ADB-kommandoer og sikkerhetstips. Ingen root nødvendig.",
+    date: "2026-05-11",
+    readTime: "6 min",
+    tags: ["APK Nedlasting", "Google Play", "Guide"],
+    content: (
+      <>
+        <p>
+          Å laste ned en APK-fil fra Google Play kan være nyttig av mange grunner: du vil lagre
+          en bestemt appversjon, installere den på en enhet uten Google Play, eller bare opprette
+          en sikkerhetskopi. I denne guiden viser vi de beste metodene for å laste ned APK-filer.
+        </p>
+
+        <h2>Metode 1: Bruk gptoapk.com (Enklest)</h2>
+        <p>
+          Den raskeste metoden krever ingen installasjon. Bare besøk{" "}
+          <a href="https://gptoapk.com">gptoapk.com</a> og lim inn Google Play-lenken for ønsket app.
+        </p>
+        <ol>
+          <li>
+            Åpne Google Play Store på telefonen eller nettleseren, søk opp appen og kopier URL-en
+            (f.eks. <code>https://play.google.com/store/apps/details?id=com.example.app</code>).
+          </li>
+          <li>
+            Gå til <a href="https://gptoapk.com">gptoapk.com</a> og lim inn lenken i søkefeltet.
+          </li>
+          <li>Klikk på nedlastingsknappen og vent noen sekunder.</li>
+          <li>Last ned APK-filen direkte til enheten din.</li>
+        </ol>
+        <p>
+          Denne metoden fungerer med alle offentlige apper i Google Play Store og er helt gratis. Ingen
+          registrering eller ekstra programvare kreves.
+        </p>
+
+        <h2>Metode 2: Bruk ADB (For utviklere)</h2>
+        <p>
+          Hvis du er utvikler eller avansert bruker kan du hente ut APK-filer med Android Debug Bridge
+          (ADB). Dette krever en datamaskin og at USB-feilsøking er aktivert.
+        </p>
+        <pre><code>{`// 1. Sjekk at enheten er tilkoblet
+adb devices
+
+// 2. List alle installerte apper (finn ønsket pakke)
+adb shell pm list packages | grep appnavn
+
+// 3. Hent APK-banen
+adb shell pm path com.eksempel.app
+
+// 4. Last ned APK til datamaskinen
+adb pull /data/app/com.eksempel.app-xxx/base.apk
+
+// 5. Installer APK på en annen enhet
+adb install app.apk`}</code></pre>
+        <p>
+          Når du har lastet ned kan du dele APK-en, installere den på andre enheter eller lagre den som
+          sikkerhetskopi. Denne metoden fungerer uten root og gir deg full kontroll.
+        </p>
+
+        <h2>Metode 3: APK Extractor-apper</h2>
+        <p>
+          Hvis du foretrekker en løsning direkte på telefonen uten datamaskin, kan du bruke apper som
+          APK Extractor eller ML Manager fra Play Store. Disse appene finner automatisk alle installerte
+          apper og eksporterer APK med ett trykk.
+        </p>
+        <ul>
+          <li>
+            <strong>APK Extractor:</strong> Enkel og lettvekts. Velg appen og trykk på &quot;Extract&quot;.
+          </li>
+          <li>
+            <strong>ML Manager:</strong> Tilbyr også backup-håndtering og deling via Wi-Fi Direct.
+          </li>
+        </ul>
+
+        <h2>Vanlige spørsmål</h2>
+        <h3>Er det lovlig å laste ned APK fra Google Play?</h3>
+        <p>
+          Ja, å laste ned APK for gratisapper til personlig bruk er lovlig. For betalte apper må du ha
+          kjøpt dem ordinært. Å hente ut APK for backup-formål er tillatt i henhold til Googles vilkår.
+        </p>
+        <h3>Trenger jeg root?</h3>
+        <p>
+          Nei. Alle metodene som beskrives her fungerer uten root. For å laste ned APK kreves ingen
+          administratorrettigheter på enheten.
+        </p>
+        <h3>Hvorfor installeres ikke noen APK-filer?</h3>
+        <p>
+          Du må mest sannsynlig aktivere installasjon fra ukjente kilder. Gå til Innstillinger &gt;
+          Sikkerhet &gt; Ukjente kilder og aktiver det. På Android 8+ er denne innstillingen per app.
+        </p>
+
+        <div className="bg-blue-50 dark:bg-blue-900/20 p-6 rounded-xl border border-blue-100 dark:border-blue-800 mt-8">
+          <p className="font-semibold text-lg mb-2">Prøv gptoapk.com nå 🚀</p>
+          <p className="mb-3">
+            <a href="https://gptoapk.com" className="text-blue-600 dark:text-blue-400 hover:underline font-medium">
+              gptoapk.com
+            </a>{" "}
+            — Det raskeste verktøyet for å laste ned APK fra Google Play. Lim inn lenken, last ned APK
+            med ett klikk. Gratis, ingen registrering, ingen installasjon.
+          </p>
+          <a
+            href="https://gptoapk.com"
+            className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-xl transition-colors"
+          >
+            Last ned APK nå →
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+            </svg>
+          </a>
+        </div>
+      </>
+    ),
+  },
+  {
+    slug: "what-is-an-apk-file",
+    title: "Hva er en APK-fil? Komplett Guide til Android-pakker",
+    description:
+      "Alt du trenger å vite om APK-filer: hva de inneholder, hvordan de fungerer, forskjellen mellom APK og AAB, hvordan du sjekker integritet og hvorfor sikkerhet er viktig. For nybegynnere og eksperter.",
+    date: "2026-05-11",
+    readTime: "7 min",
+    tags: ["APK", "Android", "Nybegynnerguide"],
+    content: (
+      <>
+        <p>
+          APK står for <strong>Android Package Kit</strong>. Det er filformatet Android bruker for å
+          distribuere og installere apper. Hver app du installerer på Android-telefonen din er pakket
+          i en APK-fil (eller det nyere AAB-formatet). I denne guiden går vi gjennom strukturen,
+          funksjonen og betydningen av APK-filer i dybden.
+        </p>
+
+        <h2>Hva inneholder en APK-fil?</h2>
+        <p>
+          En APK-fil er i bunn og grunn et ZIP-arkiv med en spesifikk struktur. Inni finner du:
+        </p>
+        <ul>
+          <li>
+            <strong>AndroidManifest.xml:</strong> Appens hjerte. Inneholder pakkenavnet, tillatelser,
+            aktiviteter, tjenester og broadcast-mottakere.
+          </li>
+          <li>
+            <strong>classes.dex:</strong> Appens kjørbare kode i Dalvik Executable (DEX)-format. Her
+            finner du applikasjonens logikk.
+          </li>
+          <li>
+            <strong>res/:</strong> Appens ressurser: XML-layouter, bilder, ikoner, lokaliserte
+            tekststrenger, temaer og mye mer.
+          </li>
+          <li>
+            <strong>lib/:</strong> Native-biblioteker skrevet i C/C++ for spesifikke arkitekturer
+            (armeabi-v7a, arm64-v8a, x86, x86_64).
+          </li>
+          <li>
+            <strong>META-INF/:</strong> De digitale signaturfilene som garanterer APK-ens integritet og
+            autentisitet. Inneholder MANIFEST.MF, CERT.SF og CERT.RSA.
+          </li>
+          <li>
+            <strong>assets/:</strong> Ekstra ressurser tilgjengelig via AssetManager-API-et.
+          </li>
+        </ul>
+
+        <h2>APK vs AAB: Hva er forskjellen?</h2>
+        <p>
+          Siden 2021 krever Google formatet <strong>Android App Bundle (AAB)</strong> for publisering i
+          Play Store. En AAB er ikke direkte installerbar: Google Play behandler den og genererer
+          optimaliserte APK-er for hver enhet (split APK). Fordelene med AAB er:
+        </p>
+        <ul>
+          <li>Mindre apper: brukeren laster bare ned ressursene enheten trenger.</li>
+          <li>Støtte for dynamiske moduler (asset packs, funksjoner på forespørsel).</li>
+          <li>Mer effektive oppdateringer med Delta-patcher.</li>
+        </ul>
+        <p>
+          APK forblir likevel det universelle formatet for direkte installasjon (sideloading). Du kan
+          konvertere en AAB til APK med verktøy som <code>bundletool</code> fra Google.
+        </p>
+
+        <h2>Slik sjekker du APK-integritet</h2>
+        <p>
+          Å laste ned APK fra uoffisielle kilder kan være risikabelt. Slik sjekker du om en APK er
+          autentisk:
+        </p>
+        <pre><code>{`// Sjekk den digitale signaturen
+keytool -printcert -jarfile app.apk
+
+// Sjekk SHA-256-hash
+sha256sum app.apk
+
+// Sammenlign med den offisielle hashen (hvis tilgjengelig)
+
+// Pakk ut APK for inspeksjon
+unzip -l app.apk | grep -E "(AndroidManifest|classes.dex)"`}</code></pre>
+        <p>
+          En APK signert med et gyldig sertifikat er nesten helt sikkert autentisk. Vær forsiktig med
+          APK-er fra ukjente kilder eller med avvikende hash-verdier.
+        </p>
+
+        <h2>Kan jeg åpne en APK for å se hva den inneholder?</h2>
+        <p>
+          Ja. Bytt filendelsen fra <code>.apk</code> til <code>.zip</code> og åpne den med et
+          arkivprogram. Du kan bla gjennom ressursene, men DEX-koden krever dekompileringsverktøy som
+          JADX eller APKTool for å bli lesbar.
+        </p>
+
+        <h2>Vanlige spørsmål</h2>
+        <h3>Hva står APK for?</h3>
+        <p>
+          APK står for <strong>Android Package Kit</strong> (eller Android Package-fil). Det er
+          standardformatet for appdistribusjon på Android.
+        </p>
+        <h3>Er APK-filer trygge?</h3>
+        <p>
+          Det kommer an på kilden. APK-er fra pålitelige kilder som Google Play eller gptoapk.com er
+          trygge. Unngå mistenkelige nettsteder og sjekk alltid den digitale signaturen når du laster
+          ned fra ukjente kilder.
+        </p>
+        <h3>Trenger alle APK-er installasjonstillatelse?</h3>
+        <p>
+          Ja, Android krever at du aktiverer &quot;Installer fra ukjente kilder&quot; før du kan
+          sideloade en APK. Dette er en sikkerhetsfunksjon som beskytter mot uautoriserte installasjoner.
+        </p>
+
+        <div className="bg-blue-50 dark:bg-blue-900/20 p-6 rounded-xl border border-blue-100 dark:border-blue-800 mt-8">
+          <p className="font-semibold text-lg mb-2">Last ned APK sikkert 🛡️</p>
+          <p className="mb-3">
+            <a href="https://gptoapk.com" className="text-blue-600 dark:text-blue-400 hover:underline font-medium">
+              gptoapk.com
+            </a>{" "}
+            — Last ned APK fra Google Play raskt og sikkert. Direktelenke, ingen påtrengende annonser,
+            ingen risiko for personvernet ditt. Prøv det nå.
+          </p>
+          <a
+            href="https://gptoapk.com"
+            className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-xl transition-colors"
+          >
+            Gå til gptoapk.com →
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+            </svg>
+          </a>
+        </div>
+      </>
+    ),
+  },
+];
+
+export async function generateStaticParams() {
+  return posts.map((p) => ({ slug: p.slug }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const post = posts.find((p) => p.slug === slug);
+  if (!post) return {};
+  return {
+    title: `${post.title} | gptoapk.com`,
+    description: post.description,
+    alternates: {
+      canonical: `https://gptoapk.com/nb/blog/${slug}`,
+      languages: {
+        en: `https://gptoapk.com/en/blog/${slug}`,
+        "x-default": `https://gptoapk.com/en/blog/${slug}`,
+      },
+    },
+  };
+}
+
+export default async function BlogPostPage({
   params,
 }: {
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  redirect(`/en/blog/${slug}`);
+  const post = posts.find((p) => p.slug === slug);
+  if (!post) notFound();
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: post.title,
+    description: post.description,
+    datePublished: post.date,
+    author: { "@type": "Organization", name: "gptoapk.com" },
+    url: `https://gptoapk.com/nb/blog/${slug}`,
+    inLanguage: "nb",
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": `https://gptoapk.com/nb/blog/${slug}`,
+    },
+  };
+
+  return (
+    <>
+      <Script
+        id="blog-post-jsonld"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <article className="max-w-3xl mx-auto px-4 py-12">
+        <Link
+          href="/nb/blog"
+          className="inline-flex items-center text-sm text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 mb-8 transition-colors"
+        >
+          <svg
+            className="w-4 h-4 mr-1"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M15 19l-7-7 7-7"
+            />
+          </svg>
+          ← Tilbake til bloggen
+        </Link>
+
+        <header className="mb-8">
+          <div className="flex flex-wrap gap-2 mb-4">
+            {post.tags.map((tag) => (
+              <span
+                key={tag}
+                className="text-xs font-medium bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 px-2.5 py-1 rounded-full"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+          <h1 className="text-3xl md:text-4xl font-bold mb-4">{post.title}</h1>
+          <div className="flex items-center gap-4 text-sm text-gray-500">
+            <time dateTime={post.date}>{post.date}</time>
+            <span>·</span>
+            <span>{post.readTime}</span>
+          </div>
+        </header>
+
+        <div className="prose prose-lg dark:prose-invert max-w-none blog-content">
+          {post.content}
+        </div>
+
+        <div className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
+          <Link
+            href="/nb/blog"
+            className="text-blue-600 dark:text-blue-400 hover:underline"
+          >
+            ← Tilbake til bloggen
+          </Link>
+        </div>
+      </article>
+    </>
+  );
 }

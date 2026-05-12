@@ -1,10 +1,31 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
+const posts = [
+  {
+    slug: "how-to-download-apk-from-google-play",
+    title: "Så Här Laddar du Ner APK från Google Play Store: Fullständig Guide (2026)",
+    description:
+      "Steg-för-steg-guide för att ladda ner APK-filer från Google Play Store. Lär dig enkla metoder med gptoapk.com, avancerade ADB-kommandon och säkerhetstips.",
+    date: "2026-05-11",
+    readTime: "6 min",
+    tags: ["APK Nedladdning", "Google Play", "Guide"],
+  },
+  {
+    slug: "what-is-an-apk-file",
+    title: "Vad är en APK-fil? Komplett Guide till Android-paket",
+    description:
+      "Allt du behöver veta om APK-filer: vad de innehåller, hur de fungerar, skillnaden mellan APK och AAB, hur du kontrollerar integritet och varför säkerhet är viktigt.",
+    date: "2026-05-11",
+    readTime: "7 min",
+    tags: ["APK", "Android", "Nybörjarguide"],
+  },
+];
+
 export const metadata: Metadata = {
   title: "Blog - APK Downloader | gptoapk.com",
   description:
-    "Guider om APK-nedladdning från Google Play. Svenska artiklar är på gång; läs gärna den engelska bloggen under tiden.",
+    "Svenska guider om APK-nedladdning från Google Play. Praktiska tips, säkerhetsråd och steg-för-steg-instruktioner för Android-användare.",
   alternates: {
     canonical: "https://gptoapk.com/sv/blog",
     languages: {
@@ -16,26 +37,58 @@ export const metadata: Metadata = {
 };
 
 export default function BlogIndexPage() {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    headline: "Blog - APK Downloader | gptoapk.com",
+    description: metadata.description,
+    url: "https://gptoapk.com/sv/blog",
+    inLanguage: "sv",
+  };
+
   return (
-    <div className="max-w-3xl mx-auto px-4 py-16 text-center">
-      <h1 className="text-4xl font-extrabold tracking-tight mb-4">Blog APK Downloader</h1>
-      <p className="text-lg text-slate-600 dark:text-slate-400 mb-8">
-        Vi förbereder artiklar på svenska. Du kan redan läsa den engelska bloggen med fullständiga guider.
-      </p>
-      <div className="flex flex-col sm:flex-row gap-4 justify-center">
-        <Link
-          href="/en/blog"
-          className="inline-flex items-center justify-center gap-2 bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 font-medium px-6 py-3 rounded-xl hover:bg-slate-700 dark:hover:bg-slate-200 transition-colors"
-        >
-          Öppna bloggen (engelska)
-        </Link>
-        <Link
-          href="/sv"
-          className="inline-flex items-center justify-center gap-2 border border-slate-300 dark:border-slate-600 font-medium px-6 py-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
-        >
-          Till startsidan
-        </Link>
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <div className="max-w-4xl mx-auto px-4 py-12">
+        <h1 className="text-4xl font-extrabold tracking-tight mb-2">Blogg</h1>
+        <p className="text-lg text-slate-600 dark:text-slate-400 mb-10">
+          Guider, tips och djupdykningar om APK-nedladdning, Android-paket och allt du behöver veta.
+        </p>
+        <div className="grid gap-8 md:grid-cols-2">
+          {posts.map((post) => (
+            <Link
+              key={post.slug}
+              href={`/sv/blog/${post.slug}`}
+              className="group block bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 shadow-sm hover:shadow-md hover:border-blue-300 dark:hover:border-blue-600 transition-all"
+            >
+              <div className="flex flex-wrap gap-2 mb-3">
+                {post.tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="text-xs font-medium bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 px-2.5 py-1 rounded-full"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+              <h2 className="text-xl font-bold group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors mb-2">
+                {post.title}
+              </h2>
+              <p className="text-sm text-slate-600 dark:text-slate-400 mb-4 line-clamp-2">
+                {post.description}
+              </p>
+              <div className="flex items-center gap-3 text-xs text-slate-500">
+                <time dateTime={post.date}>{post.date}</time>
+                <span>·</span>
+                <span>{post.readTime}</span>
+              </div>
+            </Link>
+          ))}
+        </div>
       </div>
-    </div>
+    </>
   );
 }
