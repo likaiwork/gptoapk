@@ -126,10 +126,9 @@ export default function Footer() {
   const labels = navLabels[currentLocale];
   const year = new Date().getFullYear();
   const copyright = labels.copyright.replace("{year}", String(year));
-  const isRtl = currentLocale === "ar"; // 检查：阿拉伯语启用 RTL 文字方向
 
   return (
-    <footer className="border-t bg-white dark:bg-slate-950 mt-12 py-8" dir={isRtl ? "rtl" : undefined}>
+    <footer className="border-t bg-white dark:bg-slate-950 mt-12 py-8">
       <div className="container mx-auto px-4">
         <div className="flex flex-col sm:flex-row justify-between items-center gap-4 mb-6">
           <div className="flex items-center gap-2 font-bold text-lg text-blue-600 dark:text-blue-400">

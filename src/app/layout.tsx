@@ -1,9 +1,16 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
+import { headers } from "next/headers";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import "./globals.css";
+
+const rtlLocales = new Set(["ar"]); // 检查：仅阿拉伯语需要 RTL，新增 fa/he/ur 时在这里追加
+const supportedHtmlLocales = new Set([
+  "en", "zh", "ja", "pt", "es", "ru", "id", "hi",
+  "ko", "fr", "de", "vi", "ar", "tr",
+]);
 
 const CLARITY_PROJECT_ID = "wlqyr64bhf";
 const GTM_ID = "GTM-MXXWHJTP";
@@ -51,11 +58,16 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const requestHeaders = await headers();
+  const localeHeader = requestHeaders.get("x-locale");
+  const htmlLang = localeHeader && supportedHtmlLocales.has(localeHeader) ? localeHeader : "en"; // 检查：proxy 没识别到时回落英文，避免错误的 lang 属性
+  const htmlDir = rtlLocales.has(htmlLang) ? "rtl" : "ltr";
+
   const schemaJsonLd = {
     "@context": "https://schema.org",
     "@type": "WebApplication",
@@ -72,7 +84,7 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="zh" className="h-full antialiased">
+    <html lang={htmlLang} dir={htmlDir} className="h-full antialiased">
       <head>
         <Script id="gtm-base" strategy="afterInteractive">
           {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':

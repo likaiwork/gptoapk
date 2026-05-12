@@ -30,9 +30,5 @@ export const metadata: Metadata = {
 };
 
 export default function ArLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <div dir="rtl" lang="ar"> {/* 检查：阿拉伯语启用从右到左排版 */}
-      {children}
-    </div>
-  );
+  return <>{children}</>; // 检查：RTL/lang 已由 root layout 根据 x-locale 设置在 <html> 上
 }

@@ -50,11 +50,15 @@ export function proxy(request: NextRequest) {
     return NextResponse.redirect(newUrl);
   }
 
-  const pathnameHasLocale = locales.some(
+  const matchedLocale = locales.find(
     (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
   );
 
-  if (pathnameHasLocale) return NextResponse.next(); // 检查：已带语言前缀时直接放行
+  if (matchedLocale) { // 检查：已带语言前缀时透传 x-locale 让 root layout 设置 html lang/dir
+    const requestHeaders = new Headers(request.headers);
+    requestHeaders.set("x-locale", matchedLocale);
+    return NextResponse.next({ request: { headers: requestHeaders } });
+  }
 
   const shouldSkip =
     pathname.startsWith("/_next/") ||

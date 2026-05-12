@@ -117,6 +117,9 @@ export default function Header() {
   const activeClass = "font-semibold text-blue-600 dark:text-blue-400";
   const inactiveClass = "text-slate-700 dark:text-slate-300";
 
+  const isRtl = currentLocale === "ar"; // 检查：阿拉伯语下下拉菜单贴向 button 的对侧（屏幕左边）
+  const dropdownAlignClass = isRtl ? "left-0" : "right-0";
+
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-white/80 dark:bg-slate-950/80 backdrop-blur">
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
@@ -156,7 +159,7 @@ export default function Header() {
             </button>
 
             {open && (
-              <div className="absolute right-0 mt-2 w-52 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 shadow-lg py-1 text-sm max-h-96 overflow-y-auto">
+              <div className={`absolute ${dropdownAlignClass} mt-2 w-52 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 shadow-lg py-1 text-sm max-h-96 overflow-y-auto`}>
                 <Link
                   href={getSwitchHref("en", pathname)}
                   onClick={() => setOpen(false)}

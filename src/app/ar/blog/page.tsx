@@ -151,7 +151,7 @@ export default function ArBlogPage() {
       <div className="mt-16 text-center">
         <Link href="/ar" className="inline-flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:underline font-medium">
           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /> {/* 检查：RTL 下「返回」方向为右指 */}
           </svg>
           العودة إلى محمل APK
         </Link>
