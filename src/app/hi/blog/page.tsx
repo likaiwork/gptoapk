@@ -16,10 +16,31 @@ export const metadata: Metadata = {
   },
 };
 
+const posts = [
+  {
+    slug: "how-to-download-apk-from-google-play",
+    title: "Google Play से APK डाउनलोड कैसे करें: पूरी गाइड (2026)",
+    description:
+      "Google Play Store से APK फ़ाइल निकालने की चरण-दर-चरण विधि। कई तरीके — वेब टूल, ADB, और सुरक्षित डाउनलोड के सर्वोत्तम अभ्यास।",
+    date: "2026-05-11",
+    readTime: "6 मिनट पढ़ें",
+    tags: ["APK डाउनलोड", "Google Play", "ट्यूटोरियल"],
+  },
+  {
+    slug: "what-is-an-apk-file",
+    title: "APK फ़ाइल क्या है? Android पैकेज फ़ाइलों की पूरी गाइड",
+    description:
+      "APK फ़ाइलों के बारे में वह सब कुछ जो आपको जानना चाहिए — इनके अंदर क्या है, ये कैसे काम करते हैं, APK बनाम AAB, और क्यों फ़ाइल अखंडता सुरक्षा के लिए महत्वपूर्ण है।",
+    date: "2026-05-11",
+    readTime: "7 मिनट पढ़ें",
+    tags: ["APK", "Android", "शुरुआती गाइड"],
+  },
+];
+
 export default function HiBlogPage() {
   return (
     <div className="max-w-5xl mx-auto px-4 py-16">
-      <div className="text-center mb-12">
+      <div className="text-center mb-16">
         <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight mb-4">
           APK डाउनलोडर ब्लॉग
         </h1>
@@ -28,124 +49,33 @@ export default function HiBlogPage() {
         </p>
       </div>
 
-      <div className="mb-10 mx-auto max-w-2xl text-center text-sm text-slate-500 dark:text-slate-400 bg-amber-50 dark:bg-amber-900/20 border border-amber-100 dark:border-amber-800/40 rounded-xl px-6 py-4">
-        पूरे लेख वर्तमान में केवल अंग्रेज़ी में उपलब्ध हैं। हिन्दी संस्करण जल्द ही जोड़े जाएँगे।
-      </div>
-
       <div className="grid gap-8 md:grid-cols-2">
-        <Link href="/en/blog/how-to-download-apk-from-google-play" className="group bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 hover:shadow-lg transition-all hover:-translate-y-0.5">
-          <div className="flex items-center gap-3 text-sm text-slate-500 dark:text-slate-400 mb-3">
-            <time dateTime="2026-05-11">2026-05-11</time>
-            <span>·</span>
-            <span>6 मिनट</span>
-          </div>
-          <h2 className="text-xl font-bold mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-            How to Download APK from Google Play Store: The Complete Guide (2026)
-          </h2>
-          <p className="text-slate-600 dark:text-slate-400 mb-4 line-clamp-3">
-            Google Play स्टोर से APK फ़ाइलें निकालने के लिए चरण-दर-चरण गाइड। वेब टूल, ADB और सुरक्षित डाउनलोड के सर्वोत्तम तरीकों सहित कई तरीके सीखें।
-          </p>
-          <div className="flex flex-wrap gap-2">
-            <span className="text-xs px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300">APK Download</span>
-            <span className="text-xs px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300">Google Play</span>
-            <span className="text-xs px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300">Tutorial</span>
-          </div>
-        </Link>
-
-        <Link href="/en/blog/apk-downloader-tool-comparison" className="group bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 hover:shadow-lg transition-all hover:-translate-y-0.5">
-          <div className="flex items-center gap-3 text-sm text-slate-500 dark:text-slate-400 mb-3">
-            <time dateTime="2026-05-11">2026-05-11</time>
-            <span>·</span>
-            <span>8 मिनट</span>
-          </div>
-          <h2 className="text-xl font-bold mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-            APK Downloader Comparison: Top 5 Tools for Google Play APK Extraction
-          </h2>
-          <p className="text-slate-600 dark:text-slate-400 mb-4 line-clamp-3">
-            हमने सबसे लोकप्रिय APK डाउनलोडर टूल का सीधा परीक्षण किया। गति, सुरक्षा, उपयोग में आसानी की तुलना करें और अपने लिए सर्वश्रेष्ठ टूल खोजें।
-          </p>
-          <div className="flex flex-wrap gap-2">
-            <span className="text-xs px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300">APK Tools</span>
-            <span className="text-xs px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300">Comparison</span>
-            <span className="text-xs px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300">Review</span>
-          </div>
-        </Link>
-
-        <Link href="/en/blog/what-is-an-apk-file" className="group bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 hover:shadow-lg transition-all hover:-translate-y-0.5">
-          <div className="flex items-center gap-3 text-sm text-slate-500 dark:text-slate-400 mb-3">
-            <time dateTime="2026-05-11">2026-05-11</time>
-            <span>·</span>
-            <span>7 मिनट</span>
-          </div>
-          <h2 className="text-xl font-bold mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-            What Is an APK File? A Complete Guide to Android Package Files
-          </h2>
-          <p className="text-slate-600 dark:text-slate-400 mb-4 line-clamp-3">
-            APK फ़ाइलों के बारे में आपको जो कुछ भी जानना चाहिए — उनके अंदर क्या है, वे कैसे काम करते हैं, APK बनाम AAB, और Android सुरक्षा के लिए फ़ाइल अखंडता क्यों मायने रखती है।
-          </p>
-          <div className="flex flex-wrap gap-2">
-            <span className="text-xs px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300">APK</span>
-            <span className="text-xs px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300">Android</span>
-            <span className="text-xs px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300">Beginner Guide</span>
-          </div>
-        </Link>
-
-        <Link href="/en/blog/how-to-install-apk-on-android" className="group bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 hover:shadow-lg transition-all hover:-translate-y-0.5">
-          <div className="flex items-center gap-3 text-sm text-slate-500 dark:text-slate-400 mb-3">
-            <time dateTime="2026-05-11">2026-05-11</time>
-            <span>·</span>
-            <span>7 मिनट</span>
-          </div>
-          <h2 className="text-xl font-bold mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-            How to Install APK on Android: Complete Step-by-Step Guide
-          </h2>
-          <p className="text-slate-600 dark:text-slate-400 mb-4 line-clamp-3">
-            APK फ़ाइलें मैन्युअल रूप से इंस्टॉल करने में नए हैं? यह गाइड अज्ञात स्रोतों को सक्षम करने से लेकर सामान्य इंस्टॉलेशन त्रुटियों के समाधान तक सब कुछ कवर करती है।
-          </p>
-          <div className="flex flex-wrap gap-2">
-            <span className="text-xs px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300">APK Installation</span>
-            <span className="text-xs px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300">Android</span>
-            <span className="text-xs px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300">Tutorial</span>
-          </div>
-        </Link>
-
-        <Link href="/en/blog/google-play-link-to-apk-troubleshooting" className="group bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 hover:shadow-lg transition-all hover:-translate-y-0.5">
-          <div className="flex items-center gap-3 text-sm text-slate-500 dark:text-slate-400 mb-3">
-            <time dateTime="2026-05-11">2026-05-11</time>
-            <span>·</span>
-            <span>7 मिनट</span>
-          </div>
-          <h2 className="text-xl font-bold mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-            Google Play Link to APK Failed? Common Problems and Fixes
-          </h2>
-          <p className="text-slate-600 dark:text-slate-400 mb-4 line-clamp-3">
-            Google Play लिंक से APK रूपांतरण विफलताओं के लिए संपूर्ण समस्या निवारण गाइड। अमान्य लिंक, धीमे डाउनलोड, इंस्टॉलेशन त्रुटियाँ और बहुत कुछ ठीक करें।
-          </p>
-          <div className="flex flex-wrap gap-2">
-            <span className="text-xs px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300">APK Download</span>
-            <span className="text-xs px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300">Troubleshooting</span>
-            <span className="text-xs px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300">Google Play</span>
-          </div>
-        </Link>
-
-        <Link href="/en/blog/google-play-link-to-apk-tips" className="group bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 hover:shadow-lg transition-all hover:-translate-y-0.5">
-          <div className="flex items-center gap-3 text-sm text-slate-500 dark:text-slate-400 mb-3">
-            <time dateTime="2026-05-11">2026-05-11</time>
-            <span>·</span>
-            <span>6 मिनट</span>
-          </div>
-          <h2 className="text-xl font-bold mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-            No VPN Needed! 3 Pro Tips for Online Google Play Link to APK Converter
-          </h2>
-          <p className="text-slate-600 dark:text-slate-400 mb-4 line-clamp-3">
-            तीन प्रो टिप्स के साथ Google Play लिंक से APK रूपांतरण में महारत हासिल करें: पैकेज नामों का उपयोग, फ़ोन से डाउनलोड, और तुरंत शेयर लिंक बनाना।
-          </p>
-          <div className="flex flex-wrap gap-2">
-            <span className="text-xs px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300">APK Tips</span>
-            <span className="text-xs px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300">Google Play</span>
-            <span className="text-xs px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300">Productivity</span>
-          </div>
-        </Link>
+        {posts.map((post) => (
+          <Link
+            key={post.slug}
+            href={`/hi/blog/${post.slug}`}
+            className="group bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 hover:shadow-lg transition-all hover:-translate-y-0.5"
+          >
+            <div className="flex items-center gap-3 text-sm text-slate-500 dark:text-slate-400 mb-3">
+              <time dateTime={post.date}>{post.date}</time>
+              <span>·</span>
+              <span>{post.readTime}</span>
+            </div>
+            <h2 className="text-xl font-bold mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+              {post.title}
+            </h2>
+            <p className="text-slate-600 dark:text-slate-400 mb-4 line-clamp-3">
+              {post.description}
+            </p>
+            <div className="flex flex-wrap gap-2">
+              {post.tags.map((tag) => (
+                <span key={tag} className="text-xs px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300">
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </Link>
+        ))}
       </div>
 
       <div className="mt-16 text-center">

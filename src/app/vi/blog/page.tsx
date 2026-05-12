@@ -16,6 +16,34 @@ export const metadata: Metadata = {
   },
 };
 
+interface BlogPost {
+  slug: string;
+  title: string;
+  description: string;
+  date: string;
+  readTime: string;
+  tags: string[];
+}
+
+const posts: BlogPost[] = [
+  {
+    slug: "how-to-download-apk-from-google-play",
+    title: "Cách tải APK từ Google Play: Hướng dẫn chi tiết (2026)",
+    description: "Hướng dẫn từng bước cách tải tệp APK từ Google Play Store. Tìm hiểu nhiều phương pháp bao gồm công cụ web, ADB và các mẹo tải xuống an toàn.",
+    date: "2026-05-11",
+    readTime: "6 phút đọc",
+    tags: ["Tải APK", "Google Play", "Hướng dẫn"],
+  },
+  {
+    slug: "what-is-an-apk-file",
+    title: "File APK là gì? Hướng dẫn toàn diện về tệp tin Android Package",
+    description: "Mọi điều bạn cần biết về tệp APK — bên trong có gì, hoạt động ra sao, APK so với AAB và vì sao tính toàn vẹn của tệp lại quan trọng với bảo mật Android.",
+    date: "2026-05-11",
+    readTime: "7 phút đọc",
+    tags: ["APK", "Android", "Hướng dẫn cơ bản"],
+  },
+];
+
 export default function ViBlogPage() {
   return (
     <div className="max-w-5xl mx-auto px-4 py-16">
@@ -28,8 +56,48 @@ export default function ViBlogPage() {
         </p>
       </div>
 
+      {/* Vietnamese articles grid */}
+      <div className="mb-12">
+        <h2 className="text-2xl font-bold mb-6">Bài viết tiếng Việt</h2>
+        <div className="grid gap-8 md:grid-cols-2">
+          {posts.map((post) => (
+            <Link
+              key={post.slug}
+              href={`/vi/blog/${post.slug}`}
+              className="group bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 hover:shadow-lg transition-all hover:-translate-y-0.5"
+            >
+              <div className="flex items-center gap-3 text-sm text-slate-500 dark:text-slate-400 mb-3">
+                <time dateTime={post.date}>{post.date}</time>
+                <span>·</span>
+                <span>{post.readTime}</span>
+              </div>
+              <h2 className="text-xl font-bold mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                {post.title}
+              </h2>
+              <p className="text-slate-600 dark:text-slate-400 mb-4 line-clamp-3">
+                {post.description}
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {post.tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="text-xs px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </Link>
+          ))}
+        </div>
+      </div>
+
+      {/* Separator */}
+      <div className="mb-12 border-t border-slate-200 dark:border-slate-700" />
+
+      {/* English articles (existing) */}
       <div className="mb-10 mx-auto max-w-2xl text-center text-sm text-slate-500 dark:text-slate-400 bg-amber-50 dark:bg-amber-900/20 border border-amber-100 dark:border-amber-800/40 rounded-xl px-6 py-4">
-        Các bài viết đầy đủ hiện chỉ có bằng tiếng Anh. Phiên bản tiếng Việt sẽ sớm được bổ sung.
+        Các bài viết dưới đây hiện chỉ có bằng tiếng Anh. Thêm bài viết tiếng Việt sẽ được cập nhật trong thời gian tới.
       </div>
 
       <div className="grid gap-8 md:grid-cols-2">
