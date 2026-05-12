@@ -186,6 +186,187 @@ adb pull [laluan yang diperolehi di atas]`}</code></pre>
       </>
     ),
   },
+  {
+    slug: "safe-reliable-apk-download-sites",
+    title: "Tapak Muat Turun APK Selamat: Sumber Paling Boleh Dipercayai (2026)",
+    description:
+      "Panduan ke laman web muat turun APK terbaik. gptoapk.com, APKMirror, APKPure, F-Droid, GitHub Releases — termasuk petua pengesahan fail.",
+    date: "2026-05-11",
+    readTime: "8 minit bacaan",
+    tags: ["APK Selamat", "Muat Turun APK", "Keselamatan"],
+    content: (
+      <>
+        <p>
+          Memuat turun fail APK dari sumber tidak rasmi boleh berbahaya — perisian hasad, penjejak,
+          dan pengubahsuaian kod berniat jahat hanyalah sebahagian daripada risikonya. Dalam panduan ini
+          kami kaji sumber paling selamat untuk memuat turun APK.
+        </p>
+
+        <h2>Kenapa Perlukan Sumber Boleh Dipercayai?</h2>
+        <p>
+          Google Play adalah kedai rasmi Android, tetapi kadang-kadang ia bukan pilihan terbaik:
+        </p>
+        <ul>
+          <li><strong>Google Play tidak tersedia</strong> — pada peranti China atau tanpa perkhidmatan Google</li>
+          <li><strong>Kembali ke versi lama</strong> — versi baru mungkin ada pepijat atau perubahan tidak diingini</li>
+          <li><strong>Ketidakserasian peranti</strong> — Google Play mungkin menyekat pemasangan walaupun apl berfungsi</li>
+          <li><strong>Sandaran APK</strong> — menyimpan apl kegemaran secara setempat</li>
+        </ul>
+
+        <h2>1. gptoapk.com — Pilihan Paling Selamat</h2>
+        <p>
+          <a href="https://gptoapk.com">gptoapk.com</a> adalah perkhidmatan muat turun APK paling selamat.
+          Sebabnya mudah: ia menarik fail APK terus dari CDN Google Play Store, tanpa mengubahnya dalam
+          apa cara sekalipun. Setiap fail datang dengan tandatangan digital asal pembangun, menjamin
+          anda memasang tepat apa yang akan dipasang oleh Google Play.
+        </p>
+        <p>
+          Kelebihan: tanpa pendaftaran, tanpa CAPTCHA, menyokong semua apl awam, dan yang paling
+          penting — fail 100% asli.
+        </p>
+
+        <h2>2. APKMirror</h2>
+        <p>
+          APKMirror adalah antara laman web muat turun APK tertua dan paling dipercayai. Milik
+          UpToDown, ia memeriksa setiap fail melalui tandatangan digital — hanya fail dengan
+          tandatangan sepadan diterbitkan. Laman ini menawarkan pelbagai versi apl yang sama.
+        </p>
+
+        <h2>3. APKPure</h2>
+        <p>
+          APKPure adalah kedai APK pihak ketiga yang terkenal. Ia menawarkan pelbagai apl dan
+          permainan, termasuk versi lama. Perlu diketahui bahawa APKPure tidak mengambil fail
+          terus dari Google — ia menyimpannya di pelayannya sendiri, jadi tahap kepercayaan lebih
+          rendah berbanding gptoapk.com.
+        </p>
+
+        <h2>4. F-Droid</h2>
+        <p>
+          F-Droid adalah repositori apl sumber terbuka. Semua apl di sini percuma dan kod sumber
+          tersedia untuk umum. Sumber yang bagus untuk apl yang mementingkan privasi, tetapi anda
+          tidak akan menemui apl komersial seperti WhatsApp atau TikTok.
+        </p>
+
+        <h2>5. GitHub Releases</h2>
+        <p>
+          Ramai pembangun menerbitkan fail APK mereka terus di GitHub Releases. Ini adalah sumber
+          paling selamat kerana fail datang terus dari pembangun. Cari projek sumber terbuka seperti
+          NewPipe, Signal atau Nextcloud.
+        </p>
+
+        <h2>Cara Memastikan APK Selamat?</h2>
+        <p>Walaupun dari sumber dipercayai, elok periksa fail sebelum pemasangan:</p>
+        <ol>
+          <li><strong>Pengesahan tandatangan digital</strong> — Gunakan arahan ini:
+            <pre><code>
+keytool -printcert -jarfile app.apk</code></pre>
+          </li>
+          <li><strong>Imbasan VirusTotal</strong> — Muat naik fail ke <a href="https://virustotal.com">VirusTotal.com</a> untuk diperiksa oleh puluhan enjin antivirus</li>
+          <li><strong>Semak kebenaran</strong> — Sebelum pemasangan, periksa kebenaran yang diminta. Lampu suluh tidak perlukan akses kepada kenalan</li>
+          <li><strong>Perbandingan SHA</strong> — Jika pembangun menerbitkan hash pengesahan, bandingkan dengan hash fail</li>
+        </ol>
+
+        <div className="bg-blue-50 dark:bg-blue-900/20 p-6 rounded-xl border border-blue-100 dark:border-blue-800 mt-8">
+          <p className="font-semibold text-lg mb-2">Muat Turun APK Selamat</p>
+          <p className="mb-3"><a href="https://gptoapk.com" className="text-blue-600 dark:text-blue-400 hover:underline font-medium">gptoapk.com</a> — cara paling selamat muat turun APK terus dari Google Play.</p>
+          <a href="https://gptoapk.com" className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-xl transition-colors">
+            Muat Turun APK
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+            </svg>
+          </a>
+        </div>
+      </>
+    ),
+  },
+  {
+    slug: "apk-vs-aab-complete-comparison",
+    title: "APK vs AAB: Perbandingan Lengkap (2026)",
+    description:
+      "Apa bezanya APK dan AAB? Panduan komprehensif yang menerangkan struktur, kelebihan dan kekurangan setiap format — dan kesannya kepada pengguna.",
+    date: "2026-05-11",
+    readTime: "8 minit bacaan",
+    tags: ["APK", "AAB", "Perbandingan"],
+    content: (
+      <>
+        <p>
+          Sejak 2021, Google Play Store mewajibkan pembangun untuk menerbitkan apl dalam format AAB
+          (Android App Bundle). Tapi apa maksudnya untuk pengguna biasa? Mari lihat perbezaan antara
+          APK dan AAB.
+        </p>
+
+        <h2>Apa Itu Fail APK?</h2>
+        <p>
+          APK (Android Package Kit) adalah format pengedaran tradisional Android. Ia mengandungi
+          segala yang diperlukan apl untuk berfungsi. Struktur fail APK tipikal:
+        </p>
+        <pre><code>{`app.apk/
+├── AndroidManifest.xml    // Identiti apl (nama pakej, kebenaran, komponen)
+├── classes.dex            // Kod Java/Kotlin yang dikompil
+├── res/                   // Sumber (imej, susun atur, terjemahan)
+├── lib/                   // Pustaka natif (C/C++ dioptimumkan untuk seni bina)
+│   ├── arm64-v8a/
+│   ├── armeabi-v7a/
+│   └── x86_64/
+├── META-INF/              // Maklumat tandatangan digital
+└── resources.arsc         // Indeks sumber dikompil`}</code></pre>
+
+        <h2>Apa Itu Fail AAB?</h2>
+        <p>
+          AAB (Android App Bundle) adalah format penerbitan yang diperkenalkan oleh Google. Ia tidak
+          boleh dipasang terus — sebaliknya, Google Play menggunakannya untuk mencipta APK
+          tersuai untuk setiap peranti. AAB mengandungi semua sumber apl, dan Google Play memilih
+          hanya apa yang diperlukan oleh peranti tertentu.
+        </p>
+
+        <h2>Perbandingan APK vs AAB</h2>
+        <ul>
+          <li><strong>Pemasangan terus</strong> — APK boleh dipasang terus; AAB mesti melalui Google Play</li>
+          <li><strong>Saiz fail</strong> — APK mengandungi sumber untuk semua peranti (lebih besar); AAB cipta APK fokus (lebih kecil)</li>
+          <li><strong>Perkongsian</strong> — APK mudah dikongsi; AAB tidak boleh dikongsi terus dengan pengguna lain</li>
+          <li><strong>Keserasian pihak ketiga</strong> — APK berfungsi di mana-mana; AAB bergantung pada Google Play</li>
+        </ul>
+
+        <h2>Bagaimana Ia Mempengaruhi Anda?</h2>
+        <p>
+          Bagi pengguna biasa, perbezaan utama adalah saiz fail. AAB menghasilkan APK lebih kecil
+          kerana ia hanya memasukkan apa yang diperlukan peranti anda. Tapi jika anda memuat turun
+          dari sumber pihak ketiga, anda masih perlukan APK — AAB tidak akan berfungsi.
+        </p>
+        <p>
+          Perkhidmatan seperti <a href="https://gptoapk.com">gptoapk.com</a> menukarkan AAB
+          kepada APK yang serasi untuk anda, supaya anda sentiasa dapat fail yang boleh digunakan.
+        </p>
+
+        <h2>Tukar AAB ke APK dengan bundletool</h2>
+        <p>
+          Untuk pembangun, AAB boleh ditukar ke APK menggunakan alat rasmi bundletool:
+        </p>
+        <pre><code>
+java -jar bundletool.jar build-apks --bundle=/path/app.aab --output=/path/app.apks
+
+// Ekstrak APK dari arkib
+unzip /path/app.apks -d /path/apk_output/</code></pre>
+
+        <h2>Soalan Lazim</h2>
+        <p><strong>Boleh AAB dipasang terus di telefon?</strong><br/>Tidak. AAB adalah format penerbitan, bukan format pemasangan. Ia mesti ditukar ke APK terlebih dahulu.</p>
+        <p><strong>Adakah APK akan hilang?</strong><br/>Tidak sepenuhnya. Google Play masih menjana APK tersuai dari AAB. APK akan kekal sebagai format untuk pemasangan tempatan dan perkongsian.</p>
+        <p><strong>Boleh APK ditukar ke AAB?</strong><br/>Tidak mudah. AAB memerlukan kod sumber dan Android Studio. Disyorkan untuk menyimpan kedua-dua AAB dan APK.</p>
+        <p><strong>Bagaimana dengan keselamatan?</strong><br/>Kedua-dua APK dan AAB menggunakan sistem tandatangan digital yang sama. Kedua-duanya selamat jika datang dari sumber dipercayai.</p>
+
+        <div className="bg-blue-50 dark:bg-blue-900/20 p-6 rounded-xl border border-blue-100 dark:border-blue-800 mt-8">
+          <p className="font-semibold text-lg mb-2">Muat Turun APK dari gptoapk.com</p>
+          <p className="mb-3"><a href="https://gptoapk.com" className="text-blue-600 dark:text-blue-400 hover:underline font-medium">gptoapk.com</a> — tampal pautan Google Play dan terima APK dalam beberapa saat.</p>
+          <a href="https://gptoapk.com" className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-xl transition-colors">
+            Muat Turun APK
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+            </svg>
+          </a>
+        </div>
+      </>
+    ),
+  },
 ];
 
 export async function generateStaticParams() {

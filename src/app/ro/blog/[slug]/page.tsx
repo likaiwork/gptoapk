@@ -186,6 +186,225 @@ adb pull [calea obținută mai sus]`}</code></pre>
       </>
     ),
   },
+  {
+    slug: "safe-reliable-apk-download-sites",
+    title: "7 Site-uri Sigure și de Încredere pentru Descărcat APK (Testate în 2026)",
+    description:
+      "Nu toate site-urile de descărcat APK sunt sigure. Iată 7 surse verificate pentru descărcarea fișierelor APK Android, testate și clasate după securitate și fiabilitate.",
+    date: "2026-05-11",
+    readTime: "8 min citire",
+    tags: ["APK sigur", "Site-uri APK", "gptoapk.com", "APKMirror"],
+    content: (
+      <>
+        <p>
+          Google Play Store este cea mai sigură sursă pentru aplicațiile Android. Există însă multe motive
+          legitime pentru a descărca fișiere APK din surse terțe — Google Play indisponibil pe unele
+          dispozitive, nevoia de a reveni la o versiune mai veche, restricții regionale sau testarea
+          diferitelor versiuni de către developeri.
+        </p>
+        <p>
+          Problema este că site-urile APK terțe sunt un câmp minat. Descărcarea dintr-o sursă greșită
+          poate însemna malware, adware sau spyware. După teste amănunțite, am pregătit 7 surse sigure
+          și de încredere pentru descărcarea APK.
+        </p>
+
+        <h2>1. gptoapk.com — Direct de pe Google Play (Cel Mai Bun)</h2>
+        <p>
+          <a href="https://gptoapk.com">gptoapk.com</a> nu este o oglindă APK tradițională — este un
+          instrument care extrage fișiere APK direct de pe serverele oficiale Google Play.
+        </p>
+        <ul>
+          <li><strong>Sursă 100% oficială:</strong> fără stocare de fișiere APK, preluare directă de pe CDN-ul Google Play</li>
+          <li><strong>Fără înregistrare:</strong> doar lipsești linkul din Google Play</li>
+          <li><strong>Descărcări rapide:</strong> utilizează infrastructura globală CDN a Google</li>
+          <li><strong>Mereu actualizat:</strong> preia cea mai nouă versiune de fiecare dată</li>
+        </ul>
+        <p><strong>Cel mai bun pentru:</strong> toate nevoile de descărcare APK din Google Play</p>
+
+        <h2>2. APKMirror — Standardul de Aur pentru APK Verificate</h2>
+        <p>
+          APKMirror este considerat cea mai de încredere oglindă APK, administrată de echipa Android
+          Police. Fiecare APK trece prin verificarea semnăturii (conformitatea cu semnătura Google Play),
+          oferă istoricul versiunilor și o interfață curată fără butoane înșelătoare.
+        </p>
+
+        <h2>3. APKPure — Alternativă Completă de Magazin de Aplicații</h2>
+        <p>
+          APKPure este un magazin complet de aplicații terțe care oferă descărcări APK pentru aplicații
+          globale. Suportă formatul XAPK (APK + date OBB), descrieri multilingve și notificări de
+          actualizare. Descărcați doar de pe site-ul oficial.
+        </p>
+
+        <h2>4. F-Droid — Comoara Open Source</h2>
+        <p>
+          Pentru aplicațiile Android open source, F-Droid este de neegalat. Fiecare aplicație are cod
+          sursă verificabil, APK semnate cu chei de dezvoltator, fără reclame sau urmărire. Include
+          un client de magazin integrat.
+        </p>
+
+        <h2>5. GitHub Releases — Distribuție Directă de la Developeri</h2>
+        <p>
+          Multe aplicații open source Android distribuie APK-uri prin GitHub Releases. Descărcările
+          vin direct din depozitele dezvoltatorilor, iar CDN-ul GitHub este sigur și fiabil. Notele
+          de lansare și changelog-urile sunt întotdeauna incluse.
+        </p>
+
+        <h2>6. Aptoide — Magazin Descentralizat de Aplicații</h2>
+        <p>
+          Aptoide este un magazin descentralizat de aplicații Android, în care oricine își poate crea
+          propriul canal. Arhitectura descentralizată elimină punctul unic de defect. Folosiți canale
+          oficiale sau cu rating ridicat.
+        </p>
+
+        <h2>7. Uptodown — Un Veteran de Încredere</h2>
+        <p>
+          Uptodown există din 2002 și oferă software pentru Windows, Mac și Android. Oferă mai multe
+          versiuni pentru fiecare aplicație, cu note detaliate și capturi de ecran. Declară scanarea
+          fișierelor încărcate pentru malware.
+        </p>
+
+        <h2>Lista de Verificare a Securității APK</h2>
+        <p><strong>Înainte de descărcare:</strong> verifică domeniul, citește comentariile utilizatorilor, compară dimensiunea fișierului.</p>
+        <p><strong>După descărcare:</strong></p>
+        <pre><code>{`// Verifică semnătura digitală
+keytool -printcert -jarfile app.apk
+
+// Scanează cu VirusTotal — încarcă APK-ul pentru scanare multi-motor
+
+// Verifică permisiunile — o aplicație de lanternă nu are nevoie de acces la contacte`}</code></pre>
+        <p><strong>Înainte de instalare:</strong> activează &quot;Surse necunoscute&quot; doar pentru instalare, evită APK-urile &quot;modded&quot; sau &quot;cracked&quot;.</p>
+
+        <h2>Rezumat</h2>
+        <p>
+          Pentru cea mai sigură experiență de descărcare APK: prima alegere este <a href="https://gptoapk.com">gptoapk.com</a> —
+          direct de pe Google Play, fără stocare de fișiere, fără risc de manipulare. A doua alegere
+          este APKMirror cu verificarea semnăturii. Pentru aplicații open source — F-Droid sau GitHub
+          Releases. Evită linkurile aleatorii de pe forumuri și oglinzile neverificate.
+        </p>
+
+        <div className="bg-blue-50 dark:bg-blue-900/20 p-6 rounded-xl border border-blue-100 dark:border-blue-800 mt-8">
+          <p className="font-semibold text-lg mb-2">Descarcă APK direct de pe Google Play — Fără Înregistrare</p>
+          <p className="mb-3">
+            <a href="https://gptoapk.com" className="text-blue-600 dark:text-blue-400 hover:underline font-medium">gptoapk.com</a> — Lipește linkul Google Play și primește APK-ul instantaneu. Fără reclame, fără înregistrare.
+          </p>
+          <a
+            href="https://gptoapk.com"
+            className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-xl transition-colors"
+          >
+            Încearcă gptoapk.com →
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+            </svg>
+          </a>
+        </div>
+      </>
+    ),
+  },
+  {
+    slug: "apk-vs-aab-complete-comparison",
+    title: "APK vs AAB: Comparație Completă și Ghid Definitiv (2026)",
+    description:
+      "APK versus Android App Bundle (AAB) — care este diferența și de ce contează? O comparație completă a ambelor formate, cum schimbă AAB distribuția aplicațiilor și ce înseamnă pentru utilizatori și developeri.",
+    date: "2026-05-11",
+    readTime: "8 min citire",
+    tags: ["APK vs AAB", "Android App Bundle", "Format APK", "Format AAB"],
+    content: (
+      <>
+        <p>
+          Google Play solicită acum ca toate aplicațiile noi să fie publicate ca Android App Bundles (AAB).
+          Ce înseamnă asta pentru developeri? Afectează utilizatorii obișnuiți? Acest ghid cuprinde
+          tot ce trebuie să știi.
+        </p>
+
+        <h2>Ce este APK?</h2>
+        <p>
+          APK (Android Package Kit) este formatul standard de instalare de la Android 1.0. Un fișier APK
+          tipic conține:
+        </p>
+        <pre><code>{`app.apk
+├── AndroidManifest.xml      // Manifestul aplicației (permisiuni, componente)
+├── classes.dex              // Cod byte DEX (cod Java/Kotlin compilat)
+├── classes2.dex / classes3.dex
+├── res/                     // Resurse (layout-uri, imagini, șiruri)
+├── lib/                     // Biblioteci native (armeabi-v7a, arm64-v8a, x86)
+├── assets/                  // Fișiere brute de active
+├── META-INF/                // Informații despre semnătură și certificat
+│   ├── MANIFEST.MF
+│   ├── CERT.RSA
+│   └── CERT.SF
+└── resources.arsc           // Tabel index de resurse compilat`}</code></pre>
+        <p>
+          APK este autonom — toate resursele pentru toate configurațiile de dispozitiv sunt împachetate
+          împreună. Înseamnă fișiere mai mari, dar compatibilitate universală.
+        </p>
+
+        <h2>Ce este AAB?</h2>
+        <p>
+          AAB (Android App Bundle) a fost introdus de Google în 2021 ca noul format de publicare pentru
+          Google Play. Spre deosebire de APK, AAB nu este un pachet instalabil — este un pachet de
+          publicare care conține tot codul și resursele. Google Play generează dinamic APK-uri optimizate
+          în timpul distribuției.
+        </p>
+        <pre><code>{`app.aab
+├── base/
+│   ├── manifest/
+│   ├── dex/
+│   ├── res/
+│   ├── assets/
+│   └── lib/
+├── feature1/                // Module livrate la cerere
+├── feature2/
+└── BundleConfig.pb          // Fișier de configurare`}</code></pre>
+
+        <h2>APK vs AAB: Comparație</h2>
+        <ul>
+          <li><strong>Instalare:</strong> APK — directă; AAB — necesită Google Play + bundletool</li>
+          <li><strong>Dimensiune fișier:</strong> APK — mai mare (toate resursele); AAB — mai mic (sursă necomprimată)</li>
+          <li><strong>Dimensiune descărcare:</strong> APK — pachet complet; AAB — optimizat de Google Play</li>
+          <li><strong>Sideloading:</strong> APK — suportat complet; AAB — necesită instrumente de conversie</li>
+          <li><strong>Cerință Google Play:</strong> APK — standard pre-2018; AAB — obligatoriu din august 2021</li>
+        </ul>
+
+        <h2>Cum Convertești AAB în APK?</h2>
+        <p><strong>Metoda 1: Folosind bundletool</strong></p>
+        <pre><code>{`// Instalează bundletool (macOS)
+brew install bundletool
+
+// Generează setul universal APK
+java -jar bundletool.jar build-apks \\
+  --bundle=/cale/catre/app.aab \\
+  --output=/cale/catre/app.apks \\
+  --ks=/cale/catre/keystore.jks \\
+  --ks-pass=pass:parola_ta
+
+// Instalează pe dispozitivul conectat
+java -jar bundletool.jar install-apks \\
+  --apks=/cale/catre/app.apks`}</code></pre>
+
+        <h2>FAQ</h2>
+        <p><strong>Este AAB viitorul?</strong> Da. Google promovează AAB ca format implicit de publicare în Google Play, iar funcții noi precum Instant Apps și modulele la cerere depind de el.</p>
+        <p><strong>Mai este APK necesar?</strong> Absolut. AAB se limitează la distribuția prin Google Play. Pentru sideloading, distribuție enterprise și dispozitive AOSP, APK rămâne esențial.</p>
+        <p><strong>Pot instala AAB manual?</strong> Nu direct. Ai nevoie de bundletool sau instrumente similare pentru a genera mai întâi un APK instalabil.</p>
+        <p><strong>Cum obțin versiuni mai vechi de APK?</strong> Folosește <a href="https://gptoapk.com">gptoapk.com</a> pentru cea mai nouă versiune direct de pe Google Play. Pentru versiuni mai vechi, verifică APKMirror.</p>
+
+        <div className="bg-blue-50 dark:bg-blue-900/20 p-6 rounded-xl border border-blue-100 dark:border-blue-800 mt-8">
+          <p className="font-semibold text-lg mb-2">Extrage Fișiere APK Online — Fără Instrumente Necesare</p>
+          <p className="mb-3">
+            <a href="https://gptoapk.com" className="text-blue-600 dark:text-blue-400 hover:underline font-medium">gptoapk.com</a> — Lipește orice link Google Play pentru a descărca APK-ul corespunzător. Suportă toate versiunile de aplicații.
+          </p>
+          <a
+            href="https://gptoapk.com"
+            className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-xl transition-colors"
+          >
+            Încearcă gptoapk.com →
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+            </svg>
+          </a>
+        </div>
+      </>
+    ),
+  },
 ];
 
 export async function generateStaticParams() {
