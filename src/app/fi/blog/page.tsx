@@ -43,6 +43,23 @@ const posts: BlogPost[] = [
     readTime: "7 min",
     tags: ["APK", "Android", "Aloittelijan Opas"],
   },
+    {
+      slug: "safe-reliable-apk-download-sites",
+      title: "7 Turvallista ja Luotettavaa APK-lataussivustoa (2026)",
+      description: "Kaikki APK-lataussivustot eivät ole turvallisia. Tässä 7 vahvistettua lähdettä.",
+      date: "2026-05-11",
+      readTime: "8 min read",
+      tags: ["APK Lataus", "Turvallisuus", "Android Vinkit"],
+    },
+    {
+      slug: "apk-vs-aab-complete-comparison",
+      title: "APK vs AAB: Täydellinen Vertailuopas (2026)",
+      description: "APK vs Android App Bundle — mitä eroa on ja miksi se on tärkeää?",
+      date: "2026-05-11",
+      readTime: "8 min read",
+      tags: ["APK vs AAB", "Android", "Sovelluskehitys"],
+    },
+
 ];
 
 export default function FiBlogPage() {

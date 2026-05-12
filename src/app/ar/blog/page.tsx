@@ -35,6 +35,23 @@ const posts = [
     readTime: "7 دقائق قراءة",
     tags: ["APK", "Android", "دليل المبتدئين"],
   },
+    {
+      slug: "safe-reliable-apk-download-sites",
+      title: "7 مواقع آمنة وموثوقة لتحميل APK (2026)",
+      description: "ليست كل مواقع تحميل APK آمنة. إليك 7 مصادر موثقة لتحميل ملفات APK لنظام Android.",
+      date: "2026-05-11",
+      readTime: "8 min read",
+      tags: ["تحميل APK", "الأمان", "نصائح Android"],
+    },
+    {
+      slug: "apk-vs-aab-complete-comparison",
+      title: "APK مقابل AAB: دليل المقارنة الشامل (2026)",
+      description: "APK مقابل Android App Bundle — ما الفرق ولماذا هو مهم؟ دليل شامل للمستخدمين والمطورين.",
+      date: "2026-05-11",
+      readTime: "8 min read",
+      tags: ["APK vs AAB", "Android", "تطوير التطبيقات"],
+    },
+
 ];
 
 export default function ArBlogPage() {

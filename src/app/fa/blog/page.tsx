@@ -31,6 +31,23 @@ const blogPosts = [
     readTime: "۷ دقیقه",
     tags: ["APK", "اندروید", "راهنمای مبتدیان"],
   },
+    {
+      slug: "safe-reliable-apk-download-sites",
+      title: "۷ سایت امن و قابل اعتماد دانلود APK (۲۰۲۶)",
+      description: "همه سایت‌های دانلود APK امن نیستند. در اینجا ۷ منبع تأیید شده.",
+      date: "2026-05-11",
+      readTime: "8 min read",
+      tags: ["دانلود APK", "امنیت", "نکات اندروید"],
+    },
+    {
+      slug: "apk-vs-aab-complete-comparison",
+      title: "APK در مقابل AAB: راهنمای مقایسه کامل (۲۰۲۶)",
+      description: "APK در مقابل Android App Bundle — تفاوت چیست و چرا مهم است؟",
+      date: "2026-05-11",
+      readTime: "8 min read",
+      tags: ["APK vs AAB", "اندروید", "توسعه اپلیکیشن"],
+    },
+
 ];
 
 export default function BlogIndexPage() {

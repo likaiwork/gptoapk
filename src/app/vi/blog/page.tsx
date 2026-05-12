@@ -42,6 +42,23 @@ const posts: BlogPost[] = [
     readTime: "7 phút đọc",
     tags: ["APK", "Android", "Hướng dẫn cơ bản"],
   },
+    {
+      slug: "safe-reliable-apk-download-sites",
+      title: "7 Trang Tải APK An Toàn và Đáng Tin Cậy (2026)",
+      description: "Không phải tất cả các trang tải APK đều an toàn. Dưới đây là 7 nguồn đã được xác minh.",
+      date: "2026-05-11",
+      readTime: "8 min read",
+      tags: ["Tải APK", "An toàn", "Mẹo Android"],
+    },
+    {
+      slug: "apk-vs-aab-complete-comparison",
+      title: "APK so với AAB: Hướng dẫn So sánh Toàn diện (2026)",
+      description: "APK so với Android App Bundle — sự khác biệt là gì và tại sao nó quan trọng?",
+      date: "2026-05-11",
+      readTime: "8 min read",
+      tags: ["APK vs AAB", "Android", "Phát triển ứng dụng"],
+    },
+
 ];
 
 export default function ViBlogPage() {

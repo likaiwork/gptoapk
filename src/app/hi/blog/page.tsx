@@ -35,6 +35,23 @@ const posts = [
     readTime: "7 मिनट पढ़ें",
     tags: ["APK", "Android", "शुरुआती गाइड"],
   },
+    {
+      slug: "safe-reliable-apk-download-sites",
+      title: "7 सुरक्षित और विश्वसनीय APK डाउनलोड साइट्स (2026)",
+      description: "सभी APK डाउनलोड साइट्स सुरक्षित नहीं होतीं। यहाँ 7 सत्यापित स्रोत।",
+      date: "2026-05-11",
+      readTime: "8 min read",
+      tags: ["APK डाउनलोड", "सुरक्षा", "Android टिप्स"],
+    },
+    {
+      slug: "apk-vs-aab-complete-comparison",
+      title: "APK बनाम AAB: पूर्ण तुलना गाइड (2026)",
+      description: "APK बनाम Android App Bundle — क्या अंतर है और यह क्यों मायने रखता है?",
+      date: "2026-05-11",
+      readTime: "8 min read",
+      tags: ["APK vs AAB", "Android", "ऐप डेवलपमेंट"],
+    },
+
 ];
 
 export default function HiBlogPage() {

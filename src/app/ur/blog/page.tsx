@@ -30,7 +30,23 @@ const blogPosts = [
     date: "2026-05-11",
     readTime: "7 min",
     tags: ["APK", "Android", "ابتدائی گائیڈ"],
-  },
+    },
+    {
+      slug: "safe-reliable-apk-download-sites",
+      title: "7 محفوظ اور قابل بھروسہ APK ڈاؤن لوڈ سائٹس (2026)",
+      description: "تمام APK ڈاؤن لوڈ سائٹس محفوظ نہیں ہیں۔ یہاں Android APK فائلیں ڈاؤن لوڈ کرنے کے 7 تصدیق شدہ ذرائع ہیں۔",
+      date: "2026-05-11",
+      readTime: "8 min read",
+      tags: ["APK ڈاؤن لوڈ", "سیکیورٹی", "Android ٹپس"],
+    },
+    {
+      slug: "apk-vs-aab-complete-comparison",
+      title: "APK بمقابلہ AAB: مکمل موازنہ (2026)",
+      description: "APK vs Android App Bundle — کیا فرق ہے اور یہ کیوں اہم ہے؟ صارفین اور ڈویلپرز کے لیے مکمل رہنما۔",
+      date: "2026-05-11",
+      readTime: "8 min read",
+      tags: ["APK vs AAB", "Android", "ایپ ڈویلپمنٹ"],
+    },
 ];
 
 export default function BlogIndexPage() {

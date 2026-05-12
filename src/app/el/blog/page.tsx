@@ -43,6 +43,23 @@ const posts: BlogPost[] = [
     readTime: "7 min",
     tags: ["APK", "Android", "Οδηγός Αρχαρίων"],
   },
+    {
+      slug: "safe-reliable-apk-download-sites",
+      title: "7 Ασφαλείς και Αξιόπιστες Ιστοσελίδες Λήψης APK (2026)",
+      description: "Δεν είναι όλες οι ιστοσελίδες λήψης APK ασφαλείς. Ορίστε 7 επαληθευμένες πηγές.",
+      date: "2026-05-11",
+      readTime: "8 min read",
+      tags: ["Λήψη APK", "Ασφάλεια", "Συμβουλές Android"],
+    },
+    {
+      slug: "apk-vs-aab-complete-comparison",
+      title: "APK vs AAB: Πλήρης Οδηγός Σύγκρισης (2026)",
+      description: "APK vs Android App Bundle — ποια είναι η διαφορά και γιατί έχει σημασία;",
+      date: "2026-05-11",
+      readTime: "8 min read",
+      tags: ["APK vs AAB", "Android", "Ανάπτυξη εφαρμογών"],
+    },
+
 ];
 
 export default function ElBlogPage() {

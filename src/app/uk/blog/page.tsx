@@ -31,6 +31,23 @@ const blogPosts = [
     readTime: "7 min",
     tags: ["APK", "Android", "Гід для початківців"],
   },
+    {
+      slug: "safe-reliable-apk-download-sites",
+      title: "7 Безпечних сайтів для завантаження APK (2026)",
+      description: "Не всі сайти для завантаження APK безпечні. Ось 7 перевірених джерел.",
+      date: "2026-05-11",
+      readTime: "8 min read",
+      tags: ["Завантаження APK", "Безпека", "Поради Android"],
+    },
+    {
+      slug: "apk-vs-aab-complete-comparison",
+      title: "APK vs AAB: Повне порівняння (2026)",
+      description: "APK vs Android App Bundle — яка різниця і чому це важливо?",
+      date: "2026-05-11",
+      readTime: "8 min read",
+      tags: ["APK vs AAB", "Android", "Розробка додатків"],
+    },
+
 ];
 
 export default function BlogIndexPage() {

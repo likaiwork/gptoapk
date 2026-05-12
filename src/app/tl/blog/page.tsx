@@ -31,6 +31,23 @@ const blogPosts = [
     readTime: "7 min",
     tags: ["APK", "Android", "Beginner Guide"],
   },
+    {
+      slug: "safe-reliable-apk-download-sites",
+      title: "7 Ligtas at Maaasahang APK Download Sites (2026)",
+      description: "Hindi lahat ng APK download site ay ligtas. Narito ang 7 napatunayang mapagkukunan.",
+      date: "2026-05-11",
+      readTime: "8 min read",
+      tags: ["APK Download", "Kaligtasan", "Android Tips"],
+    },
+    {
+      slug: "apk-vs-aab-complete-comparison",
+      title: "APK vs AAB: Kumpletong Paghahambing (2026)",
+      description: "APK vs Android App Bundle — ano ang pagkakaiba at bakit ito mahalaga?",
+      date: "2026-05-11",
+      readTime: "8 min read",
+      tags: ["APK vs AAB", "Android", "Pag-develop ng App"],
+    },
+
 ];
 
 export default function BlogIndexPage() {

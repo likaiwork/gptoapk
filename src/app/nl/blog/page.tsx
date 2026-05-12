@@ -43,6 +43,23 @@ const posts: BlogPost[] = [
     readTime: "7 min",
     tags: ["APK", "Android", "Beginnersgids"],
   },
+    {
+      slug: "safe-reliable-apk-download-sites",
+      title: "7 Veilige en Betrouwbare APK-downloadsites (2026)",
+      description: "Niet alle APK-downloadsites zijn veilig. Hier zijn 7 geverifieerde bronnen.",
+      date: "2026-05-11",
+      readTime: "8 min read",
+      tags: ["APK Download", "Veiligheid", "Android Tips"],
+    },
+    {
+      slug: "apk-vs-aab-complete-comparison",
+      title: "APK vs AAB: Volledige Vergelijkingsgids (2026)",
+      description: "APK vs Android App Bundle — wat is het verschil en waarom is het belangrijk?",
+      date: "2026-05-11",
+      readTime: "8 min read",
+      tags: ["APK vs AAB", "Android", "App-ontwikkeling"],
+    },
+
 ];
 
 export default function NlBlogPage() {

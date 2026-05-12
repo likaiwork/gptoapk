@@ -20,6 +20,23 @@ const posts = [
     readTime: "7 min",
     tags: ["APK", "Android", "Nybegynnerguide"],
   },
+    {
+      slug: "safe-reliable-apk-download-sites",
+      title: "7 Trygge og Pålitelige APK-nedlastingssider (2026)",
+      description: "Ikke alle APK-nedlastingssider er trygge. Her er 7 bekreftede kilder.",
+      date: "2026-05-11",
+      readTime: "8 min read",
+      tags: ["APK Nedlasting", "Sikkerhet", "Android Tips"],
+    },
+    {
+      slug: "apk-vs-aab-complete-comparison",
+      title: "APK vs AAB: Fullstendig Sammenligningsguide (2026)",
+      description: "APK vs Android App Bundle — hva er forskjellen og hvorfor er den viktig?",
+      date: "2026-05-11",
+      readTime: "8 min read",
+      tags: ["APK vs AAB", "Android", "App-utvikling"],
+    },
+
 ];
 
 export const metadata: Metadata = {

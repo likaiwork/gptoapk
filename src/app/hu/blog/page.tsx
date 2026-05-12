@@ -43,6 +43,23 @@ const posts: BlogPost[] = [
     readTime: "7 min",
     tags: ["APK", "Android", "Kezdő Útmutató"],
   },
+    {
+      slug: "safe-reliable-apk-download-sites",
+      title: "7 Biztonságos és Megbízható APK-letöltő Oldal (2026)",
+      description: "Nem minden APK-letöltő oldal biztonságos. Íme 7 ellenőrzött forrás.",
+      date: "2026-05-11",
+      readTime: "8 min read",
+      tags: ["APK Letöltés", "Biztonság", "Android Tippek"],
+    },
+    {
+      slug: "apk-vs-aab-complete-comparison",
+      title: "APK vs AAB: Teljes Összehasonlító Útmutató (2026)",
+      description: "APK vs Android App Bundle — mi a különbség és miért számít?",
+      date: "2026-05-11",
+      readTime: "8 min read",
+      tags: ["APK vs AAB", "Android", "Alkalmazásfejlesztés"],
+    },
+
 ];
 
 export default function HuBlogPage() {

@@ -43,6 +43,23 @@ const posts: BlogPost[] = [
     readTime: "7 min",
     tags: ["APK", "Android", "Begynderguide"],
   },
+    {
+      slug: "safe-reliable-apk-download-sites",
+      title: "7 Sikre og Pålidelige APK-downloadsider (2026)",
+      description: "Ikke alle APK-downloadsider er sikre. Her er 7 verificerede kilder.",
+      date: "2026-05-11",
+      readTime: "8 min read",
+      tags: ["APK Download", "Sikkerhed", "Android Tips"],
+    },
+    {
+      slug: "apk-vs-aab-complete-comparison",
+      title: "APK vs AAB: Komplet Sammenligningsguide (2026)",
+      description: "APK vs Android App Bundle — hvad er forskellen, og hvorfor er den vigtig?",
+      date: "2026-05-11",
+      readTime: "8 min read",
+      tags: ["APK vs AAB", "Android", "App-udvikling"],
+    },
+
 ];
 
 export default function DaBlogPage() {

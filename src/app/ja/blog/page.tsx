@@ -36,6 +36,23 @@ export default function JaBlogPage() {
       readTime: "7 min read",
       tags: ["APK", "Android", "初心者ガイド"],
     },
+    {
+      slug: "safe-reliable-apk-download-sites",
+      title: "安全で信頼できるAPKダウンロードサイト7選（2026年検証済）",
+      description: "すべてのAPKダウンロードサイトが安全とは限りません。検証済みの7つのソースをご紹介します。",
+      date: "2026-05-11",
+      readTime: "8 min read",
+      tags: ["APKダウンロード", "セキュリティ", "おすすめ"],
+    },
+    {
+      slug: "apk-vs-aab-complete-comparison",
+      title: "APK vs AAB：完全比較ガイド（2026年版）",
+      description: "APKとAndroid App Bundle（AAB）の違いを解説。",
+      date: "2026-05-11",
+      readTime: "8 min read",
+      tags: ["APK vs AAB", "Android", "アプリ開発"],
+    },
+
   ];
 
   return (

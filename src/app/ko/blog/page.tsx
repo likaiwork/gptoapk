@@ -1,40 +1,55 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { posts } from "./[slug]/page";
 
-export const metadata: Metadata = {
-  title: "블로그 - APK 다운로더 가이드 및 튜토리얼 | gptoapk.com",
-  description:
-    "Google Play 스토어에서 APK를 다운로드하는 방법, APK 다운로드 도구 비교, APK 파일 구조 이해, Android 앱 설치 마스터를 위한 종합 가이드를 확인하세요.",
-  alternates: {
-    canonical: "https://gptoapk.com/ko/blog",
-    languages: {
-      en: "https://gptoapk.com/en/blog",
-      zh: "https://gptoapk.com/zh/blog",
-      ko: "https://gptoapk.com/ko/blog",
-      "x-default": "https://gptoapk.com/en/blog",
+const posts = [
+    {
+      slug: "how-to-download-apk-from-google-play",
+      title: "Google Play에서 APK 다운로드하는 완벽 가이드 (2026)",
+      description: "Google Play 스토어에서 APK 파일을 추출하는 단계별 방법. 웹 도구, ADB 명령어, 안전한 다운로드 팁까지.",
+      date: "2026-05-11",
+      readTime: "6 min read",
+      tags: ["APK 다운로드", "Google Play", "가이드"],
     },
-  },
-};
+    {
+      slug: "what-is-an-apk-file",
+      title: "APK 파일이란? 완벽 가이드",
+      description: "APK 파일에 대해 알아야 할 모든 것 – 구조, 보안, AAB와의 차이점, Android 보안에 미치는 영향.",
+      date: "2026-05-11",
+      readTime: "7 min read",
+      tags: ["APK", "Android", "초보자 가이드"],
+    },
+    {
+      slug: "safe-reliable-apk-download-sites",
+      title: "안전하고 신뢰할 수 있는 APK 다운로드 사이트 7선 (2026)",
+      description: "모든 APK 다운로드 사이트가 안전한 것은 아닙니다. 검증된 7가지 신뢰할 수 있는 APK 소스를 소개합니다.",
+      date: "2026-05-11",
+      readTime: "8 min read",
+      tags: ["APK 다운로드", "보안", "안드로이드 팁"],
+    },
+    {
+      slug: "apk-vs-aab-complete-comparison",
+      title: "APK vs AAB: 완벽 비교 가이드 (2026)",
+      description: "APK와 Android App Bundle의 차이점과 그 중요성을 알아보세요. 사용자와 개발자를 위한 완벽 가이드입니다.",
+      date: "2026-05-11",
+      readTime: "8 min read",
+      tags: ["APK vs AAB", "Android", "앱 개발"],
+    },
+  ];
 
-export default function KoBlogPage() {
+export default function BlogIndexPage() {
   return (
-    <div className="max-w-5xl mx-auto px-4 py-16">
-      <div className="text-center mb-12">
-        <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight mb-4">
-          APK 다운로더 블로그
-        </h1>
-        <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-          Google Play 스토어에서 APK 파일을 다운로드하기 위한 가이드, 튜토리얼, 팁.
-        </p>
-      </div>
+    <div className="max-w-3xl mx-auto px-4 py-16">
+      <h1 className="text-4xl font-extrabold tracking-tight mb-2">Blog</h1>
+      <p className="text-gray-600 dark:text-gray-400 mb-12 text-lg">
+        APK Downloader Guides & Tutorials
+      </p>
 
-      <div className="grid gap-8 md:grid-cols-2">
+      <div className="space-y-8">
         {posts.map((post) => (
           <Link
             key={post.slug}
             href={`/ko/blog/${post.slug}`}
-            className="block p-6 rounded-xl border border-gray-200 dark:border-gray-700 hover:border-blue-500 dark:hover:border-blue-500 transition-colors"
+            className="block bg-white dark:bg-slate-800 rounded-xl p-6 border border-slate-200 dark:border-slate-700 hover:border-blue-300 dark:hover:border-blue-600 transition-all hover:shadow-md"
           >
             <div className="flex flex-wrap gap-2 mb-3">
               {post.tags.map((tag) => (
@@ -47,9 +62,7 @@ export default function KoBlogPage() {
               ))}
             </div>
             <h2 className="text-xl font-bold mb-2">{post.title}</h2>
-            <p className="text-gray-600 dark:text-gray-400 mb-3">
-              {post.description}
-            </p>
+            <p className="text-gray-600 dark:text-gray-400 mb-3">{post.description}</p>
             <div className="flex items-center gap-4 text-sm text-gray-500">
               <time dateTime={post.date}>{post.date}</time>
               <span>·</span>
@@ -64,7 +77,7 @@ export default function KoBlogPage() {
           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
           </svg>
-          APK 다운로더로 돌아가기
+          APK Downloader로 돌아가기
         </Link>
       </div>
     </div>
