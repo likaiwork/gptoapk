@@ -1,10 +1,12 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-const locales = ["en", "zh"] as const;
+const locales = ["en", "zh", "ja", "pt", "es", "ru", "id", "hi"] as const;
 const defaultLocale = "en";
 
 type Locale = (typeof locales)[number];
+
+const localeAliasPattern = /^\/(en|zh|ja|pt|es|ru|id|hi)\/(en|zh|ja|pt|es|ru|id|hi)(\/.*)?$/;
 
 function detectLocale(acceptLanguage: string | null): Locale {
   if (!acceptLanguage) return defaultLocale; // 检查：缺少浏览器语言时使用英文默认值
@@ -15,6 +17,13 @@ function detectLocale(acceptLanguage: string | null): Locale {
 
   for (const language of preferredLanguages) {
     if (language === "zh" || language.startsWith("zh-")) return "zh";
+    if (language === "ja" || language.startsWith("ja-")) return "ja";
+    if (language === "pt" || language.startsWith("pt-")) return "pt";
+    if (language === "es" || language.startsWith("es-")) return "es";
+    if (language === "ru" || language.startsWith("ru-")) return "ru";
+    if (language === "id" || language.startsWith("id-")) return "id";
+    if (language === "in" || language.startsWith("in-")) return "id"; // 检查：旧 ISO 标识 in 等同于 id
+    if (language === "hi" || language.startsWith("hi-")) return "hi";
     if (language === "en" || language.startsWith("en-")) return "en";
   }
 
@@ -24,8 +33,8 @@ function detectLocale(acceptLanguage: string | null): Locale {
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  const malformedLocaleMatch = pathname.match(/^\/(en|zh)\/(en|zh)(\/.*)?$/);
-  if (malformedLocaleMatch && malformedLocaleMatch[1] !== malformedLocaleMatch[2]) { // 检查：修复旧语言切换产生的 /zh/en 或 /en/zh
+  const malformedLocaleMatch = pathname.match(localeAliasPattern);
+  if (malformedLocaleMatch && malformedLocaleMatch[1] !== malformedLocaleMatch[2]) { // 检查：修复 /zh/en、/en/ja 等旧链接产生的嵌套 locale
     const newUrl = new URL(request.url);
     newUrl.pathname = `/${malformedLocaleMatch[2]}${malformedLocaleMatch[3] ?? ""}`;
     newUrl.search = request.nextUrl.search;

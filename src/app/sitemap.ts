@@ -28,42 +28,69 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "google-play-link-to-apk-step-by-step",
   ];
 
+  // 检查：除 en/zh 外，其他语言只暴露首页 / FAQ / Blog 列表，blog 详情统一指向 en
+  const shellLocales = ["ja", "pt", "es", "ru", "id", "hi"] as const;
+
+  const homepageAlternates: Record<string, string> = {
+    en: `${baseUrl}/en`,
+    zh: `${baseUrl}/zh`,
+    ja: `${baseUrl}/ja`,
+    pt: `${baseUrl}/pt`,
+    es: `${baseUrl}/es`,
+    ru: `${baseUrl}/ru`,
+    id: `${baseUrl}/id`,
+    hi: `${baseUrl}/hi`,
+    "x-default": `${baseUrl}/en`,
+  };
+
+  const faqAlternates: Record<string, string> = {
+    en: `${baseUrl}/en/faq`,
+    zh: `${baseUrl}/zh/faq`,
+    ja: `${baseUrl}/ja/faq`,
+    pt: `${baseUrl}/pt/faq`,
+    es: `${baseUrl}/es/faq`,
+    ru: `${baseUrl}/ru/faq`,
+    id: `${baseUrl}/id/faq`,
+    hi: `${baseUrl}/hi/faq`,
+    "x-default": `${baseUrl}/en/faq`,
+  };
+
+  const blogListAlternates: Record<string, string> = {
+    en: `${baseUrl}/en/blog`,
+    zh: `${baseUrl}/zh/blog`,
+    ja: `${baseUrl}/ja/blog`,
+    pt: `${baseUrl}/pt/blog`,
+    es: `${baseUrl}/es/blog`,
+    ru: `${baseUrl}/ru/blog`,
+    id: `${baseUrl}/id/blog`,
+    hi: `${baseUrl}/hi/blog`,
+    "x-default": `${baseUrl}/en/blog`,
+  };
+
   const entries: MetadataRoute.Sitemap = [
     {
-      url: baseUrl,
-      lastModified: new Date("2026-05-11"),
+      url: `${baseUrl}/en`,
+      lastModified: new Date("2026-05-12"),
       changeFrequency: "daily" as const,
       priority: 1.0,
-      alternates: {
-        languages: {
-          zh: `${baseUrl}/zh`,
-        },
-      },
+      alternates: { languages: homepageAlternates },
     },
     {
-      url: `${baseUrl}/faq`,
-      lastModified: new Date("2026-05-11"),
+      url: `${baseUrl}/en/faq`,
+      lastModified: new Date("2026-05-12"),
       changeFrequency: "weekly" as const,
       priority: 0.8,
-      alternates: {
-        languages: {
-          zh: `${baseUrl}/zh/faq`,
-        },
-      },
+      alternates: { languages: faqAlternates },
     },
     {
-      url: `${baseUrl}/blog`,
-      lastModified: new Date("2026-05-11"),
+      url: `${baseUrl}/en/blog`,
+      lastModified: new Date("2026-05-12"),
       changeFrequency: "weekly" as const,
       priority: 0.9,
-      alternates: {
-        languages: {
-          zh: `${baseUrl}/zh/blog`,
-        },
-      },
+      alternates: { languages: blogListAlternates },
     },
     ...enBlogSlugs.map((slug) => ({
-      url: `${baseUrl}/blog/${slug}` as const,
+      url: `${baseUrl}/en/blog/${slug}` as const,
       lastModified: new Date("2026-05-11"),
       changeFrequency: "monthly" as const,
       priority: 0.7 as const,
@@ -75,22 +102,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
         },
       } : {}),
     })),
-    // zh-specific pages
     {
       url: `${baseUrl}/zh`,
-      lastModified: new Date("2026-05-11"),
+      lastModified: new Date("2026-05-12"),
       changeFrequency: "daily" as const,
       priority: 0.9,
     },
     {
       url: `${baseUrl}/zh/faq`,
-      lastModified: new Date("2026-05-11"),
+      lastModified: new Date("2026-05-12"),
       changeFrequency: "weekly" as const,
       priority: 0.7,
     },
     {
       url: `${baseUrl}/zh/blog`,
-      lastModified: new Date("2026-05-11"),
+      lastModified: new Date("2026-05-12"),
       changeFrequency: "weekly" as const,
       priority: 0.8,
     },
@@ -100,6 +126,26 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly" as const,
       priority: 0.6 as const,
     })),
+    ...shellLocales.flatMap((locale) => [
+      {
+        url: `${baseUrl}/${locale}` as const,
+        lastModified: new Date("2026-05-12"),
+        changeFrequency: "weekly" as const,
+        priority: 0.8 as const,
+      },
+      {
+        url: `${baseUrl}/${locale}/faq` as const,
+        lastModified: new Date("2026-05-12"),
+        changeFrequency: "monthly" as const,
+        priority: 0.6 as const,
+      },
+      {
+        url: `${baseUrl}/${locale}/blog` as const,
+        lastModified: new Date("2026-05-12"),
+        changeFrequency: "monthly" as const,
+        priority: 0.6 as const,
+      },
+    ]),
   ];
 
   return entries;

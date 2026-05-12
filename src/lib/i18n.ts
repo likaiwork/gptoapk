@@ -3,9 +3,9 @@
  * Simple JSON-based translation system for Next.js App Router
  */
 
-export type Locale = "en" | "zh";
+export type Locale = "en" | "zh" | "ja" | "pt" | "es" | "ru" | "id" | "hi";
 
-export const locales: Locale[] = ["en", "zh"];
+export const locales: Locale[] = ["en", "zh", "ja", "pt", "es", "ru", "id", "hi"];
 export const defaultLocale: Locale = "en";
 
 // Messages type
