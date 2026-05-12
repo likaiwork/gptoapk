@@ -1,7 +1,7 @@
 "use client";
 
-import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useState, useRef, useEffect } from "react";
 
 const enNav = [
   { label: "Home", href: "/en" },
@@ -15,10 +15,94 @@ const zhNav = [
   { label: "FAQ", href: "/faq" },
 ];
 
+/**
+ * Map a slug between Chinese and English routes.
+ * Returns the counterpart route for the given pathname.
+ *
+ * Examples:
+ *   /zh/blog/how-to-download-apk-from-google-play → /en/blog/how-to-download-apk-from-google-play
+ *   /en/blog/how-to-download-apk-from-google-play → /zh/blog/how-to-download-apk-from-google-play
+ *   /zh/faq → /en/faq
+ *   / → /en
+ *   /faq → /en/faq
+ *
+ * Chinese slugs (only 7 exist in zh/blog) get mapped to the corresponding English slug.
+ * English-only slugs (5 new ones) don't have Chinese versions — they stay at /en/blog/.
+ */
+const zhSlugToEn: Record<string, string> = {
+  "how-to-download-apk-from-google-play": "how-to-download-apk-from-google-play",
+  "apk-downloader-tool-comparison": "apk-downloader-tool-comparison",
+  "what-is-an-apk-file": "what-is-an-apk-file",
+  "how-to-install-apk-on-android": "how-to-install-apk-on-android",
+  "google-play-link-to-apk-troubleshooting": "google-play-link-to-apk-troubleshooting",
+  "google-play-link-to-apk-tips": "google-play-link-to-apk-tips",
+  "google-play-link-to-apk-step-by-step": "google-play-link-to-apk-step-by-step",
+};
+
+function getLanguageSwitchHref(pathname: string): string {
+  const isEn = pathname.startsWith("/en");
+  const rest = isEn ? pathname.replace(/^\/en/, "") || "/" : pathname;
+
+  if (isEn) {
+    // English → Chinese
+    // /en/blog/xxx → /zh/blog/xxx (if zh slug exists) or just /zh/blog
+    // /en/faq → /zh/faq
+    // /en → /
+    if (rest === "/" || rest === "") return "/";
+    // For blog/[slug] routes
+    const blogMatch = rest.match(/^\/blog\/(.+)$/);
+    if (blogMatch) {
+      const slug = blogMatch[1];
+      if (zhSlugToEn[slug]) {
+        return `/zh/blog/${slug}`;
+      }
+      // English-only slug — no Chinese version, go to blog list
+      return "/zh/blog";
+    }
+    // faq
+    if (rest.startsWith("/faq")) return "/zh/faq";
+    // app pages
+    if (rest.startsWith("/app/")) return `/zh${rest}`;
+    return `/zh${rest}`;
+  } else {
+    // Chinese → English
+    // /zh/blog/xxx → /en/blog/xxx
+    // /zh → /en
+    if (rest === "/" || rest === "") return "/en";
+    // /zh/blog → /en/blog
+    if (rest === "/blog") return "/en/blog";
+    // /zh/blog/xxx → /en/blog/xxx
+    const blogMatch = rest.match(/^\/blog\/(.+)$/);
+    if (blogMatch) {
+      const slug = blogMatch[1];
+      return `/en/blog/${slug}`;
+    }
+    // faq
+    if (rest.startsWith("/faq")) return "/en/faq";
+    // app
+    if (rest.startsWith("/app/")) return `/en${rest}`;
+    return `/en${rest}`;
+  }
+}
+
 export default function Header() {
   const pathname = usePathname();
   const isEn = pathname.startsWith("/en");
   const nav = isEn ? enNav : zhNav;
+  const switchHref = getLanguageSwitchHref(pathname);
+
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (ref.current && !ref.current.contains(e.target as Node)) {
+        setOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-white/80 dark:bg-slate-950/80 backdrop-blur">
@@ -42,15 +126,43 @@ export default function Header() {
               {item.label}
             </a>
           ))}
-          <a
-            href={isEn ? "/" : "/en"}
-            className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg border border-slate-300 dark:border-slate-600 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors text-xs font-medium"
-          >
-            <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
-            </svg>
-            {isEn ? "中文" : "English"}
-          </a>
+
+          {/* Language Switcher Dropdown */}
+          <div className="relative" ref={ref}>
+            <button
+              onClick={() => setOpen(!open)}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-300 dark:border-slate-600 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors text-xs font-medium"
+            >
+              <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+              </svg>
+              {isEn ? "EN" : "中文"}
+              <svg className={`w-3 h-3 transition-transform ${open ? "rotate-180" : ""}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+
+            {open && (
+              <div className="absolute right-0 mt-2 w-36 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 shadow-lg py-1 text-sm">
+                <a
+                  href={isEn ? switchHref : "/"}
+                  onClick={() => setOpen(false)}
+                  className={`flex items-center gap-2 px-4 py-2.5 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors ${!isEn ? "font-semibold text-blue-600 dark:text-blue-400" : "text-slate-700 dark:text-slate-300"}`}
+                >
+                  <span className="text-base">🇨🇳</span>
+                  <span>中文</span>
+                </a>
+                <a
+                  href={isEn ? "/en" : switchHref}
+                  onClick={() => setOpen(false)}
+                  className={`flex items-center gap-2 px-4 py-2.5 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors ${isEn ? "font-semibold text-blue-600 dark:text-blue-400" : "text-slate-700 dark:text-slate-300"}`}
+                >
+                  <span className="text-base">🇬🇧</span>
+                  <span>English</span>
+                </a>
+              </div>
+            )}
+          </div>
         </nav>
       </div>
     </header>
