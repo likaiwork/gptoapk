@@ -369,18 +369,19 @@ adb pull [путь-из-команды-выше]`}</code>
   },
 ];
 
-export function generateStaticParams() {
+export async function generateStaticParams() {
   return posts.map((post) => ({
     slug: post.slug,
   }));
 }
 
-export function generateMetadata({
+export async function generateMetadata({
   params,
 }: {
-  params: { slug: string };
-}): Metadata {
-  const post = posts.find((p) => p.slug === params.slug);
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const post = posts.find((p) => p.slug === slug);
   if (!post) return {};
 
   return {
@@ -394,14 +395,16 @@ export function generateMetadata({
         "x-default": `https://gptoapk.com/en/blog/${post.slug}`,
       },
     },
-    other: {
-      inLanguage: "ru",
-    },
   };
 }
 
-export default function BlogPostPage({ params }: { params: { slug: string } }) {
-  const post = posts.find((p) => p.slug === params.slug);
+export default async function BlogPostPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  const post = posts.find((p) => p.slug === slug);
 
   if (!post) {
     notFound();
