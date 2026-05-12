@@ -4,6 +4,7 @@ import Script from "next/script";
 import { headers } from "next/headers";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import AnalyticsRouteEvents from "@/components/AnalyticsRouteEvents";
 import "./globals.css";
 import { SITE_LOCALES, isRtlLocale } from "@/lib/site-locales";
 
@@ -109,6 +110,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />
+        <AnalyticsRouteEvents />
 
         <Script
           id="ga4-src"

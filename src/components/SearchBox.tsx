@@ -5,6 +5,19 @@ import { useRouter, usePathname } from "next/navigation";
 import { localePathRegex } from "@/lib/site-locales";
 import type { SiteLocale } from "@/lib/site-locales";
 import { searchUi } from "@/lib/search-ui";
+import { analyticsEvents } from "@/lib/analytics-events";
+import { trackEvent } from "@/lib/client-analytics";
+
+type FetchInfoResponse = {
+  error?: string;
+  appId?: string;
+  lang?: string;
+  country?: string;
+};
+
+function getInputType(value: string) {
+  return value.includes("play.google.com") ? "google_play_url" : "package_name";
+}
 
 export default function SearchBox() {
   const [url, setUrl] = useState("");
@@ -20,8 +33,22 @@ export default function SearchBox() {
   const isLoading = isFetching || isPending;
 
   const handleGenerate = async () => {
-    if (!url.trim()) {
+    const query = url.trim();
+    const startedAt = performance.now();
+
+    trackEvent(analyticsEvents.searchSubmit, {
+      locale,
+      input_type: query ? getInputType(query) : "empty",
+      path: pathname,
+    });
+
+    if (!query) {
       setError(ui.emptyError);
+      trackEvent(analyticsEvents.parseFailed, {
+        locale,
+        reason: "empty_input",
+        duration_ms: Math.round(performance.now() - startedAt),
+      });
       return;
     }
 
@@ -29,12 +56,21 @@ export default function SearchBox() {
     setError("");
 
     try {
-      const res = await fetch(`/api/fetch-info?url=${encodeURIComponent(url)}`);
-      const data = await res.json();
+      const res = await fetch(`/api/fetch-info?url=${encodeURIComponent(query)}`);
+      const data = (await res.json()) as FetchInfoResponse;
 
-      if (!res.ok) {
+      if (!res.ok || !data.appId) {
         throw new Error(data.error || "Failed to fetch app info");
       }
+
+      trackEvent(analyticsEvents.parseSuccess, {
+        app_id: data.appId,
+        locale,
+        lang: data.lang,
+        country: data.country,
+        input_type: getInputType(query),
+        duration_ms: Math.round(performance.now() - startedAt),
+      });
 
       const queryParams = new URLSearchParams();
       if (data.lang && data.lang !== 'en') queryParams.append('hl', data.lang);
@@ -46,8 +82,15 @@ export default function SearchBox() {
       startTransition(() => {
         router.push(target);
       });
-    } catch (err: any) {
-      setError(err.message);
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : "Failed to fetch app info";
+      trackEvent(analyticsEvents.parseFailed, {
+        locale,
+        input_type: getInputType(query),
+        reason: message,
+        duration_ms: Math.round(performance.now() - startedAt),
+      });
+      setError(message);
     } finally {
       setIsFetching(false);
     }

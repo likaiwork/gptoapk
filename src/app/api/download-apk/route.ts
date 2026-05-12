@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { fetchDispatcher } from '@/lib/proxy';
+import { analyticsEvents, trackServerEvent } from '@/lib/server-analytics';
 
 export const runtime = 'nodejs';
 export const maxDuration = 300;
@@ -85,24 +86,37 @@ function formatBytes(bytes: number) {
 function createLimitedStream(
   source: ReadableStream<Uint8Array>,
   byteLimit: number,
-  onComplete: () => void,
-  onAbort: () => void
+  onComplete: () => void | Promise<void>,
+  onAbort: (reason: string) => void | Promise<void>
 ) {
   const reader = source.getReader();
   let transferred = 0;
+  let closed = false;
+
+  async function complete() {
+    if (closed) return;
+    closed = true;
+    await onComplete();
+  }
+
+  async function abort(reason: string) {
+    if (closed) return;
+    closed = true;
+    await onAbort(reason);
+  }
 
   return new ReadableStream<Uint8Array>({
     async pull(controller) {
       const { done, value } = await reader.read();
       if (done) {
-        onComplete();
+        await complete();
         controller.close();
         return;
       }
 
       transferred += value.byteLength;
       if (transferred > byteLimit) {
-        onAbort();
+        await abort('size_limit');
         controller.error(new Error('APK exceeds proxy size limit'));
         return;
       }
@@ -110,7 +124,7 @@ function createLimitedStream(
       controller.enqueue(value);
     },
     async cancel(reason) {
-      onAbort();
+      await abort(reason ? 'client_cancel' : 'stream_cancel');
       await reader.cancel(reason);
     },
   });
@@ -190,6 +204,7 @@ async function resolveDownloadSource(appId: string) {
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const appId = searchParams.get('appId')?.trim();
+  const startedAt = Date.now();
 
   if (!appId) {
     return NextResponse.json({ success: false, error: 'Missing appId' }, { status: 400 });
@@ -197,6 +212,13 @@ export async function GET(request: Request) {
 
   const result = await resolveDownloadSource(appId);
   if (!result) {
+    void trackServerEvent(request, analyticsEvents.downloadFailed, {
+      app_id: appId,
+      stage: 'source_resolution',
+      reason: 'source_not_available',
+      duration_ms: Date.now() - startedAt,
+    });
+
     return NextResponse.json(
       { success: false, error: 'This APK is not available from our sources.' },
       { status: 404 }
@@ -213,6 +235,14 @@ export async function GET(request: Request) {
 
     if (!upstream.ok || !upstream.body) {
       timeout.clear();
+      void trackServerEvent(request, analyticsEvents.downloadFailed, {
+        app_id: appId,
+        source: result.source,
+        stage: 'upstream_response',
+        upstream_status: upstream.status,
+        duration_ms: Date.now() - startedAt,
+      });
+
       return NextResponse.json(
         { success: false, error: `Upstream download failed (${upstream.status})` },
         { status: 502 }
@@ -223,6 +253,15 @@ export async function GET(request: Request) {
     if (contentLength > MAX_PROXY_BYTES) {
       timeout.abort();
       timeout.clear();
+      void trackServerEvent(request, analyticsEvents.downloadFailed, {
+        app_id: appId,
+        source: result.source,
+        stage: 'size_limit',
+        file_size: contentLength,
+        max_proxy_bytes: MAX_PROXY_BYTES,
+        duration_ms: Date.now() - startedAt,
+      });
+
       return NextResponse.json(
         {
           success: false,
@@ -251,13 +290,41 @@ export async function GET(request: Request) {
       headers.set('X-APK-MD5', result.md5);
     }
 
+    void trackServerEvent(request, analyticsEvents.downloadStart, {
+      app_id: appId,
+      source: result.source,
+      version: result.version,
+      file_size: contentLength || result.size,
+      proxy: 'vercel-stream',
+      duration_ms: Date.now() - startedAt,
+    });
+
+    let streamEventSent = false;
+    const trackStreamEnd = async (eventName: typeof analyticsEvents.downloadSuccess | typeof analyticsEvents.downloadFailed, params: Record<string, string | number | null>) => {
+      if (streamEventSent) return;
+      streamEventSent = true;
+      await trackServerEvent(request, eventName, {
+        app_id: appId,
+        source: result.source,
+        version: result.version,
+        file_size: contentLength || result.size,
+        proxy: 'vercel-stream',
+        duration_ms: Date.now() - startedAt,
+        ...params,
+      });
+    };
+
     const body = createLimitedStream(
       upstream.body,
       MAX_PROXY_BYTES,
-      timeout.clear,
-      () => {
+      async () => {
+        timeout.clear();
+        await trackStreamEnd(analyticsEvents.downloadSuccess, { stage: 'stream_complete' });
+      },
+      async (reason) => {
         timeout.abort();
         timeout.clear();
+        await trackStreamEnd(analyticsEvents.downloadFailed, { stage: 'stream_abort', reason });
       }
     );
 
@@ -265,6 +332,14 @@ export async function GET(request: Request) {
   } catch (err) {
     timeout.clear();
     const isAbort = err instanceof DOMException && err.name === 'AbortError';
+    void trackServerEvent(request, analyticsEvents.downloadFailed, {
+      app_id: appId,
+      source: result.source,
+      stage: isAbort ? 'timeout' : 'proxy_error',
+      reason: err instanceof Error ? err.message : 'unknown_error',
+      duration_ms: Date.now() - startedAt,
+    });
+
     return NextResponse.json(
       {
         success: false,

@@ -1,10 +1,23 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { analyticsEvents } from "@/lib/analytics-events";
+import { trackEvent } from "@/lib/client-analytics";
 
 type Status = "idle" | "preparing" | "started";
 
 const ESTIMATED_SECONDS = 5;
+
+type DownloadResponse = {
+  success?: boolean;
+  error?: string;
+  downloadUrl?: string;
+  fileName?: string;
+  source?: string;
+  version?: string | null;
+  size?: number | null;
+  proxy?: string;
+};
 
 export default function DownloadButton({ appId }: { appId: string, appName: string }) {
   const [status, setStatus] = useState<Status>("idle");
@@ -19,6 +32,12 @@ export default function DownloadButton({ appId }: { appId: string, appName: stri
   }, []);
 
   const handleDownload = async () => {
+    const startedAt = performance.now();
+
+    trackEvent(analyticsEvents.downloadClick, {
+      app_id: appId,
+    });
+
     setStatus("preparing");
     setError("");
     setCountdown(ESTIMATED_SECONDS);
@@ -35,10 +54,19 @@ export default function DownloadButton({ appId }: { appId: string, appName: stri
         body: JSON.stringify({ appId }),
       });
 
-      const data = await res.json();
-      if (!res.ok || !data.success) {
+      const data = (await res.json()) as DownloadResponse;
+      if (!res.ok || !data.success || !data.downloadUrl) {
         throw new Error(data.error || "Failed to prepare download");
       }
+
+      trackEvent(analyticsEvents.downloadPrepareSuccess, {
+        app_id: appId,
+        source: data.source,
+        version: data.version,
+        size: data.size,
+        proxy: data.proxy,
+        duration_ms: Math.round(performance.now() - startedAt),
+      });
 
       const a = document.createElement("a");
       a.href = data.downloadUrl;
@@ -52,8 +80,14 @@ export default function DownloadButton({ appId }: { appId: string, appName: stri
       setStatus("started");
       setTimeout(() => setStatus("idle"), 3500);
     } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : "Download failed";
+      trackEvent(analyticsEvents.downloadPrepareFailed, {
+        app_id: appId,
+        reason: message,
+        duration_ms: Math.round(performance.now() - startedAt),
+      });
       if (intervalRef.current) clearInterval(intervalRef.current);
-      setError(err instanceof Error ? err.message : "Download failed");
+      setError(message);
       setStatus("idle");
     }
   };
