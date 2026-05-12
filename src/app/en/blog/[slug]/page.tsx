@@ -13,19 +13,7 @@ interface BlogPost {
   content: React.ReactNode;
 }
 
-const zhSlugs = [
-  "how-to-download-apk-from-google-play",
-  "apk-downloader-tool-comparison",
-  "what-is-an-apk-file",
-  "how-to-install-apk-on-android",
-  "google-play-link-to-apk-troubleshooting",
-  "google-play-link-to-apk-tips",
-  "google-play-link-to-apk-step-by-step"
-];
-
-// All posts from root (both EN and ZH)
-const allPosts: BlogPost[] = [
-
+const posts: BlogPost[] = [
   {
     slug: "how-to-download-apk-from-google-play",
     title: "How to Download APK from Google Play Store: The Complete Guide (2026)",
@@ -1464,28 +1452,39 @@ adb pull /data/app/com.example.app-xxx/base.apk`}</code></pre>
       </>
     ),
   },
-
 ];
 
-const posts = allPosts.filter((p) => zhSlugs.includes(p.slug));
-
 export function generateStaticParams() {
-  return zhSlugs.map((slug) => ({ slug }));
+  return posts.map((post) => ({
+    slug: post.slug,
+  }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
-  const post = posts.find((p: BlogPost) => p.slug === slug);
-  if (!post) return {};
-
+  const post = posts.find((p) => p.slug === slug);
+  if (!post) return { title: "Not Found - APK Downloader Blog" };
   return {
-    title: post.title + " | APK 下载器 | gptoapk.com",
+    title: `${post.title} | gptoapk.com`,
     description: post.description,
+    openGraph: {
+      title: post.title,
+      description: post.description,
+      type: "article",
+      publishedTime: post.date,
+      url: `https://gptoapk.com/en/blog/${post.slug}`,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: post.description,
+    },
     alternates: {
-      canonical: `https://gptoapk.com/zh/blog/${slug}`,
+      canonical: `https://gptoapk.com/en/blog/${post.slug}`,
       languages: {
-        en: `https://gptoapk.com/en/blog/${slug}`,
-        "x-default": `https://gptoapk.com/en/blog/${slug}`,
+        zh: `https://gptoapk.com/zh/blog/${post.slug}`,
+        en: `https://gptoapk.com/en/blog/${post.slug}`,
+        "x-default": `https://gptoapk.com/en/blog/${post.slug}`,
       },
     },
   };
@@ -1493,59 +1492,67 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const post = posts.find((p: BlogPost) => p.slug === slug);
+  const post = posts.find((p) => p.slug === slug);
 
   if (!post) {
     notFound();
   }
 
-  const schemaJsonLd = {
+  const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "Article",
+    "@type": "BlogPosting",
     "headline": post.title,
     "description": post.description,
     "datePublished": post.date,
     "author": {
       "@type": "Organization",
-      "name": "APK 下载器",
+      "name": "APK Downloader",
       "url": "https://gptoapk.com"
     },
     "publisher": {
       "@type": "Organization",
-      "name": "APK 下载器",
+      "name": "APK Downloader",
       "url": "https://gptoapk.com"
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": `https://gptoapk.com/en/blog/${post.slug}`
     }
   };
 
   return (
     <>
       <Script
-        id="blog-schema"
+        id="blog-post-jsonld"
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <article className="max-w-3xl mx-auto px-4 py-16">
-        <Link
-          href="/zh/blog"
-          className="inline-flex items-center gap-2 text-slate-500 hover:text-blue-600 transition-colors mb-8 text-sm font-medium"
-        >
-          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-          </svg>
-          返回博客
-        </Link>
 
+      <article className="max-w-3xl mx-auto px-4 py-16">
+        {/* Breadcrumb */}
+        <nav className="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400 mb-8">
+          <a href="/en" className="hover:text-blue-600 transition-colors">Home</a>
+          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+          </svg>
+          <a href="/blog" className="hover:text-blue-600 transition-colors">Blog</a>
+          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+          </svg>
+          <span className="text-slate-700 dark:text-slate-300 truncate">{post.title}</span>
+        </nav>
+
+        {/* Article Header */}
         <header className="mb-10">
-          <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight mb-4 leading-tight">
-            {post.title}
-          </h1>
-          <div className="flex flex-wrap items-center gap-3 text-sm text-slate-500 dark:text-slate-400 mb-4">
+          <div className="flex items-center gap-3 text-sm text-slate-500 dark:text-slate-400 mb-4">
             <time dateTime={post.date}>{post.date}</time>
             <span>·</span>
             <span>{post.readTime}</span>
           </div>
-          <div className="flex flex-wrap gap-2">
-            {post.tags.map((tag: string) => (
+          <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight mb-4">{post.title}</h1>
+          <p className="text-lg text-slate-600 dark:text-slate-400">{post.description}</p>
+          <div className="flex flex-wrap gap-2 mt-4">
+            {post.tags.map((tag) => (
               <span
                 key={tag}
                 className="text-xs px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300"
@@ -1556,45 +1563,31 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           </div>
         </header>
 
-        <div className="prose prose-slate dark:prose-invert max-w-none 
-          prose-headings:font-bold prose-headings:tracking-tight
-          prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-4
-          prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-3
-          prose-p:leading-relaxed prose-p:text-slate-700 dark:prose-p:text-slate-300
-          prose-strong:text-slate-900 dark:prose-strong:text-slate-100
-          prose-a:text-blue-600 dark:prose-a:text-blue-400 prose-a:no-underline hover:prose-a:underline
-          prose-code:bg-slate-100 dark:prose-code:bg-slate-800 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-sm
-          prose-pre:bg-slate-900 dark:prose-pre:bg-slate-800 prose-pre:text-slate-100 prose-pre:rounded-xl prose-pre:p-4
-          prose-pre:overflow-x-auto
-          prose-li:marker:text-slate-400
-          prose-ul:space-y-1
-          prose-ol:space-y-1
-          prose-hr:border-slate-200 dark:prose-hr:border-slate-700
-        ">
+        {/* Article Content */}
+        <div className="prose prose-slate dark:prose-invert max-w-none prose-headings:font-bold prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-4 prose-p:leading-relaxed prose-a:text-blue-600 dark:prose-a:text-blue-400 prose-code:bg-slate-100 dark:prose-code:bg-slate-800 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-sm prose-pre:bg-slate-900 dark:prose-pre:bg-slate-950 prose-pre:text-slate-100 prose-pre:p-4 prose-pre:rounded-xl prose-li:leading-relaxed">
           {post.content}
         </div>
 
-        <div className="mt-16 pt-8 border-t border-slate-200 dark:border-slate-700">
-          <div className="flex flex-col sm:flex-row justify-between gap-4">
-            <Link
-              href="/zh/blog"
-              className="inline-flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:underline font-medium"
-            >
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-              </svg>
-              返回博客
-            </Link>
-            <a
-              href="https://gptoapk.com/zh"
-              className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-xl transition-colors"
-            >
-              尝试 APK 下载
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-              </svg>
-            </a>
-          </div>
+        {/* Navigation */}
+        <div className="mt-16 pt-8 border-t border-slate-200 dark:border-slate-700 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <a
+            href="/blog"
+            className="inline-flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:underline font-medium"
+          >
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+            Back to Blog
+          </a>
+          <a
+            href="/"
+            className="inline-flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:underline font-medium"
+          >
+            Try APK Downloader
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+            </svg>
+          </a>
         </div>
       </article>
     </>
