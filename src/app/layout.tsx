@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
+import Header from "@/components/layout/Header";
+import Footer from "@/components/layout/Footer";
 import "./globals.css";
 
 const CLARITY_PROJECT_ID = "wlqyr64bhf";
@@ -19,22 +21,22 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "APK Downloader - Download APK from Google Play Links",
-    template: "%s | APK Downloader",
+    default: "APK 下载器 - 从 Google Play 下载 APK | gptoapk.com",
+    template: "%s | APK 下载器 | gptoapk.com",
   },
-  description: "Download APK files directly from Google Play Store links quickly and securely. Free online APK downloader tool.",
-  keywords: ["APK Downloader", "Google Play APK", "download APK", "APK extractor", "Android APK", "Google Play extract APK"],
+  description: "免费在线 APK 下载工具，从 Google Play 链接快速、安全地提取 APK 文件。粘贴链接即可生成下载链接。",
+  keywords: ["APK下载", "Google Play APK", "下载APK", "APK提取工具", "安卓APK", "Play商店提取APK"],
   openGraph: {
-    title: "APK Downloader - Download APK from Google Play Links",
-    description: "Download APK files directly from Google Play Store links quickly and securely. Free online APK downloader tool.",
+    title: "APK 下载器 - 从 Google Play 下载 APK",
+    description: "免费在线 APK 下载工具，从 Google Play 链接快速、安全地提取 APK 文件。",
     url: "https://gptoapk.com",
-    siteName: "APK Downloader",
+    siteName: "APK 下载器",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "APK Downloader - Download APK from Google Play Links",
-    description: "Download APK files directly from Google Play Store links quickly and securely.",
+    title: "APK 下载器 - 从 Google Play 下载 APK",
+    description: "免费在线 APK 下载工具，快速、安全地提取 APK 文件。",
   },
   robots: {
     index: true,
@@ -42,6 +44,10 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: "https://gptoapk.com",
+    languages: {
+      en: "https://gptoapk.com/en",
+      "x-default": "https://gptoapk.com",
+    },
   },
 };
 
@@ -53,20 +59,20 @@ export default function RootLayout({
   const schemaJsonLd = {
     "@context": "https://schema.org",
     "@type": "WebApplication",
-    "name": "APK Downloader",
+    "name": "APK 下载器",
     "url": "https://gptoapk.com",
-    "description": "Download APK files directly from Google Play Store links. Free online APK downloader tool.",
+    "description": "免费在线 APK 下载工具，从 Google Play 链接快速、安全地提取 APK 文件。",
     "applicationCategory": "Utilities",
     "operatingSystem": "Android",
     "offers": {
       "@type": "Offer",
       "price": "0",
-      "priceCurrency": "USD"
+      "priceCurrency": "USD",
     },
   };
 
   return (
-    <html lang="en" className="h-full antialiased">
+    <html lang="zh" className="h-full antialiased">
       <head>
         <Script id="gtm-base" strategy="afterInteractive">
           {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -91,57 +97,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           />
         </noscript>
 
-        {/* Simple Header */}
-        <header className="sticky top-0 z-50 w-full border-b bg-white/80 dark:bg-slate-950/80 backdrop-blur">
-          <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-            <a href="/" className="flex items-center gap-2 font-bold text-xl tracking-tight text-blue-600 dark:text-blue-400">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
-                <path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm3.293 13.293a1 1 0 01-1.414 0L12 13.414l-1.879 1.879a1 1 0 01-1.414-1.414L10.586 12 8.707 10.121a1 1 0 011.414-1.414L12 10.586l1.879-1.879a1 1 0 011.414 1.414L13.414 12l1.879 1.879a1 1 0 010 1.414z" />
-              </svg>
-              APK Downloader
-            </a>
-            <nav className="flex items-center gap-6 text-sm font-medium">
-              <a href="/" className="hover:text-blue-600 transition-colors">Home</a>
-              <a href="/blog" className="hover:text-blue-600 transition-colors">Blog</a>
-              <a href="/faq" className="hover:text-blue-600 transition-colors">FAQ</a>
-              <a href="/zh" className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg border border-slate-300 dark:border-slate-600 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors text-xs font-medium">
-                <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
-                </svg>
-                中文
-              </a>
-            </nav>
-          </div>
-        </header>
-
-        {/* Main Content */}
-        <main className="flex-1">
-          {children}
-        </main>
-
-        {/* Footer */}
-        <footer className="border-t bg-white dark:bg-slate-950 mt-12 py-8">
-          <div className="container mx-auto px-4">
-            <div className="flex flex-col sm:flex-row justify-between items-center gap-4 mb-6">
-              <div className="flex items-center gap-2 font-bold text-lg text-blue-600 dark:text-blue-400">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
-                  <path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm3.293 13.293a1 1 0 01-1.414 0L12 13.414l-1.879 1.879a1 1 0 01-1.414-1.414L10.586 12 8.707 10.121a1 1 0 011.414-1.414L12 10.586l1.879-1.879a1 1 0 011.414 1.414L13.414 12l1.879 1.879a1 1 0 010 1.414z" />
-                </svg>
-                APK Downloader
-              </div>
-              <nav className="flex items-center gap-6 text-sm text-slate-500">
-                <a href="/" className="hover:text-blue-600 transition-colors">Home</a>
-                <a href="/blog" className="hover:text-blue-600 transition-colors">Blog</a>
-                <a href="/faq" className="hover:text-blue-600 transition-colors">FAQ</a>
-                <a href="/zh" className="hover:text-blue-600 transition-colors">中文</a>
-              </nav>
-            </div>
-            <div className="text-center text-sm text-slate-500 border-t border-slate-200 dark:border-slate-800 pt-6">
-              <p>&copy; {new Date().getFullYear()} APK Downloader. All rights reserved.</p>
-              <p className="mt-2 text-xs">This tool is not affiliated with Google or Google Play in any way.</p>
-            </div>
-          </div>
-        </footer>
+        <Header />
+        <main className="flex-1">{children}</main>
+        <Footer />
 
         <Script
           id="ga4-src"
@@ -160,7 +118,7 @@ gtag('config', '${GA_MEASUREMENT_ID}');`}
               c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
               t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
               y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-          })(window, document, "clarity", "script", "${CLARITY_PROJECT_ID}");`}
+          })(window, document, "clarity", script, "${CLARITY_PROJECT_ID}");`}
         </Script>
       </body>
     </html>

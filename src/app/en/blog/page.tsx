@@ -5,10 +5,9 @@ export const metadata: Metadata = {
   title: "Blog - APK Downloader Guides & Tutorials | gptoapk.com",
   description: "Learn how to download APK from Google Play Store, compare APK download tools, understand APK file structure, and master Android app installation with our comprehensive guides.",
   alternates: {
-    canonical: "https://gptoapk.com/blog",
+    canonical: "https://gptoapk.com/en/blog",
     languages: {
       zh: "https://gptoapk.com/zh/blog",
-      en: "https://gptoapk.com/en/blog",
       "x-default": "https://gptoapk.com/en/blog",
     },
   },
@@ -122,7 +121,7 @@ const posts: BlogPost[] = [
   },
 ];
 
-export default function BlogPage() {
+export default function EnBlogPage() {
   return (
     <div className="max-w-5xl mx-auto px-4 py-16">
       <div className="text-center mb-16">
@@ -138,7 +137,7 @@ export default function BlogPage() {
         {posts.map((post) => (
           <Link
             key={post.slug}
-            href={`/blog/${post.slug}`}
+            href={`/en/blog/${post.slug}`}
             className="group bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 hover:shadow-lg transition-all hover:-translate-y-0.5"
           >
             <div className="flex items-center gap-3 text-sm text-slate-500 dark:text-slate-400 mb-3">
@@ -168,7 +167,7 @@ export default function BlogPage() {
 
       <div className="mt-16 text-center">
         <Link
-          href="/"
+          href="/en"
           className="inline-flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:underline font-medium"
         >
           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
