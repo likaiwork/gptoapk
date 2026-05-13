@@ -48,6 +48,22 @@ const blogPosts = [
       tags: ["APK vs AAB", "Android", "Розробка додатків"],
     },
 
+    {
+      slug: "apk-permission-check-malware-detection",
+      title: "Посібник з перевірки дозволів APK: 3 кроки для виявлення шкідливих додатків (2026)",
+      description: "Як перевірити, чи безпечний файл APK перед встановленням.",
+      date: "2026-05-13",
+      readTime: "10 min read",
+      tags: ["Безпека APK", "Дозволи", "Android"],
+    },
+    {
+      slug: "apk-install-failed-troubleshooting",
+      title: "Не вдалося встановити APK? 12 поширених причин та рішень (2026)",
+      description: "Повний посібник з поширених помилок встановлення APK.",
+      date: "2026-05-13",
+      readTime: "12 min read",
+      tags: ["Встановлення APK", "Усунення", "Android"],
+    },
 ];
 
 export default function BlogIndexPage() {

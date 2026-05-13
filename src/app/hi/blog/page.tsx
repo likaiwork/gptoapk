@@ -52,6 +52,22 @@ const posts = [
       tags: ["APK vs AAB", "Android", "ऐप डेवलपमेंट"],
     },
 
+    {
+      slug: "apk-permission-check-malware-detection",
+      title: "APK अनुमति जांच गाइड: 3 कदमों में पहचानें दुर्भावनापूर्ण ऐप (2026)",
+      description: "APK फ़ाइल इंस्टॉल करने से पहले कैसे जांचें कि वह सुरक्षित है।",
+      date: "2026-05-13",
+      readTime: "10 min read",
+      tags: ["APK सुरक्षा", "अनुमति", "Android"],
+    },
+    {
+      slug: "apk-install-failed-troubleshooting",
+      title: "APK इंस्टॉल विफल? 12 सामान्य कारण और समाधान (2026)",
+      description: "सामान्य APK इंस्टॉलेशन त्रुटियों की पूरी गाइड।",
+      date: "2026-05-13",
+      readTime: "12 min read",
+      tags: ["APK इंस्टॉल", "समस्या", "Android"],
+    },
 ];
 
 export default function HiBlogPage() {

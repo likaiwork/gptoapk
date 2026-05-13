@@ -53,6 +53,22 @@ export default function JaBlogPage() {
       tags: ["APK vs AAB", "Android", "アプリ開発"],
     },
 
+    {
+      slug: "apk-permission-check-malware-detection",
+      title: "APK権限チェックガイド：悪意アプリを見分ける3つのステップ（2026年版）",
+      description: "APKファイルをインストールする前に安全性を確認する方法。",
+      date: "2026-05-13",
+      readTime: "10 min read",
+      tags: ["APKセキュリティ", "権限", "Android"],
+    },
+    {
+      slug: "apk-install-failed-troubleshooting",
+      title: "APKインストール失敗？よくある12の原因と解決方法（2026年版）",
+      description: "よくあるAPKインストールエラーの完全ガイド。",
+      date: "2026-05-13",
+      readTime: "12 min read",
+      tags: ["APKインストール", "トラブル", "Android"],
+    },
   ];
 
   return (

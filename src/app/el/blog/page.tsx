@@ -60,6 +60,22 @@ const posts: BlogPost[] = [
       tags: ["APK vs AAB", "Android", "Ανάπτυξη εφαρμογών"],
     },
 
+    {
+      slug: "apk-permission-check-malware-detection",
+      title: "Οδηγός ελέγχου αδειών APK: 3 βήματα για εντοπισμό κακόβουλων εφαρμογών (2026)",
+      description: "Πώς να ελέγξετε αν ένα αρχείο APK είναι ασφαλές πριν από την εγκατάσταση.",
+      date: "2026-05-13",
+      readTime: "10 min read",
+      tags: ["Ασφάλεια APK", "Έλεγχος αδειών", "Android"],
+    },
+    {
+      slug: "apk-install-failed-troubleshooting",
+      title: "Απέτυχε η εγκατάσταση APK; 12 συνήθεις αιτίες και λύσεις (2026)",
+      description: "Πλήρης οδηγός για κοινά σφάλματα εγκατάστασης APK.",
+      date: "2026-05-13",
+      readTime: "12 min read",
+      tags: ["Εγκατάσταση APK", "Αντιμετώπιση", "Android"],
+    },
 ];
 
 export default function ElBlogPage() {

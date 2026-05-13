@@ -47,6 +47,22 @@ const blogPosts = [
       readTime: "8 min read",
       tags: ["APK vs AAB", "Android", "ایپ ڈویلپمنٹ"],
     },
+    {
+      slug: "apk-permission-check-malware-detection",
+      title: "APK اجازت چیک گائیڈ: 3 مراحل میں نقصان دہ ایپ کی شناخت (2026)",
+      description: "APK فائل انسٹال کرنے سے پہلے اس کی حفاظت کیسے چیک کریں۔",
+      date: "2026-05-13",
+      readTime: "10 min read",
+      tags: ["APK سیکیورٹی", "اجازتیں", "Android"],
+    },
+    {
+      slug: "apk-install-failed-troubleshooting",
+      title: "APK انسٹال ناکام؟ 12 عام وجوہات اور حل (2026)",
+      description: "عام APK انسٹالیشن غلطیوں کی مکمل گائیڈ۔",
+      date: "2026-05-13",
+      readTime: "12 min read",
+      tags: ["APK انسٹال", "ٹربل شوٹنگ", "Android"],
+    },
 ];
 
 export default function BlogIndexPage() {

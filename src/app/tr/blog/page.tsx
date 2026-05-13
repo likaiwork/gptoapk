@@ -34,6 +34,22 @@ const posts = [
       readTime: "8 min read",
       tags: ["APK vs AAB", "Android", "Uygulama Geliştirme"],
     },
+    {
+      slug: "apk-permission-check-malware-detection",
+      title: "APK İzin Kontrolü Kılavuzu: Kötü Amaçlı Uygulamaları Tespit Etmek İçin 3 Adım (2026)",
+      description: "Bir APK dosyasının kurulumdan önce güvenli olup olmadığı nasıl kontrol edilir.",
+      date: "2026-05-13",
+      readTime: "10 min read",
+      tags: ["APK Güvenliği", "İzinler", "Android"],
+    },
+    {
+      slug: "apk-install-failed-troubleshooting",
+      title: "APK Yükleme Başarısız mı? 12 Yaygın Neden ve Çözüm (2026)",
+      description: "Yaygın APK yükleme hataları için eksiksiz kılavuz.",
+      date: "2026-05-13",
+      readTime: "12 min read",
+      tags: ["APK Yükleme", "Sorun Giderme", "Android"],
+    },
   ];
 
 export default function BlogIndexPage() {

@@ -48,6 +48,22 @@ const blogPosts = [
       tags: ["APK vs AAB", "Android", "Pag-develop ng App"],
     },
 
+    {
+      slug: "apk-permission-check-malware-detection",
+      title: "Gabay sa Pagsusuri ng Pahintulot ng APK: 3 Hakbang para Matukoy ang Malisyosong App (2026)",
+      description: "Paano suriin kung ang isang APK file ay ligtas bago i-install.",
+      date: "2026-05-13",
+      readTime: "10 min read",
+      tags: ["Seguridad ng APK", "Pahintulot", "Android"],
+    },
+    {
+      slug: "apk-install-failed-troubleshooting",
+      title: "Nabigo ang Pag-install ng APK? 12 Karaniwang Dahilan at Solusyon (2026)",
+      description: "Kumpletong gabay sa karaniwang mga error sa pag-install ng APK.",
+      date: "2026-05-13",
+      readTime: "12 min read",
+      tags: ["Pag-install APK", "Pag-troubleshoot", "Android"],
+    },
 ];
 
 export default function BlogIndexPage() {

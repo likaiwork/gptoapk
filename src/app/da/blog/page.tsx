@@ -60,6 +60,22 @@ const posts: BlogPost[] = [
       tags: ["APK vs AAB", "Android", "App-udvikling"],
     },
 
+    {
+      slug: "apk-permission-check-malware-detection",
+      title: "APK-tilladelseskontrol: 3 trin til at opdage ondsindede apps (2026)",
+      description: "Sådan tjekker du om en APK-fil er sikker før installation.",
+      date: "2026-05-13",
+      readTime: "10 min read",
+      tags: ["APK-sikkerhed", "Tilladelseskontrol", "Android"],
+    },
+    {
+      slug: "apk-install-failed-troubleshooting",
+      title: "APK-installation mislykkedes? 12 almindelige årsager og løsninger (2026)",
+      description: "Komplet guide til almindelige APK-installationsfejl.",
+      date: "2026-05-13",
+      readTime: "12 min read",
+      tags: ["APK-installation", "Fejlfinding", "Android"],
+    },
 ];
 
 export default function DaBlogPage() {

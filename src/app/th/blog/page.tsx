@@ -34,6 +34,22 @@ const posts = [
       readTime: "8 min read",
       tags: ["APK vs AAB", "Android", "การพัฒนาแอป"],
     },
+    {
+      slug: "apk-permission-check-malware-detection",
+      title: "คู่มือตรวจสอบสิทธิ์ APK: 3 ขั้นตอนตรวจจับแอปอันตราย (2026)",
+      description: "วิธีตรวจสอบไฟล์ APK ว่าปลอดภัยก่อนติดตั้ง",
+      date: "2026-05-13",
+      readTime: "10 min read",
+      tags: ["ความปลอดภัย APK", "สิทธิ์", "Android"],
+    },
+    {
+      slug: "apk-install-failed-troubleshooting",
+      title: "ติดตั้ง APK ล้มเหลว? 12 สาเหตุทั่วไปและวิธีแก้ไข (2026)",
+      description: "คู่มือฉบับสมบูรณ์สำหรับข้อผิดพลาดการติดตั้ง APK ทั่วไป",
+      date: "2026-05-13",
+      readTime: "12 min read",
+      tags: ["ติดตั้ง APK", "แก้ไข", "Android"],
+    },
 ];
 
 export default function BlogIndexPage() {

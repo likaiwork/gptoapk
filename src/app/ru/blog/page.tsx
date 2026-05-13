@@ -34,6 +34,22 @@ const posts = [
       readTime: "8 min read",
       tags: ["APK vs AAB", "Android", "Разработка приложений"],
     },
+    {
+      slug: "apk-permission-check-malware-detection",
+      title: "Руководство по проверке разрешений APK: 3 шага для выявления вредоносных приложений (2026)",
+      description: "Как проверить безопасность APK-файла перед установкой.",
+      date: "2026-05-13",
+      readTime: "10 min read",
+      tags: ["Безопасность APK", "Разрешения", "Android"],
+    },
+    {
+      slug: "apk-install-failed-troubleshooting",
+      title: "Не удалось установить APK? 12 распространенных причин и решений (2026)",
+      description: "Полное руководство по распространенным ошибкам установки APK.",
+      date: "2026-05-13",
+      readTime: "12 min read",
+      tags: ["Установка APK", "Устранение", "Android"],
+    },
 ];
 
 export default function BlogIndexPage() {

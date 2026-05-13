@@ -434,6 +434,83 @@ unzip /path/app.apks -d /path/apk_output/`}</code></pre>
       </>
     ),
   },
+{
+    slug: "apk-permission-check-malware-detection",
+    title: "APK権限チェックガイド：悪意アプリを見分ける3つのステップ（2026年版）",
+    description: "APKファイルをインストールする前に安全性を確認する方法。3つの簡単なステップで権限をチェックし、マルウェアをスキャンします。",
+    date: "2026-05-13",
+    readTime: "10 min read",
+    tags: ["APKセキュリティ", "権限", "Android"],
+    content: (
+      <>
+        <h2>なぜAPK権限チェックが重要なのか</h2>
+        <p>Androidの権限システムは、ユーザーのプライバシーを守る最初の防御線です。アプリをインストールすると、必要な権限が宣言されますが、中には機能に必要のない権限を要求するアプリもあります。</p>
+        <p>例えば、懐中電灯アプリが連絡先や通話履歴へのアクセスを要求するのは明らかな危険信号です。</p>
+        <h2>ステップ1：インストール前に権限をチェック</h2>
+        <p><strong>aaptツールを使用する</strong></p>
+        <pre><code>aapt dump permissions app.apk | grep "name="</code></pre>
+        <p><strong>危険な権限の組み合わせ：</strong></p>
+        <ul>
+          <li>READ_CONTACTS + SEND_SMS — 非常に危険：連絡先の読み取りとSMS送信が可能</li>
+          <li>RECORD_AUDIO + INTERNET — 非常に危険：録音してネットワーク経由で送信</li>
+          <li>BIND_ACCESSIBILITY_SERVICE — 非常に危険：画面のすべてを読み取り可能</li>
+        </ul>
+        <p>基本原則：機能がシンプルなほど、必要な権限は少ない。電卓はインターネット接続を必要としません。</p>
+        <h2>ステップ2：APK署名を検証</h2>
+        <pre><code>keytool -printcert -jarfile app.apk</code></pre>
+        <p>所有者情報が正規の開発者と一致するか確認します（Google Inc.、WhatsApp Inc.など）。</p>
+        <h2>ステップ3：マルウェアスキャン</h2>
+        <p>VirusTotalは70以上のアンチウイルスエンジンを使用してAPKをスキャンします。virustotal.comにアクセスしてAPKをアップロードするだけです。</p>
+        <h2>gptoapk.comのセキュリティ</h2>
+        <p>gptoapk.comを使用すると、APKファイルをGoogle Playの公式CDNから直接取得できます。中間での改ざんリスクはありません。</p>
+        <div className="bg-blue-50 dark:bg-blue-900/20 p-6 rounded-xl border border-blue-100 dark:border-blue-800 mt-8">
+          <p className="font-semibold text-lg mb-2">Google Play公式ソースからAPKを安全にダウンロード</p>
+          <p className="mb-3"><a href="https://gptoapk.com" className="text-blue-600 dark:text-blue-400 hover:underline font-medium">gptoapk.com</a> — Google PlayのURLを貼り付けるだけでAPKを取得。</p>
+        </div>
+      </>
+    ),
+  },
+{
+    slug: "apk-install-failed-troubleshooting",
+    title: "APKインストール失敗？よくある12の原因と解決方法（2026年版）",
+    description: "APKがインストールできない？よくある12のインストールエラーとその修正方法を完全ガイド。",
+    date: "2026-05-13",
+    readTime: "12 min read",
+    tags: ["APKインストール", "トラブル", "Android"],
+    content: (
+      <>
+        <h2>APKインストールが失敗する理由</h2>
+        <p>APKのインストールに失敗する原因は、単純な設定の問題から複雑な署名の競合までさまざまです。</p>
+        <h3>1. 「不明なソースからのインストール」がブロックされている</h3>
+        <p>AndroidはデフォルトでGoogle Play以外からのインストールを許可していません。設定 → アプリ → 特別なアクセス → 不明なアプリのインストールを開き、ファイルマネージャーやブラウザを許可してください。</p>
+        <h3>2. 「解析エラー」</h3>
+        <p>APKファイルが破損または不完全です。gptoapk.comから再ダウンロードしてください。</p>
+        <h3>3. 署名の競合</h3>
+        <p>既存のアプリと新しいAPKの署名が一致しません。既存のバージョンをアンインストールするか、adbを使用してください。</p>
+        <pre><code>adb install -r app.apk</code></pre>
+        <h3>4. バージョンダウングレード</h3>
+        <pre><code>adb install -r -d app.apk</code></pre>
+        <h3>5. ストレージ不足</h3>
+        <p>キャッシュをクリアし、不要なアプリをアンインストールしてください。</p>
+        <h3>6. 64ビットのみ対応</h3>
+        <p>adb shell getprop ro.product.cpu.abi でデバイスのアーキテクチャを確認してください。</p>
+        <h2>adbコマンド一覧</h2>
+        <pre><code>adb install app.apk
+adb install -r app.apk
+adb install -r -d app.apk</code></pre>
+        <h2>エラーコード早見表</h2>
+        <ul>
+          <li>INSTALL_FAILED_ALREADY_EXISTS — -rフラグを使用</li>
+          <li>INSTALL_FAILED_INVALID_APK — 再ダウンロード</li>
+          <li>INSTALL_FAILED_NO_MATCHING_ABIS — アーキテクチャ不一致</li>
+        </ul>
+        <div className="bg-blue-50 dark:bg-blue-900/20 p-6 rounded-xl border border-blue-100 dark:border-blue-800 mt-8">
+          <p className="font-semibold text-lg mb-2">デバイスに最適なAPKを毎回ダウンロード</p>
+          <p className="mb-3"><a href="https://gptoapk.com" className="text-blue-600 dark:text-blue-400 hover:underline font-medium">gptoapk.com</a> — Google PlayのURLを貼り付けるだけ。</p>
+        </div>
+      </>
+    ),
+  },
 ];
 
 export async function generateStaticParams() {

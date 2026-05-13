@@ -34,6 +34,22 @@ const posts = [
       readTime: "8 min read",
       tags: ["APK vs AAB", "Android", "Pembangunan Aplikasi"],
     },
+    {
+      slug: "apk-permission-check-malware-detection",
+      title: "Panduan Semakan Kebenaran APK: 3 Langkah Mengesan Aplikasi Berbahaya (2026)",
+      description: "Cara menyemak sama ada fail APK selamat sebelum dipasang.",
+      date: "2026-05-13",
+      readTime: "10 min read",
+      tags: ["Keselamatan APK", "Kebenaran", "Android"],
+    },
+    {
+      slug: "apk-install-failed-troubleshooting",
+      title: "Pemasangan APK Gagal? 12 Punca Biasa dan Penyelesaian (2026)",
+      description: "Panduan lengkap ralat pemasangan APK biasa.",
+      date: "2026-05-13",
+      readTime: "12 min read",
+      tags: ["Pemasangan APK", "Penyelesaian", "Android"],
+    },
 ];
 
 export default function BlogIndexPage() {

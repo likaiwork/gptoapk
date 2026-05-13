@@ -34,6 +34,22 @@ const posts = [
       readTime: "8 min read",
       tags: ["APK vs AAB", "Android", "অ্যাপ ডেভেলপমেন্ট"],
     },
+    {
+      slug: "apk-permission-check-malware-detection",
+      title: "APK অনুমতি পরীক্ষা গাইড: ৩ ধাপে ম্যালিশিয়াস অ্যাপ শনাক্ত (২০২৬)",
+      description: "APK ফাইল ইনস্টল করার আগে নিরাপদ কিনা কীভাবে যাচাই করবেন।",
+      date: "2026-05-13",
+      readTime: "10 min read",
+      tags: ["APK নিরাপত্তা", "অনুমতি পরীক্ষা", "Android নিরাপত্তা"],
+    },
+    {
+      slug: "apk-install-failed-troubleshooting",
+      title: "APK ইনস্টল ব্যর্থ? ১২টি সাধারণ কারণ ও সমাধান (২০২৬ সম্পূর্ণ গাইড)",
+      description: "সাধারণ APK ইনস্টলেশন ত্রুটি এবং সমাধানের সম্পূর্ণ গাইড।",
+      date: "2026-05-13",
+      readTime: "12 min read",
+      tags: ["APK ইনস্টল", "সমস্যা সমাধান", "Android"],
+    },
 ];
 
 export default function BlogIndexPage() {

@@ -60,6 +60,22 @@ const posts: BlogPost[] = [
       tags: ["APK vs AAB", "Android", "Sovelluskehitys"],
     },
 
+    {
+      slug: "apk-permission-check-malware-detection",
+      title: "APK-lupien tarkistusopas: 3 vaihetta haitallisten sovellusten tunnistamiseen (2026)",
+      description: "Näin tarkistat onko APK-tiedosto turvallinen ennen asennusta.",
+      date: "2026-05-13",
+      readTime: "10 min read",
+      tags: ["APK-turvallisuus", "Lupien tarkistus", "Android"],
+    },
+    {
+      slug: "apk-install-failed-troubleshooting",
+      title: "APK-asennus epäonnistui? 12 yleistä syytä ja ratkaisua (2026)",
+      description: "Täydellinen opas yleisiin APK-asennusvirheisiin.",
+      date: "2026-05-13",
+      readTime: "12 min read",
+      tags: ["APK-asennus", "Vianmääritys", "Android"],
+    },
 ];
 
 export default function FiBlogPage() {

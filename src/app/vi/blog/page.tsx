@@ -59,6 +59,22 @@ const posts: BlogPost[] = [
       tags: ["APK vs AAB", "Android", "Phát triển ứng dụng"],
     },
 
+    {
+      slug: "apk-permission-check-malware-detection",
+      title: "Hướng dẫn kiểm tra quyền APK: 3 bước phát hiện ứng dụng độc hại (2026)",
+      description: "Cách kiểm tra tệp APK có an toàn trước khi cài đặt.",
+      date: "2026-05-13",
+      readTime: "10 min read",
+      tags: ["Bảo mật APK", "Quyền", "Android"],
+    },
+    {
+      slug: "apk-install-failed-troubleshooting",
+      title: "Cài đặt APK thất bại? 12 nguyên nhân phổ biến và cách khắc phục (2026)",
+      description: "Hướng dẫn đầy đủ về các lỗi cài đặt APK phổ biến.",
+      date: "2026-05-13",
+      readTime: "12 min read",
+      tags: ["Cài đặt APK", "Khắc phục", "Android"],
+    },
 ];
 
 export default function ViBlogPage() {

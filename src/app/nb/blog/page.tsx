@@ -37,6 +37,22 @@ const posts = [
       tags: ["APK vs AAB", "Android", "App-utvikling"],
     },
 
+    {
+      slug: "apk-permission-check-malware-detection",
+      title: "APK-tillatelsessjekk: 3 trinn for å oppdage skadelige apper (2026)",
+      description: "Slik sjekker du om en APK-fil er trygg før installasjon.",
+      date: "2026-05-13",
+      readTime: "10 min read",
+      tags: ["APK-sikkerhet", "Tillatelser", "Android"],
+    },
+    {
+      slug: "apk-install-failed-troubleshooting",
+      title: "APK-installasjon mislyktes? 12 vanlige årsaker og løsninger (2026)",
+      description: "Fullstendig guide til vanlige APK-installasjonsfeil.",
+      date: "2026-05-13",
+      readTime: "12 min read",
+      tags: ["APK-installasjon", "Feilsøking", "Android"],
+    },
 ];
 
 export const metadata: Metadata = {

@@ -34,6 +34,22 @@ const posts = [
       readTime: "8 min read",
       tags: ["APK vs AAB", "Android", "Dezvoltare aplicații"],
     },
+    {
+      slug: "apk-permission-check-malware-detection",
+      title: "Ghid de verificare a permisiunilor APK: 3 pași pentru detectarea aplicațiilor rău intenționate (2026)",
+      description: "Cum să verificați dacă un fișier APK este sigur înainte de instalare.",
+      date: "2026-05-13",
+      readTime: "10 min read",
+      tags: ["Securitate APK", "Permisiuni", "Android"],
+    },
+    {
+      slug: "apk-install-failed-troubleshooting",
+      title: "Instalarea APK a eșuat? 12 cauze comune și soluții (2026)",
+      description: "Ghid complet pentru erori comune de instalare APK.",
+      date: "2026-05-13",
+      readTime: "12 min read",
+      tags: ["Instalare APK", "Depanare", "Android"],
+    },
 ];
 
 export default function BlogIndexPage() {

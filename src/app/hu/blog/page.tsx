@@ -60,6 +60,22 @@ const posts: BlogPost[] = [
       tags: ["APK vs AAB", "Android", "Alkalmazásfejlesztés"],
     },
 
+    {
+      slug: "apk-permission-check-malware-detection",
+      title: "APK engedélyek ellenőrzési útmutató: 3 lépés a rosszindulatú alkalmazások felismerésére (2026)",
+      description: "Hogyan ellenőrizze, hogy egy APK-fájl biztonságos-e telepítés előtt.",
+      date: "2026-05-13",
+      readTime: "10 min read",
+      tags: ["APK biztonság", "Engedélyek", "Android"],
+    },
+    {
+      slug: "apk-install-failed-troubleshooting",
+      title: "APK telepítés sikertelen? 12 gyakori ok és megoldás (2026)",
+      description: "Teljes útmutató a gyakori APK telepítési hibákhoz.",
+      date: "2026-05-13",
+      readTime: "12 min read",
+      tags: ["APK telepítés", "Hibaelhárítás", "Android"],
+    },
 ];
 
 export default function HuBlogPage() {

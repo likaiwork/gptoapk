@@ -52,6 +52,22 @@ const posts = [
       tags: ["APK vs AAB", "Android", "تطوير التطبيقات"],
     },
 
+    {
+      slug: "apk-permission-check-malware-detection",
+      title: "دليل فحص أذونات APK: 3 خطوات للكشف عن التطبيقات الضارة (2026)",
+      description: "كيف تتحقق مما إذا كان ملف APK آمنًا قبل التثبيت.",
+      date: "2026-05-13",
+      readTime: "10 min read",
+      tags: ["أمان APK", "فحص الأذونات", "أمان Android"],
+    },
+    {
+      slug: "apk-install-failed-troubleshooting",
+      title: "فشل تثبيت APK؟ 12 سببًا شائعًا وطرق الإصلاح (الدليل الكامل 2026)",
+      description: "الدليل الكامل لأخطاء تثبيت APK الشائعة وكيفية إصلاحها.",
+      date: "2026-05-13",
+      readTime: "12 min read",
+      tags: ["تثبيت APK", "استكشاف", "Android"],
+    },
 ];
 
 export default function ArBlogPage() {

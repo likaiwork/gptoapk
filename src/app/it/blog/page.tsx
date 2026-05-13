@@ -60,6 +60,22 @@ const posts: BlogPost[] = [
       tags: ["APK vs AAB", "Android", "Sviluppo App"],
     },
 
+    {
+      slug: "apk-permission-check-malware-detection",
+      title: "Guida al controllo dei permessi APK: 3 passaggi per rilevare app dannose (2026)",
+      description: "Come verificare se un file APK è sicuro prima di installarlo.",
+      date: "2026-05-13",
+      readTime: "10 min read",
+      tags: ["Sicurezza APK", "Permessi", "Android"],
+    },
+    {
+      slug: "apk-install-failed-troubleshooting",
+      title: "Installazione APK fallita? 12 cause comuni e soluzioni (2026)",
+      description: "Guida completa agli errori comuni di installazione APK.",
+      date: "2026-05-13",
+      readTime: "12 min read",
+      tags: ["Installazione APK", "Risoluzione", "Android"],
+    },
 ];
 
 export default function ItBlogPage() {

@@ -60,6 +60,22 @@ const posts: BlogPost[] = [
       tags: ["APK vs AAB", "Android", "App-ontwikkeling"],
     },
 
+    {
+      slug: "apk-permission-check-malware-detection",
+      title: "APK-machtigingen controleren: 3 stappen om schadelijke apps te herkennen (2026)",
+      description: "Hoe controleert u of een APK-bestand veilig is voordat u het installeert.",
+      date: "2026-05-13",
+      readTime: "10 min read",
+      tags: ["APK-beveiliging", "Machtigingen", "Android"],
+    },
+    {
+      slug: "apk-install-failed-troubleshooting",
+      title: "APK-installatie mislukt? 12 veelvoorkomende oorzaken en oplossingen (2026)",
+      description: "Complete gids voor veelvoorkomende APK-installatiefouten.",
+      date: "2026-05-13",
+      readTime: "12 min read",
+      tags: ["APK-installatie", "Probleemoplossing", "Android"],
+    },
 ];
 
 export default function NlBlogPage() {

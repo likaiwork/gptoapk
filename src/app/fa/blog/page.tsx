@@ -48,6 +48,22 @@ const blogPosts = [
       tags: ["APK vs AAB", "اندروید", "توسعه اپلیکیشن"],
     },
 
+    {
+      slug: "apk-permission-check-malware-detection",
+      title: "راهنمای بررسی مجوزهای APK: ۳ مرحله برای تشخیص برنامه‌های مخرب (۲۰۲۶)",
+      description: "چگونه قبل از نصب از امن بودن فایل APK مطمئن شویم.",
+      date: "2026-05-13",
+      readTime: "10 min read",
+      tags: ["امنیت APK", "بررسی مجوزها", "Android"],
+    },
+    {
+      slug: "apk-install-failed-troubleshooting",
+      title: "نصب APK انجام نشد؟ ۱۲ دلیل رایج و راه حل (۲۰۲۶)",
+      description: "راهنمای کامل خطاهای رایج نصب APK.",
+      date: "2026-05-13",
+      readTime: "12 min read",
+      tags: ["نصب APK", "عیب‌یابی", "Android"],
+    },
 ];
 
 export default function BlogIndexPage() {

@@ -34,6 +34,22 @@ const posts = [
       readTime: "8 min read",
       tags: ["APK vs AAB", "Android", "App-Entwicklung"],
     },
+    {
+      slug: "apk-permission-check-malware-detection",
+      title: "APK-Berechtigungsprüfung: Schädliche Apps in 3 Schritten erkennen (2026)",
+      description: "So prüfen Sie, ob eine APK-Datei vor der Installation sicher ist.",
+      date: "2026-05-13",
+      readTime: "10 min read",
+      tags: ["APK-Sicherheit", "Berechtigungsprüfung", "Android"],
+    },
+    {
+      slug: "apk-install-failed-troubleshooting",
+      title: "APK-Installation fehlgeschlagen? 12 häufige Ursachen und Lösungen (2026)",
+      description: "Komplette Anleitung zu häufigen APK-Installationsfehlern.",
+      date: "2026-05-13",
+      readTime: "12 min read",
+      tags: ["APK-Installation", "Fehlerbehebung", "Android"],
+    },
 ];
 
 export default function BlogIndexPage() {

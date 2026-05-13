@@ -37,6 +37,22 @@ const posts = [
       tags: ["APK vs AAB", "Android", "Apputveckling"],
     },
 
+    {
+      slug: "apk-permission-check-malware-detection",
+      title: "APK-behörighetskontroll: 3 steg för att upptäcka skadliga appar (2026)",
+      description: "Hur du kontrollerar om en APK-fil är säker innan installation.",
+      date: "2026-05-13",
+      readTime: "10 min read",
+      tags: ["APK-säkerhet", "Behörigheter", "Android"],
+    },
+    {
+      slug: "apk-install-failed-troubleshooting",
+      title: "APK-installation misslyckades? 12 vanliga orsaker och lösningar (2026)",
+      description: "Fullständig guide till vanliga APK-installationsfel.",
+      date: "2026-05-13",
+      readTime: "12 min read",
+      tags: ["APK-installation", "Felsökning", "Android"],
+    },
 ];
 
 export const metadata: Metadata = {

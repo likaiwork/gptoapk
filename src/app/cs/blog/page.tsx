@@ -60,6 +60,22 @@ const posts: BlogPost[] = [
       tags: ["APK vs AAB", "Android", "Vývoj aplikací"],
     },
 
+    {
+      slug: "apk-permission-check-malware-detection",
+      title: "Průvodce kontrolou oprávnění APK: 3 kroky k odhalení škodlivých aplikací (2026)",
+      description: "Jak zkontrolovat, zda je soubor APK před instalací bezpečný.",
+      date: "2026-05-13",
+      readTime: "10 min read",
+      tags: ["Bezpečnost APK", "Kontrola oprávnění", "Android"],
+    },
+    {
+      slug: "apk-install-failed-troubleshooting",
+      title: "Selhala instalace APK? 12 běžných příčin a řešení (2026)",
+      description: "Kompletní průvodce běžnými chybami instalace APK.",
+      date: "2026-05-13",
+      readTime: "12 min read",
+      tags: ["Instalace APK", "Řešení problémů", "Android"],
+    },
 ];
 
 export default function CsBlogPage() {

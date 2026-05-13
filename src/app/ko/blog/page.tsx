@@ -34,6 +34,22 @@ const posts = [
       readTime: "8 min read",
       tags: ["APK vs AAB", "Android", "앱 개발"],
     },
+    {
+      slug: "apk-permission-check-malware-detection",
+      title: "APK 권한 확인 가이드: 악성 앱을 감지하는 3단계 (2026)",
+      description: "APK 파일을 설치하기 전에 안전한지 확인하는 방법.",
+      date: "2026-05-13",
+      readTime: "10 min read",
+      tags: ["APK 보안", "권한", "Android"],
+    },
+    {
+      slug: "apk-install-failed-troubleshooting",
+      title: "APK 설치 실패? 12가지 일반적인 원인과 해결 방법 (2026)",
+      description: "일반적인 APK 설치 오류에 대한 완벽 가이드.",
+      date: "2026-05-13",
+      readTime: "12 min read",
+      tags: ["APK 설치", "문제 해결", "Android"],
+    },
   ];
 
 export default function BlogIndexPage() {
