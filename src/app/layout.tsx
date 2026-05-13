@@ -10,6 +10,7 @@ import { SITE_LOCALES, isRtlLocale } from "@/lib/site-locales";
 
 const supportedHtmlLocales = new Set<string>([...SITE_LOCALES]);
 
+const BING_VERIFICATION = "F9DDBF5E7468903E9C589BC6B8E3D6CB";
 const CLARITY_PROJECT_ID = "wlqyr64bhf";
 const GTM_ID = "GTM-MXXWHJTP";
 const GA_MEASUREMENT_ID = "G-DB1E6ERNFQ";
@@ -42,6 +43,11 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "APK 下载器 - 从 Google Play 下载 APK",
     description: "免费在线 APK 下载工具，快速、安全地提取 APK 文件。",
+  },
+  verification: {
+    google: undefined,
+    yandex: undefined,
+    msvalidate: "F9DDBF5E7468903E9C589BC6B8E3D6CB",
   },
   robots: {
     index: true,
