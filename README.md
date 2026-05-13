@@ -1,36 +1,89 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# GPTOAPK — AI Apps APK Directory
 
-## Getting Started
+> Google Play 官方源的 AI 应用 APK 下载工具。
+>
+> Download official AI app APKs directly from Google Play CDN.
 
-First, run the development server:
+**🌐 Website: [gptoapk.com](https://gptoapk.com)**
+
+## ✨ What is GPTOAPK?
+
+GPTOAPK is an **AI APK search engine and download tool**. Paste any Google Play Store URL — get the APK file directly from Google's official servers.
+
+Think: Google Play URL → APK file, without login or Google services.
+
+## 🤖 Supported AI Apps
+
+| App | Category | APK Download Support |
+|-----|----------|---------------------|
+| ChatGPT | AI Chat | ✅ Available |
+| Claude | AI Assistant | ✅ Available |
+| Gemini | AI Assistant | ✅ Available |
+| Grok | AI Chat | ✅ Available |
+| DeepSeek | AI Chat | ✅ Available |
+| Kimi | AI Assistant | ✅ Available |
+| Qwen (通义千问) | AI Assistant | ✅ Available |
+| Poe | AI Platform | ✅ Available |
+
+> Any app on Google Play can be downloaded via GPTOAPK.
+
+## 📚 Blog — 33 Languages
+
+Comprehensive guides and tutorials available in **33 languages**:
+
+- How to download APK from Google Play
+- What is an APK file (complete guide)
+- Safe APK download sites (verified)
+- APK vs AAB comparison
+- APK permission check guide
+- APK install troubleshooting
+
+Read at: [gptoapk.com/blog](https://gptoapk.com/blog)
+
+## 🏗️ Tech Stack
+
+- **Framework**: Next.js 16 (App Router)
+- **Runtime**: React 19
+- **Styling**: Tailwind CSS v4
+- **Language**: TypeScript
+- **Deployment**: Vercel
+
+## 🚀 Getting Started
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🗺️ Roadmap
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- [x] Core APK download engine
+- [x] App detail pages (dynamic app/[appId])
+- [x] Blog with 33 languages
+- [x] SEO: sitemap.xml, robots.txt, Structured Data
+- [x] Multi-language blog posts (2+ articles per language)
+- [ ] Programmatic AI app listing pages
+- [ ] AI app comparisons and benchmarks
+- [ ] Community APK requests
 
-## Learn More
+## 📊 Stats
 
-To learn more about Next.js, take a look at the following resources:
+- 33 languages supported
+- 40+ blog articles across all languages
+- All APKs sourced from official Google Play CDN
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🔗 Links
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Website: [gptoapk.com](https://gptoapk.com)
+- Dev.to: [gptoapk.hashnode.dev](https://gptoapk.hashnode.dev)
+- Hashnode: [gptoapk.hashnode.dev](https://gptoapk.hashnode.dev)
 
-## Deploy on Vercel
+## ⚠️ Disclaimer
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+GPTOAPK is an independent APK download tool. It is not affiliated with Google, OpenAI, Anthropic, or any AI service provider. All APK files are sourced from official Google Play CDN.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+**⭐ If you find this useful, star the repo!**
