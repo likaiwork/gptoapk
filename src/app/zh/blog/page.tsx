@@ -70,6 +70,38 @@ const posts = [
     readTime: "8 分钟阅读",
     tags: ["APK 下载", "教程", "新手指南"],
   },
+  {
+    slug: "safe-reliable-apk-download-sites",
+    title: "安全下载 APK 的 7 个可靠网站推荐（2026 实测）",
+    description: "从第三方下载 APK 安全吗？实测推荐 7 个经过验证的 APK 下载站，帮你避开恶意软件和钓鱼陷阱。",
+    date: "2026-05-12",
+    readTime: "10 分钟阅读",
+    tags: ["APK 下载", "安全", "推荐"],
+  },
+  {
+    slug: "apk-vs-aab-complete-comparison",
+    title: "APK vs AAB：Android 应用格式全面对比（2026 最新）",
+    description: "Google Play 已强制要求新应用使用 AAB 格式发布。APK 和 AAB 有什么区别？开发者需要知道什么？普通用户受影响吗？",
+    date: "2026-05-12",
+    readTime: "8 分钟阅读",
+    tags: ["APK", "AAB", "对比"],
+  },
+  {
+    slug: "apk-permission-check-malware-detection",
+    title: "Android APK 权限检查指南：3 步识别恶意应用（2026 最新）",
+    description: "下载 APK 后如何判断是否安全？通过权限检查、签名验证和恶意软件扫描，3 步识别恶意 Android 应用。",
+    date: "2026-05-13",
+    readTime: "10 分钟阅读",
+    tags: ["APK 安全", "权限检查", "恶意软件"],
+  },
+  {
+    slug: "apk-install-failed-troubleshooting",
+    title: "APK 安装失败？12 种常见原因及解决方法（2026 完全指南）",
+    description: '下载了 APK 却安装不上？"应用未安装"、"解析包时出现问题"——12 种常见原因及对应解决方法。',
+    date: "2026-05-13",
+    readTime: "12 分钟阅读",
+    tags: ["APK 安装", "故障排查", "教程"],
+  },
 ];
 
 export default function BlogPageZh() {

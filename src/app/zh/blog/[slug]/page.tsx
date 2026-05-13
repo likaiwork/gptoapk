@@ -603,6 +603,97 @@ adb pull [上面返回的路径]`}</code></pre>
       </>
     ),
   },
+  {
+    slug: "apk-permission-check-malware-detection",
+    title: "Android APK 权限检查指南：3 步识别恶意应用（2026 最新）",
+    description: "下载 APK 后如何判断是否安全？教你通过权限检查、签名验证和恶意软件扫描，3 步识别恶意 Android 应用。",
+    date: "2026-05-13",
+    readTime: "10 分钟阅读",
+    tags: ["APK 安全", "权限检查", "Android 安全"],
+    content: (
+      <>
+        <h2>为什么 APK 权限检查很重要？</h2>
+        <p>Android 的权限系统是保护用户隐私的第一道防线。当安装应用时，它会声明需要的权限——但有些应用请求的权限远超其功能所需。</p>
+        <p>一个手电筒应用请求读取联系人、访问通话记录，就是明显的红旗信号。大量恶意 Android 应用通过滥用权限窃取数据、推送广告。</p>
+        <h2>第一步：安装前检查应用权限</h2>
+        <p><strong>方法一：使用 aapt 工具</strong></p>
+        <pre><code>{`aapt dump permissions app.apk | grep "name="`}</code></pre>
+        <p>输出示例：</p>
+        <pre><code>{`package: com.example.app
+uses-permission: name='android.permission.INTERNET'
+uses-permission: name='android.permission.READ_CONTACTS'   ← ⚠️ 需要留意`}</code></pre>
+        <p><strong>方法二：使用 APK Analyzer（Android Studio）</strong>：Build → Analyze APK… → 选择 APK 文件 → 查看 Raw File Info 中的权限声明。</p>
+        <p><strong>方法三：在线工具</strong>：VirusTotal 上传 APK 即可获得多引擎扫描结果 + 权限列表。</p>
+        <h3>⚠️ 红色警报权限组合</h3>
+        <ul>
+          <li><strong>READ_CONTACTS + SEND_SMS</strong> 🔴高危 — 可读取联系人并发送短信，可能扣费</li>
+          <li><strong>RECORD_AUDIO + INTERNET</strong> 🔴高危 — 录音后通过网络传输</li>
+          <li><strong>BIND_ACCESSIBILITY_SERVICE</strong> 🔴高危 — 读取屏幕所有内容（含密码和验证码）</li>
+          <li><strong>ACCESS_FINE_LOCATION + INTERNET</strong> 🟡中危 — 持续定位并发送到服务器</li>
+        </ul>
+        <p><strong>基本原则：</strong>功能越简单，需要的权限越少。计算器不需要联网，手电筒不需要读取联系人。</p>
+        <h2>第二步：验证 APK 签名</h2>
+        <p>每个正式发布的 Android 应用都有开发者签名。恶意软件常篡改正规应用后用新签名重新打包。</p>
+        <pre><code>{`keytool -printcert -jarfile app.apk`}</code></pre>
+        <p>检查要点：所有者信息应匹配知名公司（如 Google Inc.、WhatsApp Inc.）；证书有效期覆盖数年；至少使用 SHA256 签名算法。</p>
+        <h2>第三步：恶意软件扫描</h2>
+        <p>VirusTotal 使用超过 70 个反病毒引擎同时扫描 APK：访问 virustotal.com → 上传 APK 文件 → 等待扫描完成。</p>
+        <p>不想上传到第三方？可以用开源工具：Quark Engine（Python）或 Exodus Privacy。</p>
+        <h2>使用 gptoapk.com 的安全性</h2>
+        <p>使用 gptoapk.com 下载的 APK 直接从 Google Play 官方 CDN 获取，无中间篡改风险，签名与 Google Play 安装的版本一致。</p>
+        <div className="bg-blue-50 dark:bg-blue-900/20 p-6 rounded-xl border border-blue-100 dark:border-blue-800 mt-8">
+          <p className="font-semibold text-lg mb-2">从 Google Play 官方源安全下载 APK</p>
+          <p className="mb-3"><a href="https://gptoapk.com" className="text-blue-600 dark:text-blue-400 hover:underline font-medium">gptoapk.com</a> — 粘贴 Google Play 链接，直接获取最新版 APK。</p>
+          <a href="https://gptoapk.com" className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-xl transition-colors">立即前往 →<svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg></a>
+        </div>
+      </>
+    ),
+  },
+  {
+    slug: "apk-install-failed-troubleshooting",
+    title: "APK 安装失败？12 种常见原因及解决方法（2026 完全指南）",
+    description: "下载了 APK 却安装不上？\"应用未安装\"、\"解析包时出现问题\"——本文列出 12 种 APK 安装失败的常见原因及解决方法。",
+    date: "2026-05-13",
+    readTime: "12 分钟阅读",
+    tags: ["APK 安装", "故障排查", "Android 教程"],
+    content: (
+      <>
+        <h2>为什么 APK 会安装失败？</h2>
+        <p>APK 安装失败的原因多种多样，从简单的设置问题到复杂的签名冲突。下面逐一排查。</p>
+        <h3>1. \"安装来自未知来源\"被禁止</h3>
+        <p>最常见原因。Android 8.0+：设置 → 应用 → 特殊权限 → 安装未知应用，允许你的文件管理器或浏览器安装应用。鸿蒙：设置 → 安全 → 更多安全设置 → 开启。</p>
+        <h3>2. \"解析包时出现问题\"</h3>
+        <p>APK 文件损坏或不完整。重新下载（建议从 gptoapk.com 重新获取），检查文件大小是否合理。</p>
+        <h3>3. \"应用未安装\"—签名冲突</h3>
+        <p>系统已安装的应用签名与待安装 APK 签名不一致。解决方法：先卸载已安装版本，或使用 adb：<code>adb install -r app.apk</code>。</p>
+        <h3>4. 版本降级被拒绝</h3>
+        <p>Android 不允许安装旧版本。使用 <code>adb install -r -d app.apk</code> 强制降级。</p>
+        <h3>5. 空间不足</h3>
+        <p>APK 安装后需要 1.5-2 倍的解压空间。清理缓存、卸载不常用应用。</p>
+        <h3>6. 仅支持 64 位架构</h3>
+        <p>2023 年后越来越多应用移除了 32 位支持。用 <code>adb shell getprop ro.product.cpu.abi</code> 检查设备架构。</p>
+        <h3>7. 安装后闪退</h3>
+        <p>系统版本太低、缺少 Google Play 服务、SoC 不兼容。检查最低系统要求，更新系统。</p>
+        <h2>adb 常用命令速查</h2>
+        <pre><code>{`adb install app.apk            # 基本安装
+adb install -r app.apk         # 覆盖安装（保留数据）
+adb install -r -d app.apk      # 降级安装`}</code></pre>
+        <h2>错误代码对照表</h2>
+        <ul>
+          <li><strong>INSTALL_FAILED_ALREADY_EXISTS</strong> — 应用已存在，用 -r 参数</li>
+          <li><strong>INSTALL_FAILED_INVALID_APK</strong> — APK 无效，重新下载</li>
+          <li><strong>INSTALL_FAILED_NO_MATCHING_ABIS</strong> — 架构不兼容</li>
+          <li><strong>INSTALL_FAILED_UPDATE_INCOMPATIBLE</strong> — 签名不匹配</li>
+          <li><strong>INSTALL_FAILED_VERSION_DOWNGRADE</strong> — 用 -d 参数降级</li>
+        </ul>
+        <div className="bg-blue-50 dark:bg-blue-900/20 p-6 rounded-xl border border-blue-100 dark:border-blue-800 mt-8">
+          <p className="font-semibold text-lg mb-2">从 Google Play 官方源下载 APK，兼容性最佳</p>
+          <p className="mb-3"><a href="https://gptoapk.com" className="text-blue-600 dark:text-blue-400 hover:underline font-medium">gptoapk.com</a> — 粘贴 Google Play 链接即可获取适配你设备的 APK。</p>
+          <a href="https://gptoapk.com" className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-xl transition-colors">立即前往 →<svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg></a>
+        </div>
+      </>
+    ),
+  },
 
 ];
 
