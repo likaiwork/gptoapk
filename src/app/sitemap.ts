@@ -106,6 +106,46 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly" as const,
       priority: 0.6 as const,
     })),
+    // New route: Russia guide (en/zh)
+    {
+      url: `${baseUrl}/en/russia`,
+      lastModified: new Date("2026-05-14"),
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
+      alternates: {
+        languages: {
+          zh: `${baseUrl}/zh/russia`,
+          "x-default": `${baseUrl}/en/russia`,
+        },
+      },
+    },
+    {
+      url: `${baseUrl}/zh/russia`,
+      lastModified: new Date("2026-05-14"),
+      changeFrequency: "monthly" as const,
+      priority: 0.6,
+    },
+    // New route: AI Apps hub (en only for now)
+    {
+      url: `${baseUrl}/en/ai-apps`,
+      lastModified: new Date("2026-05-14"),
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
+    },
+    // New route: How-to section (en)
+    {
+      url: `${baseUrl}/en/how-to`,
+      lastModified: new Date("2026-05-14"),
+      changeFrequency: "weekly" as const,
+      priority: 0.8,
+    },
+    // New route: ChatGPT Install guide detail page (en)
+    {
+      url: `${baseUrl}/en/how-to/install-chatgpt-apk`,
+      lastModified: new Date("2026-05-14"),
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
+    },
     ...shellLocales.flatMap((locale) => [
       {
         url: `${baseUrl}/${locale}` as const,
