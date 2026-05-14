@@ -599,27 +599,33 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     notFound();
   }
 
-  const jsonLd = {
+        const jsonLd = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     "headline": post.title,
     "description": post.description,
     "datePublished": post.date,
-    "inLanguage": "id",
     "author": {
       "@type": "Organization",
-      "name": "APK Downloader",
-      "url": "https://gptoapk.com"
+      "name": "gptoapk.com",
+      "url": "https://gptoapk.com",
     },
     "publisher": {
       "@type": "Organization",
-      "name": "APK Downloader",
-      "url": "https://gptoapk.com"
+      "name": "gptoapk.com",
+      "url": "https://gptoapk.com",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://gptoapk.com/favicon.ico",
+      },
     },
     "mainEntityOfPage": {
       "@type": "WebPage",
-      "@id": `https://gptoapk.com/id/blog/${post.slug}`
-    }
+      "@id": `https://gptoapk.com/id/blog/${slug}`,
+    },
+    "inLanguage": "id",
+    "keywords": post.tags ? post.tags.join(", ") : "",
+    "about": post.tags ? post.tags.map((t) => ({ "@type": "Thing", name: t })) : [],
   };
 
   return (
@@ -671,7 +677,18 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         </div>
 
         {/* Navigation */}
-        <div className="mt-16 pt-8 border-t border-slate-200 dark:border-slate-700 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        
+        {/* Related Posts */}
+        <div className="mt-8 p-6 bg-gray-50 dark:bg-gray-800/50 rounded-xl border border-gray-100 dark:border-gray-700">
+          <h2 className="text-xl font-bold mb-4">Related Articles</h2>
+          <ul className="space-y-2">
+            <li><a href="/en/blog/top-10-apk-websites" className="text-blue-600 dark:text-blue-400 hover:underline">Top 10 APK Download Websites</a></li>
+            <li><a href="/en/blog/best-apk-sites-for-android" className="text-blue-600 dark:text-blue-400 hover:underline">Best APK Download Sites for Android</a></li>
+            <li><a href="/en/blog/apkpure-alternatives" className="text-blue-600 dark:text-blue-400 hover:underline">Best APKPure Alternatives</a></li>
+          </ul>
+        </div>
+
+<div className="mt-16 pt-8 border-t border-slate-200 dark:border-slate-700 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <Link
             href="/id/blog"
             className="inline-flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:underline font-medium"

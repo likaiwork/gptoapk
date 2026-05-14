@@ -65,6 +65,43 @@ export const metadata: Metadata = {
   },
 };
 
+// All 33 supported locales for hreflang
+const HREFLANG_LOCALES = [
+  { code: "en", hrefLang: "en", path: "" },
+  { code: "zh", hrefLang: "zh-Hans", path: "/zh" },
+  { code: "ja", hrefLang: "ja", path: "/ja" },
+  { code: "ko", hrefLang: "ko", path: "/ko" },
+  { code: "ar", hrefLang: "ar", path: "/ar" },
+  { code: "bn", hrefLang: "bn", path: "/bn" },
+  { code: "cs", hrefLang: "cs", path: "/cs" },
+  { code: "da", hrefLang: "da", path: "/da" },
+  { code: "de", hrefLang: "de", path: "/de" },
+  { code: "el", hrefLang: "el", path: "/el" },
+  { code: "es", hrefLang: "es", path: "/es" },
+  { code: "fa", hrefLang: "fa", path: "/fa" },
+  { code: "fi", hrefLang: "fi", path: "/fi" },
+  { code: "fr", hrefLang: "fr", path: "/fr" },
+  { code: "he", hrefLang: "he", path: "/he" },
+  { code: "hi", hrefLang: "hi", path: "/hi" },
+  { code: "hu", hrefLang: "hu", path: "/hu" },
+  { code: "id", hrefLang: "id", path: "/id" },
+  { code: "it", hrefLang: "it", path: "/it" },
+  { code: "ms", hrefLang: "ms", path: "/ms" },
+  { code: "nb", hrefLang: "nb", path: "/nb" },
+  { code: "nl", hrefLang: "nl", path: "/nl" },
+  { code: "pl", hrefLang: "pl", path: "/pl" },
+  { code: "pt", hrefLang: "pt", path: "/pt" },
+  { code: "ro", hrefLang: "ro", path: "/ro" },
+  { code: "ru", hrefLang: "ru", path: "/ru" },
+  { code: "sv", hrefLang: "sv", path: "/sv" },
+  { code: "th", hrefLang: "th", path: "/th" },
+  { code: "tl", hrefLang: "tl", path: "/tl" },
+  { code: "tr", hrefLang: "tr", path: "/tr" },
+  { code: "uk", hrefLang: "uk", path: "/uk" },
+  { code: "ur", hrefLang: "ur", path: "/ur" },
+  { code: "vi", hrefLang: "vi", path: "/vi" },
+] as const;
+
 export default async function RootLayout({
   children,
 }: Readonly<{
@@ -75,12 +112,12 @@ export default async function RootLayout({
   const htmlLang = localeHeader && supportedHtmlLocales.has(localeHeader) ? localeHeader : "en"; // 检查：proxy 没识别到时回落英文，避免错误的 lang 属性
   const htmlDir = isRtlLocale(htmlLang) ? "rtl" : "ltr";
 
-  const schemaJsonLd = {
+  const webApplicationSchema = {
     "@context": "https://schema.org",
     "@type": "WebApplication",
-    "name": "APK 下载器",
+    "name": "APK Downloader - Google Play APK Extractor",
     "url": "https://gptoapk.com",
-    "description": "免费在线 APK 下载工具，从 Google Play 链接快速、安全地提取 APK 文件。",
+    "description": "Free online APK download tool. Extract APK files from Google Play Store quickly and safely.",
     "applicationCategory": "Utilities",
     "operatingSystem": "Android",
     "offers": {
@@ -90,9 +127,46 @@ export default async function RootLayout({
     },
   };
 
+  const webSiteSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "gptoapk.com",
+    "url": "https://gptoapk.com",
+    "description": "APK download tool for Android - search and download APK files directly from Google Play",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://gptoapk.com/?q={search_term_string}",
+      },
+      "query-input": "required name=search_term_string",
+    },
+  };
+
+  const organizationSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "gptoapk.com",
+    "url": "https://gptoapk.com",
+    "sameAs": [
+      "https://gptoapk.hashnode.dev",
+    ],
+  };
+
   return (
     <html lang={htmlLang} dir={htmlDir} className="h-full antialiased">
       <head>
+        {/* Hreflang tags for all 33 languages */}
+        {HREFLANG_LOCALES.map((locale) => (
+          <link
+            key={locale.hrefLang}
+            rel="alternate"
+            href={`https://gptoapk.com${locale.path}`}
+            hrefLang={locale.hrefLang}
+          />
+        ))}
+        <link rel="alternate" href="https://gptoapk.com" hrefLang="x-default" />
+
         <Script id="gtm-base" strategy="afterInteractive">
           {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -101,9 +175,19 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','${GTM_ID}');`}
         </Script>
         <Script
-          id="schema-jsonld"
+          id="schema-web-application"
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(webApplicationSchema) }}
+        />
+        <Script
+          id="schema-web-site"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(webSiteSchema) }}
+        />
+        <Script
+          id="schema-organization"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
         />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} min-h-full flex flex-col bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-50 font-sans`}>

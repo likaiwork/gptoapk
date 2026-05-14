@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Script from "next/script";
 
 export const metadata: Metadata = {
   title: "Blog - APK Downloader | gptoapk.com",
@@ -68,7 +69,31 @@ const blogPosts = [
 
 export default function BlogIndexPage() {
   return (
-    <div className="max-w-5xl mx-auto px-4 py-16">
+
+
+    <div
+className="max-w-5xl mx-auto px-4 py-16">
+
+
+      <Script
+        id="schema-collection-page"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "CollectionPage",
+            "name": "Blog - gptoapk.com",
+            "description": "Latest articles about APK downloads, Android apps, and installation guides",
+            "url": "https://gptoapk.com/tl/blog",
+            "inLanguage": "tl",
+            "isPartOf": {
+              "@type": "WebSite",
+              "name": "gptoapk.com",
+              "url": "https://gptoapk.com"
+            }
+          }),
+        }}
+      />
       <div className="text-center mb-12">
         <h1 className="text-4xl font-extrabold tracking-tight mb-4">APK Downloader Blog</h1>
         <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">

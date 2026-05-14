@@ -737,22 +737,33 @@ export default async function BlogPostPage({
     notFound();
   }
 
-  const jsonLd = {
+    const jsonLd = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
-    headline: post.title,
-    description: post.description,
-    datePublished: post.date,
-    author: {
+    "headline": post.title,
+    "description": post.description,
+    "datePublished": post.date,
+    "author": {
       "@type": "Organization",
-      name: "gptoapk.com",
+      "name": "gptoapk.com",
+      "url": "https://gptoapk.com",
     },
-    url: `https://gptoapk.com/zh/blog/${slug}`,
-    inLanguage: "zh-CN",
-    mainEntityOfPage: {
+    "publisher": {
+      "@type": "Organization",
+      "name": "gptoapk.com",
+      "url": "https://gptoapk.com",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://gptoapk.com/favicon.ico",
+      },
+    },
+    "mainEntityOfPage": {
       "@type": "WebPage",
       "@id": `https://gptoapk.com/zh/blog/${slug}`,
     },
+    "inLanguage": "zh-Hans",
+    "keywords": post.tags ? post.tags.join(", ") : "",
+    "about": post.tags ? post.tags.map((t) => ({ "@type": "Thing", name: t })) : [],
   };
 
   return (
@@ -797,7 +808,18 @@ export default async function BlogPostPage({
           {post.content}
         </div>
 
-        <div className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
+        
+        {/* Related Posts */}
+        <div className="mt-8 p-6 bg-gray-50 dark:bg-gray-800/50 rounded-xl border border-gray-100 dark:border-gray-700">
+          <h2 className="text-xl font-bold mb-4">相关文章</h2>
+          <ul className="space-y-2">
+            <li><a href="/zh/blog/top-10-apk-websites" className="text-blue-600 dark:text-blue-400 hover:underline">十大APK下载网站推荐</a></li>
+            <li><a href="/zh/blog/best-apk-sites-for-android" className="text-blue-600 dark:text-blue-400 hover:underline">APK下载站推荐</a></li>
+            <li><a href="/zh/blog/apkpure-alternatives" className="text-blue-600 dark:text-blue-400 hover:underline">APKPure 平替推荐</a></li>
+          </ul>
+        </div>
+
+<div className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
           <Link
             href="/zh/blog"
             className="text-blue-600 dark:text-blue-400 hover:underline"

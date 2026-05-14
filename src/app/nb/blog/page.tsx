@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Script from "next/script";
 
 const posts = [
   {
@@ -81,6 +82,27 @@ export default function BlogIndexPage() {
 
   return (
     <>
+
+
+      <Script
+        id="schema-collection-page"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "CollectionPage",
+            "name": "Blog - gptoapk.com",
+            "description": "Latest articles about APK downloads, Android apps, and installation guides",
+            "url": "https://gptoapk.com/nb/blog",
+            "inLanguage": "nb",
+            "isPartOf": {
+              "@type": "WebSite",
+              "name": "gptoapk.com",
+              "url": "https://gptoapk.com"
+            }
+          }),
+        }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

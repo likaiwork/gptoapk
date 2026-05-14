@@ -578,19 +578,33 @@ export default async function BlogPostPage({
   const post = posts.find((p) => p.slug === slug);
   if (!post) notFound();
 
-  const jsonLd = {
+        const jsonLd = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
-    headline: post.title,
-    description: post.description,
-    datePublished: post.date,
-    author: { "@type": "Organization", name: "gptoapk.com" },
-    url: `https://gptoapk.com/sv/blog/${slug}`,
-    inLanguage: "sv",
-    mainEntityOfPage: {
+    "headline": post.title,
+    "description": post.description,
+    "datePublished": post.date,
+    "author": {
+      "@type": "Organization",
+      "name": "gptoapk.com",
+      "url": "https://gptoapk.com",
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "gptoapk.com",
+      "url": "https://gptoapk.com",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://gptoapk.com/favicon.ico",
+      },
+    },
+    "mainEntityOfPage": {
       "@type": "WebPage",
       "@id": `https://gptoapk.com/sv/blog/${slug}`,
     },
+    "inLanguage": "sv",
+    "keywords": post.tags ? post.tags.join(", ") : "",
+    "about": post.tags ? post.tags.map((t) => ({ "@type": "Thing", name: t })) : [],
   };
 
   return (
@@ -644,7 +658,18 @@ export default async function BlogPostPage({
           {post.content}
         </div>
 
-        <div className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
+        
+        {/* Related Posts */}
+        <div className="mt-8 p-6 bg-gray-50 dark:bg-gray-800/50 rounded-xl border border-gray-100 dark:border-gray-700">
+          <h2 className="text-xl font-bold mb-4">Related Articles</h2>
+          <ul className="space-y-2">
+            <li><a href="/en/blog/top-10-apk-websites" className="text-blue-600 dark:text-blue-400 hover:underline">Top 10 APK Download Websites</a></li>
+            <li><a href="/en/blog/best-apk-sites-for-android" className="text-blue-600 dark:text-blue-400 hover:underline">Best APK Download Sites for Android</a></li>
+            <li><a href="/en/blog/apkpure-alternatives" className="text-blue-600 dark:text-blue-400 hover:underline">Best APKPure Alternatives</a></li>
+          </ul>
+        </div>
+
+<div className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
           <Link
             href="/sv/blog"
             className="text-blue-600 dark:text-blue-400 hover:underline"
