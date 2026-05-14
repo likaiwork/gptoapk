@@ -1,18 +1,19 @@
 # gptoapk 埋点事件说明
 
-本文档记录当前接入 GA4 和 Microsoft Clarity 的自定义埋点事件。
+本文档记录当前接入 GA4、Microsoft Clarity 和百度统计的自定义埋点事件。
 
 ## 现有 ID
 
 - GA4 Measurement ID：`G-DB1E6ERNFQ`
 - Google Tag Manager ID：`GTM-MXXWHJTP`
 - Microsoft Clarity Project ID：`wlqyr64bhf`
+- 百度统计 ID：`bc8078f71b3d5cefd8c7bf3e9ca7d80c`
 
 基础脚本在 `src/app/layout.tsx` 中加载。
 
 ## 所需环境变量
 
-客户端事件可以直接使用现有 GA4 脚本。
+客户端事件可以直接使用现有 GA4 和百度统计脚本。
 
 服务端下载完成事件需要配置 GA4 Measurement Protocol secret：
 
@@ -32,14 +33,14 @@ GA_MEASUREMENT_ID=G-DB1E6ERNFQ
 
 | 指标 | 事件名 | 来源 | 触发时机 |
 | --- | --- | --- | --- |
-| 访问量 | `page_view` | GA4 基础脚本 | 页面正常加载和客户端路由切换 |
-| 访问会话 | `site_visit` | 客户端 | 每个浏览器标签页会话触发一次 |
-| 搜索按钮点击 | `search_submit` | 客户端 | 用户点击生成按钮或按 Enter |
-| 解析成功 | `parse_success` | 客户端 | `/api/search-apps` 返回一个或多个应用结果 |
-| 解析失败 | `parse_failed` | 客户端 | 空输入、无效应用、超时或请求错误 |
-| 下载按钮点击 | `download_click` | 客户端 | 用户点击 `Download APK` |
-| 下载准备成功 | `download_prepare_success` | 客户端 | `/api/download-apk` POST 返回代理下载 URL |
-| 下载准备失败 | `download_prepare_failed` | 客户端 | 下载源不可用、文件过大或 API 错误 |
+| 访问量 | `page_view` | GA4 / 百度统计 | 页面正常加载和客户端路由切换 |
+| 访问会话 | `site_visit` | GA4 / Clarity / 百度统计 | 每个浏览器标签页会话触发一次 |
+| 搜索按钮点击 | `search_submit` | GA4 / Clarity / 百度统计 | 用户点击生成按钮或按 Enter |
+| 解析成功 | `parse_success` | GA4 / Clarity / 百度统计 | `/api/search-apps` 返回一个或多个应用结果 |
+| 解析失败 | `parse_failed` | GA4 / Clarity / 百度统计 | 空输入、无效应用、超时或请求错误 |
+| 下载按钮点击 | `download_click` | GA4 / Clarity / 百度统计 | 用户点击 `Download APK` |
+| 下载准备成功 | `download_prepare_success` | GA4 / Clarity / 百度统计 | `/api/download-apk` POST 返回代理下载 URL |
+| 下载准备失败 | `download_prepare_failed` | GA4 / Clarity / 百度统计 | 下载源不可用、文件过大或 API 错误 |
 | 下载流开始 | `download_start` | 服务端 | `/api/download-apk?appId=...` 开始流式传输 |
 | 下载成功 | `download_success` | 服务端 | APK 从上游完整传输到浏览器 |
 | 下载失败 | `download_failed` | 服务端 | 下载源失败、超时、大小限制、代理错误或用户取消 |
@@ -73,6 +74,8 @@ GA_MEASUREMENT_ID=G-DB1E6ERNFQ
 ## 统计口径
 
 - 访问流量：看 GA4 的 `Users`、`Sessions` 和 `page_view`。
+- 百度统计：页面访问自动由 `hm.js` 记录；客户端路由切换会额外发送 `_trackPageview`。
+- 百度统计自定义事件：客户端事件统一发送为 `_trackEvent`，分类为 `gptoapk`，动作名使用上表事件名，标签保留关键参数。
 - 按钮点击：统计 `search_submit` 和 `download_click`。
 - 搜索解析转化率：`parse_success / search_submit`。
 - 搜索解析失败率：`parse_failed / search_submit`。
@@ -85,7 +88,7 @@ GA_MEASUREMENT_ID=G-DB1E6ERNFQ
 ## 涉及文件
 
 - `src/lib/analytics-events.ts`：共享事件名和事件参数类型。
-- `src/lib/client-analytics.ts`：客户端 GA4/Clarity 事件发送逻辑。
+- `src/lib/client-analytics.ts`：客户端 GA4/Clarity/百度统计事件发送逻辑。
 - `src/lib/server-analytics.ts`：服务端 GA4 Measurement Protocol 发送逻辑。
 - `src/components/AnalyticsRouteEvents.tsx`：路由页面浏览和每会话一次的 `site_visit`。
 - `src/components/SearchBox.tsx`：搜索、解析和结果列表相关事件。

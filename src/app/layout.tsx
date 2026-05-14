@@ -14,6 +14,7 @@ const BING_VERIFICATION = "F9DDBF5E7468903E9C589BC6B8E3D6CB";
 const CLARITY_PROJECT_ID = "wlqyr64bhf";
 const GTM_ID = "GTM-MXXWHJTP";
 const GA_MEASUREMENT_ID = "G-DB1E6ERNFQ";
+const BAIDU_TONGJI_ID = "bc8078f71b3d5cefd8c7bf3e9ca7d80c";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -138,6 +139,16 @@ gtag('config', '${GA_MEASUREMENT_ID}');`}
               t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
               y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
           })(window, document, "clarity", script, "${CLARITY_PROJECT_ID}");`}
+        </Script>
+
+        <Script id="baidu-tongji" strategy="afterInteractive">
+          {`window._hmt = window._hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?${BAIDU_TONGJI_ID}";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();`}
         </Script>
       </body>
     </html>
