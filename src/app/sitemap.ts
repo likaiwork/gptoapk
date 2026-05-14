@@ -177,6 +177,46 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly" as const,
       priority,
     })),
+    // Turkish (tr) SEO pages — Turkey market
+    ...([
+      { slug: "chatgpt-apk", priority: 0.7 as const },
+      { slug: "telegram-apk", priority: 0.7 as const },
+      { slug: "whatsapp-apk", priority: 0.7 as const },
+      { slug: "tiktok-apk", priority: 0.7 as const },
+      { slug: "youtube-apk", priority: 0.7 as const },
+      { slug: "google-play-not-working", priority: 0.7 as const },
+    ]).map(({ slug, priority }) => ({
+      url: `${baseUrl}/tr/${slug}` as const,
+      lastModified: new Date("2026-05-14"),
+      changeFrequency: "weekly" as const,
+      priority,
+    })),
+    // Thai (th) SEO pages — Thailand market
+    ...([
+      { slug: "chatgpt-apk", priority: 0.7 as const },
+      { slug: "telegram-apk", priority: 0.7 as const },
+      { slug: "tiktok-apk", priority: 0.7 as const },
+      { slug: "whatsapp-apk", priority: 0.7 as const },
+      { slug: "google-play-not-working", priority: 0.7 as const },
+    ]).map(({ slug, priority }) => ({
+      url: `${baseUrl}/th/${slug}` as const,
+      lastModified: new Date("2026-05-14"),
+      changeFrequency: "weekly" as const,
+      priority,
+    })),
+    // Arabic (ar) SEO pages — MENA market
+    ...([
+      { slug: "chatgpt-apk", priority: 0.7 as const },
+      { slug: "telegram-apk", priority: 0.7 as const },
+      { slug: "whatsapp-apk", priority: 0.7 as const },
+      { slug: "tiktok-apk", priority: 0.7 as const },
+      { slug: "google-play-not-working", priority: 0.7 as const },
+    ]).map(({ slug, priority }) => ({
+      url: `${baseUrl}/ar/${slug}` as const,
+      lastModified: new Date("2026-05-14"),
+      changeFrequency: "weekly" as const,
+      priority,
+    })),
     // Persian (fa) SEO pages — Iran market
     ...([
       { slug: "telegram-apk", priority: 0.7 as const },
