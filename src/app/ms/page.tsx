@@ -9,7 +9,7 @@ export default function MsHome() {
           APK Downloader
         </h1>
         <p className="text-lg sm:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-          Muat turun APK terus daripada Google Play Store. Tampal pautan Play atau ID aplikasi di bawah dan jana pautan muat turun serta-merta.
+          {"Cari mengikut nama aplikasi, tampal pautan Google Play atau masukkan nama pakej untuk mencari aplikasi dan menjana pautan muat turun APK."}
         </p>
         <div className="mt-8">
           <SearchBox />

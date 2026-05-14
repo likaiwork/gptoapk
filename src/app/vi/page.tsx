@@ -10,7 +10,7 @@ export default function ViHome() {
           APK Downloader
         </h1>
         <p className="text-lg sm:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-          Tải APK trực tiếp từ Google Play Store. Dán liên kết Google Play hoặc ID ứng dụng bên dưới để tạo liên kết tải xuống ngay lập tức.
+          {"Tìm theo tên ứng dụng, dán liên kết Google Play hoặc nhập tên gói để tìm ứng dụng và tạo liên kết tải APK."}
         </p>
         <div className="mt-8">
           <SearchBox />

@@ -9,7 +9,7 @@ export default function NlHome() {
           APK Downloader
         </h1>
         <p className="text-lg sm:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-          Download APK direct van de Google Play Store. Plak hieronder de Play-link of app-ID en maak direct een downloadlink.
+          {"Zoek op appnaam, plak een Google Play-link of voer de pakketnaam in om de app te vinden en een APK-downloadlink te maken."}
         </p>
         <div className="mt-8">
           <SearchBox />

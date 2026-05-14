@@ -10,7 +10,7 @@ export default function EsHome() {
           APK Downloader
         </h1>
         <p className="text-lg sm:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-          Descarga APK directamente desde Google Play Store. Pega el enlace de Google Play o el ID de la aplicación y genera tu enlace de descarga al instante.
+          {"Busca por nombre de app, pega un enlace de Google Play o introduce el nombre del paquete para encontrar la app y generar un enlace de descarga APK."}
         </p>
         <div className="mt-8">
           <SearchBox />

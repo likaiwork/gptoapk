@@ -10,7 +10,7 @@ export default function FrHome() {
           Téléchargeur APK
         </h1>
         <p className="text-lg sm:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-          Téléchargez des APK directement depuis Google Play Store. Collez un lien Google Play ou un identifiant d&apos;application ci-dessous et générez votre lien de téléchargement instantanément.
+          {"Recherchez par nom d'application, collez un lien Google Play ou saisissez un nom de package pour trouver l'app et générer un lien de téléchargement APK."}
         </p>
         <div className="mt-8">
           <SearchBox />

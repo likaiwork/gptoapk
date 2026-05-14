@@ -11,7 +11,7 @@ export default function HomeZh() {
           APK 下载器
         </h1>
         <p className="text-lg sm:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-          从 Google Play 商店直接下载 APK。只需粘贴 Google Play 链接或应用 ID，立即生成下载链接。
+          {"输入应用名称、Google Play 链接或包名，快速找到应用并生成 APK 下载链接。"}
         </p>
         <div className="mt-8">
           <SearchBox />

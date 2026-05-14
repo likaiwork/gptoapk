@@ -9,7 +9,7 @@ export default function HomePage() {
           APK Downloader
         </h1>
         <p className="text-lg sm:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-          {"Descarcă APK direct din Google Play Store. Lipește linkul Play sau ID-ul aplicației mai jos și generează imediat linkul de descărcare."}
+          {"Caută după numele aplicației, lipește un link Google Play sau introdu numele pachetului pentru a găsi aplicația și a genera un link de descărcare APK."}
         </p>
         <div className="mt-8">
           <SearchBox />

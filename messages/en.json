@@ -1,8 +1,8 @@
 {
   "site": {
     "name": "APK Downloader",
-    "tagline": "Download APK directly from Google Play Store.",
-    "description": "Just paste the Google Play link or App ID below and generate your download link instantly.",
+    "tagline": "Find APKs by app name, Google Play link, or package name.",
+    "description": "Search by app name, paste a Google Play link, or enter a package name to find an app and generate an APK download link.",
     "footer": {
       "copyright": "© {year} APK Downloader. All rights reserved.",
       "disclaimer": "This tool is not affiliated with Google or Google Play in any way."
@@ -15,7 +15,7 @@
   },
   "hero": {
     "title": "APK Downloader",
-    "description": "Download APK directly from Google Play Store. Just paste the Google Play link or App ID below and generate your download link instantly."
+    "description": "Search by app name, paste a Google Play link, or enter a package name to find an app and generate an APK download link."
   },
   "features": {
     "fast": {

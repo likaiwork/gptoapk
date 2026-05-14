@@ -9,7 +9,7 @@ export default function ItHome() {
           APK Downloader
         </h1>
         <p className="text-lg sm:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-          Scarica APK direttamente dal Google Play Store. Incolla il link Google Play o l&apos;ID app qui sotto e genera subito il link di download.
+          {"Cerca per nome dell'app, incolla un link Google Play o inserisci il nome del pacchetto per trovare l'app e generare un link di download APK."}
         </p>
         <div className="mt-8">
           <SearchBox />

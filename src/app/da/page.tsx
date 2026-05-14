@@ -9,7 +9,7 @@ export default function HomePage() {
           APK Downloader
         </h1>
         <p className="text-lg sm:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-          {"Download APK direkte fra Google Play Store. Indsæt Play-linket eller app-ID nedenfor og opret downloadlinket med det samme."}
+          {"Søg efter appnavn, indsæt et Google Play-link eller angiv pakkenavnet for at finde appen og oprette et APK-downloadlink."}
         </p>
         <div className="mt-8">
           <SearchBox />

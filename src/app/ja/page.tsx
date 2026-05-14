@@ -10,7 +10,7 @@ export default function JaHome() {
           APK ダウンローダー
         </h1>
         <p className="text-lg sm:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-          Google Play ストアから APK ファイルを直接ダウンロード。Google Play のリンクまたはアプリ ID を貼り付けるだけで、ダウンロードリンクをすぐに生成します。
+          {"アプリ名で検索、Google Play リンクを貼り付け、またはパッケージ名を入力して、アプリを見つけ APK ダウンロードリンクを生成できます。"}
         </p>
         <div className="mt-8">
           <SearchBox />

@@ -10,7 +10,7 @@ export default function HiHome() {
           APK डाउनलोडर
         </h1>
         <p className="text-lg sm:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-          Google Play स्टोर से सीधे APK डाउनलोड करें। नीचे Google Play लिंक या ऐप ID पेस्ट करें और तुरंत डाउनलोड लिंक पाएं।
+          {"ऐप नाम से खोजें, Google Play लिंक पेस्ट करें या पैकेज नाम दर्ज करें, फिर ऐप ढूंढकर APK डाउनलोड लिंक बनाएं।"}
         </p>
         <div className="mt-8">
           <SearchBox />

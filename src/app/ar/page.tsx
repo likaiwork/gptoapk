@@ -10,7 +10,7 @@ export default function ArHome() {
           محمل APK
         </h1>
         <p className="text-lg sm:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-          نزّل ملفات APK مباشرة من متجر Google Play. الصق رابط Google Play أو معرف التطبيق أدناه ولّد رابط التنزيل فورًا.
+          {"ابحث باسم التطبيق، أو الصق رابط Google Play، أو أدخل اسم الحزمة للعثور على التطبيق وإنشاء رابط تنزيل APK."}
         </p>
         <div className="mt-8">
           <SearchBox />

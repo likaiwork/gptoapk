@@ -1,8 +1,8 @@
 {
   "site": {
     "name": "APK 下载器",
-    "tagline": "从Google Play直接下载APK。",
-    "description": "只需粘贴Google Play链接或应用ID，立即生成下载链接。",
+    "tagline": "按应用名称、Google Play 链接或包名查找 APK。",
+    "description": "输入应用名称、Google Play 链接或包名，快速找到应用并生成 APK 下载链接。",
     "footer": {
       "copyright": "© {year} APK 下载器。保留所有权利。",
       "disclaimer": "本工具与Google或Google Play没有任何关联。"
@@ -15,7 +15,7 @@
   },
   "hero": {
     "title": "APK 下载器",
-    "description": "从 Google Play 商店直接下载 APK。只需粘贴 Google Play 链接或应用 ID，立即生成下载链接。"
+    "description": "输入应用名称、Google Play 链接或包名，快速找到应用并生成 APK 下载链接。"
   },
   "features": {
     "fast": {

@@ -10,7 +10,7 @@ export default function PtHome() {
           APK Downloader
         </h1>
         <p className="text-lg sm:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-          Baixe APK direto da Google Play Store. Cole o link da Google Play ou o ID do app abaixo e gere seu link de download instantaneamente.
+          {"Pesquise pelo nome do app, cole um link do Google Play ou insira o nome do pacote para encontrar o app e gerar um link de download APK."}
         </p>
         <div className="mt-8">
           <SearchBox />

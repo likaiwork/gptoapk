@@ -10,7 +10,7 @@ export default function DeHome() {
           APK Downloader
         </h1>
         <p className="text-lg sm:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-          Lade APKs direkt aus dem Google Play Store herunter. Füge unten einen Google-Play-Link oder eine App-ID ein und generiere deinen Download-Link sofort.
+          {"Suchen Sie nach App-Namen, fügen Sie einen Google-Play-Link ein oder geben Sie den Paketnamen ein, um die App zu finden und einen APK-Download-Link zu erstellen."}
         </p>
         <div className="mt-8">
           <SearchBox />

@@ -9,7 +9,7 @@ export default function ThHome() {
           APK Downloader
         </h1>
         <p className="text-lg sm:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-          ดาวน์โหลด APK โดยตรงจาก Google Play Store วางลิงก์ Play หรือ App ID ด้านล่าง แล้วสร้างลิงก์ดาวน์โหลดได้ทันที
+          {"ค้นหาด้วยชื่อแอป วางลิงก์ Google Play หรือป้อนชื่อแพ็กเกจ เพื่อค้นหาแอปและสร้างลิงก์ดาวน์โหลด APK"}
         </p>
         <div className="mt-8">
           <SearchBox />

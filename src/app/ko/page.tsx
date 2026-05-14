@@ -10,7 +10,7 @@ export default function KoHome() {
           APK 다운로더
         </h1>
         <p className="text-lg sm:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-          Google Play 스토어에서 직접 APK를 다운로드하세요. Google Play 링크나 앱 ID를 아래에 붙여넣고 즉시 다운로드 링크를 생성하세요.
+          {"앱 이름으로 검색하거나 Google Play 링크를 붙여넣거나 패키지명을 입력해 앱을 찾고 APK 다운로드 링크를 생성하세요."}
         </p>
         <div className="mt-8">
           <SearchBox />

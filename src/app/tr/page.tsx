@@ -10,7 +10,7 @@ export default function TrHome() {
           APK İndirici
         </h1>
         <p className="text-lg sm:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-          APK&apos;leri doğrudan Google Play Store&apos;dan indirin. Aşağıya bir Google Play bağlantısı veya uygulama kimliği yapıştırın ve indirme bağlantınızı anında oluşturun.
+          {"Uygulama adına göre arayın, Google Play bağlantısı yapıştırın veya paket adını girerek uygulamayı bulun ve APK indirme bağlantısı oluşturun."}
         </p>
         <div className="mt-8">
           <SearchBox />

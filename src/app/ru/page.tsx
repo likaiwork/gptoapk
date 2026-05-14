@@ -10,7 +10,7 @@ export default function RuHome() {
           APK Downloader
         </h1>
         <p className="text-lg sm:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-          Скачивайте APK прямо из Google Play. Просто вставьте ссылку или ID приложения и сразу получите ссылку на загрузку.
+          {"Ищите по названию приложения, вставьте ссылку Google Play или введите имя пакета, чтобы найти приложение и создать ссылку на загрузку APK."}
         </p>
         <div className="mt-8">
           <SearchBox />

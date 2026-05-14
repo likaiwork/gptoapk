@@ -9,7 +9,7 @@ export default function PlHome() {
           APK Downloader
         </h1>
         <p className="text-lg sm:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-          Pobieraj APK bezpośrednio ze sklepu Google Play. Wklej link lub ID aplikacji i natychmiast wygeneruj link do pobrania.
+          {"Wyszukaj po nazwie aplikacji, wklej link Google Play lub wpisz nazwę pakietu, aby znaleźć aplikację i wygenerować link do pobrania APK."}
         </p>
         <div className="mt-8">
           <SearchBox />

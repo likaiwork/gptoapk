@@ -9,7 +9,7 @@ export default function UkHome() {
           APK Downloader
         </h1>
         <p className="text-lg sm:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-          Завантажуйте APK безпосередньо з Google Play. Вставте посилання або ID застосунку нижче й одразу отримайте посилання для завантаження.
+          {"Шукайте за назвою застосунку, вставте посилання Google Play або введіть ім'я пакета, щоб знайти застосунок і створити посилання для завантаження APK."}
         </p>
         <div className="mt-8">
           <SearchBox />

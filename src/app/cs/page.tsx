@@ -9,7 +9,7 @@ export default function HomePage() {
           APK Downloader
         </h1>
         <p className="text-lg sm:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-          {"Stáhněte APK přímo z Google Play. Vložte odkaz Play nebo ID aplikace níže a okamžitě vygenerujte odkaz ke stažení."}
+          {"Hledejte podle názvu aplikace, vložte odkaz Google Play nebo zadejte název balíčku a vytvořte odkaz ke stažení APK."}
         </p>
         <div className="mt-8">
           <SearchBox />

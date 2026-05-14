@@ -10,7 +10,7 @@ export default function IdHome() {
           APK Downloader
         </h1>
         <p className="text-lg sm:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-          Unduh APK langsung dari Google Play Store. Cukup tempel tautan Google Play atau ID aplikasi di bawah dan buat tautan unduhanmu seketika.
+          {"Cari berdasarkan nama aplikasi, tempel tautan Google Play, atau masukkan nama paket untuk menemukan aplikasi dan membuat tautan unduhan APK."}
         </p>
         <div className="mt-8">
           <SearchBox />

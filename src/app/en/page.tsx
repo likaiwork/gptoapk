@@ -10,7 +10,7 @@ export default function EnHome() {
           APK Downloader
         </h1>
         <p className="text-lg sm:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-          Download APK directly from Google Play Store. Just paste the Google Play link or App ID below and generate your download link instantly.
+          {"Search by app name, paste a Google Play link, or enter a package name to find an app and generate an APK download link."}
         </p>
         {/* Search Box Component */}
         <div className="mt-8">
