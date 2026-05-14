@@ -93,6 +93,17 @@ export default function WhatsAppApkPage() {
         </div>
       </div>
 
+
+      {/* Related Guides */}
+      <div className="mt-8 p-6 bg-gray-50 dark:bg-gray-800/50 rounded-xl border border-gray-100 dark:border-gray-700">
+        <h2 className="text-xl font-bold mb-4">関連ガイド</h2>
+        <ul className="space-y-2">
+        <li><a href="/ja/chatgpt-apk" className="text-blue-600 dark:text-blue-400 hover:underline">ChatGPT APK ダウンロード</a></li>
+        <li><a href="/ja/google-play-not-working" className="text-blue-600 dark:text-blue-400 hover:underline">Google Playが機能しない</a></li>
+        <li><a href="/ja/whatsapp-apk" className="text-blue-600 dark:text-blue-400 hover:underline">WhatsApp APK ダウンロード</a></li>
+        </ul>
+      </div>
+
       {/* CTA Block */}
       <div className="bg-blue-50 dark:bg-blue-900/20 p-6 rounded-xl border border-blue-100 dark:border-blue-800 mt-8">
         <p className="font-semibold text-lg mb-2">最新バージョンのAPKが必要ですか？</p>

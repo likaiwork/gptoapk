@@ -201,6 +201,17 @@ export default function ZhRussiaPage() {
         </div>
       </section>
 
+
+      {/* Related Guides */}
+      <div className="mt-8 p-6 bg-gray-50 dark:bg-gray-800/50 rounded-xl border border-gray-100 dark:border-gray-700">
+        <h2 className="text-xl font-bold mb-4">相关教程</h2>
+        <ul className="space-y-2">
+          <li><a href="/zh/chatgpt-apk" className="text-blue-600 dark:text-blue-400 hover:underline">ChatGPT APK 下载教程</a></li>
+          <li><a href="/zh/google-play-not-working" className="text-blue-600 dark:text-blue-400 hover:underline">Google Play 无法使用</a></li>
+          <li><a href="/zh/telegram-apk" className="text-blue-600 dark:text-blue-400 hover:underline">Telegram APK下载</a></li>
+        </ul>
+      </div>
+
       {/* CTA */}
       <section className="text-center p-8 bg-blue-50 dark:bg-blue-900/20 rounded-2xl border border-blue-100 dark:border-blue-800">
         <h2 className="text-2xl font-bold mb-3">

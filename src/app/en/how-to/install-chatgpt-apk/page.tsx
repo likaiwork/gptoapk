@@ -418,6 +418,17 @@ export default function InstallChatGptApkPage() {
         </div>
       </section>
 
+
+      {/* Related Guides */}
+      <div className="mt-8 p-6 bg-gray-50 dark:bg-gray-800/50 rounded-xl border border-gray-100 dark:border-gray-700">
+        <h2 className="text-xl font-bold mb-4">Related Guides</h2>
+        <ul className="space-y-2">
+        <li><a href="/en/ai-apps" className="text-blue-600 dark:text-blue-400 hover:underline">Best AI Apps for Android</a></li>
+        <li><a href="/en/how-to" className="text-blue-600 dark:text-blue-400 hover:underline">APK Installation Guides</a></li>
+        <li><a href="/en/how-to/install-chatgpt-apk" className="text-blue-600 dark:text-blue-400 hover:underline">How to Install ChatGPT APK</a></li>
+        </ul>
+      </div>
+
       {/* CTA */}
       <section className="text-center p-8 bg-blue-50 dark:bg-blue-900/20 rounded-2xl border border-blue-100 dark:border-blue-800">
         <h2 className="text-2xl font-bold mb-3">

@@ -122,6 +122,17 @@ export default function InstallApkWithoutGooglePlayPage() {
         </div>
       </div>
 
+
+      {/* Related Guides */}
+      <div className="mt-8 p-6 bg-gray-50 dark:bg-gray-800/50 rounded-xl border border-gray-100 dark:border-gray-700">
+        <h2 className="text-xl font-bold mb-4">Полезные руководства</h2>
+        <ul className="space-y-2">
+          <li><a href="/ru/chatgpt-apk" className="text-blue-600 dark:text-blue-400 hover:underline">ChatGPT APK скачать</a></li>
+          <li><a href="/ru/google-play-not-working" className="text-blue-600 dark:text-blue-400 hover:underline">Google Play не работает в России</a></li>
+          <li><a href="/ru/telegram-apk" className="text-blue-600 dark:text-blue-400 hover:underline">Telegram APK скачать</a></li>
+        </ul>
+      </div>
+
       {/* CTA Block */}
       <div className="bg-blue-50 dark:bg-blue-900/20 p-6 rounded-xl border border-blue-100 dark:border-blue-800 mt-8">
         <p className="font-semibold text-lg mb-2">Нужна последняя версия APK?</p>

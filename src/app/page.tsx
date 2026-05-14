@@ -1,5 +1,6 @@
 import SearchBox from "@/components/SearchBox";
 import Link from "next/link";
+import Script from "next/script";
 
 export default function HomeZh() {
   return (
@@ -142,6 +143,37 @@ export default function HomeZh() {
           </Link>
         </div>
       </div>
+
+      {/* SoftwareApplication Schema */}
+      <Script
+        id="software-app-jsonld"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "SoftwareApplication",
+            "name": "gptoapk.com",
+            "operatingSystem": "Android",
+            "applicationCategory": "UtilitiesApplication",
+            "description": "gptoapk.com — Quick and safe APK download tool. Search and download any Android APK file directly from Google Play.",
+            "offers": {
+              "@type": "Offer",
+              "price": "0",
+              "priceCurrency": "USD"
+            },
+            "author": {
+              "@type": "Organization",
+              "name": "gptoapk.com",
+              "url": "https://gptoapk.com"
+            },
+            "potentialAction": {
+              "@type": "SearchAction",
+              "target": "https://gptoapk.com/?q={search_term_string}",
+              "query-input": "required name=search_term_string"
+            }
+          })
+        }}
+      />
 
       {/* FAQ Section */}
       <div className="mt-24 max-w-3xl w-full">
