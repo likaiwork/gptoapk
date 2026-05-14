@@ -1,0 +1,106 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "Tải ChatGPT APK cho Android tại Việt Nam",
+  description:
+    "Tải ChatGPT APK phiên bản mới nhất. Hướng dẫn cài đặt ChatGPT không cần Google Play.",
+};
+
+export default function ChatGPTApkPage() {
+  return (
+    <div className="max-w-4xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+      <nav className="text-sm text-slate-500 mb-6">
+        <Link href="/vi" className="hover:underline">Trang chủ</Link>
+        <span className="mx-2">›</span>
+        <span className="text-slate-700 dark:text-slate-300">ChatGPT APK</span>
+      </nav>
+
+      <h1 className="text-3xl sm:text-4xl font-extrabold mb-6">
+        Tải ChatGPT APK cho Android tại Việt Nam
+      </h1>
+
+      <p className="text-lg text-slate-600 dark:text-slate-400 mb-8 leading-relaxed">
+        ChatGPT là chatbot AI mạnh mẽ của OpenAI, có thể trả lời câu hỏi, viết code và hỗ trợ công
+        việc sáng tạo. Tại Việt Nam, Google Play đôi khi hạn chế quyền truy cập vào ChatGPT. Hướng
+        dẫn này sẽ giúp bạn tải và cài đặt ChatGPT APK một cách dễ dàng.
+      </p>
+
+      <h2 className="text-2xl font-bold mt-10 mb-4">ChatGPT APK — Phiên bản mới nhất</h2>
+      <div className="overflow-x-auto mb-8">
+        <table className="w-full border-collapse border border-slate-200 dark:border-slate-700">
+          <thead>
+            <tr className="bg-slate-50 dark:bg-slate-800">
+              <th className="border border-slate-200 dark:border-slate-700 p-3 text-left font-semibold">Thông số</th>
+              <th className="border border-slate-200 dark:border-slate-700 p-3 text-left font-semibold">Giá trị</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td className="border border-slate-200 dark:border-slate-700 p-3 font-medium">Phiên bản mới nhất</td>
+              <td className="border border-slate-200 dark:border-slate-700 p-3">1.2026.123</td>
+            </tr>
+            <tr>
+              <td className="border border-slate-200 dark:border-slate-700 p-3 font-medium">Ngày cập nhật</td>
+              <td className="border border-slate-200 dark:border-slate-700 p-3">Tháng 5, 2026</td>
+            </tr>
+            <tr>
+              <td className="border border-slate-200 dark:border-slate-700 p-3 font-medium">Dung lượng APK</td>
+              <td className="border border-slate-200 dark:border-slate-700 p-3">~45 MB</td>
+            </tr>
+            <tr>
+              <td className="border border-slate-200 dark:border-slate-700 p-3 font-medium">Yêu cầu Android</td>
+              <td className="border border-slate-200 dark:border-slate-700 p-3">Android 6.0+</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2 className="text-2xl font-bold mt-10 mb-4">Cách tải ChatGPT APK tại Việt Nam</h2>
+      <ol className="list-decimal list-inside space-y-3 text-slate-700 dark:text-slate-300 mb-8">
+        <li><strong>Truy cập gptoapk.com</strong> — không cần VPN hay đăng ký tài khoản.</li>
+        <li><strong>Gõ &quot;ChatGPT&quot; vào ô tìm kiếm</strong> — ứng dụng sẽ hiện ra ngay lập tức.</li>
+        <li><strong>Nhấn &quot;Tải APK&quot;</strong> — chọn phiên bản mới nhất và bắt đầu tải xuống.</li>
+      </ol>
+
+      <h2 className="text-2xl font-bold mt-10 mb-4">Cách cài đặt ChatGPT APK</h2>
+      <ol className="list-decimal list-inside space-y-3 text-slate-700 dark:text-slate-300 mb-8">
+        <li><strong>Cho phép cài đặt từ nguồn không xác định</strong> — Cài đặt → Bảo mật → Cho phép cài đặt ứng dụng từ nguồn không xác định.</li>
+        <li><strong>Mở tệp ChatGPT APK đã tải xuống</strong> — tìm trong thư mục &quot;Tải xuống&quot;.</li>
+        <li><strong>Nhấn &quot;Cài đặt&quot;</strong> — sau khi cài đặt xong, mở ChatGPT và đăng nhập.</li>
+      </ol>
+
+      <h2 className="text-2xl font-bold mt-10 mb-4">Tính năng của ChatGPT</h2>
+      <ul className="list-disc list-inside space-y-2 text-slate-700 dark:text-slate-300 mb-8">
+        <li>Mô hình GPT-4o — trả lời nhanh và chính xác</li>
+        <li>Chế độ giọng nói — nói chuyện bằng tiếng Việt và tiếng Anh</li>
+        <li>Tạo hình ảnh (DALL-E) và phân tích ảnh</li>
+        <li>Viết, chỉnh sửa và gỡ lỗi code</li>
+        <li>Tải lên tệp — đọc PDF, Word, Excel</li>
+      </ul>
+
+      <h2 className="text-2xl font-bold mt-10 mb-4">Câu hỏi thường gặp (FAQ)</h2>
+      <div className="space-y-4 mb-8">
+        <div className="bg-white dark:bg-slate-800 p-5 rounded-xl border border-slate-200 dark:border-slate-700">
+          <h3 className="font-bold mb-2">ChatGPT có miễn phí tại Việt Nam không?</h3>
+          <p className="text-slate-600 dark:text-slate-400 text-sm">Có, phiên bản miễn phí của ChatGPT có sẵn tại Việt Nam. Để truy cập đầy đủ tính năng, bạn có thể đăng ký ChatGPT Plus ($20/tháng).</p>
+        </div>
+        <div className="bg-white dark:bg-slate-800 p-5 rounded-xl border border-slate-200 dark:border-slate-700">
+          <h3 className="font-bold mb-2">ChatGPT có hỗ trợ tiếng Việt không?</h3>
+          <p className="text-slate-600 dark:text-slate-400 text-sm">Có, ChatGPT hoàn toàn hỗ trợ tiếng Việt. Bạn có thể đặt câu hỏi bằng tiếng Việt và nhận câu trả lời bằng tiếng Việt.</p>
+        </div>
+        <div className="bg-white dark:bg-slate-800 p-5 rounded-xl border border-slate-200 dark:border-slate-700">
+          <h3 className="font-bold mb-2">ChatGPT APK có chạy trên điện thoại Samsung, Oppo, Xiaomi không?</h3>
+          <p className="text-slate-600 dark:text-slate-400 text-sm">Có, ChatGPT APK hoạt động trên tất cả các thiết bị Android tại Việt Nam. Chỉ cần cho phép cài đặt từ nguồn không xác định.</p>
+        </div>
+      </div>
+
+      {/* CTA Block */}
+      <div className="bg-blue-50 dark:bg-blue-900/20 p-6 rounded-xl border border-blue-100 dark:border-blue-800 mt-8">
+        <p className="font-semibold text-lg mb-2">Cần phiên bản APK mới nhất?</p>
+        <p className="mb-3"><a href="https://gptoapk.com" className="text-blue-600 dark:text-blue-400 hover:underline font-medium">gptoapk.com</a> — cách nhanh chóng và an toàn để tải bất kỳ APK nào. Chỉ cần nhập tên ứng dụng vào ô tìm kiếm.</p>
+        <a href="https://gptoapk.com" className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-xl transition-colors">Tìm kiếm ngay →<svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg></a>
+      </div>
+    </div>
+  );
+}
