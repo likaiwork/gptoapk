@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -320,6 +321,72 @@ export default function InstallPerplexityApkPage() {
         <p className="mb-3"><a href="https://gptoapk.com" className="text-blue-600 dark:text-blue-400 hover:underline font-medium">gptoapk.com</a> — a fast and safe way to download any APK. Simply enter the app name in the search bar.</p>
         <a href="https://gptoapk.com" className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-xl transition-colors">Search Now →<svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg></a>
       </div>
+    {/* Schema.org JSON-LD */}
+      <Script
+        id="schema-tech-article"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "TechArticle",
+            "headline": "How to Install Perplexity APK – Complete Guide (Without Google Play)",
+            "description": "Step-by-step guide to download and install Perplexity APK. Works on all Android devices without Google Play.",
+            "datePublished": "2026-05-14",
+            "author": {
+              "@type": "Organization",
+              "name": "gptoapk.com",
+              "url": "https://gptoapk.com"
+            },
+            "publisher": {
+              "@type": "Organization",
+              "name": "gptoapk.com",
+              "url": "https://gptoapk.com"
+            },
+            "mainEntityOfPage": {
+              "@type": "WebPage",
+              "@id": "https://gptoapk.com/en/how-to/install-perplexity-apk"
+            },
+            "inLanguage": "en"
+          })
+        }}
+      />
+      <Script
+        id="schema-faq-page"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [{"@type":"Question","name":"Is the Perplexity APK safe to install?","acceptedAnswer":{"@type":"Answer","text":"Absolutely. When downloaded from gptoapk.com, the APK comes directly from Google&#039;s servers — the exact same file you&#039;d get from the Play Store. It has Perplexity&#039;s original digital signature and is verified by Google Play Protect."}},{"@type":"Question","name":"Is Perplexity free to use?","acceptedAnswer":{"@type":"Answer","text":"Yes. Perplexity is free to download and use for basic AI-powered search queries. Perplexity Pro ($20/month) unlocks unlimited Pro searches, file uploads, image analysis, and access to multiple AI models including GPT-4o and Claude."}},{"@type":"Question","name":"Can I use Perplexity APK without internet?","acceptedAnswer":{"@type":"Answer","text":"No, Perplexity requires an active internet connection to perform web searches and AI processing."}},{"@type":"Question","name":"What makes Perplexity different from other AI apps?","acceptedAnswer":{"@type":"Answer","text":"Perplexity is an AI-powered search engine that provides real-time answers with citations. It actively searches the web and provides sourced information, making it great for research, fact-checking, and staying up to date."}},{"@type":"Question","name":"Will Perplexity work on Huawei/HarmonyOS?","acceptedAnswer":{"@type":"Answer","text":"Yes. Perplexity works on Huawei devices when installed via APK. Core search and AI functionality doesn&#039;t require Google Play Services."}}]
+          })
+        }}
+      />
+      <Script
+        id="schema-breadcrumb"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "gptoapk.com",
+                "item": "https://gptoapk.com/en"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Install Perplexity Apk",
+                "item": "https://gptoapk.com/en/how-to/install-perplexity-apk"
+              }
+            ]
+          })
+        }}
+      />
+
+    
     </div>
   );
 }

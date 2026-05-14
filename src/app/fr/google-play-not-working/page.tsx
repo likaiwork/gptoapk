@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -92,6 +93,61 @@ export default function GooglePlayNotWorkingPage() {
         <p className="mb-3"><a href="https://gptoapk.com" className="text-blue-600 dark:text-blue-400 hover:underline font-medium">gptoapk.com</a> — un moyen rapide et sûr de télécharger n'importe quel APK. Entrez simplement le nom de l'application dans la barre de recherche.</p>
         <a href="https://gptoapk.com" className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-xl transition-colors">Rechercher →<svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg></a>
       </div>
+    {/* Schema.org JSON-LD */}
+      <Script
+        id="schema-tech-article"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "TechArticle",
+            "headline": "Google Play ne fonctionne pas ? 5 façons de télécharger APK sans Google Play",
+            "description": "Google Play ne fonctionne pas ? Guide complet pour télécharger et installer APK.",
+            "datePublished": "2026-05-14",
+            "author": {
+              "@type": "Organization",
+              "name": "gptoapk.com",
+              "url": "https://gptoapk.com"
+            },
+            "publisher": {
+              "@type": "Organization",
+              "name": "gptoapk.com",
+              "url": "https://gptoapk.com"
+            },
+            "mainEntityOfPage": {
+              "@type": "WebPage",
+              "@id": "https://gptoapk.com/fr/google-play-not-working"
+            },
+            "inLanguage": "fr"
+          })
+        }}
+      />
+      <Script
+        id="schema-breadcrumb"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "gptoapk.com",
+                "item": "https://gptoapk.com/fr"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Google Play Not Working",
+                "item": "https://gptoapk.com/fr/google-play-not-working"
+              }
+            ]
+          })
+        }}
+      />
+
+    
     </div>
   );
 }

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -123,6 +124,61 @@ export default function TelegramApkPage() {
           </svg>
         </a>
       </div>
+    {/* Schema.org JSON-LD */}
+      <Script
+        id="schema-tech-article"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "TechArticle",
+            "headline": "Download Telegram APK untuk Android di Indonesia",
+            "description": "Download Telegram APK versi terbaru untuk Android. Panduan instalasi lengkap tanpa Google Play. Bekerja di semua perangkat.",
+            "datePublished": "2026-05-14",
+            "author": {
+              "@type": "Organization",
+              "name": "gptoapk.com",
+              "url": "https://gptoapk.com"
+            },
+            "publisher": {
+              "@type": "Organization",
+              "name": "gptoapk.com",
+              "url": "https://gptoapk.com"
+            },
+            "mainEntityOfPage": {
+              "@type": "WebPage",
+              "@id": "https://gptoapk.com/id/telegram-apk"
+            },
+            "inLanguage": "id"
+          })
+        }}
+      />
+      <Script
+        id="schema-breadcrumb"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "gptoapk.com",
+                "item": "https://gptoapk.com/id"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Telegram APK",
+                "item": "https://gptoapk.com/id/telegram-apk"
+              }
+            ]
+          })
+        }}
+      />
+
+    
     </div>
   );
 }

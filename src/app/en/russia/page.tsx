@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -331,6 +332,72 @@ export default function RussiaPage() {
           </svg>
         </Link>
       </section>
+    {/* Schema.org JSON-LD */}
+      <Script
+        id="schema-tech-article"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "TechArticle",
+            "headline": "Download APK in Russia – Google Play Alternatives &amp;amp; Workarounds",
+            "description": "Google Play not working in Russia? Learn how to download APKs directly without Play Store. Complete guide for Russian users.",
+            "datePublished": "2026-05-14",
+            "author": {
+              "@type": "Organization",
+              "name": "gptoapk.com",
+              "url": "https://gptoapk.com"
+            },
+            "publisher": {
+              "@type": "Organization",
+              "name": "gptoapk.com",
+              "url": "https://gptoapk.com"
+            },
+            "mainEntityOfPage": {
+              "@type": "WebPage",
+              "@id": "https://gptoapk.com/en/russia"
+            },
+            "inLanguage": "en"
+          })
+        }}
+      />
+      <Script
+        id="schema-faq-page"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [{"@type":"Question","name":"Can I still use Google Play in Russia?","acceptedAnswer":{"@type":"Answer","text":"Google Play still works, but many payment features are restricted and some apps have been removed. Direct APK downloads via gptoapk.com provide a reliable alternative."}},{"@type":"Question","name":"Is it legal to download APK files in Russia?","acceptedAnswer":{"@type":"Answer","text":"Downloading APK files for personal use from official sources is generally fine. Sideloading is a common practice and not restricted by Russian law."}},{"@type":"Question","name":"Do I need a VPN to use gptoapk.com in Russia?","acceptedAnswer":{"@type":"Answer","text":"Not necessarily. gptoapk.com works without VPN for most apps. If a specific app is region-restricted on Google Play, a VPN may help, but the download tool itself is accessible."}},{"@type":"Question","name":"Can I get Telegram updates via APK instead of Play Store?","acceptedAnswer":{"@type":"Answer","text":"Yes. You can use gptoapk.com to download the latest Telegram APK directly, bypassing any Play Store limitations."}},{"@type":"Question","name":"What if an app shows &#039;Not available in your country&#039;?","acceptedAnswer":{"@type":"Answer","text":"That restriction comes from Google Play itself. You can try using a VPN set to a supported region, then paste the Play Store URL into gptoapk.com to download the APK."}}]
+          })
+        }}
+      />
+      <Script
+        id="schema-breadcrumb"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "gptoapk.com",
+                "item": "https://gptoapk.com/en"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Russia",
+                "item": "https://gptoapk.com/en/russia"
+              }
+            ]
+          })
+        }}
+      />
+
+    
     </div>
   );
 }

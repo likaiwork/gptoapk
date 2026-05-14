@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -322,6 +323,72 @@ export default function InstallGrokApkPage() {
         <p className="mb-3"><a href="https://gptoapk.com" className="text-blue-600 dark:text-blue-400 hover:underline font-medium">gptoapk.com</a> — a fast and safe way to download any APK. Simply enter the app name in the search bar.</p>
         <a href="https://gptoapk.com" className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-xl transition-colors">Search Now →<svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg></a>
       </div>
+    {/* Schema.org JSON-LD */}
+      <Script
+        id="schema-tech-article"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "TechArticle",
+            "headline": "How to Install Grok APK – Complete Guide (Without Google Play)",
+            "description": "Step-by-step guide to download and install Grok (xAI) APK. Works on all Android devices without Google Play.",
+            "datePublished": "2026-05-14",
+            "author": {
+              "@type": "Organization",
+              "name": "gptoapk.com",
+              "url": "https://gptoapk.com"
+            },
+            "publisher": {
+              "@type": "Organization",
+              "name": "gptoapk.com",
+              "url": "https://gptoapk.com"
+            },
+            "mainEntityOfPage": {
+              "@type": "WebPage",
+              "@id": "https://gptoapk.com/en/how-to/install-grok-apk"
+            },
+            "inLanguage": "en"
+          })
+        }}
+      />
+      <Script
+        id="schema-faq-page"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [{"@type":"Question","name":"Is the Grok APK safe to install?","acceptedAnswer":{"@type":"Answer","text":"Absolutely. When downloaded from gptoapk.com, the APK comes directly from Google&#039;s servers — the exact same file you&#039;d get from the Play Store. It has xAI&#039;s original digital signature and is verified by Google Play Protect."}},{"@type":"Question","name":"Is Grok free to use?","acceptedAnswer":{"@type":"Answer","text":"Yes. Grok is free to download and use with limited queries. X Premium+ subscribers ($16/month) get higher usage limits, priority access to the latest Grok models, and real-time X/Twitter data integration."}},{"@type":"Question","name":"Can I use Grok APK without internet?","acceptedAnswer":{"@type":"Answer","text":"No, Grok requires an active internet connection. AI processing happens on xAI&#039;s servers and real-time data comes from X/Twitter."}},{"@type":"Question","name":"What makes Grok unique?","acceptedAnswer":{"@type":"Answer","text":"Grok has real-time access to X/Twitter data, giving it up-to-the-minute knowledge of current events and trends. It also has a distinctive humorous and direct personality, and doesn&#039;t shy away from controversial topics."}},{"@type":"Question","name":"Will Grok work on Huawei/HarmonyOS?","acceptedAnswer":{"@type":"Answer","text":"Yes. Grok works on Huawei devices when installed via APK. Core AI chat functionality doesn&#039;t require Google Play Services."}}]
+          })
+        }}
+      />
+      <Script
+        id="schema-breadcrumb"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "gptoapk.com",
+                "item": "https://gptoapk.com/en"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Install Grok Apk",
+                "item": "https://gptoapk.com/en/how-to/install-grok-apk"
+              }
+            ]
+          })
+        }}
+      />
+
+    
     </div>
   );
 }

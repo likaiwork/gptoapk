@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -109,6 +110,61 @@ export default function WhatsAppApkPage() {
         <p className="mb-3"><a href="https://gptoapk.com" className="text-blue-600 dark:text-blue-400 hover:underline font-medium">gptoapk.com</a> — किसी भी APK को डाउनलोड करने का तेज़ और सुरक्षित तरीका। बस सर्च बार में ऐप का नाम डालें।</p>
         <a href="https://gptoapk.com" className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-xl transition-colors">अभी खोजें →<svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg></a>
       </div>
+    {/* Schema.org JSON-LD */}
+      <Script
+        id="schema-tech-article"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "TechArticle",
+            "headline": "WhatsApp APK डाउनलोड करें (नवीनतम संस्करण) Android के लिए",
+            "description": "WhatsApp APK का नवीनतम संस्करण मुफ्त में डाउनलोड करें। पुराने वर्जन, हल्का संस्करण और इंस्टॉलेशन गाइड।",
+            "datePublished": "2026-05-14",
+            "author": {
+              "@type": "Organization",
+              "name": "gptoapk.com",
+              "url": "https://gptoapk.com"
+            },
+            "publisher": {
+              "@type": "Organization",
+              "name": "gptoapk.com",
+              "url": "https://gptoapk.com"
+            },
+            "mainEntityOfPage": {
+              "@type": "WebPage",
+              "@id": "https://gptoapk.com/hi/whatsapp-apk"
+            },
+            "inLanguage": "hi"
+          })
+        }}
+      />
+      <Script
+        id="schema-breadcrumb"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "gptoapk.com",
+                "item": "https://gptoapk.com/hi"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "WhatsApp APK",
+                "item": "https://gptoapk.com/hi/whatsapp-apk"
+              }
+            ]
+          })
+        }}
+      />
+
+    
     </div>
   );
 }

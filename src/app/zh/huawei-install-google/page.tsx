@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -134,6 +135,61 @@ export default function HuaweiInstallGooglePage() {
           </svg>
         </a>
       </div>
+    {/* Schema.org JSON-LD */}
+      <Script
+        id="schema-tech-article"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "TechArticle",
+            "headline": "华为手机安装Google Play服务完整指南",
+            "description": "华为/HarmonyOS手机没有Google服务？本文教你3种方法安装Google Play服务框架，安装GMS、下载Google应用。支持Mate 60、Pura 70等机型。",
+            "datePublished": "2026-05-14",
+            "author": {
+              "@type": "Organization",
+              "name": "gptoapk.com",
+              "url": "https://gptoapk.com"
+            },
+            "publisher": {
+              "@type": "Organization",
+              "name": "gptoapk.com",
+              "url": "https://gptoapk.com"
+            },
+            "mainEntityOfPage": {
+              "@type": "WebPage",
+              "@id": "https://gptoapk.com/zh/huawei-install-google"
+            },
+            "inLanguage": "zh"
+          })
+        }}
+      />
+      <Script
+        id="schema-breadcrumb"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "gptoapk.com",
+                "item": "https://gptoapk.com/zh"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "华为安装谷歌",
+                "item": "https://gptoapk.com/zh/huawei-install-google"
+              }
+            ]
+          })
+        }}
+      />
+
+    
     </div>
   );
 }

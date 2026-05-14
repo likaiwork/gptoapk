@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -252,6 +253,72 @@ export default function HowToPage() {
           </svg>
         </Link>
       </section>
+    {/* Schema.org JSON-LD */}
+      <Script
+        id="schema-tech-article"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "TechArticle",
+            "headline": "APK Installation Guides – How to Install APK Without Google Play",
+            "description": "Step-by-step guides on installing APK files on Android devices without Google Play Store. Huawei, Xiaomi, Samsung guides included.",
+            "datePublished": "2026-05-14",
+            "author": {
+              "@type": "Organization",
+              "name": "gptoapk.com",
+              "url": "https://gptoapk.com"
+            },
+            "publisher": {
+              "@type": "Organization",
+              "name": "gptoapk.com",
+              "url": "https://gptoapk.com"
+            },
+            "mainEntityOfPage": {
+              "@type": "WebPage",
+              "@id": "https://gptoapk.com/en/how-to"
+            },
+            "inLanguage": "en"
+          })
+        }}
+      />
+      <Script
+        id="schema-faq-page"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [{"@type":"Question","name":"Is it safe to install APK files?","acceptedAnswer":{"@type":"Answer","text":"Common reasons: you haven&#039;t enabled &#039;Install from unknown sources&#039;, the APK is corrupted or incompatible, or there&#039;s a signature conflict with an existing app. Check our troubleshooting guides for specific fixes."}},{"@type":"Question","name":"Why can&#039;t I install APK on my phone?","acceptedAnswer":{"@type":"Answer","text":"No. You can install APK files on any Android device, including Huawei phones without Google Mobile Services. The installation process works through the standard Android package manager."}},{"@type":"Question","name":"Will sideloaded apps receive updates?","acceptedAnswer":{"@type":"Answer","text":"Most sideloaded apps won&#039;t auto-update through Google Play. You&#039;ll need to download the new APK version manually and install it over the existing app (your data will be preserved)."}},{"@type":"Question","name":"Can I install APK on Android TV or Fire TV?","acceptedAnswer":{"@type":"Answer","text":"Yes, Android TV and Amazon Fire TV devices support APK sideloading. The process may require a file manager app or ADB commands."}}]
+          })
+        }}
+      />
+      <Script
+        id="schema-breadcrumb"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "gptoapk.com",
+                "item": "https://gptoapk.com/en"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "How To",
+                "item": "https://gptoapk.com/en/how-to"
+              }
+            ]
+          })
+        }}
+      />
+
+    
     </div>
   );
 }

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -294,6 +295,72 @@ export default function AiAppsPage() {
           </svg>
         </Link>
       </section>
+    {/* Schema.org JSON-LD */}
+      <Script
+        id="schema-tech-article"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "TechArticle",
+            "headline": "Best AI Apps APK Download – ChatGPT, Claude, Gemini &amp;amp; More",
+            "description": "Download the latest AI app APKs including ChatGPT, Claude, Gemini, Grok, and DeepSeek. Direct APK downloads for restricted regions.",
+            "datePublished": "2026-05-14",
+            "author": {
+              "@type": "Organization",
+              "name": "gptoapk.com",
+              "url": "https://gptoapk.com"
+            },
+            "publisher": {
+              "@type": "Organization",
+              "name": "gptoapk.com",
+              "url": "https://gptoapk.com"
+            },
+            "mainEntityOfPage": {
+              "@type": "WebPage",
+              "@id": "https://gptoapk.com/en/ai-apps"
+            },
+            "inLanguage": "en"
+          })
+        }}
+      />
+      <Script
+        id="schema-faq-page"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [{"@type":"Question","name":"Why can&#039;t I find AI apps on Google Play?","acceptedAnswer":{"@type":"Answer","text":"Some AI apps have region restrictions or may not be published on Google Play in certain countries. Downloading the APK directly via gptoapk.com is the best workaround."}},{"@type":"Question","name":"Are APK AI apps safe to install?","acceptedAnswer":{"@type":"Answer","text":"When downloaded from gptoapk.com, files come directly from Google&#039;s CDN — 100% original and safe. Always download from trusted sources and avoid modified or cracked APKs."}},{"@type":"Question","name":"Do I need a subscription to use these AI apps?","acceptedAnswer":{"@type":"Answer","text":"Most AI apps offer free tiers. ChatGPT, Claude, Gemini, DeepSeek, and Perplexity all have free versions available. Premium features typically require a paid subscription within the app."}},{"@type":"Question","name":"Will I get updates if I sideload the APK?","acceptedAnswer":{"@type":"Answer","text":"You&#039;ll need to manually update by downloading the latest APK from gptoapk.com. Some apps may also update internally, but for best results, check for new versions periodically."}},{"@type":"Question","name":"Can I install the same APK on multiple devices?","acceptedAnswer":{"@type":"Answer","text":"Yes. Once you download an APK from gptoapk.com, you can transfer and install it on any compatible Android device. No account restrictions apply."}}]
+          })
+        }}
+      />
+      <Script
+        id="schema-breadcrumb"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "gptoapk.com",
+                "item": "https://gptoapk.com/en"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "AI Apps",
+                "item": "https://gptoapk.com/en/ai-apps"
+              }
+            ]
+          })
+        }}
+      />
+
+    
     </div>
   );
 }

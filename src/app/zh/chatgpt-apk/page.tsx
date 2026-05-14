@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -137,6 +138,61 @@ export default function ChatGPTApkPage() {
           </svg>
         </a>
       </div>
+    {/* Schema.org JSON-LD */}
+      <Script
+        id="schema-tech-article"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "TechArticle",
+            "headline": "ChatGPT APK 中国大陆下载安装教程",
+            "description": "中国大陆用户如何下载ChatGPT APK？完整教程教你搜索、下载、安装ChatGPT安卓版，无需科学上网环境下使用。",
+            "datePublished": "2026-05-14",
+            "author": {
+              "@type": "Organization",
+              "name": "gptoapk.com",
+              "url": "https://gptoapk.com"
+            },
+            "publisher": {
+              "@type": "Organization",
+              "name": "gptoapk.com",
+              "url": "https://gptoapk.com"
+            },
+            "mainEntityOfPage": {
+              "@type": "WebPage",
+              "@id": "https://gptoapk.com/zh/chatgpt-apk"
+            },
+            "inLanguage": "zh"
+          })
+        }}
+      />
+      <Script
+        id="schema-breadcrumb"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "gptoapk.com",
+                "item": "https://gptoapk.com/zh"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "ChatGPT APK",
+                "item": "https://gptoapk.com/zh/chatgpt-apk"
+              }
+            ]
+          })
+        }}
+      />
+
+    
     </div>
   );
 }

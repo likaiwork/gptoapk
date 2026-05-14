@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -228,6 +229,72 @@ export default function ZhRussiaPage() {
           </svg>
         </Link>
       </section>
+    {/* Schema.org JSON-LD */}
+      <Script
+        id="schema-tech-article"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "TechArticle",
+            "headline": "在俄罗斯下载 APK – Google Play 替代方案",
+            "description": "Google Play 在俄罗斯无法正常使用？了解如何直接下载 APK 文件。俄罗斯用户的完整指南。",
+            "datePublished": "2026-05-14",
+            "author": {
+              "@type": "Organization",
+              "name": "gptoapk.com",
+              "url": "https://gptoapk.com"
+            },
+            "publisher": {
+              "@type": "Organization",
+              "name": "gptoapk.com",
+              "url": "https://gptoapk.com"
+            },
+            "mainEntityOfPage": {
+              "@type": "WebPage",
+              "@id": "https://gptoapk.com/zh/russia"
+            },
+            "inLanguage": "zh"
+          })
+        }}
+      />
+      <Script
+        id="schema-faq-page"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [{"@type":"Question","name":"在俄罗斯还能用 Google Play 吗？","acceptedAnswer":{"@type":"Answer","text":"Google Play 仍然可以访问，但支付功能受限，部分应用已下架。通过 gptoapk.com 直接下载 APK 是一个可靠的替代方案。"}},{"@type":"Question","name":"在俄罗斯下载 APK 合法吗？","acceptedAnswer":{"@type":"Answer","text":"从官方来源下载 APK 供个人使用是完全合法的。侧载（Sideloading）在俄罗斯是普遍做法，不违反当地法律。"}},{"@type":"Question","name":"在俄罗斯使用 gptoapk.com 需要 VPN 吗？","acceptedAnswer":{"@type":"Answer","text":"通常不需要。gptoapk.com 在俄罗斯可以直接访问。如果某个应用本身有地区限制，则可能需要 VPN，但下载工具本身不受限。"}},{"@type":"Question","name":"我可以通过 APK 更新 Telegram 吗？","acceptedAnswer":{"@type":"Answer","text":"可以。使用 gptoapk.com 可以下载最新版 Telegram APK，绕过 Play Store 的限制。"}},{"@type":"Question","name":"应用显示&#039;您所在的国家/地区不提供此商品&#039;怎么办？","acceptedAnswer":{"@type":"Answer","text":"这是 Google Play 的区域限制。你可以将 VPN 切换到支持的地区，然后在 gptoapk.com 上粘贴 Play Store 链接来下载 APK。"}}]
+          })
+        }}
+      />
+      <Script
+        id="schema-breadcrumb"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "gptoapk.com",
+                "item": "https://gptoapk.com/zh"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "俄罗斯",
+                "item": "https://gptoapk.com/zh/russia"
+              }
+            ]
+          })
+        }}
+      />
+
+    
     </div>
   );
 }

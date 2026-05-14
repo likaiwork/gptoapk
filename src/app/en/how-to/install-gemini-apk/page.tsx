@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -327,6 +328,72 @@ export default function InstallGeminiApkPage() {
         <p className="mb-3"><a href="https://gptoapk.com" className="text-blue-600 dark:text-blue-400 hover:underline font-medium">gptoapk.com</a> — a fast and safe way to download any APK. Simply enter the app name in the search bar.</p>
         <a href="https://gptoapk.com" className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-xl transition-colors">Search Now →<svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg></a>
       </div>
+    {/* Schema.org JSON-LD */}
+      <Script
+        id="schema-tech-article"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "TechArticle",
+            "headline": "How to Install Gemini APK – Complete Guide (Without Google Play)",
+            "description": "Step-by-step guide to download and install Google Gemini APK on any Android device. Works on all devices without Google Play.",
+            "datePublished": "2026-05-14",
+            "author": {
+              "@type": "Organization",
+              "name": "gptoapk.com",
+              "url": "https://gptoapk.com"
+            },
+            "publisher": {
+              "@type": "Organization",
+              "name": "gptoapk.com",
+              "url": "https://gptoapk.com"
+            },
+            "mainEntityOfPage": {
+              "@type": "WebPage",
+              "@id": "https://gptoapk.com/en/how-to/install-gemini-apk"
+            },
+            "inLanguage": "en"
+          })
+        }}
+      />
+      <Script
+        id="schema-faq-page"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [{"@type":"Question","name":"Is the Gemini APK safe to install?","acceptedAnswer":{"@type":"Answer","text":"Absolutely. When downloaded from gptoapk.com, the APK comes directly from Google&#039;s servers — the exact same file you&#039;d get from the Play Store. It has Google&#039;s original digital signature and is verified by Google Play Protect."}},{"@type":"Question","name":"Do I need a Google One subscription to use Gemini?","acceptedAnswer":{"@type":"Answer","text":"No. Gemini is free to download and use with Gemini 1.5 Flash. A Google One AI Premium subscription ($19.99/month) unlocks Gemini Advanced with Gemini 1.5 Pro, Gemini 2.0, and Google Workspace integration."}},{"@type":"Question","name":"Can I use Gemini APK without internet?","acceptedAnswer":{"@type":"Answer","text":"No, Gemini requires an active internet connection. All AI processing happens on Google&#039;s servers."}},{"@type":"Question","name":"Will Gemini work on Huawei/HarmonyOS devices?","acceptedAnswer":{"@type":"Answer","text":"Yes. Gemini works on Huawei devices when installed via APK. Some Google Play Services-dependent features (like Workspace extensions) may be limited, but core AI chat functions work perfectly."}},{"@type":"Question","name":"Does Gemini replace Google Assistant?","acceptedAnswer":{"@type":"Answer","text":"Gemini is Google&#039;s next-gen AI assistant and can replace Google Assistant on most Android devices. It offers more advanced capabilities including multi-step reasoning, code generation, and creative writing."}}]
+          })
+        }}
+      />
+      <Script
+        id="schema-breadcrumb"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "gptoapk.com",
+                "item": "https://gptoapk.com/en"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Install Gemini Apk",
+                "item": "https://gptoapk.com/en/how-to/install-gemini-apk"
+              }
+            ]
+          })
+        }}
+      />
+
+    
     </div>
   );
 }

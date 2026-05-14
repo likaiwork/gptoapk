@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -450,6 +451,72 @@ export default function InstallChatGptApkPage() {
           </svg>
         </Link>
       </section>
+    {/* Schema.org JSON-LD */}
+      <Script
+        id="schema-tech-article"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "TechArticle",
+            "headline": "How to Install ChatGPT APK – Complete Guide (Without Google Play)",
+            "description": "Step-by-step guide to download and install ChatGPT APK on any Android device. Works on Huawei, Xiaomi, and phones without Google Play.",
+            "datePublished": "2026-05-14",
+            "author": {
+              "@type": "Organization",
+              "name": "gptoapk.com",
+              "url": "https://gptoapk.com"
+            },
+            "publisher": {
+              "@type": "Organization",
+              "name": "gptoapk.com",
+              "url": "https://gptoapk.com"
+            },
+            "mainEntityOfPage": {
+              "@type": "WebPage",
+              "@id": "https://gptoapk.com/en/how-to/install-chatgpt-apk"
+            },
+            "inLanguage": "en"
+          })
+        }}
+      />
+      <Script
+        id="schema-faq-page"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [{"@type":"Question","name":"Is the ChatGPT APK safe to install?","acceptedAnswer":{"@type":"Answer","text":"Absolutely. When downloaded from gptoapk.com, the APK comes directly from Google&#039;s servers — the exact same file you&#039;d get from the Play Store. It has OpenAI&#039;s original digital signature and is verified by Google Play&#039;s security scanning."}},{"@type":"Question","name":"Do I need a ChatGPT subscription to use the app?","acceptedAnswer":{"@type":"Answer","text":"No. The ChatGPT app is free to download and use. Free users get access to GPT-4o mini with limited GPT-4o queries. A ChatGPT Plus subscription ($20/month) unlocks unlimited GPT-4o, DALL·E, and priority access."}},{"@type":"Question","name":"Can I use ChatGPT APK without internet?","acceptedAnswer":{"@type":"Answer","text":"No, ChatGPT requires an active internet connection to work. All processing happens on OpenAI&#039;s servers, not on your device."}},{"@type":"Question","name":"Will ChatGPT work on Huawei/HarmonyOS devices?","acceptedAnswer":{"@type":"Answer","text":"Yes. Since you&#039;re installing via APK instead of Google Play, ChatGPT works perfectly on Huawei devices without Google Mobile Services. Just follow the Huawei-specific steps in this guide."}},{"@type":"Question","name":"How often is ChatGPT updated?","acceptedAnswer":{"@type":"Answer","text":"OpenAI releases updates every 2-4 weeks. You can check for the latest version on gptoapk.com by searching for com.openai.chatgpt."}}]
+          })
+        }}
+      />
+      <Script
+        id="schema-breadcrumb"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "gptoapk.com",
+                "item": "https://gptoapk.com/en"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Install Chatgpt Apk",
+                "item": "https://gptoapk.com/en/how-to/install-chatgpt-apk"
+              }
+            ]
+          })
+        }}
+      />
+
+    
     </div>
   );
 }

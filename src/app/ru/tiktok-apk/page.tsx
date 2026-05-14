@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -122,6 +123,61 @@ export default function TikTokApkPage() {
           </svg>
         </a>
       </div>
+    {/* Schema.org JSON-LD */}
+      <Script
+        id="schema-tech-article"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "TechArticle",
+            "headline": "TikTok APK скачать для Android в России",
+            "description": "Скачайте TikTok APK для Android в России. Как установить TikTok без Google Play. Работает на всех устройствах.",
+            "datePublished": "2026-05-14",
+            "author": {
+              "@type": "Organization",
+              "name": "gptoapk.com",
+              "url": "https://gptoapk.com"
+            },
+            "publisher": {
+              "@type": "Organization",
+              "name": "gptoapk.com",
+              "url": "https://gptoapk.com"
+            },
+            "mainEntityOfPage": {
+              "@type": "WebPage",
+              "@id": "https://gptoapk.com/ru/tiktok-apk"
+            },
+            "inLanguage": "ru"
+          })
+        }}
+      />
+      <Script
+        id="schema-breadcrumb"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "gptoapk.com",
+                "item": "https://gptoapk.com/ru"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "TikTok APK",
+                "item": "https://gptoapk.com/ru/tiktok-apk"
+              }
+            ]
+          })
+        }}
+      />
+
+    
     </div>
   );
 }

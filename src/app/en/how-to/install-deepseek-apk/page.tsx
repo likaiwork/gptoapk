@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -321,6 +322,72 @@ export default function InstallDeepseekApkPage() {
         <p className="mb-3"><a href="https://gptoapk.com" className="text-blue-600 dark:text-blue-400 hover:underline font-medium">gptoapk.com</a> — a fast and safe way to download any APK. Simply enter the app name in the search bar.</p>
         <a href="https://gptoapk.com" className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-xl transition-colors">Search Now →<svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg></a>
       </div>
+    {/* Schema.org JSON-LD */}
+      <Script
+        id="schema-tech-article"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "TechArticle",
+            "headline": "How to Install DeepSeek APK – Complete Guide (Without Google Play)",
+            "description": "Step-by-step guide to download and install DeepSeek APK. Works on Huawei, Xiaomi, and phones without Google Play.",
+            "datePublished": "2026-05-14",
+            "author": {
+              "@type": "Organization",
+              "name": "gptoapk.com",
+              "url": "https://gptoapk.com"
+            },
+            "publisher": {
+              "@type": "Organization",
+              "name": "gptoapk.com",
+              "url": "https://gptoapk.com"
+            },
+            "mainEntityOfPage": {
+              "@type": "WebPage",
+              "@id": "https://gptoapk.com/en/how-to/install-deepseek-apk"
+            },
+            "inLanguage": "en"
+          })
+        }}
+      />
+      <Script
+        id="schema-faq-page"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [{"@type":"Question","name":"Is the DeepSeek APK safe to install?","acceptedAnswer":{"@type":"Answer","text":"Absolutely. When downloaded from gptoapk.com, the APK comes directly from Google&#039;s servers — the exact same file you&#039;d get from the Play Store. It has the developer&#039;s original digital signature and is verified by Google Play Protect."}},{"@type":"Question","name":"Is DeepSeek free to use?","acceptedAnswer":{"@type":"Answer","text":"Yes. DeepSeek is completely free to download and use. There are no subscription fees or usage limits for the chatbot. You get access to the R1 reasoning model and V3 model at no cost."}},{"@type":"Question","name":"Can I use DeepSeek APK without internet?","acceptedAnswer":{"@type":"Answer","text":"No, DeepSeek requires an active internet connection. All AI processing happens on DeepSeek&#039;s servers."}},{"@type":"Question","name":"What is the context length of DeepSeek?","acceptedAnswer":{"@type":"Answer","text":"DeepSeek supports up to 1 million tokens of context — that&#039;s equivalent to processing entire book-length documents in a single conversation."}},{"@type":"Question","name":"Will DeepSeek work on Huawei/HarmonyOS?","acceptedAnswer":{"@type":"Answer","text":"Yes. DeepSeek works on Huawei devices when installed via APK. No Google Play Services are required for the core chat functionality to work."}}]
+          })
+        }}
+      />
+      <Script
+        id="schema-breadcrumb"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "gptoapk.com",
+                "item": "https://gptoapk.com/en"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Install Deepseek Apk",
+                "item": "https://gptoapk.com/en/how-to/install-deepseek-apk"
+              }
+            ]
+          })
+        }}
+      />
+
+    
     </div>
   );
 }
