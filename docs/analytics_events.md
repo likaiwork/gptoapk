@@ -59,7 +59,7 @@ GA_MEASUREMENT_ID=G-DB1E6ERNFQ
 - `source`：`aptoide` 或 `apkpure`。
 - `version`：可用时记录 APK 版本。
 - `file_size`：可用时记录 APK 文件字节大小。
-- `proxy`：当前为 `vercel-stream`。
+- `proxy`：`vercel-stream` 表示通过本站服务端代理流式下载，`direct-cdn` 表示大文件直接重定向到上游 CDN 下载。
 - `max_proxy_bytes`：因文件过大被拦截时记录当前代理大小限制。
 
 搜索和解析参数：

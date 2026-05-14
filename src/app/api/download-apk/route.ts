@@ -78,9 +78,34 @@ function contentDisposition(fileName: string) {
   return `attachment; filename="${asciiFallback}"; filename*=UTF-8''${encodeURIComponent(safe)}`;
 }
 
-function formatBytes(bytes: number) {
-  const mib = bytes / 1024 / 1024;
-  return `${Math.round(mib)} MB`;
+function createDirectDownloadResponse(
+  request: Request,
+  appId: string,
+  result: SourceResult,
+  startedAt: number,
+  reason: string,
+  fileSize: number | null
+) {
+  void trackServerEvent(request, analyticsEvents.downloadStart, {
+    app_id: appId,
+    source: result.source,
+    version: result.version,
+    file_size: fileSize ?? result.size,
+    proxy: 'direct-cdn',
+    stage: reason,
+    max_proxy_bytes: MAX_PROXY_BYTES,
+    duration_ms: Date.now() - startedAt,
+  });
+
+  return new Response(null, {
+    status: 302,
+    headers: {
+      Location: result.downloadUrl,
+      'Cache-Control': 'no-store',
+      'X-APK-Proxy': 'direct-cdn',
+      'X-APK-Source': result.source,
+    },
+  });
 }
 
 function createLimitedStream(
@@ -204,6 +229,7 @@ async function resolveDownloadSource(appId: string) {
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const appId = searchParams.get('appId')?.trim();
+  const delivery = searchParams.get('delivery');
   const startedAt = Date.now();
 
   if (!appId) {
@@ -223,6 +249,10 @@ export async function GET(request: Request) {
       { success: false, error: 'This APK is not available from our sources.' },
       { status: 404 }
     );
+  }
+
+  if (delivery === 'direct') {
+    return createDirectDownloadResponse(request, appId, result, startedAt, 'direct_requested', result.size);
   }
 
   const timeout = createAbortSignal(STREAM_TIMEOUT_MS);
@@ -253,22 +283,7 @@ export async function GET(request: Request) {
     if (contentLength > MAX_PROXY_BYTES) {
       timeout.abort();
       timeout.clear();
-      void trackServerEvent(request, analyticsEvents.downloadFailed, {
-        app_id: appId,
-        source: result.source,
-        stage: 'size_limit',
-        file_size: contentLength,
-        max_proxy_bytes: MAX_PROXY_BYTES,
-        duration_ms: Date.now() - startedAt,
-      });
-
-      return NextResponse.json(
-        {
-          success: false,
-          error: `APK is too large to proxy. Current limit is ${formatBytes(MAX_PROXY_BYTES)}.`,
-        },
-        { status: 413 }
-      );
+      return createDirectDownloadResponse(request, appId, result, startedAt, 'proxy_size_limit_redirect', contentLength);
     }
 
     const fileName = result.fileName ?? `${appId}.apk`;
@@ -377,10 +392,15 @@ export async function POST(request: Request) {
 
     if (result.size && result.size > MAX_PROXY_BYTES) {
       return NextResponse.json({
-        success: false,
-        error: `APK is too large to proxy. Current limit is ${formatBytes(MAX_PROXY_BYTES)}.`,
-        source: result.source,
+        success: true,
+        downloadUrl: `/api/download-apk?appId=${encodeURIComponent(cleanId)}&delivery=direct`,
+        fileName: result.fileName ?? `${cleanId}.apk`,
+        type: 'APK',
+        version: result.version,
         size: result.size,
+        md5: result.md5,
+        source: result.source,
+        proxy: 'direct-cdn',
         maxProxyBytes: MAX_PROXY_BYTES,
       });
     }
