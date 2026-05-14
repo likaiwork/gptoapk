@@ -146,6 +146,24 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly" as const,
       priority: 0.7,
     },
+    // Russian SEO pages
+    ...([
+      { slug: "telegram-apk", priority: 0.7 as const },
+      { slug: "vpn-apk", priority: 0.7 as const },
+      { slug: "chatgpt-apk", priority: 0.7 as const },
+      { slug: "youtube-apk", priority: 0.7 as const },
+      { slug: "tiktok-apk", priority: 0.7 as const },
+      { slug: "whatsapp-apk", priority: 0.7 as const },
+      { slug: "google-play-not-working", priority: 0.7 as const },
+      { slug: "install-apk-without-google-play", priority: 0.7 as const },
+      { slug: "claude-apk", priority: 0.6 as const },
+      { slug: "gemini-apk", priority: 0.6 as const },
+    ]).map(({ slug, priority }) => ({
+      url: `${baseUrl}/ru/${slug}` as const,
+      lastModified: new Date("2026-05-14"),
+      changeFrequency: "weekly" as const,
+      priority,
+    })),
     ...shellLocales.flatMap((locale) => [
       {
         url: `${baseUrl}/${locale}` as const,
