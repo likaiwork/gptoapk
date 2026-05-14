@@ -146,6 +146,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly" as const,
       priority: 0.7,
     },
+    // AI App tutorial pages (en/how-to)
+    ...([
+      "install-claude-apk",
+      "install-gemini-apk",
+      "install-deepseek-apk",
+      "install-perplexity-apk",
+      "install-grok-apk",
+    ]).map((slug) => ({
+      url: `${baseUrl}/en/how-to/${slug}` as const,
+      lastModified: new Date("2026-05-14"),
+      changeFrequency: "monthly" as const,
+      priority: 0.7 as const,
+    })),
     // Russian SEO pages
     ...([
       { slug: "telegram-apk", priority: 0.7 as const },
@@ -160,6 +173,22 @@ export default function sitemap(): MetadataRoute.Sitemap {
       { slug: "gemini-apk", priority: 0.6 as const },
     ]).map(({ slug, priority }) => ({
       url: `${baseUrl}/ru/${slug}` as const,
+      lastModified: new Date("2026-05-14"),
+      changeFrequency: "weekly" as const,
+      priority,
+    })),
+    // Persian (fa) SEO pages — Iran market
+    ...([
+      { slug: "telegram-apk", priority: 0.7 as const },
+      { slug: "vpn-apk", priority: 0.7 as const },
+      { slug: "chatgpt-apk", priority: 0.7 as const },
+      { slug: "youtube-apk", priority: 0.7 as const },
+      { slug: "tiktok-apk", priority: 0.7 as const },
+      { slug: "google-play-not-working", priority: 0.7 as const },
+      { slug: "whatsapp-apk", priority: 0.7 as const },
+      { slug: "claude-apk", priority: 0.6 as const },
+    ]).map(({ slug, priority }) => ({
+      url: `${baseUrl}/fa/${slug}` as const,
       lastModified: new Date("2026-05-14"),
       changeFrequency: "weekly" as const,
       priority,
