@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -38,7 +38,17 @@ type SearchAppsResponse = {
   results?: SearchResult[];
 };
 
+type SearchCache = {
+  query: string;
+  queryType: QueryType | null;
+  resultLang: string;
+  resultCountry: string;
+  results: SearchResult[];
+  scrollY?: number;
+};
+
 const PACKAGE_NAME_REGEX = /^[a-zA-Z][a-zA-Z0-9_]*(?:\.[a-zA-Z][a-zA-Z0-9_]*)+$/;
+const SEARCH_CACHE_PREFIX = "gptoapk.searchState:";
 
 function getInputType(value: string) {
   if (!value) return "empty";
@@ -91,6 +101,48 @@ function getMetaItems(app: SearchResult) {
   ].filter(Boolean);
 }
 
+function getSearchCacheKey(pathname: string) {
+  return `${SEARCH_CACHE_PREFIX}${pathname}`;
+}
+
+function isSearchCache(value: unknown): value is SearchCache {
+  if (!value || typeof value !== "object") return false;
+  const cache = value as Partial<SearchCache>;
+  return (
+    typeof cache.query === "string" &&
+    Array.isArray(cache.results) &&
+    typeof cache.resultLang === "string" &&
+    typeof cache.resultCountry === "string"
+  );
+}
+
+function readSearchCache(cacheKey: string) {
+  try {
+    const raw = sessionStorage.getItem(cacheKey);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw) as unknown;
+    return isSearchCache(parsed) ? parsed : null;
+  } catch {
+    return null;
+  }
+}
+
+function writeSearchCache(cacheKey: string, cache: SearchCache) {
+  try {
+    sessionStorage.setItem(cacheKey, JSON.stringify(cache));
+  } catch {
+    // Ignore storage quota/private mode errors; search still works without persistence.
+  }
+}
+
+function clearSearchCache(cacheKey: string) {
+  try {
+    sessionStorage.removeItem(cacheKey);
+  } catch {
+    // Ignore storage errors.
+  }
+}
+
 export default function SearchBox() {
   const [url, setUrl] = useState("");
   const [isFetching, setIsFetching] = useState(false);
@@ -104,6 +156,33 @@ export default function SearchBox() {
   const locale = (localeMatch?.[1] as SiteLocale | undefined) ?? "en";
   const ui = searchUi[locale] ?? searchUi.en;
   const copy = getLocalizedCopy(locale);
+  const cacheKey = getSearchCacheKey(pathname);
+
+  useEffect(() => {
+    const cache = readSearchCache(cacheKey);
+    if (!cache?.results.length) return;
+
+    let scrollFrame: number | undefined;
+    const restoreFrame = requestAnimationFrame(() => {
+      setUrl(cache.query);
+      setResults(cache.results);
+      setQueryType(cache.queryType);
+      setResultLang(cache.resultLang);
+      setResultCountry(cache.resultCountry);
+      setError("");
+
+      if (typeof cache.scrollY === "number") {
+        scrollFrame = requestAnimationFrame(() => {
+          window.scrollTo({ top: cache.scrollY, behavior: "auto" });
+        });
+      }
+    });
+
+    return () => {
+      cancelAnimationFrame(restoreFrame);
+      if (scrollFrame) cancelAnimationFrame(scrollFrame);
+    };
+  }, [cacheKey]);
 
   const handleGenerate = async () => {
     const query = url.trim();
@@ -118,6 +197,7 @@ export default function SearchBox() {
     if (!query) {
       setError(copy.emptyError);
       setResults([]);
+      clearSearchCache(cacheKey);
       trackEvent(analyticsEvents.parseFailed, {
         locale,
         reason: "empty_input",
@@ -142,10 +222,21 @@ export default function SearchBox() {
         throw new Error(data.error || "No apps found");
       }
 
+      const nextQueryType = data.queryType ?? "keyword";
+      const nextLang = data.lang ?? locale;
+      const nextCountry = data.country ?? "us";
+
       setResults(data.results);
-      setQueryType(data.queryType ?? "keyword");
-      setResultLang(data.lang ?? locale);
-      setResultCountry(data.country ?? "us");
+      setQueryType(nextQueryType);
+      setResultLang(nextLang);
+      setResultCountry(nextCountry);
+      writeSearchCache(cacheKey, {
+        query,
+        queryType: nextQueryType,
+        resultLang: nextLang,
+        resultCountry: nextCountry,
+        results: data.results,
+      });
 
       trackEvent(analyticsEvents.parseSuccess, {
         app_id: data.results[0]?.appId,
@@ -164,9 +255,23 @@ export default function SearchBox() {
         reason: message,
       });
       setError(message);
+      clearSearchCache(cacheKey);
     } finally {
       setIsFetching(false);
     }
+  };
+
+  const saveCurrentSearchPosition = () => {
+    if (!results.length) return;
+
+    writeSearchCache(cacheKey, {
+      query: url,
+      queryType,
+      resultLang,
+      resultCountry,
+      results,
+      scrollY: window.scrollY,
+    });
   };
 
   const resultHeading =
@@ -290,6 +395,7 @@ export default function SearchBox() {
                     <DownloadButton appId={app.appId} appName={app.title} compact />
                     <Link
                       href={buildAppHref(app.appId, resultLang, resultCountry)}
+                      onClick={saveCurrentSearchPosition}
                       className="text-center text-sm font-medium text-slate-500 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400 sm:text-right"
                     >
                       {copy.openDetails}
