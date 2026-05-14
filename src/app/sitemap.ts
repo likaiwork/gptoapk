@@ -193,6 +193,48 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly" as const,
       priority,
     })),
+    // Chinese SEO pages (zh) — Baidu SEO focus
+    ...([
+      { slug: "huawei-install-google", priority: 0.7 as const },
+      { slug: "chatgpt-apk", priority: 0.7 as const },
+      { slug: "claude-apk", priority: 0.6 as const },
+      { slug: "google-play-not-working", priority: 0.7 as const },
+      { slug: "telegram-apk", priority: 0.7 as const },
+      { slug: "youtube-apk", priority: 0.7 as const },
+      { slug: "install-apk-guide", priority: 0.6 as const },
+      { slug: "gemini-apk", priority: 0.6 as const },
+    ]).map(({ slug, priority }) => ({
+      url: `${baseUrl}/zh/${slug}` as const,
+      lastModified: new Date("2026-05-14"),
+      changeFrequency: "weekly" as const,
+      priority,
+    })),
+    // Indonesian SEO pages (id)
+    ...([
+      { slug: "telegram-apk", priority: 0.7 as const },
+      { slug: "chatgpt-apk", priority: 0.7 as const },
+      { slug: "vpn-apk", priority: 0.7 as const },
+      { slug: "tiktok-apk", priority: 0.7 as const },
+      { slug: "whatsapp-apk", priority: 0.7 as const },
+      { slug: "google-play-not-working", priority: 0.7 as const },
+    ]).map(({ slug, priority }) => ({
+      url: `${baseUrl}/id/${slug}` as const,
+      lastModified: new Date("2026-05-14"),
+      changeFrequency: "weekly" as const,
+      priority,
+    })),
+    // Filipino SEO pages (tl)
+    ...([
+      { slug: "telegram-apk", priority: 0.7 as const },
+      { slug: "chatgpt-apk", priority: 0.7 as const },
+      { slug: "tiktok-apk", priority: 0.7 as const },
+      { slug: "google-play-not-working", priority: 0.7 as const },
+    ]).map(({ slug, priority }) => ({
+      url: `${baseUrl}/tl/${slug}` as const,
+      lastModified: new Date("2026-05-14"),
+      changeFrequency: "weekly" as const,
+      priority,
+    })),
     ...shellLocales.flatMap((locale) => [
       {
         url: `${baseUrl}/${locale}` as const,
