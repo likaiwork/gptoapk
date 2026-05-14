@@ -315,6 +315,71 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly" as const,
       priority,
     })),
+    // Portuguese/Brazil SEO pages (pt)
+    ...([
+      { slug: "chatgpt-apk", priority: 0.7 as const },
+      { slug: "whatsapp-apk", priority: 0.7 as const },
+      { slug: "telegram-apk", priority: 0.7 as const },
+      { slug: "tiktok-apk", priority: 0.7 as const },
+      { slug: "google-play-not-working", priority: 0.7 as const },
+    ]).map(({ slug, priority }) => ({
+      url: `${baseUrl}/pt/${slug}` as const,
+      lastModified: new Date("2026-05-14"),
+      changeFrequency: "weekly" as const,
+      priority,
+    })),
+    // French SEO pages (fr) — France, Africa
+    ...([
+      { slug: "chatgpt-apk", priority: 0.7 as const },
+      { slug: "whatsapp-apk", priority: 0.7 as const },
+      { slug: "telegram-apk", priority: 0.7 as const },
+      { slug: "tiktok-apk", priority: 0.7 as const },
+      { slug: "google-play-not-working", priority: 0.7 as const },
+    ]).map(({ slug, priority }) => ({
+      url: `${baseUrl}/fr/${slug}` as const,
+      lastModified: new Date("2026-05-14"),
+      changeFrequency: "weekly" as const,
+      priority,
+    })),
+    // Japanese SEO pages (ja) — Japan market
+    ...([
+      { slug: "chatgpt-apk", priority: 0.7 as const },
+      { slug: "tiktok-apk", priority: 0.7 as const },
+      { slug: "whatsapp-apk", priority: 0.7 as const },
+      { slug: "telegram-apk", priority: 0.7 as const },
+      { slug: "google-play-not-working", priority: 0.7 as const },
+    ]).map(({ slug, priority }) => ({
+      url: `${baseUrl}/ja/${slug}` as const,
+      lastModified: new Date("2026-05-14"),
+      changeFrequency: "weekly" as const,
+      priority,
+    })),
+    // Korean SEO pages (ko) — Korea market
+    ...([
+      { slug: "chatgpt-apk", priority: 0.7 as const },
+      { slug: "tiktok-apk", priority: 0.7 as const },
+      { slug: "whatsapp-apk", priority: 0.7 as const },
+      { slug: "telegram-apk", priority: 0.7 as const },
+      { slug: "google-play-not-working", priority: 0.7 as const },
+    ]).map(({ slug, priority }) => ({
+      url: `${baseUrl}/ko/${slug}` as const,
+      lastModified: new Date("2026-05-14"),
+      changeFrequency: "weekly" as const,
+      priority,
+    })),
+    // German SEO pages (de) — Germany market
+    ...([
+      { slug: "chatgpt-apk", priority: 0.7 as const },
+      { slug: "whatsapp-apk", priority: 0.7 as const },
+      { slug: "telegram-apk", priority: 0.7 as const },
+      { slug: "tiktok-apk", priority: 0.7 as const },
+      { slug: "google-play-not-working", priority: 0.7 as const },
+    ]).map(({ slug, priority }) => ({
+      url: `${baseUrl}/de/${slug}` as const,
+      lastModified: new Date("2026-05-14"),
+      changeFrequency: "weekly" as const,
+      priority,
+    })),
     ...shellLocales.flatMap((locale) => [
       {
         url: `${baseUrl}/${locale}` as const,
