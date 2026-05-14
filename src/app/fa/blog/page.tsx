@@ -64,6 +64,22 @@ const blogPosts = [
       readTime: "12 min read",
       tags: ["نصب APK", "عیب‌یابی", "Android"],
     },
+    {
+      slug: "apk-compatibility-check-guide",
+      title: "APK 版本兼容性检查ガイド：5つのステップでアプリが携帯と互換性があるか確認",
+      description: "ダウンロードしたAPKがスマホと互換性がない？CPUアーキテクチャ、APIレベル、画面密度を確認する5つの方法を解説。",
+      date: "2026-05-14",
+      readTime: "8分で読めます",
+      tags: ["APK互換性", "CPUアーキテクチャ", "確認ガイド"],
+    },
+    {
+      slug: "apk-file-size-optimization",
+      title: "APKファイルサイズ最適化：ダウンロードを軽量化しスマホのストレージを解放する方法",
+      description: "スマホのストレージが不足していませんか？APKの構造から学ぶ、ファイルサイズ削減と空き容量確保の実用的な5つの方法。",
+      date: "2026-05-14",
+      readTime: "8分で読めます",
+      tags: ["APKサイズ", "ストレージ最適化", "空き容量"],
+    }
 ];
 
 export default function BlogIndexPage() {
