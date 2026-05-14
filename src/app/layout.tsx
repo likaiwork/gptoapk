@@ -47,7 +47,9 @@ export const metadata: Metadata = {
   verification: {
     google: undefined,
     yandex: undefined,
-    msvalidate: "F9DDBF5E7468903E9C589BC6B8E3D6CB",
+    other: {
+      msvalidate: BING_VERIFICATION,
+    },
   },
   robots: {
     index: true,
