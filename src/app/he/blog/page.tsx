@@ -51,6 +51,30 @@ const posts = [
       readTime: "12 min read",
       tags: ["התקנת APK", "תקלות", "Android"],
     },
+    {
+      slug: "verify-apk-signature-security-guide",
+      title: "אימות חתימות APK: מדריך אבטחה מלא (2026)",
+      description: "כיצד לאמת חתימות דיגיטליות של קבצי APK — בטלפון, בשורת הפקודה ובכלים מקוונים. ודאו שאבטחת ה-APK שלכם מושלמת.",
+      date: "2026-05-16",
+      readTime: "7 min read",
+      tags: ["אבטחת APK", "חתימה", "אימות"],
+    },
+    {
+      slug: "apk-download-slow-speed-tips",
+      title: "הורדת APK איטית מדי? 10 טיפים מוכחים (2026)",
+      description: "10 שיטות יעילות להאצת הורדות APK — החליפו רשת, השתמשו בכלים מקצועיים, נקו מטמון ועוד.",
+      date: "2026-05-16",
+      readTime: "6 min read",
+      tags: ["הורדת APK", "טיפים למהירות", "Android"],
+    },
+    {
+      slug: "download-region-locked-apk-apps",
+      title: "הורדת אפליקציות APK מוגבלות אזור: 3 שיטות (2026)",
+      description: "3 שיטות יעילות להורדת אפליקציות APK עם הגבלות אזוריות — ללא טרחה.",
+      date: "2026-05-16",
+      readTime: "7 min read",
+      tags: ["הורדת APK", "הגבלה אזורית", "Android"],
+    },
 ];
 
 export default function BlogIndexPage() {

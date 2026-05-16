@@ -77,6 +77,30 @@ const posts: BlogPost[] = [
       readTime: "12 min read",
       tags: ["Εγκατάσταση APK", "Αντιμετώπιση", "Android"],
     },
+    {
+      slug: "verify-apk-signature-security-guide",
+      title: "Επαλήθευση υπογραφής APK: Πλήρης οδηγός ασφαλείας (2026)",
+      description: "Γιατί είναι σημαντική η επαλήθευση υπογραφής APK και πώς να το κάνετε με 4 μεθόδους: εργαλεία κινητού, apksigner, online εργαλεία και gptoapk.com.",
+      date: "2026-05-16",
+      readTime: "7 min",
+      tags: ["Ασφάλεια APK", "Υπογραφή APK", "Επαλήθευση", "Android"],
+    },
+    {
+      slug: "apk-download-slow-speed-tips",
+      title: "Η λήψη APK είναι πολύ αργή; 10 αποδεδειγμένες συμβουλές (2026)",
+      description: "Το APK κατεβαίνει αργά; Δοκιμάστε αυτές τις 10 αποδεδειγμένες μεθόδους για να επιταχύνετε τις λήψεις APK. Από αλλαγή DNS έως παράλληλες λήψεις.",
+      date: "2026-05-16",
+      readTime: "6 min",
+      tags: ["Λήψη APK", "Ταχύτητα", "Συμβουλές"],
+    },
+    {
+      slug: "download-region-locked-apk-apps",
+      title: "Εφαρμογές APK με περιορισμό περιοχής: 3 τρόποι λήψης (2026)",
+      description: "Πώς να κατεβάσετε APK εφαρμογές που είναι αποκλεισμένες στην περιοχή σας. 3 αποδεδειγμένες μέθοδοι: VPN, gptoapk.com και mirror sites.",
+      date: "2026-05-16",
+      readTime: "7 min",
+      tags: ["Περιορισμός Περιοχής", "Λήψη APK", "VPN", "Android"],
+    },
 ];
 
 export default function ElBlogPage() {

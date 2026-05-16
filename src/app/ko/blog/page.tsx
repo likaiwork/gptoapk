@@ -51,6 +51,30 @@ const posts = [
       readTime: "12 min read",
       tags: ["APK 설치", "문제 해결", "Android"],
     },
+    {
+      slug: "verify-apk-signature-security-guide",
+      title: "APK 서명 검증 보안 가이드: 변조를 방지하는 방법 (2026)",
+      description: "APK 서명 검증 방법을 완벽 설명합니다. APK 파일이 변조되지 않았는지 확인하는 3가지 방법과 서명 정보 읽는 법까지 상세히 안내합니다.",
+      date: "2026-05-16",
+      readTime: "7 min read",
+      tags: ["APK 보안", "서명 확인", "Android", "가이드"],
+    },
+    {
+      slug: "apk-download-slow-speed-tips",
+      title: "APK 다운로드 속도가 느리다? 10가지 속도 향상 팁 (2026)",
+      description: "APK 파일 다운로드 속도를 획기적으로 개선하는 10가지 실용적인 팁. 네트워크 설정부터 도구 선택까지 폭넓게 다룹니다.",
+      date: "2026-05-16",
+      readTime: "6 min read",
+      tags: ["APK 다운로드", "속도 향상", "Android"],
+    },
+    {
+      slug: "download-region-locked-apk-apps",
+      title: "지역 제한된 APK 앱을 다운로드하는 방법 (2026 완벽 가이드)",
+      description: "Google Play에서 지역 제한으로 받을 수 없는 앱을 다운로드하는 3가지 방법을 비교합니다. 장단점도 자세히 설명합니다.",
+      date: "2026-05-16",
+      readTime: "7 min read",
+      tags: ["지역 제한", "APK 다운로드", "Google Play"],
+    },
   ];
 
 export default function BlogIndexPage() {

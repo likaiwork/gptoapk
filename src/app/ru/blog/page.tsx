@@ -51,6 +51,30 @@ const posts = [
       readTime: "12 min read",
       tags: ["Установка APK", "Устранение", "Android"],
     },
+    {
+      slug: "verify-apk-signature-security-guide",
+      title: "Проверка подписи APK: Полное руководство по безопасности (2026)",
+      description: "Научитесь проверять цифровую подпись APK, чтобы гарантировать подлинность файла. Полное руководство с мобильными инструментами, apksigner и онлайн-проверкой.",
+      date: "2026-05-16",
+      readTime: "9 min read",
+      tags: ["Безопасность APK", "Подпись", "Проверка", "Android"],
+    },
+    {
+      slug: "apk-download-slow-speed-tips",
+      title: "APK загружается медленно? 10 проверенных советов (2026)",
+      description: "Загрузка APK слишком медленная или зависает? Вот 10 проверенных советов, как ускорить скачивание APK из Google Play Store.",
+      date: "2026-05-16",
+      readTime: "8 min read",
+      tags: ["Загрузка APK", "Скорость", "Советы Android"],
+    },
+    {
+      slug: "download-region-locked-apk-apps",
+      title: "APK с региональными ограничениями: 3 способа скачать (2026)",
+      description: "Приложения заблокированы в вашем регионе? Узнайте 3 проверенных способа скачать APK с географическими ограничениями: VPN, зеркала и прямая загрузка.",
+      date: "2026-05-16",
+      readTime: "8 min read",
+      tags: ["APK ограничения", "VPN", "Регион"],
+    },
 ];
 
 export default function BlogIndexPage() {

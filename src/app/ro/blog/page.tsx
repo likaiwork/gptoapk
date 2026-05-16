@@ -51,6 +51,30 @@ const posts = [
       readTime: "12 min read",
       tags: ["Instalare APK", "Depanare", "Android"],
     },
+    {
+      slug: "verify-apk-signature-security-guide",
+      title: "Verificarea semnăturii APK: Ghid complet de securitate (2026)",
+      description: "Află cum să verifici semnătura digitală a unui fișier APK înainte de instalare. Comparație între metode: aplicații mobile, apksigner, instrumente online și gptoapk.com.",
+      date: "2026-05-16",
+      readTime: "7 min read",
+      tags: ["Securitate APK", "Semnătură digitală", "Verificare", "Android"],
+    },
+    {
+      slug: "apk-download-slow-speed-tips",
+      title: "Descărcare APK prea lentă? 10 sfaturi dovedite (2026)",
+      description: "10 metode eficiente pentru accelerarea descărcării fișierelor APK. De la schimbarea DNS la utilizarea managerelor de descărcare și optimizarea rețelei.",
+      date: "2026-05-16",
+      readTime: "6 min read",
+      tags: ["Descărcare APK", "Viteză", "Sfaturi", "Android"],
+    },
+    {
+      slug: "download-region-locked-apk-apps",
+      title: "Aplicații APK restricționate regional: 3 metode de descărcare (2026)",
+      description: "Cum să descarci aplicații APK blocate regional? Trei metode dovedite — VPN, gptoapk.com și magazine alternative APK.",
+      date: "2026-05-16",
+      readTime: "7 min read",
+      tags: ["APK regional", "VPN", "Restricții", "Android"],
+    },
 ];
 
 export default function BlogIndexPage() {

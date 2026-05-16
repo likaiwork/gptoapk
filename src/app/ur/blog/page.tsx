@@ -64,6 +64,30 @@ const blogPosts = [
       readTime: "12 min read",
       tags: ["APK انسٹال", "ٹربل شوٹنگ", "Android"],
     },
+    {
+      slug: "verify-apk-signature-security-guide",
+      title: "APK دستخط کی تصدیق: مکمل سیکیورٹی گائیڈ (2026)",
+      description: "APK فائلوں کے ڈیجیٹل دستخط کی تصدیق کرنے کا طریقہ — فون، کمانڈ لائن، اور آن لائن ٹولز کے ذریعے۔",
+      date: "2026-05-16",
+      readTime: "7 min",
+      tags: ["APK سیکیورٹی", "دستخط", "تصدیق"],
+    },
+    {
+      slug: "apk-download-slow-speed-tips",
+      title: "APK ڈاؤن لوڈ بہت سست؟ 10 ثابت شدہ ٹپس (2026)",
+      description: "APK ڈاؤن لوڈ کی رفتار بڑھانے کے 10 مؤثر طریقے — نیٹ ورک تبدیل کریں، پیشہ ورانہ ٹولز استعمال کریں، اور مزید۔",
+      date: "2026-05-16",
+      readTime: "6 min",
+      tags: ["APK ڈاؤن لوڈ", "اسپیڈ ٹپس", "Android"],
+    },
+    {
+      slug: "download-region-locked-apk-apps",
+      title: "علاقائی پابندی والی APK ایپس ڈاؤن لوڈ کریں: 3 طریقے (2026)",
+      description: "علاقائی پابندیوں کے باوجود APK ایپس ڈاؤن لوڈ کرنے کے 3 مؤثر طریقے — بغیر کسی پریشانی کے۔",
+      date: "2026-05-16",
+      readTime: "7 min",
+      tags: ["APK ڈاؤن لوڈ", "علاقائی پابندی", "Android"],
+    },
 ];
 
 export default function BlogIndexPage() {

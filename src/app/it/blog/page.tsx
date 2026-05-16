@@ -55,7 +55,7 @@ const posts: BlogPost[] = [
     {
       slug: "apk-vs-aab-complete-comparison",
       title: "APK vs AAB: Guida al Confronto Completa (2026)",
-      description: "APK vs Android App Bundle — qual è la differenza e perché è importante?",
+      description: "APK vs Android App Bundle - qual è la differenza e perché è importante?",
       date: "2026-05-11",
       readTime: "8 min read",
       tags: ["APK vs AAB", "Android", "Sviluppo App"],
@@ -77,6 +77,33 @@ const posts: BlogPost[] = [
       readTime: "12 min read",
       tags: ["Installazione APK", "Risoluzione", "Android"],
     },
+  {
+    slug: "verify-apk-signature-security-guide",
+    title: "Verifica firma APK: Guida completa alla sicurezza (2026)",
+    description:
+      "Impara a verificare la firma digitale degli APK per garantire l'autenticità del file. Guida completa con strumenti mobile, comandi apksigner, verifiche online e consigli di sicurezza.",
+    date: "2026-05-16",
+    readTime: "9 min",
+    tags: ["Sicurezza APK", "Firma Digitale", "Verifica", "Android"],
+  },
+  {
+    slug: "apk-download-slow-speed-tips",
+    title: "Download APK troppo lento? 10 consigli testati (2026)",
+    description:
+      "Il download degli APK è lento o si blocca? Ecco 10 consigli pratici e testati per velocizzare i download di APK da Google Play Store.",
+    date: "2026-05-16",
+    readTime: "8 min",
+    tags: ["Download APK", "Velocità", "Consigli Android"],
+  },
+  {
+    slug: "download-region-locked-apk-apps",
+    title: "App APK bloccate per regione: 3 metodi per scaricarle (2026)",
+    description:
+      "App bloccate nella tua regione? Scopri 3 metodi comprovati per scaricare APK con restrizioni geografiche: VPN, mirror e download diretto da Google Play.",
+    date: "2026-05-16",
+    readTime: "8 min",
+    tags: ["APK Bloccati", "VPN", "Regione"],
+  },
 ];
 
 export default function ItBlogPage() {

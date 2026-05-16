@@ -65,6 +65,30 @@ const blogPosts = [
       readTime: "12 min read",
       tags: ["Встановлення APK", "Усунення", "Android"],
     },
+    {
+      slug: "verify-apk-signature-security-guide",
+      title: "Перевірка підпису APK: Повний посібник з безпеки (2026)",
+      description: "Дізнайтеся, чому важлива перевірка підпису APK, як це зробити за допомогою phone tools, apksigner командного рядка та онлайн інструментів.",
+      date: "2026-05-16",
+      readTime: "7 min",
+      tags: ["Безпека APK", "Підпис", "Посібник"],
+    },
+    {
+      slug: "apk-download-slow-speed-tips",
+      title: "Завантаження APK занадто повільне? 10 перевірених порад (2026)",
+      description: "10 перевірених способів прискорити завантаження APK файлів. Від зміни сервера до використання менеджера завантажень.",
+      date: "2026-05-16",
+      readTime: "6 min",
+      tags: ["Завантаження APK", "Швидкість", "Поради"],
+    },
+    {
+      slug: "download-region-locked-apk-apps",
+      title: "APK-додатки з регіональними обмеженнями: 3 способи завантаження (2026)",
+      description: "Три ефективні способи завантаження APK-додатків з регіональними обмеженнями без VPN.",
+      date: "2026-05-16",
+      readTime: "7 min",
+      tags: ["Завантаження APK", "Регіон", "Android"],
+    },
 ];
 
 export default function BlogIndexPage() {

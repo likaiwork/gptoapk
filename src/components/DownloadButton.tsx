@@ -74,6 +74,20 @@ export default function DownloadButton({ appId, compact = false }: DownloadButto
         duration_ms: Math.round(performance.now() - startedAt),
       });
 
+      // 记录下载到数据库
+      fetch('/api/track-download', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          appId,
+          appTitle: (data as { [k: string]: unknown }).fileName || appId,
+          source: data.source,
+          downloadUrl: data.downloadUrl,
+          version: data.version,
+          fileSize: data.size,
+        }),
+      }).catch(() => {});
+
       const a = document.createElement("a");
       a.href = data.downloadUrl;
       a.download = data.fileName || `${appId}.apk`;

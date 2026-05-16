@@ -103,6 +103,30 @@ const posts = [
     readTime: "12 分钟阅读",
     tags: ["APK 安装", "故障排查", "教程"],
   },
+  {
+    slug: "verify-apk-signature-security-guide",
+    title: "APK签名验证完全指南：如何确保下载的应用安全 (2026)",
+    description: "为什么 APK 签名验证如此重要？教你如何用手机工具、apksigner 命令行和在线工具验证 APK 文件签名。",
+    date: "2026-05-16",
+    readTime: "7 分钟阅读",
+    tags: ["APK 安全", "签名验证", "指南"],
+  },
+  {
+    slug: "apk-download-slow-speed-tips",
+    title: "APK下载速度太慢？10个实测有效的加速方法 (2026)",
+    description: "10 个经过验证的 APK 下载加速方法。从更换下载节点到使用下载管理器，全方位提升下载速度。",
+    date: "2026-05-16",
+    readTime: "6 分钟阅读",
+    tags: ["APK 下载", "加速", "技巧"],
+  },
+  {
+    slug: "download-region-locked-apk-apps",
+    title: "地区限制的APK应用怎么下载？3种实用方法 (2026)",
+    description: "三种无需 VPN 即可下载地区限制 APK 应用的有效方法。突破 Google Play 区域限制。",
+    date: "2026-05-16",
+    readTime: "7 分钟阅读",
+    tags: ["APK 下载", "地区限制", "Android"],
+  },
 ];
 
 export default function BlogPageZh() {

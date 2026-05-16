@@ -77,6 +77,30 @@ const posts: BlogPost[] = [
       readTime: "12 min read",
       tags: ["APK-installatie", "Probleemoplossing", "Android"],
     },
+    {
+      slug: "verify-apk-signature-security-guide",
+      title: "APK-handtekeningverificatie: Volledige veiligheidsgids (2026)",
+      description: "Leer hoe u digitale handtekeningen van APK-bestanden kunt verifiëren met mobiele tools, commandoregel en online diensten. Zorg voor veilige en authentieke APK's.",
+      date: "2026-05-16",
+      readTime: "7 min",
+      tags: ["APK-verificatie", "Veiligheid", "Digitale handtekening", "Android"],
+    },
+    {
+      slug: "apk-download-slow-speed-tips",
+      title: "APK-download te langzaam? 10 bewezen tips (2026)",
+      description: "Last van trage APK-downloads? 10 praktische tips om de downloadsnelheid te verhogen — van de juiste serverkeuze tot netwerkinstellingen.",
+      date: "2026-05-16",
+      readTime: "6 min",
+      tags: ["APK-download", "Snelheid", "Tips"],
+    },
+    {
+      slug: "download-region-locked-apk-apps",
+      title: "Regio-vergrendelde APK-apps downloaden: 3 methoden (2026)",
+      description: "Een app nodig die alleen in een ander land beschikbaar is? 3 bewezen methoden om regio-vergrendelde APK-bestanden te downloaden zonder VPN en gedoe.",
+      date: "2026-05-16",
+      readTime: "7 min",
+      tags: ["Regio-vergrendeld", "APK-download", "Android", "Apps"],
+    },
 ];
 
 export default function NlBlogPage() {

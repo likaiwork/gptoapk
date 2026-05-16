@@ -51,6 +51,30 @@ const posts = [
       readTime: "12 min read",
       tags: ["ติดตั้ง APK", "แก้ไข", "Android"],
     },
+    {
+      slug: "verify-apk-signature-security-guide",
+      title: "ตรวจสอบลายเซ็น APK: คู่มือความปลอดภัยฉบับสมบูรณ์ (2026)",
+      description: "เรียนรู้ว่าทำไมการตรวจสอบลายเซ็น APK จึงสำคัญ วิธีตรวจสอบด้วยเครื่องมือโทรศัพท์ คำสั่งบรรทัด และเครื่องมือออนไลน์",
+      date: "2026-05-16",
+      readTime: "7 min read",
+      tags: ["ความปลอดภัย APK", "ตรวจสอบลายเซ็น", "Android"],
+    },
+    {
+      slug: "apk-download-slow-speed-tips",
+      title: "ดาวน์โหลด APK ช้าเกินไป? 10 เคล็ดลับที่พิสูจน์แล้ว (2026)",
+      description: "ดาวน์โหลด APK ช้าหรือไม่? นี่คือ 10 วิธีการเพิ่มความเร็วที่พิสูจน์แล้วในการดาวน์โหลด APK",
+      date: "2026-05-16",
+      readTime: "6 min read",
+      tags: ["ดาวน์โหลด APK", "เคล็ดลับความเร็ว", "Android"],
+    },
+    {
+      slug: "download-region-locked-apk-apps",
+      title: "ดาวน์โหลดแอป APK ที่ถูกจำกัดภูมิภาค: 3 วิธี (2026)",
+      description: "3 วิธีที่มีประสิทธิภาพในการดาวน์โหลดแอป APK ที่ถูกจำกัดภูมิภาค VPN ตัวดาวน์โหลด APK และร้านค้าบุคคลที่สาม",
+      date: "2026-05-16",
+      readTime: "7 min read",
+      tags: ["ข้อจำกัดภูมิภาค", "VPN", "ดาวน์โหลด APK"],
+    },
 ];
 
 export default function BlogIndexPage() {

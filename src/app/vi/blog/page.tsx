@@ -76,6 +76,30 @@ const posts: BlogPost[] = [
       readTime: "12 min read",
       tags: ["Cài đặt APK", "Khắc phục", "Android"],
     },
+    {
+      slug: "verify-apk-signature-security-guide",
+      title: "Xác minh chữ ký APK: Hướng dẫn bảo mật toàn diện (2026)",
+      description: "Tìm hiểu tại sao xác minh chữ ký APK quan trọng, cách kiểm tra bằng công cụ điện thoại, dòng lệnh và trực tuyến.",
+      date: "2026-05-16",
+      readTime: "7 min read",
+      tags: ["Bảo mật APK", "Xác minh chữ ký", "Android"],
+    },
+    {
+      slug: "apk-download-slow-speed-tips",
+      title: "Tải APK quá chậm? 10 mẹo tăng tốc đã được kiểm chứng (2026)",
+      description: "Tải APK quá chậm? Đây là 10 phương pháp tăng tốc tải APK đã được kiểm chứng.",
+      date: "2026-05-16",
+      readTime: "6 min read",
+      tags: ["Tải APK", "Mẹo tăng tốc", "Android"],
+    },
+    {
+      slug: "download-region-locked-apk-apps",
+      title: "Tải ứng dụng APK bị giới hạn khu vực: 3 phương pháp (2026)",
+      description: "3 phương pháp hiệu quả để tải ứng dụng APK bị giới hạn khu vực. VPN, trình tải APK và cửa hàng bên thứ ba.",
+      date: "2026-05-16",
+      readTime: "7 min read",
+      tags: ["Giới hạn khu vực", "VPN", "Tải APK"],
+    },
 ];
 
 export default function ViBlogPage() {

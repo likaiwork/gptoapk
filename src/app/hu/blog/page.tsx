@@ -77,6 +77,30 @@ const posts: BlogPost[] = [
       readTime: "12 min read",
       tags: ["APK telepítés", "Hibaelhárítás", "Android"],
     },
+    {
+      slug: "verify-apk-signature-security-guide",
+      title: "APK-aláírás-ellenőrzés: Teljes biztonsági útmutató (2026)",
+      description: "Miért fontos az APK-aláírás ellenőrzése és hogyan végezhető el 4 módszerrel: mobileszközök, apksigner, online eszközök és gptoapk.com.",
+      date: "2026-05-16",
+      readTime: "7 min",
+      tags: ["APK biztonság", "APK aláírás", "Ellenőrzés", "Android"],
+    },
+    {
+      slug: "apk-download-slow-speed-tips",
+      title: "APK-letöltés túl lassú? 10 bevált tipp (2026)",
+      description: "Az APK lassan töltődik? Próbálja ki ezt a 10 bevált módszert az APK-letöltések felgyorsításához. A DNS-váltástól a párhuzamos letöltésekig.",
+      date: "2026-05-16",
+      readTime: "6 min",
+      tags: ["APK Letöltés", "Sebesség", "Tippek"],
+    },
+    {
+      slug: "download-region-locked-apk-apps",
+      title: "Regionálisan korlátozott APK-alkalmazások letöltése: 3 módszer (2026)",
+      description: "Hogyan töltsön le APK-alkalmazásokat, amelyek blokkolva vannak a régiójában. 3 bevált módszer: VPN, gptoapk.com és mirror oldalak.",
+      date: "2026-05-16",
+      readTime: "7 min",
+      tags: ["Regionális Korlátozás", "APK Letöltés", "VPN", "Android"],
+    },
 ];
 
 export default function HuBlogPage() {

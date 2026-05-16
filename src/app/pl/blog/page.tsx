@@ -77,6 +77,30 @@ const posts: BlogPost[] = [
       readTime: "12 min read",
       tags: ["Instalacja APK", "Rozwiązywanie", "Android"],
     },
+  {
+    slug: "verify-apk-signature-security-guide",
+    title: "Weryfikacja podpisu APK: Kompletny przewodnik bezpieczeństwa (2026)",
+    description: "Dowiedz się, jak zweryfikować podpis cyfrowy pliku APK przed instalacją. Porównanie metod: aplikacje na telefon, apksigner, narzędzia online i gptoapk.com.",
+    date: "2026-05-16",
+    readTime: "7 min",
+    tags: ["Bezpieczeństwo APK", "Podpis cyfrowy", "Weryfikacja", "Android"],
+  },
+  {
+    slug: "apk-download-slow-speed-tips",
+    title: "Pobieranie APK zbyt wolne? 10 sprawdzonych porad (2026)",
+    description: "10 skutecznych metod na przyspieszenie pobierania plików APK. Od zmiany DNS po użycie menedżerów pobierania i optymalizację sieci.",
+    date: "2026-05-16",
+    readTime: "6 min",
+    tags: ["Pobieranie APK", "Prędkość", "Porady", "Android"],
+  },
+  {
+    slug: "download-region-locked-apk-apps",
+    title: "Aplikacje APK z ograniczeniem regionalnym: 3 sposoby pobierania (2026)",
+    description: "Jak pobrać aplikacje APK zablokowane regionalnie? Trzy sprawdzone metody — VPN, gptoapk.com i alternatywne sklepy APK.",
+    date: "2026-05-16",
+    readTime: "7 min",
+    tags: ["APK regionalne", "VPN", "Ograniczenia", "Android"],
+  },
 ];
 
 export default function PlBlogPage() {

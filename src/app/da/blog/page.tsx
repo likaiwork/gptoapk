@@ -77,6 +77,30 @@ const posts: BlogPost[] = [
       readTime: "12 min read",
       tags: ["APK-installation", "Fejlfinding", "Android"],
     },
+    {
+      slug: "verify-apk-signature-security-guide",
+      title: "APK-signaturverifikation: Komplet sikkerhedsguide (2026)",
+      description: "Lær at verificere digitale signaturer på APK-filer med mobile værktøjer, kommandolinje og onlinetjenester. Sørg for at downloade sikre og autentiske APK'er.",
+      date: "2026-05-16",
+      readTime: "7 min",
+      tags: ["APK-verifikation", "Sikkerhed", "Digital signatur", "Android"],
+    },
+    {
+      slug: "apk-download-slow-speed-tips",
+      title: "APK-download for langsom? 10 gennemprøvede tips (2026)",
+      description: "Kæmper du med langsom APK-download? 10 praktiske tips til at øge downloadhastigheden — fra valg af den rigtige server til netværksindstillinger.",
+      date: "2026-05-16",
+      readTime: "6 min",
+      tags: ["APK-download", "Hastighed", "Tips"],
+    },
+    {
+      slug: "download-region-locked-apk-apps",
+      title: "Regionsspærrede APK-apps: 3 måder at downloade (2026)",
+      description: "Har du brug for en app, der kun er tilgængelig i et andet land? 3 gennemprøvede metoder til at downloade regionsspærrede APK-filer uden VPN og besvær.",
+      date: "2026-05-16",
+      readTime: "7 min",
+      tags: ["Regionsspærret", "APK-download", "Android", "Apps"],
+    },
 ];
 
 export default function DaBlogPage() {

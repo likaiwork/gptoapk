@@ -49,6 +49,7 @@ export const metadata: Metadata = {
     google: undefined,
     yandex: undefined,
     other: {
+      "google-adsense-account": "ca-pub-2144172051563531",
       msvalidate: BING_VERIFICATION,
     },
   },
@@ -216,6 +217,13 @@ function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', '${GA_MEASUREMENT_ID}');`}
         </Script>
+
+        <Script
+          id="adsense"
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2144172051563531"
+          strategy="afterInteractive"
+          crossOrigin="anonymous"
+        />
 
         <Script id="ms-clarity" strategy="afterInteractive">
           {`(function(c,l,a,r,i,t,y){

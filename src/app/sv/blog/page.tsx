@@ -54,6 +54,30 @@ const posts = [
       readTime: "12 min read",
       tags: ["APK-installation", "Felsökning", "Android"],
     },
+    {
+      slug: "verify-apk-signature-security-guide",
+      title: "APK-signaturverifiering: Fullständig säkerhetsguide (2026)",
+      description: "Lär dig hur du verifierar den digitala signaturen på en APK-fil före installation. Jämförelse av metoder: mobilappar, apksigner, onlineverktyg och gptoapk.com.",
+      date: "2026-05-16",
+      readTime: "7 min",
+      tags: ["APK-säkerhet", "Digital signatur", "Verifiering", "Android"],
+    },
+    {
+      slug: "apk-download-slow-speed-tips",
+      title: "APK-nedladdning för långsam? 10 beprövade tips (2026)",
+      description: "10 effektiva metoder för att snabba upp nedladdning av APK-filer. Från DNS-ändring till nedladdningshanterare och nätverksoptimering.",
+      date: "2026-05-16",
+      readTime: "6 min",
+      tags: ["APK-nedladdning", "Hastighet", "Tips", "Android"],
+    },
+    {
+      slug: "download-region-locked-apk-apps",
+      title: "Regionsspärrade APK-appar: 3 nedladdningsmetoder (2026)",
+      description: "Hur du laddar ner regionsspärrade APK-appar. Tre beprövade metoder — VPN, gptoapk.com och alternativa APK-butiker.",
+      date: "2026-05-16",
+      readTime: "7 min",
+      tags: ["Regional APK", "VPN", "Begränsningar", "Android"],
+    },
 ];
 
 export const metadata: Metadata = {

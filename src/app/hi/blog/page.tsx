@@ -69,6 +69,30 @@ const posts = [
       readTime: "12 min read",
       tags: ["APK इंस्टॉल", "समस्या", "Android"],
     },
+    {
+      slug: "verify-apk-signature-security-guide",
+      title: "APK हस्ताक्षर सत्यापन: पूर्ण सुरक्षा गाइड (2026)",
+      description: "APK फ़ाइलों के डिजिटल हस्ताक्षर सत्यापन की पूरी गाइड। मोबाइल ऐप, कमांड लाइन और ऑनलाइन टूल से हस्ताक्षर जाँच के तरीके।",
+      date: "2026-05-16",
+      readTime: "7 min read",
+      tags: ["APK हस्ताक्षर", "सुरक्षा", "डिजिटल सत्यापन"],
+    },
+    {
+      slug: "apk-download-slow-speed-tips",
+      title: "APK डाउनलोड बहुत धीमा? 10 सिद्ध टिप्स (2026)",
+      description: "APK फ़ाइल डाउनलोड में बहुत समय लग रहा है? 10 प्रभावी टिप्स जो आपकी डाउनलोड स्पीड बढ़ा देंगे।",
+      date: "2026-05-16",
+      readTime: "6 min read",
+      tags: ["APK डाउनलोड", "स्पीड", "टिप्स", "Android"],
+    },
+    {
+      slug: "download-region-locked-apk-apps",
+      title: "क्षेत्र-प्रतिबंधित APK ऐप्स डाउनलोड करें: 3 तरीके (2026)",
+      description: "अपने क्षेत्र में प्रतिबंधित ऐप्स को डाउनलोड करने की पूरी गाइड। बिना VPN के भी APK डाउनलोड करने के तरीके जानें।",
+      date: "2026-05-16",
+      readTime: "7 min read",
+      tags: ["APK", "क्षेत्र प्रतिबंध", "डाउनलोड", "Android"],
+    },
 ];
 
 export default function HiBlogPage() {

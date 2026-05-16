@@ -51,6 +51,30 @@ const posts = [
       readTime: "12 min read",
       tags: ["APK Yükleme", "Sorun Giderme", "Android"],
     },
+    {
+      slug: "verify-apk-signature-security-guide",
+      title: "APK İmza Doğrulama: Tam Güvenlik Rehberi (2026)",
+      description: "APK imza doğrulamanın neden önemli olduğunu, telefon araçları, komut satırı ve çevrimiçi yöntemlerle nasıl yapılacağını öğrenin.",
+      date: "2026-05-16",
+      readTime: "7 min read",
+      tags: ["APK Güvenliği", "İmza Doğrulama", "Android"],
+    },
+    {
+      slug: "apk-download-slow-speed-tips",
+      title: "APK İndirme Çok Yavaş mı? 10 Kanıtlanmış İpucu (2026)",
+      description: "APK indirmeleriniz yavaş mı? İşte 10 kanıtlanmış yöntemle indirme hızınızı artırmanın yolları.",
+      date: "2026-05-16",
+      readTime: "6 min read",
+      tags: ["APK İndirme", "Hız İpuçları", "Android"],
+    },
+    {
+      slug: "download-region-locked-apk-apps",
+      title: "Bölge Kısıtlamalı APK Uygulamalarını İndirme: 3 Yöntem (2026)",
+      description: "Bölge kısıtlamalı APK uygulamalarını indirmek için 3 etkili yöntem. VPN, APK indirici ve üçüncü taraf mağazalar.",
+      date: "2026-05-16",
+      readTime: "7 min read",
+      tags: ["Bölge Kısıtlama", "VPN", "APK İndirme"],
+    },
   ];
 
 export default function BlogIndexPage() {

@@ -9,6 +9,7 @@ import { searchUi } from "@/lib/search-ui";
 import { analyticsEvents } from "@/lib/analytics-events";
 import { trackEvent } from "@/lib/client-analytics";
 import DownloadButton from "@/components/DownloadButton";
+import AdUnit from "@/components/AdUnit";
 
 type QueryType = "url" | "package" | "keyword";
 
@@ -246,6 +247,20 @@ export default function SearchBox() {
         query_type: data.queryType,
         result_count: data.results.length,
       });
+
+      // 记录搜索到数据库
+      if (data.results[0]?.appId) {
+        fetch('/api/track-search', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            query,
+            queryType: nextQueryType,
+            appId: data.results[0].appId,
+            appTitle: data.results[0].title,
+          }),
+        }).catch(() => {});
+      }
     } catch (err: unknown) {
       const message = err instanceof Error ? err.message : "No apps found";
       trackEvent(analyticsEvents.parseFailed, {
@@ -330,7 +345,11 @@ export default function SearchBox() {
       )}
 
       {results.length > 0 && (
-        <div className="mt-5 overflow-hidden rounded-2xl border border-slate-200 bg-white text-left shadow-lg dark:border-slate-700 dark:bg-slate-800">
+        <>
+          {/* 搜索结果上方广告 */}
+          <AdUnit slot="1234567890" format="auto" className="mt-6" />
+
+          <div className="mt-5 overflow-hidden rounded-2xl border border-slate-200 bg-white text-left shadow-lg dark:border-slate-700 dark:bg-slate-800">
           <div className="flex flex-col gap-1 border-b border-slate-100 px-4 py-4 dark:border-slate-700 sm:px-5">
             <p className="text-xs font-semibold uppercase tracking-wide text-blue-600 dark:text-blue-400">
               {copy.results}
@@ -405,6 +424,10 @@ export default function SearchBox() {
             })}
           </div>
         </div>
+
+          {/* 搜索结果下方广告 */}
+          <AdUnit slot="0987654321" format="auto" className="mt-5" />
+        </>
       )}
     </div>
   );

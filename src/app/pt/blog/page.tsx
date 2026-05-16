@@ -69,6 +69,30 @@ const posts = [
       readTime: "12 min read",
       tags: ["Instalação APK", "Solução problemas", "Android"],
     },
+    {
+      slug: "verify-apk-signature-security-guide",
+      title: "Verificação de assinatura APK: Guia completo de segurança (2026)",
+      description: "Aprenda a verificar a assinatura de um APK para garantir sua autenticidade. Três métodos práticos: ferramentas móveis, linha de comando e serviços online.",
+      date: "2026-05-16",
+      readTime: "8 min de leitura",
+      tags: ["Segurança APK", "Assinatura APK", "Verificação"],
+    },
+    {
+      slug: "apk-download-slow-speed-tips",
+      title: "Download APK muito lento? 10 dicas comprovadas (2026)",
+      description: "Seu download de APK está extremamente lento? Descubra 10 dicas práticas para acelerar o download de arquivos APK, desde trocar de rede até otimizar seu dispositivo.",
+      date: "2026-05-16",
+      readTime: "9 min de leitura",
+      tags: ["Download APK", "Velocidade", "Dicas"],
+    },
+    {
+      slug: "download-region-locked-apk-apps",
+      title: "Como baixar APK com restrição regional: 3 métodos (2026)",
+      description: "Um aplicativo não está disponível no seu país? Aprenda 3 métodos eficazes para baixar e instalar APK bloqueados por região usando gptoapk.com, mudança de conta e VPN.",
+      date: "2026-05-16",
+      readTime: "9 min de leitura",
+      tags: ["APK região", "Download APK", "Google Play", "VPN"],
+    },
 ];
 
 export default function PtBlogPage() {

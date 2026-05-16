@@ -77,6 +77,30 @@ const posts: BlogPost[] = [
       readTime: "12 min read",
       tags: ["Instalace APK", "Řešení problémů", "Android"],
     },
+    {
+      slug: "verify-apk-signature-security-guide",
+      title: "Ověření podpisu APK: Kompletní bezpečnostní průvodce (2026)",
+      description: "Naučte se ověřovat digitální podpisy APK souborů pomocí mobilních nástrojů, příkazového řádku a online služeb. Zajistěte, že stahujete bezpečné a autentické APK.",
+      date: "2026-05-16",
+      readTime: "7 min",
+      tags: ["Ověření APK", "Bezpečnost", "Digitální podpis", "Android"],
+    },
+    {
+      slug: "apk-download-slow-speed-tips",
+      title: "Stahování APK příliš pomalé? 10 osvědčených tipů (2026)",
+      description: "Trápí vás pomalé stahování APK? 10 praktických tipů pro zrychlení stahování — od výběru správného serveru až po nastavení sítě.",
+      date: "2026-05-16",
+      readTime: "6 min",
+      tags: ["Stahování APK", "Rychlost", "Tipy"],
+    },
+    {
+      slug: "download-region-locked-apk-apps",
+      title: "Regionálně omezené APK aplikace: 3 způsoby stažení (2026)",
+      description: "Potřebujete aplikaci dostupnou jen v jiné zemi? 3 osvědčené metody pro stažení regionálně blokovaných APK souborů bez VPN a komplikací.",
+      date: "2026-05-16",
+      readTime: "7 min",
+      tags: ["Regionální APK", "Stažení", "Omezení", "Android"],
+    },
 ];
 
 export default function CsBlogPage() {

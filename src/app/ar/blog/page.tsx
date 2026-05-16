@@ -69,6 +69,30 @@ const posts = [
       readTime: "12 min read",
       tags: ["تثبيت APK", "استكشاف", "Android"],
     },
+    {
+      slug: "verify-apk-signature-security-guide",
+      title: "التحقق من توقيع APK: دليل الأمان الكامل (2026)",
+      description: "دليل شامل للتحقق من التوقيع الرقمي لملفات APK. تعرّف على طرق التحقق باستخدام أدوات الهاتف، سطر الأوامر، والخدمات الإلكترونية لضمان سلامة ملفات APK.",
+      date: "2026-05-16",
+      readTime: "7 min read",
+      tags: ["توقيع APK", "أمان", "التحقق الرقمي"],
+    },
+    {
+      slug: "apk-download-slow-speed-tips",
+      title: "تحميل APK بطيء جداً؟ 10 نصائح مجربة (2026)",
+      description: "هل يستغرق تحميل ملفات APK وقتاً طويلاً؟ إليك 10 نصائح عملية لتحسين سرعة التحميل، من اختيار الأدوات المناسبة إلى تحسين إعدادات الشبكة.",
+      date: "2026-05-16",
+      readTime: "6 min read",
+      tags: ["تحميل APK", "سرعة التحميل", "نصائح", "تحسين"],
+    },
+    {
+      slug: "download-region-locked-apk-apps",
+      title: "تطبيقات APK المقيدة جغرافياً: 3 طرق للتحميل (2026)",
+      description: "دليل شامل لتحميل التطبيقات المقيدة في منطقتك. تعرّف على أفضل الطرق لتجاوز القيود الجغرافية لتنزيل APK بأمان.",
+      date: "2026-05-16",
+      readTime: "7 min read",
+      tags: ["APK", "قيود جغرافية", "تحميل", "Android"],
+    },
 ];
 
 export default function ArBlogPage() {

@@ -65,6 +65,30 @@ const blogPosts = [
       readTime: "12 min read",
       tags: ["Pag-install APK", "Pag-troubleshoot", "Android"],
     },
+    {
+      slug: "verify-apk-signature-security-guide",
+      title: "Pag-verify ng Lagda ng APK: Kumpletong Gabay sa Seguridad (2026)",
+      description: "Alamin kung bakit mahalaga ang pag-verify ng APK signature, paano ito gawin gamit ang phone tools, apksigner command line, at online tools.",
+      date: "2026-05-16",
+      readTime: "7 min",
+      tags: ["Seguridad ng APK", "Lagda", "Gabay"],
+    },
+    {
+      slug: "apk-download-slow-speed-tips",
+      title: "Masyadong Mabagal ang Pag-download ng APK? 10 Subok na Tip (2026)",
+      description: "10 napatunayang paraan para pabilisin ang pag-download ng APK files. Mula sa pagpapalit ng server hanggang sa paggamit ng download manager.",
+      date: "2026-05-16",
+      readTime: "6 min",
+      tags: ["APK Download", "Bilis", "Tips"],
+    },
+    {
+      slug: "download-region-locked-apk-apps",
+      title: "Mga APK App na Naka-lock ayon sa Rehiyon: 3 Paraan ng Pag-download (2026)",
+      description: "Tatlong epektibong paraan para mag-download ng mga APK app na naka-lock ayon sa rehiyon nang walang VPN.",
+      date: "2026-05-16",
+      readTime: "7 min",
+      tags: ["APK Download", "Rehiyon", "Android"],
+    },
 ];
 
 export default function BlogIndexPage() {

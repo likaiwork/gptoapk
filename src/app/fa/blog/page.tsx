@@ -65,6 +65,30 @@ const blogPosts = [
       readTime: "12 min read",
       tags: ["نصب APK", "عیب‌یابی", "Android"],
     },
+    {
+      slug: "verify-apk-signature-security-guide",
+      title: "تأیید امضای APK: راهنمای کامل امنیت (۲۰۲۶)",
+      description: "چگونه امضای دیجیتال فایل‌های APK را تأیید کنیم — روی گوشی، خط فرمان و ابزارهای آنلاین. از امنیت APK خود اطمینان حاصل کنید.",
+      date: "2026-05-16",
+      readTime: "7 min",
+      tags: ["امنیت APK", "امضا", "تأیید"],
+    },
+    {
+      slug: "apk-download-slow-speed-tips",
+      title: "دانلود APK خیلی کند است؟ ۱۰ نکته اثبات شده (۲۰۲۶)",
+      description: "۱۰ روش مؤثر برای افزایش سرعت دانلود APK — تغییر شبکه، استفاده از ابزارهای حرفه‌ای، پاک‌سازی کش و موارد دیگر.",
+      date: "2026-05-16",
+      readTime: "6 min",
+      tags: ["دانلود APK", "نکات سرعت", "Android"],
+    },
+    {
+      slug: "download-region-locked-apk-apps",
+      title: "دانلود اپلیکیشن‌های APK محدود شده منطقه‌ای: ۳ روش (۲۰۲۶)",
+      description: "۳ روش مؤثر برای دانلود APK اپلیکیشن‌های دارای محدودیت منطقه‌ای — بدون دردسر.",
+      date: "2026-05-16",
+      readTime: "7 min",
+      tags: ["دانلود APK", "محدودیت منطقه‌ای", "Android"],
+    },
 ];
 
 export default function BlogIndexPage() {

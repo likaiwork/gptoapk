@@ -85,7 +85,31 @@ export default function JaBlogPage() {
       date: "2026-05-14",
       readTime: "8分で読めます",
       tags: ["APKサイズ", "ストレージ最適化", "空き容量"],
-    }
+    },
+    {
+      slug: "verify-apk-signature-security-guide",
+      title: "APK署名検証セキュリティガイド：改ざんを防ぐ方法（2026年版）",
+      description: "APK署名の検証方法を徹底解説。APKファイルが改ざんされていないことを確認する3つの方法と、署名情報の読み解き方まで詳しく説明します。",
+      date: "2026-05-16",
+      readTime: "7 min read",
+      tags: ["APKセキュリティ", "署名検証", "Android", "ガイド"],
+    },
+    {
+      slug: "apk-download-slow-speed-tips",
+      title: "APKダウンロードが遅い？10の高速化テクニック（2026年版）",
+      description: "APKファイルのダウンロード速度を劇的に改善する10の実践的なヒント。ネットワーク設定からツール選びまで幅広くカバー。",
+      date: "2026-05-16",
+      readTime: "6 min read",
+      tags: ["APKダウンロード", "スピードアップ", "Android"],
+    },
+    {
+      slug: "download-region-locked-apk-apps",
+      title: "地域制限されたAPKアプリをダウンロードする方法（2026年完全ガイド）",
+      description: "Google Playで地域制限により入手できないアプリをダウンロードする3つの方法を比較。メリット・デメリットも詳しく解説。",
+      date: "2026-05-16",
+      readTime: "7 min read",
+      tags: ["地域制限", "APKダウンロード", "Google Play"],
+    },
   ];
 
   return (
