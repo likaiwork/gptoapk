@@ -80,21 +80,27 @@ export interface ActivityItem {
 function getAdminApiKey(): string {
   return process.env.ADMIN_API_KEY || "gptoapk-admin-key-2026";
 }
-
 export { getAdminApiKey };
 
 // Database singleton
 let db: Database.Database | null = null;
 
-const DB_PATH = path.resolve(process.cwd(), "data", "gptoapk.db");
+function getDbPath(): string {
+  // Vercel: /tmp is the only writable dir (but not persistent across cold starts)
+  // Local: data/ dir persists
+  const inVercel = !!process.env.VERCEL;
+  const dir = path.resolve(inVercel ? "/tmp" : process.cwd(), "data");
+  if (!fs.existsSync(dir)) {
+    fs.mkdirSync(dir, { recursive: true });
+  }
+  return path.join(dir, "gptoapk.db");
+}
 
 export function getDb(): Database.Database {
   if (!db) {
-    const dataDir = path.dirname(DB_PATH);
-    if (!fs.existsSync(dataDir)) {
-      fs.mkdirSync(dataDir, { recursive: true });
-    }
-    db = new Database(DB_PATH);
+    const dbPath = getDbPath();
+    console.log("[DB] Opening database at:", dbPath);
+    db = new Database(dbPath);
     db.pragma("journal_mode = WAL");
     db.pragma("foreign_keys = ON");
   }
@@ -160,9 +166,7 @@ export function registerVisitor(visitorId: string): {
 
   if (existing) {
     database
-      .prepare(
-        "UPDATE visitors SET last_visit = ?, visit_count = visit_count + 1 WHERE visitor_id = ?"
-      )
+      .prepare("UPDATE visitors SET last_visit = ?, visit_count = visit_count + 1 WHERE visitor_id = ?")
       .run(now, visitorId);
     return {
       visitor_id: existing.visitor_id,
@@ -172,9 +176,7 @@ export function registerVisitor(visitorId: string): {
   }
 
   database
-    .prepare(
-      "INSERT INTO visitors (visitor_id, first_visit, last_visit, visit_count) VALUES (?, ?, ?, 1)"
-    )
+    .prepare("INSERT INTO visitors (visitor_id, first_visit, last_visit, visit_count) VALUES (?, ?, ?, 1)")
     .run(visitorId, now, now);
   return {
     visitor_id: visitorId,
@@ -225,6 +227,22 @@ export function getVisitorStats(): { total: number } {
     .prepare("SELECT COUNT(*) as total FROM visitors")
     .get() as { total: number };
   return { total: row.total };
+}
+
+export function getTotalSearches(): number {
+  const database = getDb();
+  const row = database
+    .prepare("SELECT COUNT(*) as total FROM search_logs")
+    .get() as { total: number };
+  return row.total;
+}
+
+export function getTotalDownloads(): number {
+  const database = getDb();
+  const row = database
+    .prepare("SELECT COUNT(*) as total FROM download_logs")
+    .get() as { total: number };
+  return row.total;
 }
 
 export function getSearchStats(limit: number = 20): SearchStat[] {
@@ -288,28 +306,15 @@ export function getRecentActivity(limit: number = 50): ActivityItem[] {
     })),
   ];
 
-  activities.sort(
-    (a, b) =>
-      new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
-  );
-
+  activities.sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
   return activities.slice(0, limit);
 }
 
-// Get total count of searches
-export function getTotalSearches(): number {
-  const database = getDb();
-  const row = database
-    .prepare("SELECT COUNT(*) as total FROM search_logs")
-    .get() as { total: number };
-  return row.total;
-}
-
-// Get total count of downloads
-export function getTotalDownloads(): number {
-  const database = getDb();
-  const row = database
-    .prepare("SELECT COUNT(*) as total FROM download_logs")
-    .get() as { total: number };
-  return row.total;
+export function isDbReady(): boolean {
+  try {
+    getDb();
+    return true;
+  } catch {
+    return false;
+  }
 }
