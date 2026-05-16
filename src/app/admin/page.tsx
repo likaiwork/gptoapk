@@ -280,6 +280,24 @@ function InfoItem({ label, value }: { label: string; value: string }) {
 }
 
 function Dashboard({ data, token, onViewVisitor }: { data: AdminData; token: string; onViewVisitor: (v: VisitorInfo) => void }) {
+  const [visitorPage, setVisitorPage] = useState(0);
+  const [searchTopPage, setSearchTopPage] = useState(0);
+  const [activityPage, setActivityPage] = useState(0);
+
+  const VISITORS_PER_PAGE = 20;
+
+  // Reset pages when data changes
+  useEffect(() => { setVisitorPage(0); }, [data.visitor_list.length]);
+  useEffect(() => { setSearchTopPage(0); }, [data.top_searches.length]);
+  useEffect(() => { setActivityPage(0); }, [data.recent_activity.length]);
+
+  const paginatedVisitorList = data.visitor_list.slice(visitorPage * VISITORS_PER_PAGE, (visitorPage + 1) * VISITORS_PER_PAGE);
+  const paginatedSearchList = data.top_searches.slice(searchTopPage * VISITORS_PER_PAGE, (searchTopPage + 1) * VISITORS_PER_PAGE);
+  const paginatedActivityList = data.recent_activity.slice(activityPage * VISITORS_PER_PAGE, (activityPage + 1) * VISITORS_PER_PAGE);
+  const maxVisitorPage = Math.max(0, Math.ceil(data.visitor_list.length / VISITORS_PER_PAGE) - 1);
+  const maxSearchPage = Math.max(0, Math.ceil(data.top_searches.length / VISITORS_PER_PAGE) - 1);
+  const maxActivityPage = Math.max(0, Math.ceil(data.recent_activity.length / VISITORS_PER_PAGE) - 1);
+
   return (
     <div className="mx-auto max-w-6xl space-y-8">
       {/* Stats */}
@@ -307,14 +325,14 @@ function Dashboard({ data, token, onViewVisitor }: { data: AdminData; token: str
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-100">
-              {data.visitor_list.length === 0 && (
+              {paginatedVisitorList.length === 0 && (
                 <tr><td colSpan={8} className="px-4 py-8 text-center text-sm text-gray-400">暂无访客数据</td></tr>
               )}
-              {data.visitor_list.map((v, i) => (
+              {paginatedVisitorList.map((v, i) => (
                 <tr key={v.visitor_id}
                   className="cursor-pointer transition hover:bg-blue-50"
                   onClick={() => onViewVisitor(v)}>
-                  <td className="px-3 py-3 text-sm text-gray-400">{i + 1}</td>
+                  <td className="px-3 py-3 text-sm text-gray-400">{visitorPage * VISITORS_PER_PAGE + i + 1}</td>
                   <td className="px-3 py-3">
                     <div className="flex items-center gap-2">
                       <VisitorAvatar visitorId={v.visitor_id} title={v.visitor_id} />
@@ -350,8 +368,15 @@ function Dashboard({ data, token, onViewVisitor }: { data: AdminData; token: str
               ))}
             </tbody>
           </table>
-          <div className="border-t border-gray-100 px-4 py-2 text-xs text-gray-400">
-            共 {data.visitor_list.length} 个访客用户 · 点击可查看详情
+          <div className="flex items-center justify-between border-t border-gray-100 px-4 py-2">
+            <span className="text-xs text-gray-400">共 {data.visitor_list.length} 个访客用户 · 点击可查看详情</span>
+            <div className="flex items-center gap-2">
+              <button onClick={() => setVisitorPage(p => Math.max(0, p - 1))} disabled={visitorPage === 0}
+                className="rounded px-2 py-1 text-xs text-gray-500 hover:bg-gray-100 disabled:opacity-30 disabled:cursor-not-allowed">上一页</button>
+              <span className="text-xs text-gray-500">{visitorPage + 1} / {Math.ceil(data.visitor_list.length / VISITORS_PER_PAGE) || 1}</span>
+              <button onClick={() => setVisitorPage(p => Math.min(maxVisitorPage, p + 1))} disabled={visitorPage >= maxVisitorPage}
+                className="rounded px-2 py-1 text-xs text-gray-500 hover:bg-gray-100 disabled:opacity-30 disabled:cursor-not-allowed">下一页</button>
+            </div>
           </div>
         </div>
       </div>
@@ -369,16 +394,26 @@ function Dashboard({ data, token, onViewVisitor }: { data: AdminData; token: str
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-100">
-              {data.top_searches.length === 0 && <tr><td colSpan={3} className="px-4 py-8 text-center text-sm text-gray-400">暂无数据</td></tr>}
-              {data.top_searches.map((item, i) => (
+              {paginatedSearchList.length === 0 && <tr><td colSpan={3} className="px-4 py-8 text-center text-sm text-gray-400">暂无数据</td></tr>}
+              {paginatedSearchList.map((item, i) => (
                 <tr key={item.app_id} className="hover:bg-gray-50">
-                  <td className="px-4 py-3 text-sm text-gray-400">{i + 1}</td>
+                  <td className="px-4 py-3 text-sm text-gray-400">{searchTopPage * VISITORS_PER_PAGE + i + 1}</td>
                   <td className="px-4 py-3 text-sm font-medium text-gray-900">{item.app_title || item.app_id}</td>
                   <td className="px-4 py-3 text-right text-sm font-semibold text-gray-900">{item.count}</td>
                 </tr>
               ))}
             </tbody>
           </table>
+          <div className="flex items-center justify-between border-t border-gray-100 px-4 py-2">
+            <span className="text-xs text-gray-400">共 {data.top_searches.length} 条</span>
+            <div className="flex items-center gap-2">
+              <button onClick={() => setSearchTopPage(p => Math.max(0, p - 1))} disabled={searchTopPage === 0}
+                className="rounded px-2 py-1 text-xs text-gray-500 hover:bg-gray-100 disabled:opacity-30 disabled:cursor-not-allowed">上一页</button>
+              <span className="text-xs text-gray-500">{searchTopPage + 1} / {Math.ceil(data.top_searches.length / VISITORS_PER_PAGE) || 1}</span>
+              <button onClick={() => setSearchTopPage(p => Math.min(maxSearchPage, p + 1))} disabled={searchTopPage >= maxSearchPage}
+                className="rounded px-2 py-1 text-xs text-gray-500 hover:bg-gray-100 disabled:opacity-30 disabled:cursor-not-allowed">下一页</button>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -412,11 +447,11 @@ function Dashboard({ data, token, onViewVisitor }: { data: AdminData; token: str
       <div>
         <h2 className="mb-3 text-lg font-semibold text-gray-900">🕐 最近活动</h2>
         <div className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
-          {data.recent_activity.length === 0 ? (
+          {paginatedActivityList.length === 0 ? (
             <div className="px-4 py-8 text-center text-sm text-gray-400">暂无活动记录</div>
           ) : (
             <ul className="divide-y divide-gray-100">
-              {data.recent_activity.map((item, i) => (
+              {paginatedActivityList.map((item, i) => (
                 <li key={`${item.type}-${i}-${item.timestamp}`}>
                   <div className="flex items-center gap-3 px-4 py-3 hover:bg-gray-50">
                     <VisitorAvatar visitorId={item.visitor_id} title={item.visitor_id} />
@@ -454,6 +489,16 @@ function Dashboard({ data, token, onViewVisitor }: { data: AdminData; token: str
               ))}
             </ul>
           )}
+          <div className="flex items-center justify-between border-t border-gray-100 px-4 py-2">
+            <span className="text-xs text-gray-400">共 {data.recent_activity.length} 条</span>
+            <div className="flex items-center gap-2">
+              <button onClick={() => setActivityPage(p => Math.max(0, p - 1))} disabled={activityPage === 0}
+                className="rounded px-2 py-1 text-xs text-gray-500 hover:bg-gray-100 disabled:opacity-30 disabled:cursor-not-allowed">上一页</button>
+              <span className="text-xs text-gray-500">{activityPage + 1} / {Math.ceil(data.recent_activity.length / VISITORS_PER_PAGE) || 1}</span>
+              <button onClick={() => setActivityPage(p => Math.min(maxActivityPage, p + 1))} disabled={activityPage >= maxActivityPage}
+                className="rounded px-2 py-1 text-xs text-gray-500 hover:bg-gray-100 disabled:opacity-30 disabled:cursor-not-allowed">下一页</button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
