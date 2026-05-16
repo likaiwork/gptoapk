@@ -62,19 +62,139 @@ const COUNTRY_NAMES: Record<string, [string, string]> = {
   "MO": ["澳门", "Macao"],
 };
 
+const CITY_NAMES_ZH: Record<string, string> = {
+  "Beijing": "北京",
+  "Shanghai": "上海",
+  "Guangzhou": "广州",
+  "Shenzhen": "深圳",
+  "Hangzhou": "杭州",
+  "Chengdu": "成都",
+  "Nanjing": "南京",
+  "Wuhan": "武汉",
+  "Tianjin": "天津",
+  "Chongqing": "重庆",
+  "Hong Kong": "香港",
+  "Taipei": "台北",
+  "Tokyo": "东京",
+  "Osaka": "大阪",
+  "Seoul": "首尔",
+  "Busan": "釜山",
+  "Singapore": "新加坡",
+  "Kuala Lumpur": "吉隆坡",
+  "Bangkok": "曼谷",
+  "Jakarta": "雅加达",
+  "Manila": "马尼拉",
+  "Hanoi": "河内",
+  "Ho Chi Minh City": "胡志明市",
+  "Mumbai": "孟买",
+  "New Delhi": "新德里",
+  "Dubai": "迪拜",
+  "Abu Dhabi": "阿布扎比",
+  "Riyadh": "利雅得",
+  "Tel Aviv": "特拉维夫",
+  "New York": "纽约",
+  "Los Angeles": "洛杉矶",
+  "San Francisco": "旧金山",
+  "Chicago": "芝加哥",
+  "Houston": "休斯顿",
+  "Miami": "迈阿密",
+  "Seattle": "西雅图",
+  "Boston": "波士顿",
+  "Washington": "华盛顿",
+  "Washington DC": "华盛顿",
+  "London": "伦敦",
+  "Paris": "巴黎",
+  "Berlin": "柏林",
+  "Munich": "慕尼黑",
+  "Hamburg": "汉堡",
+  "Rome": "罗马",
+  "Milan": "米兰",
+  "Madrid": "马德里",
+  "Barcelona": "巴塞罗那",
+  "Lisbon": "里斯本",
+  "Amsterdam": "阿姆斯特丹",
+  "Rotterdam": "鹿特丹",
+  "Brussels": "布鲁塞尔",
+  "Vienna": "维也纳",
+  "Zurich": "苏黎世",
+  "Geneva": "日内瓦",
+  "Stockholm": "斯德哥尔摩",
+  "Oslo": "奥斯陆",
+  "Copenhagen": "哥本哈根",
+  "Helsinki": "赫尔辛基",
+  "Warsaw": "华沙",
+  "Prague": "布拉格",
+  "Budapest": "布达佩斯",
+  "Bucharest": "布加勒斯特",
+  "Athens": "雅典",
+  "Moscow": "莫斯科",
+  "Saint Petersburg": "圣彼得堡",
+  "Kyiv": "基辅",
+  "Istanbul": "伊斯坦布尔",
+  "Ankara": "安卡拉",
+  "Cairo": "开罗",
+  "Lagos": "拉各斯",
+  "Nairobi": "内罗毕",
+  "Cape Town": "开普敦",
+  "Johannesburg": "约翰内斯堡",
+  "Sydney": "悉尼",
+  "Melbourne": "墨尔本",
+  "Toronto": "多伦多",
+  "Vancouver": "温哥华",
+  "Montreal": "蒙特利尔",
+  "Mexico City": "墨西哥城",
+  "Sao Paulo": "圣保罗",
+  "Rio de Janeiro": "里约热内卢",
+  "Buenos Aires": "布宜诺斯艾利斯",
+  "Santiago": "圣地亚哥",
+  "Lima": "利马",
+  "Bogota": "波哥大",
+  "Krakow": "克拉科夫",
+  "Dublin": "都柏林",
+  "Edinburgh": "爱丁堡",
+  "Manchester": "曼彻斯特",
+  "Birmingham": "伯明翰",
+  "Frankfurt": "法兰克福",
+  "Stuttgart": "斯图加特",
+  "Naples": "那不勒斯",
+  "Turin": "都灵",
+  "Valencia": "巴伦西亚",
+  "Yokohama": "横滨",
+  "Nagoya": "名古屋",
+  "Sapporo": "札幌",
+  "Incheon": "仁川",
+  "Daegu": "大邱",
+  "Daejeon": "大田",
+  "Auckland": "奥克兰",
+  "Manama": "麦纳麦",
+  "Doha": "多哈",
+  "Kuwait City": "科威特城",
+  "Muscat": "马斯喀特",
+};
+
 function displayCountry(code: string, lang: "zh" | "en"): string {
   if (!code) return "";
   const upper = code.toUpperCase();
   const pair = COUNTRY_NAMES[upper];
   if (pair) return lang === "zh" ? pair[0] : pair[1];
-  return code; // 未知代码直接返回
+  return code;
+}
+
+function displayCity(city: string, lang: "zh" | "en"): string {
+  if (!city) return "";
+  if (lang === "en") return city;
+  const zh = CITY_NAMES_ZH[city];
+  if (zh) return zh;
+  // 未匹配到的城市名保留英文
+  return city;
 }
 
 function displayLocation(country: string, city: string, lang: "zh" | "en"): string {
   const c = displayCountry(country, lang);
-  if (c && city) return `${c} ${city}`;
+  const ci = displayCity(city, lang);
+  if (c && ci) return `${c} ${ci}`;
   if (c) return c;
-  if (city) return city;
+  if (ci) return ci;
   return "";
 }
 
@@ -282,7 +402,7 @@ function VisitorDetailModal({
           <InfoItem label={lang === "zh" ? "下载次数" : "Downloads"} value={lang === "zh" ? `${visitor.download_count} 次` : `${visitor.download_count}`} />
           <InfoItem label={lang === "zh" ? "设备" : "Device"} value={visitor.is_mobile ? (lang === "zh" ? "📱 移动端" : "📱 Mobile") : (lang === "zh" ? "💻 桌面端" : "💻 Desktop")} />
           <InfoItem label={lang === "zh" ? "国家" : "Country"} value={visitor.ip_country ? displayCountry(visitor.ip_country, lang) : (lang === "zh" ? "未知" : "Unknown")} />
-          <InfoItem label={lang === "zh" ? "城市" : "City"} value={visitor.ip_city || (lang === "zh" ? "未知" : "Unknown")} />
+          <InfoItem label={lang === "zh" ? "城市" : "City"} value={displayCity(visitor.ip_city, lang) || (lang === "zh" ? "未知" : "Unknown")} />
           <InfoItem label={lang === "zh" ? "地区" : "Region"} value={visitor.ip_region || (lang === "zh" ? "未知" : "Unknown")} />
           <InfoItem label={lang === "zh" ? "首次访问" : "First Visit"} value={formatTime(visitor.first_visit)} />
           <InfoItem label={lang === "zh" ? "最近访问" : "Last Visit"} value={formatTime(visitor.last_visit)} />
