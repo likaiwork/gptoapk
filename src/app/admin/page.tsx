@@ -24,6 +24,15 @@ interface ActivityItem {
   timestamp: string;
 }
 
+interface VisitorInfo {
+  visitor_id: string;
+  first_visit: string;
+  last_visit: string;
+  visit_count: number;
+  search_count: number;
+  download_count: number;
+}
+
 interface AdminData {
   visitors: number;
   total_searches: number;
@@ -31,6 +40,7 @@ interface AdminData {
   top_searches: SearchStat[];
   top_downloads: DownloadStat[];
   recent_activity: ActivityItem[];
+  visitor_list: VisitorInfo[];
 }
 
 function AdminLogin({ onLogin }: { onLogin: (token: string) => void }) {
@@ -109,7 +119,8 @@ function VisitorAvatar({ visitorId }: { visitorId: string }) {
     visitorId.split("").reduce((acc, c) => acc + c.charCodeAt(0), 0) % 360;
   return (
     <span
-      className="inline-flex h-8 w-8 items-center justify-center rounded-full text-xs font-bold text-white"
+      className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-xs font-bold text-white"
+      title={visitorId}
       style={{ backgroundColor: `hsl(${hue}, 60%, 50%)` }}
     >
       {initials}
@@ -149,6 +160,105 @@ function ActionBadge({ type }: { type: "search" | "download" }) {
     <span className="inline-flex items-center rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800">
       下载
     </span>
+  );
+}
+
+function TimeFilterBar({
+  dateStart,
+  dateEnd,
+  onDateStartChange,
+  onDateEndChange,
+}: {
+  dateStart: string;
+  dateEnd: string;
+  onDateStartChange: (v: string) => void;
+  onDateEndChange: (v: string) => void;
+}) {
+  const today = new Date();
+  const todayStr = today.toISOString().slice(0, 10);
+
+  const setPreset = (preset: string) => {
+    switch (preset) {
+      case "today": {
+        onDateStartChange(todayStr);
+        onDateEndChange(todayStr);
+        break;
+      }
+      case "7days": {
+        const d = new Date();
+        d.setDate(d.getDate() - 6);
+        onDateStartChange(d.toISOString().slice(0, 10));
+        onDateEndChange(todayStr);
+        break;
+      }
+      case "30days": {
+        const d = new Date();
+        d.setDate(d.getDate() - 29);
+        onDateStartChange(d.toISOString().slice(0, 10));
+        onDateEndChange(todayStr);
+        break;
+      }
+      case "all": {
+        onDateStartChange("");
+        onDateEndChange("");
+        break;
+      }
+    }
+  };
+
+  return (
+    <div className="mb-4 flex flex-wrap items-center gap-3 rounded-xl border border-gray-200 bg-white px-4 py-3 shadow-sm">
+      <span className="text-sm font-medium text-gray-600">时间筛选</span>
+      <div className="flex items-center gap-2">
+        <input
+          type="date"
+          value={dateStart}
+          onChange={(e) => onDateStartChange(e.target.value)}
+          className="rounded-lg border border-gray-300 px-3 py-1.5 text-sm text-gray-700 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none"
+        />
+        <span className="text-sm text-gray-400">~</span>
+        <input
+          type="date"
+          value={dateEnd}
+          onChange={(e) => onDateEndChange(e.target.value)}
+          className="rounded-lg border border-gray-300 px-3 py-1.5 text-sm text-gray-700 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none"
+        />
+      </div>
+      <div className="flex gap-1.5">
+        <button
+          onClick={() => setPreset("today")}
+          className={`rounded-lg px-3 py-1.5 text-xs font-medium transition ${
+            dateStart === todayStr && dateEnd === todayStr && dateStart !== ""
+              ? "bg-blue-600 text-white"
+              : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+          }`}
+        >
+          今天
+        </button>
+        <button
+          onClick={() => setPreset("7days")}
+          className="rounded-lg bg-gray-100 px-3 py-1.5 text-xs font-medium text-gray-600 transition hover:bg-gray-200"
+        >
+          最近7天
+        </button>
+        <button
+          onClick={() => setPreset("30days")}
+          className="rounded-lg bg-gray-100 px-3 py-1.5 text-xs font-medium text-gray-600 transition hover:bg-gray-200"
+        >
+          最近30天
+        </button>
+        <button
+          onClick={() => setPreset("all")}
+          className={`rounded-lg px-3 py-1.5 text-xs font-medium transition ${
+            !dateStart && !dateEnd
+              ? "bg-blue-600 text-white"
+              : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+          }`}
+        >
+          全部
+        </button>
+      </div>
+    </div>
   );
 }
 
@@ -268,6 +378,88 @@ function Dashboard({ data }: { data: AdminData }) {
         </div>
       </div>
 
+      {/* Visitor List */}
+      <div>
+        <h2 className="mb-3 text-lg font-semibold text-gray-900">
+          访客用户列表
+        </h2>
+        <div className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
+          <table className="min-w-full divide-y divide-gray-200">
+            <thead className="bg-gray-50">
+              <tr>
+                <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
+                  #
+                </th>
+                <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
+                  用户ID
+                </th>
+                <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
+                  首次访问
+                </th>
+                <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
+                  最近访问
+                </th>
+                <th className="px-4 py-3 text-right text-xs font-medium uppercase tracking-wider text-gray-500">
+                  访问次数
+                </th>
+                <th className="px-4 py-3 text-right text-xs font-medium uppercase tracking-wider text-gray-500">
+                  搜索次数
+                </th>
+                <th className="px-4 py-3 text-right text-xs font-medium uppercase tracking-wider text-gray-500">
+                  下载次数
+                </th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-gray-100">
+              {data.visitor_list.length === 0 && (
+                <tr>
+                  <td
+                    colSpan={7}
+                    className="px-4 py-8 text-center text-sm text-gray-400"
+                  >
+                    暂无访客数据
+                  </td>
+                </tr>
+              )}
+              {data.visitor_list.map((item, i) => (
+                <tr key={item.visitor_id} className="hover:bg-gray-50">
+                  <td className="px-4 py-3 text-sm text-gray-400">{i + 1}</td>
+                  <td className="px-4 py-3">
+                    <div className="flex items-center gap-2">
+                      <VisitorAvatar visitorId={item.visitor_id} />
+                      <span
+                        className="max-w-[120px] truncate text-sm font-mono text-gray-700"
+                        title={item.visitor_id}
+                      >
+                        {item.visitor_id.slice(0, 8)}...
+                      </span>
+                    </div>
+                  </td>
+                  <td className="px-4 py-3 text-sm text-gray-600">
+                    {formatTime(item.first_visit)}
+                  </td>
+                  <td className="px-4 py-3 text-sm text-gray-600">
+                    {formatTime(item.last_visit)}
+                  </td>
+                  <td className="px-4 py-3 text-right text-sm font-semibold text-gray-900">
+                    {item.visit_count}
+                  </td>
+                  <td className="px-4 py-3 text-right text-sm font-semibold text-gray-900">
+                    {item.search_count}
+                  </td>
+                  <td className="px-4 py-3 text-right text-sm font-semibold text-gray-900">
+                    {item.download_count}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <div className="border-t border-gray-100 px-4 py-2 text-sm text-gray-400">
+            共 {data.visitor_list.length} 个访客用户
+          </div>
+        </div>
+      </div>
+
       {/* Recent Activity */}
       <div>
         <h2 className="mb-3 text-lg font-semibold text-gray-900">最近活动</h2>
@@ -323,58 +515,103 @@ export default function AdminPage() {
   const [data, setData] = useState<AdminData | null>(null);
   const [error, setError] = useState("");
 
-  const fetchData = useCallback(async (authToken: string) => {
-    try {
-      const res = await fetch(`/api/admin?key=${encodeURIComponent(authToken)}`);
-      if (res.status === 401) {
-        setError("密码错误");
-        setToken(null);
-        document.cookie =
-          "admin_token=; path=/; max-age=0; SameSite=Lax";
-        return;
+  // 时间筛选状态
+  const todayStr = new Date().toISOString().slice(0, 10);
+  const [dateStart, setDateStart] = useState(todayStr);
+  const [dateEnd, setDateEnd] = useState(todayStr);
+
+  const buildUrl = useCallback(
+    (authToken: string, start?: string, end?: string) => {
+      const params = new URLSearchParams();
+      params.set("key", authToken);
+      if (start) params.set("start", start);
+      if (end) params.set("end", end);
+      return `/api/admin?${params}`;
+    },
+    []
+  );
+
+  const fetchData = useCallback(
+    async (authToken: string, start?: string, end?: string) => {
+      try {
+        const url = buildUrl(authToken, start, end);
+        const res = await fetch(url);
+        if (res.status === 401) {
+          setError("密码错误");
+          setToken(null);
+          document.cookie =
+            "admin_token=; path=/; max-age=0; SameSite=Lax";
+          return;
+        }
+        if (!res.ok) {
+          setError("数据获取失败");
+          return;
+        }
+        const json: AdminData = await res.json();
+        setData(json);
+        setError("");
+      } catch {
+        setError("网络错误");
       }
-      if (!res.ok) {
-        setError("数据获取失败");
-        return;
-      }
-      const json: AdminData = await res.json();
-      setData(json);
-      setError("");
-    } catch {
-      setError("网络错误");
-    }
-  }, []);
+    },
+    [buildUrl]
+  );
 
   const handleLogin = useCallback(
     (password: string) => {
       document.cookie = `admin_token=${encodeURIComponent(password)}; path=/; max-age=${60 * 60 * 24}; SameSite=Lax`;
       setToken(password);
       setLoading(true);
-      fetchData(password).finally(() => setLoading(false));
+      fetchData(password, dateStart, dateEnd).finally(() => setLoading(false));
     },
-    [fetchData]
+    [fetchData, dateStart, dateEnd]
   );
 
-  // Check cookie on mount
+  // Check cookie on mount and fetch with time range
   useEffect(() => {
     const match = document.cookie.match(/(?:^|;\s*)admin_token=([^;]*)/);
     const cookieToken = match ? decodeURIComponent(match[1]) : null;
     if (cookieToken) {
       setToken(cookieToken);
-      fetchData(cookieToken).finally(() => setLoading(false));
+      fetchData(cookieToken, dateStart, dateEnd).finally(() => setLoading(false));
     } else {
       setLoading(false);
     }
-  }, [fetchData]);
+    // Only run on mount
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  // Auto-refresh every 60 seconds
+  // Auto-refresh every 60 seconds, preserving time filter
   useEffect(() => {
     if (!token) return;
     const interval = setInterval(() => {
-      fetchData(token);
+      fetchData(token, dateStart, dateEnd);
     }, 60000);
     return () => clearInterval(interval);
-  }, [token, fetchData]);
+  }, [token, fetchData, dateStart, dateEnd]);
+
+  // Re-fetch when time range changes
+  const handleDateStartChange = useCallback(
+    (v: string) => {
+      setDateStart(v);
+      if (token) {
+        setLoading(true);
+        fetchData(token, v, dateEnd).finally(() => setLoading(false));
+      }
+    },
+    [token, dateEnd, fetchData]
+  );
+
+  const handleDateEndChange = useCallback(
+    (v: string) => {
+      setDateEnd(v);
+      if (token) {
+        setLoading(true);
+        fetchData(token, dateStart, v).finally(() => setLoading(false));
+      }
+    },
+    [token, dateStart, fetchData]
+  );
 
   if (!token) {
     if (loading) return <LoadingSpinner />;
@@ -396,7 +633,7 @@ export default function AdminPage() {
             <button
               onClick={() => {
                 setLoading(true);
-                fetchData(token).finally(() => setLoading(false));
+                fetchData(token, dateStart, dateEnd).finally(() => setLoading(false));
               }}
               disabled={loading}
               className="rounded-lg bg-blue-600 px-3 py-1.5 text-sm font-medium text-white transition hover:bg-blue-700 disabled:opacity-50"
@@ -413,6 +650,13 @@ export default function AdminPage() {
             {error}
           </div>
         )}
+        {/* 时间筛选器 */}
+        <TimeFilterBar
+          dateStart={dateStart}
+          dateEnd={dateEnd}
+          onDateStartChange={handleDateStartChange}
+          onDateEndChange={handleDateEndChange}
+        />
         {data ? <Dashboard data={data} /> : <LoadingSpinner />}
       </main>
     </div>

@@ -77,6 +77,15 @@ export interface ActivityItem {
   timestamp: string;
 }
 
+export interface VisitorInfo {
+  visitor_id: string;
+  first_visit: string;
+  last_visit: string;
+  visit_count: number;
+  search_count: number;
+  download_count: number;
+}
+
 function getAdminApiKey(): string {
   return process.env.ADMIN_API_KEY || "gptoapk-admin-key-2026";
 }
@@ -93,6 +102,7 @@ function getPool() {
   return pool;
 }
 
+/** Execute a safe tagged-template SQL query (parameterized). */
 async function sql<T extends QueryResultRow = QueryResultRow>(
   strings: TemplateStringsArray,
   ...values: Primitive[]
@@ -101,6 +111,20 @@ async function sql<T extends QueryResultRow = QueryResultRow>(
   const client = await p.connect();
   try {
     return await client.sql<T>(strings, ...values);
+  } finally {
+    client.release();
+  }
+}
+
+/** Execute a raw SQL string with positional parameters ($1, $2, …). */
+async function sqlRaw<T extends QueryResultRow = QueryResultRow>(
+  text: string,
+  ...params: Primitive[]
+): Promise<import("@vercel/postgres").QueryResult<T>> {
+  const p = getPool();
+  const client = await p.connect();
+  try {
+    return await client.query<T>(text, params.filter((v) => v !== undefined));
   } finally {
     client.release();
   }
@@ -212,17 +236,42 @@ export async function getVisitorStats(): Promise<{ total: number }> {
   return { total: result.rows[0]?.total ?? 0 };
 }
 
-export async function getTotalSearches(): Promise<number> {
+export async function getTotalSearches(startDate?: string, endDate?: string): Promise<number> {
+  if (startDate && endDate) {
+    const result = await sqlRaw<{ total: number }>(
+      `SELECT COUNT(*)::int as total FROM search_logs WHERE timestamp >= $1::timestamptz AND timestamp < $2::timestamptz + interval '1 day'`,
+      startDate,
+      endDate
+    );
+    return result.rows[0]?.total ?? 0;
+  }
   const result = await sql<{ total: number }>`SELECT COUNT(*)::int as total FROM search_logs`;
   return result.rows[0]?.total ?? 0;
 }
 
-export async function getTotalDownloads(): Promise<number> {
+export async function getTotalDownloads(startDate?: string, endDate?: string): Promise<number> {
+  if (startDate && endDate) {
+    const result = await sqlRaw<{ total: number }>(
+      `SELECT COUNT(*)::int as total FROM download_logs WHERE timestamp >= $1::timestamptz AND timestamp < $2::timestamptz + interval '1 day'`,
+      startDate,
+      endDate
+    );
+    return result.rows[0]?.total ?? 0;
+  }
   const result = await sql<{ total: number }>`SELECT COUNT(*)::int as total FROM download_logs`;
   return result.rows[0]?.total ?? 0;
 }
 
-export async function getSearchStats(limit: number = 20): Promise<SearchStat[]> {
+export async function getSearchStats(limit: number = 20, startDate?: string, endDate?: string): Promise<SearchStat[]> {
+  if (startDate && endDate) {
+    const result = await sqlRaw<SearchStat>(
+      `SELECT app_id, app_title, COUNT(*)::int as count FROM search_logs WHERE app_id != '' AND timestamp >= $1::timestamptz AND timestamp < $2::timestamptz + interval '1 day' GROUP BY app_id, app_title ORDER BY count DESC LIMIT $3`,
+      startDate,
+      endDate,
+      limit
+    );
+    return result.rows;
+  }
   const result = await sql<SearchStat>`
     SELECT app_id, app_title, COUNT(*)::int as count
     FROM search_logs
@@ -234,7 +283,16 @@ export async function getSearchStats(limit: number = 20): Promise<SearchStat[]> 
   return result.rows;
 }
 
-export async function getDownloadStats(limit: number = 20): Promise<DownloadStat[]> {
+export async function getDownloadStats(limit: number = 20, startDate?: string, endDate?: string): Promise<DownloadStat[]> {
+  if (startDate && endDate) {
+    const result = await sqlRaw<DownloadStat>(
+      `SELECT app_id, app_title, COUNT(*)::int as count FROM download_logs WHERE app_id != '' AND timestamp >= $1::timestamptz AND timestamp < $2::timestamptz + interval '1 day' GROUP BY app_id, app_title ORDER BY count DESC LIMIT $3`,
+      startDate,
+      endDate,
+      limit
+    );
+    return result.rows;
+  }
   const result = await sql<DownloadStat>`
     SELECT app_id, app_title, COUNT(*)::int as count
     FROM download_logs
@@ -246,21 +304,41 @@ export async function getDownloadStats(limit: number = 20): Promise<DownloadStat
   return result.rows;
 }
 
-export async function getRecentActivity(limit: number = 50): Promise<ActivityItem[]> {
-  const [searchesRes, downloadsRes] = await Promise.all([
-    sql<{ type: "search"; visitor_id: string; app_id: string; app_title: string; query: string; timestamp: string }>`
-      SELECT 'search' as type, visitor_id, app_id, app_title, query, timestamp
-      FROM search_logs
-      ORDER BY timestamp DESC
-      LIMIT ${limit}
-    `,
-    sql<{ type: "download"; visitor_id: string; app_id: string; app_title: string; timestamp: string }>`
-      SELECT 'download' as type, visitor_id, app_id, app_title, timestamp
-      FROM download_logs
-      ORDER BY timestamp DESC
-      LIMIT ${limit}
-    `,
-  ]);
+export async function getRecentActivity(limit: number = 50, startDate?: string, endDate?: string): Promise<ActivityItem[]> {
+  let searchesRes: import("@vercel/postgres").QueryResult<{ type: "search"; visitor_id: string; app_id: string; app_title: string; query: string; timestamp: string }>;
+  let downloadsRes: import("@vercel/postgres").QueryResult<{ type: "download"; visitor_id: string; app_id: string; app_title: string; timestamp: string }>;
+
+  if (startDate && endDate) {
+    [searchesRes, downloadsRes] = await Promise.all([
+      sqlRaw<{ type: "search"; visitor_id: string; app_id: string; app_title: string; query: string; timestamp: string }>(
+        `SELECT 'search' as type, visitor_id, app_id, app_title, query, timestamp FROM search_logs WHERE timestamp >= $1::timestamptz AND timestamp < $2::timestamptz + interval '1 day' ORDER BY timestamp DESC LIMIT $3`,
+        startDate,
+        endDate,
+        limit
+      ),
+      sqlRaw<{ type: "download"; visitor_id: string; app_id: string; app_title: string; timestamp: string }>(
+        `SELECT 'download' as type, visitor_id, app_id, app_title, timestamp FROM download_logs WHERE timestamp >= $1::timestamptz AND timestamp < $2::timestamptz + interval '1 day' ORDER BY timestamp DESC LIMIT $3`,
+        startDate,
+        endDate,
+        limit
+      ),
+    ]);
+  } else {
+    [searchesRes, downloadsRes] = await Promise.all([
+      sql<{ type: "search"; visitor_id: string; app_id: string; app_title: string; query: string; timestamp: string }>`
+        SELECT 'search' as type, visitor_id, app_id, app_title, query, timestamp
+        FROM search_logs
+        ORDER BY timestamp DESC
+        LIMIT ${limit}
+      `,
+      sql<{ type: "download"; visitor_id: string; app_id: string; app_title: string; timestamp: string }>`
+        SELECT 'download' as type, visitor_id, app_id, app_title, timestamp
+        FROM download_logs
+        ORDER BY timestamp DESC
+        LIMIT ${limit}
+      `,
+    ]);
+  }
 
   const activities: ActivityItem[] = [
     ...searchesRes.rows.map((s) => ({
@@ -285,6 +363,62 @@ export async function getRecentActivity(limit: number = 50): Promise<ActivityIte
   );
 
   return activities.slice(0, limit);
+}
+
+export async function getVisitorList(startDate?: string, endDate?: string): Promise<VisitorInfo[]> {
+  if (startDate && endDate) {
+    const result = await sqlRaw<VisitorInfo>(
+      `SELECT
+        v.visitor_id,
+        v.first_visit,
+        v.last_visit,
+        v.visit_count,
+        COALESCE(s.cnt, 0)::int AS search_count,
+        COALESCE(d.cnt, 0)::int AS download_count
+      FROM visitors v
+      LEFT JOIN (
+        SELECT visitor_id, COUNT(*)::int AS cnt
+        FROM search_logs
+        WHERE timestamp >= $1::timestamptz AND timestamp < $2::timestamptz + interval '1 day'
+        GROUP BY visitor_id
+      ) s ON v.visitor_id = s.visitor_id
+      LEFT JOIN (
+        SELECT visitor_id, COUNT(*)::int AS cnt
+        FROM download_logs
+        WHERE timestamp >= $1::timestamptz AND timestamp < $2::timestamptz + interval '1 day'
+        GROUP BY visitor_id
+      ) d ON v.visitor_id = d.visitor_id
+      ORDER BY v.last_visit DESC
+      LIMIT 100`,
+      startDate,
+      endDate
+    );
+    return result.rows;
+  }
+
+  const result = await sqlRaw<VisitorInfo>(
+    `SELECT
+      v.visitor_id,
+      v.first_visit,
+      v.last_visit,
+      v.visit_count,
+      COALESCE(s.cnt, 0)::int AS search_count,
+      COALESCE(d.cnt, 0)::int AS download_count
+    FROM visitors v
+    LEFT JOIN (
+      SELECT visitor_id, COUNT(*)::int AS cnt
+      FROM search_logs
+      GROUP BY visitor_id
+    ) s ON v.visitor_id = s.visitor_id
+    LEFT JOIN (
+      SELECT visitor_id, COUNT(*)::int AS cnt
+      FROM download_logs
+      GROUP BY visitor_id
+    ) d ON v.visitor_id = d.visitor_id
+    ORDER BY v.last_visit DESC
+    LIMIT 100`
+  );
+  return result.rows;
 }
 
 export async function isDbReady(): Promise<boolean> {
