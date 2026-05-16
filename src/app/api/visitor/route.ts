@@ -10,7 +10,6 @@ export async function GET(
   try {
     await initDatabase();
 
-    // Get visitor_id from cookie
     const cookies = request.headers.get("cookie") || "";
     const match = cookies.match(/(?:^|;\s*)visitor_id=([^;]*)/);
     let visitorId = match ? decodeURIComponent(match[1]) : null;
@@ -19,7 +18,18 @@ export async function GET(
       visitorId = crypto.randomUUID();
     }
 
-    const visitor = await registerVisitor(visitorId);
+    // 收集设备/IP信息
+    const userAgent = request.headers.get("user-agent") || "";
+    const ipCountry = request.headers.get("x-vercel-ip-country") || "";
+    const ipCity = request.headers.get("x-vercel-ip-city") || "";
+    const ipRegion = request.headers.get("x-vercel-ip-country-region") || "";
+
+    const visitor = await registerVisitor(visitorId, {
+      ip_country: ipCountry,
+      ip_city: ipCity,
+      ip_region: ipRegion,
+      user_agent: userAgent,
+    });
 
     const response = NextResponse.json({
       visitor_id: visitor.visitor_id,
@@ -27,7 +37,6 @@ export async function GET(
       visit_count: visitor.visit_count,
     });
 
-    // Set cookie if new
     if (!match) {
       const expires = new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toUTCString();
       response.headers.set(
