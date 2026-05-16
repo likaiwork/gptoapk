@@ -131,6 +131,7 @@ export { getAdminApiKey };
 
 let pool: ReturnType<typeof createPool> | null = null;
 let initialized = false;
+const DOWNLOAD_LOG_DEDUPE_SECONDS = Number(process.env.DOWNLOAD_LOG_DEDUPE_SECONDS ?? 120);
 
 function getPool() {
   if (!pool) {
@@ -364,11 +365,25 @@ export async function logSearch(params: SearchLogParams): Promise<void> {
   `;
 }
 
-export async function logDownload(params: DownloadLogParams): Promise<void> {
+export async function logDownload(params: DownloadLogParams): Promise<boolean> {
+  if (params.success && DOWNLOAD_LOG_DEDUPE_SECONDS > 0) {
+    const duplicate = await sql<{ id: number }>`
+      SELECT id FROM download_logs
+      WHERE visitor_id = ${params.visitorId}
+        AND app_id = ${params.appId}
+        AND download_success = TRUE
+        AND timestamp >= NOW() - (${DOWNLOAD_LOG_DEDUPE_SECONDS} * INTERVAL '1 second')
+      LIMIT 1
+    `;
+
+    if (duplicate.rows.length > 0) return false;
+  }
+
   await sql`
     INSERT INTO download_logs (visitor_id, app_id, app_title, source, download_url, version, file_size, download_success, timestamp, ip_hash)
     VALUES (${params.visitorId}, ${params.appId}, ${params.appTitle}, ${params.source}, ${params.downloadUrl}, ${params.version}, ${params.fileSize}, ${params.success}, NOW(), ${params.ipHash || ""})
   `;
+  return true;
 }
 
 export async function getVisitorStats(): Promise<{ total: number }> {

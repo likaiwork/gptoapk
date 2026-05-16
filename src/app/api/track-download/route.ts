@@ -15,7 +15,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     const visitorId = match ? decodeURIComponent(match[1]) : "unknown";
 
     await initDatabase();
-    await logDownload({
+    const logged = await logDownload({
       visitorId,
       appId: String(appId),
       appTitle: String(appTitle || ""),
@@ -26,7 +26,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
       success: success !== false, // 默认 true
     });
 
-    return NextResponse.json({ success: true });
+    return NextResponse.json({ success: true, logged });
   } catch (error) {
     console.error("[API track-download] Error:", error);
     return NextResponse.json({ success: false, error: "Internal error" }, { status: 500 });

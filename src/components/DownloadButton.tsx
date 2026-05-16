@@ -7,6 +7,7 @@ import { trackEvent } from "@/lib/client-analytics";
 type Status = "idle" | "preparing" | "started";
 
 const ESTIMATED_SECONDS = 5;
+const STARTED_RESET_MS = 15000;
 
 type DownloadResponse = {
   success?: boolean;
@@ -29,11 +30,15 @@ export default function DownloadButton({ appId, compact = false }: DownloadButto
   const [status, setStatus] = useState<Status>("idle");
   const [error, setError] = useState("");
   const [countdown, setCountdown] = useState(ESTIMATED_SECONDS);
+  const [lastDownloadUrl, setLastDownloadUrl] = useState("");
+  const [lastFileName, setLastFileName] = useState("");
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const resetTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     return () => {
       if (intervalRef.current) clearInterval(intervalRef.current);
+      if (resetTimerRef.current) clearTimeout(resetTimerRef.current);
     };
   }, []);
 
@@ -46,9 +51,12 @@ export default function DownloadButton({ appId, compact = false }: DownloadButto
 
     setStatus("preparing");
     setError("");
+    setLastDownloadUrl("");
+    setLastFileName("");
     setCountdown(ESTIMATED_SECONDS);
 
     if (intervalRef.current) clearInterval(intervalRef.current);
+    if (resetTimerRef.current) clearTimeout(resetTimerRef.current);
     intervalRef.current = setInterval(() => {
       setCountdown((prev) => (prev > 0 ? prev - 1 : 0));
     }, 1000);
@@ -64,6 +72,8 @@ export default function DownloadButton({ appId, compact = false }: DownloadButto
       if (!res.ok || !data.success || !data.downloadUrl) {
         throw new Error(data.error || "Failed to prepare download");
       }
+
+      const fileName = data.fileName || `${appId}.apk`;
 
       trackEvent(analyticsEvents.downloadPrepareSuccess, {
         app_id: appId,
@@ -93,18 +103,22 @@ export default function DownloadButton({ appId, compact = false }: DownloadButto
 
       const a = document.createElement("a");
       a.href = data.downloadUrl;
-      a.download = data.fileName || `${appId}.apk`;
+      a.download = fileName;
       a.rel = "noopener";
       document.body.appendChild(a);
       a.click();
       a.remove();
+      setLastDownloadUrl(data.downloadUrl);
+      setLastFileName(fileName);
 
       // 记录下载
       trackDownload(String(data.size || ""), true);
 
       if (intervalRef.current) clearInterval(intervalRef.current);
       setStatus("started");
-      setTimeout(() => setStatus("idle"), 3500);
+      resetTimerRef.current = setTimeout(() => {
+        setStatus("idle");
+      }, STARTED_RESET_MS);
     } catch (err: unknown) {
       const message = err instanceof Error ? err.message : "Download failed";
       trackEvent(analyticsEvents.downloadPrepareFailed, {
@@ -143,7 +157,7 @@ export default function DownloadButton({ appId, compact = false }: DownloadButto
     <div className="flex flex-col items-start gap-2 w-full sm:w-auto">
       <button
         onClick={handleDownload}
-        disabled={isPreparing}
+        disabled={isPreparing || isStarted}
         className={buttonClassName}
       >
         {isPreparing ? (
@@ -206,9 +220,21 @@ export default function DownloadButton({ appId, compact = false }: DownloadButto
       )}
 
       {isStarted && (
-        <p className="text-xs text-green-600 dark:text-green-400 mt-1">
-          Check your browser&apos;s downloads.
-        </p>
+        <div className="mt-1 space-y-1 text-xs">
+          <p className="text-green-600 dark:text-green-400">
+            Check your browser&apos;s downloads.
+          </p>
+          {lastDownloadUrl && (
+            <a
+              href={lastDownloadUrl}
+              download={lastFileName}
+              rel="noopener"
+              className="text-blue-600 hover:underline dark:text-blue-400"
+            >
+              If nothing starts, tap here to open the direct download link.
+            </a>
+          )}
+        </div>
       )}
     </div>
   );
