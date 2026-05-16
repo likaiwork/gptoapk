@@ -2,6 +2,82 @@
 
 import { useEffect, useState, useCallback } from "react";
 
+// 国家代码 → 中文/英文 映射
+const COUNTRY_NAMES: Record<string, [string, string]> = {
+  "US": ["美国", "United States"],
+  "CN": ["中国", "China"],
+  "JP": ["日本", "Japan"],
+  "KR": ["韩国", "South Korea"],
+  "GB": ["英国", "United Kingdom"],
+  "DE": ["德国", "Germany"],
+  "FR": ["法国", "France"],
+  "CA": ["加拿大", "Canada"],
+  "AU": ["澳大利亚", "Australia"],
+  "BR": ["巴西", "Brazil"],
+  "IN": ["印度", "India"],
+  "RU": ["俄罗斯", "Russia"],
+  "SG": ["新加坡", "Singapore"],
+  "HK": ["香港", "Hong Kong"],
+  "TW": ["台湾", "Taiwan"],
+  "NL": ["荷兰", "Netherlands"],
+  "IT": ["意大利", "Italy"],
+  "ES": ["西班牙", "Spain"],
+  "SE": ["瑞典", "Sweden"],
+  "NO": ["挪威", "Norway"],
+  "DK": ["丹麦", "Denmark"],
+  "FI": ["芬兰", "Finland"],
+  "PL": ["波兰", "Poland"],
+  "TR": ["土耳其", "Turkey"],
+  "TH": ["泰国", "Thailand"],
+  "VN": ["越南", "Vietnam"],
+  "ID": ["印度尼西亚", "Indonesia"],
+  "MY": ["马来西亚", "Malaysia"],
+  "PH": ["菲律宾", "Philippines"],
+  "AE": ["阿联酋", "UAE"],
+  "SA": ["沙特阿拉伯", "Saudi Arabia"],
+  "IL": ["以色列", "Israel"],
+  "ZA": ["南非", "South Africa"],
+  "MX": ["墨西哥", "Mexico"],
+  "AR": ["阿根廷", "Argentina"],
+  "CH": ["瑞士", "Switzerland"],
+  "AT": ["奥地利", "Austria"],
+  "BE": ["比利时", "Belgium"],
+  "PT": ["葡萄牙", "Portugal"],
+  "GR": ["希腊", "Greece"],
+  "CZ": ["捷克", "Czech Republic"],
+  "HU": ["匈牙利", "Hungary"],
+  "RO": ["罗马尼亚", "Romania"],
+  "UA": ["乌克兰", "Ukraine"],
+  "EG": ["埃及", "Egypt"],
+  "NG": ["尼日利亚", "Nigeria"],
+  "PK": ["巴基斯坦", "Pakistan"],
+  "BD": ["孟加拉国", "Bangladesh"],
+  "IR": ["伊朗", "Iran"],
+  "CL": ["智利", "Chile"],
+  "CO": ["哥伦比亚", "Colombia"],
+  "PE": ["秘鲁", "Peru"],
+  "NZ": ["新西兰", "New Zealand"],
+  "IE": ["爱尔兰", "Ireland"],
+  "KE": ["肯尼亚", "Kenya"],
+  "MO": ["澳门", "Macao"],
+};
+
+function displayCountry(code: string, lang: "zh" | "en"): string {
+  if (!code) return "";
+  const upper = code.toUpperCase();
+  const pair = COUNTRY_NAMES[upper];
+  if (pair) return lang === "zh" ? pair[0] : pair[1];
+  return code; // 未知代码直接返回
+}
+
+function displayLocation(country: string, city: string, lang: "zh" | "en"): string {
+  const c = displayCountry(country, lang);
+  if (c && city) return `${c} ${city}`;
+  if (c) return c;
+  if (city) return city;
+  return "";
+}
+
 // Types
 interface SearchStat { app_id: string; app_title: string; count: number }
 interface DownloadStat { app_id: string; app_title: string; count: number }
@@ -165,10 +241,12 @@ function VisitorDetailModal({
   visitor,
   onClose,
   token,
+  lang,
 }: {
   visitor: VisitorInfo;
   onClose: () => void;
   token: string;
+  lang: "zh" | "en";
 }) {
   const [logs, setLogs] = useState<VisitorDetailLog[]>([]);
   const [loading, setLoading] = useState(true);
@@ -190,7 +268,7 @@ function VisitorDetailModal({
           <div className="flex items-center gap-3">
             <VisitorAvatar visitorId={visitor.visitor_id} title={visitor.visitor_id} />
             <div>
-              <h2 className="text-lg font-bold text-gray-900">用户详情</h2>
+              <h2 className="text-lg font-bold text-gray-900">{lang === "zh" ? "用户详情" : "User Details"}</h2>
               <p className="text-xs text-gray-400 font-mono">{visitor.visitor_id}</p>
             </div>
           </div>
@@ -199,20 +277,20 @@ function VisitorDetailModal({
 
         {/* 基本信息卡片 */}
         <div className="mb-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
-          <InfoItem label="访问次数" value={`${visitor.visit_count} 次`} />
-          <InfoItem label="搜索次数" value={`${visitor.search_count} 次`} />
-          <InfoItem label="下载次数" value={`${visitor.download_count} 次`} />
-          <InfoItem label="设备" value={visitor.is_mobile ? "📱 移动端" : "💻 桌面端"} />
-          <InfoItem label="国家" value={visitor.ip_country || "未知"} />
-          <InfoItem label="城市" value={visitor.ip_city || "未知"} />
-          <InfoItem label="地区" value={visitor.ip_region || "未知"} />
-          <InfoItem label="首次访问" value={formatTime(visitor.first_visit)} />
-          <InfoItem label="最近访问" value={formatTime(visitor.last_visit)} />
+          <InfoItem label={lang === "zh" ? "访问次数" : "Visits"} value={lang === "zh" ? `${visitor.visit_count} 次` : `${visitor.visit_count} visits`} />
+          <InfoItem label={lang === "zh" ? "搜索次数" : "Searches"} value={lang === "zh" ? `${visitor.search_count} 次` : `${visitor.search_count}`} />
+          <InfoItem label={lang === "zh" ? "下载次数" : "Downloads"} value={lang === "zh" ? `${visitor.download_count} 次` : `${visitor.download_count}`} />
+          <InfoItem label={lang === "zh" ? "设备" : "Device"} value={visitor.is_mobile ? (lang === "zh" ? "📱 移动端" : "📱 Mobile") : (lang === "zh" ? "💻 桌面端" : "💻 Desktop")} />
+          <InfoItem label={lang === "zh" ? "国家" : "Country"} value={visitor.ip_country ? displayCountry(visitor.ip_country, lang) : (lang === "zh" ? "未知" : "Unknown")} />
+          <InfoItem label={lang === "zh" ? "城市" : "City"} value={visitor.ip_city || (lang === "zh" ? "未知" : "Unknown")} />
+          <InfoItem label={lang === "zh" ? "地区" : "Region"} value={visitor.ip_region || (lang === "zh" ? "未知" : "Unknown")} />
+          <InfoItem label={lang === "zh" ? "首次访问" : "First Visit"} value={formatTime(visitor.first_visit)} />
+          <InfoItem label={lang === "zh" ? "最近访问" : "Last Visit"} value={formatTime(visitor.last_visit)} />
         </div>
 
         {/* 设备详情 */}
         <div className="mb-4 rounded-xl border border-gray-100 bg-gray-50 p-4">
-          <h3 className="mb-2 text-sm font-semibold text-gray-700">📱 设备信息</h3>
+          <h3 className="mb-2 text-sm font-semibold text-gray-700">📱 {lang === "zh" ? "设备信息" : "Device Info"}</h3>
           <div className="flex flex-wrap gap-2">
             <DeviceTag label={visitor.device_brand} icon="🏭" />
             <DeviceTag label={visitor.device_model} icon="📟" />
@@ -229,7 +307,7 @@ function VisitorDetailModal({
 
         {/* 操作日志 */}
         <div>
-          <h3 className="mb-2 text-sm font-semibold text-gray-700">📋 操作记录（共 {logs.length} 条）</h3>
+          <h3 className="mb-2 text-sm font-semibold text-gray-700">📋 {lang === "zh" ? `操作记录（共 ${logs.length} 条）` : `Activity (${logs.length})`}</h3>
           {loading ? (
             <div className="py-8 text-center text-sm text-gray-400">加载中...</div>
           ) : logs.length === 0 ? (
@@ -279,7 +357,7 @@ function InfoItem({ label, value }: { label: string; value: string }) {
   );
 }
 
-function Dashboard({ data, token, onViewVisitor }: { data: AdminData; token: string; onViewVisitor: (v: VisitorInfo) => void }) {
+function Dashboard({ data, token, onViewVisitor, lang, onLangChange }: { data: AdminData; token: string; onViewVisitor: (v: VisitorInfo) => void; lang: "zh" | "en"; onLangChange: (l: "zh" | "en") => void }) {
   const [visitorPage, setVisitorPage] = useState(0);
   const [searchTopPage, setSearchTopPage] = useState(0);
   const [activityPage, setActivityPage] = useState(0);
@@ -309,7 +387,15 @@ function Dashboard({ data, token, onViewVisitor }: { data: AdminData; token: str
 
       {/* Visitor List */}
       <div>
-        <h2 className="mb-3 text-lg font-semibold text-gray-900">👥 访客用户列表</h2>
+        <div className="mb-3 flex items-center justify-between">
+          <h2 className="text-lg font-semibold text-gray-900">👥 访客用户列表</h2>
+          <div className="flex items-center gap-1 rounded-lg border border-gray-200 bg-white p-0.5 text-xs">
+            <button onClick={() => onLangChange("zh")}
+              className={`rounded-md px-2.5 py-1 transition ${lang === "zh" ? "bg-blue-600 text-white shadow-sm" : "text-gray-500 hover:text-gray-800"}`}>中文</button>
+            <button onClick={() => onLangChange("en")}
+              className={`rounded-md px-2.5 py-1 transition ${lang === "en" ? "bg-blue-600 text-white shadow-sm" : "text-gray-500 hover:text-gray-800"}`}>EN</button>
+          </div>
+        </div>
         <div className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
           <table className="min-w-full divide-y divide-gray-200 text-sm">
             <thead className="bg-gray-50">
@@ -340,7 +426,7 @@ function Dashboard({ data, token, onViewVisitor }: { data: AdminData; token: str
                     </div>
                   </td>
                   <td className="px-3 py-3 text-xs text-gray-500 hidden sm:table-cell">
-                    {v.ip_country || v.ip_city ? `${v.ip_country || ""} ${v.ip_city || ""}`.trim() : "—"}
+                    {displayLocation(v.ip_country, v.ip_city, lang) || "—"}
                   </td>
                   <td className="px-3 py-3 hidden md:table-cell">
                     <div className="flex flex-wrap gap-1">
@@ -464,7 +550,7 @@ function Dashboard({ data, token, onViewVisitor }: { data: AdminData; token: str
                       </div>
                       <div className="mt-0.5 flex flex-wrap items-center gap-1.5">
                         {(item.ip_country || item.ip_city) && (
-                          <span className="text-[10px] text-gray-400">📍{item.ip_country}{item.ip_city ? ` ${item.ip_city}` : ""}</span>
+                          <span className="text-[10px] text-gray-400">📍{displayLocation(item.ip_country, item.ip_city, lang)}</span>
                         )}
                         {item.is_mobile ? (
                           <>
@@ -517,6 +603,7 @@ export default function AdminPage() {
   const [dateStart, setDateStart] = useState(() => new Date().toISOString().slice(0, 10));
   const [dateEnd, setDateEnd] = useState(() => new Date().toISOString().slice(0, 10));
   const [selectedVisitor, setSelectedVisitor] = useState<VisitorInfo | null>(null);
+  const [lang, setLang] = useState<"zh" | "en">("zh");
 
   const fetchData = useCallback(async (authToken: string, start?: string, end?: string) => {
     try {
@@ -600,11 +687,11 @@ export default function AdminPage() {
         <TimeFilterBar dateStart={dateStart} dateEnd={dateEnd} onDateChange={handleDateChange} />
 
         {error && <div className="mb-4 rounded-lg bg-red-50 px-4 py-3 text-sm text-red-600">{error}</div>}
-        {data ? <Dashboard data={data} token={token} onViewVisitor={setSelectedVisitor} /> : <LoadingSpinner />}
+        {data ? <Dashboard data={data} token={token} onViewVisitor={setSelectedVisitor} lang={lang} onLangChange={setLang} /> : <LoadingSpinner />}
       </main>
 
       {selectedVisitor && (
-        <VisitorDetailModal visitor={selectedVisitor} token={token} onClose={() => setSelectedVisitor(null)} />
+        <VisitorDetailModal visitor={selectedVisitor} token={token} lang={lang} onClose={() => setSelectedVisitor(null)} />
       )}
     </div>
   );
