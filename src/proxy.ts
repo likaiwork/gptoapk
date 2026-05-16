@@ -79,6 +79,7 @@ export function proxy(request: NextRequest) {
   const shouldSkip =
     pathname.startsWith("/_next/") ||
     pathname.startsWith("/api/") ||
+    pathname.startsWith("/admin") ||
     pathname === "/favicon.ico" ||
     pathname.includes(".");
 
