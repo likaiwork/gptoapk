@@ -142,7 +142,7 @@ className="max-w-5xl mx-auto px-4 py-16">
       <div className="mb-12">
         <h2 className="text-2xl font-bold mb-6">Bài viết tiếng Việt</h2>
         <div className="grid gap-8 md:grid-cols-2">
-          {posts.map((post) => (
+          {[...posts].sort((a, b) => b.date.localeCompare(a.date)).map((post) => (
             <Link
               key={post.slug}
               href={`/vi/blog/${post.slug}`}

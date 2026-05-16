@@ -140,7 +140,7 @@ className="max-w-5xl mx-auto px-4 py-16">
       </div>
 
       <div className="grid gap-8 md:grid-cols-2">
-        {posts.map((post) => (
+        {[...posts].sort((a, b) => b.date.localeCompare(a.date)).map((post) => (
           <Link
             key={post.slug}
             href={`/pl/blog/${post.slug}`}

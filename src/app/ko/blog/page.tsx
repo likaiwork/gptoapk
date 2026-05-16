@@ -110,7 +110,7 @@ className="max-w-3xl mx-auto px-4 py-16">
       </p>
 
       <div className="space-y-8">
-        {posts.map((post) => (
+        {[...posts].sort((a, b) => b.date.localeCompare(a.date)).map((post) => (
           <Link
             key={post.slug}
             href={`/ko/blog/${post.slug}`}

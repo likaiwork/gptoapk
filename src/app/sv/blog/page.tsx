@@ -137,7 +137,7 @@ export default function BlogIndexPage() {
           Guider, tips och djupdykningar om APK-nedladdning, Android-paket och allt du behöver veta.
         </p>
         <div className="grid gap-8 md:grid-cols-2">
-          {posts.map((post) => (
+          {[...posts].sort((a, b) => b.date.localeCompare(a.date)).map((post) => (
             <Link
               key={post.slug}
               href={`/sv/blog/${post.slug}`}
