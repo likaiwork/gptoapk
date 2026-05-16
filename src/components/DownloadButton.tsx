@@ -75,18 +75,21 @@ export default function DownloadButton({ appId, compact = false }: DownloadButto
       });
 
       // 记录下载到数据库
-      fetch('/api/track-download', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          appId,
-          appTitle: (data as { [k: string]: unknown }).fileName || appId,
-          source: data.source,
-          downloadUrl: data.downloadUrl,
-          version: data.version,
-          fileSize: data.size,
-        }),
-      }).catch(() => {});
+      const trackDownload = (downloadedFileSize?: string, downloadSuccess = true) => {
+        fetch('/api/track-download', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            appId,
+            appTitle: (data as { [k: string]: unknown }).fileName || appId,
+            source: data.source,
+            downloadUrl: data.downloadUrl,
+            version: data.version,
+            fileSize: downloadedFileSize || String(data.size || ""),
+            success: downloadSuccess,
+          }),
+        }).catch(() => {});
+      };
 
       const a = document.createElement("a");
       a.href = data.downloadUrl;
@@ -95,6 +98,9 @@ export default function DownloadButton({ appId, compact = false }: DownloadButto
       document.body.appendChild(a);
       a.click();
       a.remove();
+
+      // 记录下载
+      trackDownload(String(data.size || ""), true);
 
       if (intervalRef.current) clearInterval(intervalRef.current);
       setStatus("started");
@@ -106,6 +112,20 @@ export default function DownloadButton({ appId, compact = false }: DownloadButto
         reason: message,
         duration_ms: Math.round(performance.now() - startedAt),
       });
+      // 记录失败状态
+      fetch('/api/track-download', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          appId,
+          appTitle: appId,
+          source: "",
+          downloadUrl: "",
+          version: "",
+          fileSize: "",
+          success: false,
+        }),
+      }).catch(() => {});
       if (intervalRef.current) clearInterval(intervalRef.current);
       setError(message);
       setStatus("idle");

@@ -228,6 +228,9 @@ interface VisitorDetailLog {
   app_title: string;
   query?: string;
   query_type?: string;
+  file_size: string;
+  version: string;
+  success: boolean;
   timestamp: string;
 }
 
@@ -302,6 +305,15 @@ function formatTime(isoString: string): string {
   if (diffHours < 24) return `${diffHours} 小时前`;
   if (diffDays < 7) return `${diffDays} 天前`;
   return date.toLocaleDateString("zh-CN", { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" });
+}
+
+function formatFileSize(size: string): string {
+  const num = parseFloat(size);
+  if (!size || isNaN(num)) return size || "";
+  if (num < 1024) return `${num.toFixed(0)} B`;
+  if (num < 1024 * 1024) return `${(num / 1024).toFixed(1)} KB`;
+  if (num < 1024 * 1024 * 1024) return `${(num / (1024 * 1024)).toFixed(1)} MB`;
+  return `${(num / (1024 * 1024 * 1024)).toFixed(2)} GB`;
 }
 
 function ActionBadge({ type }: { type: "search" | "download" }) {
@@ -453,6 +465,14 @@ function VisitorDetailModal({
                         <span className="ml-1 text-xs text-gray-400">
                           {log.type === "search" && log.app_title ? `→ ${log.app_title}` : ""}
                         </span>
+                        {log.type === "download" && (
+                          <span className="ml-2 inline-flex items-center gap-1 text-[10px]">
+                            {log.success
+                              ? <span className="text-green-500">✅{log.file_size ? ` ${formatFileSize(log.file_size)}` : ""}</span>
+                              : <span className="text-red-500">❌</span>}
+                            {log.version && <span className="text-gray-300">v{log.version}</span>}
+                          </span>
+                        )}
                       </td>
                       <td className="px-3 py-2 text-right text-xs text-gray-400">{formatTime(log.timestamp)}</td>
                     </tr>

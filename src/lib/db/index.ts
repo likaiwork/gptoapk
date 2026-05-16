@@ -62,6 +62,7 @@ export interface DownloadLogParams {
   downloadUrl: string;
   version: string;
   fileSize: string;
+  success: boolean;
   ipHash?: string;
 }
 
@@ -117,6 +118,9 @@ export interface VisitorDetailLog {
   app_title: string;
   query?: string;
   query_type?: string;
+  file_size: string;
+  version: string;
+  success: boolean;
   timestamp: string;
 }
 
@@ -208,6 +212,7 @@ export async function initDatabase(): Promise<void> {
       download_url TEXT DEFAULT '',
       version TEXT DEFAULT '',
       file_size TEXT DEFAULT '',
+      download_success BOOLEAN DEFAULT TRUE,
       timestamp TIMESTAMPTZ NOT NULL DEFAULT NOW(),
       ip_hash TEXT DEFAULT ''
     )
@@ -231,6 +236,7 @@ export async function initDatabase(): Promise<void> {
     "ALTER TABLE visitors ADD COLUMN IF NOT EXISTS device_os TEXT DEFAULT ''",
     "ALTER TABLE visitors ADD COLUMN IF NOT EXISTS device_browser TEXT DEFAULT ''",
     "ALTER TABLE visitors ADD COLUMN IF NOT EXISTS is_mobile BOOLEAN DEFAULT FALSE",
+    "ALTER TABLE download_logs ADD COLUMN IF NOT EXISTS download_success BOOLEAN DEFAULT TRUE",
   ];
   for (const q of migrationQueries) {
     try { await sqlRaw(q); } catch {}
@@ -360,8 +366,8 @@ export async function logSearch(params: SearchLogParams): Promise<void> {
 
 export async function logDownload(params: DownloadLogParams): Promise<void> {
   await sql`
-    INSERT INTO download_logs (visitor_id, app_id, app_title, source, download_url, version, file_size, timestamp, ip_hash)
-    VALUES (${params.visitorId}, ${params.appId}, ${params.appTitle}, ${params.source}, ${params.downloadUrl}, ${params.version}, ${params.fileSize}, NOW(), ${params.ipHash || ""})
+    INSERT INTO download_logs (visitor_id, app_id, app_title, source, download_url, version, file_size, download_success, timestamp, ip_hash)
+    VALUES (${params.visitorId}, ${params.appId}, ${params.appTitle}, ${params.source}, ${params.downloadUrl}, ${params.version}, ${params.fileSize}, ${params.success}, NOW(), ${params.ipHash || ""})
   `;
 }
 
@@ -530,8 +536,11 @@ export async function getVisitorLogs(visitorId: string, limit = 200): Promise<Vi
       `SELECT id, 'search'::text as type, app_id, app_title, query, query_type, timestamp FROM search_logs WHERE visitor_id = $1 ORDER BY timestamp DESC LIMIT $2`,
       [visitorId, limit]
     ),
-    sqlRaw<{ id: number; type: "download"; app_id: string; app_title: string; query: null; query_type: null; timestamp: string }>(
-      `SELECT id, 'download'::text as type, app_id, app_title, null as query, null as query_type, timestamp FROM download_logs WHERE visitor_id = $1 ORDER BY timestamp DESC LIMIT $2`,
+    sqlRaw<{ id: number; type: "download"; app_id: string; app_title: string; query: null; query_type: null; file_size: string; version: string; download_success: boolean; timestamp: string }>(
+      `SELECT id, 'download'::text as type, app_id, app_title, null as query, null as query_type, 
+              COALESCE(file_size, '') as file_size, COALESCE(version, '') as version, 
+              COALESCE(download_success, true) as download_success, timestamp 
+       FROM download_logs WHERE visitor_id = $1 ORDER BY timestamp DESC LIMIT $2`,
       [visitorId, limit]
     ),
   ]);
@@ -545,6 +554,9 @@ export async function getVisitorLogs(visitorId: string, limit = 200): Promise<Vi
       query: s.query,
       query_type: s.query_type,
       timestamp: s.timestamp,
+      file_size: "",
+      version: "",
+      success: true,
     })),
     ...downloads.map((d) => ({
       id: d.id,
@@ -554,6 +566,9 @@ export async function getVisitorLogs(visitorId: string, limit = 200): Promise<Vi
       query: undefined as string | undefined,
       query_type: undefined as string | undefined,
       timestamp: d.timestamp,
+      file_size: d.file_size,
+      version: d.version,
+      success: d.download_success,
     })),
   ];
 
