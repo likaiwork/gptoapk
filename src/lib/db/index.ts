@@ -84,6 +84,12 @@ export interface ActivityItem {
   app_title: string;
   query?: string;
   timestamp: string;
+  ip_country: string;
+  ip_city: string;
+  device_brand: string;
+  device_os: string;
+  device_browser: string;
+  is_mobile: boolean;
 }
 
 export interface VisitorInfo {
@@ -429,12 +435,28 @@ export async function getRecentActivity(limit = 50, startDate?: string, endDate?
   };
 
   const [searches, downloads] = await Promise.all([
-    sqlRaw<{ type: "search"; visitor_id: string; app_id: string; app_title: string; query: string; timestamp: string }>(
-      `SELECT 'search'::text as type, visitor_id, app_id, app_title, query, timestamp FROM search_logs ${timeClause("search_logs")} ORDER BY timestamp DESC LIMIT $1`,
+    sqlRaw<{ type: "search"; visitor_id: string; app_id: string; app_title: string; query: string; timestamp: string;
+      ip_country: string; ip_city: string; device_brand: string; device_os: string; device_browser: string; is_mobile: boolean }>(
+      `SELECT 'search'::text as type, s.visitor_id, s.app_id, s.app_title, s.query, s.timestamp,
+              COALESCE(v.ip_country, '') as ip_country, COALESCE(v.ip_city, '') as ip_city,
+              COALESCE(v.device_brand, '') as device_brand, COALESCE(v.device_os, '') as device_os,
+              COALESCE(v.device_browser, '') as device_browser, COALESCE(v.is_mobile, false) as is_mobile
+       FROM search_logs s
+       LEFT JOIN visitors v ON v.visitor_id = s.visitor_id
+       ${timeClause("s")}
+       ORDER BY s.timestamp DESC LIMIT $1`,
       [limit]
     ),
-    sqlRaw<{ type: "download"; visitor_id: string; app_id: string; app_title: string; timestamp: string }>(
-      `SELECT 'download'::text as type, visitor_id, app_id, app_title, timestamp FROM download_logs ${timeClause("download_logs")} ORDER BY timestamp DESC LIMIT $1`,
+    sqlRaw<{ type: "download"; visitor_id: string; app_id: string; app_title: string; timestamp: string;
+      ip_country: string; ip_city: string; device_brand: string; device_os: string; device_browser: string; is_mobile: boolean }>(
+      `SELECT 'download'::text as type, d.visitor_id, d.app_id, d.app_title, d.timestamp,
+              COALESCE(v.ip_country, '') as ip_country, COALESCE(v.ip_city, '') as ip_city,
+              COALESCE(v.device_brand, '') as device_brand, COALESCE(v.device_os, '') as device_os,
+              COALESCE(v.device_browser, '') as device_browser, COALESCE(v.is_mobile, false) as is_mobile
+       FROM download_logs d
+       LEFT JOIN visitors v ON v.visitor_id = d.visitor_id
+       ${timeClause("d")}
+       ORDER BY d.timestamp DESC LIMIT $1`,
       [limit]
     ),
   ]);
@@ -447,6 +469,12 @@ export async function getRecentActivity(limit = 50, startDate?: string, endDate?
       app_title: s.app_title,
       query: s.query,
       timestamp: s.timestamp,
+      ip_country: s.ip_country,
+      ip_city: s.ip_city,
+      device_brand: s.device_brand,
+      device_os: s.device_os,
+      device_browser: s.device_browser,
+      is_mobile: s.is_mobile,
     })),
     ...downloads.map((d) => ({
       type: "download" as const,
@@ -454,6 +482,12 @@ export async function getRecentActivity(limit = 50, startDate?: string, endDate?
       app_id: d.app_id,
       app_title: d.app_title,
       timestamp: d.timestamp,
+      ip_country: d.ip_country,
+      ip_city: d.ip_city,
+      device_brand: d.device_brand,
+      device_os: d.device_os,
+      device_browser: d.device_browser,
+      is_mobile: d.is_mobile,
     })),
   ];
 

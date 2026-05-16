@@ -5,7 +5,7 @@ import { useEffect, useState, useCallback } from "react";
 // Types
 interface SearchStat { app_id: string; app_title: string; count: number }
 interface DownloadStat { app_id: string; app_title: string; count: number }
-interface ActivityItem { type: "search" | "download"; visitor_id: string; app_id: string; app_title: string; query?: string; timestamp: string }
+interface ActivityItem { type: "search" | "download"; visitor_id: string; app_id: string; app_title: string; query?: string; timestamp: string; ip_country: string; ip_city: string; device_brand: string; device_os: string; device_browser: string; is_mobile: boolean }
 
 interface VisitorInfo {
   visitor_id: string;
@@ -427,9 +427,26 @@ function Dashboard({ data, token, onViewVisitor }: { data: AdminData; token: str
                           {item.app_title || item.app_id || (item.type === "search" ? item.query : "未知")}
                         </span>
                       </div>
-                      {item.type === "search" && item.query && (
-                        <p className="mt-0.5 truncate text-xs text-gray-400">搜索词: {item.query}</p>
-                      )}
+                      <div className="mt-0.5 flex flex-wrap items-center gap-1.5">
+                        {(item.ip_country || item.ip_city) && (
+                          <span className="text-[10px] text-gray-400">📍{item.ip_country}{item.ip_city ? ` ${item.ip_city}` : ""}</span>
+                        )}
+                        {item.is_mobile ? (
+                          <>
+                            {item.device_brand && <span className="text-[10px] text-gray-400">📱{item.device_brand}</span>}
+                            {item.device_os && <span className="text-[10px] text-gray-400">⚙️{item.device_os}</span>}
+                          </>
+                        ) : (
+                          <>
+                            <span className="text-[10px] text-gray-400">💻PC</span>
+                            {item.device_os && <span className="text-[10px] text-gray-400">{item.device_os}</span>}
+                            {item.device_browser && <span className="text-[10px] text-gray-400">🌐{item.device_browser}</span>}
+                          </>
+                        )}
+                        {item.type === "search" && item.query && (
+                          <span className="text-[10px] text-gray-400">🔍{item.query}</span>
+                        )}
+                      </div>
                     </div>
                     <span className="shrink-0 text-xs text-gray-400">{formatTime(item.timestamp)}</span>
                   </div>
