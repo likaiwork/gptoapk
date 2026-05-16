@@ -84,6 +84,9 @@ export interface ActivityItem {
   app_id: string;
   app_title: string;
   query?: string;
+  file_size?: string;
+  version?: string;
+  success?: boolean;
   timestamp: string;
   ip_country: string;
   ip_city: string;
@@ -468,9 +471,11 @@ export async function getRecentActivity(limit = 50, startDate?: string, endDate?
        ORDER BY s.timestamp DESC LIMIT $1`,
       [limit]
     ),
-    sqlRaw<{ type: "download"; visitor_id: string; app_id: string; app_title: string; timestamp: string;
+    sqlRaw<{ type: "download"; visitor_id: string; app_id: string; app_title: string; file_size: string; version: string; download_success: boolean; timestamp: string;
       ip_country: string; ip_city: string; device_brand: string; device_os: string; device_browser: string; is_mobile: boolean }>(
-      `SELECT 'download'::text as type, d.visitor_id, d.app_id, d.app_title, d.timestamp,
+      `SELECT 'download'::text as type, d.visitor_id, d.app_id, d.app_title,
+              COALESCE(d.file_size, '') as file_size, COALESCE(d.version, '') as version,
+              COALESCE(d.download_success, true) as download_success, d.timestamp,
               COALESCE(v.ip_country, '') as ip_country, COALESCE(v.ip_city, '') as ip_city,
               COALESCE(v.device_brand, '') as device_brand, COALESCE(v.device_os, '') as device_os,
               COALESCE(v.device_browser, '') as device_browser, COALESCE(v.is_mobile, false) as is_mobile
@@ -502,6 +507,9 @@ export async function getRecentActivity(limit = 50, startDate?: string, endDate?
       visitor_id: d.visitor_id,
       app_id: d.app_id,
       app_title: d.app_title,
+      file_size: d.file_size,
+      version: d.version,
+      success: d.download_success,
       timestamp: d.timestamp,
       ip_country: d.ip_country,
       ip_city: d.ip_city,

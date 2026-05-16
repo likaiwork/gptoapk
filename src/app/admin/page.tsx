@@ -201,7 +201,23 @@ function displayLocation(country: string, city: string, lang: "zh" | "en"): stri
 // Types
 interface SearchStat { app_id: string; app_title: string; count: number }
 interface DownloadStat { app_id: string; app_title: string; count: number }
-interface ActivityItem { type: "search" | "download"; visitor_id: string; app_id: string; app_title: string; query?: string; timestamp: string; ip_country: string; ip_city: string; device_brand: string; device_os: string; device_browser: string; is_mobile: boolean }
+interface ActivityItem {
+  type: "search" | "download";
+  visitor_id: string;
+  app_id: string;
+  app_title: string;
+  query?: string;
+  file_size?: string;
+  version?: string;
+  success?: boolean;
+  timestamp: string;
+  ip_country: string;
+  ip_city: string;
+  device_brand: string;
+  device_os: string;
+  device_browser: string;
+  is_mobile: boolean;
+}
 
 interface VisitorInfo {
   visitor_id: string;
@@ -325,6 +341,36 @@ function ActionBadge({ type }: { type: "search" | "download" }) {
 function DeviceTag({ label, icon }: { label: string; icon: string }) {
   if (!label) return null;
   return <span className="inline-flex items-center gap-1 rounded-md bg-gray-100 px-2 py-0.5 text-xs text-gray-600">{icon} {label}</span>;
+}
+
+function formatDevice(item: Pick<ActivityItem, "is_mobile" | "device_brand" | "device_os" | "device_browser">) {
+  const parts = item.is_mobile
+    ? [item.device_brand, item.device_os]
+    : ["PC", item.device_os, item.device_browser];
+  return parts.filter(Boolean).join(" / ") || "—";
+}
+
+function DownloadStatusMeta({ item }: { item: ActivityItem }) {
+  if (item.type !== "download") return null;
+  return (
+    <div className="flex flex-wrap items-center gap-1.5">
+      {item.success === false ? (
+        <span className="rounded-full bg-red-50 px-2 py-0.5 text-[11px] font-medium text-red-600">失败</span>
+      ) : (
+        <span className="rounded-full bg-green-50 px-2 py-0.5 text-[11px] font-medium text-green-600">成功</span>
+      )}
+      {item.file_size && (
+        <span className="rounded-full bg-gray-100 px-2 py-0.5 text-[11px] text-gray-600">
+          {formatFileSize(item.file_size)}
+        </span>
+      )}
+      {item.version && (
+        <span className="rounded-full bg-gray-100 px-2 py-0.5 text-[11px] text-gray-500">
+          v{item.version}
+        </span>
+      )}
+    </div>
+  );
 }
 
 function tr(visitorId: string): string {
@@ -679,7 +725,7 @@ function Dashboard({ data, token, onViewVisitor, lang, onLangChange }: { data: A
             <ul className="divide-y divide-gray-100">
               {paginatedActivityList.map((item, i) => (
                 <li key={`${item.type}-${i}-${item.timestamp}`}>
-                  <div className="flex items-center gap-3 px-4 py-3 hover:bg-gray-50">
+                  <div className="grid grid-cols-[auto_minmax(0,1fr)] gap-3 px-4 py-3 hover:bg-gray-50 md:grid-cols-[auto_minmax(0,1fr)_180px_180px_160px_72px] md:items-center">
                     <VisitorAvatar visitorId={item.visitor_id} title={item.visitor_id} />
                     <div className="min-w-0 flex-1">
                       <div className="flex items-center gap-2">
@@ -689,27 +735,37 @@ function Dashboard({ data, token, onViewVisitor, lang, onLangChange }: { data: A
                         </span>
                       </div>
                       <div className="mt-0.5 flex flex-wrap items-center gap-1.5">
-                        {(item.ip_country || item.ip_city) && (
-                          <span className="text-[10px] text-gray-400">📍{displayLocation(item.ip_country, item.ip_city, lang)}</span>
-                        )}
-                        {item.is_mobile ? (
-                          <>
-                            {item.device_brand && <span className="text-[10px] text-gray-400">📱{item.device_brand}</span>}
-                            {item.device_os && <span className="text-[10px] text-gray-400">⚙️{item.device_os}</span>}
-                          </>
-                        ) : (
-                          <>
-                            <span className="text-[10px] text-gray-400">💻PC</span>
-                            {item.device_os && <span className="text-[10px] text-gray-400">{item.device_os}</span>}
-                            {item.device_browser && <span className="text-[10px] text-gray-400">🌐{item.device_browser}</span>}
-                          </>
-                        )}
                         {item.type === "search" && item.query && (
                           <span className="text-[10px] text-gray-400">🔍{item.query}</span>
                         )}
+                        <span className="text-[10px] text-gray-400 md:hidden">
+                          📍{displayLocation(item.ip_country, item.ip_city, lang) || "—"}
+                        </span>
+                        <span className="text-[10px] text-gray-400 md:hidden">
+                          {item.is_mobile ? "📱" : "💻"}{formatDevice(item)}
+                        </span>
+                        <div className="md:hidden">
+                          <DownloadStatusMeta item={item} />
+                        </div>
                       </div>
                     </div>
-                    <span className="shrink-0 text-xs text-gray-400">{formatTime(item.timestamp)}</span>
+                    <div className="hidden text-xs text-gray-500 md:block">
+                      <p className="mb-0.5 text-[10px] text-gray-400">地区</p>
+                      <p className="truncate" title={displayLocation(item.ip_country, item.ip_city, lang)}>
+                        {displayLocation(item.ip_country, item.ip_city, lang) || "—"}
+                      </p>
+                    </div>
+                    <div className="hidden text-xs text-gray-500 md:block">
+                      <p className="mb-0.5 text-[10px] text-gray-400">设备</p>
+                      <p className="truncate" title={formatDevice(item)}>
+                        {item.is_mobile ? "📱" : "💻"} {formatDevice(item)}
+                      </p>
+                    </div>
+                    <div className="hidden md:block">
+                      <p className="mb-0.5 text-[10px] text-gray-400">下载状态 / 大小</p>
+                      <DownloadStatusMeta item={item} />
+                    </div>
+                    <span className="shrink-0 text-right text-xs text-gray-400">{formatTime(item.timestamp)}</span>
                   </div>
                 </li>
               ))}

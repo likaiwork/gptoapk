@@ -39,6 +39,9 @@ interface ActivityItem {
   app_id: string;
   app_title: string;
   query?: string;
+  file_size?: string;
+  version?: string;
+  success?: boolean;
   timestamp: string;
 }
 
