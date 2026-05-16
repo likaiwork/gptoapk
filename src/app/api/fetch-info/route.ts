@@ -4,6 +4,10 @@ import { gplayRequestOptions as requestOptions } from '@/lib/proxy';
 
 export const maxDuration = 60;
 
+const SUCCESS_CACHE_HEADERS = {
+  'Cache-Control': 'public, s-maxage=86400, stale-while-revalidate=604800',
+};
+
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const query = searchParams.get('url');
@@ -68,7 +72,7 @@ export async function GET(request: Request) {
       score: appInfo.scoreText,
       size: appInfo.size,
       updated: appInfo.updated ? new Date(appInfo.updated).toISOString() : null,
-    });
+    }, { headers: SUCCESS_CACHE_HEADERS });
   } catch (error: any) {
     console.error(`[API fetch-info] ERROR: ${error.message}`);
     return NextResponse.json({ error: 'App not found or invalid Google Play URL' }, { status: 404 });

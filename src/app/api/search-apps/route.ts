@@ -10,6 +10,9 @@ const EXACT_TIMEOUT_MS = 8000;
 const MAX_QUERY_LENGTH = 200;
 const SEARCH_RESULT_LIMIT = 10;
 const PACKAGE_NAME_REGEX = /^[a-zA-Z][a-zA-Z0-9_]*(?:\.[a-zA-Z][a-zA-Z0-9_]*)+$/;
+const SUCCESS_CACHE_HEADERS = {
+  'Cache-Control': 'public, s-maxage=86400, stale-while-revalidate=604800',
+};
 
 type QueryType = 'url' | 'package' | 'keyword';
 
@@ -164,7 +167,7 @@ export async function GET(request: Request) {
         lang: parsed.lang,
         country: parsed.country,
         results: [result],
-      });
+      }, { headers: SUCCESS_CACHE_HEADERS });
     }
 
     if (queryType === 'package') {
@@ -175,7 +178,7 @@ export async function GET(request: Request) {
         lang: requestedLang,
         country: requestedCountry,
         results: [result],
-      });
+      }, { headers: SUCCESS_CACHE_HEADERS });
     }
 
     const results = await searchApps(query, requestedLang, requestedCountry);
@@ -189,7 +192,7 @@ export async function GET(request: Request) {
       lang: requestedLang,
       country: requestedCountry,
       results,
-    });
+    }, { headers: SUCCESS_CACHE_HEADERS });
   } catch (error) {
     console.error('[API search-apps] ERROR:', error instanceof Error ? error.message : error);
     return NextResponse.json(

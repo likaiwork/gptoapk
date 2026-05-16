@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { localePathRegex } from "@/lib/site-locales";
@@ -350,14 +349,14 @@ export default function SearchBox() {
                   <div className="flex min-w-0 flex-1 gap-4">
                     <div className="h-16 w-16 shrink-0 overflow-hidden rounded-2xl border border-slate-100 bg-slate-100 shadow-sm dark:border-slate-700 dark:bg-slate-900 sm:h-20 sm:w-20">
                       {app.icon ? (
-                        <Image
-                          src={`/api/image?u=${encodeURIComponent(app.icon)}`}
+                        <img
+                          src={app.icon}
                           alt={`${app.title} icon`}
                           width={80}
                           height={80}
                           className="h-full w-full object-cover"
                           loading="lazy"
-                          unoptimized
+                          referrerPolicy="no-referrer"
                         />
                       ) : (
                         <div className="h-full w-full bg-slate-200 dark:bg-slate-700" />

@@ -41,9 +41,10 @@ export default async function AppDownloadPage(props: { params: Promise<{ appId: 
         <div className="shrink-0">
           {appInfo.icon ? (
             <img
-              src={`/api/image?u=${encodeURIComponent(appInfo.icon)}`}
+              src={appInfo.icon}
               alt={`${appInfo.title} icon`}
               className="w-32 h-32 sm:w-48 sm:h-48 rounded-3xl shadow-md border border-slate-100 dark:border-slate-700"
+              referrerPolicy="no-referrer"
             />
           ) : (
             <div className="w-32 h-32 sm:w-48 sm:h-48 rounded-3xl bg-slate-200 dark:bg-slate-700 animate-pulse" />

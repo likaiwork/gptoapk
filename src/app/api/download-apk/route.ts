@@ -10,6 +10,7 @@ const STREAM_TIMEOUT_MS = Number(process.env.APK_STREAM_TIMEOUT_MS ?? 280000);
 const MAX_PROXY_BYTES = Number(process.env.APK_PROXY_MAX_BYTES ?? 300 * 1024 * 1024);
 const USER_AGENT = 'Mozilla/5.0 (compatible; gptoapk/1.0; +https://gptoapk.com)';
 const APK_CONTENT_TYPE = 'application/vnd.android.package-archive';
+const DOWNLOAD_CACHE_CONTROL = 'no-store';
 
 const ALLOWED_DOWNLOAD_HOST_SUFFIXES = ['.aptoide.com', '.winudf.com'];
 
@@ -101,7 +102,7 @@ function createDirectDownloadResponse(
     status: 302,
     headers: {
       Location: result.downloadUrl,
-      'Cache-Control': 'no-store',
+      'Cache-Control': DOWNLOAD_CACHE_CONTROL,
       'X-APK-Proxy': 'direct-cdn',
       'X-APK-Source': result.source,
     },
@@ -251,8 +252,8 @@ export async function GET(request: Request) {
     );
   }
 
-  if (delivery === 'direct') {
-    return createDirectDownloadResponse(request, appId, result, startedAt, 'direct_requested', result.size);
+  if (delivery !== 'proxy') {
+    return createDirectDownloadResponse(request, appId, result, startedAt, 'direct_default', result.size);
   }
 
   const timeout = createAbortSignal(STREAM_TIMEOUT_MS);
@@ -290,7 +291,7 @@ export async function GET(request: Request) {
     const headers = new Headers({
       'Content-Type': upstream.headers.get('content-type') || APK_CONTENT_TYPE,
       'Content-Disposition': contentDisposition(fileName),
-      'Cache-Control': 'no-store',
+      'Cache-Control': DOWNLOAD_CACHE_CONTROL,
       'X-APK-Proxy': 'vercel-stream',
       'X-APK-Source': result.source,
     });
@@ -390,31 +391,16 @@ export async function POST(request: Request) {
       });
     }
 
-    if (result.size && result.size > MAX_PROXY_BYTES) {
-      return NextResponse.json({
-        success: true,
-        downloadUrl: `/api/download-apk?appId=${encodeURIComponent(cleanId)}&delivery=direct`,
-        fileName: result.fileName ?? `${cleanId}.apk`,
-        type: 'APK',
-        version: result.version,
-        size: result.size,
-        md5: result.md5,
-        source: result.source,
-        proxy: 'direct-cdn',
-        maxProxyBytes: MAX_PROXY_BYTES,
-      });
-    }
-
     return NextResponse.json({
       success: true,
-      downloadUrl: `/api/download-apk?appId=${encodeURIComponent(cleanId)}`,
+      downloadUrl: `/api/download-apk?appId=${encodeURIComponent(cleanId)}&delivery=direct`,
       fileName: result.fileName ?? `${cleanId}.apk`,
       type: 'APK',
       version: result.version,
       size: result.size,
       md5: result.md5,
       source: result.source,
-      proxy: 'vercel-stream',
+      proxy: 'direct-cdn',
       maxProxyBytes: MAX_PROXY_BYTES,
     });
   } catch (err) {
