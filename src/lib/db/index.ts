@@ -214,6 +214,22 @@ export async function initDatabase(): Promise<void> {
   try { await sql`CREATE INDEX IF NOT EXISTS idx_download_app ON download_logs(app_id)`; } catch {}
   try { await sql`CREATE INDEX IF NOT EXISTS idx_download_timestamp ON download_logs(timestamp)`; } catch {}
 
+  // 迁移: 旧表没有的列
+  const migrationQueries = [
+    "ALTER TABLE visitors ADD COLUMN IF NOT EXISTS ip_country TEXT DEFAULT ''",
+    "ALTER TABLE visitors ADD COLUMN IF NOT EXISTS ip_city TEXT DEFAULT ''",
+    "ALTER TABLE visitors ADD COLUMN IF NOT EXISTS ip_region TEXT DEFAULT ''",
+    "ALTER TABLE visitors ADD COLUMN IF NOT EXISTS user_agent TEXT DEFAULT ''",
+    "ALTER TABLE visitors ADD COLUMN IF NOT EXISTS device_brand TEXT DEFAULT ''",
+    "ALTER TABLE visitors ADD COLUMN IF NOT EXISTS device_model TEXT DEFAULT ''",
+    "ALTER TABLE visitors ADD COLUMN IF NOT EXISTS device_os TEXT DEFAULT ''",
+    "ALTER TABLE visitors ADD COLUMN IF NOT EXISTS device_browser TEXT DEFAULT ''",
+    "ALTER TABLE visitors ADD COLUMN IF NOT EXISTS is_mobile BOOLEAN DEFAULT FALSE",
+  ];
+  for (const q of migrationQueries) {
+    try { await sqlRaw(q); } catch {}
+  }
+
   initialized = true;
 }
 
