@@ -326,9 +326,20 @@ function Dashboard({ data, token, onViewVisitor }: { data: AdminData; token: str
                   </td>
                   <td className="px-3 py-3 hidden md:table-cell">
                     <div className="flex flex-wrap gap-1">
-                      {v.device_brand && <span className="rounded bg-gray-100 px-1.5 py-0.5 text-[10px] text-gray-500">{v.device_brand}</span>}
-                      {v.device_os && <span className="rounded bg-gray-100 px-1.5 py-0.5 text-[10px] text-gray-500">{v.device_os}</span>}
-                      {!v.device_brand && !v.device_os && <span className="text-xs text-gray-300">—</span>}
+                      {v.is_mobile ? (
+                        <>
+                          {v.device_brand && <span className="rounded bg-gray-100 px-1.5 py-0.5 text-[10px] text-gray-500">{v.device_brand}</span>}
+                          {v.device_model && <span className="rounded bg-gray-100 px-1.5 py-0.5 text-[10px] text-gray-500">{v.device_model}</span>}
+                          {v.device_os && <span className="rounded bg-gray-100 px-1.5 py-0.5 text-[10px] text-gray-500">{v.device_os}</span>}
+                        </>
+                      ) : (
+                        <>
+                          <span className="rounded bg-purple-100 px-1.5 py-0.5 text-[10px] text-purple-600">PC</span>
+                          {v.device_os && <span className="rounded bg-gray-100 px-1.5 py-0.5 text-[10px] text-gray-500">{v.device_os}</span>}
+                          {v.device_browser && <span className="rounded bg-blue-100 px-1.5 py-0.5 text-[10px] text-blue-600">{v.device_browser}</span>}
+                        </>
+                      )}
+                      {!v.device_brand && !v.device_os && !v.device_browser && <span className="text-xs text-gray-300">—</span>}
                     </div>
                   </td>
                   <td className="px-3 py-3 text-center text-sm font-medium text-gray-900">{v.visit_count}</td>
