@@ -1,6 +1,7 @@
-import Database from "better-sqlite3";
-import path from "path";
-import fs from "fs";
+import { createPool } from "@vercel/postgres";
+import type { QueryResultRow } from "@vercel/postgres";
+
+type Primitive = string | number | boolean | undefined | null;
 
 // Types
 export interface VisitorRow {
@@ -76,62 +77,64 @@ export interface ActivityItem {
   timestamp: string;
 }
 
-// Configuration
 function getAdminApiKey(): string {
   return process.env.ADMIN_API_KEY || "gptoapk-admin-key-2026";
 }
 export { getAdminApiKey };
 
-// Database singleton
-let db: Database.Database | null = null;
+// Database pool singleton
+let pool: ReturnType<typeof createPool> | null = null;
+let initialized = false;
 
-function getDbPath(): string {
-  // Vercel: /tmp is the only writable dir (but not persistent across cold starts)
-  // Local: data/ dir persists
-  const inVercel = !!process.env.VERCEL;
-  const dir = path.resolve(inVercel ? "/tmp" : process.cwd(), "data");
-  if (!fs.existsSync(dir)) {
-    fs.mkdirSync(dir, { recursive: true });
+function getPool() {
+  if (!pool) {
+    pool = createPool();
   }
-  return path.join(dir, "gptoapk.db");
+  return pool;
 }
 
-export function getDb(): Database.Database {
-  if (!db) {
-    const dbPath = getDbPath();
-    console.log("[DB] Opening database at:", dbPath);
-    db = new Database(dbPath);
-    db.pragma("journal_mode = WAL");
-    db.pragma("foreign_keys = ON");
+async function sql<T extends QueryResultRow = QueryResultRow>(
+  strings: TemplateStringsArray,
+  ...values: Primitive[]
+) {
+  const p = getPool();
+  const client = await p.connect();
+  try {
+    return await client.sql<T>(strings, ...values);
+  } finally {
+    client.release();
   }
-  return db;
 }
 
-export function initDatabase(): void {
-  const database = getDb();
+export async function initDatabase(): Promise<void> {
+  if (initialized) return;
 
-  database.exec(`
+  await sql`
     CREATE TABLE IF NOT EXISTS visitors (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      id SERIAL PRIMARY KEY,
       visitor_id TEXT UNIQUE NOT NULL,
-      first_visit TEXT NOT NULL,
-      last_visit TEXT NOT NULL,
+      first_visit TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      last_visit TIMESTAMPTZ NOT NULL DEFAULT NOW(),
       visit_count INTEGER DEFAULT 1
-    );
+    )
+  `;
 
+  await sql`
     CREATE TABLE IF NOT EXISTS search_logs (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      id SERIAL PRIMARY KEY,
       visitor_id TEXT NOT NULL,
       query TEXT NOT NULL,
       query_type TEXT DEFAULT '',
       app_id TEXT DEFAULT '',
       app_title TEXT DEFAULT '',
-      timestamp TEXT NOT NULL,
+      timestamp TIMESTAMPTZ NOT NULL DEFAULT NOW(),
       ip_hash TEXT DEFAULT ''
-    );
+    )
+  `;
 
+  await sql`
     CREATE TABLE IF NOT EXISTS download_logs (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      id SERIAL PRIMARY KEY,
       visitor_id TEXT NOT NULL,
       app_id TEXT DEFAULT '',
       app_title TEXT DEFAULT '',
@@ -139,157 +142,128 @@ export function initDatabase(): void {
       download_url TEXT DEFAULT '',
       version TEXT DEFAULT '',
       file_size TEXT DEFAULT '',
-      timestamp TEXT NOT NULL,
+      timestamp TIMESTAMPTZ NOT NULL DEFAULT NOW(),
       ip_hash TEXT DEFAULT ''
-    );
+    )
+  `;
 
-    CREATE INDEX IF NOT EXISTS idx_search_visitor ON search_logs(visitor_id);
-    CREATE INDEX IF NOT EXISTS idx_search_app ON search_logs(app_id);
-    CREATE INDEX IF NOT EXISTS idx_search_timestamp ON search_logs(timestamp);
-    CREATE INDEX IF NOT EXISTS idx_download_visitor ON download_logs(visitor_id);
-    CREATE INDEX IF NOT EXISTS idx_download_app ON download_logs(app_id);
-    CREATE INDEX IF NOT EXISTS idx_download_timestamp ON download_logs(timestamp);
-  `);
+  // Create indexes (IF NOT EXISTS for indexes requires PG 9.5+)
+  try { await sql`CREATE INDEX IF NOT EXISTS idx_search_visitor ON search_logs(visitor_id)`; } catch {}
+  try { await sql`CREATE INDEX IF NOT EXISTS idx_search_app ON search_logs(app_id)`; } catch {}
+  try { await sql`CREATE INDEX IF NOT EXISTS idx_search_timestamp ON search_logs(timestamp)`; } catch {}
+  try { await sql`CREATE INDEX IF NOT EXISTS idx_download_visitor ON download_logs(visitor_id)`; } catch {}
+  try { await sql`CREATE INDEX IF NOT EXISTS idx_download_app ON download_logs(app_id)`; } catch {}
+  try { await sql`CREATE INDEX IF NOT EXISTS idx_download_timestamp ON download_logs(timestamp)`; } catch {}
+
+  initialized = true;
 }
 
-export function registerVisitor(visitorId: string): {
+export async function registerVisitor(visitorId: string): Promise<{
   visitor_id: string;
   first_visit: string;
   visit_count: number;
-} {
-  const database = getDb();
-  const now = new Date().toISOString();
+}> {
+  const existing = await sql<VisitorRow>`
+    SELECT * FROM visitors WHERE visitor_id = ${visitorId}
+  `;
 
-  const existing = database
-    .prepare("SELECT * FROM visitors WHERE visitor_id = ?")
-    .get(visitorId) as VisitorRow | undefined;
-
-  if (existing) {
-    database
-      .prepare("UPDATE visitors SET last_visit = ?, visit_count = visit_count + 1 WHERE visitor_id = ?")
-      .run(now, visitorId);
+  if (existing.rows.length > 0) {
+    const row = existing.rows[0];
+    await sql`
+      UPDATE visitors SET last_visit = NOW(), visit_count = visit_count + 1 WHERE visitor_id = ${visitorId}
+    `;
     return {
-      visitor_id: existing.visitor_id,
-      first_visit: existing.first_visit,
-      visit_count: existing.visit_count + 1,
+      visitor_id: row.visitor_id,
+      first_visit: row.first_visit,
+      visit_count: row.visit_count + 1,
     };
   }
 
-  database
-    .prepare("INSERT INTO visitors (visitor_id, first_visit, last_visit, visit_count) VALUES (?, ?, ?, 1)")
-    .run(visitorId, now, now);
+  const result = await sql<{ visitor_id: string; first_visit: string; visit_count: number }>`
+    INSERT INTO visitors (visitor_id, first_visit, last_visit, visit_count)
+    VALUES (${visitorId}, NOW(), NOW(), 1)
+    RETURNING visitor_id, first_visit, visit_count
+  `;
+
+  const row = result.rows[0];
   return {
-    visitor_id: visitorId,
-    first_visit: now,
-    visit_count: 1,
+    visitor_id: row.visitor_id,
+    first_visit: row.first_visit,
+    visit_count: row.visit_count,
   };
 }
 
-export function logSearch(params: SearchLogParams): void {
-  const database = getDb();
-  database
-    .prepare(
-      "INSERT INTO search_logs (visitor_id, query, query_type, app_id, app_title, timestamp, ip_hash) VALUES (?, ?, ?, ?, ?, ?, ?)"
-    )
-    .run(
-      params.visitorId,
-      params.query,
-      params.queryType,
-      params.appId,
-      params.appTitle,
-      new Date().toISOString(),
-      params.ipHash || ""
-    );
+export async function logSearch(params: SearchLogParams): Promise<void> {
+  await sql`
+    INSERT INTO search_logs (visitor_id, query, query_type, app_id, app_title, timestamp, ip_hash)
+    VALUES (${params.visitorId}, ${params.query}, ${params.queryType}, ${params.appId}, ${params.appTitle}, NOW(), ${params.ipHash || ""})
+  `;
 }
 
-export function logDownload(params: DownloadLogParams): void {
-  const database = getDb();
-  database
-    .prepare(
-      "INSERT INTO download_logs (visitor_id, app_id, app_title, source, download_url, version, file_size, timestamp, ip_hash) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"
-    )
-    .run(
-      params.visitorId,
-      params.appId,
-      params.appTitle,
-      params.source,
-      params.downloadUrl,
-      params.version,
-      params.fileSize,
-      new Date().toISOString(),
-      params.ipHash || ""
-    );
+export async function logDownload(params: DownloadLogParams): Promise<void> {
+  await sql`
+    INSERT INTO download_logs (visitor_id, app_id, app_title, source, download_url, version, file_size, timestamp, ip_hash)
+    VALUES (${params.visitorId}, ${params.appId}, ${params.appTitle}, ${params.source}, ${params.downloadUrl}, ${params.version}, ${params.fileSize}, NOW(), ${params.ipHash || ""})
+  `;
 }
 
-export function getVisitorStats(): { total: number } {
-  const database = getDb();
-  const row = database
-    .prepare("SELECT COUNT(*) as total FROM visitors")
-    .get() as { total: number };
-  return { total: row.total };
+export async function getVisitorStats(): Promise<{ total: number }> {
+  const result = await sql<{ total: number }>`SELECT COUNT(*)::int as total FROM visitors`;
+  return { total: result.rows[0]?.total ?? 0 };
 }
 
-export function getTotalSearches(): number {
-  const database = getDb();
-  const row = database
-    .prepare("SELECT COUNT(*) as total FROM search_logs")
-    .get() as { total: number };
-  return row.total;
+export async function getTotalSearches(): Promise<number> {
+  const result = await sql<{ total: number }>`SELECT COUNT(*)::int as total FROM search_logs`;
+  return result.rows[0]?.total ?? 0;
 }
 
-export function getTotalDownloads(): number {
-  const database = getDb();
-  const row = database
-    .prepare("SELECT COUNT(*) as total FROM download_logs")
-    .get() as { total: number };
-  return row.total;
+export async function getTotalDownloads(): Promise<number> {
+  const result = await sql<{ total: number }>`SELECT COUNT(*)::int as total FROM download_logs`;
+  return result.rows[0]?.total ?? 0;
 }
 
-export function getSearchStats(limit: number = 20): SearchStat[] {
-  const database = getDb();
-  const rows = database
-    .prepare(
-      `SELECT app_id, app_title, COUNT(*) as count 
-       FROM search_logs 
-       WHERE app_id != '' 
-       GROUP BY app_id 
-       ORDER BY count DESC 
-       LIMIT ?`
-    )
-    .all(limit) as SearchStat[];
-  return rows;
+export async function getSearchStats(limit: number = 20): Promise<SearchStat[]> {
+  const result = await sql<SearchStat>`
+    SELECT app_id, app_title, COUNT(*)::int as count
+    FROM search_logs
+    WHERE app_id != ''
+    GROUP BY app_id, app_title
+    ORDER BY count DESC
+    LIMIT ${limit}
+  `;
+  return result.rows;
 }
 
-export function getDownloadStats(limit: number = 20): DownloadStat[] {
-  const database = getDb();
-  const rows = database
-    .prepare(
-      `SELECT app_id, app_title, COUNT(*) as count 
-       FROM download_logs 
-       WHERE app_id != '' 
-       GROUP BY app_id 
-       ORDER BY count DESC 
-       LIMIT ?`
-    )
-    .all(limit) as DownloadStat[];
-  return rows;
+export async function getDownloadStats(limit: number = 20): Promise<DownloadStat[]> {
+  const result = await sql<DownloadStat>`
+    SELECT app_id, app_title, COUNT(*)::int as count
+    FROM download_logs
+    WHERE app_id != ''
+    GROUP BY app_id, app_title
+    ORDER BY count DESC
+    LIMIT ${limit}
+  `;
+  return result.rows;
 }
 
-export function getRecentActivity(limit: number = 50): ActivityItem[] {
-  const database = getDb();
-  const searches = database
-    .prepare(
-      `SELECT visitor_id, app_id, app_title, query, timestamp FROM search_logs ORDER BY timestamp DESC LIMIT ?`
-    )
-    .all(limit) as (SearchLogRow & { query: string })[];
-  const downloads = database
-    .prepare(
-      `SELECT visitor_id, app_id, app_title, timestamp FROM download_logs ORDER BY timestamp DESC LIMIT ?`
-    )
-    .all(limit) as DownloadLogRow[];
+export async function getRecentActivity(limit: number = 50): Promise<ActivityItem[]> {
+  const [searchesRes, downloadsRes] = await Promise.all([
+    sql<{ type: "search"; visitor_id: string; app_id: string; app_title: string; query: string; timestamp: string }>`
+      SELECT 'search' as type, visitor_id, app_id, app_title, query, timestamp
+      FROM search_logs
+      ORDER BY timestamp DESC
+      LIMIT ${limit}
+    `,
+    sql<{ type: "download"; visitor_id: string; app_id: string; app_title: string; timestamp: string }>`
+      SELECT 'download' as type, visitor_id, app_id, app_title, timestamp
+      FROM download_logs
+      ORDER BY timestamp DESC
+      LIMIT ${limit}
+    `,
+  ]);
 
   const activities: ActivityItem[] = [
-    ...searches.map((s) => ({
+    ...searchesRes.rows.map((s) => ({
       type: "search" as const,
       visitor_id: s.visitor_id,
       app_id: s.app_id,
@@ -297,7 +271,7 @@ export function getRecentActivity(limit: number = 50): ActivityItem[] {
       query: s.query,
       timestamp: s.timestamp,
     })),
-    ...downloads.map((d) => ({
+    ...downloadsRes.rows.map((d) => ({
       type: "download" as const,
       visitor_id: d.visitor_id,
       app_id: d.app_id,
@@ -306,13 +280,16 @@ export function getRecentActivity(limit: number = 50): ActivityItem[] {
     })),
   ];
 
-  activities.sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
+  activities.sort(
+    (a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
+  );
+
   return activities.slice(0, limit);
 }
 
-export function isDbReady(): boolean {
+export async function isDbReady(): Promise<boolean> {
   try {
-    getDb();
+    await sql`SELECT 1`;
     return true;
   } catch {
     return false;

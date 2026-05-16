@@ -10,8 +10,10 @@
   },
   "dependencies": {
     "@libsql/client": "^0.17.3",
+    "@neondatabase/serverless": "^1.1.0",
     "@types/better-sqlite3": "^7.6.13",
     "@vercel/kv": "^3.0.0",
+    "@vercel/postgres": "^0.10.0",
     "better-sqlite3": "^12.10.0",
     "google-play-scraper": "^10.1.2",
     "hpagent": "^1.2.0",

@@ -1,41 +1,33 @@
 import { NextRequest, NextResponse } from "next/server";
 import { initDatabase, logDownload } from "@/lib/db";
 
-interface TrackDownloadBody {
-  appId: string;
-  appTitle: string;
-  source: string;
-  downloadUrl: string;
-  version: string;
-  fileSize: string;
-}
-
 export async function POST(request: NextRequest): Promise<NextResponse> {
-  // Ensure database is initialized
-  initDatabase();
-
-  // Get visitor_id from cookie
-  const visitorId = request.cookies.get("visitor_id")?.value;
-  if (!visitorId) {
-    return NextResponse.json({ error: "No visitor session" }, { status: 400 });
-  }
-
-  let body: TrackDownloadBody;
   try {
-    body = await request.json();
-  } catch {
-    return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 });
+    const body = await request.json();
+    const { appId, appTitle, source, downloadUrl, version, fileSize } = body;
+
+    if (!appId) {
+      return NextResponse.json({ error: "Missing appId" }, { status: 400 });
+    }
+
+    const cookies = request.headers.get("cookie") || "";
+    const match = cookies.match(/(?:^|;\s*)visitor_id=([^;]*)/);
+    const visitorId = match ? decodeURIComponent(match[1]) : "unknown";
+
+    await initDatabase();
+    await logDownload({
+      visitorId,
+      appId: String(appId),
+      appTitle: String(appTitle || ""),
+      source: String(source || ""),
+      downloadUrl: String(downloadUrl || ""),
+      version: String(version || ""),
+      fileSize: fileSize ? String(fileSize) : "",
+    });
+
+    return NextResponse.json({ success: true });
+  } catch (error) {
+    console.error("[API track-download] Error:", error);
+    return NextResponse.json({ success: false, error: "Internal error" }, { status: 500 });
   }
-
-  logDownload({
-    visitorId,
-    appId: body.appId || "",
-    appTitle: body.appTitle || "",
-    source: body.source || "",
-    downloadUrl: body.downloadUrl || "",
-    version: body.version || "",
-    fileSize: body.fileSize || "",
-  });
-
-  return NextResponse.json({ success: true, downloadUrl: body.downloadUrl });
 }

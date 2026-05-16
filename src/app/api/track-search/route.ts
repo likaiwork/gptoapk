@@ -1,37 +1,31 @@
 import { NextRequest, NextResponse } from "next/server";
 import { initDatabase, logSearch } from "@/lib/db";
 
-interface TrackSearchBody {
-  query: string;
-  queryType: string;
-  appId: string;
-  appTitle: string;
-}
-
 export async function POST(request: NextRequest): Promise<NextResponse> {
-  // Ensure database is initialized
-  initDatabase();
-
-  // Get visitor_id from cookie
-  const visitorId = request.cookies.get("visitor_id")?.value;
-  if (!visitorId) {
-    return NextResponse.json({ error: "No visitor session" }, { status: 400 });
-  }
-
-  let body: TrackSearchBody;
   try {
-    body = await request.json();
-  } catch {
-    return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 });
+    const body = await request.json();
+    const { query, queryType, appId, appTitle } = body;
+
+    if (!query) {
+      return NextResponse.json({ error: "Missing query" }, { status: 400 });
+    }
+
+    const cookies = request.headers.get("cookie") || "";
+    const match = cookies.match(/(?:^|;\s*)visitor_id=([^;]*)/);
+    const visitorId = match ? decodeURIComponent(match[1]) : "unknown";
+
+    await initDatabase();
+    await logSearch({
+      visitorId,
+      query: String(query).slice(0, 500),
+      queryType: String(queryType || ""),
+      appId: String(appId || ""),
+      appTitle: String(appTitle || ""),
+    });
+
+    return NextResponse.json({ success: true });
+  } catch (error) {
+    console.error("[API track-search] Error:", error);
+    return NextResponse.json({ success: false, error: "Internal error" }, { status: 500 });
   }
-
-  logSearch({
-    visitorId,
-    query: body.query || "",
-    queryType: body.queryType || "",
-    appId: body.appId || "",
-    appTitle: body.appTitle || "",
-  });
-
-  return NextResponse.json({ success: true });
 }
