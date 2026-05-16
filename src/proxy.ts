@@ -4,6 +4,7 @@ import { SITE_LOCALES, localeAliasRegex, type SiteLocale } from "./lib/site-loca
 
 const locales = SITE_LOCALES;
 const defaultLocale: SiteLocale = "en";
+const legalPaths = new Set(["/about", "/privacy", "/terms", "/disclaimer", "/contact"]);
 
 function detectLocale(acceptLanguage: string | null): SiteLocale {
   if (!acceptLanguage) return defaultLocale; // 检查：缺少浏览器语言时使用英文默认值
@@ -80,6 +81,7 @@ export function proxy(request: NextRequest) {
     pathname.startsWith("/_next/") ||
     pathname.startsWith("/api/") ||
     pathname.startsWith("/admin") ||
+    legalPaths.has(pathname) ||
     pathname === "/favicon.ico" ||
     pathname.includes(".");
 

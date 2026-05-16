@@ -16,6 +16,13 @@ export default function Footer() {
   const homeHref = `/${currentLocale}`;
   const blogHref = `/${currentLocale}/blog`;
   const faqHref = `/${currentLocale}/faq`;
+  const legalLinks = [
+    { href: "/about", label: "About" },
+    { href: "/privacy", label: "Privacy" },
+    { href: "/terms", label: "Terms" },
+    { href: "/disclaimer", label: "Disclaimer" },
+    { href: "/contact", label: "Contact" },
+  ];
 
   const navLabels: Record<SiteLocale, { home: string; blog: string; faq: string; contact: string; copyright: string; disclaimer: string }> = {
     en: {
@@ -298,7 +305,7 @@ export default function Footer() {
             </svg>
             APK Downloader
           </div>
-          <nav className="flex items-center gap-6 text-sm text-slate-500">
+          <nav className="flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-sm text-slate-500 sm:justify-end">
             <Link href={homeHref} className="hover:text-blue-600 transition-colors">
               {labels.home}
             </Link>
@@ -308,9 +315,11 @@ export default function Footer() {
             <Link href={faqHref} className="hover:text-blue-600 transition-colors">
               {labels.faq}
             </Link>
-            <a href="mailto:likaiwork12@gmail.com" className="hover:text-blue-600 transition-colors">
-              {labels.contact}
-            </a>
+            {legalLinks.map((link) => (
+              <Link key={link.href} href={link.href} className="hover:text-blue-600 transition-colors">
+                {link.href === "/contact" ? labels.contact : link.label}
+              </Link>
+            ))}
           </nav>
         </div>
         <div className="text-center text-sm text-slate-500 border-t border-slate-200 dark:border-slate-800 pt-6">

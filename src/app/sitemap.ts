@@ -48,6 +48,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
   blogListAlternates["x-default"] = `${baseUrl}/en/blog`;
 
   const entries: MetadataRoute.Sitemap = [
+    ...(["about", "privacy", "terms", "disclaimer", "contact"] as const).map((slug) => ({
+      url: `${baseUrl}/${slug}` as const,
+      lastModified: new Date("2026-05-16"),
+      changeFrequency: "monthly" as const,
+      priority: 0.5 as const,
+    })),
     {
       url: `${baseUrl}/en`,
       lastModified: new Date("2026-05-12"),
