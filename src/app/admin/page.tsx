@@ -546,6 +546,7 @@ function InfoItem({ label, value }: { label: string; value: string }) {
 function Dashboard({ data, token, onViewVisitor, lang, onLangChange }: { data: AdminData; token: string; onViewVisitor: (v: VisitorInfo) => void; lang: "zh" | "en"; onLangChange: (l: "zh" | "en") => void }) {
   const [visitorPage, setVisitorPage] = useState(0);
   const [searchTopPage, setSearchTopPage] = useState(0);
+  const [downloadTopPage, setDownloadTopPage] = useState(0);
   const [activityPage, setActivityPage] = useState(0);
 
   const VISITORS_PER_PAGE = 20;
@@ -553,13 +554,16 @@ function Dashboard({ data, token, onViewVisitor, lang, onLangChange }: { data: A
   // Reset pages when data changes
   useEffect(() => { setVisitorPage(0); }, [data.visitor_list.length]);
   useEffect(() => { setSearchTopPage(0); }, [data.top_searches.length]);
+  useEffect(() => { setDownloadTopPage(0); }, [data.top_downloads.length]);
   useEffect(() => { setActivityPage(0); }, [data.recent_activity.length]);
 
   const paginatedVisitorList = data.visitor_list.slice(visitorPage * VISITORS_PER_PAGE, (visitorPage + 1) * VISITORS_PER_PAGE);
   const paginatedSearchList = data.top_searches.slice(searchTopPage * VISITORS_PER_PAGE, (searchTopPage + 1) * VISITORS_PER_PAGE);
+  const paginatedDownloadList = data.top_downloads.slice(downloadTopPage * VISITORS_PER_PAGE, (downloadTopPage + 1) * VISITORS_PER_PAGE);
   const paginatedActivityList = data.recent_activity.slice(activityPage * VISITORS_PER_PAGE, (activityPage + 1) * VISITORS_PER_PAGE);
   const maxVisitorPage = Math.max(0, Math.ceil(data.visitor_list.length / VISITORS_PER_PAGE) - 1);
   const maxSearchPage = Math.max(0, Math.ceil(data.top_searches.length / VISITORS_PER_PAGE) - 1);
+  const maxDownloadPage = Math.max(0, Math.ceil(data.top_downloads.length / VISITORS_PER_PAGE) - 1);
   const maxActivityPage = Math.max(0, Math.ceil(data.recent_activity.length / VISITORS_PER_PAGE) - 1);
 
   return (
@@ -702,16 +706,26 @@ function Dashboard({ data, token, onViewVisitor, lang, onLangChange }: { data: A
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-100">
-              {data.top_downloads.length === 0 && <tr><td colSpan={3} className="px-4 py-8 text-center text-sm text-gray-400">暂无数据</td></tr>}
-              {data.top_downloads.map((item, i) => (
+              {paginatedDownloadList.length === 0 && <tr><td colSpan={3} className="px-4 py-8 text-center text-sm text-gray-400">暂无数据</td></tr>}
+              {paginatedDownloadList.map((item, i) => (
                 <tr key={item.app_id} className="hover:bg-gray-50">
-                  <td className="px-4 py-3 text-sm text-gray-400">{i + 1}</td>
+                  <td className="px-4 py-3 text-sm text-gray-400">{downloadTopPage * VISITORS_PER_PAGE + i + 1}</td>
                   <td className="px-4 py-3 text-sm font-medium text-gray-900">{item.app_title || item.app_id}</td>
                   <td className="px-4 py-3 text-right text-sm font-semibold text-gray-900">{item.count}</td>
                 </tr>
               ))}
             </tbody>
           </table>
+          <div className="flex items-center justify-between border-t border-gray-100 px-4 py-2">
+            <span className="text-xs text-gray-400">共 {data.top_downloads.length} 条</span>
+            <div className="flex items-center gap-2">
+              <button onClick={() => setDownloadTopPage(p => Math.max(0, p - 1))} disabled={downloadTopPage === 0}
+                className="rounded px-2 py-1 text-xs text-gray-500 hover:bg-gray-100 disabled:opacity-30 disabled:cursor-not-allowed">上一页</button>
+              <span className="text-xs text-gray-500">{downloadTopPage + 1} / {Math.ceil(data.top_downloads.length / VISITORS_PER_PAGE) || 1}</span>
+              <button onClick={() => setDownloadTopPage(p => Math.min(maxDownloadPage, p + 1))} disabled={downloadTopPage >= maxDownloadPage}
+                className="rounded px-2 py-1 text-xs text-gray-500 hover:bg-gray-100 disabled:opacity-30 disabled:cursor-not-allowed">下一页</button>
+            </div>
+          </div>
         </div>
       </div>
 
