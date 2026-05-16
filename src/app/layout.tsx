@@ -157,6 +157,9 @@ export default async function RootLayout({
   return (
     <html lang={htmlLang} dir={htmlDir} className="h-full antialiased">
       <head>
+        {/* Google AdSense */}
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2144172051563531" crossOrigin="anonymous"></script>
+
         {/* Hreflang tags for all 33 languages */}
         {HREFLANG_LOCALES.map((locale) => (
           <link
@@ -218,13 +221,7 @@ gtag('js', new Date());
 gtag('config', '${GA_MEASUREMENT_ID}');`}
         </Script>
 
-        <Script
-          id="adsense"
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2144172051563531"
-          strategy="afterInteractive"
-          crossOrigin="anonymous"
-        />
-
+        {/* Microsoft Clarity */}
         <Script id="ms-clarity" strategy="afterInteractive">
           {`(function(c,l,a,r,i,t,y){
               c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
