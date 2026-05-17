@@ -1,4 +1,5 @@
-const SITE_HOST = process.env.INDEXNOW_HOST || "https://gptoapk.com";
+const SITE_HOST = process.env.INDEXNOW_HOST || "https://www.gptoapk.com";
+const SITEMAP_HOST = process.env.INDEXNOW_SITEMAP_HOST || "https://gptoapk.com";
 const INDEXNOW_KEY = process.env.INDEXNOW_KEY || "5935b2b9dcd6c981f8b9a5002fb55451";
 const INDEXNOW_ENDPOINT = process.env.INDEXNOW_ENDPOINT || "https://api.indexnow.org/indexnow";
 const MAX_URLS_PER_REQUEST = 10000;
@@ -8,16 +9,19 @@ const explicitUrls = process.argv
   .filter((arg) => arg.startsWith("https://"));
 
 async function loadSitemapUrls() {
-  const sitemapUrl = `${SITE_HOST}/sitemap.xml`;
+  const sitemapUrl = `${SITEMAP_HOST}/sitemap.xml`;
   const response = await fetch(sitemapUrl, { headers: { "User-Agent": "gptoapk-indexnow/1.0" } });
   if (!response.ok) {
     throw new Error(`Failed to fetch ${sitemapUrl}: ${response.status}`);
   }
 
   const xml = await response.text();
-  return [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) =>
-    match[1].replace(/&amp;/g, "&")
-  );
+  return [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => {
+    const url = new URL(match[1].replace(/&amp;/g, "&"));
+    url.protocol = new URL(SITE_HOST).protocol;
+    url.host = new URL(SITE_HOST).host;
+    return url.toString();
+  });
 }
 
 async function submitUrls(urlList) {
