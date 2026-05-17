@@ -4,7 +4,7 @@ import { SITE_LOCALES, localeAliasRegex, type SiteLocale } from "./lib/site-loca
 
 const locales = SITE_LOCALES;
 const defaultLocale: SiteLocale = "en";
-const legalPaths = new Set(["/about", "/privacy", "/terms", "/disclaimer", "/contact"]);
+const legalPaths = new Set(["/about", "/privacy", "/terms", "/disclaimer", "/contact", "/author/gptoapk"]);
 
 function detectLocale(acceptLanguage: string | null): SiteLocale {
   if (!acceptLanguage) return defaultLocale; // 检查：缺少浏览器语言时使用英文默认值

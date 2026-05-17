@@ -55,6 +55,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.5 as const,
     })),
     {
+      url: `${baseUrl}/author/gptoapk`,
+      lastModified: new Date("2026-05-17"),
+      changeFrequency: "monthly" as const,
+      priority: 0.5,
+    },
+    {
       url: `${baseUrl}/en`,
       lastModified: new Date("2026-05-12"),
       changeFrequency: "daily" as const,
@@ -103,6 +109,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     {
       url: `${baseUrl}/zh/blog`,
       lastModified: new Date("2026-05-12"),
+      changeFrequency: "weekly" as const,
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/zh/ai-apps`,
+      lastModified: new Date("2026-05-17"),
       changeFrequency: "weekly" as const,
       priority: 0.8,
     },

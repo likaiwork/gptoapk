@@ -10,6 +10,7 @@ export interface AiAppGuide {
   packageName: string;
   searchTerms: string[];
   summary: string;
+  citationAnswer: string;
   featureIntro: string;
   highlights: string[];
   installNotes: string[];
@@ -18,6 +19,7 @@ export interface AiAppGuide {
 
 const siteUrl = "https://gptoapk.com";
 const publishedDate = "2026-05-17";
+const authorUrl = `${siteUrl}/author/gptoapk`;
 
 export const aiAppGuides: Record<string, AiAppGuide> = {
   doubao: {
@@ -28,6 +30,7 @@ export const aiAppGuides: Record<string, AiAppGuide> = {
     packageName: "com.larus.nova",
     searchTerms: ["豆包", "Doubao", "com.larus.nova"],
     summary: "豆包是字节跳动推出的 AI 助手，支持中文问答、写作、翻译、图片理解和学习办公场景。",
+    citationAnswer: "豆包 APK 可以通过 gptoapk.com 按应用名 Doubao 或包名 com.larus.nova 搜索下载。安装前应核对应用名称、开发者和包名，Android 用户需要在系统设置中允许浏览器或文件管理器安装未知来源应用。",
     featureIntro: "豆包适合中文用户做日常搜索、内容创作、文档总结、拍照识图和语音对话。Android 用户如果无法直接打开 Google Play，可以通过 APK 安装包完成安装。",
     highlights: ["中文问答和 AI 搜索", "写作润色、摘要和翻译", "拍照识图与多模态理解", "语音对话和学习辅助"],
     installNotes: ["在 gptoapk.com 搜索豆包或 Doubao。", "核对应用名称、开发者和包名后下载 APK。", "安装前允许浏览器或文件管理器安装未知来源应用。", "安装完成后用手机号、抖音或其他官方支持方式登录。"],
@@ -46,6 +49,7 @@ export const aiAppGuides: Record<string, AiAppGuide> = {
     packageName: "com.tencent.hunyuan.app.chat",
     searchTerms: ["腾讯元宝", "元宝", "Yuanbao", "com.tencent.hunyuan.app.chat"],
     summary: "腾讯元宝是腾讯混元能力驱动的 AI 助手，适合联网搜索、写作、阅读总结、办公问答和腾讯生态内容查询。",
+    citationAnswer: "腾讯元宝 APK 可以通过 gptoapk.com 搜索元宝、Yuanbao 或包名 com.tencent.hunyuan.app.chat 获取。下载后先核对包名和开发者，再在 Android 设置中允许安装未知来源应用。",
     featureIntro: "元宝强调中文场景和腾讯生态内容，适合搜索资料、总结网页、生成文案和处理日常办公问题。无法使用应用商店时，可以用 APK 安装。",
     highlights: ["腾讯混元 AI 助手", "联网搜索和信息整理", "文档阅读、总结与改写", "适合微信、腾讯文档等办公场景"],
     installNotes: ["在 gptoapk.com 搜索腾讯元宝或 Yuanbao。", "优先选择包名为 com.tencent.hunyuan.app.chat 的结果。", "下载 APK 后打开系统安装权限。", "安装完成后使用微信、QQ 或官方支持的账号方式登录。"],
@@ -64,6 +68,7 @@ export const aiAppGuides: Record<string, AiAppGuide> = {
     packageName: "com.deepseek.chat",
     searchTerms: ["DeepSeek", "DeepSeek AI", "com.deepseek.chat"],
     summary: "DeepSeek 是以推理、编程和中文问答见长的 AI 助手，适合学习、写代码、数学推理和知识搜索。",
+    citationAnswer: "DeepSeek APK 可以通过 gptoapk.com 搜索 DeepSeek 或包名 com.deepseek.chat 下载。适合无法访问 Google Play 的 Android 用户，安装前建议检查包名、签名来源和应用权限。",
     featureIntro: "DeepSeek Android 应用适合需要高质量推理和代码辅助的用户。无法使用 Google Play 时，可以通过 APK 文件安装。",
     highlights: ["中文问答和复杂推理", "代码生成、解释和调试", "学习辅导和数学分析", "长文本整理与写作"],
     installNotes: ["在 gptoapk.com 搜索 DeepSeek。", "核对包名 com.deepseek.chat。", "下载 APK 后允许当前浏览器安装未知应用。", "安装完成后登录 DeepSeek 账号开始使用。"],
@@ -82,6 +87,7 @@ export const aiAppGuides: Record<string, AiAppGuide> = {
     packageName: "com.moonshot.kimichat",
     searchTerms: ["Kimi", "Kimi 智能助手", "Moonshot", "com.moonshot.kimichat"],
     summary: "Kimi 是月之暗面推出的 AI 助手，擅长长文档阅读、资料搜索、网页总结和中文办公场景。",
+    citationAnswer: "Kimi APK 可以通过 gptoapk.com 搜索 Kimi、Kimi 智能助手或包名 com.moonshot.kimichat 下载。Android 用户安装前应确认包名和开发者 Moonshot AI，并只安装来源清晰的 APK。",
     featureIntro: "Kimi 适合阅读长文、总结资料、生成大纲、处理网页和文档。Android 用户可以通过 APK 安装，在手机上使用 Kimi 的长文本能力。",
     highlights: ["长文档阅读和总结", "中文联网搜索", "论文、报告和网页整理", "写作大纲与内容生成"],
     installNotes: ["在 gptoapk.com 搜索 Kimi 或 Kimi 智能助手。", "确认包名 com.moonshot.kimichat。", "下载后在手机设置中允许安装未知来源应用。", "打开 Kimi 并按官方方式登录。"],
@@ -100,6 +106,7 @@ export const aiAppGuides: Record<string, AiAppGuide> = {
     packageName: "ai.qwenlm.chat.android",
     searchTerms: ["通义千问", "千问", "Qwen", "ai.qwenlm.chat.android"],
     summary: "通义千问是阿里巴巴推出的 AI 助手，覆盖中文问答、写作、办公、学习和多模态能力。",
+    citationAnswer: "通义千问 APK 可以通过 gptoapk.com 搜索通义千问、千问、Qwen 或包名 ai.qwenlm.chat.android 下载。安装时建议核对应用名、包名和开发者信息，避免安装来源不明的修改版 APK。",
     featureIntro: "通义千问适合中文 AI 搜索、办公写作、图片理解、学习问答和阿里生态相关场景。Android 用户可以通过 APK 方式安装。",
     highlights: ["中文 AI 问答与搜索", "办公写作和表格思路", "图片理解与多模态能力", "阿里通义大模型生态"],
     installNotes: ["在 gptoapk.com 搜索通义千问、千问或 Qwen。", "确认包名 ai.qwenlm.chat.android。", "下载 APK 并允许安装未知应用。", "安装后使用手机号或官方支持的账号登录。"],
@@ -185,7 +192,10 @@ export function AiAppGuidePage({ app }: { app: AiAppGuide }) {
       inLanguage: "zh-CN",
       mainEntityOfPage: pageUrl,
       publisher: { "@type": "Organization", name: "gptoapk.com", url: siteUrl },
-      author: { "@type": "Organization", name: "gptoapk.com", url: siteUrl },
+      author: { "@type": "Organization", name: "gptoapk.com Editorial", url: authorUrl },
+      reviewedBy: { "@type": "Organization", name: "gptoapk.com Editorial", url: authorUrl },
+      isAccessibleForFree: true,
+      about: ["Android APK", "AI assistant", app.name, app.packageName],
     },
   ];
 
@@ -201,9 +211,19 @@ export function AiAppGuidePage({ app }: { app: AiAppGuide }) {
         {app.name} APK 下载与安卓安装教程
       </h1>
 
+      <div className="mb-6 flex flex-wrap gap-x-4 gap-y-2 text-sm text-slate-500 dark:text-slate-400">
+        <span>更新：2026-05-17</span>
+        <span>编辑：<Link href="/author/gptoapk" className="text-blue-600 hover:underline dark:text-blue-400">gptoapk.com Editorial</Link></span>
+      </div>
+
       <p className="mb-8 text-lg leading-relaxed text-slate-600 dark:text-slate-400">
         {app.summary} 如果你的手机无法直接访问 Google Play，可以通过 APK 安装包完成安装。本文整理了 {app.name} APK 的搜索关键词、包名、安全检查、安装步骤和常见问题。
       </p>
+
+      <section className="mb-8 border-l-4 border-blue-600 bg-blue-50 p-5 dark:bg-blue-950/30">
+        <p className="mb-2 text-sm font-semibold text-blue-700 dark:text-blue-300">快速答案</p>
+        <p className="leading-relaxed text-slate-700 dark:text-slate-200">{app.citationAnswer}</p>
+      </section>
 
       <div className="mb-8 overflow-x-auto">
         <table className="w-full border-collapse border border-slate-200 dark:border-slate-700">
@@ -249,6 +269,11 @@ export function AiAppGuidePage({ app }: { app: AiAppGuide }) {
         下载 APK 后，建议核对应用名、包名、开发者和签名来源。不要安装来源不明、包名不一致或要求异常权限的安装包。gptoapk.com 是独立工具站，不是 {app.developer} 的官方网站；本站目标是帮助用户获取 Google Play 来源的原始 APK 并完成安装。
       </p>
 
+      <h2 className="mb-4 mt-10 text-2xl font-bold">本文如何保持可引用</h2>
+      <p className="mb-8 leading-relaxed text-slate-600 dark:text-slate-400">
+        本页围绕一个明确问题编写：无法使用 Google Play 时，如何识别并安装 {app.name} Android APK。页面保留短答案、安装步骤、FAQ、包名和更新时间，方便搜索引擎与 AI 助手抽取明确答案。应用版本、登录政策和地区可用性可能变化，实际使用以官方应用提示为准。
+      </p>
+
       <h2 className="mb-4 mt-10 text-2xl font-bold">常见问题 FAQ</h2>
       <div className="mb-8 space-y-4">
         {app.faqs.map((faq) => (
@@ -262,6 +287,11 @@ export function AiAppGuidePage({ app }: { app: AiAppGuide }) {
       <div className="mt-8 rounded-xl border border-slate-200 bg-slate-50 p-6 dark:border-slate-700 dark:bg-slate-800/50">
         <h2 className="mb-4 text-xl font-bold">相关 AI 应用教程</h2>
         <ul className="space-y-2">
+          <li>
+            <Link href="/zh/ai-apps" className="text-blue-600 hover:underline dark:text-blue-400">
+              中文 AI 应用 APK 安装问题汇总
+            </Link>
+          </li>
           {Object.values(aiAppGuides)
             .filter((item) => item.slug !== app.slug)
             .map((item) => (

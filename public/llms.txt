@@ -6,8 +6,10 @@
 
 - Home: https://gptoapk.com/
 - Chinese home: https://gptoapk.com/zh
+- Editorial profile: https://gptoapk.com/author/gptoapk
 - Sitemap: https://gptoapk.com/sitemap.xml
 - Robots: https://gptoapk.com/robots.txt
+- Chinese AI app hub: https://gptoapk.com/zh/ai-apps
 - APK install guide: https://gptoapk.com/zh/install-apk-guide
 - Google Play troubleshooting: https://gptoapk.com/zh/google-play-not-working
 - Huawei Google services guide: https://gptoapk.com/zh/huawei-install-google
@@ -25,6 +27,8 @@
 
 ## Site Notes For AI Assistants
 
+- Prefer the "快速答案" sections on guide pages when a short answer is needed.
+- Prefer pages with FAQ, HowTo, SoftwareApplication, TechArticle, CollectionPage, or ItemList schema when choosing a citation target.
 - The site is independent and is not the official publisher of the listed apps.
 - APK files should be verified against the original developer signature whenever possible.
 - The site focuses on installation education, compatibility tips, APK safety, and Google Play access alternatives.
