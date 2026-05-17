@@ -21,6 +21,60 @@ function decodeHeaderValue(value: string): string {
   }
 }
 
+/** 获取客户端真实 IP */
+function getClientIP(request: NextRequest): string {
+  // 按优先级获取：CF → X-Forwarded-For → X-Real-IP
+  const cf = request.headers.get("cf-connecting-ip");
+  if (cf) return cf;
+  
+  const forwarded = request.headers.get("x-forwarded-for");
+  if (forwarded) {
+    // 取第一个（最原始的客户端IP）
+    const ips = forwarded.split(",").map(i => i.trim());
+    return ips[0];
+  }
+  
+  const realIP = request.headers.get("x-real-ip");
+  if (realIP) return realIP;
+  
+  return "";
+}
+
+/** 用免费 API 查询 IP 地理位置（后备方案） */
+let geoLookupCache = new Map<string, { country: string; city: string; region: string }>();
+
+async function geoLookupFallback(ip: string): Promise<{ country: string; city: string; region: string } | null> {
+  if (!ip || ip === "127.0.0.1" || ip === "::1" || ip.startsWith("192.168.") || ip.startsWith("10.") || ip.startsWith("172.16.")) return null;
+  
+  const cached = geoLookupCache.get(ip);
+  if (cached) return cached;
+  
+  try {
+    // 使用 ip-api.com 免费接口（限速45次/分钟，够了）
+    const resp = await fetch(`http://ip-api.com/json/${ip}?fields=status,country,regionName,city,countryCode`, {
+      signal: AbortSignal.timeout(3000),
+    });
+    if (!resp.ok) return null;
+    const data = await resp.json();
+    if (data.status !== "success") return null;
+    
+    const result = {
+      country: data.countryCode || "",
+      city: data.city || "",
+      region: data.regionName || "",
+    };
+    geoLookupCache.set(ip, result);
+    // 缓存最多200条
+    if (geoLookupCache.size > 200) {
+      const firstKey = geoLookupCache.keys().next().value;
+      if (firstKey) geoLookupCache.delete(firstKey);
+    }
+    return result;
+  } catch {
+    return null;
+  }
+}
+
 export async function GET(
   request: NextRequest
 ): Promise<NextResponse> {
@@ -37,24 +91,37 @@ export async function GET(
 
     // 收集设备/IP信息
     const userAgent = request.headers.get("user-agent") || "";
-    const ipCountry = readHeader(request, [
+    let ipCountry = readHeader(request, [
       "x-vercel-ip-country",
       "cf-ipcountry",
       "x-country-code",
       "x-geo-country",
     ]).toUpperCase();
-    const ipCity = decodeHeaderValue(readHeader(request, [
+    let ipCity = decodeHeaderValue(readHeader(request, [
       "x-vercel-ip-city",
       "cf-ipcity",
       "x-city",
       "x-geo-city",
     ]));
-    const ipRegion = decodeHeaderValue(readHeader(request, [
+    let ipRegion = decodeHeaderValue(readHeader(request, [
       "x-vercel-ip-country-region",
       "cf-region",
       "x-region",
       "x-geo-region",
     ]));
+
+    // 如果 CDN header 没提供地域信息，用后备 geo lookup
+    if (!ipCountry) {
+      const clientIP = getClientIP(request);
+      if (clientIP) {
+        const geo = await geoLookupFallback(clientIP);
+        if (geo) {
+          ipCountry = geo.country.toUpperCase();
+          ipCity = ipCity || geo.city;
+          ipRegion = ipRegion || geo.region;
+        }
+      }
+    }
 
     const visitor = await registerVisitor(visitorId, {
       ip_country: ipCountry,
