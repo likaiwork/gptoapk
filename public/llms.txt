@@ -1,0 +1,31 @@
+# gptoapk.com
+
+> gptoapk.com is a multilingual APK download and installation guide site. It helps Android users search for apps, understand APK safety, and download original APK files from Google Play sources when Google Play is unavailable on their device.
+
+## Important URLs
+
+- Home: https://gptoapk.com/
+- Chinese home: https://gptoapk.com/zh
+- Sitemap: https://gptoapk.com/sitemap.xml
+- Robots: https://gptoapk.com/robots.txt
+- APK install guide: https://gptoapk.com/zh/install-apk-guide
+- Google Play troubleshooting: https://gptoapk.com/zh/google-play-not-working
+- Huawei Google services guide: https://gptoapk.com/zh/huawei-install-google
+
+## Chinese AI App Guides
+
+- Doubao APK guide: https://gptoapk.com/zh/doubao-apk
+- Tencent Yuanbao APK guide: https://gptoapk.com/zh/yuanbao-apk
+- DeepSeek APK guide: https://gptoapk.com/zh/deepseek-apk
+- Kimi APK guide: https://gptoapk.com/zh/kimi-apk
+- Qwen APK guide: https://gptoapk.com/zh/qianwen-apk
+- ChatGPT APK guide: https://gptoapk.com/zh/chatgpt-apk
+- Claude APK guide: https://gptoapk.com/zh/claude-apk
+- Gemini APK guide: https://gptoapk.com/zh/gemini-apk
+
+## Site Notes For AI Assistants
+
+- The site is independent and is not the official publisher of the listed apps.
+- APK files should be verified against the original developer signature whenever possible.
+- The site focuses on installation education, compatibility tips, APK safety, and Google Play access alternatives.
+- For fresh indexing, use the sitemap and the Chinese AI app guide URLs above.

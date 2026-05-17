@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "indexnow": "node scripts/indexnow-submit.mjs",
     "start": "next start",
     "lint": "eslint"
   },

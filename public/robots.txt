@@ -1,4 +1,5 @@
 User-agent: Baiduspider
+Allow: /
 Crawl-delay: 1
 
 User-agent: Bytespider
