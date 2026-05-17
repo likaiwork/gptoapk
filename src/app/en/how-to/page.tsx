@@ -52,6 +52,57 @@ const guides = [
   },
 ];
 
+const geoGuides = [
+  {
+    title: "How to Install ChatGPT Without Google Play",
+    slug: "install-chatgpt-without-google-play",
+    description:
+      "A direct answer page for users who cannot open Google Play or cannot find ChatGPT in their country.",
+  },
+  {
+    title: "ChatGPT Not Available in My Country",
+    slug: "chatgpt-not-available-in-my-country",
+    description:
+      "Explains regional Google Play availability, APK installation, and OpenAI account access limits.",
+  },
+  {
+    title: "How to Install an APK Without Google Play",
+    slug: "install-apk-without-google-play",
+    description:
+      "General safe APK installation guide for Android users without Play Store access.",
+  },
+  {
+    title: "Google Play Not Working on Android",
+    slug: "google-play-not-working",
+    description:
+      "Troubleshooting page for Google Play errors, blocked access, device compatibility, and APK alternatives.",
+  },
+  {
+    title: "How to Install AI Apps on Huawei",
+    slug: "install-ai-apps-on-huawei",
+    description:
+      "Huawei and HarmonyOS guide for ChatGPT, DeepSeek, Kimi, Qwen, Doubao, and other AI apps.",
+  },
+  {
+    title: "DeepSeek APK for Android",
+    slug: "deepseek-apk",
+    description:
+      "DeepSeek Android installation guide with package-name verification.",
+  },
+  {
+    title: "Qwen APK for Android",
+    slug: "qwen-apk",
+    description:
+      "Qwen and Tongyi Qianwen Android installation guide with package-name verification.",
+  },
+  {
+    title: "Kimi APK for Android",
+    slug: "kimi-apk",
+    description:
+      "Kimi Android installation guide with Moonshot AI package-name verification.",
+  },
+];
+
 const faqs = [
   {
     q: "Is it safe to install APK files?",
@@ -126,6 +177,28 @@ export default function HowToPage() {
                 </Link>
               )}
             </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="mb-16">
+        <h2 className="text-2xl font-bold mb-6">
+          AI Search Answer Guides
+        </h2>
+        <div className="grid gap-4 sm:grid-cols-2">
+          {geoGuides.map((guide) => (
+            <Link
+              key={guide.slug}
+              href={`/en/how-to/${guide.slug}`}
+              className="group block rounded-xl border border-slate-200 bg-white p-5 transition-shadow hover:shadow-md dark:border-slate-700 dark:bg-slate-800"
+            >
+              <h3 className="mb-2 font-bold group-hover:text-blue-600 dark:group-hover:text-blue-400">
+                {guide.title}
+              </h3>
+              <p className="text-sm text-slate-600 dark:text-slate-400">
+                {guide.description}
+              </p>
+            </Link>
           ))}
         </div>
       </section>
@@ -229,9 +302,9 @@ export default function HowToPage() {
       <div className="mt-8 p-6 bg-gray-50 dark:bg-gray-800/50 rounded-xl border border-gray-100 dark:border-gray-700">
         <h2 className="text-xl font-bold mb-4">Related Guides</h2>
         <ul className="space-y-2">
-        <li><a href="/en/ai-apps" className="text-blue-600 dark:text-blue-400 hover:underline">Best AI Apps for Android</a></li>
-        <li><a href="/en/how-to" className="text-blue-600 dark:text-blue-400 hover:underline">APK Installation Guides</a></li>
-        <li><a href="/en/how-to/install-chatgpt-apk" className="text-blue-600 dark:text-blue-400 hover:underline">How to Install ChatGPT APK</a></li>
+        <li><Link href="/en/ai-apps" className="text-blue-600 dark:text-blue-400 hover:underline">Best AI Apps for Android</Link></li>
+        <li><Link href="/en/how-to" className="text-blue-600 dark:text-blue-400 hover:underline">APK Installation Guides</Link></li>
+        <li><Link href="/en/how-to/install-chatgpt-apk" className="text-blue-600 dark:text-blue-400 hover:underline">How to Install ChatGPT APK</Link></li>
         </ul>
       </div>
 

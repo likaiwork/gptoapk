@@ -16,19 +16,34 @@ export const metadata: Metadata = {
 
 const problemGuides = [
   {
+    title: "没有 Google Play 如何安装 ChatGPT APK",
+    href: "/zh/chatgpt-apk-without-google-play",
+    answer: "没有 Google Play 时，可以通过 ChatGPT APK 安装应用，但需要核对开发者 OpenAI 和包名 com.openai.chatgpt。",
+  },
+  {
+    title: "华为手机如何安装 ChatGPT",
+    href: "/zh/huawei-install-chatgpt",
+    answer: "华为手机通常可以手动安装 ChatGPT APK，登录和功能可用性取决于 OpenAI 账号、网络和设备环境。",
+  },
+  {
     title: "Google Play 无法使用怎么办",
-    href: "/zh/google-play-not-working",
+    href: "/zh/google-play-unavailable",
     answer: "如果 Google Play 无法打开，Android 用户可以先检查网络、账号地区、Play 服务和系统时间；仍不可用时，可用应用包名搜索官方 APK 并手动安装。",
   },
   {
-    title: "华为手机如何安装 Google 服务",
-    href: "/zh/huawei-install-google",
-    answer: "华为和 HarmonyOS 设备没有 Google Mobile Services 时，部分应用可通过 APK 直接安装，依赖 Google 服务的功能则可能需要额外兼容方案。",
+    title: "没有 Play Store 如何安装 AI 应用",
+    href: "/zh/ai-apps-without-play-store",
+    answer: "AI 应用安装前建议先确认包名，例如 DeepSeek 是 com.deepseek.chat，Kimi 是 com.moonshot.kimichat，通义千问是 ai.qwenlm.chat.android。",
   },
   {
-    title: "APK 安装指南",
-    href: "/zh/install-apk-guide",
-    answer: "安装 APK 的关键步骤是确认来源、核对包名、允许当前浏览器或文件管理器安装未知来源应用，然后打开下载文件完成安装。",
+    title: "Android APK 安全安装指南",
+    href: "/zh/android-apk-safe-install",
+    answer: "安装 APK 的关键是确认来源、核对应用名和包名、查看开发者和权限，并只临时开启未知来源安装权限。",
+  },
+  {
+    title: "俄罗斯如何下载 Telegram APK",
+    href: "/zh/telegram-russia-apk",
+    answer: "俄罗斯用户下载 Telegram APK 时应核对应用名 Telegram、开发者 Telegram FZ-LLC 和包名 org.telegram.messenger。",
   },
 ];
 

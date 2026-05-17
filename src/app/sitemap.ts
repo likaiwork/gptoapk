@@ -157,6 +157,22 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly" as const,
       priority: 0.8,
     },
+    // GEO problem-answer pages (en/how-to)
+    ...([
+      { slug: "install-chatgpt-without-google-play", priority: 0.75 as const },
+      { slug: "chatgpt-not-available-in-my-country", priority: 0.75 as const },
+      { slug: "install-apk-without-google-play", priority: 0.75 as const },
+      { slug: "google-play-not-working", priority: 0.75 as const },
+      { slug: "install-ai-apps-on-huawei", priority: 0.75 as const },
+      { slug: "deepseek-apk", priority: 0.7 as const },
+      { slug: "qwen-apk", priority: 0.7 as const },
+      { slug: "kimi-apk", priority: 0.7 as const },
+    ]).map(({ slug, priority }) => ({
+      url: `${baseUrl}/en/how-to/${slug}` as const,
+      lastModified: new Date("2026-05-17"),
+      changeFrequency: "weekly" as const,
+      priority,
+    })),
     // New route: ChatGPT Install guide detail page (en)
     {
       url: `${baseUrl}/en/how-to/install-chatgpt-apk`,
@@ -262,6 +278,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       { slug: "kimi-apk", priority: 0.7 as const, lastModified: "2026-05-17" },
       { slug: "qianwen-apk", priority: 0.7 as const, lastModified: "2026-05-17" },
       { slug: "google-play-not-working", priority: 0.7 as const },
+      { slug: "chatgpt-apk-without-google-play", priority: 0.75 as const, lastModified: "2026-05-17" },
+      { slug: "huawei-install-chatgpt", priority: 0.75 as const, lastModified: "2026-05-17" },
+      { slug: "google-play-unavailable", priority: 0.75 as const, lastModified: "2026-05-17" },
+      { slug: "ai-apps-without-play-store", priority: 0.75 as const, lastModified: "2026-05-17" },
+      { slug: "telegram-russia-apk", priority: 0.7 as const, lastModified: "2026-05-17" },
+      { slug: "android-apk-safe-install", priority: 0.75 as const, lastModified: "2026-05-17" },
       { slug: "telegram-apk", priority: 0.7 as const },
       { slug: "youtube-apk", priority: 0.7 as const },
       { slug: "install-apk-guide", priority: 0.6 as const },
