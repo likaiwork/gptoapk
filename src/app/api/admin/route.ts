@@ -54,6 +54,27 @@ interface VisitorInfo {
   download_count: number;
 }
 
+const DATE_ONLY_PATTERN = /^\d{4}-\d{2}-\d{2}$/;
+
+type DateRangeResult =
+  | { startDate: string; endDate: string }
+  | { error: string };
+
+function getDateRange(searchParams: URLSearchParams): DateRangeResult {
+  const start = searchParams.get("start") || "";
+  const end = searchParams.get("end") || "";
+
+  if ((start && !DATE_ONLY_PATTERN.test(start)) || (end && !DATE_ONLY_PATTERN.test(end))) {
+    return { error: "Invalid date range" };
+  }
+
+  if (start && end && start > end) {
+    return { startDate: end, endDate: start };
+  }
+
+  return { startDate: start, endDate: end };
+}
+
 export async function GET(
   request: NextRequest
 ): Promise<NextResponse<AdminResponse | { error: string }>> {
@@ -66,14 +87,17 @@ export async function GET(
     }
 
     // 时间筛选参数
-    const startDate = searchParams.get("start") || "";
-    const endDate = searchParams.get("end") || "";
+    const range = getDateRange(searchParams);
+    if ("error" in range) {
+      return NextResponse.json({ error: range.error }, { status: 400 });
+    }
+    const { startDate, endDate } = range;
 
     await initDatabase();
 
     const [visitors, totalSearches, totalDownloads, topSearches, topDownloads, recentActivity, visitorList] =
       await Promise.all([
-        getVisitorStats(),
+        getVisitorStats(startDate, endDate),
         getTotalSearches(startDate, endDate),
         getTotalDownloads(startDate, endDate),
         getSearchStats(20, startDate, endDate),

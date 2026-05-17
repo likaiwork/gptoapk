@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 
 // 国家代码 → 中文/英文 映射
 const COUNTRY_NAMES: Record<string, [string, string]> = {
@@ -377,34 +377,98 @@ function tr(visitorId: string): string {
   return visitorId.substring(0, 8) + "…";
 }
 
+function getDateOffset(daysAgo: number): string {
+  return new Date(Date.now() - daysAgo * 86400000).toISOString().slice(0, 10);
+}
+
+function DatePickerField({
+  value,
+  onChange,
+  ariaLabel,
+}: {
+  value: string;
+  onChange: (value: string) => void;
+  ariaLabel: string;
+}) {
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const openPicker = () => {
+    const input = inputRef.current;
+    if (!input) return;
+    input.focus();
+    try {
+      (input as HTMLInputElement & { showPicker?: () => void }).showPicker?.();
+    } catch {
+      // Some browsers only allow showPicker from direct pointer events.
+    }
+  };
+
+  return (
+    <div
+      role="button"
+      tabIndex={0}
+      onClick={openPicker}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          openPicker();
+        }
+      }}
+      className="flex min-w-36 cursor-pointer items-center rounded-lg border border-gray-300 bg-white px-3 py-1.5 text-sm transition hover:border-blue-400 focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-200"
+      aria-label={ariaLabel}
+    >
+      <input
+        ref={inputRef}
+        type="date"
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        onClick={(e) => {
+          e.stopPropagation();
+          openPicker();
+        }}
+        className="w-full cursor-pointer bg-transparent text-sm text-gray-900 outline-none"
+        aria-label={ariaLabel}
+      />
+    </div>
+  );
+}
+
 function TimeFilterBar({
-  dateStart, dateEnd, onDateChange,
+  dateStart, dateEnd, loading, onDateChange, onApply,
 }: {
   dateStart: string; dateEnd: string;
+  loading: boolean;
   onDateChange: (start: string, end: string) => void;
+  onApply: (start: string, end: string) => void;
 }) {
-  const today = new Date().toISOString().slice(0, 10);
-
-  const sevenDaysAgo = new Date(Date.now() - 7 * 86400000).toISOString().slice(0, 10);
-  const thirtyDaysAgo = new Date(Date.now() - 30 * 86400000).toISOString().slice(0, 10);
+  const applyRange = (start: string, end: string) => {
+    onDateChange(start, end);
+    onApply(start, end);
+  };
 
   const quickBtns = [
-    { label: "今天", onClick: () => onDateChange(today, today) },
-    { label: "最近7天", onClick: () => onDateChange(sevenDaysAgo, today) },
-    { label: "最近30天", onClick: () => onDateChange(thirtyDaysAgo, today) },
-    { label: "全部", onClick: () => onDateChange("", "") },
+    { label: "今天", onClick: () => {
+      const today = getDateOffset(0);
+      applyRange(today, today);
+    } },
+    { label: "最近7天", onClick: () => applyRange(getDateOffset(7), getDateOffset(0)) },
+    { label: "最近30天", onClick: () => applyRange(getDateOffset(30), getDateOffset(0)) },
+    { label: "全部", onClick: () => applyRange("", "") },
   ];
 
   return (
     <div className="mb-6 flex flex-wrap items-center gap-3 rounded-xl border border-gray-200 bg-white p-4 shadow-sm">
       <span className="text-sm font-medium text-gray-700">时间筛选：</span>
-      <input type="date" value={dateStart}
-        onChange={(e) => onDateChange(e.target.value, dateEnd)}
-        className="rounded-lg border border-gray-300 px-3 py-1.5 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none" />
+      <DatePickerField value={dateStart} onChange={(value) => onDateChange(value, dateEnd)} ariaLabel="开始日期" />
       <span className="text-gray-400">—</span>
-      <input type="date" value={dateEnd}
-        onChange={(e) => onDateChange(dateStart, e.target.value)}
-        className="rounded-lg border border-gray-300 px-3 py-1.5 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none" />
+      <DatePickerField value={dateEnd} onChange={(value) => onDateChange(dateStart, value)} ariaLabel="结束日期" />
+      <button
+        onClick={() => onApply(dateStart, dateEnd)}
+        disabled={loading}
+        className="rounded-lg bg-blue-600 px-4 py-1.5 text-sm font-semibold text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60"
+      >
+        {loading ? "查询中..." : "查询"}
+      </button>
       {quickBtns.map((btn) => (
         <button key={btn.label} onClick={btn.onClick}
           className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm text-gray-600 transition hover:bg-gray-100 hover:text-gray-900">
@@ -430,7 +494,6 @@ function VisitorDetailModal({
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setLoading(true);
     fetch(`/api/admin/visitor?key=${encodeURIComponent(token)}&vid=${encodeURIComponent(visitor.visitor_id)}`)
       .then((r) => r.json())
       .then((d) => setLogs(d.logs || []))
@@ -543,7 +606,7 @@ function InfoItem({ label, value }: { label: string; value: string }) {
   );
 }
 
-function Dashboard({ data, token, onViewVisitor, lang, onLangChange }: { data: AdminData; token: string; onViewVisitor: (v: VisitorInfo) => void; lang: "zh" | "en"; onLangChange: (l: "zh" | "en") => void }) {
+function Dashboard({ data, onViewVisitor, lang, onLangChange }: { data: AdminData; onViewVisitor: (v: VisitorInfo) => void; lang: "zh" | "en"; onLangChange: (l: "zh" | "en") => void }) {
   const [visitorPage, setVisitorPage] = useState(0);
   const [searchTopPage, setSearchTopPage] = useState(0);
   const [downloadTopPage, setDownloadTopPage] = useState(0);
@@ -551,20 +614,18 @@ function Dashboard({ data, token, onViewVisitor, lang, onLangChange }: { data: A
 
   const VISITORS_PER_PAGE = 20;
 
-  // Reset pages when data changes
-  useEffect(() => { setVisitorPage(0); }, [data.visitor_list.length]);
-  useEffect(() => { setSearchTopPage(0); }, [data.top_searches.length]);
-  useEffect(() => { setDownloadTopPage(0); }, [data.top_downloads.length]);
-  useEffect(() => { setActivityPage(0); }, [data.recent_activity.length]);
-
-  const paginatedVisitorList = data.visitor_list.slice(visitorPage * VISITORS_PER_PAGE, (visitorPage + 1) * VISITORS_PER_PAGE);
-  const paginatedSearchList = data.top_searches.slice(searchTopPage * VISITORS_PER_PAGE, (searchTopPage + 1) * VISITORS_PER_PAGE);
-  const paginatedDownloadList = data.top_downloads.slice(downloadTopPage * VISITORS_PER_PAGE, (downloadTopPage + 1) * VISITORS_PER_PAGE);
-  const paginatedActivityList = data.recent_activity.slice(activityPage * VISITORS_PER_PAGE, (activityPage + 1) * VISITORS_PER_PAGE);
   const maxVisitorPage = Math.max(0, Math.ceil(data.visitor_list.length / VISITORS_PER_PAGE) - 1);
   const maxSearchPage = Math.max(0, Math.ceil(data.top_searches.length / VISITORS_PER_PAGE) - 1);
   const maxDownloadPage = Math.max(0, Math.ceil(data.top_downloads.length / VISITORS_PER_PAGE) - 1);
   const maxActivityPage = Math.max(0, Math.ceil(data.recent_activity.length / VISITORS_PER_PAGE) - 1);
+  const currentVisitorPage = Math.min(visitorPage, maxVisitorPage);
+  const currentSearchTopPage = Math.min(searchTopPage, maxSearchPage);
+  const currentDownloadTopPage = Math.min(downloadTopPage, maxDownloadPage);
+  const currentActivityPage = Math.min(activityPage, maxActivityPage);
+  const paginatedVisitorList = data.visitor_list.slice(currentVisitorPage * VISITORS_PER_PAGE, (currentVisitorPage + 1) * VISITORS_PER_PAGE);
+  const paginatedSearchList = data.top_searches.slice(currentSearchTopPage * VISITORS_PER_PAGE, (currentSearchTopPage + 1) * VISITORS_PER_PAGE);
+  const paginatedDownloadList = data.top_downloads.slice(currentDownloadTopPage * VISITORS_PER_PAGE, (currentDownloadTopPage + 1) * VISITORS_PER_PAGE);
+  const paginatedActivityList = data.recent_activity.slice(currentActivityPage * VISITORS_PER_PAGE, (currentActivityPage + 1) * VISITORS_PER_PAGE);
 
   return (
     <div className="mx-auto max-w-6xl space-y-8">
@@ -812,8 +873,11 @@ export default function AdminPage() {
   const [error, setError] = useState("");
   const [dateStart, setDateStart] = useState(() => new Date().toISOString().slice(0, 10));
   const [dateEnd, setDateEnd] = useState(() => new Date().toISOString().slice(0, 10));
+  const [appliedDateStart, setAppliedDateStart] = useState(() => new Date().toISOString().slice(0, 10));
+  const [appliedDateEnd, setAppliedDateEnd] = useState(() => new Date().toISOString().slice(0, 10));
   const [selectedVisitor, setSelectedVisitor] = useState<VisitorInfo | null>(null);
   const [lang, setLang] = useState<"zh" | "en">("zh");
+  const initializedRef = useRef(false);
 
   const fetchData = useCallback(async (authToken: string, start?: string, end?: string) => {
     try {
@@ -840,12 +904,19 @@ export default function AdminPage() {
     document.cookie = `admin_token=${encodeURIComponent(password)}; path=/; max-age=${60 * 60 * 24}; SameSite=Lax`;
     setToken(password);
     setLoading(true);
-    fetchData(password, dateStart, dateEnd).finally(() => setLoading(false));
-  }, [fetchData, dateStart, dateEnd]);
+    fetchData(password, appliedDateStart, appliedDateEnd).finally(() => setLoading(false));
+  }, [fetchData, appliedDateStart, appliedDateEnd]);
 
   const handleDateChange = useCallback((start: string, end: string) => {
     setDateStart(start);
     setDateEnd(end);
+  }, []);
+
+  const handleDateApply = useCallback((start: string, end: string) => {
+    setDateStart(start);
+    setDateEnd(end);
+    setAppliedDateStart(start);
+    setAppliedDateEnd(end);
     if (token) {
       setLoading(true);
       fetchData(token, start, end).finally(() => setLoading(false));
@@ -853,21 +924,24 @@ export default function AdminPage() {
   }, [token, fetchData]);
 
   useEffect(() => {
+    if (initializedRef.current) return;
+    initializedRef.current = true;
+
     const match = document.cookie.match(/(?:^|;\s*)admin_token=([^;]*)/);
     const cookieToken = match ? decodeURIComponent(match[1]) : null;
     if (cookieToken) {
       setToken(cookieToken);
-      fetchData(cookieToken, dateStart, dateEnd).finally(() => setLoading(false));
+      fetchData(cookieToken, appliedDateStart, appliedDateEnd).finally(() => setLoading(false));
     } else {
       setLoading(false);
     }
-  }, [fetchData, dateStart, dateEnd]);
+  }, [fetchData, appliedDateStart, appliedDateEnd]);
 
   useEffect(() => {
     if (!token) return;
-    const interval = setInterval(() => { fetchData(token, dateStart, dateEnd); }, 60000);
+    const interval = setInterval(() => { fetchData(token, appliedDateStart, appliedDateEnd); }, 60000);
     return () => clearInterval(interval);
-  }, [token, fetchData, dateStart, dateEnd]);
+  }, [token, fetchData, appliedDateStart, appliedDateEnd]);
 
   if (!token) {
     if (loading) return <LoadingSpinner />;
@@ -884,7 +958,7 @@ export default function AdminPage() {
           </div>
           <div className="flex items-center gap-3">
             <span className="text-xs text-gray-400">每 60 秒自动刷新</span>
-            <button onClick={() => { setLoading(true); fetchData(token, dateStart, dateEnd).finally(() => setLoading(false)); }}
+            <button onClick={() => { setLoading(true); fetchData(token, appliedDateStart, appliedDateEnd).finally(() => setLoading(false)); }}
               disabled={loading}
               className="rounded-lg bg-blue-600 px-3 py-1.5 text-sm font-medium text-white transition hover:bg-blue-700 disabled:opacity-50">
               {loading ? "刷新中..." : "刷新"}
@@ -894,7 +968,13 @@ export default function AdminPage() {
       </header>
 
       <main className="mx-auto max-w-6xl px-4 py-8">
-        <TimeFilterBar dateStart={dateStart} dateEnd={dateEnd} onDateChange={handleDateChange} />
+        <TimeFilterBar
+          dateStart={dateStart}
+          dateEnd={dateEnd}
+          loading={loading}
+          onDateChange={handleDateChange}
+          onApply={handleDateApply}
+        />
 
         {error && <div className="mb-4 rounded-lg bg-red-50 px-4 py-3 text-sm text-red-600">{error}</div>}
         {data ? <Dashboard data={data} token={token} onViewVisitor={setSelectedVisitor} lang={lang} onLangChange={setLang} /> : <LoadingSpinner />}

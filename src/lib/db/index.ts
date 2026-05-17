@@ -389,7 +389,41 @@ export async function logDownload(params: DownloadLogParams): Promise<boolean> {
   return true;
 }
 
-export async function getVisitorStats(): Promise<{ total: number }> {
+function dateRangeParams(startDate?: string, endDate?: string): [string, string] {
+  return [
+    startDate || "2000-01-01",
+    endDate || "2099-12-31",
+  ];
+}
+
+const dateRangeSql = (column: string) =>
+  `${column} >= $1::date AND ${column} < ($2::date + INTERVAL '1 day')`;
+
+export async function getVisitorStats(startDate?: string, endDate?: string): Promise<{ total: number }> {
+  if (!startDate && !endDate) {
+    const result = await sql<{ total: number }>`SELECT COUNT(*)::int as total FROM visitors`;
+    return { total: result.rows[0]?.total ?? 0 };
+  }
+
+  const rows = await sqlRaw<{ total: number }>(
+    `SELECT COUNT(*)::int as total
+     FROM visitors v
+     WHERE ${dateRangeSql("v.first_visit")}
+        OR ${dateRangeSql("v.last_visit")}
+        OR EXISTS (
+          SELECT 1 FROM search_logs s
+          WHERE s.visitor_id = v.visitor_id AND ${dateRangeSql("s.timestamp")}
+        )
+        OR EXISTS (
+          SELECT 1 FROM download_logs d
+          WHERE d.visitor_id = v.visitor_id AND ${dateRangeSql("d.timestamp")}
+        )`,
+    dateRangeParams(startDate, endDate)
+  );
+  return { total: rows[0]?.total ?? 0 };
+}
+
+export async function getAllVisitorStats(): Promise<{ total: number }> {
   const result = await sql<{ total: number }>`SELECT COUNT(*)::int as total FROM visitors`;
   return { total: result.rows[0]?.total ?? 0 };
 }
@@ -400,8 +434,8 @@ export async function getTotalSearches(startDate?: string, endDate?: string): Pr
     return result.rows[0]?.total ?? 0;
   }
   const rows = await sqlRaw<{ total: number }>(
-    "SELECT COUNT(*)::int as total FROM search_logs WHERE timestamp >= $1 AND timestamp < $2",
-    [startDate ? `${startDate} 00:00:00` : "2000-01-01", endDate ? `${endDate} 23:59:59` : "2099-12-31"]
+    `SELECT COUNT(*)::int as total FROM search_logs WHERE ${dateRangeSql("timestamp")}`,
+    dateRangeParams(startDate, endDate)
   );
   return rows[0]?.total ?? 0;
 }
@@ -412,8 +446,8 @@ export async function getTotalDownloads(startDate?: string, endDate?: string): P
     return result.rows[0]?.total ?? 0;
   }
   const rows = await sqlRaw<{ total: number }>(
-    "SELECT COUNT(*)::int as total FROM download_logs WHERE timestamp >= $1 AND timestamp < $2",
-    [startDate ? `${startDate} 00:00:00` : "2000-01-01", endDate ? `${endDate} 23:59:59` : "2099-12-31"]
+    `SELECT COUNT(*)::int as total FROM download_logs WHERE ${dateRangeSql("timestamp")}`,
+    dateRangeParams(startDate, endDate)
   );
   return rows[0]?.total ?? 0;
 }
@@ -429,9 +463,9 @@ export async function getSearchStats(limit = 20, startDate?: string, endDate?: s
   }
   return await sqlRaw<SearchStat>(
     `SELECT app_id, app_title, COUNT(*)::int as count FROM search_logs 
-     WHERE app_id != '' AND timestamp >= $1 AND timestamp < $2
+     WHERE app_id != '' AND ${dateRangeSql("timestamp")}
      GROUP BY app_id, app_title ORDER BY count DESC LIMIT $3`,
-    [startDate ? `${startDate} 00:00:00` : "2000-01-01", endDate ? `${endDate} 23:59:59` : "2099-12-31", limit]
+    [...dateRangeParams(startDate, endDate), limit]
   );
 }
 
@@ -446,17 +480,18 @@ export async function getDownloadStats(limit = 20, startDate?: string, endDate?:
   }
   return await sqlRaw<DownloadStat>(
     `SELECT app_id, app_title, COUNT(*)::int as count FROM download_logs 
-     WHERE app_id != '' AND timestamp >= $1 AND timestamp < $2
+     WHERE app_id != '' AND ${dateRangeSql("timestamp")}
      GROUP BY app_id, app_title ORDER BY count DESC LIMIT $3`,
-    [startDate ? `${startDate} 00:00:00` : "2000-01-01", endDate ? `${endDate} 23:59:59` : "2099-12-31", limit]
+    [...dateRangeParams(startDate, endDate), limit]
   );
 }
 
 export async function getRecentActivity(limit = 50, startDate?: string, endDate?: string): Promise<ActivityItem[]> {
   const timeClause = (prefix: string) => {
     if (!startDate && !endDate) return "";
-    return `WHERE ${prefix}.timestamp >= '${startDate || "2000-01-01"} 00:00:00' AND ${prefix}.timestamp < '${endDate || "2099-12-31"} 23:59:59'`;
+    return `WHERE ${dateRangeSql(`${prefix}.timestamp`)}`;
   };
+  const params = startDate || endDate ? dateRangeParams(startDate, endDate) : [];
 
   const [searches, downloads] = await Promise.all([
     sqlRaw<{ type: "search"; visitor_id: string; app_id: string; app_title: string; query: string; timestamp: string;
@@ -468,8 +503,8 @@ export async function getRecentActivity(limit = 50, startDate?: string, endDate?
        FROM search_logs s
        LEFT JOIN visitors v ON v.visitor_id = s.visitor_id
        ${timeClause("s")}
-       ORDER BY s.timestamp DESC LIMIT $1`,
-      [limit]
+       ORDER BY s.timestamp DESC LIMIT ${startDate || endDate ? "$3" : "$1"}`,
+      startDate || endDate ? [...params, limit] : [limit]
     ),
     sqlRaw<{ type: "download"; visitor_id: string; app_id: string; app_title: string; file_size: string; version: string; download_success: boolean; timestamp: string;
       ip_country: string; ip_city: string; device_brand: string; device_os: string; device_browser: string; is_mobile: boolean }>(
@@ -482,8 +517,8 @@ export async function getRecentActivity(limit = 50, startDate?: string, endDate?
        FROM download_logs d
        LEFT JOIN visitors v ON v.visitor_id = d.visitor_id
        ${timeClause("d")}
-       ORDER BY d.timestamp DESC LIMIT $1`,
-      [limit]
+       ORDER BY d.timestamp DESC LIMIT ${startDate || endDate ? "$3" : "$1"}`,
+      startDate || endDate ? [...params, limit] : [limit]
     ),
   ]);
 
@@ -545,10 +580,24 @@ export async function getVisitorList(startDate?: string, endDate?: string): Prom
             v.device_brand, v.device_model, v.device_os, v.device_browser, v.is_mobile,
             COALESCE(s.cnt, 0)::int as search_count, COALESCE(d.cnt, 0)::int as download_count
      FROM visitors v
-     LEFT JOIN (SELECT visitor_id, COUNT(*)::int as cnt FROM search_logs WHERE timestamp >= $1 AND timestamp < $2 GROUP BY visitor_id) s ON s.visitor_id = v.visitor_id
-     LEFT JOIN (SELECT visitor_id, COUNT(*)::int as cnt FROM download_logs WHERE timestamp >= $1 AND timestamp < $2 GROUP BY visitor_id) d ON d.visitor_id = v.visitor_id
+     LEFT JOIN (
+       SELECT visitor_id, COUNT(*)::int as cnt
+       FROM search_logs
+       WHERE ${dateRangeSql("timestamp")}
+       GROUP BY visitor_id
+     ) s ON s.visitor_id = v.visitor_id
+     LEFT JOIN (
+       SELECT visitor_id, COUNT(*)::int as cnt
+       FROM download_logs
+       WHERE ${dateRangeSql("timestamp")}
+       GROUP BY visitor_id
+     ) d ON d.visitor_id = v.visitor_id
+     WHERE ${dateRangeSql("v.first_visit")}
+        OR ${dateRangeSql("v.last_visit")}
+        OR s.visitor_id IS NOT NULL
+        OR d.visitor_id IS NOT NULL
      ORDER BY v.last_visit DESC LIMIT 100`,
-    [startDate ? `${startDate} 00:00:00` : "2000-01-01", endDate ? `${endDate} 23:59:59` : "2099-12-31"]
+    dateRangeParams(startDate, endDate)
   );
 }
 
