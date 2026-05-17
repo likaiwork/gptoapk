@@ -669,7 +669,7 @@ function Dashboard({ data, onViewVisitor, lang, onLangChange }: { data: AdminDat
                 <tr key={v.visitor_id}
                   className="cursor-pointer transition hover:bg-blue-50"
                   onClick={() => onViewVisitor(v)}>
-                  <td className="px-3 py-3 text-sm text-gray-400">{visitorPage * VISITORS_PER_PAGE + i + 1}</td>
+                  <td className="px-3 py-3 text-sm text-gray-400">{currentVisitorPage * VISITORS_PER_PAGE + i + 1}</td>
                   <td className="px-3 py-3">
                     <div className="flex items-center gap-2">
                       <VisitorAvatar visitorId={v.visitor_id} title={v.visitor_id} />
@@ -708,10 +708,10 @@ function Dashboard({ data, onViewVisitor, lang, onLangChange }: { data: AdminDat
           <div className="flex items-center justify-between border-t border-gray-100 px-4 py-2">
             <span className="text-xs text-gray-400">共 {data.visitor_list.length} 个访客用户 · 点击可查看详情</span>
             <div className="flex items-center gap-2">
-              <button onClick={() => setVisitorPage(p => Math.max(0, p - 1))} disabled={visitorPage === 0}
+              <button onClick={() => setVisitorPage(p => Math.max(0, p - 1))} disabled={currentVisitorPage === 0}
                 className="rounded px-2 py-1 text-xs text-gray-500 hover:bg-gray-100 disabled:opacity-30 disabled:cursor-not-allowed">上一页</button>
-              <span className="text-xs text-gray-500">{visitorPage + 1} / {Math.ceil(data.visitor_list.length / VISITORS_PER_PAGE) || 1}</span>
-              <button onClick={() => setVisitorPage(p => Math.min(maxVisitorPage, p + 1))} disabled={visitorPage >= maxVisitorPage}
+              <span className="text-xs text-gray-500">{currentVisitorPage + 1} / {Math.ceil(data.visitor_list.length / VISITORS_PER_PAGE) || 1}</span>
+              <button onClick={() => setVisitorPage(p => Math.min(maxVisitorPage, p + 1))} disabled={currentVisitorPage >= maxVisitorPage}
                 className="rounded px-2 py-1 text-xs text-gray-500 hover:bg-gray-100 disabled:opacity-30 disabled:cursor-not-allowed">下一页</button>
             </div>
           </div>
@@ -734,7 +734,7 @@ function Dashboard({ data, onViewVisitor, lang, onLangChange }: { data: AdminDat
               {paginatedSearchList.length === 0 && <tr><td colSpan={3} className="px-4 py-8 text-center text-sm text-gray-400">暂无数据</td></tr>}
               {paginatedSearchList.map((item, i) => (
                 <tr key={item.app_id} className="hover:bg-gray-50">
-                  <td className="px-4 py-3 text-sm text-gray-400">{searchTopPage * VISITORS_PER_PAGE + i + 1}</td>
+                  <td className="px-4 py-3 text-sm text-gray-400">{currentSearchTopPage * VISITORS_PER_PAGE + i + 1}</td>
                   <td className="px-4 py-3 text-sm font-medium text-gray-900">{item.app_title || item.app_id}</td>
                   <td className="px-4 py-3 text-right text-sm font-semibold text-gray-900">{item.count}</td>
                 </tr>
@@ -744,10 +744,10 @@ function Dashboard({ data, onViewVisitor, lang, onLangChange }: { data: AdminDat
           <div className="flex items-center justify-between border-t border-gray-100 px-4 py-2">
             <span className="text-xs text-gray-400">共 {data.top_searches.length} 条</span>
             <div className="flex items-center gap-2">
-              <button onClick={() => setSearchTopPage(p => Math.max(0, p - 1))} disabled={searchTopPage === 0}
+              <button onClick={() => setSearchTopPage(p => Math.max(0, p - 1))} disabled={currentSearchTopPage === 0}
                 className="rounded px-2 py-1 text-xs text-gray-500 hover:bg-gray-100 disabled:opacity-30 disabled:cursor-not-allowed">上一页</button>
-              <span className="text-xs text-gray-500">{searchTopPage + 1} / {Math.ceil(data.top_searches.length / VISITORS_PER_PAGE) || 1}</span>
-              <button onClick={() => setSearchTopPage(p => Math.min(maxSearchPage, p + 1))} disabled={searchTopPage >= maxSearchPage}
+              <span className="text-xs text-gray-500">{currentSearchTopPage + 1} / {Math.ceil(data.top_searches.length / VISITORS_PER_PAGE) || 1}</span>
+              <button onClick={() => setSearchTopPage(p => Math.min(maxSearchPage, p + 1))} disabled={currentSearchTopPage >= maxSearchPage}
                 className="rounded px-2 py-1 text-xs text-gray-500 hover:bg-gray-100 disabled:opacity-30 disabled:cursor-not-allowed">下一页</button>
             </div>
           </div>
@@ -770,7 +770,7 @@ function Dashboard({ data, onViewVisitor, lang, onLangChange }: { data: AdminDat
               {paginatedDownloadList.length === 0 && <tr><td colSpan={3} className="px-4 py-8 text-center text-sm text-gray-400">暂无数据</td></tr>}
               {paginatedDownloadList.map((item, i) => (
                 <tr key={item.app_id} className="hover:bg-gray-50">
-                  <td className="px-4 py-3 text-sm text-gray-400">{downloadTopPage * VISITORS_PER_PAGE + i + 1}</td>
+                  <td className="px-4 py-3 text-sm text-gray-400">{currentDownloadTopPage * VISITORS_PER_PAGE + i + 1}</td>
                   <td className="px-4 py-3 text-sm font-medium text-gray-900">{item.app_title || item.app_id}</td>
                   <td className="px-4 py-3 text-right text-sm font-semibold text-gray-900">{item.count}</td>
                 </tr>
@@ -780,10 +780,10 @@ function Dashboard({ data, onViewVisitor, lang, onLangChange }: { data: AdminDat
           <div className="flex items-center justify-between border-t border-gray-100 px-4 py-2">
             <span className="text-xs text-gray-400">共 {data.top_downloads.length} 条</span>
             <div className="flex items-center gap-2">
-              <button onClick={() => setDownloadTopPage(p => Math.max(0, p - 1))} disabled={downloadTopPage === 0}
+              <button onClick={() => setDownloadTopPage(p => Math.max(0, p - 1))} disabled={currentDownloadTopPage === 0}
                 className="rounded px-2 py-1 text-xs text-gray-500 hover:bg-gray-100 disabled:opacity-30 disabled:cursor-not-allowed">上一页</button>
-              <span className="text-xs text-gray-500">{downloadTopPage + 1} / {Math.ceil(data.top_downloads.length / VISITORS_PER_PAGE) || 1}</span>
-              <button onClick={() => setDownloadTopPage(p => Math.min(maxDownloadPage, p + 1))} disabled={downloadTopPage >= maxDownloadPage}
+              <span className="text-xs text-gray-500">{currentDownloadTopPage + 1} / {Math.ceil(data.top_downloads.length / VISITORS_PER_PAGE) || 1}</span>
+              <button onClick={() => setDownloadTopPage(p => Math.min(maxDownloadPage, p + 1))} disabled={currentDownloadTopPage >= maxDownloadPage}
                 className="rounded px-2 py-1 text-xs text-gray-500 hover:bg-gray-100 disabled:opacity-30 disabled:cursor-not-allowed">下一页</button>
             </div>
           </div>
@@ -849,10 +849,10 @@ function Dashboard({ data, onViewVisitor, lang, onLangChange }: { data: AdminDat
           <div className="flex items-center justify-between border-t border-gray-100 px-4 py-2">
             <span className="text-xs text-gray-400">共 {data.recent_activity.length} 条</span>
             <div className="flex items-center gap-2">
-              <button onClick={() => setActivityPage(p => Math.max(0, p - 1))} disabled={activityPage === 0}
+              <button onClick={() => setActivityPage(p => Math.max(0, p - 1))} disabled={currentActivityPage === 0}
                 className="rounded px-2 py-1 text-xs text-gray-500 hover:bg-gray-100 disabled:opacity-30 disabled:cursor-not-allowed">上一页</button>
-              <span className="text-xs text-gray-500">{activityPage + 1} / {Math.ceil(data.recent_activity.length / VISITORS_PER_PAGE) || 1}</span>
-              <button onClick={() => setActivityPage(p => Math.min(maxActivityPage, p + 1))} disabled={activityPage >= maxActivityPage}
+              <span className="text-xs text-gray-500">{currentActivityPage + 1} / {Math.ceil(data.recent_activity.length / VISITORS_PER_PAGE) || 1}</span>
+              <button onClick={() => setActivityPage(p => Math.min(maxActivityPage, p + 1))} disabled={currentActivityPage >= maxActivityPage}
                 className="rounded px-2 py-1 text-xs text-gray-500 hover:bg-gray-100 disabled:opacity-30 disabled:cursor-not-allowed">下一页</button>
             </div>
           </div>
@@ -929,12 +929,14 @@ export default function AdminPage() {
 
     const match = document.cookie.match(/(?:^|;\s*)admin_token=([^;]*)/);
     const cookieToken = match ? decodeURIComponent(match[1]) : null;
-    if (cookieToken) {
-      setToken(cookieToken);
-      fetchData(cookieToken, appliedDateStart, appliedDateEnd).finally(() => setLoading(false));
-    } else {
-      setLoading(false);
-    }
+    Promise.resolve().then(() => {
+      if (cookieToken) {
+        setToken(cookieToken);
+        fetchData(cookieToken, appliedDateStart, appliedDateEnd).finally(() => setLoading(false));
+      } else {
+        setLoading(false);
+      }
+    });
   }, [fetchData, appliedDateStart, appliedDateEnd]);
 
   useEffect(() => {
@@ -977,7 +979,7 @@ export default function AdminPage() {
         />
 
         {error && <div className="mb-4 rounded-lg bg-red-50 px-4 py-3 text-sm text-red-600">{error}</div>}
-        {data ? <Dashboard data={data} token={token} onViewVisitor={setSelectedVisitor} lang={lang} onLangChange={setLang} /> : <LoadingSpinner />}
+        {data ? <Dashboard data={data} onViewVisitor={setSelectedVisitor} lang={lang} onLangChange={setLang} /> : <LoadingSpinner />}
       </main>
 
       {selectedVisitor && (
