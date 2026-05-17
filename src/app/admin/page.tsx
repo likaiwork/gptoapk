@@ -182,11 +182,15 @@ function displayCountry(code: string, lang: "zh" | "en"): string {
 
 function displayCity(city: string, lang: "zh" | "en"): string {
   if (!city) return "";
-  if (lang === "en") return city;
-  const zh = CITY_NAMES_ZH[city];
+  let normalizedCity = city;
+  try {
+    normalizedCity = decodeURIComponent(city.replace(/\+/g, "%20"));
+  } catch {}
+  if (lang === "en") return normalizedCity;
+  const zh = CITY_NAMES_ZH[normalizedCity];
   if (zh) return zh;
   // 未匹配到的城市名保留英文
-  return city;
+  return normalizedCity;
 }
 
 function displayLocation(country: string, city: string, lang: "zh" | "en"): string {
@@ -252,8 +256,12 @@ interface VisitorDetailLog {
 
 interface AdminData {
   visitors: number;
+  total_users: number;
+  today_new_users: number;
   total_searches: number;
   total_downloads: number;
+  all_downloads: number;
+  today_downloads: number;
   top_searches: SearchStat[];
   top_downloads: DownloadStat[];
   recent_activity: ActivityItem[];
@@ -295,6 +303,15 @@ function StatCard({ label, value, color }: { label: string; value: number; color
       <p className="text-sm font-medium text-gray-500">{label}</p>
       <p className="mt-1 text-3xl font-bold">{value.toLocaleString()}</p>
     </div>
+  );
+}
+
+function MetricPill({ label, value }: { label: string; value: number }) {
+  return (
+    <span className="inline-flex items-center gap-1 rounded-lg border border-gray-200 bg-white px-2.5 py-1 text-xs text-gray-500 shadow-sm">
+      <span>{label}</span>
+      <span className="font-semibold text-gray-900">{value.toLocaleString()}</span>
+    </span>
   );
 }
 
@@ -639,8 +656,12 @@ function Dashboard({ data, onViewVisitor, lang, onLangChange }: { data: AdminDat
       {/* Visitor List */}
       <div>
         <div className="mb-3 flex items-center justify-between">
-          <h2 className="text-lg font-semibold text-gray-900">👥 访客用户列表</h2>
-          <div className="flex items-center gap-1 rounded-lg border border-gray-200 bg-white p-0.5 text-xs">
+          <div className="flex flex-wrap items-center gap-2">
+            <h2 className="text-lg font-semibold text-gray-900">👥 访客用户列表</h2>
+            <MetricPill label="总用户" value={data.total_users} />
+            <MetricPill label="今天新增用户" value={data.today_new_users} />
+          </div>
+          <div className="flex shrink-0 items-center gap-1 rounded-lg border border-gray-200 bg-white p-0.5 text-xs">
             <button onClick={() => onLangChange("zh")}
               className={`rounded-md px-2.5 py-1 transition ${lang === "zh" ? "bg-blue-600 text-white shadow-sm" : "text-gray-500 hover:text-gray-800"}`}>中文</button>
             <button onClick={() => onLangChange("en")}
@@ -792,7 +813,11 @@ function Dashboard({ data, onViewVisitor, lang, onLangChange }: { data: AdminDat
 
       {/* Recent Activity */}
       <div>
-        <h2 className="mb-3 text-lg font-semibold text-gray-900">🕐 最近活动</h2>
+        <div className="mb-3 flex flex-wrap items-center gap-2">
+          <h2 className="text-lg font-semibold text-gray-900">🕐 最近活动</h2>
+          <MetricPill label="总下载次数" value={data.all_downloads} />
+          <MetricPill label="今天下载次数" value={data.today_downloads} />
+        </div>
         <div className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
           {paginatedActivityList.length === 0 ? (
             <div className="px-4 py-8 text-center text-sm text-gray-400">暂无活动记录</div>

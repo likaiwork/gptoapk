@@ -4,6 +4,23 @@ import {
   registerVisitor,
 } from "@/lib/db";
 
+function readHeader(request: NextRequest, names: string[]): string {
+  for (const name of names) {
+    const value = request.headers.get(name);
+    if (value) return value;
+  }
+  return "";
+}
+
+function decodeHeaderValue(value: string): string {
+  if (!value) return "";
+  try {
+    return decodeURIComponent(value.replace(/\+/g, "%20"));
+  } catch {
+    return value;
+  }
+}
+
 export async function GET(
   request: NextRequest
 ): Promise<NextResponse> {
@@ -20,9 +37,24 @@ export async function GET(
 
     // 收集设备/IP信息
     const userAgent = request.headers.get("user-agent") || "";
-    const ipCountry = request.headers.get("x-vercel-ip-country") || "";
-    const ipCity = request.headers.get("x-vercel-ip-city") || "";
-    const ipRegion = request.headers.get("x-vercel-ip-country-region") || "";
+    const ipCountry = readHeader(request, [
+      "x-vercel-ip-country",
+      "cf-ipcountry",
+      "x-country-code",
+      "x-geo-country",
+    ]).toUpperCase();
+    const ipCity = decodeHeaderValue(readHeader(request, [
+      "x-vercel-ip-city",
+      "cf-ipcity",
+      "x-city",
+      "x-geo-city",
+    ]));
+    const ipRegion = decodeHeaderValue(readHeader(request, [
+      "x-vercel-ip-country-region",
+      "cf-region",
+      "x-region",
+      "x-geo-region",
+    ]));
 
     const visitor = await registerVisitor(visitorId, {
       ip_country: ipCountry,

@@ -9,12 +9,19 @@ import {
   getRecentActivity,
   getAdminApiKey,
   getVisitorList,
+  getAllVisitorStats,
+  getTodayNewVisitors,
+  getTodayDownloads,
 } from "@/lib/db";
 
 export interface AdminResponse {
   visitors: number;
+  total_users: number;
+  today_new_users: number;
   total_searches: number;
   total_downloads: number;
+  all_downloads: number;
+  today_downloads: number;
   top_searches: SearchStat[];
   top_downloads: DownloadStat[];
   recent_activity: ActivityItem[];
@@ -95,11 +102,27 @@ export async function GET(
 
     await initDatabase();
 
-    const [visitors, totalSearches, totalDownloads, topSearches, topDownloads, recentActivity, visitorList] =
+    const [
+      visitors,
+      allVisitors,
+      todayNewUsers,
+      totalSearches,
+      totalDownloads,
+      allDownloads,
+      todayDownloads,
+      topSearches,
+      topDownloads,
+      recentActivity,
+      visitorList,
+    ] =
       await Promise.all([
         getVisitorStats(startDate, endDate),
+        getAllVisitorStats(),
+        getTodayNewVisitors(),
         getTotalSearches(startDate, endDate),
         getTotalDownloads(startDate, endDate),
+        getTotalDownloads(),
+        getTodayDownloads(),
         getSearchStats(20, startDate, endDate),
         getDownloadStats(20, startDate, endDate),
         getRecentActivity(50, startDate, endDate),
@@ -108,8 +131,12 @@ export async function GET(
 
     return NextResponse.json({
       visitors: visitors.total,
+      total_users: allVisitors.total,
+      today_new_users: todayNewUsers,
       total_searches: totalSearches,
       total_downloads: totalDownloads,
+      all_downloads: allDownloads,
+      today_downloads: todayDownloads,
       top_searches: topSearches,
       top_downloads: topDownloads,
       recent_activity: recentActivity,

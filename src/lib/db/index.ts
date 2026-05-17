@@ -330,8 +330,21 @@ export async function registerVisitor(
   `;
 
   if (existing.rows.length > 0) {
+    const uaInfo = parseUA(deviceInfo?.user_agent || "");
     await sql`
-      UPDATE visitors SET last_visit = NOW(), visit_count = visit_count + 1 WHERE visitor_id = ${visitorId}
+      UPDATE visitors SET
+        last_visit = NOW(),
+        visit_count = visit_count + 1,
+        ip_country = COALESCE(NULLIF(${deviceInfo?.ip_country || ""}, ''), ip_country),
+        ip_city = COALESCE(NULLIF(${deviceInfo?.ip_city || ""}, ''), ip_city),
+        ip_region = COALESCE(NULLIF(${deviceInfo?.ip_region || ""}, ''), ip_region),
+        user_agent = COALESCE(NULLIF(${deviceInfo?.user_agent || ""}, ''), user_agent),
+        device_brand = COALESCE(NULLIF(${uaInfo.brand}, ''), device_brand),
+        device_model = COALESCE(NULLIF(${uaInfo.model}, ''), device_model),
+        device_os = COALESCE(NULLIF(${uaInfo.os}, ''), device_os),
+        device_browser = COALESCE(NULLIF(${uaInfo.browser}, ''), device_browser),
+        is_mobile = CASE WHEN ${deviceInfo?.user_agent || ""} = '' THEN is_mobile ELSE ${uaInfo.isMobile} END
+      WHERE visitor_id = ${visitorId}
     `;
     const row = existing.rows[0];
     return {
@@ -396,8 +409,9 @@ function dateRangeParams(startDate?: string, endDate?: string): [string, string]
   ];
 }
 
+const REPORT_TIME_ZONE = "Asia/Shanghai";
 const dateRangeSql = (column: string) =>
-  `${column} >= $1::date AND ${column} < ($2::date + INTERVAL '1 day')`;
+  `(${column} AT TIME ZONE '${REPORT_TIME_ZONE}')::date >= $1::date AND (${column} AT TIME ZONE '${REPORT_TIME_ZONE}')::date <= $2::date`;
 
 export async function getVisitorStats(startDate?: string, endDate?: string): Promise<{ total: number }> {
   if (!startDate && !endDate) {
@@ -428,6 +442,15 @@ export async function getAllVisitorStats(): Promise<{ total: number }> {
   return { total: result.rows[0]?.total ?? 0 };
 }
 
+export async function getTodayNewVisitors(): Promise<number> {
+  const result = await sql<{ total: number }>`
+    SELECT COUNT(*)::int as total
+    FROM visitors
+    WHERE (first_visit AT TIME ZONE 'Asia/Shanghai')::date = (NOW() AT TIME ZONE 'Asia/Shanghai')::date
+  `;
+  return result.rows[0]?.total ?? 0;
+}
+
 export async function getTotalSearches(startDate?: string, endDate?: string): Promise<number> {
   if (!startDate && !endDate) {
     const result = await sql<{ total: number }>`SELECT COUNT(*)::int as total FROM search_logs`;
@@ -450,6 +473,15 @@ export async function getTotalDownloads(startDate?: string, endDate?: string): P
     dateRangeParams(startDate, endDate)
   );
   return rows[0]?.total ?? 0;
+}
+
+export async function getTodayDownloads(): Promise<number> {
+  const result = await sql<{ total: number }>`
+    SELECT COUNT(*)::int as total
+    FROM download_logs
+    WHERE (timestamp AT TIME ZONE 'Asia/Shanghai')::date = (NOW() AT TIME ZONE 'Asia/Shanghai')::date
+  `;
+  return result.rows[0]?.total ?? 0;
 }
 
 export async function getSearchStats(limit = 20, startDate?: string, endDate?: string): Promise<SearchStat[]> {
