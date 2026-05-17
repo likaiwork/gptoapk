@@ -23,9 +23,13 @@ export interface AdminResponse {
   all_downloads: number;
   today_downloads: number;
   top_searches: SearchStat[];
+  top_searches_total: number;
   top_downloads: DownloadStat[];
+  top_downloads_total: number;
   recent_activity: ActivityItem[];
+  recent_activity_total: number;
   visitor_list: VisitorInfo[];
+  visitor_list_total: number;
 }
 
 interface SearchStat {
@@ -100,6 +104,13 @@ export async function GET(
     }
     const { startDate, endDate } = range;
 
+    // 分页参数
+    const pageSize = Math.min(Math.max(parseInt(searchParams.get("pageSize") || "20") || 20, 5), 100);
+    const searchPage = Math.max(parseInt(searchParams.get("searchPage") || "0") || 0, 0);
+    const downloadPage = Math.max(parseInt(searchParams.get("downloadPage") || "0") || 0, 0);
+    const activityPage = Math.max(parseInt(searchParams.get("activityPage") || "0") || 0, 0);
+    const visitorPage = Math.max(parseInt(searchParams.get("visitorPage") || "0") || 0, 0);
+
     await initDatabase();
 
     const [
@@ -123,10 +134,10 @@ export async function GET(
         getTotalDownloads(startDate, endDate),
         getTotalDownloads(),
         getTodayDownloads(),
-        getSearchStats(20, startDate, endDate),
-        getDownloadStats(20, startDate, endDate),
-        getRecentActivity(50, startDate, endDate),
-        getVisitorList(startDate, endDate),
+        getSearchStats(pageSize, searchPage * pageSize, startDate, endDate),
+        getDownloadStats(pageSize, downloadPage * pageSize, startDate, endDate),
+        getRecentActivity(pageSize, activityPage * pageSize, startDate, endDate),
+        getVisitorList(pageSize, visitorPage * pageSize, startDate, endDate),
       ]);
 
     return NextResponse.json({
@@ -137,10 +148,14 @@ export async function GET(
       total_downloads: totalDownloads,
       all_downloads: allDownloads,
       today_downloads: todayDownloads,
-      top_searches: topSearches,
-      top_downloads: topDownloads,
-      recent_activity: recentActivity,
-      visitor_list: visitorList,
+      top_searches: topSearches.rows,
+      top_searches_total: topSearches.total,
+      top_downloads: topDownloads.rows,
+      top_downloads_total: topDownloads.total,
+      recent_activity: recentActivity.rows,
+      recent_activity_total: recentActivity.total,
+      visitor_list: visitorList.rows,
+      visitor_list_total: visitorList.total,
     });
   } catch (error) {
     console.error("[API admin] Error:", error);
