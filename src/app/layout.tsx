@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     google: undefined,
     yandex: undefined,
     other: {
-      "google-adsense-account": "ca-pub-2144172051563531",
+      "google-adsense-account": "ca-pub-7016978419299209",
       msvalidate: BING_VERIFICATION,
     },
   },
@@ -158,7 +158,7 @@ export default async function RootLayout({
     <html lang={htmlLang} dir={htmlDir} className="h-full antialiased">
       <head>
         {/* Google AdSense */}
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2144172051563531" crossOrigin="anonymous"></script>
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7016978419299209" crossOrigin="anonymous"></script>
 
         {/* Hreflang tags for all 33 languages */}
         {HREFLANG_LOCALES.map((locale) => (
