@@ -505,9 +505,15 @@ export async function getSearchStats(
   );
 
   const rows = await sqlRaw<SearchStat>(
-    `SELECT app_id, app_title, COUNT(*)::int as count FROM search_logs
+    `SELECT
+       app_id,
+       COALESCE((array_agg(app_title ORDER BY timestamp DESC) FILTER (WHERE app_title != ''))[1], app_id) as app_title,
+       COUNT(*)::int as count
+     FROM search_logs
      ${whereClause}
-     GROUP BY app_id, app_title ORDER BY count DESC LIMIT $${params.length - 1} OFFSET $${params.length}`,
+     GROUP BY app_id
+     ORDER BY count DESC, app_title ASC, app_id ASC
+     LIMIT $${params.length - 1} OFFSET $${params.length}`,
     params
   );
 

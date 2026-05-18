@@ -4,6 +4,17 @@ import {
   registerVisitor,
 } from "@/lib/db";
 
+type GeoInfo = { country: string; city: string; region: string };
+
+type IpApiResponse = {
+  status?: string;
+  countryCode?: string;
+  regionName?: string;
+  city?: string;
+  proxy?: boolean;
+  hosting?: boolean;
+};
+
 function readHeader(request: NextRequest, names: string[]): string {
   for (const name of names) {
     const value = request.headers.get(name);
@@ -21,49 +32,117 @@ function decodeHeaderValue(value: string): string {
   }
 }
 
-/** 获取客户端真实 IP */
-function getClientIP(request: NextRequest): string {
-  // 按优先级获取：CF → X-Forwarded-For → X-Real-IP
-  const cf = request.headers.get("cf-connecting-ip");
-  if (cf) return cf;
-  
-  const forwarded = request.headers.get("x-forwarded-for");
-  if (forwarded) {
-    // 取第一个（最原始的客户端IP）
-    const ips = forwarded.split(",").map(i => i.trim());
-    return ips[0];
+function stripPort(value: string): string {
+  if (!value) return "";
+  const trimmed = value.trim().replace(/^"|"$/g, "");
+  if (trimmed.startsWith("[")) {
+    const end = trimmed.indexOf("]");
+    return end > 0 ? trimmed.slice(1, end) : trimmed;
   }
-  
-  const realIP = request.headers.get("x-real-ip");
-  if (realIP) return realIP;
-  
+  const colonCount = (trimmed.match(/:/g) || []).length;
+  if (colonCount === 1) return trimmed.split(":")[0];
+  return trimmed;
+}
+
+function isPrivateOrReservedIP(ip: string): boolean {
+  const normalized = ip.replace(/^::ffff:/i, "");
+  if (
+    normalized === "127.0.0.1" ||
+    normalized === "0.0.0.0" ||
+    normalized === "::1" ||
+    normalized.startsWith("10.") ||
+    normalized.startsWith("192.168.") ||
+    normalized.startsWith("169.254.") ||
+    normalized.startsWith("100.64.") ||
+    normalized.toLowerCase().startsWith("fc") ||
+    normalized.toLowerCase().startsWith("fd") ||
+    normalized.toLowerCase().startsWith("fe80:")
+  ) {
+    return true;
+  }
+
+  const parts = normalized.split(".");
+  if (parts.length === 4) {
+    const first = Number(parts[0]);
+    const second = Number(parts[1]);
+    return first === 172 && second >= 16 && second <= 31;
+  }
+
+  return false;
+}
+
+function isUsableIP(value: string): boolean {
+  const ip = stripPort(value);
+  if (!ip || isPrivateOrReservedIP(ip)) return false;
+  return /^[0-9a-f:.]+$/i.test(ip);
+}
+
+function getForwardedFor(request: NextRequest): string {
+  const forwardedHeader = request.headers.get("forwarded");
+  if (!forwardedHeader) return "";
+
+  for (const part of forwardedHeader.split(",")) {
+    const match = part.match(/(?:^|;)\s*for=([^;]+)/i);
+    if (match && isUsableIP(match[1])) return stripPort(match[1]);
+  }
+
   return "";
 }
 
-/** 用免费 API 查询 IP 地理位置（后备方案） */
-let geoLookupCache = new Map<string, { country: string; city: string; region: string }>();
+function getXForwardedFor(request: NextRequest): string {
+  const forwarded = request.headers.get("x-forwarded-for");
+  if (!forwarded) return "";
 
-async function geoLookupFallback(ip: string): Promise<{ country: string; city: string; region: string } | null> {
-  if (!ip || ip === "127.0.0.1" || ip === "::1" || ip.startsWith("192.168.") || ip.startsWith("10.") || ip.startsWith("172.16.")) return null;
+  for (const ip of forwarded.split(",")) {
+    if (isUsableIP(ip)) return stripPort(ip);
+  }
+
+  return "";
+}
+
+/** 获取客户端真实 IP，优先使用 CDN 传递的访客 IP，最后才看通用代理头。 */
+function getClientIP(request: NextRequest): string {
+  const directHeaderIP = readHeader(request, [
+    "true-client-ip",
+    "cf-connecting-ip",
+    "cf-connecting-ipv6",
+    "fastly-client-ip",
+    "x-client-ip",
+    "x-real-ip",
+  ]);
+  if (isUsableIP(directHeaderIP)) return stripPort(directHeaderIP);
+
+  return getForwardedFor(request) || getXForwardedFor(request);
+}
+
+/** 用免费 API 查询 IP 地理位置（后备方案） */
+const geoLookupCache = new Map<string, GeoInfo>();
+
+async function geoLookupFallback(ip: string): Promise<GeoInfo | null> {
+  const lookupIP = stripPort(ip);
+  if (!isUsableIP(lookupIP)) return null;
   
-  const cached = geoLookupCache.get(ip);
+  const cached = geoLookupCache.get(lookupIP);
   if (cached) return cached;
   
   try {
     // 使用 ip-api.com 免费接口（限速45次/分钟，够了）
-    const resp = await fetch(`http://ip-api.com/json/${ip}?fields=status,country,regionName,city,countryCode`, {
+    const resp = await fetch(`http://ip-api.com/json/${lookupIP}?fields=status,country,regionName,city,countryCode,proxy,hosting`, {
       signal: AbortSignal.timeout(3000),
     });
     if (!resp.ok) return null;
-    const data = await resp.json();
+    const data = (await resp.json()) as IpApiResponse;
     if (data.status !== "success") return null;
+    if (data.proxy || data.hosting) return null;
     
     const result = {
       country: data.countryCode || "",
       city: data.city || "",
       region: data.regionName || "",
     };
-    geoLookupCache.set(ip, result);
+    if (!result.country && !result.city && !result.region) return null;
+
+    geoLookupCache.set(lookupIP, result);
     // 缓存最多200条
     if (geoLookupCache.size > 200) {
       const firstKey = geoLookupCache.keys().next().value;
@@ -91,35 +170,48 @@ export async function GET(
 
     // 收集设备/IP信息
     const userAgent = request.headers.get("user-agent") || "";
-    let ipCountry = readHeader(request, [
-      "x-vercel-ip-country",
+
+    const cfCountry = readHeader(request, [
       "cf-ipcountry",
+      "cf-ip-country",
+    ]);
+    const cfCity = decodeHeaderValue(readHeader(request, [
+      "cf-ipcity",
+      "cf-ip-city",
+    ]));
+    const cfRegion = decodeHeaderValue(readHeader(request, [
+      "cf-region",
+      "cf-ipregion",
+      "cf-ip-region",
+    ]));
+    const vercelCountry = readHeader(request, [
+      "x-vercel-ip-country",
       "x-country-code",
       "x-geo-country",
-    ]).toUpperCase();
-    let ipCity = decodeHeaderValue(readHeader(request, [
+    ]);
+    const vercelCity = decodeHeaderValue(readHeader(request, [
       "x-vercel-ip-city",
-      "cf-ipcity",
       "x-city",
       "x-geo-city",
     ]));
-    let ipRegion = decodeHeaderValue(readHeader(request, [
+    const vercelRegion = decodeHeaderValue(readHeader(request, [
       "x-vercel-ip-country-region",
-      "cf-region",
       "x-region",
       "x-geo-region",
     ]));
 
-    // 如果 CDN header 没提供地域信息，用后备 geo lookup
-    if (!ipCountry) {
-      const clientIP = getClientIP(request);
-      if (clientIP) {
-        const geo = await geoLookupFallback(clientIP);
-        if (geo) {
-          ipCountry = geo.country.toUpperCase();
-          ipCity = ipCity || geo.city;
-          ipRegion = ipRegion || geo.region;
-        }
+    let ipCountry = (cfCountry || vercelCountry).toUpperCase();
+    let ipCity = cfCity || vercelCity;
+    let ipRegion = cfRegion || vercelRegion;
+
+    // 如果部署平台只给了边缘节点位置，使用真实访客 IP 做后备校正。
+    const clientIP = getClientIP(request);
+    if (clientIP && (!cfCountry || !ipCity || !ipRegion)) {
+      const geo = await geoLookupFallback(clientIP);
+      if (geo) {
+        ipCountry = (geo.country || ipCountry).toUpperCase();
+        ipCity = geo.city || ipCity;
+        ipRegion = geo.region || ipRegion;
       }
     }
 
