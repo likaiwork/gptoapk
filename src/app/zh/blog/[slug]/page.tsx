@@ -15,6 +15,121 @@ interface BlogPost {
 
 const zhPosts: BlogPost[] = [
   {
+    slug: "apk-signature-verification-security-guide",
+    title: "APK签名验证与安全检查完整指南 — 2026最新防篡改方案",
+    description: "学习如何验证APK文件的数字签名，检查APK是否被篡改。覆盖jarsigner、apksigner、在线工具和命令行多种验证方式，保障你的下载安全。",
+    date: "2026-05-18",
+    readTime: "9 分钟阅读",
+    tags: ["APK签名", "APK安全", "签名验证", "gptoapk"],
+    content: (
+      <>
+        <p className="lead">
+        当你从第三方网站下载 APK 文件时，最大的风险不是版本不对，而是 APK 被人动了手脚。一个被篡改的 APK 可能被植入了木马、广告插件、甚至窃取短信验证码的后门。而防止这类攻击的第一道防线，就是 <strong>APK 签名验证</strong>。本文将详细介绍 APK 签名的原理、验证方法，以及 2026 年最新的安全最佳实践。
+        </p>
+
+        <h2>什么是 APK 签名？</h2>
+        <p>APK 签名是一个数字签名过程。开发者使用私钥对 APK 签名，系统或用户用对应的公钥验证签名。</p>
+        <ul>
+          <li><strong>身份验证：</strong>确认 APK 来自声称的开发者</li>
+          <li><strong>完整性校验：</strong>确保 APK 没有被篡改</li>
+          <li><strong>更新连续性：</strong>确保更新来自同一开发者</li>
+        </ul>
+
+        <h2>APK 签名方案演进</h2>
+        <div className="overflow-x-auto my-6">
+          <table className="w-full border-collapse">
+            <thead>
+              <tr className="bg-gray-100 dark:bg-gray-800">
+                <th className="p-3 text-left border border-gray-200 dark:border-gray-700">方案</th>
+                <th className="p-3 text-left border border-gray-200 dark:border-gray-700">最低版本</th>
+                <th className="p-3 text-left border border-gray-200 dark:border-gray-700">特点</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr className="border-b border-gray-200 dark:border-gray-700">
+                <td className="p-3 border border-gray-200 dark:border-gray-700 font-medium">V1 (JAR)</td>
+                <td className="p-3 border border-gray-200 dark:border-gray-700">Android 1.0+</td>
+                <td className="p-3 border border-gray-200 dark:border-gray-700">不验证完整 ZIP 文件</td>
+              </tr>
+              <tr className="bg-gray-50 dark:bg-gray-800/50 border-b border-gray-200 dark:border-gray-700">
+                <td className="p-3 border border-gray-200 dark:border-gray-700 font-medium">V2</td>
+                <td className="p-3 border border-gray-200 dark:border-gray-700">Android 7.0+</td>
+                <td className="p-3 border border-gray-200 dark:border-gray-700">签名整个 APK 二进制内容</td>
+              </tr>
+              <tr className="border-b border-gray-200 dark:border-gray-700">
+                <td className="p-3 border border-gray-200 dark:border-gray-700 font-medium">V3</td>
+                <td className="p-3 border border-gray-200 dark:border-gray-700">Android 9.0+</td>
+                <td className="p-3 border border-gray-200 dark:border-gray-700">支持密钥轮换</td>
+              </tr>
+              <tr className="bg-gray-50 dark:bg-gray-800/50 border-b border-gray-200 dark:border-gray-700">
+                <td className="p-3 border border-gray-200 dark:border-gray-700 font-medium">V4</td>
+                <td className="p-3 border border-gray-200 dark:border-gray-700">Android 11+</td>
+                <td className="p-3 border border-gray-200 dark:border-gray-700">增量更新</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2>验证 APK 签名的四种方法</h2>
+
+        <h3>方法一：使用 jarsigner</h3>
+        <pre><code>{`jarsigner -verify -verbose -certs your-app.apk`}</code></pre>
+        <p>输出 <code>jar verified.</code> 表示签名有效。</p>
+
+        <h3>方法二：使用 apksigner</h3>
+        <pre><code>{`apksigner verify --verbose your-app.apk`}</code></pre>
+        <p>Android SDK Build Tools 自带，比 jarsigner 更强大，支持 V2/V3 验证。</p>
+
+        <h3>方法三：在线验证工具</h3>
+        <p>在 <strong>gptoapk.com</strong> 提交 APK 链接或上传文件，自动解析签名信息。最便捷的方式。</p>
+
+        <h3>方法四：手动检查</h3>
+        <pre><code>{`unzip your-app.apk -d apk-check
+ls -la apk-check/META-INF/`}</code></pre>
+        <p>如果 META-INF 目录不存在，说明 APK 未签名，不要安装。</p>
+
+        <h2>常见签名验证错误</h2>
+        <ul>
+          <li><strong>未签名 APK：</strong>不要安装</li>
+          <li><strong>证书已过期：</strong>仍可安装，建议联系开发者</li>
+          <li><strong>签名不一致：</strong>APK 被篡改（安装更新时会报错 INSTALL_FAILED_UPDATE_INCOMPATIBLE）</li>
+        </ul>
+
+        <h2>2026 安全最佳实践</h2>
+        <h3>对于普通用户</h3>
+        <ul>
+          <li>优先从官方应用商店下载</li>
+          <li>使用 gptoapk.com 验证第三方 APK 签名</li>
+          <li>核对 SHA256 指纹</li>
+          <li>开启 Play Protect</li>
+          <li>避免安装破解版 APK</li>
+        </ul>
+        <h3>对于开发者</h3>
+        <ul>
+          <li>使用 2048 位以上 RSA 密钥</li>
+          <li>备份签名密钥</li>
+          <li>使用 V2+V3 签名方案</li>
+          <li>建议使用 Google Play App Signing</li>
+        </ul>
+
+        <h2>常见问题 FAQ</h2>
+        <h3>为什么 Google Play 下载的 APK 签名信息包含 Google？</h3>
+        <p>Google Play App Signing 会重新签名应用，这是正常现象。</p>
+
+        <h3>APK 签名可以伪造吗？</h3>
+        <p>没有私钥无法伪造。建议使用 2048 位以上 RSA + SHA256。</p>
+
+        <h3>不同版本签名不一致？</h3>
+        <p>危险信号。可能原因：密钥轮换、不同来源、或被篡改。</p>
+
+        <h2>总结</h2>
+        <p>APK 签名验证是 Android 安全的第一道防线。花 10 秒检查签名信息，能避免 99% 的恶意 APK 风险。</p>
+
+        <p><em>本文由 gptoapk.com 原创发布。</em></p>
+      </>
+    ),
+  },
+  {
     slug: "how-to-download-apk-from-google-play",
     title: "如何从 Google Play 下载 APK：完整指南 (2026)",
     description: "一步步教你从 Google Play 商店提取 APK 文件。多种方法，包括网页工具、ADB、以及安全下载的最佳实践。",

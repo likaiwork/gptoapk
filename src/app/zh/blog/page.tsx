@@ -16,6 +16,14 @@ export const metadata: Metadata = {
 
 const posts = [
   {
+    slug: "apk-signature-verification-security-guide",
+    title: "APK签名验证与安全检查完整指南 — 2026最新防篡改方案",
+    description: "学习如何验证APK文件的数字签名，检查APK是否被篡改。覆盖jarsigner、apksigner、在线工具和命令行多种验证方式，保障你的下载安全。",
+    date: "2026-05-18",
+    readTime: "9 分钟阅读",
+    tags: ["APK签名", "APK安全", "签名验证", "gptoapk"],
+  },
+  {
     slug: "how-to-download-apk-from-google-play",
     title: "如何从 Google Play 下载 APK：完整指南 (2026)",
     description: "一步步教你从 Google Play 商店提取 APK 文件。多种方法，包括网页工具、ADB、以及安全下载的最佳实践。",

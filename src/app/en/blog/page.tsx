@@ -25,6 +25,14 @@ interface BlogPost {
 
 const posts: BlogPost[] = [
   {
+    slug: "apk-signature-verification-security-guide",
+    title: "APK Signature Verification & Security Guide — Protect Yourself from Tampered Apps",
+    description: "Learn how to verify APK file digital signatures and check if an APK has been tampered with. Covers jarsigner, apksigner, online tools, and security best practices.",
+    date: "2026-05-18",
+    readTime: "9 min read",
+    tags: ["APK Signature", "Android Security", "Signature Verification", "gptoapk"],
+  },
+  {
     slug: "how-to-download-apk-from-google-play",
     title: "How to Download APK from Google Play Store: The Complete Guide (2026)",
     description: "Step-by-step guide on extracting APK files from Google Play Store. Learn multiple methods including web tools, ADB, and best practices for safe downloads.",
