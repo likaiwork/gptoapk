@@ -173,34 +173,6 @@ const CITY_NAMES_ZH: Record<string, string> = {
   "San Jose": "圣何塞",
 };
 
-const CITY_COUNTRY_CODES: Record<string, string> = {
-  "Beijing": "CN",
-  "Shanghai": "CN",
-  "Guangzhou": "CN",
-  "Shenzhen": "CN",
-  "Hangzhou": "CN",
-  "Chengdu": "CN",
-  "Nanjing": "CN",
-  "Wuhan": "CN",
-  "Tianjin": "CN",
-  "Chongqing": "CN",
-  "Hong Kong": "HK",
-  "Taipei": "TW",
-  "Singapore": "SG",
-  "Los Angeles": "US",
-  "San Jose": "US",
-  "San Francisco": "US",
-  "Seattle": "US",
-  "New York": "US",
-  "Chicago": "US",
-  "Houston": "US",
-  "Miami": "US",
-  "Boston": "US",
-  "Washington": "US",
-  "Washington DC": "US",
-  "Amsterdam": "NL",
-};
-
 function normalizeCity(city: string): string {
   if (!city) return "";
   try {
@@ -208,12 +180,6 @@ function normalizeCity(city: string): string {
   } catch {
     return city;
   }
-}
-
-function isMismatchedLocation(country: string, city: string): boolean {
-  if (!country || !city) return false;
-  const expectedCountry = CITY_COUNTRY_CODES[normalizeCity(city)];
-  return Boolean(expectedCountry && expectedCountry !== country.toUpperCase());
 }
 
 function displayCountry(code: string, lang: "zh" | "en"): string {
@@ -236,9 +202,8 @@ function displayCity(city: string, lang: "zh" | "en"): string {
 
 function displayLocation(country: string, city: string, lang: "zh" | "en"): string {
   const c = displayCountry(country, lang);
-  const ci = isMismatchedLocation(country, city) ? "" : displayCity(city, lang);
-  if (c && ci) return `${c} ${ci}`;
   if (c) return c;
+  const ci = displayCity(city, lang);
   if (ci) return ci;
   return "";
 }
@@ -591,7 +556,7 @@ function VisitorDetailModal({
           <InfoItem label={lang === "zh" ? "国家" : "Country"} value={visitor.ip_country ? displayCountry(visitor.ip_country, lang) : (lang === "zh" ? "未知" : "Unknown")} />
           <InfoItem
             label={lang === "zh" ? "城市" : "City"}
-            value={isMismatchedLocation(visitor.ip_country, visitor.ip_city)
+            value={visitor.ip_country
               ? (lang === "zh" ? "未知" : "Unknown")
               : displayCity(visitor.ip_city, lang) || (lang === "zh" ? "未知" : "Unknown")}
           />

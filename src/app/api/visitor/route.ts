@@ -118,6 +118,23 @@ function getClientIP(request: NextRequest): string {
 /** 用免费 API 查询 IP 地理位置（后备方案） */
 const geoLookupCache = new Map<string, GeoInfo>();
 
+function normalizeCountryCode(country: string): string {
+  return country.trim().toUpperCase();
+}
+
+function normalizeGeoInfo(geo: GeoInfo): GeoInfo {
+  const country = normalizeCountryCode(geo.country);
+  if (!country || country === "XX" || country === "T1") {
+    return { country: "", city: "", region: "" };
+  }
+
+  return {
+    country,
+    city: "",
+    region: "",
+  };
+}
+
 async function geoLookupFallback(ip: string): Promise<GeoInfo | null> {
   const lookupIP = stripPort(ip);
   if (!isUsableIP(lookupIP)) return null;
@@ -135,12 +152,12 @@ async function geoLookupFallback(ip: string): Promise<GeoInfo | null> {
     if (data.status !== "success") return null;
     if (data.proxy || data.hosting) return null;
     
-    const result = {
+    const result = normalizeGeoInfo({
       country: data.countryCode || "",
       city: data.city || "",
       region: data.regionName || "",
-    };
-    if (!result.country && !result.city && !result.region) return null;
+    });
+    if (!result.country) return null;
 
     geoLookupCache.set(lookupIP, result);
     // 缓存最多200条
@@ -171,10 +188,10 @@ export async function GET(
     // 收集设备/IP信息
     const userAgent = request.headers.get("user-agent") || "";
 
-    const cfCountry = readHeader(request, [
+    const cfCountry = normalizeCountryCode(readHeader(request, [
       "cf-ipcountry",
       "cf-ip-country",
-    ]);
+    ]));
     const cfCity = decodeHeaderValue(readHeader(request, [
       "cf-ipcity",
       "cf-ip-city",
@@ -184,11 +201,11 @@ export async function GET(
       "cf-ipregion",
       "cf-ip-region",
     ]));
-    const vercelCountry = readHeader(request, [
+    const vercelCountry = normalizeCountryCode(readHeader(request, [
       "x-vercel-ip-country",
       "x-country-code",
       "x-geo-country",
-    ]);
+    ]));
     const vercelCity = decodeHeaderValue(readHeader(request, [
       "x-vercel-ip-city",
       "x-city",
@@ -201,7 +218,7 @@ export async function GET(
     ]));
 
     const hasCloudflareGeo = Boolean(cfCountry || cfCity || cfRegion);
-    let ipCountry = hasCloudflareGeo ? cfCountry.toUpperCase() : vercelCountry.toUpperCase();
+    let ipCountry = hasCloudflareGeo ? cfCountry : vercelCountry;
     let ipCity = hasCloudflareGeo ? cfCity : vercelCity;
     let ipRegion = hasCloudflareGeo ? cfRegion : vercelRegion;
 
@@ -210,16 +227,22 @@ export async function GET(
     if (clientIP && (!ipCountry || !ipCity || !ipRegion)) {
       const geo = await geoLookupFallback(clientIP);
       if (geo) {
-        ipCountry = (geo.country || ipCountry).toUpperCase();
+        ipCountry = geo.country || ipCountry;
         ipCity = geo.city || ipCity;
         ipRegion = geo.region || ipRegion;
       }
     }
 
+    const normalizedGeo = normalizeGeoInfo({
+      country: ipCountry,
+      city: ipCity,
+      region: ipRegion,
+    });
+
     const visitor = await registerVisitor(visitorId, {
-      ip_country: ipCountry,
-      ip_city: ipCity,
-      ip_region: ipRegion,
+      ip_country: normalizedGeo.country,
+      ip_city: normalizedGeo.city,
+      ip_region: normalizedGeo.region,
       user_agent: userAgent,
     });
 
