@@ -509,6 +509,10 @@ function TimeFilterBar({
   };
 
   const quickBtns = [
+    { label: "昨天", onClick: () => {
+      const yesterday = getDateOffset(1);
+      applyRange(yesterday, yesterday);
+    } },
     { label: "今天", onClick: () => {
       const today = getDateOffset(0);
       applyRange(today, today);
