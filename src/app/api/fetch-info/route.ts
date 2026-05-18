@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import gplay from 'google-play-scraper';
+import gplay, { type IAppItemFullDetail } from 'google-play-scraper';
 import { gplayRequestOptions as requestOptions } from '@/lib/proxy';
 
 export const maxDuration = 60;
@@ -37,7 +37,7 @@ export async function GET(request: Request) {
         if (urlObj.searchParams.has('gl')) {
           country = urlObj.searchParams.get('gl') as string;
         }
-      } catch (e) {
+      } catch {
         // Not a valid URL, fallback to using it as string
       }
     }
@@ -58,7 +58,7 @@ export async function GET(request: Request) {
       setTimeout(() => reject(new Error('Network timeout: Cannot connect to Google Play')), 8000)
     );
 
-    const appInfo: any = await Promise.race([fetchPromise, timeoutPromise]);
+    const appInfo = await Promise.race([fetchPromise, timeoutPromise]) as IAppItemFullDetail;
     console.log(`[API fetch-info] Sending response back to client for ${appId}`);
 
     return NextResponse.json({
@@ -69,12 +69,14 @@ export async function GET(request: Request) {
       icon: appInfo.icon,
       version: appInfo.version,
       developer: appInfo.developer,
+      developerId: appInfo.developerId,
       score: appInfo.scoreText,
       size: appInfo.size,
       updated: appInfo.updated ? new Date(appInfo.updated).toISOString() : null,
     }, { headers: SUCCESS_CACHE_HEADERS });
-  } catch (error: any) {
-    console.error(`[API fetch-info] ERROR: ${error.message}`);
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : String(error);
+    console.error(`[API fetch-info] ERROR: ${message}`);
     return NextResponse.json({ error: 'App not found or invalid Google Play URL' }, { status: 404 });
   }
 }

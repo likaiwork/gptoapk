@@ -21,6 +21,7 @@ type SearchAppResult = {
   title: string;
   summary: string | null;
   developer: string | null;
+  developerId: string | null;
   icon: string | null;
   score: number | null;
   scoreText: string | null;
@@ -91,6 +92,7 @@ function toSearchResult(app: IAppItem | IAppItemFullDetail): SearchAppResult {
     title: app.title,
     summary: app.summary || null,
     developer: app.developer || null,
+    developerId: app.developerId || null,
     icon: app.icon || null,
     score: typeof app.score === 'number' ? app.score : null,
     scoreText: app.scoreText || null,

@@ -18,6 +18,7 @@ type SearchResult = {
   title: string;
   summary: string | null;
   developer: string | null;
+  developerId: string | null;
   icon: string | null;
   score: number | null;
   scoreText: string | null;
@@ -90,6 +91,18 @@ function buildAppHref(appId: string, lang?: string, country?: string) {
 
   const queryString = queryParams.toString() ? `?${queryParams.toString()}` : "";
   return `/app/${encodeURIComponent(appId)}${queryString}`;
+}
+
+function buildDeveloperHref(developerId: string | null, developer: string | null, lang?: string, country?: string) {
+  const id = developerId || developer;
+  if (!id) return "";
+
+  const queryParams = new URLSearchParams();
+  queryParams.set("id", id.replace(/\+/g, " "));
+  if (lang) queryParams.set("hl", lang);
+  if (country) queryParams.set("gl", country);
+
+  return `https://play.google.com/store/apps/developer?${queryParams.toString()}`;
 }
 
 function getMetaItems(app: SearchResult) {
@@ -362,6 +375,7 @@ export default function SearchBox() {
           <div className="divide-y divide-slate-100 dark:divide-slate-700">
             {results.map((app) => {
               const metaItems = getMetaItems(app);
+              const developerHref = buildDeveloperHref(app.developerId, app.developer, resultLang, resultCountry);
 
               return (
                 <article key={app.appId} className="flex flex-col gap-4 p-4 sm:flex-row sm:items-center sm:p-5">
@@ -387,9 +401,14 @@ export default function SearchBox() {
                         {app.title}
                       </h3>
                       {app.developer && (
-                        <p className="truncate text-sm font-medium text-blue-600 dark:text-blue-400">
+                        <a
+                          href={developerHref}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="block truncate text-sm font-medium text-blue-600 transition hover:text-blue-700 hover:underline dark:text-blue-400 dark:hover:text-blue-300"
+                        >
                           {app.developer}
-                        </p>
+                        </a>
                       )}
                       <p className="mt-1 break-all text-xs text-slate-500 dark:text-slate-400">
                         {app.appId}
