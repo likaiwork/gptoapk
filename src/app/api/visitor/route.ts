@@ -200,13 +200,14 @@ export async function GET(
       "x-geo-region",
     ]));
 
-    let ipCountry = (cfCountry || vercelCountry).toUpperCase();
-    let ipCity = cfCity || vercelCity;
-    let ipRegion = cfRegion || vercelRegion;
+    const hasCloudflareGeo = Boolean(cfCountry || cfCity || cfRegion);
+    let ipCountry = hasCloudflareGeo ? cfCountry.toUpperCase() : vercelCountry.toUpperCase();
+    let ipCity = hasCloudflareGeo ? cfCity : vercelCity;
+    let ipRegion = hasCloudflareGeo ? cfRegion : vercelRegion;
 
-    // 如果部署平台只给了边缘节点位置，使用真实访客 IP 做后备校正。
+    // 不混用 CDN / 部署平台的 geo 字段；缺少城市时用真实访客 IP 做后备校正。
     const clientIP = getClientIP(request);
-    if (clientIP && (!cfCountry || !ipCity || !ipRegion)) {
+    if (clientIP && (!ipCountry || !ipCity || !ipRegion)) {
       const geo = await geoLookupFallback(clientIP);
       if (geo) {
         ipCountry = (geo.country || ipCountry).toUpperCase();

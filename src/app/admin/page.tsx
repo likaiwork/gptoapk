@@ -170,7 +170,51 @@ const CITY_NAMES_ZH: Record<string, string> = {
   "Doha": "多哈",
   "Kuwait City": "科威特城",
   "Muscat": "马斯喀特",
+  "San Jose": "圣何塞",
 };
+
+const CITY_COUNTRY_CODES: Record<string, string> = {
+  "Beijing": "CN",
+  "Shanghai": "CN",
+  "Guangzhou": "CN",
+  "Shenzhen": "CN",
+  "Hangzhou": "CN",
+  "Chengdu": "CN",
+  "Nanjing": "CN",
+  "Wuhan": "CN",
+  "Tianjin": "CN",
+  "Chongqing": "CN",
+  "Hong Kong": "HK",
+  "Taipei": "TW",
+  "Singapore": "SG",
+  "Los Angeles": "US",
+  "San Jose": "US",
+  "San Francisco": "US",
+  "Seattle": "US",
+  "New York": "US",
+  "Chicago": "US",
+  "Houston": "US",
+  "Miami": "US",
+  "Boston": "US",
+  "Washington": "US",
+  "Washington DC": "US",
+  "Amsterdam": "NL",
+};
+
+function normalizeCity(city: string): string {
+  if (!city) return "";
+  try {
+    return decodeURIComponent(city.replace(/\+/g, "%20"));
+  } catch {
+    return city;
+  }
+}
+
+function isMismatchedLocation(country: string, city: string): boolean {
+  if (!country || !city) return false;
+  const expectedCountry = CITY_COUNTRY_CODES[normalizeCity(city)];
+  return Boolean(expectedCountry && expectedCountry !== country.toUpperCase());
+}
 
 function displayCountry(code: string, lang: "zh" | "en"): string {
   if (!code) return "";
@@ -182,10 +226,7 @@ function displayCountry(code: string, lang: "zh" | "en"): string {
 
 function displayCity(city: string, lang: "zh" | "en"): string {
   if (!city) return "";
-  let normalizedCity = city;
-  try {
-    normalizedCity = decodeURIComponent(city.replace(/\+/g, "%20"));
-  } catch {}
+  const normalizedCity = normalizeCity(city);
   if (lang === "en") return normalizedCity;
   const zh = CITY_NAMES_ZH[normalizedCity];
   if (zh) return zh;
@@ -195,7 +236,7 @@ function displayCity(city: string, lang: "zh" | "en"): string {
 
 function displayLocation(country: string, city: string, lang: "zh" | "en"): string {
   const c = displayCountry(country, lang);
-  const ci = displayCity(city, lang);
+  const ci = isMismatchedLocation(country, city) ? "" : displayCity(city, lang);
   if (c && ci) return `${c} ${ci}`;
   if (c) return c;
   if (ci) return ci;
@@ -544,7 +585,12 @@ function VisitorDetailModal({
           <InfoItem label={lang === "zh" ? "下载次数" : "Downloads"} value={lang === "zh" ? `${visitor.download_count} 次` : `${visitor.download_count}`} />
           <InfoItem label={lang === "zh" ? "设备" : "Device"} value={visitor.is_mobile ? (lang === "zh" ? "📱 移动端" : "📱 Mobile") : (lang === "zh" ? "💻 桌面端" : "💻 Desktop")} />
           <InfoItem label={lang === "zh" ? "国家" : "Country"} value={visitor.ip_country ? displayCountry(visitor.ip_country, lang) : (lang === "zh" ? "未知" : "Unknown")} />
-          <InfoItem label={lang === "zh" ? "城市" : "City"} value={displayCity(visitor.ip_city, lang) || (lang === "zh" ? "未知" : "Unknown")} />
+          <InfoItem
+            label={lang === "zh" ? "城市" : "City"}
+            value={isMismatchedLocation(visitor.ip_country, visitor.ip_city)
+              ? (lang === "zh" ? "未知" : "Unknown")
+              : displayCity(visitor.ip_city, lang) || (lang === "zh" ? "未知" : "Unknown")}
+          />
           <InfoItem label={lang === "zh" ? "地区" : "Region"} value={visitor.ip_region || (lang === "zh" ? "未知" : "Unknown")} />
           <InfoItem label={lang === "zh" ? "首次访问" : "First Visit"} value={formatTime(visitor.first_visit)} />
           <InfoItem label={lang === "zh" ? "最近访问" : "Last Visit"} value={formatTime(visitor.last_visit)} />
