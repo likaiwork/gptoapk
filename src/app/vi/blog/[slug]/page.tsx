@@ -14,6 +14,103 @@ interface BlogPost {
 }
 
 const posts: BlogPost[] = [
+
+  {
+    slug: "apk-signature-verification-security-guide",
+    title: "Hướng dẫn xác minh chữ ký APK và bảo mật - biện pháp bảo vệ chống giả mạo mới nhất 2026",
+    description: "Tìm hiểu cách xác minh chữ ký số của tệp APK và kiểm tra xem APK có bị giả mạo hay không.",
+    date: "2026-05-18",
+    readTime: "8 min read",
+    tags: ["APK Signature", "Android Security", "gptoapk"],
+    content: (
+      <>
+        <p className="lead">
+        When you download an APK from a third-party website, the biggest risk is that the APK has been tampered with. A tampered APK can contain malware or backdoors. The first line of defense is <strong>APK signature verification</strong>.
+        </p>
+        <h2>What Is APK Signing?</h2>
+        <p>APK signing is a digital signature process. Developers sign APK files with a private key, and users verify the signature with the public key.</p>
+        <ul>
+          <li><strong>Authentication:</strong> Confirms the APK comes from the claimed developer</li>
+          <li><strong>Integrity:</strong> Ensures the APK hasn&apos;t been modified</li>
+          <li><strong>Update continuity:</strong> Guarantees updates come from the same developer</li>
+        </ul>
+        <h2>APK Signature Scheme Evolution</h2>
+        <div className="overflow-x-auto my-6">
+          <table className="w-full border-collapse">
+            <thead>
+              <tr className="bg-gray-100 dark:bg-gray-800">
+                <th className="p-3 text-left border border-gray-200 dark:border-gray-700">Scheme</th>
+                <th className="p-3 text-left border border-gray-200 dark:border-gray-700">Android Version</th>
+                <th className="p-3 text-left border border-gray-200 dark:border-gray-700">Feature</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr className="border-b border-gray-200 dark:border-gray-700">
+                <td className="p-3 border border-gray-200 dark:border-gray-700 font-medium">V1 (JAR)</td>
+                <td className="p-3 border border-gray-200 dark:border-gray-700">Android 1.0+</td>
+                <td className="p-3 border border-gray-200 dark:border-gray-700">Does not verify full ZIP</td>
+              </tr>
+              <tr className="bg-gray-50 dark:bg-gray-800/50 border-b border-gray-200 dark:border-gray-700">
+                <td className="p-3 border border-gray-200 dark:border-gray-700 font-medium">V2</td>
+                <td className="p-3 border border-gray-200 dark:border-gray-700">Android 7.0+</td>
+                <td className="p-3 border border-gray-200 dark:border-gray-700">Signs entire APK binary</td>
+              </tr>
+              <tr className="border-b border-gray-200 dark:border-gray-700">
+                <td className="p-3 border border-gray-200 dark:border-gray-700 font-medium">V3</td>
+                <td className="p-3 border border-gray-200 dark:border-gray-700">Android 9.0+</td>
+                <td className="p-3 border border-gray-200 dark:border-gray-700">Supports key rotation</td>
+              </tr>
+              <tr className="bg-gray-50 dark:bg-gray-800/50 border-b border-gray-200 dark:border-gray-700">
+                <td className="p-3 border border-gray-200 dark:border-gray-700 font-medium">V4</td>
+                <td className="p-3 border border-gray-200 dark:border-gray-700">Android 11+</td>
+                <td className="p-3 border border-gray-200 dark:border-gray-700">Incremental updates</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <h2>How to Verify APK Signatures</h2>
+        <h3>Method 1: Using jarsigner</h3>
+        <pre><code>{'jarsigner -verify -verbose -certs your-app.apk'}</code></pre>
+        <h3>Method 2: Using apksigner</h3>
+        <pre><code>{'apksigner verify --verbose your-app.apk'}</code></pre>
+        <h3>Method 3: Online Verification</h3>
+        <p>On <strong>gptoapk.com</strong>, submit an APK link or upload a file to automatically verify signatures.</p>
+        <h3>Method 4: Manual Inspection</h3>
+        <pre><code>{'unzip your-app.apk -d apk-check\nls -la apk-check/META-INF/'}</code></pre>
+        <h2>Common Errors</h2>
+        <ul>
+          <li><strong>Unsigned APK:</strong> Don&apos;t install</li>
+          <li><strong>Expired cert:</strong> Still installable but contact developer</li>
+          <li><strong>Signature mismatch:</strong> APK was tampered with</li>
+        </ul>
+        <h2>Security Best Practices</h2>
+        <h3>For Users</h3>
+        <ul>
+          <li>Prefer official app stores</li>
+          <li>Use gptoapk.com to verify</li>
+          <li>Enable Play Protect</li>
+          <li>Avoid cracked APKs</li>
+        </ul>
+        <h3>For Developers</h3>
+        <ul>
+          <li>Use 2048-bit RSA keys</li>
+          <li>Back up signing key</li>
+          <li>Use V2+V3 signing</li>
+          <li>Consider Google Play App Signing</li>
+        </ul>
+        <h2>FAQ</h2>
+        <h3>Why do Google Play APKs show Google in the signature?</h3>
+        <p>Google Play App Signing re-signs apps &mdash; normal behavior.</p>
+        <h3>Can APK signatures be forged?</h3>
+        <p>Without the private key, no. Use 2048+ RSA + SHA256.</p>
+        <h3>Different signatures across versions?</h3>
+        <p>Red flag. Possible causes: key rotation, different sources, or tampering.</p>
+        <h2>Summary</h2>
+        <p>APK signature verification is Android&apos;s first line of defense. Spend 10 seconds checking signatures &mdash; it prevents 99% of malicious APK risks.</p>
+        <p><em>Originally published on gptoapk.com.</em></p>
+      </>
+    ),
+  },
   {
     slug: "how-to-download-apk-from-google-play",
     title: "Cách tải APK từ Google Play: Hướng dẫn chi tiết (2026)",
