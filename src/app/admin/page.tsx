@@ -173,6 +173,46 @@ const CITY_NAMES_ZH: Record<string, string> = {
   "San Jose": "圣何塞",
 };
 
+const CITY_COUNTRY_CODES: Record<string, string> = {
+  "Beijing": "CN",
+  "Shanghai": "CN",
+  "Guangzhou": "CN",
+  "Shenzhen": "CN",
+  "Hangzhou": "CN",
+  "Chengdu": "CN",
+  "Nanjing": "CN",
+  "Wuhan": "CN",
+  "Tianjin": "CN",
+  "Chongqing": "CN",
+  "Hong Kong": "HK",
+  "Taipei": "TW",
+  "Singapore": "SG",
+  "Los Angeles": "US",
+  "San Jose": "US",
+  "San Francisco": "US",
+  "Seattle": "US",
+  "New York": "US",
+  "Chicago": "US",
+  "Houston": "US",
+  "Miami": "US",
+  "Boston": "US",
+  "Washington": "US",
+  "Washington DC": "US",
+  "Amsterdam": "NL",
+};
+
+const CHINA_DISTRICT_TO_CITY: Record<string, string> = {
+  "Jinrongjie": "Beijing",
+  "Xicheng": "Beijing",
+  "Xicheng District": "Beijing",
+  "Dongcheng": "Beijing",
+  "Dongcheng District": "Beijing",
+  "Haidian": "Beijing",
+  "Haidian District": "Beijing",
+  "Chaoyang": "Beijing",
+  "Chaoyang District": "Beijing",
+};
+
 function normalizeCity(city: string): string {
   if (!city) return "";
   try {
@@ -180,6 +220,20 @@ function normalizeCity(city: string): string {
   } catch {
     return city;
   }
+}
+
+function normalizeLocationCity(country: string, city: string): string {
+  const normalizedCity = normalizeCity(city);
+  if (!normalizedCity) return "";
+
+  const upperCountry = country.toUpperCase();
+  const cityName = upperCountry === "CN"
+    ? CHINA_DISTRICT_TO_CITY[normalizedCity] || normalizedCity
+    : normalizedCity;
+  const expectedCountry = CITY_COUNTRY_CODES[cityName];
+  if (expectedCountry && upperCountry && expectedCountry !== upperCountry) return "";
+
+  return cityName;
 }
 
 function displayCountry(code: string, lang: "zh" | "en"): string {
@@ -191,19 +245,24 @@ function displayCountry(code: string, lang: "zh" | "en"): string {
 }
 
 function displayCity(city: string, lang: "zh" | "en"): string {
-  if (!city) return "";
-  const normalizedCity = normalizeCity(city);
-  if (lang === "en") return normalizedCity;
-  const zh = CITY_NAMES_ZH[normalizedCity];
+  const cityName = normalizeCity(city);
+  if (!cityName) return "";
+  if (lang === "en") return cityName;
+  const zh = CITY_NAMES_ZH[cityName];
   if (zh) return zh;
   // 未匹配到的城市名保留英文
-  return normalizedCity;
+  return cityName;
+}
+
+function displayLocationCity(country: string, city: string, lang: "zh" | "en"): string {
+  return displayCity(normalizeLocationCity(country, city), lang);
 }
 
 function displayLocation(country: string, city: string, lang: "zh" | "en"): string {
   const c = displayCountry(country, lang);
+  const ci = displayLocationCity(country, city, lang);
+  if (c && ci) return `${c} ${ci}`;
   if (c) return c;
-  const ci = displayCity(city, lang);
   if (ci) return ci;
   return "";
 }
@@ -556,9 +615,7 @@ function VisitorDetailModal({
           <InfoItem label={lang === "zh" ? "国家" : "Country"} value={visitor.ip_country ? displayCountry(visitor.ip_country, lang) : (lang === "zh" ? "未知" : "Unknown")} />
           <InfoItem
             label={lang === "zh" ? "城市" : "City"}
-            value={visitor.ip_country
-              ? (lang === "zh" ? "未知" : "Unknown")
-              : displayCity(visitor.ip_city, lang) || (lang === "zh" ? "未知" : "Unknown")}
+            value={displayLocationCity(visitor.ip_country, visitor.ip_city, lang) || (lang === "zh" ? "未知" : "Unknown")}
           />
           <InfoItem label={lang === "zh" ? "地区" : "Region"} value={visitor.ip_region || (lang === "zh" ? "未知" : "Unknown")} />
           <InfoItem label={lang === "zh" ? "首次访问" : "First Visit"} value={formatTime(visitor.first_visit)} />

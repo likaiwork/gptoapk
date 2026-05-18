@@ -23,15 +23,6 @@ function readHeader(request: NextRequest, names: string[]): string {
   return "";
 }
 
-function decodeHeaderValue(value: string): string {
-  if (!value) return "";
-  try {
-    return decodeURIComponent(value.replace(/\+/g, "%20"));
-  } catch {
-    return value;
-  }
-}
-
 function stripPort(value: string): string {
   if (!value) return "";
   const trimmed = value.trim().replace(/^"|"$/g, "");
@@ -118,6 +109,25 @@ function getClientIP(request: NextRequest): string {
 /** 用免费 API 查询 IP 地理位置（后备方案） */
 const geoLookupCache = new Map<string, GeoInfo>();
 
+const CHINA_REGION_CITY_NAMES: Record<string, string> = {
+  "Beijing": "Beijing",
+  "Shanghai": "Shanghai",
+  "Tianjin": "Tianjin",
+  "Chongqing": "Chongqing",
+};
+
+const CHINA_DISTRICT_CITY_NAMES = new Set([
+  "Jinrongjie",
+  "Xicheng",
+  "Xicheng District",
+  "Dongcheng",
+  "Dongcheng District",
+  "Haidian",
+  "Haidian District",
+  "Chaoyang",
+  "Chaoyang District",
+]);
+
 function normalizeCountryCode(country: string): string {
   return country.trim().toUpperCase();
 }
@@ -128,10 +138,24 @@ function normalizeGeoInfo(geo: GeoInfo): GeoInfo {
     return { country: "", city: "", region: "" };
   }
 
+  const region = geo.region.trim();
+  let city = geo.city.trim();
+
+  if (country === "CN") {
+    city = city.replace(/\s+District$/i, " District");
+    if (CHINA_REGION_CITY_NAMES[region] && (!city || CHINA_DISTRICT_CITY_NAMES.has(city))) {
+      city = CHINA_REGION_CITY_NAMES[region];
+    }
+  }
+
+  if ((country === "HK" || country === "MO" || country === "SG") && !city) {
+    city = region;
+  }
+
   return {
     country,
-    city: "",
-    region: "",
+    city,
+    region,
   };
 }
 
@@ -192,52 +216,26 @@ export async function GET(
       "cf-ipcountry",
       "cf-ip-country",
     ]));
-    const cfCity = decodeHeaderValue(readHeader(request, [
-      "cf-ipcity",
-      "cf-ip-city",
-    ]));
-    const cfRegion = decodeHeaderValue(readHeader(request, [
-      "cf-region",
-      "cf-ipregion",
-      "cf-ip-region",
-    ]));
     const vercelCountry = normalizeCountryCode(readHeader(request, [
       "x-vercel-ip-country",
       "x-country-code",
       "x-geo-country",
     ]));
-    const vercelCity = decodeHeaderValue(readHeader(request, [
-      "x-vercel-ip-city",
-      "x-city",
-      "x-geo-city",
-    ]));
-    const vercelRegion = decodeHeaderValue(readHeader(request, [
-      "x-vercel-ip-country-region",
-      "x-region",
-      "x-geo-region",
-    ]));
 
-    const hasCloudflareGeo = Boolean(cfCountry || cfCity || cfRegion);
-    let ipCountry = hasCloudflareGeo ? cfCountry : vercelCountry;
-    let ipCity = hasCloudflareGeo ? cfCity : vercelCity;
-    let ipRegion = hasCloudflareGeo ? cfRegion : vercelRegion;
+    let normalizedGeo = normalizeGeoInfo({
+      country: cfCountry || vercelCountry,
+      city: "",
+      region: "",
+    });
 
-    // 不混用 CDN / 部署平台的 geo 字段；缺少城市时用真实访客 IP 做后备校正。
+    // 城市只来自真实客户端 IP 查询，避免混用 CDN / 部署平台边缘节点位置。
     const clientIP = getClientIP(request);
-    if (clientIP && (!ipCountry || !ipCity || !ipRegion)) {
+    if (clientIP) {
       const geo = await geoLookupFallback(clientIP);
       if (geo) {
-        ipCountry = geo.country || ipCountry;
-        ipCity = geo.city || ipCity;
-        ipRegion = geo.region || ipRegion;
+        normalizedGeo = geo;
       }
     }
-
-    const normalizedGeo = normalizeGeoInfo({
-      country: ipCountry,
-      city: ipCity,
-      region: ipRegion,
-    });
 
     const visitor = await registerVisitor(visitorId, {
       ip_country: normalizedGeo.country,
