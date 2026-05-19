@@ -172,6 +172,10 @@ export default async function RootLayout({
         ))}
         <link rel="alternate" href="https://gptoapk.com" hrefLang="x-default" />
 
+        {/* OpenSearch & RSS Feed for search engine / AI crawler discovery */}
+        <link rel="search" type="application/opensearchdescription+xml" title="gptoapk.com APK 搜索" href="/opensearch.xml" />
+        <link rel="alternate" type="application/rss+xml" title="gptoapk.com 中文更新 RSS" href="/feed-zh.xml" />
+
         <Script id="gtm-base" strategy="afterInteractive">
           {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],

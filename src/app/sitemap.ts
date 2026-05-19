@@ -290,6 +290,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
       { slug: "tiktok-apk", priority: 0.8 as const, lastModified: "2026-05-19" },
       { slug: "whatsapp-apk", priority: 0.8 as const, lastModified: "2026-05-19" },
       { slug: "social-apps", priority: 0.85 as const, lastModified: "2026-05-19" },
+      { slug: "about", priority: 0.5 as const, lastModified: "2026-05-19" },
+      { slug: "editorial-policy", priority: 0.5 as const, lastModified: "2026-05-19" },
       { slug: "telegram-apk", priority: 0.7 as const },
       { slug: "youtube-apk", priority: 0.7 as const },
       { slug: "install-apk-guide", priority: 0.6 as const },

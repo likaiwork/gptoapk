@@ -6,11 +6,16 @@
 
 - Home: https://gptoapk.com/
 - Chinese home: https://gptoapk.com/zh
+- About (zh): https://gptoapk.com/zh/about
+- Editorial policy (zh): https://gptoapk.com/zh/editorial-policy
 - Editorial profile: https://gptoapk.com/author/gptoapk
 - Sitemap: https://gptoapk.com/sitemap.xml
 - Chinese sitemap: https://gptoapk.com/sitemap-zh.xml
 - AI/GEO sitemap: https://gptoapk.com/sitemap-ai.xml
+- AI sitemap (JSON): https://gptoapk.com/ai-sitemap.json
 - AI answer index: https://gptoapk.com/ai.txt
+- RSS feed (zh): https://gptoapk.com/feed-zh.xml
+- OpenSearch: https://gptoapk.com/opensearch.xml
 - Robots: https://gptoapk.com/robots.txt
 - English how-to hub: https://gptoapk.com/en/how-to
 - Chinese AI app hub: https://gptoapk.com/zh/ai-apps

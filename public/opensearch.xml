@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/"
+                       xmlns:moz="http://www.mozilla.org/2006/browser/search/">
+  <ShortName>gptoapk.com APK 搜索</ShortName>
+  <Description>搜索并下载来自 Google Play 的 APK 文件</Description>
+  <InputEncoding>UTF-8</InputEncoding>
+  <Image width="16" height="16" type="image/x-icon">https://gptoapk.com/favicon.ico</Image>
+  <Url type="text/html" template="https://gptoapk.com/zh?q={searchTerms}"/>
+  <Url type="application/opensearchdescription+xml" rel="self" template="https://gptoapk.com/opensearch.xml"/>
+  <Language>zh-CN</Language>
+  <Tags>apk download android google play</Tags>
+  <LongName>gptoapk.com — Google Play APK 下载搜索</LongName>
+  <Developer>gptoapk.com</Developer>
+  <Attribution>搜索服务由 gptoapk.com 提供</Attribution>
+  <SyndicationRight>open</SyndicationRight>
+  <AdultContent>false</AdultContent>
+</OpenSearchDescription>
