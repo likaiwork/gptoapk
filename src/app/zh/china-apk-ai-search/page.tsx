@@ -20,6 +20,7 @@ const problemGuides = [
   { title: "没有 Play 商店时安装 AI 应用", href: "/zh/ai-apps-without-play-store" },
   { title: "Android APK 安全安装检查清单", href: "/zh/android-apk-safe-install" },
   { title: "ChatGPT APK 无法从 Google Play 下载怎么办", href: "/zh/chatgpt-apk-without-google-play" },
+  { title: "2026 国内 AI 助手 APK 横评：豆包 vs 元宝 vs DeepSeek vs Kimi vs 通义千问", href: "/zh/ai-app-compare" },
 ];
 
 const faqs = [

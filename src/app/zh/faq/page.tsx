@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 
 export const metadata: Metadata = {
   title: "常见问题 - APK 下载器 | gptoapk.com",
@@ -48,6 +49,19 @@ const faqs = [
 ];
 
 export default function FAQPageZh() {
+  const faqPageSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.q,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: faq.a,
+      },
+    })),
+  };
+
   return (
     <div className="max-w-3xl mx-auto px-4 py-16">
       <h1 className="text-4xl font-extrabold tracking-tight mb-8">常见问题</h1>
@@ -67,6 +81,12 @@ export default function FAQPageZh() {
           </details>
         ))}
       </div>
+
+      <Script
+        id="faq-page-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqPageSchema) }}
+      />
     </div>
   );
 }

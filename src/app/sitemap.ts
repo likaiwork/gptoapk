@@ -271,6 +271,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...([
       { slug: "huawei-install-google", priority: 0.7 as const },
       { slug: "china-apk-ai-search", priority: 0.85 as const, lastModified: "2026-05-19" },
+      { slug: "ai-app-compare", priority: 0.85 as const, lastModified: "2026-05-19" },
       { slug: "chatgpt-apk", priority: 0.7 as const },
       { slug: "claude-apk", priority: 0.6 as const },
       { slug: "doubao-apk", priority: 0.7 as const, lastModified: "2026-05-17" },

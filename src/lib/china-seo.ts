@@ -11,6 +11,7 @@ export const chinaCoreSeoUrls: SeoUrlEntry[] = [
   { path: "/zh", lastModified: "2026-05-19", changeFrequency: "daily", priority: 1 },
   { path: "/zh/ai-apps", lastModified: "2026-05-19", changeFrequency: "weekly", priority: 0.9 },
   { path: "/zh/china-apk-ai-search", lastModified: "2026-05-19", changeFrequency: "weekly", priority: 0.9 },
+  { path: "/zh/ai-app-compare", lastModified: "2026-05-19", changeFrequency: "weekly", priority: 0.9 },
   { path: "/zh/install-apk-guide", lastModified: "2026-05-19", changeFrequency: "weekly", priority: 0.75 },
   { path: "/zh/google-play-not-working", lastModified: "2026-05-19", changeFrequency: "weekly", priority: 0.75 },
   { path: "/zh/huawei-install-google", lastModified: "2026-05-19", changeFrequency: "weekly", priority: 0.75 },
