@@ -13,12 +13,18 @@ const USER_AGENT = 'Mozilla/5.0 (compatible; gptoapk/1.0; +https://gptoapk.com)'
 const APK_CONTENT_TYPE = 'application/vnd.android.package-archive';
 const DOWNLOAD_CACHE_CONTROL = 'no-store';
 
-const ALLOWED_DOWNLOAD_HOST_SUFFIXES = ['.aptoide.com', '.winudf.com', '.cloudflarestorage.com'];
+const ALLOWED_DOWNLOAD_HOST_SUFFIXES = ['.aptoide.com', '.winudf.com', '.cloudflarestorage.com', '.online-apk-downloader.com'];
 const APKCOMBO_SOURCE_PAGES: Record<string, { pageUrl: string; fileName: string; type: string }> = {
   'com.anthropic.claude': {
     pageUrl: 'https://apkcombo.com/claude-by-anthropic/com.anthropic.claude/download/apk',
     fileName: 'Claude by Anthropic.xapk',
     type: 'XAPK',
+  },
+};
+const ONLINE_APK_DOWNLOADER_PACKAGES: Record<string, { fileName: string; type: string }> = {
+  'com.anthropic.claude': {
+    fileName: 'Claude by Anthropic.apk',
+    type: 'APK',
   },
 };
 
@@ -44,6 +50,12 @@ type AptoideResponse = {
       md5sum?: string;
     };
   };
+};
+
+type OnlineApkDownloaderResponse = {
+  success?: boolean;
+  downloadUrl?: string;
+  package?: string;
 };
 
 function fetchWithProxy(input: string, init: RequestInit = {}) {
@@ -74,6 +86,23 @@ function isAllowedDownloadUrl(downloadUrl: string) {
   } catch {
     return false;
   }
+}
+
+function encodeUpstreamUrl(downloadUrl: string) {
+  return Buffer.from(downloadUrl, 'utf-8').toString('base64url');
+}
+
+function decodeUpstreamUrl(encoded: string) {
+  try {
+    return Buffer.from(encoded, 'base64url').toString('utf-8');
+  } catch {
+    return '';
+  }
+}
+
+function sourceNameFromParam(value: string | null) {
+  if (!value || !/^[a-z0-9_-]{1,40}$/i.test(value)) return 'upstream';
+  return value;
 }
 
 function sanitizeFileName(fileName: string) {
@@ -326,21 +355,71 @@ async function tryApkCombo(appId: string): Promise<SourceResult | null> {
   }
 }
 
+async function tryOnlineApkDownloader(appId: string): Promise<SourceResult | null> {
+  const knownSource = ONLINE_APK_DOWNLOADER_PACKAGES[appId.toLowerCase()];
+  if (!knownSource) return null;
+
+  const timeout = createAbortSignal(APKCOMBO_TIMEOUT_MS);
+  try {
+    const apiUrl = `https://online-apk-downloader.com/apk-ajax&packageDownload&id=${encodeURIComponent(appId)}`;
+    const res = await fetchWithProxy(apiUrl, {
+      headers: {
+        'User-Agent': USER_AGENT,
+        Accept: 'application/json,text/plain;q=0.8,*/*;q=0.7',
+        Referer: 'https://online-apk-downloader.com/',
+      },
+      cache: 'no-store',
+      signal: timeout.signal,
+    });
+    if (!res.ok) return null;
+
+    const json = (await res.json()) as OnlineApkDownloaderResponse;
+    const downloadUrl = json.downloadUrl?.replace(/\\\//g, '/');
+    if (!json.success || !downloadUrl || !isAllowedDownloadUrl(downloadUrl)) return null;
+
+    return {
+      downloadUrl,
+      fileName: fileNameFromDownloadUrl(downloadUrl, knownSource.fileName),
+      version: null,
+      size: null,
+      md5: null,
+      source: 'online-apk-downloader',
+      type: knownSource.type,
+      preferredDelivery: 'proxy',
+    };
+  } catch {
+    return null;
+  } finally {
+    timeout.clear();
+  }
+}
+
 async function resolveDownloadSource(appId: string) {
-  return (await tryAptoide(appId)) ?? (await tryApkPure(appId)) ?? (await tryApkCombo(appId));
+  return (await tryAptoide(appId)) ?? (await tryApkPure(appId)) ?? (await tryApkCombo(appId)) ?? (await tryOnlineApkDownloader(appId));
 }
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const appId = searchParams.get('appId')?.trim();
   const delivery = searchParams.get('delivery');
+  const upstreamToken = searchParams.get('upstream');
   const startedAt = Date.now();
 
   if (!appId) {
     return NextResponse.json({ success: false, error: 'Missing appId' }, { status: 400 });
   }
 
-  const result = await resolveDownloadSource(appId);
+  const upstreamUrl = upstreamToken ? decodeUpstreamUrl(upstreamToken) : '';
+  const result = upstreamUrl && isAllowedDownloadUrl(upstreamUrl)
+    ? {
+        downloadUrl: upstreamUrl,
+        fileName: searchParams.get('fileName') || `${appId}.apk`,
+        version: null,
+        size: null,
+        md5: null,
+        source: sourceNameFromParam(searchParams.get('source')),
+      }
+    : await resolveDownloadSource(appId);
   if (!result) {
     void trackServerEvent(request, analyticsEvents.downloadFailed, {
       app_id: appId,
@@ -495,16 +574,22 @@ export async function POST(request: Request) {
     }
 
     const useProxyByDefault = result.preferredDelivery === 'proxy';
+    const fileName = result.fileName ?? `${cleanId}.apk`;
+    const proxyUrl = `/api/download-apk?appId=${encodeURIComponent(cleanId)}&delivery=proxy&upstream=${encodeURIComponent(encodeUpstreamUrl(result.downloadUrl))}&source=${encodeURIComponent(result.source)}&fileName=${encodeURIComponent(fileName)}`;
 
     return NextResponse.json({
       success: true,
       downloadUrl: result.externalPage
         ? result.downloadUrl
-        : `/api/download-apk?appId=${encodeURIComponent(cleanId)}&delivery=${useProxyByDefault ? 'proxy' : 'direct'}`,
+        : useProxyByDefault
+          ? proxyUrl
+          : `/api/download-apk?appId=${encodeURIComponent(cleanId)}&delivery=direct`,
       fallbackDownloadUrl: result.externalPage
         ? ''
-        : `/api/download-apk?appId=${encodeURIComponent(cleanId)}&delivery=${useProxyByDefault ? 'direct' : 'proxy'}`,
-      fileName: result.fileName ?? `${cleanId}.apk`,
+        : useProxyByDefault
+          ? result.downloadUrl
+          : proxyUrl,
+      fileName,
       type: result.type ?? 'APK',
       version: result.version,
       size: result.size,
