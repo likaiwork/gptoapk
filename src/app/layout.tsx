@@ -158,6 +158,8 @@ export default async function RootLayout({
   return (
     <html lang={htmlLang} dir={htmlDir} className="h-full antialiased">
       <head>
+        <meta name="sogou_site_verification" content="GyoMVFI8X3" />
+
         {/* Google AdSense */}
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7016978419299209" crossOrigin="anonymous"></script>
 
