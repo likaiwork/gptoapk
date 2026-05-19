@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { analyticsEvents } from "@/lib/analytics-events";
 import { trackEvent } from "@/lib/client-analytics";
 
-type Status = "idle" | "preparing" | "started";
+type Status = "idle" | "preparing" | "started" | "fallback";
 
 const ESTIMATED_SECONDS = 5;
 const STARTED_RESET_MS = 15000;
@@ -14,7 +14,6 @@ type DownloadResponse = {
   error?: string;
   downloadUrl?: string;
   fallbackDownloadUrl?: string;
-  directDownloadUrl?: string;
   fileName?: string;
   source?: string;
   version?: string | null;
@@ -34,7 +33,6 @@ export default function DownloadButton({ appId, compact = false }: DownloadButto
   const [countdown, setCountdown] = useState(ESTIMATED_SECONDS);
   const [lastDownloadUrl, setLastDownloadUrl] = useState("");
   const [fallbackDownloadUrl, setFallbackDownloadUrl] = useState("");
-  const [directDownloadUrl, setDirectDownloadUrl] = useState("");
   const [lastFileName, setLastFileName] = useState("");
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const resetTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -57,7 +55,6 @@ export default function DownloadButton({ appId, compact = false }: DownloadButto
     setError("");
     setLastDownloadUrl("");
     setFallbackDownloadUrl("");
-    setDirectDownloadUrl("");
     setLastFileName("");
     setCountdown(ESTIMATED_SECONDS);
 
@@ -111,12 +108,12 @@ export default function DownloadButton({ appId, compact = false }: DownloadButto
       a.href = data.downloadUrl;
       a.download = fileName;
       a.rel = "noopener";
+      a.target = "gptoapk-direct-download";
       document.body.appendChild(a);
       a.click();
       a.remove();
       setLastDownloadUrl(data.downloadUrl);
       setFallbackDownloadUrl(data.fallbackDownloadUrl || "");
-      setDirectDownloadUrl(data.directDownloadUrl || "");
       setLastFileName(fileName);
 
       // 记录下载
@@ -125,7 +122,7 @@ export default function DownloadButton({ appId, compact = false }: DownloadButto
       if (intervalRef.current) clearInterval(intervalRef.current);
       setStatus("started");
       resetTimerRef.current = setTimeout(() => {
-        setStatus("idle");
+        setStatus((current) => (current === "started" ? "fallback" : current));
       }, STARTED_RESET_MS);
     } catch (err: unknown) {
       const message = err instanceof Error ? err.message : "Download failed";
@@ -156,6 +153,7 @@ export default function DownloadButton({ appId, compact = false }: DownloadButto
 
   const isPreparing = status === "preparing";
   const isStarted = status === "started";
+  const isFallback = status === "fallback";
   const buttonClassName = compact
     ? "bg-green-600 hover:bg-green-700 disabled:opacity-75 disabled:cursor-not-allowed text-white font-bold py-3 px-5 rounded-xl transition-colors shadow-md flex items-center justify-center gap-2 text-sm w-full sm:w-auto active:scale-95 transform"
     : "bg-green-600 hover:bg-green-700 disabled:opacity-75 disabled:cursor-not-allowed text-white font-bold py-4 px-8 rounded-xl transition-colors shadow-lg flex items-center justify-center sm:justify-start gap-3 text-lg w-full sm:w-auto hover:scale-[1.02] active:scale-95 transform";
@@ -163,6 +161,8 @@ export default function DownloadButton({ appId, compact = false }: DownloadButto
 
   return (
     <div className="flex flex-col items-start gap-2 w-full sm:w-auto">
+      <iframe name="gptoapk-direct-download" className="hidden" title="APK direct download" />
+
       <button
         onClick={handleDownload}
         disabled={isPreparing || isStarted}
@@ -230,7 +230,7 @@ export default function DownloadButton({ appId, compact = false }: DownloadButto
       {isStarted && (
         <div className="mt-1 space-y-1 text-xs">
           <p className="text-green-600 dark:text-green-400">
-            Check your browser&apos;s downloads.
+            Check your browser&apos;s downloads. If it does not start, a backup channel will appear here.
           </p>
           {lastDownloadUrl && (
             <a
@@ -242,27 +242,22 @@ export default function DownloadButton({ appId, compact = false }: DownloadButto
               If nothing starts, tap here to open the download link.
             </a>
           )}
-          {fallbackDownloadUrl && (
-            <a
-              href={fallbackDownloadUrl}
-              download={lastFileName}
-              rel="noopener"
-              className="block text-amber-600 hover:underline dark:text-amber-400"
-            >
-              Still not working? Use the backup download channel.
-            </a>
-          )}
-          {directDownloadUrl && (
-            <a
-              href={directDownloadUrl}
-              download={lastFileName}
-              target="_blank"
-              rel="noopener"
-              className="block text-slate-500 hover:text-blue-600 hover:underline dark:text-slate-400 dark:hover:text-blue-400"
-            >
-              Use the normal direct link to save server traffic.
-            </a>
-          )}
+        </div>
+      )}
+
+      {isFallback && fallbackDownloadUrl && (
+        <div className="mt-2 w-full space-y-2 rounded-xl border border-amber-200 bg-amber-50 p-3 text-left text-xs text-amber-900 dark:border-amber-900/50 dark:bg-amber-950/30 dark:text-amber-100">
+          <p>
+            Download not started? Use the backup channel.
+          </p>
+          <a
+            href={fallbackDownloadUrl}
+            download={lastFileName}
+            rel="noopener"
+            className="flex w-full items-center justify-center rounded-lg bg-amber-500 px-3 py-2 font-bold text-white transition hover:bg-amber-600"
+          >
+            Use backup download
+          </a>
         </div>
       )}
     </div>
