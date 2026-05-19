@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import gplay, { type IAppItem, type IAppItemFullDetail } from 'google-play-scraper';
 import { gplayRequestOptions as requestOptions } from '@/lib/proxy';
+import { proxyImageUrl } from '@/lib/image-proxy';
 
 export const runtime = 'nodejs';
 export const maxDuration = 60;
@@ -93,7 +94,7 @@ function toSearchResult(app: IAppItem | IAppItemFullDetail): SearchAppResult {
     summary: app.summary || null,
     developer: app.developer || null,
     developerId: app.developerId || null,
-    icon: app.icon || null,
+    icon: proxyImageUrl(app.icon),
     score: typeof app.score === 'number' ? app.score : null,
     scoreText: app.scoreText || null,
     priceText: app.priceText || null,

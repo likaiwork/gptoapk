@@ -7,7 +7,7 @@ export const maxDuration = 300;
 
 const SOURCE_TIMEOUT_MS = Number(process.env.APK_SOURCE_TIMEOUT_MS ?? 12000);
 const STREAM_TIMEOUT_MS = Number(process.env.APK_STREAM_TIMEOUT_MS ?? 280000);
-const MAX_PROXY_BYTES = Number(process.env.APK_PROXY_MAX_BYTES ?? 300 * 1024 * 1024);
+const MAX_PROXY_BYTES = Number(process.env.APK_PROXY_MAX_BYTES ?? 1024 * 1024 * 1024);
 const USER_AGENT = 'Mozilla/5.0 (compatible; gptoapk/1.0; +https://gptoapk.com)';
 const APK_CONTENT_TYPE = 'application/vnd.android.package-archive';
 const DOWNLOAD_CACHE_CONTROL = 'no-store';
@@ -394,6 +394,7 @@ export async function POST(request: Request) {
     return NextResponse.json({
       success: true,
       downloadUrl: `/api/download-apk?appId=${encodeURIComponent(cleanId)}&delivery=direct`,
+      fallbackDownloadUrl: `/api/download-apk?appId=${encodeURIComponent(cleanId)}&delivery=proxy`,
       fileName: result.fileName ?? `${cleanId}.apk`,
       type: 'APK',
       version: result.version,

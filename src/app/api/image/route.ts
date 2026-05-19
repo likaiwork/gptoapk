@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { fetchDispatcher } from '@/lib/proxy';
 
 export const maxDuration = 30;
 
@@ -32,7 +33,14 @@ export async function GET(request: Request) {
   try {
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), 15000);
-    const upstream = await fetch(parsed.toString(), { signal: controller.signal });
+    const upstream = await fetch(parsed.toString(), {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (compatible; gptoapk/1.0; +https://gptoapk.com)',
+        Accept: 'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8',
+      },
+      signal: controller.signal,
+      ...(fetchDispatcher ? { dispatcher: fetchDispatcher } : {}),
+    } as RequestInit & { dispatcher?: typeof fetchDispatcher });
     clearTimeout(timer);
 
     if (!upstream.ok) {
@@ -44,11 +52,11 @@ export async function GET(request: Request) {
       status: 200,
       headers: {
         'Content-Type': upstream.headers.get('content-type') || 'image/jpeg',
-        'Cache-Control': 'public, max-age=86400, immutable',
+        'Cache-Control': 'public, max-age=86400, s-maxage=604800, stale-while-revalidate=604800',
       },
     });
-  } catch (err: any) {
-    console.error('[API image] ERROR:', err.message);
+  } catch (err: unknown) {
+    console.error('[API image] ERROR:', err instanceof Error ? err.message : err);
     return NextResponse.json({ error: 'Failed to fetch image' }, { status: 502 });
   }
 }

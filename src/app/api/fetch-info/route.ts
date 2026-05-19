@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import gplay, { type IAppItemFullDetail } from 'google-play-scraper';
 import { gplayRequestOptions as requestOptions } from '@/lib/proxy';
+import { proxyImageUrl } from '@/lib/image-proxy';
 
 export const maxDuration = 60;
 
@@ -66,7 +67,7 @@ export async function GET(request: Request) {
       appId: appInfo.appId,
       lang,
       country,
-      icon: appInfo.icon,
+      icon: proxyImageUrl(appInfo.icon),
       version: appInfo.version,
       developer: appInfo.developer,
       developerId: appInfo.developerId,

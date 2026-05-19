@@ -1,7 +1,8 @@
-import gplay from "google-play-scraper";
+import gplay, { type IAppItemFullDetail } from "google-play-scraper";
 import { notFound } from "next/navigation";
 import DownloadButton from "@/components/DownloadButton";
 import { gplayRequestOptions as requestOptions } from "@/lib/proxy";
+import { proxyImageUrl } from "@/lib/image-proxy";
 
 // Next.js page component for dynamic route /app/[appId]
 export default async function AppDownloadPage(props: { params: Promise<{ appId: string }>, searchParams?: Promise<{ hl?: string, gl?: string }> }) {
@@ -11,7 +12,7 @@ export default async function AppDownloadPage(props: { params: Promise<{ appId: 
   const lang = searchParams.hl || 'en';
   const country = searchParams.gl || 'us';
 
-  let appInfo = null;
+  let appInfo: IAppItemFullDetail;
   console.log(`\n======================================`);
   console.log(`[Page AppDownloadPage] Rendering page for appId: "${appId}", lang: "${lang}", country: "${country}"`);
   console.log(`======================================`);
@@ -25,11 +26,16 @@ export default async function AppDownloadPage(props: { params: Promise<{ appId: 
     const timeoutPromise = new Promise((_, reject) => 
       setTimeout(() => reject(new Error('Network timeout')), 8000)
     );
-    appInfo = await Promise.race([fetchPromise, timeoutPromise]) as any;
-  } catch (error: any) {
-    console.error(`[Page AppDownloadPage] ERROR: Failed to fetch app details -`, error.message);
+    appInfo = await Promise.race([fetchPromise, timeoutPromise]) as IAppItemFullDetail;
+  } catch (error: unknown) {
+    console.error(
+      `[Page AppDownloadPage] ERROR: Failed to fetch app details -`,
+      error instanceof Error ? error.message : error
+    );
     notFound();
   }
+
+  const iconUrl = proxyImageUrl(appInfo.icon);
 
   return (
     <div className="flex flex-col items-center py-16 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
@@ -39,9 +45,9 @@ export default async function AppDownloadPage(props: { params: Promise<{ appId: 
         
         {/* App Icon */}
         <div className="shrink-0">
-          {appInfo.icon ? (
+          {iconUrl ? (
             <img
-              src={appInfo.icon}
+              src={iconUrl}
               alt={`${appInfo.title} icon`}
               className="w-32 h-32 sm:w-48 sm:h-48 rounded-3xl shadow-md border border-slate-100 dark:border-slate-700"
               referrerPolicy="no-referrer"
@@ -114,13 +120,13 @@ export async function generateMetadata(props: { params: Promise<{ appId: string 
     const timeoutPromise = new Promise((_, reject) => 
       setTimeout(() => reject(new Error('Network timeout')), 8000)
     );
-    const appInfo = await Promise.race([fetchPromise, timeoutPromise]) as any;
+    const appInfo = await Promise.race([fetchPromise, timeoutPromise]) as IAppItemFullDetail;
     return {
       title: `Download ${appInfo.title} APK for Android`,
       description: `Download the latest version of ${appInfo.title} (${appId}) APK for free. ${appInfo.summary}`,
     };
-  } catch (e: any) {
-    console.error(`[Page generateMetadata] ERROR: ${e.message}`);
+  } catch (e: unknown) {
+    console.error(`[Page generateMetadata] ERROR: ${e instanceof Error ? e.message : e}`);
     return {
       title: "App Not Found - APK Downloader",
     };

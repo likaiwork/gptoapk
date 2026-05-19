@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { localePathRegex } from "@/lib/site-locales";
 import type { SiteLocale } from "@/lib/site-locales";
 import { searchUi } from "@/lib/search-ui";
+import { proxyImageUrl } from "@/lib/image-proxy";
 import { analyticsEvents } from "@/lib/analytics-events";
 import { trackEvent } from "@/lib/client-analytics";
 import DownloadButton from "@/components/DownloadButton";
@@ -359,90 +360,88 @@ export default function SearchBox() {
 
       {results.length > 0 && (
         <>
-          {/* 搜索结果上方广告 */}
-          <AdUnit slot="1234567890" format="auto" className="mt-6" />
+          <div className="mt-4 overflow-hidden rounded-2xl border border-slate-200 bg-white text-left shadow-lg dark:border-slate-700 dark:bg-slate-800">
+            <div className="flex flex-col gap-1 border-b border-slate-100 px-4 py-4 dark:border-slate-700 sm:px-5">
+              <p className="text-xs font-semibold uppercase tracking-wide text-blue-600 dark:text-blue-400">
+                {copy.results}
+              </p>
+              <h2 className="text-lg font-bold text-slate-900 dark:text-white">
+                {resultHeading}
+              </h2>
+            </div>
 
-          <div className="mt-5 overflow-hidden rounded-2xl border border-slate-200 bg-white text-left shadow-lg dark:border-slate-700 dark:bg-slate-800">
-          <div className="flex flex-col gap-1 border-b border-slate-100 px-4 py-4 dark:border-slate-700 sm:px-5">
-            <p className="text-xs font-semibold uppercase tracking-wide text-blue-600 dark:text-blue-400">
-              {copy.results}
-            </p>
-            <h2 className="text-lg font-bold text-slate-900 dark:text-white">
-              {resultHeading}
-            </h2>
-          </div>
-
-          <div className="divide-y divide-slate-100 dark:divide-slate-700">
+            <div className="divide-y divide-slate-100 dark:divide-slate-700">
             {results.map((app) => {
               const metaItems = getMetaItems(app);
               const developerHref = buildDeveloperHref(app.developerId, app.developer, resultLang, resultCountry);
+              const iconUrl = proxyImageUrl(app.icon);
 
               return (
                 <article key={app.appId} className="flex flex-col gap-4 p-4 sm:flex-row sm:items-center sm:p-5">
                   <div className="flex min-w-0 flex-1 gap-4">
                     <div className="h-16 w-16 shrink-0 overflow-hidden rounded-2xl border border-slate-100 bg-slate-100 shadow-sm dark:border-slate-700 dark:bg-slate-900 sm:h-20 sm:w-20">
-                      {app.icon ? (
-                        <img
-                          src={app.icon}
-                          alt={`${app.title} icon`}
-                          width={80}
-                          height={80}
-                          className="h-full w-full object-cover"
-                          loading="lazy"
-                          referrerPolicy="no-referrer"
-                        />
-                      ) : (
-                        <div className="h-full w-full bg-slate-200 dark:bg-slate-700" />
-                      )}
+                        {iconUrl ? (
+                          <img
+                            src={iconUrl}
+                            alt={`${app.title} icon`}
+                            width={80}
+                            height={80}
+                            className="h-full w-full object-cover"
+                            loading="lazy"
+                            referrerPolicy="no-referrer"
+                          />
+                        ) : (
+                          <div className="h-full w-full bg-slate-200 dark:bg-slate-700" />
+                        )}
+                      </div>
+
+                      <div className="min-w-0 flex-1">
+                        <h3 className="truncate text-base font-bold text-slate-950 dark:text-white sm:text-lg">
+                          {app.title}
+                        </h3>
+                        {app.developer && (
+                          <a
+                            href={developerHref}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="block truncate text-sm font-medium text-blue-600 transition hover:text-blue-700 hover:underline dark:text-blue-400 dark:hover:text-blue-300"
+                          >
+                            {app.developer}
+                          </a>
+                        )}
+                        <p className="mt-1 break-all text-xs text-slate-500 dark:text-slate-400">
+                          {app.appId}
+                        </p>
+                        <p className="mt-2 line-clamp-2 text-sm text-slate-600 dark:text-slate-300">
+                          {app.summary || copy.noSummary}
+                        </p>
+                        {metaItems.length > 0 && (
+                          <div className="mt-3 flex flex-wrap gap-2">
+                            {metaItems.map((item) => (
+                              <span key={item} className="rounded-full bg-slate-100 px-2.5 py-1 text-xs font-medium text-slate-600 dark:bg-slate-900 dark:text-slate-300">
+                                {item}
+                              </span>
+                            ))}
+                          </div>
+                        )}
+                      </div>
                     </div>
 
-                    <div className="min-w-0 flex-1">
-                      <h3 className="truncate text-base font-bold text-slate-950 dark:text-white sm:text-lg">
-                        {app.title}
-                      </h3>
-                      {app.developer && (
-                        <a
-                          href={developerHref}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="block truncate text-sm font-medium text-blue-600 transition hover:text-blue-700 hover:underline dark:text-blue-400 dark:hover:text-blue-300"
-                        >
-                          {app.developer}
-                        </a>
-                      )}
-                      <p className="mt-1 break-all text-xs text-slate-500 dark:text-slate-400">
-                        {app.appId}
-                      </p>
-                      <p className="mt-2 line-clamp-2 text-sm text-slate-600 dark:text-slate-300">
-                        {app.summary || copy.noSummary}
-                      </p>
-                      {metaItems.length > 0 && (
-                        <div className="mt-3 flex flex-wrap gap-2">
-                          {metaItems.map((item) => (
-                            <span key={item} className="rounded-full bg-slate-100 px-2.5 py-1 text-xs font-medium text-slate-600 dark:bg-slate-900 dark:text-slate-300">
-                              {item}
-                            </span>
-                          ))}
-                        </div>
-                      )}
+                    <div className="flex shrink-0 flex-col gap-2 sm:items-end">
+                      <DownloadButton appId={app.appId} appName={app.title} compact />
+                      <Link
+                        href={buildAppHref(app.appId, resultLang, resultCountry)}
+                        onClick={saveCurrentSearchPosition}
+                        className="text-center text-sm font-medium text-slate-500 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400 sm:text-right"
+                      >
+                        {copy.openDetails}
+                      </Link>
                     </div>
-                  </div>
-
-                  <div className="flex shrink-0 flex-col gap-2 sm:items-end">
-                    <DownloadButton appId={app.appId} appName={app.title} compact />
-                    <Link
-                      href={buildAppHref(app.appId, resultLang, resultCountry)}
-                      onClick={saveCurrentSearchPosition}
-                      className="text-center text-sm font-medium text-slate-500 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400 sm:text-right"
-                    >
-                      {copy.openDetails}
-                    </Link>
-                  </div>
-                </article>
-              );
-            })}
+                  </article>
+                );
+              })}
+            </div>
           </div>
-        </div>
 
           {/* 搜索结果下方广告 */}
           <AdUnit slot="0987654321" format="auto" className="mt-5" />
