@@ -2,6 +2,9 @@ User-agent: Baiduspider
 Allow: /
 Crawl-delay: 1
 
+User-agent: Baiduspider-render
+Allow: /
+
 User-agent: Bytespider
 Allow: /
 
@@ -9,6 +12,18 @@ User-agent: 360Spider
 Allow: /
 
 User-agent: Sogou web spider
+Allow: /
+
+User-agent: Sogou spider
+Allow: /
+
+User-agent: YisouSpider
+Allow: /
+
+User-agent: Sosospider
+Allow: /
+
+User-agent: PetalBot
 Allow: /
 
 User-agent: Bingbot
@@ -56,3 +71,5 @@ Disallow: /api/
 
 Host: https://gptoapk.com
 Sitemap: https://gptoapk.com/sitemap.xml
+Sitemap: https://gptoapk.com/sitemap-zh.xml
+Sitemap: https://gptoapk.com/sitemap-ai.xml

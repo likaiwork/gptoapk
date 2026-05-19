@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "baidu-submit": "node scripts/baidu-submit.mjs",
     "indexnow": "node scripts/indexnow-submit.mjs",
     "start": "next start",
     "lint": "eslint"
