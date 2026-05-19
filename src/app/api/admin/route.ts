@@ -12,6 +12,7 @@ import {
   getAllVisitorStats,
   getTodayNewVisitors,
   getTodayDownloads,
+  getDownloadFailureApps,
 } from "@/lib/db";
 
 export interface AdminResponse {
@@ -30,6 +31,9 @@ export interface AdminResponse {
   recent_activity_total: number;
   visitor_list: VisitorInfo[];
   visitor_list_total: number;
+  download_failures: DownloadFailureApp[];
+  download_failures_total: number;
+  unresolved_download_failures: number;
 }
 
 interface SearchStat {
@@ -63,6 +67,19 @@ interface VisitorInfo {
   visit_count: number;
   search_count: number;
   download_count: number;
+}
+
+interface DownloadFailureApp {
+  app_id: string;
+  app_title: string;
+  failure_count: number;
+  first_failed_at: string;
+  last_failed_at: string;
+  last_error: string;
+  last_source: string;
+  resolved: boolean;
+  resolved_at: string | null;
+  updated_at: string;
 }
 
 const DATE_ONLY_PATTERN = /^\d{4}-\d{2}-\d{2}$/;
@@ -110,6 +127,7 @@ export async function GET(
     const downloadPage = Math.max(parseInt(searchParams.get("downloadPage") || "0") || 0, 0);
     const activityPage = Math.max(parseInt(searchParams.get("activityPage") || "0") || 0, 0);
     const visitorPage = Math.max(parseInt(searchParams.get("visitorPage") || "0") || 0, 0);
+    const failurePage = Math.max(parseInt(searchParams.get("failurePage") || "0") || 0, 0);
 
     await initDatabase();
 
@@ -125,6 +143,7 @@ export async function GET(
       topDownloads,
       recentActivity,
       visitorList,
+      downloadFailures,
     ] =
       await Promise.all([
         getVisitorStats(startDate, endDate),
@@ -138,6 +157,7 @@ export async function GET(
         getDownloadStats(pageSize, downloadPage * pageSize, startDate, endDate),
         getRecentActivity(pageSize, activityPage * pageSize, startDate, endDate),
         getVisitorList(pageSize, visitorPage * pageSize, startDate, endDate),
+        getDownloadFailureApps(pageSize, failurePage * pageSize),
       ]);
 
     return NextResponse.json({
@@ -156,6 +176,9 @@ export async function GET(
       recent_activity_total: recentActivity.total,
       visitor_list: visitorList.rows,
       visitor_list_total: visitorList.total,
+      download_failures: downloadFailures.rows,
+      download_failures_total: downloadFailures.total,
+      unresolved_download_failures: downloadFailures.unresolved,
     });
   } catch (error) {
     console.error("[API admin] Error:", error);

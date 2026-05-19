@@ -270,6 +270,18 @@ function displayLocation(country: string, city: string, lang: "zh" | "en"): stri
 // Types
 interface SearchStat { app_id: string; app_title: string; count: number }
 interface DownloadStat { app_id: string; app_title: string; count: number }
+interface DownloadFailureApp {
+  app_id: string;
+  app_title: string;
+  failure_count: number;
+  first_failed_at: string;
+  last_failed_at: string;
+  last_error: string;
+  last_source: string;
+  resolved: boolean;
+  resolved_at: string | null;
+  updated_at: string;
+}
 interface ActivityItem {
   type: "search" | "download";
   visitor_id: string;
@@ -335,6 +347,9 @@ interface AdminData {
   recent_activity_total: number;
   visitor_list: VisitorInfo[];
   visitor_list_total: number;
+  download_failures: DownloadFailureApp[];
+  download_failures_total: number;
+  unresolved_download_failures: number;
 }
 
 function AdminLogin({ onLogin }: { onLogin: (token: string) => void }) {
@@ -726,22 +741,25 @@ function PageControl({ page, total, onPageChange }: PaginationState) {
 function Dashboard({
   data,
   onViewVisitor,
+  onToggleFailureResolved,
   lang,
   onLangChange,
   pagination,
 }: {
   data: AdminData;
   onViewVisitor: (v: VisitorInfo) => void;
+  onToggleFailureResolved: (appId: string, resolved: boolean) => void;
   lang: "zh" | "en";
   onLangChange: (l: "zh" | "en") => void;
   pagination: {
-    searchPage: number; downloadPage: number; activityPage: number; visitorPage: number;
+    searchPage: number; downloadPage: number; activityPage: number; visitorPage: number; failurePage: number;
     onSearchPageChange: (p: number) => void; onDownloadPageChange: (p: number) => void;
     onActivityPageChange: (p: number) => void; onVisitorPageChange: (p: number) => void;
+    onFailurePageChange: (p: number) => void;
   };
 }) {
-  const { searchPage, downloadPage, activityPage, visitorPage,
-    onSearchPageChange, onDownloadPageChange, onActivityPageChange, onVisitorPageChange } = pagination;
+  const { searchPage, downloadPage, activityPage, visitorPage, failurePage,
+    onSearchPageChange, onDownloadPageChange, onActivityPageChange, onVisitorPageChange, onFailurePageChange } = pagination;
 
   return (
     <div className="mx-auto max-w-6xl space-y-8">
@@ -750,6 +768,64 @@ function Dashboard({
         <StatCard label="总访客" value={data.visitors} color="bg-white border-gray-200" />
         <StatCard label="总搜索次数" value={data.total_searches} color="bg-white border-gray-200" />
         <StatCard label="总下载次数" value={data.total_downloads} color="bg-white border-gray-200" />
+      </div>
+
+      {/* Download Failures */}
+      <div>
+        <div className="mb-3 flex flex-wrap items-center gap-2">
+          <h2 className="text-lg font-semibold text-gray-900">下载失败应用</h2>
+          <MetricPill label="未解决" value={data.unresolved_download_failures} />
+          <MetricPill label="全部失败应用" value={data.download_failures_total} />
+        </div>
+        <div className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
+          <table className="min-w-full divide-y divide-gray-200 text-sm">
+            <thead className="bg-gray-50">
+              <tr>
+                <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">App</th>
+                <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">包名</th>
+                <th className="px-4 py-3 text-right text-xs font-medium uppercase tracking-wider text-gray-500">失败次数</th>
+                <th className="hidden px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 md:table-cell">最后失败</th>
+                <th className="hidden px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 lg:table-cell">原因</th>
+                <th className="px-4 py-3 text-right text-xs font-medium uppercase tracking-wider text-gray-500">状态</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-gray-100">
+              {data.download_failures.length === 0 && (
+                <tr><td colSpan={6} className="px-4 py-8 text-center text-sm text-gray-400">暂无下载失败记录</td></tr>
+              )}
+              {data.download_failures.map((item) => (
+                <tr key={item.app_id} className={item.resolved ? "bg-gray-50/60" : "hover:bg-red-50/40"}>
+                  <td className="px-4 py-3">
+                    <div className="font-medium text-gray-900">{item.app_title || item.app_id}</div>
+                    {item.last_source && <div className="mt-0.5 text-xs text-gray-400">来源：{item.last_source}</div>}
+                  </td>
+                  <td className="px-4 py-3 font-mono text-xs text-gray-500">{item.app_id}</td>
+                  <td className="px-4 py-3 text-right text-sm font-semibold text-red-600">{item.failure_count}</td>
+                  <td className="hidden px-4 py-3 text-xs text-gray-500 md:table-cell">{formatTime(item.last_failed_at)}</td>
+                  <td className="hidden max-w-xs px-4 py-3 text-xs text-gray-500 lg:table-cell">
+                    <span className="line-clamp-2" title={item.last_error || "—"}>{item.last_error || "—"}</span>
+                  </td>
+                  <td className="px-4 py-3 text-right">
+                    <button
+                      onClick={() => onToggleFailureResolved(item.app_id, !item.resolved)}
+                      className={`rounded-lg px-3 py-1.5 text-xs font-medium transition ${
+                        item.resolved
+                          ? "border border-gray-200 bg-white text-gray-500 hover:bg-gray-100"
+                          : "bg-emerald-600 text-white hover:bg-emerald-700"
+                      }`}
+                    >
+                      {item.resolved ? "改为未解决" : "标记已解决"}
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <div className="flex items-center justify-between border-t border-gray-100 px-4 py-2">
+            <span className="text-xs text-gray-400">共 {data.download_failures_total} 个失败应用</span>
+            <PageControl page={failurePage} total={data.download_failures_total} onPageChange={onFailurePageChange} />
+          </div>
+        </div>
       </div>
 
       {/* Visitor List */}
@@ -984,9 +1060,10 @@ export default function AdminPage() {
   const [downloadPage, setDownloadPage] = useState(0);
   const [activityPage, setActivityPage] = useState(0);
   const [visitorPage, setVisitorPage] = useState(0);
+  const [failurePage, setFailurePage] = useState(0);
 
   const fetchData = useCallback(async (authToken: string, start?: string, end?: string, pages?: {
-    searchPage?: number; downloadPage?: number; activityPage?: number; visitorPage?: number;
+    searchPage?: number; downloadPage?: number; activityPage?: number; visitorPage?: number; failurePage?: number;
   }) => {
     try {
       const params = new URLSearchParams();
@@ -998,6 +1075,7 @@ export default function AdminPage() {
         params.set("downloadPage", String(pages.downloadPage ?? 0));
         params.set("activityPage", String(pages.activityPage ?? 0));
         params.set("visitorPage", String(pages.visitorPage ?? 0));
+        params.set("failurePage", String(pages.failurePage ?? 0));
         params.set("pageSize", String(PAGE_SIZE));
       }
       const res = await fetch(`/api/admin?${params}`);
@@ -1016,8 +1094,8 @@ export default function AdminPage() {
   }, []);
 
   const getCurrentPages = useCallback(() => ({
-    searchPage, downloadPage, activityPage, visitorPage,
-  }), [searchPage, downloadPage, activityPage, visitorPage]);
+    searchPage, downloadPage, activityPage, visitorPage, failurePage,
+  }), [searchPage, downloadPage, activityPage, visitorPage, failurePage]);
 
   const handleLogin = useCallback((password: string) => {
     document.cookie = `admin_token=${encodeURIComponent(password)}; path=/; max-age=${60 * 60 * 24}; SameSite=Lax`;
@@ -1041,6 +1119,7 @@ export default function AdminPage() {
     setDownloadPage(0);
     setActivityPage(0);
     setVisitorPage(0);
+    setFailurePage(0);
     if (token) {
       setLoading(true);
       fetchData(token, start, end).finally(() => setLoading(false));
@@ -1057,11 +1136,30 @@ export default function AdminPage() {
         downloadPage: pageKey === "download" ? page : downloadPage,
         activityPage: pageKey === "activity" ? page : activityPage,
         visitorPage: pageKey === "visitor" ? page : visitorPage,
+        failurePage: pageKey === "failure" ? page : failurePage,
       };
       setLoading(true);
       fetchData(token, appliedDateStart, appliedDateEnd, pages).finally(() => setLoading(false));
     };
-  }, [token, fetchData, appliedDateStart, appliedDateEnd, searchPage, downloadPage, activityPage, visitorPage]);
+  }, [token, fetchData, appliedDateStart, appliedDateEnd, searchPage, downloadPage, activityPage, visitorPage, failurePage]);
+
+  const handleToggleFailureResolved = useCallback(async (appId: string, resolved: boolean) => {
+    if (!token) return;
+    try {
+      const res = await fetch(`/api/admin/download-failures?key=${encodeURIComponent(token)}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ appId, resolved }),
+      });
+      if (!res.ok) {
+        setError("状态更新失败");
+        return;
+      }
+      await fetchData(token, appliedDateStart, appliedDateEnd, getCurrentPages());
+    } catch {
+      setError("状态更新网络错误");
+    }
+  }, [token, fetchData, appliedDateStart, appliedDateEnd, getCurrentPages]);
 
   useEffect(() => {
     if (initializedRef.current) return;
@@ -1119,13 +1217,14 @@ export default function AdminPage() {
         />
 
         {error && <div className="mb-4 rounded-lg bg-red-50 px-4 py-3 text-sm text-red-600">{error}</div>}
-        {data ? <Dashboard data={data} onViewVisitor={setSelectedVisitor} lang={lang} onLangChange={setLang}
+        {data ? <Dashboard data={data} onViewVisitor={setSelectedVisitor} onToggleFailureResolved={handleToggleFailureResolved} lang={lang} onLangChange={setLang}
           pagination={{
-            searchPage, downloadPage, activityPage, visitorPage,
+            searchPage, downloadPage, activityPage, visitorPage, failurePage,
             onSearchPageChange: makePageFetcher("search", setSearchPage),
             onDownloadPageChange: makePageFetcher("download", setDownloadPage),
             onActivityPageChange: makePageFetcher("activity", setActivityPage),
             onVisitorPageChange: makePageFetcher("visitor", setVisitorPage),
+            onFailurePageChange: makePageFetcher("failure", setFailurePage),
           }} /> : <LoadingSpinner />}
       </main>
 

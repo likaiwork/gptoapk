@@ -32,7 +32,7 @@ type DownloadButtonProps = {
   compact?: boolean;
 };
 
-export default function DownloadButton({ appId, compact = false }: DownloadButtonProps) {
+export default function DownloadButton({ appId, appName, compact = false }: DownloadButtonProps) {
   const pathname = usePathname();
   const localeMatch = pathname.match(localePathRegex);
   const locale = (localeMatch?.[1] as SiteLocale | undefined) ?? "en";
@@ -103,7 +103,7 @@ export default function DownloadButton({ appId, compact = false }: DownloadButto
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             appId,
-            appTitle: (data as { [k: string]: unknown }).fileName || appId,
+            appTitle: appName || (data as { [k: string]: unknown }).fileName || appId,
             source: data.source,
             downloadUrl: data.downloadUrl,
             version: data.version,
@@ -150,12 +150,13 @@ export default function DownloadButton({ appId, compact = false }: DownloadButto
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           appId,
-          appTitle: appId,
+          appTitle: appName || appId,
           source: "",
           downloadUrl: "",
           version: "",
           fileSize: "",
           success: false,
+          error: message,
         }),
       }).catch(() => {});
       if (intervalRef.current) clearInterval(intervalRef.current);

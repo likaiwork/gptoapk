@@ -45,6 +45,19 @@ export interface DownloadLogRow {
   ip_hash: string;
 }
 
+export interface DownloadFailureApp {
+  app_id: string;
+  app_title: string;
+  failure_count: number;
+  first_failed_at: string;
+  last_failed_at: string;
+  last_error: string;
+  last_source: string;
+  resolved: boolean;
+  resolved_at: string | null;
+  updated_at: string;
+}
+
 export interface SearchLogParams {
   visitorId: string;
   query: string;
@@ -63,6 +76,7 @@ export interface DownloadLogParams {
   version: string;
   fileSize: string;
   success: boolean;
+  error?: string;
   ipHash?: string;
 }
 
@@ -222,12 +236,28 @@ export async function initDatabase(): Promise<void> {
     )
   `;
 
+  await sql`
+    CREATE TABLE IF NOT EXISTS download_failure_apps (
+      app_id TEXT PRIMARY KEY,
+      app_title TEXT DEFAULT '',
+      failure_count INTEGER NOT NULL DEFAULT 0,
+      first_failed_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      last_failed_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      last_error TEXT DEFAULT '',
+      last_source TEXT DEFAULT '',
+      resolved BOOLEAN NOT NULL DEFAULT FALSE,
+      resolved_at TIMESTAMPTZ,
+      updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `;
+
   try { await sql`CREATE INDEX IF NOT EXISTS idx_search_visitor ON search_logs(visitor_id)`; } catch {}
   try { await sql`CREATE INDEX IF NOT EXISTS idx_search_app ON search_logs(app_id)`; } catch {}
   try { await sql`CREATE INDEX IF NOT EXISTS idx_search_timestamp ON search_logs(timestamp)`; } catch {}
   try { await sql`CREATE INDEX IF NOT EXISTS idx_download_visitor ON download_logs(visitor_id)`; } catch {}
   try { await sql`CREATE INDEX IF NOT EXISTS idx_download_app ON download_logs(app_id)`; } catch {}
   try { await sql`CREATE INDEX IF NOT EXISTS idx_download_timestamp ON download_logs(timestamp)`; } catch {}
+  try { await sql`CREATE INDEX IF NOT EXISTS idx_failure_resolved ON download_failure_apps(resolved, last_failed_at DESC)`; } catch {}
 
   // 迁移: 旧表没有的列
   const migrationQueries = [
@@ -245,6 +275,43 @@ export async function initDatabase(): Promise<void> {
   for (const q of migrationQueries) {
     try { await sqlRaw(q); } catch {}
   }
+
+  try {
+    await sqlRaw(`
+      INSERT INTO download_failure_apps (
+        app_id,
+        app_title,
+        failure_count,
+        first_failed_at,
+        last_failed_at,
+        last_error,
+        last_source,
+        resolved,
+        updated_at
+      )
+      SELECT
+        app_id,
+        COALESCE((array_agg(app_title ORDER BY timestamp DESC) FILTER (WHERE app_title != ''))[1], app_id) as app_title,
+        COUNT(*)::int as failure_count,
+        MIN(timestamp) as first_failed_at,
+        MAX(timestamp) as last_failed_at,
+        '' as last_error,
+        COALESCE((array_agg(source ORDER BY timestamp DESC) FILTER (WHERE source != ''))[1], '') as last_source,
+        FALSE as resolved,
+        NOW() as updated_at
+      FROM download_logs
+      WHERE COALESCE(download_success, FALSE) = FALSE
+        AND app_id != ''
+      GROUP BY app_id
+      ON CONFLICT (app_id) DO UPDATE SET
+        app_title = COALESCE(NULLIF(EXCLUDED.app_title, ''), download_failure_apps.app_title),
+        failure_count = GREATEST(download_failure_apps.failure_count, EXCLUDED.failure_count),
+        first_failed_at = LEAST(download_failure_apps.first_failed_at, EXCLUDED.first_failed_at),
+        last_failed_at = GREATEST(download_failure_apps.last_failed_at, EXCLUDED.last_failed_at),
+        last_source = COALESCE(NULLIF(EXCLUDED.last_source, ''), download_failure_apps.last_source),
+        updated_at = NOW()
+    `);
+  } catch {}
 
   initialized = true;
 }
@@ -399,6 +466,43 @@ export async function logDownload(params: DownloadLogParams): Promise<boolean> {
     INSERT INTO download_logs (visitor_id, app_id, app_title, source, download_url, version, file_size, download_success, timestamp, ip_hash)
     VALUES (${params.visitorId}, ${params.appId}, ${params.appTitle}, ${params.source}, ${params.downloadUrl}, ${params.version}, ${params.fileSize}, ${params.success}, NOW(), ${params.ipHash || ""})
   `;
+
+  if (!params.success && params.appId) {
+    await sql`
+      INSERT INTO download_failure_apps (
+        app_id,
+        app_title,
+        failure_count,
+        first_failed_at,
+        last_failed_at,
+        last_error,
+        last_source,
+        resolved,
+        updated_at
+      )
+      VALUES (
+        ${params.appId},
+        ${params.appTitle || params.appId},
+        1,
+        NOW(),
+        NOW(),
+        ${params.error || ""},
+        ${params.source || ""},
+        FALSE,
+        NOW()
+      )
+      ON CONFLICT (app_id) DO UPDATE SET
+        app_title = COALESCE(NULLIF(EXCLUDED.app_title, ''), download_failure_apps.app_title),
+        failure_count = download_failure_apps.failure_count + 1,
+        last_failed_at = NOW(),
+        last_error = EXCLUDED.last_error,
+        last_source = COALESCE(NULLIF(EXCLUDED.last_source, ''), download_failure_apps.last_source),
+        resolved = FALSE,
+        resolved_at = NULL,
+        updated_at = NOW()
+    `;
+  }
+
   return true;
 }
 
@@ -548,6 +652,52 @@ export async function getDownloadStats(
   );
 
   return { rows, total: totalResult[0]?.total ?? 0 };
+}
+
+export async function getDownloadFailureApps(
+  limit = 20,
+  offset = 0
+): Promise<{ rows: DownloadFailureApp[]; total: number; unresolved: number }> {
+  const [totalResult, unresolvedResult, rows] = await Promise.all([
+    sqlRaw<{ total: number }>(`SELECT COUNT(*)::int as total FROM download_failure_apps`),
+    sqlRaw<{ total: number }>(`SELECT COUNT(*)::int as total FROM download_failure_apps WHERE resolved = FALSE`),
+    sqlRaw<DownloadFailureApp>(
+      `SELECT
+         app_id,
+         app_title,
+         failure_count,
+         first_failed_at::text,
+         last_failed_at::text,
+         COALESCE(last_error, '') as last_error,
+         COALESCE(last_source, '') as last_source,
+         resolved,
+         resolved_at::text,
+         updated_at::text
+       FROM download_failure_apps
+       ORDER BY resolved ASC, last_failed_at DESC, failure_count DESC, app_id ASC
+       LIMIT $1 OFFSET $2`,
+      [limit, offset]
+    ),
+  ]);
+
+  return {
+    rows,
+    total: totalResult[0]?.total ?? 0,
+    unresolved: unresolvedResult[0]?.total ?? 0,
+  };
+}
+
+export async function updateDownloadFailureResolved(appId: string, resolved: boolean): Promise<boolean> {
+  const rows = await sqlRaw<{ app_id: string }>(
+    `UPDATE download_failure_apps
+     SET resolved = $2,
+         resolved_at = CASE WHEN $2 THEN NOW() ELSE NULL END,
+         updated_at = NOW()
+     WHERE app_id = $1
+     RETURNING app_id`,
+    [appId, resolved]
+  );
+  return rows.length > 0;
 }
 
 export async function getRecentActivity(

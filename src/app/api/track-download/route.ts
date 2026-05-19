@@ -4,7 +4,7 @@ import { initDatabase, logDownload } from "@/lib/db";
 export async function POST(request: NextRequest): Promise<NextResponse> {
   try {
     const body = await request.json();
-    const { appId, appTitle, source, downloadUrl, version, fileSize, success } = body;
+    const { appId, appTitle, source, downloadUrl, version, fileSize, success, error } = body;
 
     if (!appId) {
       return NextResponse.json({ error: "Missing appId" }, { status: 400 });
@@ -24,6 +24,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
       version: String(version || ""),
       fileSize: fileSize ? String(fileSize) : "",
       success: success !== false, // 默认 true
+      error: String(error || ""),
     });
 
     return NextResponse.json({ success: true, logged });
