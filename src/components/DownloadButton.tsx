@@ -23,6 +23,7 @@ type DownloadResponse = {
   version?: string | null;
   size?: number | null;
   proxy?: string;
+  externalPage?: boolean;
 };
 
 type DownloadButtonProps = {
@@ -112,14 +113,18 @@ export default function DownloadButton({ appId, compact = false }: DownloadButto
         }).catch(() => {});
       };
 
-      const a = document.createElement("a");
-      a.href = data.downloadUrl;
-      a.download = fileName;
-      a.rel = "noopener";
-      a.target = "gptoapk-direct-download";
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
+      if (data.externalPage) {
+        window.location.assign(data.downloadUrl);
+      } else {
+        const a = document.createElement("a");
+        a.href = data.downloadUrl;
+        a.download = fileName;
+        a.rel = "noopener";
+        a.target = "gptoapk-direct-download";
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+      }
       setLastDownloadUrl(data.downloadUrl);
       setFallbackDownloadUrl(data.fallbackDownloadUrl || "");
       setLastFileName(fileName);

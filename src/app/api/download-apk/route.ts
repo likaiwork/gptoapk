@@ -13,6 +13,18 @@ const APK_CONTENT_TYPE = 'application/vnd.android.package-archive';
 const DOWNLOAD_CACHE_CONTROL = 'no-store';
 
 const ALLOWED_DOWNLOAD_HOST_SUFFIXES = ['.aptoide.com', '.winudf.com'];
+const EXTERNAL_SOURCE_PAGES: Record<string, Omit<SourceResult, 'source'> & { source: string; externalPage: true; type: string }> = {
+  'com.anthropic.claude': {
+    downloadUrl: 'https://claude.en.uptodown.com/android/download',
+    fileName: 'Claude.xapk',
+    version: null,
+    size: null,
+    md5: null,
+    source: 'uptodown-page',
+    externalPage: true,
+    type: 'XAPK',
+  },
+};
 
 type SourceResult = {
   downloadUrl: string;
@@ -21,6 +33,8 @@ type SourceResult = {
   size: number | null;
   md5: string | null;
   source: string;
+  externalPage?: boolean;
+  type?: string;
 };
 
 type AptoideResponse = {
@@ -224,7 +238,7 @@ async function tryApkPure(appId: string): Promise<SourceResult | null> {
 }
 
 async function resolveDownloadSource(appId: string) {
-  return (await tryAptoide(appId)) ?? (await tryApkPure(appId));
+  return (await tryAptoide(appId)) ?? (await tryApkPure(appId)) ?? EXTERNAL_SOURCE_PAGES[appId.toLowerCase()] ?? null;
 }
 
 export async function GET(request: Request) {
@@ -252,7 +266,7 @@ export async function GET(request: Request) {
     );
   }
 
-  if (delivery !== 'proxy') {
+  if (result.externalPage || delivery !== 'proxy') {
     return createDirectDownloadResponse(request, appId, result, startedAt, 'direct_default', result.size);
   }
 
@@ -393,15 +407,20 @@ export async function POST(request: Request) {
 
     return NextResponse.json({
       success: true,
-      downloadUrl: `/api/download-apk?appId=${encodeURIComponent(cleanId)}&delivery=direct`,
-      fallbackDownloadUrl: `/api/download-apk?appId=${encodeURIComponent(cleanId)}&delivery=proxy`,
+      downloadUrl: result.externalPage
+        ? result.downloadUrl
+        : `/api/download-apk?appId=${encodeURIComponent(cleanId)}&delivery=direct`,
+      fallbackDownloadUrl: result.externalPage
+        ? ''
+        : `/api/download-apk?appId=${encodeURIComponent(cleanId)}&delivery=proxy`,
       fileName: result.fileName ?? `${cleanId}.apk`,
-      type: 'APK',
+      type: result.type ?? 'APK',
       version: result.version,
       size: result.size,
       md5: result.md5,
       source: result.source,
-      proxy: 'direct-cdn',
+      proxy: result.externalPage ? 'external-page' : 'direct-cdn',
+      externalPage: result.externalPage ?? false,
       maxProxyBytes: MAX_PROXY_BYTES,
     });
   } catch (err) {
