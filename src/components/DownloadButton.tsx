@@ -1,8 +1,12 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { usePathname } from "next/navigation";
 import { analyticsEvents } from "@/lib/analytics-events";
 import { trackEvent } from "@/lib/client-analytics";
+import { downloadUi } from "@/lib/download-ui";
+import { localePathRegex } from "@/lib/site-locales";
+import type { SiteLocale } from "@/lib/site-locales";
 
 type Status = "idle" | "preparing" | "started" | "fallback";
 
@@ -28,6 +32,10 @@ type DownloadButtonProps = {
 };
 
 export default function DownloadButton({ appId, compact = false }: DownloadButtonProps) {
+  const pathname = usePathname();
+  const localeMatch = pathname.match(localePathRegex);
+  const locale = (localeMatch?.[1] as SiteLocale | undefined) ?? "en";
+  const ui = downloadUi[locale] ?? downloadUi.en;
   const [status, setStatus] = useState<Status>("idle");
   const [error, setError] = useState("");
   const [countdown, setCountdown] = useState(ESTIMATED_SECONDS);
@@ -174,21 +182,21 @@ export default function DownloadButton({ appId, compact = false }: DownloadButto
               <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
               <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
             </svg>
-            {countdown > 0 ? `Starting in ${countdown}s...` : "Almost ready..."}
+            {countdown > 0 ? ui.startingIn(countdown) : ui.almostReady}
           </>
         ) : isStarted ? (
           <>
             <svg xmlns="http://www.w3.org/2000/svg" className={iconClassName} fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
             </svg>
-            Download started
+            {ui.started}
           </>
         ) : (
           <>
             <svg xmlns="http://www.w3.org/2000/svg" className={iconClassName} fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
             </svg>
-            Download APK
+            {ui.button}
           </>
         )}
       </button>
@@ -208,8 +216,8 @@ export default function DownloadButton({ appId, compact = false }: DownloadButto
           </div>
           <p className="text-xs text-slate-500 mt-1">
             {countdown > 0
-              ? "Fetching the latest APK from our verified source..."
-              : "Just a moment, finalizing your download..."}
+              ? ui.preparing
+              : ui.finalizing}
           </p>
         </div>
       )}
@@ -223,14 +231,14 @@ export default function DownloadButton({ appId, compact = false }: DownloadButto
           <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-green-500" viewBox="0 0 20 20" fill="currentColor">
             <path fillRule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
           </svg>
-          Verified safe to install
+          {ui.safe}
         </p>
       )}
 
       {isStarted && (
         <div className="mt-1 space-y-1 text-xs">
           <p className="text-green-600 dark:text-green-400">
-            Check your browser&apos;s downloads. If it does not start, a backup channel will appear here.
+            {ui.checkDownloads}
           </p>
           {lastDownloadUrl && (
             <a
@@ -239,7 +247,7 @@ export default function DownloadButton({ appId, compact = false }: DownloadButto
               rel="noopener"
               className="text-blue-600 hover:underline dark:text-blue-400"
             >
-              If nothing starts, tap here to open the download link.
+              {ui.directRetry}
             </a>
           )}
         </div>
@@ -248,7 +256,7 @@ export default function DownloadButton({ appId, compact = false }: DownloadButto
       {isFallback && fallbackDownloadUrl && (
         <div className="mt-2 w-full space-y-2 rounded-xl border border-amber-200 bg-amber-50 p-3 text-left text-xs text-amber-900 dark:border-amber-900/50 dark:bg-amber-950/30 dark:text-amber-100">
           <p>
-            Download not started? Use the backup channel.
+            {ui.fallbackPrompt}
           </p>
           <a
             href={fallbackDownloadUrl}
@@ -256,7 +264,7 @@ export default function DownloadButton({ appId, compact = false }: DownloadButto
             rel="noopener"
             className="flex w-full items-center justify-center rounded-lg bg-amber-500 px-3 py-2 font-bold text-white transition hover:bg-amber-600"
           >
-            Use backup download
+            {ui.fallbackButton}
           </a>
         </div>
       )}
