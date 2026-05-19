@@ -1540,6 +1540,62 @@ apksigner verify --verbose app.apk`}</code></pre>
     ),
   },
 
+  {
+    slug: "apk-download-size-vs-storage-usage",
+    title: "APK 下载大小与实际存储空间 — 为什么安装后占用空间更大",
+    description: "APK 文件大小不等于应用占用空间。下载 30MB 的 APK，安装后却用了 150MB？本文解释原因和估算方法。",
+    date: "2026-05-19",
+    readTime: "10 分钟阅读",
+    tags: ["APK大小", "存储空间", "应用安装", "手机存储", "gptoapk"],
+    content: (
+      <>
+<p className="lead">你下载 30MB 的 APK，安装后一看占用 150MB。APK 像快递箱，安装时内容会膨胀。</p>
+<h2>为什么 APK 大小 ≠ 存储占用？</h2>
+<ul>
+<li><strong>代码优化</strong> — Dex 编译为机器码，膨胀 1.5-3 倍</li>
+<li><strong>资源解压</strong> — 压缩资源恢复原始大小</li>
+<li><strong>原生库提取</strong> — .so 文件解压到目录</li>
+<li><strong>应用数据</strong> — 创建数据库、缓存</li>
+</ul>
+<h2>快速估算</h2>
+<p><strong>安装后占用 ≈ APK 大小 × 3-4 倍</strong></p>
+<h2>建议</h2>
+<ul>
+<li>定期清理缓存</li>
+<li>在 gptoapk.com 下载基础 APK</li>
+<li>选择 Lite 版本</li>
+</ul>
+<p><em>原文发布于 gptoapk.com。</em></p>
+      </>
+    ),
+  },
+
+  {
+    slug: "apk-vs-app-bundle-aab-end-users",
+    title: "普通用户需要了解的 APK vs App Bundle（AAB）指南",
+    description: "Google Play 要求新应用使用 AAB 格式。这会阻止你下载 APK 吗？给普通用户的解读。",
+    date: "2026-05-19",
+    readTime: "10 分钟阅读",
+    tags: ["APK vs AAB", "App Bundle", "Google Play", "Android", "gptoapk"],
+    content: (
+      <>
+<p className="lead">Google 要求开发者用 AAB 替代 APK。但对你来说完全没变化。</p>
+<h2>AAB 是大白话解释</h2>
+<p><strong>APK：</strong>大而全的包裹。所有语言、所有屏幕尺寸、所有处理器。</p>
+<p><strong>AAB：</strong>智能分拣。Google Play 只挑你手机需要的那部分。</p>
+<h2>对你有什么影响？</h2>
+<ul>
+<li>从 Google Play 安装：完全没变化</li>
+<li>从第三方下载 APK：完全没变化</li>
+<li>侧载安装：完全没变化</li>
+</ul>
+<h2>APK 不会消失</h2>
+<p>APK 是 Android 核心安装格式。用 gptoapk.com 依然可以下载 APK。</p>
+<p><em>原文发布于 gptoapk.com。</em></p>
+      </>
+    ),
+  }
+
 ];
 
 export async function generateStaticParams() {
