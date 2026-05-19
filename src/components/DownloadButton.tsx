@@ -14,6 +14,7 @@ type DownloadResponse = {
   error?: string;
   downloadUrl?: string;
   fallbackDownloadUrl?: string;
+  directDownloadUrl?: string;
   fileName?: string;
   source?: string;
   version?: string | null;
@@ -33,6 +34,7 @@ export default function DownloadButton({ appId, compact = false }: DownloadButto
   const [countdown, setCountdown] = useState(ESTIMATED_SECONDS);
   const [lastDownloadUrl, setLastDownloadUrl] = useState("");
   const [fallbackDownloadUrl, setFallbackDownloadUrl] = useState("");
+  const [directDownloadUrl, setDirectDownloadUrl] = useState("");
   const [lastFileName, setLastFileName] = useState("");
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const resetTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -55,6 +57,7 @@ export default function DownloadButton({ appId, compact = false }: DownloadButto
     setError("");
     setLastDownloadUrl("");
     setFallbackDownloadUrl("");
+    setDirectDownloadUrl("");
     setLastFileName("");
     setCountdown(ESTIMATED_SECONDS);
 
@@ -113,6 +116,7 @@ export default function DownloadButton({ appId, compact = false }: DownloadButto
       a.remove();
       setLastDownloadUrl(data.downloadUrl);
       setFallbackDownloadUrl(data.fallbackDownloadUrl || "");
+      setDirectDownloadUrl(data.directDownloadUrl || "");
       setLastFileName(fileName);
 
       // 记录下载
@@ -246,6 +250,17 @@ export default function DownloadButton({ appId, compact = false }: DownloadButto
               className="block text-amber-600 hover:underline dark:text-amber-400"
             >
               Still not working? Use the backup download channel.
+            </a>
+          )}
+          {directDownloadUrl && (
+            <a
+              href={directDownloadUrl}
+              download={lastFileName}
+              target="_blank"
+              rel="noopener"
+              className="block text-slate-500 hover:text-blue-600 hover:underline dark:text-slate-400 dark:hover:text-blue-400"
+            >
+              Use the normal direct link to save server traffic.
             </a>
           )}
         </div>

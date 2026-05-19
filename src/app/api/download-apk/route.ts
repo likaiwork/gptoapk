@@ -393,15 +393,15 @@ export async function POST(request: Request) {
 
     return NextResponse.json({
       success: true,
-      downloadUrl: `/api/download-apk?appId=${encodeURIComponent(cleanId)}&delivery=direct`,
-      fallbackDownloadUrl: `/api/download-apk?appId=${encodeURIComponent(cleanId)}&delivery=proxy`,
+      downloadUrl: `/api/download-apk?appId=${encodeURIComponent(cleanId)}&delivery=proxy`,
+      directDownloadUrl: `/api/download-apk?appId=${encodeURIComponent(cleanId)}&delivery=direct`,
       fileName: result.fileName ?? `${cleanId}.apk`,
       type: 'APK',
       version: result.version,
       size: result.size,
       md5: result.md5,
       source: result.source,
-      proxy: 'direct-cdn',
+      proxy: 'vercel-stream',
       maxProxyBytes: MAX_PROXY_BYTES,
     });
   } catch (err) {
