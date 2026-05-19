@@ -25,6 +25,22 @@ interface BlogPost {
 
 const posts: BlogPost[] = [
   {
+    slug: "google-play-not-working-10-fixes-2026",
+    title: "Google Play Not Working or Can't Connect? 10 Proven Fixes for 2026 (Huawei and Xiaomi)",
+    description: "Google Play not opening or connecting? This guide covers 10 fixes for all Android phones — clear cache, reinstall Play Services, fix Google account sync, and the ultimate alternative.",
+    date: "2026-05-19",
+    readTime: "10 min read",
+    tags: ["Google Play", "Android", "troubleshooting", "gptoapk"],
+  },
+  {
+    slug: "apk-install-failed-error-code-guide",
+    title: "APK Installation Failed — Complete Error Code Guide",
+    description: "Every APK installation error explained. From Parse Error and App Not Installed to error codes like -11, -28, -29. Find your error and fix it in 2 minutes.",
+    date: "2026-05-19",
+    readTime: "10 min read",
+    tags: ["APK Install", "Android Errors", "troubleshooting", "gptoapk"],
+  },
+  {
     slug: "apk-signature-verification-security-guide",
     title: "APK Signature Verification & Security Guide — Protect Yourself from Tampered Apps",
     description: "Learn how to verify APK file digital signatures and check if an APK has been tampered with. Covers jarsigner, apksigner, online tools, and security best practices.",

@@ -25,15 +25,19 @@ const hubPages = [
   { path: "/zh/about", title: "关于 gptoapk.com" },
 ];
 
+const blogPages = [
+  { path: "/zh/blog/google-play-cannot-open-fixes-2026", title: "Google Play 打不开/无法连接/进不去？2026 最新解决方法" },
+  { path: "/zh/blog/apk-install-failed-error-codes-guide", title: "APK 安装失败错误代码大全：解析错误、无效包、(-11)(-28)(-29)" },
+];
+
 function escapeXml(s: string) {
   return s.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;");
 }
 
 export async function GET() {
   const now = new Date().toUTCString();
-  const feedUpdated = "2026-05-19T08:00:00Z";
 
-  const items = [...aiAppPages, ...hubPages]
+  const items = [...blogPages, ...aiAppPages, ...hubPages]
     .map((p) => {
       const url = `${siteUrl}${p.path}`;
       const pkg = ("pkg" in p && "dev" in p) ? ` | 包名：${escapeXml(String(p.pkg))} | 开发者：${escapeXml(String(p.dev))}` : "";

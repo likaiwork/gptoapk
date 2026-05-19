@@ -17,6 +17,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "install-apk-files-samsung-google-pixel-xiaomi",
     "is-downloading-apk-from-google-play-safe",
     "google-play-apk-downloader-not-working-7-fixes",
+    "google-play-not-working-10-fixes-2026",
+    "apk-install-failed-error-code-guide",
   ];
 
   const zhBlogSlugs = [
@@ -27,6 +29,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "google-play-link-to-apk-troubleshooting",
     "google-play-link-to-apk-tips",
     "google-play-link-to-apk-step-by-step",
+    "google-play-cannot-open-fixes-2026",
+    "apk-install-failed-error-codes-guide",
   ];
 
   // 检查：除 en/zh 外，其他语言只暴露首页 / FAQ / Blog 列表，blog 详情统一指向 en

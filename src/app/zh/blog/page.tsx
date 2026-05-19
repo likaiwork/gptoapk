@@ -16,6 +16,22 @@ export const metadata: Metadata = {
 
 const posts = [
   {
+    slug: "google-play-cannot-open-fixes-2026",
+    title: "Google Play 打不开/无法连接/进不去？2026 最新解决方法（华为/小米通用）",
+    description: "Google Play 打不开怎么办？本文汇总了华为、小米、OPPO 等手机 Google Play 无法连接的 10 种解决方法，从清除缓存到 APK 直装。",
+    date: "2026-05-19",
+    readTime: "10 分钟阅读",
+    tags: ["Google Play", "安卓", "故障解决", "gptoapk"],
+  },
+  {
+    slug: "apk-install-failed-error-codes-guide",
+    title: "APK 安装失败错误代码大全：解析错误、无效包、(-11)(-28)(-29) 2026 完整解决指南",
+    description: "APK 安装失败各种错误代码是什么意思？本文整理最常见的 APK 安装失败原因和解决方法，包含解析错误、无效安装包、INSTALL_FAILED 错误代码。",
+    date: "2026-05-19",
+    readTime: "10 分钟阅读",
+    tags: ["APK安装", "安卓错误", "故障解决", "gptoapk"],
+  },
+  {
     slug: "apk-signature-verification-security-guide",
     title: "APK签名验证与安全检查完整指南 — 2026最新防篡改方案",
     description: "学习如何验证APK文件的数字签名，检查APK是否被篡改。覆盖jarsigner、apksigner、在线工具和命令行多种验证方式，保障你的下载安全。",
