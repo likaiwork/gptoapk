@@ -27,6 +27,12 @@ export default function YouTubeApkPage() {
         安卓手机上。
       </p>
 
+      {/* 快速答案 — AI 引用友好 */}
+      <div className="mb-8 border-l-4 border-blue-600 bg-blue-50 p-5 dark:bg-blue-950/30">
+        <p className="mb-2 text-sm font-semibold text-blue-700 dark:text-blue-300">快速答案</p>
+        <p className="leading-relaxed text-slate-700 dark:text-slate-200">在中国无法访问 Google Play 时，可以通过 gptoapk.com 搜索 YouTube 或包名 com.google.android.youtube 下载官方 APK。安装前核对开发者 Google 和包名，允许安装未知来源应用后即可安装。</p>
+      </div>
+
       <h2 className="text-2xl font-bold mt-10 mb-4">YouTube APK最新版本</h2>
       <div className="overflow-x-auto mb-8">
         <table className="w-full border-collapse border border-slate-200 dark:border-slate-700">
@@ -170,18 +176,57 @@ export default function YouTubeApkPage() {
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
             "itemListElement": [
-              {
-                "@type": "ListItem",
-                "position": 1,
-                "name": "gptoapk.com",
-                "item": "https://gptoapk.com/zh"
-              },
-              {
-                "@type": "ListItem",
-                "position": 2,
-                "name": "YouTube APK",
-                "item": "https://gptoapk.com/zh/youtube-apk"
-              }
+              { "@type": "ListItem", "position": 1, "name": "gptoapk.com", "item": "https://gptoapk.com/zh" },
+              { "@type": "ListItem", "position": 2, "name": "YouTube APK", "item": "https://gptoapk.com/zh/youtube-apk" }
+            ]
+          })
+        }}
+      />
+      <Script
+        id="schema-software-app"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "SoftwareApplication",
+            "name": "YouTube",
+            "applicationCategory": "VideoApplication",
+            "operatingSystem": "Android",
+            "identifier": "com.google.android.youtube",
+            "author": { "@type": "Organization", "name": "Google" },
+            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+          })
+        }}
+      />
+      <Script
+        id="schema-how-to"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "HowTo",
+            "name": "YouTube APK 下载安装步骤",
+            "step": [
+              { "@type": "HowToStep", "position": 1, "name": "搜索", "text": "在 gptoapk.com 搜索 YouTube。" },
+              { "@type": "HowToStep", "position": 2, "name": "核对", "text": "核对应用名称 YouTube、开发者 Google 和包名 com.google.android.youtube。" },
+              { "@type": "HowToStep", "position": 3, "name": "下载", "text": "点击下载 APK，等待浏览器保存安装包。" },
+              { "@type": "HowToStep", "position": 4, "name": "安装", "text": "在 Android 设置中允许安装未知来源应用，然后打开 APK 文件并安装。" }
+            ]
+          })
+        }}
+      />
+      <Script
+        id="schema-faq"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+              { "@type": "Question", "name": "在中国看YouTube需要VPN吗？", "acceptedAnswer": { "@type": "Answer", "text": "YouTube在中国大陆被屏蔽，观看视频需要开启VPN。但安装APK本身不需要VPN。" } },
+              { "@type": "Question", "name": "如何更新YouTube APK？", "acceptedAnswer": { "@type": "Answer", "text": "从gptoapk.com下载最新YouTube APK并安装覆盖旧版本即可。订阅和播放历史会保存在Google账号中。" } },
+              { "@type": "Question", "name": "华为没有Google服务能登录YouTube账号吗？", "acceptedAnswer": { "@type": "Answer", "text": "没有GMS的华为设备登录YouTube账号可能需要安装MicroG。如果不登录账号，YouTube的视频浏览功能仍然可用。" } },
+              { "@type": "Question", "name": "YouTube APK支持中文吗？", "acceptedAnswer": { "@type": "Answer", "text": "YouTube支持简体中文界面。在设置中将语言切换为中文即可。YouTube也会根据用户地区推荐中文内容。" } }
             ]
           })
         }}

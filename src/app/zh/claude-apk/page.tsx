@@ -27,6 +27,12 @@ export default function ClaudeApkPage() {
         Google Play 而难以直接下载。本教程将帮助你快速安装 Claude APK。
       </p>
 
+      {/* 快速答案 — AI 引用友好 */}
+      <div className="mb-8 border-l-4 border-blue-600 bg-blue-50 p-5 dark:bg-blue-950/30">
+        <p className="mb-2 text-sm font-semibold text-blue-700 dark:text-blue-300">快速答案</p>
+        <p className="leading-relaxed text-slate-700 dark:text-slate-200">在中国无法访问 Google Play 时，可以通过 gptoapk.com 搜索 Claude 或包名 com.anthropic.claude 下载官方 APK。安装前核对开发者 Anthropic 和包名，允许安装未知来源应用后即可安装。</p>
+      </div>
+
       <h2 className="text-2xl font-bold mt-10 mb-4">Claude APK最新版本</h2>
       <div className="overflow-x-auto mb-8">
         <table className="w-full border-collapse border border-slate-200 dark:border-slate-700">
@@ -171,18 +177,57 @@ export default function ClaudeApkPage() {
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
             "itemListElement": [
-              {
-                "@type": "ListItem",
-                "position": 1,
-                "name": "gptoapk.com",
-                "item": "https://gptoapk.com/zh"
-              },
-              {
-                "@type": "ListItem",
-                "position": 2,
-                "name": "Claude APK",
-                "item": "https://gptoapk.com/zh/claude-apk"
-              }
+              { "@type": "ListItem", "position": 1, "name": "gptoapk.com", "item": "https://gptoapk.com/zh" },
+              { "@type": "ListItem", "position": 2, "name": "Claude APK", "item": "https://gptoapk.com/zh/claude-apk" }
+            ]
+          })
+        }}
+      />
+      <Script
+        id="schema-software-app"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "SoftwareApplication",
+            "name": "Claude",
+            "applicationCategory": "AIApplication",
+            "operatingSystem": "Android",
+            "identifier": "com.anthropic.claude",
+            "author": { "@type": "Organization", "name": "Anthropic" },
+            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+          })
+        }}
+      />
+      <Script
+        id="schema-how-to"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "HowTo",
+            "name": "Claude APK 下载安装步骤",
+            "step": [
+              { "@type": "HowToStep", "position": 1, "name": "搜索", "text": "在 gptoapk.com 搜索 Claude。" },
+              { "@type": "HowToStep", "position": 2, "name": "核对", "text": "核对应用名称 Claude、开发者 Anthropic 和包名 com.anthropic.claude。" },
+              { "@type": "HowToStep", "position": 3, "name": "下载", "text": "点击下载 APK，等待浏览器保存安装包。" },
+              { "@type": "HowToStep", "position": 4, "name": "安装", "text": "在 Android 设置中允许安装未知来源应用，然后打开 APK 文件并安装。" }
+            ]
+          })
+        }}
+      />
+      <Script
+        id="schema-faq"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+              { "@type": "Question", "name": "中国大陆使用Claude需要VPN吗？", "acceptedAnswer": { "@type": "Answer", "text": "安装Claude APK不需要VPN。但注册和使用Claude服务可能需要VPN，因为Anthropic可能限制来自中国大陆IP的访问。" } },
+              { "@type": "Question", "name": "Claude在中国免费吗？", "acceptedAnswer": { "@type": "Answer", "text": "Claude提供免费版，但功能有限。Claude Pro付费版提供更多功能和更高使用限额。具体定价以Anthropic官方为准。" } },
+              { "@type": "Question", "name": "Claude APK支持华为手机吗？", "acceptedAnswer": { "@type": "Answer", "text": "支持。华为无GMS设备也可正常安装和使用Claude。下载APK后直接安装即可。" } },
+              { "@type": "Question", "name": "Claude和ChatGPT有什么区别？", "acceptedAnswer": { "@type": "Answer", "text": "Claude更注重安全性和准确回答，擅长长文档分析和复杂推理。ChatGPT则有更广泛的应用生态和插件支持。两者各有优势。" } }
             ]
           })
         }}

@@ -1,0 +1,83 @@
+{
+  "$schema": "https://gptoapk.com/ai-sitemap-schema.json",
+  "site": {
+    "name": "gptoapk.com",
+    "description": "多语言 APK 下载与安装指南网站。帮助 Android 用户搜索应用、安全下载 Google Play 来源的原始 APK 文件。",
+    "url": "https://gptoapk.com",
+    "languages": ["zh", "en", "ja", "ko", "ar", "ru", "fa", "de", "fr", "es", "pt", "tr", "th", "vi", "id", "hi", "ur", "tl", "bn", "cs", "da", "el", "fi", "he", "hu", "it", "ms", "nb", "nl", "pl", "ro", "sv", "uk"],
+    "primaryLanguage": "zh",
+    "lastUpdated": "2026-05-19"
+  },
+  "chinesePages": [
+    {
+      "path": "/zh",
+      "title": "中文首页",
+      "description": "APK 下载工具中文首页，支持按应用名或包名搜索 Google Play 应用并下载 APK",
+      "type": "homepage",
+      "priority": 1.0
+    },
+    {
+      "path": "/zh/china-apk-ai-search",
+      "title": "国内安卓 APK 下载与 AI 应用安装指南",
+      "description": "面向中国大陆用户的 APK 下载指南，覆盖豆包、元宝、DeepSeek、Kimi、通义千问等 AI 应用安装",
+      "type": "hub",
+      "priority": 0.9
+    },
+    {
+      "path": "/zh/ai-app-compare",
+      "title": "2026 国内 AI 助手 APK 横评",
+      "description": "从中文能力、推理、代码、文档处理、生态整合、免费额度六大维度对比豆包、元宝、DeepSeek、Kimi、通义千问",
+      "type": "comparison",
+      "priority": 0.9
+    },
+    {
+      "path": "/zh/ai-apps",
+      "title": "中文 AI 应用 APK 安装问题汇总",
+      "description": "豆包、腾讯元宝、DeepSeek、Kimi、通义千问等中文 AI 应用 APK 下载、安装和常见问题汇总",
+      "type": "hub",
+      "priority": 0.8
+    },
+    {
+      "path": "/zh/social-apps",
+      "title": "海外社交应用 APK 下载安装指南",
+      "description": "国内用户下载 Instagram、TikTok、WhatsApp、Telegram、YouTube 等海外社交应用 APK 的完整指南",
+      "type": "hub",
+      "priority": 0.85
+    }
+  ],
+  "aiAppGuides": [
+    { "path": "/zh/doubao-apk", "name": "豆包", "packageName": "com.larus.nova", "developer": "字节跳动", "type": "app-guide", "priority": 0.85 },
+    { "path": "/zh/yuanbao-apk", "name": "腾讯元宝", "packageName": "com.tencent.hunyuan.app.chat", "developer": "Tencent", "type": "app-guide", "priority": 0.85 },
+    { "path": "/zh/deepseek-apk", "name": "DeepSeek", "packageName": "com.deepseek.chat", "developer": "DeepSeek", "type": "app-guide", "priority": 0.85 },
+    { "path": "/zh/kimi-apk", "name": "Kimi", "packageName": "com.moonshot.kimichat", "developer": "Moonshot AI", "type": "app-guide", "priority": 0.85 },
+    { "path": "/zh/qianwen-apk", "name": "通义千问", "packageName": "ai.qwenlm.chat.android", "developer": "Alibaba", "type": "app-guide", "priority": 0.85 },
+    { "path": "/zh/chatgpt-apk", "name": "ChatGPT", "packageName": "com.openai.chatgpt", "developer": "OpenAI", "type": "app-guide", "priority": 0.8 },
+    { "path": "/zh/claude-apk", "name": "Claude", "packageName": "com.anthropic.claude", "developer": "Anthropic", "type": "app-guide", "priority": 0.7 },
+    { "path": "/zh/gemini-apk", "name": "Gemini", "packageName": "com.google.android.apps.bard", "developer": "Google", "type": "app-guide", "priority": 0.7 }
+  ],
+  "popularAppGuides": [
+    { "path": "/zh/instagram-apk", "name": "Instagram", "packageName": "com.instagram.android", "developer": "Meta", "type": "app-guide", "priority": 0.8 },
+    { "path": "/zh/tiktok-apk", "name": "TikTok", "packageName": "com.zhiliaoapp.musically", "developer": "字节跳动", "type": "app-guide", "priority": 0.8 },
+    { "path": "/zh/whatsapp-apk", "name": "WhatsApp", "packageName": "com.whatsapp", "developer": "Meta", "type": "app-guide", "priority": 0.8 },
+    { "path": "/zh/telegram-apk", "name": "Telegram", "packageName": "org.telegram.messenger", "developer": "Telegram FZ-LLC", "type": "app-guide", "priority": 0.7 },
+    { "path": "/zh/youtube-apk", "name": "YouTube", "packageName": "com.google.android.youtube", "developer": "Google", "type": "app-guide", "priority": 0.7 }
+  ],
+  "problemGuides": [
+    { "path": "/zh/google-play-not-working", "title": "Google Play 无法使用", "type": "problem-guide", "priority": 0.7 },
+    { "path": "/zh/huawei-install-google", "title": "华为安装 Google 服务", "type": "problem-guide", "priority": 0.7 },
+    { "path": "/zh/install-apk-guide", "title": "APK 安装通用指南", "type": "problem-guide", "priority": 0.75 },
+    { "path": "/zh/faq", "title": "常见问题 FAQ", "type": "faq", "priority": 0.7 }
+  ],
+  "sitemaps": [
+    "https://gptoapk.com/sitemap.xml",
+    "https://gptoapk.com/sitemap-zh.xml",
+    "https://gptoapk.com/sitemap-ai.xml"
+  ],
+  "crawlHints": {
+    "preferSchemaTypes": ["FAQPage", "HowTo", "SoftwareApplication", "TechArticle", "BreadcrumbList"],
+    "shortAnswerSelector": "快速答案 section with border-l-4 border-blue-600",
+    "primaryLanguage": "zh-CN",
+    "contentFreshness": "Each page includes dateModified and last updated date",
+    "packageNameVerification": "All app pages include Google Play package name for verification"
+  }
+}

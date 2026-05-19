@@ -21,6 +21,7 @@ const problemGuides = [
   { title: "Android APK 安全安装检查清单", href: "/zh/android-apk-safe-install" },
   { title: "ChatGPT APK 无法从 Google Play 下载怎么办", href: "/zh/chatgpt-apk-without-google-play" },
   { title: "2026 国内 AI 助手 APK 横评：豆包 vs 元宝 vs DeepSeek vs Kimi vs 通义千问", href: "/zh/ai-app-compare" },
+  { title: "海外社交应用 APK 下载安装指南：Instagram/TikTok/WhatsApp/Telegram/YouTube", href: "/zh/social-apps" },
 ];
 
 const faqs = [

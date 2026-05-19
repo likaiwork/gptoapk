@@ -27,6 +27,12 @@ export default function ChatGPTApkPage() {
         如何下载并安装 ChatGPT APK，让你的安卓手机也能用上这个强大的 AI 助手。
       </p>
 
+      {/* 快速答案 — AI 引用友好 */}
+      <div className="mb-8 border-l-4 border-blue-600 bg-blue-50 p-5 dark:bg-blue-950/30">
+        <p className="mb-2 text-sm font-semibold text-blue-700 dark:text-blue-300">快速答案</p>
+        <p className="leading-relaxed text-slate-700 dark:text-slate-200">在中国无法访问 Google Play 时，可以通过 gptoapk.com 搜索 ChatGPT 或包名 com.openai.chatgpt 下载官方 APK。安装前核对开发者 OpenAI 和包名，允许安装未知来源应用后即可安装。</p>
+      </div>
+
       <h2 className="text-2xl font-bold mt-10 mb-4">ChatGPT 在中国为什么需要APK下载？</h2>
       <p className="text-slate-600 dark:text-slate-400 mb-4 leading-relaxed">
         由于以下原因，中国大陆用户无法通过Google Play下载ChatGPT：
@@ -186,18 +192,58 @@ export default function ChatGPTApkPage() {
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
             "itemListElement": [
-              {
-                "@type": "ListItem",
-                "position": 1,
-                "name": "gptoapk.com",
-                "item": "https://gptoapk.com/zh"
-              },
-              {
-                "@type": "ListItem",
-                "position": 2,
-                "name": "ChatGPT APK",
-                "item": "https://gptoapk.com/zh/chatgpt-apk"
-              }
+              { "@type": "ListItem", "position": 1, "name": "gptoapk.com", "item": "https://gptoapk.com/zh" },
+              { "@type": "ListItem", "position": 2, "name": "ChatGPT APK", "item": "https://gptoapk.com/zh/chatgpt-apk" }
+            ]
+          })
+        }}
+      />
+      <Script
+        id="schema-software-app"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "SoftwareApplication",
+            "name": "ChatGPT",
+            "applicationCategory": "AIApplication",
+            "operatingSystem": "Android",
+            "identifier": "com.openai.chatgpt",
+            "author": { "@type": "Organization", "name": "OpenAI" },
+            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+          })
+        }}
+      />
+      <Script
+        id="schema-how-to"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "HowTo",
+            "name": "ChatGPT APK 下载安装步骤",
+            "step": [
+              { "@type": "HowToStep", "position": 1, "name": "搜索", "text": "在 gptoapk.com 搜索 ChatGPT。" },
+              { "@type": "HowToStep", "position": 2, "name": "核对", "text": "核对应用名称 ChatGPT、开发者 OpenAI 和包名 com.openai.chatgpt。" },
+              { "@type": "HowToStep", "position": 3, "name": "下载", "text": "点击下载 APK，等待浏览器保存安装包。" },
+              { "@type": "HowToStep", "position": 4, "name": "安装", "text": "在 Android 设置中允许安装未知来源应用，然后打开 APK 文件并安装。" }
+            ]
+          })
+        }}
+      />
+      <Script
+        id="schema-faq"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+              { "@type": "Question", "name": "中国大陆使用ChatGPT需要VPN吗？", "acceptedAnswer": { "@type": "Answer", "text": "安装ChatGPT APK不需要VPN。但注册OpenAI账号和使用ChatGPT服务可能需要VPN，因为OpenAI可能限制来自中国大陆IP的访问。" } },
+              { "@type": "Question", "name": "ChatGPT APK支持哪些手机？", "acceptedAnswer": { "@type": "Answer", "text": "支持所有Android 6.0及以上的手机，包括华为、小米、OPPO、vivo、三星等品牌。华为无GMS设备也可正常使用。" } },
+              { "@type": "Question", "name": "如何更新ChatGPT APK？", "acceptedAnswer": { "@type": "Answer", "text": "从gptoapk.com下载最新版本APK，直接安装覆盖旧版本即可。聊天记录和设置会保留。" } },
+              { "@type": "Question", "name": "ChatGPT在中国免费吗？", "acceptedAnswer": { "@type": "Answer", "text": "基础版ChatGPT（GPT-3.5）免费使用。如需使用GPT-4等高级功能，需订阅ChatGPT Plus。" } },
+              { "@type": "Question", "name": "ChatGPT APK和iOS App有区别吗？", "acceptedAnswer": { "@type": "Answer", "text": "核心功能一致，都支持文字对话、语音输入等功能。Android版本在某些功能推出时间上可能略有不同。" } }
             ]
           })
         }}

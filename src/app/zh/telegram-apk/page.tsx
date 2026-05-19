@@ -27,6 +27,12 @@ export default function TelegramApkPage() {
         本教程将教你如何下载和安装Telegram APK。
       </p>
 
+      {/* 快速答案 — AI 引用友好 */}
+      <div className="mb-8 border-l-4 border-blue-600 bg-blue-50 p-5 dark:bg-blue-950/30">
+        <p className="mb-2 text-sm font-semibold text-blue-700 dark:text-blue-300">快速答案</p>
+        <p className="leading-relaxed text-slate-700 dark:text-slate-200">在中国无法访问 Google Play 时，可以通过 gptoapk.com 搜索 Telegram 或包名 org.telegram.messenger 下载官方 APK。安装前核对开发者 Telegram FZ-LLC 和包名，允许安装未知来源应用后即可安装。</p>
+      </div>
+
       <h2 className="text-2xl font-bold mt-10 mb-4">Telegram APK最新版本</h2>
       <div className="overflow-x-auto mb-8">
         <table className="w-full border-collapse border border-slate-200 dark:border-slate-700">
@@ -175,18 +181,57 @@ export default function TelegramApkPage() {
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
             "itemListElement": [
-              {
-                "@type": "ListItem",
-                "position": 1,
-                "name": "gptoapk.com",
-                "item": "https://gptoapk.com/zh"
-              },
-              {
-                "@type": "ListItem",
-                "position": 2,
-                "name": "Telegram APK",
-                "item": "https://gptoapk.com/zh/telegram-apk"
-              }
+              { "@type": "ListItem", "position": 1, "name": "gptoapk.com", "item": "https://gptoapk.com/zh" },
+              { "@type": "ListItem", "position": 2, "name": "Telegram APK", "item": "https://gptoapk.com/zh/telegram-apk" }
+            ]
+          })
+        }}
+      />
+      <Script
+        id="schema-software-app"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "SoftwareApplication",
+            "name": "Telegram",
+            "applicationCategory": "MessagingApplication",
+            "operatingSystem": "Android",
+            "identifier": "org.telegram.messenger",
+            "author": { "@type": "Organization", "name": "Telegram FZ-LLC" },
+            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+          })
+        }}
+      />
+      <Script
+        id="schema-how-to"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "HowTo",
+            "name": "Telegram APK 下载安装步骤",
+            "step": [
+              { "@type": "HowToStep", "position": 1, "name": "搜索", "text": "在 gptoapk.com 搜索 Telegram。" },
+              { "@type": "HowToStep", "position": 2, "name": "核对", "text": "核对应用名称 Telegram、开发者 Telegram FZ-LLC 和包名 org.telegram.messenger。" },
+              { "@type": "HowToStep", "position": 3, "name": "下载", "text": "点击下载 APK，等待浏览器保存安装包。" },
+              { "@type": "HowToStep", "position": 4, "name": "安装", "text": "在 Android 设置中允许安装未知来源应用，然后打开 APK 文件并安装。" }
+            ]
+          })
+        }}
+      />
+      <Script
+        id="schema-faq"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+              { "@type": "Question", "name": "在中国使用Telegram需要VPN吗？", "acceptedAnswer": { "@type": "Answer", "text": "Telegram在中国大陆可能被屏蔽，使用时通常需要开启VPN才能正常连接服务器和收发消息。" } },
+              { "@type": "Question", "name": "如何更新Telegram APK？", "acceptedAnswer": { "@type": "Answer", "text": "从gptoapk.com下载最新版Telegram APK，直接安装覆盖旧版本即可。聊天记录和媒体文件会保留。" } },
+              { "@type": "Question", "name": "Telegram在华为手机上能正常使用吗？", "acceptedAnswer": { "@type": "Answer", "text": "是的。Telegram不需要Google服务即可运行，在华为HarmonyOS上可以正常使用所有功能。" } },
+              { "@type": "Question", "name": "Telegram和微信有什么区别？", "acceptedAnswer": { "@type": "Answer", "text": "Telegram注重隐私和加密，支持大群组、频道和机器人功能。微信则是集成了支付、小程序等功能的超级App。" } }
             ]
           })
         }}

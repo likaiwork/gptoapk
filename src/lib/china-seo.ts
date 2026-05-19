@@ -35,6 +35,10 @@ export const chinaProblemSeoUrls: SeoUrlEntry[] = [
   { path: "/zh/ai-apps-without-play-store", lastModified: "2026-05-19", changeFrequency: "weekly", priority: 0.8 },
   { path: "/zh/android-apk-safe-install", lastModified: "2026-05-19", changeFrequency: "weekly", priority: 0.8 },
   { path: "/zh/telegram-russia-apk", lastModified: "2026-05-19", changeFrequency: "weekly", priority: 0.7 },
+  { path: "/zh/instagram-apk", lastModified: "2026-05-19", changeFrequency: "weekly", priority: 0.8 },
+  { path: "/zh/tiktok-apk", lastModified: "2026-05-19", changeFrequency: "weekly", priority: 0.8 },
+  { path: "/zh/whatsapp-apk", lastModified: "2026-05-19", changeFrequency: "weekly", priority: 0.8 },
+  { path: "/zh/social-apps", lastModified: "2026-05-19", changeFrequency: "weekly", priority: 0.85 },
 ];
 
 export const chinaSeoUrls: SeoUrlEntry[] = [

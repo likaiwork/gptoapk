@@ -27,6 +27,12 @@ export default function GeminiApkPage() {
         Google Play在中国大陆不可用，用户需要通过APK手动安装。本文提供完整的下载安装指南。
       </p>
 
+      {/* 快速答案 — AI 引用友好 */}
+      <div className="mb-8 border-l-4 border-blue-600 bg-blue-50 p-5 dark:bg-blue-950/30">
+        <p className="mb-2 text-sm font-semibold text-blue-700 dark:text-blue-300">快速答案</p>
+        <p className="leading-relaxed text-slate-700 dark:text-slate-200">在中国无法访问 Google Play 时，可以通过 gptoapk.com 搜索 Gemini 或包名 com.google.android.apps.bard 下载官方 APK。安装前核对开发者 Google 和包名，允许安装未知来源应用后即可安装。</p>
+      </div>
+
       <h2 className="text-2xl font-bold mt-10 mb-4">Gemini APK最新版本</h2>
       <div className="overflow-x-auto mb-8">
         <table className="w-full border-collapse border border-slate-200 dark:border-slate-700">
@@ -182,18 +188,57 @@ export default function GeminiApkPage() {
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
             "itemListElement": [
-              {
-                "@type": "ListItem",
-                "position": 1,
-                "name": "gptoapk.com",
-                "item": "https://gptoapk.com/zh"
-              },
-              {
-                "@type": "ListItem",
-                "position": 2,
-                "name": "Gemini APK",
-                "item": "https://gptoapk.com/zh/gemini-apk"
-              }
+              { "@type": "ListItem", "position": 1, "name": "gptoapk.com", "item": "https://gptoapk.com/zh" },
+              { "@type": "ListItem", "position": 2, "name": "Gemini APK", "item": "https://gptoapk.com/zh/gemini-apk" }
+            ]
+          })
+        }}
+      />
+      <Script
+        id="schema-software-app"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "SoftwareApplication",
+            "name": "Google Gemini",
+            "applicationCategory": "AIApplication",
+            "operatingSystem": "Android",
+            "identifier": "com.google.android.apps.bard",
+            "author": { "@type": "Organization", "name": "Google" },
+            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+          })
+        }}
+      />
+      <Script
+        id="schema-how-to"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "HowTo",
+            "name": "Google Gemini APK 下载安装步骤",
+            "step": [
+              { "@type": "HowToStep", "position": 1, "name": "搜索", "text": "在 gptoapk.com 搜索 Gemini。" },
+              { "@type": "HowToStep", "position": 2, "name": "核对", "text": "核对应用名称 Gemini、开发者 Google 和包名 com.google.android.apps.bard。" },
+              { "@type": "HowToStep", "position": 3, "name": "下载", "text": "点击下载 APK，等待浏览器保存安装包。" },
+              { "@type": "HowToStep", "position": 4, "name": "安装", "text": "在 Android 设置中允许安装未知来源应用，然后打开 APK 文件并安装。" }
+            ]
+          })
+        }}
+      />
+      <Script
+        id="schema-faq"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+              { "@type": "Question", "name": "Gemini在中国能用吗？", "acceptedAnswer": { "@type": "Answer", "text": "Gemini在中国大陆通常无法直接访问，使用需要VPN。安装APK本身不需要VPN。" } },
+              { "@type": "Question", "name": "Gemini和ChatGPT哪个好？", "acceptedAnswer": { "@type": "Answer", "text": "Gemini与Google生态深度整合，擅长搜素和信息整理。ChatGPT有更丰富的插件和应用。根据需求选择。" } },
+              { "@type": "Question", "name": "Gemini APK支持华为手机吗？", "acceptedAnswer": { "@type": "Answer", "text": "支持。华为设备下载APK后可直接安装，但登录Google账号可能需要额外设置。" } },
+              { "@type": "Question", "name": "Gemini免费吗？", "acceptedAnswer": { "@type": "Answer", "text": "Gemini基础版免费，Gemini Advanced高级版需付费订阅Google One AI Premium计划。" } }
             ]
           })
         }}

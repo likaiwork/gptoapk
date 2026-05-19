@@ -33,14 +33,25 @@
 ## Chinese AI App Guides
 
 - China APK and AI app hub: https://gptoapk.com/zh/china-apk-ai-search
-- Doubao APK guide: https://gptoapk.com/zh/doubao-apk
-- Tencent Yuanbao APK guide: https://gptoapk.com/zh/yuanbao-apk
-- DeepSeek APK guide: https://gptoapk.com/zh/deepseek-apk
-- Kimi APK guide: https://gptoapk.com/zh/kimi-apk
-- Qwen APK guide: https://gptoapk.com/zh/qianwen-apk
-- ChatGPT APK guide: https://gptoapk.com/zh/chatgpt-apk
-- Claude APK guide: https://gptoapk.com/zh/claude-apk
-- Gemini APK guide: https://gptoapk.com/zh/gemini-apk
+- AI app comparison (Doubao vs Yuanbao vs DeepSeek vs Kimi vs Qwen): https://gptoapk.com/zh/ai-app-compare
+- AI apps hub: https://gptoapk.com/zh/ai-apps
+- Doubao APK guide: https://gptoapk.com/zh/doubao-apk (com.larus.nova)
+- Tencent Yuanbao APK guide: https://gptoapk.com/zh/yuanbao-apk (com.tencent.hunyuan.app.chat)
+- DeepSeek APK guide: https://gptoapk.com/zh/deepseek-apk (com.deepseek.chat)
+- Kimi APK guide: https://gptoapk.com/zh/kimi-apk (com.moonshot.kimichat)
+- Qwen APK guide: https://gptoapk.com/zh/qianwen-apk (ai.qwenlm.chat.android)
+- ChatGPT APK guide: https://gptoapk.com/zh/chatgpt-apk (com.openai.chatgpt)
+- Claude APK guide: https://gptoapk.com/zh/claude-apk (com.anthropic.claude)
+- Gemini APK guide: https://gptoapk.com/zh/gemini-apk (com.google.android.apps.bard)
+
+## Chinese Popular App Guides
+
+- Social apps hub (Instagram/TikTok/WhatsApp/Telegram/YouTube): https://gptoapk.com/zh/social-apps
+- Instagram APK guide: https://gptoapk.com/zh/instagram-apk (com.instagram.android)
+- TikTok APK guide: https://gptoapk.com/zh/tiktok-apk (com.zhiliaoapp.musically)
+- WhatsApp APK guide: https://gptoapk.com/zh/whatsapp-apk (com.whatsapp)
+- Telegram APK guide: https://gptoapk.com/zh/telegram-apk (org.telegram.messenger)
+- YouTube APK guide: https://gptoapk.com/zh/youtube-apk (com.google.android.youtube)
 
 ## Chinese GEO Problem Guides
 
