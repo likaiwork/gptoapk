@@ -51,6 +51,7 @@ export const metadata: Metadata = {
     other: {
       "google-adsense-account": "ca-pub-7016978419299209",
       msvalidate: BING_VERIFICATION,
+      sogou_site_verification: "GyoMVFI8X3",
     },
   },
   robots: {
