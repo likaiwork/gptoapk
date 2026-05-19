@@ -1,8 +1,9 @@
 const SITE_HOST = process.env.BAIDU_SITE || "https://gptoapk.com";
 const BAIDU_TOKEN = process.env.BAIDU_TOKEN || "";
+const BAIDU_SITE_PARAM = process.env.BAIDU_SITE_PARAM || new URL(SITE_HOST).host;
 const BAIDU_ENDPOINT =
   process.env.BAIDU_ENDPOINT ||
-  `https://data.zz.baidu.com/urls?site=${encodeURIComponent(SITE_HOST)}&token=${encodeURIComponent(BAIDU_TOKEN)}`;
+  `http://data.zz.baidu.com/urls?site=${encodeURIComponent(BAIDU_SITE_PARAM)}&token=${encodeURIComponent(BAIDU_TOKEN)}`;
 const SITEMAP_URLS = (process.env.BAIDU_SITEMAPS || `${SITE_HOST}/sitemap-zh.xml,${SITE_HOST}/sitemap-ai.xml`)
   .split(",")
   .map((url) => url.trim())
@@ -13,6 +14,14 @@ const explicitUrls = process.argv
   .slice(2)
   .filter((arg) => arg.startsWith("https://"));
 
+function normalizeToBaiduSite(url) {
+  const normalizedUrl = new URL(url);
+  const site = new URL(SITE_HOST);
+  normalizedUrl.protocol = site.protocol;
+  normalizedUrl.host = site.host;
+  return normalizedUrl.toString();
+}
+
 async function loadSitemapUrls(sitemapUrl) {
   const response = await fetch(sitemapUrl, { headers: { "User-Agent": "gptoapk-baidu-submit/1.0" } });
   if (!response.ok) {
@@ -20,7 +29,7 @@ async function loadSitemapUrls(sitemapUrl) {
   }
 
   const xml = await response.text();
-  return [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1].replace(/&amp;/g, "&"));
+  return [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => normalizeToBaiduSite(match[1].replace(/&amp;/g, "&")));
 }
 
 async function loadAllSitemapUrls() {
