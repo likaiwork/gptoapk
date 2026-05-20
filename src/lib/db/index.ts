@@ -56,6 +56,20 @@ export interface DownloadFailureApp {
   resolved: boolean;
   resolved_at: string | null;
   updated_at: string;
+  manual_download_url: string;
+  manual_file_name: string;
+  manual_source_label: string;
+  manual_source_active: boolean;
+}
+
+export interface ManualDownloadSource {
+  app_id: string;
+  app_title: string;
+  download_url: string;
+  file_name: string;
+  source_label: string;
+  active: boolean;
+  updated_at: string;
 }
 
 export interface SearchLogParams {
@@ -251,6 +265,19 @@ export async function initDatabase(): Promise<void> {
     )
   `;
 
+  await sql`
+    CREATE TABLE IF NOT EXISTS manual_download_sources (
+      app_id TEXT PRIMARY KEY,
+      app_title TEXT DEFAULT '',
+      download_url TEXT NOT NULL,
+      file_name TEXT DEFAULT '',
+      source_label TEXT DEFAULT 'manual',
+      active BOOLEAN NOT NULL DEFAULT TRUE,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `;
+
   try { await sql`CREATE INDEX IF NOT EXISTS idx_search_visitor ON search_logs(visitor_id)`; } catch {}
   try { await sql`CREATE INDEX IF NOT EXISTS idx_search_app ON search_logs(app_id)`; } catch {}
   try { await sql`CREATE INDEX IF NOT EXISTS idx_search_timestamp ON search_logs(timestamp)`; } catch {}
@@ -258,6 +285,7 @@ export async function initDatabase(): Promise<void> {
   try { await sql`CREATE INDEX IF NOT EXISTS idx_download_app ON download_logs(app_id)`; } catch {}
   try { await sql`CREATE INDEX IF NOT EXISTS idx_download_timestamp ON download_logs(timestamp)`; } catch {}
   try { await sql`CREATE INDEX IF NOT EXISTS idx_failure_resolved ON download_failure_apps(resolved, last_failed_at DESC)`; } catch {}
+  try { await sql`CREATE INDEX IF NOT EXISTS idx_manual_download_active ON manual_download_sources(active, updated_at DESC)`; } catch {}
 
   // 迁移: 旧表没有的列
   const migrationQueries = [
@@ -271,6 +299,12 @@ export async function initDatabase(): Promise<void> {
     "ALTER TABLE visitors ADD COLUMN IF NOT EXISTS device_browser TEXT DEFAULT ''",
     "ALTER TABLE visitors ADD COLUMN IF NOT EXISTS is_mobile BOOLEAN DEFAULT FALSE",
     "ALTER TABLE download_logs ADD COLUMN IF NOT EXISTS download_success BOOLEAN DEFAULT TRUE",
+    "ALTER TABLE manual_download_sources ADD COLUMN IF NOT EXISTS app_title TEXT DEFAULT ''",
+    "ALTER TABLE manual_download_sources ADD COLUMN IF NOT EXISTS file_name TEXT DEFAULT ''",
+    "ALTER TABLE manual_download_sources ADD COLUMN IF NOT EXISTS source_label TEXT DEFAULT 'manual'",
+    "ALTER TABLE manual_download_sources ADD COLUMN IF NOT EXISTS active BOOLEAN NOT NULL DEFAULT TRUE",
+    "ALTER TABLE manual_download_sources ADD COLUMN IF NOT EXISTS created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()",
+    "ALTER TABLE manual_download_sources ADD COLUMN IF NOT EXISTS updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()",
   ];
   for (const q of migrationQueries) {
     try { await sqlRaw(q); } catch {}
@@ -663,18 +697,23 @@ export async function getDownloadFailureApps(
     sqlRaw<{ total: number }>(`SELECT COUNT(*)::int as total FROM download_failure_apps WHERE resolved = FALSE`),
     sqlRaw<DownloadFailureApp>(
       `SELECT
-         app_id,
-         app_title,
-         failure_count,
-         first_failed_at::text,
-         last_failed_at::text,
-         COALESCE(last_error, '') as last_error,
-         COALESCE(last_source, '') as last_source,
-         resolved,
-         resolved_at::text,
-         updated_at::text
-       FROM download_failure_apps
-       ORDER BY resolved ASC, last_failed_at DESC, failure_count DESC, app_id ASC
+         f.app_id,
+         f.app_title,
+         f.failure_count,
+         f.first_failed_at::text,
+         f.last_failed_at::text,
+         COALESCE(f.last_error, '') as last_error,
+         COALESCE(f.last_source, '') as last_source,
+         f.resolved,
+         f.resolved_at::text,
+         f.updated_at::text,
+         COALESCE(m.download_url, '') as manual_download_url,
+         COALESCE(m.file_name, '') as manual_file_name,
+         COALESCE(m.source_label, '') as manual_source_label,
+         COALESCE(m.active, false) as manual_source_active
+       FROM download_failure_apps f
+       LEFT JOIN manual_download_sources m ON m.app_id = f.app_id
+       ORDER BY f.resolved ASC, f.last_failed_at DESC, f.failure_count DESC, f.app_id ASC
        LIMIT $1 OFFSET $2`,
       [limit, offset]
     ),
@@ -696,6 +735,71 @@ export async function updateDownloadFailureResolved(appId: string, resolved: boo
      WHERE app_id = $1
      RETURNING app_id`,
     [appId, resolved]
+  );
+  return rows.length > 0;
+}
+
+export async function getManualDownloadSource(appId: string): Promise<ManualDownloadSource | null> {
+  const rows = await sqlRaw<ManualDownloadSource>(
+    `SELECT
+       app_id,
+       app_title,
+       download_url,
+       COALESCE(file_name, '') as file_name,
+       COALESCE(source_label, 'manual') as source_label,
+       active,
+       updated_at::text
+     FROM manual_download_sources
+     WHERE app_id = $1 AND active = TRUE
+     LIMIT 1`,
+    [appId]
+  );
+  return rows[0] ?? null;
+}
+
+export async function upsertManualDownloadSource(params: {
+  appId: string;
+  appTitle?: string;
+  downloadUrl: string;
+  fileName?: string;
+  sourceLabel?: string;
+  active?: boolean;
+}): Promise<ManualDownloadSource> {
+  const rows = await sqlRaw<ManualDownloadSource>(
+    `INSERT INTO manual_download_sources (
+       app_id,
+       app_title,
+       download_url,
+       file_name,
+       source_label,
+       active,
+       updated_at
+     )
+     VALUES ($1, $2, $3, $4, COALESCE(NULLIF($5, ''), 'manual'), $6, NOW())
+     ON CONFLICT (app_id) DO UPDATE SET
+       app_title = COALESCE(NULLIF(EXCLUDED.app_title, ''), manual_download_sources.app_title),
+       download_url = EXCLUDED.download_url,
+       file_name = EXCLUDED.file_name,
+       source_label = EXCLUDED.source_label,
+       active = EXCLUDED.active,
+       updated_at = NOW()
+     RETURNING app_id, app_title, download_url, file_name, source_label, active, updated_at::text`,
+    [
+      params.appId,
+      params.appTitle || "",
+      params.downloadUrl,
+      params.fileName || "",
+      params.sourceLabel || "manual",
+      params.active ?? true,
+    ]
+  );
+  return rows[0];
+}
+
+export async function deleteManualDownloadSource(appId: string): Promise<boolean> {
+  const rows = await sqlRaw<{ app_id: string }>(
+    `DELETE FROM manual_download_sources WHERE app_id = $1 RETURNING app_id`,
+    [appId]
   );
   return rows.length > 0;
 }

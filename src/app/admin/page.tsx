@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useCallback, useRef } from "react";
+import { Fragment, useEffect, useState, useCallback, useRef } from "react";
 
 // 国家代码 → 中文/英文 映射
 const COUNTRY_NAMES: Record<string, [string, string]> = {
@@ -281,6 +281,10 @@ interface DownloadFailureApp {
   resolved: boolean;
   resolved_at: string | null;
   updated_at: string;
+  manual_download_url: string;
+  manual_file_name: string;
+  manual_source_label: string;
+  manual_source_active: boolean;
 }
 interface ActivityItem {
   type: "search" | "download";
@@ -350,6 +354,11 @@ interface AdminData {
   download_failures: DownloadFailureApp[];
   download_failures_total: number;
   unresolved_download_failures: number;
+}
+
+interface ManualSourceDraft {
+  downloadUrl: string;
+  fileName: string;
 }
 
 function AdminLogin({ onLogin }: { onLogin: (token: string) => void }) {
@@ -742,7 +751,12 @@ function Dashboard({
   data,
   onViewVisitor,
   onToggleFailureResolved,
+  onManualSourceDraftChange,
+  onSaveManualSource,
+  onDeleteManualSource,
   pendingFailureIds,
+  pendingManualSourceIds,
+  manualSourceDrafts,
   lang,
   onLangChange,
   pagination,
@@ -750,7 +764,12 @@ function Dashboard({
   data: AdminData;
   onViewVisitor: (v: VisitorInfo) => void;
   onToggleFailureResolved: (appId: string, resolved: boolean) => Promise<void>;
+  onManualSourceDraftChange: (appId: string, draft: Partial<ManualSourceDraft>) => void;
+  onSaveManualSource: (item: DownloadFailureApp) => Promise<void>;
+  onDeleteManualSource: (appId: string) => Promise<void>;
   pendingFailureIds: Set<string>;
+  pendingManualSourceIds: Set<string>;
+  manualSourceDrafts: Record<string, ManualSourceDraft>;
   lang: "zh" | "en";
   onLangChange: (l: "zh" | "en") => void;
   pagination: {
@@ -797,34 +816,92 @@ function Dashboard({
               )}
               {data.download_failures.map((item) => {
                 const isPending = pendingFailureIds.has(item.app_id);
+                const isManualPending = pendingManualSourceIds.has(item.app_id);
+                const draft = manualSourceDrafts[item.app_id] ?? {
+                  downloadUrl: item.manual_download_url || "",
+                  fileName: item.manual_file_name || "",
+                };
 
                 return (
-                  <tr key={item.app_id} className={item.resolved ? "bg-gray-50/60" : "hover:bg-red-50/40"}>
-                    <td className="px-4 py-3">
-                      <div className="font-medium text-gray-900">{item.app_title || item.app_id}</div>
-                      {item.last_source && <div className="mt-0.5 text-xs text-gray-400">来源：{item.last_source}</div>}
-                    </td>
-                    <td className="px-4 py-3 font-mono text-xs text-gray-500">{item.app_id}</td>
-                    <td className="px-4 py-3 text-right text-sm font-semibold text-red-600">{item.failure_count}</td>
-                    <td className="hidden px-4 py-3 text-xs text-gray-500 md:table-cell">{formatTime(item.last_failed_at)}</td>
-                    <td className="hidden max-w-xs px-4 py-3 text-xs text-gray-500 lg:table-cell">
-                      <span className="line-clamp-2" title={item.last_error || "—"}>{item.last_error || "—"}</span>
-                    </td>
-                    <td className="px-4 py-3 text-right">
-                      <button
-                        type="button"
-                        disabled={isPending}
-                        onClick={() => { void onToggleFailureResolved(item.app_id, !item.resolved); }}
-                        className={`cursor-pointer rounded-lg px-3 py-1.5 text-xs font-medium transition disabled:cursor-not-allowed disabled:opacity-60 ${
-                          item.resolved
-                            ? "border border-gray-200 bg-white text-gray-500 hover:bg-gray-100"
-                            : "bg-emerald-600 text-white hover:bg-emerald-700"
-                        }`}
-                      >
-                        {isPending ? "处理中..." : item.resolved ? "改为未解决" : "标记已解决"}
-                      </button>
-                    </td>
-                  </tr>
+                  <Fragment key={item.app_id}>
+                    <tr className={item.resolved ? "bg-gray-50/60" : "hover:bg-red-50/40"}>
+                      <td className="px-4 py-3">
+                        <div className="font-medium text-gray-900">{item.app_title || item.app_id}</div>
+                        {item.last_source && <div className="mt-0.5 text-xs text-gray-400">来源：{item.last_source}</div>}
+                        {item.manual_source_active && (
+                          <div className="mt-1 inline-flex rounded-full bg-emerald-50 px-2 py-0.5 text-[11px] font-medium text-emerald-700">
+                            已配置补源
+                          </div>
+                        )}
+                      </td>
+                      <td className="px-4 py-3 font-mono text-xs text-gray-500">{item.app_id}</td>
+                      <td className="px-4 py-3 text-right text-sm font-semibold text-red-600">{item.failure_count}</td>
+                      <td className="hidden px-4 py-3 text-xs text-gray-500 md:table-cell">{formatTime(item.last_failed_at)}</td>
+                      <td className="hidden max-w-xs px-4 py-3 text-xs text-gray-500 lg:table-cell">
+                        <span className="line-clamp-2" title={item.last_error || "—"}>{item.last_error || "—"}</span>
+                      </td>
+                      <td className="px-4 py-3 text-right">
+                        <button
+                          type="button"
+                          disabled={isPending}
+                          onClick={() => { void onToggleFailureResolved(item.app_id, !item.resolved); }}
+                          className={`cursor-pointer rounded-lg px-3 py-1.5 text-xs font-medium transition disabled:cursor-not-allowed disabled:opacity-60 ${
+                            item.resolved
+                              ? "border border-gray-200 bg-white text-gray-500 hover:bg-gray-100"
+                              : "bg-emerald-600 text-white hover:bg-emerald-700"
+                          }`}
+                        >
+                          {isPending ? "处理中..." : item.resolved ? "改为未解决" : "标记已解决"}
+                        </button>
+                      </td>
+                    </tr>
+                    <tr className={item.resolved ? "bg-gray-50/60" : "bg-white"}>
+                      <td colSpan={6} className="px-4 pb-4 pt-0">
+                        <div className="grid gap-2 rounded-lg border border-dashed border-gray-200 bg-gray-50 p-3 md:grid-cols-[minmax(0,1fr)_180px_auto]">
+                          <label className="block">
+                            <span className="mb-1 block text-xs font-medium text-gray-500">补源 URL</span>
+                            <input
+                              type="url"
+                              value={draft.downloadUrl}
+                              onChange={(event) => onManualSourceDraftChange(item.app_id, { downloadUrl: event.target.value })}
+                              placeholder="https://cdn.example.com/app.apk"
+                              className="h-9 w-full rounded-md border border-gray-300 bg-white px-3 text-xs text-gray-900 placeholder-gray-400 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100"
+                            />
+                          </label>
+                          <label className="block">
+                            <span className="mb-1 block text-xs font-medium text-gray-500">文件名</span>
+                            <input
+                              type="text"
+                              value={draft.fileName}
+                              onChange={(event) => onManualSourceDraftChange(item.app_id, { fileName: event.target.value })}
+                              placeholder={`${item.app_id}.apk`}
+                              className="h-9 w-full rounded-md border border-gray-300 bg-white px-3 text-xs text-gray-900 placeholder-gray-400 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100"
+                            />
+                          </label>
+                          <div className="flex items-end gap-2">
+                            <button
+                              type="button"
+                              disabled={isManualPending}
+                              onClick={() => { void onSaveManualSource(item); }}
+                              className="h-9 rounded-md bg-blue-600 px-3 text-xs font-medium text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60"
+                            >
+                              {isManualPending ? "保存中..." : "保存补源"}
+                            </button>
+                            {item.manual_download_url && (
+                              <button
+                                type="button"
+                                disabled={isManualPending}
+                                onClick={() => { void onDeleteManualSource(item.app_id); }}
+                                className="h-9 rounded-md border border-gray-200 bg-white px-3 text-xs font-medium text-gray-500 transition hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-60"
+                              >
+                                移除
+                              </button>
+                            )}
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  </Fragment>
                 );
               })}
             </tbody>
@@ -1062,6 +1139,8 @@ export default function AdminPage() {
   const [selectedVisitor, setSelectedVisitor] = useState<VisitorInfo | null>(null);
   const [lang, setLang] = useState<"zh" | "en">("zh");
   const [pendingFailureIds, setPendingFailureIds] = useState<Set<string>>(() => new Set());
+  const [manualSourceDrafts, setManualSourceDrafts] = useState<Record<string, ManualSourceDraft>>({});
+  const [pendingManualSourceIds, setPendingManualSourceIds] = useState<Set<string>>(() => new Set());
   const initializedRef = useRef(false);
 
   // Pagination state — managed here so page changes trigger re-fetch
@@ -1095,7 +1174,20 @@ export default function AdminPage() {
         return;
       }
       if (!res.ok) { setError("数据获取失败"); return; }
-      setData(await res.json());
+      const nextData = await res.json() as AdminData;
+      setData(nextData);
+      setManualSourceDrafts((current) => {
+        const next = { ...current };
+        for (const item of nextData.download_failures) {
+          if (!next[item.app_id]) {
+            next[item.app_id] = {
+              downloadUrl: item.manual_download_url || "",
+              fileName: item.manual_file_name || "",
+            };
+          }
+        }
+        return next;
+      });
       setError("");
     } catch {
       setError("网络错误");
@@ -1208,6 +1300,102 @@ export default function AdminPage() {
     }
   }, [token, data, fetchData, appliedDateStart, appliedDateEnd, getCurrentPages]);
 
+  const handleManualSourceDraftChange = useCallback((appId: string, draft: Partial<ManualSourceDraft>) => {
+    setManualSourceDrafts((current) => ({
+      ...current,
+      [appId]: { ...(current[appId] ?? { downloadUrl: "", fileName: "" }), ...draft },
+    }));
+  }, []);
+
+  const handleSaveManualSource = useCallback(async (item: DownloadFailureApp) => {
+    if (!token) return;
+    const draft = manualSourceDrafts[item.app_id];
+    const downloadUrl = draft?.downloadUrl.trim() || "";
+    const fileName = draft?.fileName.trim() || "";
+
+    if (!downloadUrl) {
+      setError("请先填写补源 URL");
+      return;
+    }
+
+    setError("");
+    setPendingManualSourceIds((current) => {
+      const next = new Set(current);
+      next.add(item.app_id);
+      return next;
+    });
+
+    try {
+      const res = await fetch(`/api/admin/manual-download-sources?key=${encodeURIComponent(token)}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        cache: "no-store",
+        body: JSON.stringify({
+          appId: item.app_id,
+          appTitle: item.app_title,
+          downloadUrl,
+          fileName,
+          sourceLabel: "manual",
+          active: true,
+        }),
+      });
+
+      if (!res.ok) {
+        const body = await res.json().catch(() => null) as { error?: string } | null;
+        setError(body?.error ? `补源保存失败：${body.error}` : "补源保存失败");
+        return;
+      }
+
+      await fetchData(token, appliedDateStart, appliedDateEnd, getCurrentPages());
+    } catch {
+      setError("补源保存网络错误");
+    } finally {
+      setPendingManualSourceIds((current) => {
+        const next = new Set(current);
+        next.delete(item.app_id);
+        return next;
+      });
+    }
+  }, [token, manualSourceDrafts, fetchData, appliedDateStart, appliedDateEnd, getCurrentPages]);
+
+  const handleDeleteManualSource = useCallback(async (appId: string) => {
+    if (!token) return;
+
+    setError("");
+    setPendingManualSourceIds((current) => {
+      const next = new Set(current);
+      next.add(appId);
+      return next;
+    });
+
+    try {
+      const res = await fetch(`/api/admin/manual-download-sources?key=${encodeURIComponent(token)}&appId=${encodeURIComponent(appId)}`, {
+        method: "DELETE",
+        cache: "no-store",
+      });
+
+      if (!res.ok) {
+        const body = await res.json().catch(() => null) as { error?: string } | null;
+        setError(body?.error ? `补源移除失败：${body.error}` : "补源移除失败");
+        return;
+      }
+
+      setManualSourceDrafts((current) => ({
+        ...current,
+        [appId]: { downloadUrl: "", fileName: "" },
+      }));
+      await fetchData(token, appliedDateStart, appliedDateEnd, getCurrentPages());
+    } catch {
+      setError("补源移除网络错误");
+    } finally {
+      setPendingManualSourceIds((current) => {
+        const next = new Set(current);
+        next.delete(appId);
+        return next;
+      });
+    }
+  }, [token, fetchData, appliedDateStart, appliedDateEnd, getCurrentPages]);
+
   useEffect(() => {
     if (initializedRef.current) return;
     initializedRef.current = true;
@@ -1264,7 +1452,18 @@ export default function AdminPage() {
         />
 
         {error && <div className="mb-4 rounded-lg bg-red-50 px-4 py-3 text-sm text-red-600">{error}</div>}
-        {data ? <Dashboard data={data} onViewVisitor={setSelectedVisitor} onToggleFailureResolved={handleToggleFailureResolved} pendingFailureIds={pendingFailureIds} lang={lang} onLangChange={setLang}
+        {data ? <Dashboard
+          data={data}
+          onViewVisitor={setSelectedVisitor}
+          onToggleFailureResolved={handleToggleFailureResolved}
+          onManualSourceDraftChange={handleManualSourceDraftChange}
+          onSaveManualSource={handleSaveManualSource}
+          onDeleteManualSource={handleDeleteManualSource}
+          pendingFailureIds={pendingFailureIds}
+          pendingManualSourceIds={pendingManualSourceIds}
+          manualSourceDrafts={manualSourceDrafts}
+          lang={lang}
+          onLangChange={setLang}
           pagination={{
             searchPage, downloadPage, activityPage, visitorPage, failurePage,
             onSearchPageChange: makePageFetcher("search", setSearchPage),

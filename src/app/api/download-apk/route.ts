@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { getManualDownloadSource, initDatabase } from '@/lib/db';
 import { fetchDispatcher } from '@/lib/proxy';
 import { analyticsEvents, trackServerEvent } from '@/lib/server-analytics';
 
@@ -39,6 +40,7 @@ type SourceResult = {
   externalPage?: boolean;
   type?: string;
   preferredDelivery?: 'direct' | 'proxy';
+  trustedManual?: boolean;
 };
 
 type AptoideResponse = {
@@ -84,6 +86,37 @@ function isAllowedDownloadUrl(downloadUrl: string) {
     return ALLOWED_DOWNLOAD_HOST_SUFFIXES.some(
       (suffix) => parsed.hostname.endsWith(suffix) || parsed.hostname === suffix.slice(1)
     );
+  } catch {
+    return false;
+  }
+}
+
+function isPublicHttpsUrl(downloadUrl: string) {
+  try {
+    const parsed = new URL(downloadUrl);
+    if (parsed.protocol !== 'https:') return false;
+
+    const hostname = parsed.hostname.toLowerCase();
+    if (
+      hostname === 'localhost' ||
+      hostname.endsWith('.local') ||
+      hostname.endsWith('.internal')
+    ) {
+      return false;
+    }
+
+    if (/^\d{1,3}(\.\d{1,3}){3}$/.test(hostname)) {
+      const [a, b] = hostname.split('.').map(Number);
+      return !(
+        a === 10 ||
+        a === 127 ||
+        (a === 172 && b >= 16 && b <= 31) ||
+        (a === 192 && b === 168) ||
+        (a === 169 && b === 254)
+      );
+    }
+
+    return true;
   } catch {
     return false;
   }
@@ -280,6 +313,28 @@ async function tryAptoide(appId: string): Promise<SourceResult | null> {
   }
 }
 
+async function tryManualDownloadSource(appId: string): Promise<SourceResult | null> {
+  try {
+    await initDatabase();
+    const source = await getManualDownloadSource(appId);
+    if (!source || !isPublicHttpsUrl(source.download_url)) return null;
+
+    return {
+      downloadUrl: source.download_url,
+      fileName: source.file_name || `${appId}.apk`,
+      version: null,
+      size: null,
+      md5: null,
+      source: source.source_label || 'manual',
+      preferredDelivery: 'proxy',
+      trustedManual: true,
+    };
+  } catch (error) {
+    console.warn('[download-apk] manual source lookup failed:', error);
+    return null;
+  }
+}
+
 async function tryApkPure(appId: string): Promise<SourceResult | null> {
   const timeout = createAbortSignal(SOURCE_TIMEOUT_MS);
   try {
@@ -409,7 +464,7 @@ async function tryOnlineApkDownloader(appId: string): Promise<SourceResult | nul
 }
 
 async function resolveDownloadSource(appId: string) {
-  return (await tryAptoide(appId)) ?? (await tryApkPure(appId)) ?? (await tryApkCombo(appId)) ?? (await tryOnlineApkDownloader(appId));
+  return (await tryManualDownloadSource(appId)) ?? (await tryAptoide(appId)) ?? (await tryApkPure(appId)) ?? (await tryApkCombo(appId)) ?? (await tryOnlineApkDownloader(appId));
 }
 
 export async function GET(request: Request) {
@@ -589,7 +644,9 @@ export async function POST(request: Request) {
 
     const useProxyByDefault = result.preferredDelivery === 'proxy';
     const fileName = result.fileName ?? `${cleanId}.apk`;
-    const proxyUrl = `/api/download-apk?appId=${encodeURIComponent(cleanId)}&delivery=proxy&upstream=${encodeURIComponent(encodeUpstreamUrl(result.downloadUrl))}&source=${encodeURIComponent(result.source)}&fileName=${encodeURIComponent(fileName)}`;
+    const proxyUrl = result.trustedManual
+      ? `/api/download-apk?appId=${encodeURIComponent(cleanId)}&delivery=proxy`
+      : `/api/download-apk?appId=${encodeURIComponent(cleanId)}&delivery=proxy&upstream=${encodeURIComponent(encodeUpstreamUrl(result.downloadUrl))}&source=${encodeURIComponent(result.source)}&fileName=${encodeURIComponent(fileName)}`;
 
     return NextResponse.json({
       success: true,
