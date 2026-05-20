@@ -13,3 +13,22 @@ jobs:
       - name: 🚀 Trigger Vercel Deploy Hook
         run: |
           curl -X POST "${{ secrets.VERCEL_DEPLOY_HOOK_URL }}"
+
+      - name: ⏳ Wait for production deployment
+        env:
+          BAIDU_SUBMIT_DELAY_SECONDS: ${{ vars.BAIDU_SUBMIT_DELAY_SECONDS || '120' }}
+        run: sleep "${BAIDU_SUBMIT_DELAY_SECONDS:-120}"
+
+      - name: 📥 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: 🔎 Submit URLs to Baidu
+        env:
+          BAIDU_TOKEN: ${{ secrets.BAIDU_TOKEN }}
+          BAIDU_SITE: ${{ vars.BAIDU_SITE || 'https://gptoapk.com' }}
+          BAIDU_SITE_PARAM: ${{ vars.BAIDU_SITE_PARAM || 'gptoapk.com' }}
+          BAIDU_SITEMAPS: ${{ vars.BAIDU_SITEMAPS || 'https://gptoapk.com/sitemap-zh.xml,https://gptoapk.com/sitemap-ai.xml' }}
+          BAIDU_STRICT: '1'
+        run: npm run baidu-submit

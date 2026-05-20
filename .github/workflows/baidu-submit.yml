@@ -1,0 +1,43 @@
+name: 🔎 Baidu URL Submit
+
+on:
+  workflow_dispatch:
+    inputs:
+      urls:
+        description: '可选：逐行或空格分隔的 URL；留空则提交中文/AI sitemap'
+        required: false
+        default: ''
+        type: string
+  schedule:
+    - cron: '20 2 * * *'
+
+jobs:
+  submit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 📥 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: 🔎 Submit sitemap URLs
+        if: ${{ github.event.inputs.urls == '' || github.event.inputs.urls == null }}
+        env:
+          BAIDU_TOKEN: ${{ secrets.BAIDU_TOKEN }}
+          BAIDU_SITE: ${{ vars.BAIDU_SITE || 'https://gptoapk.com' }}
+          BAIDU_SITE_PARAM: ${{ vars.BAIDU_SITE_PARAM || 'gptoapk.com' }}
+          BAIDU_SITEMAPS: ${{ vars.BAIDU_SITEMAPS || 'https://gptoapk.com/sitemap-zh.xml,https://gptoapk.com/sitemap-ai.xml' }}
+          BAIDU_STRICT: '1'
+        run: npm run baidu-submit
+
+      - name: 🔎 Submit explicit URLs
+        if: ${{ github.event.inputs.urls != '' && github.event.inputs.urls != null }}
+        env:
+          BAIDU_TOKEN: ${{ secrets.BAIDU_TOKEN }}
+          BAIDU_SITE: ${{ vars.BAIDU_SITE || 'https://gptoapk.com' }}
+          BAIDU_SITE_PARAM: ${{ vars.BAIDU_SITE_PARAM || 'gptoapk.com' }}
+          BAIDU_STRICT: '1'
+          BAIDU_URLS: ${{ github.event.inputs.urls }}
+        run: npm run baidu-submit

@@ -4,14 +4,21 @@ const BAIDU_SITE_PARAM = process.env.BAIDU_SITE_PARAM || new URL(SITE_HOST).host
 const BAIDU_ENDPOINT =
   process.env.BAIDU_ENDPOINT ||
   `http://data.zz.baidu.com/urls?site=${encodeURIComponent(BAIDU_SITE_PARAM)}&token=${encodeURIComponent(BAIDU_TOKEN)}`;
+const DRY_RUN = process.env.BAIDU_DRY_RUN === "1";
 const SITEMAP_URLS = (process.env.BAIDU_SITEMAPS || `${SITE_HOST}/sitemap-zh.xml,${SITE_HOST}/sitemap-ai.xml`)
   .split(",")
   .map((url) => url.trim())
   .filter(Boolean);
 const MAX_URLS_PER_REQUEST = 2000;
 
+const envUrls = (process.env.BAIDU_URLS || "")
+  .split(/\s+/)
+  .map((url) => url.trim())
+  .filter((url) => url.startsWith("https://"));
 const explicitUrls = process.argv
   .slice(2)
+  .flatMap((arg) => arg.split(/\s+/))
+  .map((url) => url.trim())
   .filter((arg) => arg.startsWith("https://"));
 
 function normalizeToBaiduSite(url) {
@@ -38,13 +45,27 @@ async function loadAllSitemapUrls() {
 }
 
 async function submitUrls(urlList) {
-  if (!BAIDU_TOKEN) {
+  if (!BAIDU_TOKEN && !DRY_RUN) {
     throw new Error("Missing BAIDU_TOKEN. Get it from Baidu Search Resource Platform and run BAIDU_TOKEN=xxx npm run baidu-submit.");
   }
 
-  const uniqueUrls = [...new Set(urlList)].filter((url) => url.startsWith(SITE_HOST));
+  const normalizedUrls = urlList.flatMap((url) => {
+    try {
+      return [normalizeToBaiduSite(url)];
+    } catch {
+      return [];
+    }
+  });
+  const uniqueUrls = [...new Set(normalizedUrls)].filter((url) => url.startsWith(SITE_HOST));
   if (uniqueUrls.length === 0) {
     console.log("[baidu] No URLs to submit.");
+    return;
+  }
+
+  if (DRY_RUN) {
+    console.log(`[baidu] Dry run: ${uniqueUrls.length} URLs ready to submit.`);
+    console.log(uniqueUrls.slice(0, 10).join("\n"));
+    if (uniqueUrls.length > 10) console.log(`[baidu] ...and ${uniqueUrls.length - 10} more.`);
     return;
   }
 
@@ -69,7 +90,7 @@ async function submitUrls(urlList) {
 }
 
 try {
-  const urls = explicitUrls.length > 0 ? explicitUrls : await loadAllSitemapUrls();
+  const urls = envUrls.length > 0 ? envUrls : explicitUrls.length > 0 ? explicitUrls : await loadAllSitemapUrls();
   await submitUrls(urls);
 } catch (error) {
   console.warn(`[baidu] ${error instanceof Error ? error.message : String(error)}`);
