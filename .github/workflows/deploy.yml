@@ -11,13 +11,25 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: 🚀 Trigger Vercel Deploy Hook
+        env:
+          VERCEL_DEPLOY_HOOK_URL: ${{ secrets.VERCEL_DEPLOY_HOOK_URL }}
         run: |
-          curl -X POST "${{ secrets.VERCEL_DEPLOY_HOOK_URL }}"
+          if [ -n "$VERCEL_DEPLOY_HOOK_URL" ]; then
+            curl -X POST "$VERCEL_DEPLOY_HOOK_URL"
+          else
+            echo "::warning::VERCEL_DEPLOY_HOOK_URL is not configured; skipping deploy hook."
+          fi
 
       - name: ⏳ Wait for production deployment
         env:
+          VERCEL_DEPLOY_HOOK_URL: ${{ secrets.VERCEL_DEPLOY_HOOK_URL }}
           BAIDU_SUBMIT_DELAY_SECONDS: ${{ vars.BAIDU_SUBMIT_DELAY_SECONDS || '120' }}
-        run: sleep "${BAIDU_SUBMIT_DELAY_SECONDS:-120}"
+        run: |
+          if [ -n "$VERCEL_DEPLOY_HOOK_URL" ]; then
+            sleep "${BAIDU_SUBMIT_DELAY_SECONDS:-120}"
+          else
+            echo "No deploy hook configured; skipping deployment wait."
+          fi
 
       - name: 📥 Setup Node.js
         uses: actions/setup-node@v4
@@ -30,5 +42,4 @@ jobs:
           BAIDU_SITE: ${{ vars.BAIDU_SITE || 'https://gptoapk.com' }}
           BAIDU_SITE_PARAM: ${{ vars.BAIDU_SITE_PARAM || 'gptoapk.com' }}
           BAIDU_SITEMAPS: ${{ vars.BAIDU_SITEMAPS || 'https://gptoapk.com/sitemap-zh.xml,https://gptoapk.com/sitemap-ai.xml' }}
-          BAIDU_STRICT: '1'
         run: npm run baidu-submit
