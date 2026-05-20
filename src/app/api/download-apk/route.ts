@@ -7,13 +7,14 @@ export const maxDuration = 300;
 
 const SOURCE_TIMEOUT_MS = Number(process.env.APK_SOURCE_TIMEOUT_MS ?? 12000);
 const APKCOMBO_TIMEOUT_MS = Number(process.env.APKCOMBO_TIMEOUT_MS ?? 25000);
+const ONLINE_APK_DOWNLOADER_TIMEOUT_MS = Number(process.env.ONLINE_APK_DOWNLOADER_TIMEOUT_MS ?? 30000);
 const STREAM_TIMEOUT_MS = Number(process.env.APK_STREAM_TIMEOUT_MS ?? 280000);
 const MAX_PROXY_BYTES = Number(process.env.APK_PROXY_MAX_BYTES ?? 1024 * 1024 * 1024);
 const USER_AGENT = 'Mozilla/5.0 (compatible; gptoapk/1.0; +https://gptoapk.com)';
 const APK_CONTENT_TYPE = 'application/vnd.android.package-archive';
 const DOWNLOAD_CACHE_CONTROL = 'no-store';
 
-const ALLOWED_DOWNLOAD_HOST_SUFFIXES = ['.aptoide.com', '.winudf.com', '.cloudflarestorage.com', '.online-apk-downloader.com'];
+const ALLOWED_DOWNLOAD_HOST_SUFFIXES = ['.aptoide.com', '.winudf.com', '.apppure.net', '.cloudflarestorage.com', '.online-apk-downloader.com'];
 const APKCOMBO_SOURCE_PAGES: Record<string, { pageUrl: string; fileName: string; type: string }> = {
   'com.anthropic.claude': {
     pageUrl: 'https://apkcombo.com/claude-by-anthropic/com.anthropic.claude/download/apk',
@@ -21,7 +22,7 @@ const APKCOMBO_SOURCE_PAGES: Record<string, { pageUrl: string; fileName: string;
     type: 'XAPK',
   },
 };
-const ONLINE_APK_DOWNLOADER_PACKAGES: Record<string, { fileName: string; type: string }> = {
+const ONLINE_APK_DOWNLOADER_PACKAGE_OVERRIDES: Record<string, { fileName: string; type: string }> = {
   'com.anthropic.claude': {
     fileName: 'Claude by Anthropic.apk',
     type: 'APK',
@@ -83,6 +84,15 @@ function isAllowedDownloadUrl(downloadUrl: string) {
     return ALLOWED_DOWNLOAD_HOST_SUFFIXES.some(
       (suffix) => parsed.hostname.endsWith(suffix) || parsed.hostname === suffix.slice(1)
     );
+  } catch {
+    return false;
+  }
+}
+
+function shouldProxyApkPureDownload(downloadUrl: string) {
+  try {
+    const hostname = new URL(downloadUrl).hostname;
+    return hostname === 'apppure.net' || hostname.endsWith('.apppure.net');
   } catch {
     return false;
   }
@@ -300,6 +310,7 @@ async function tryApkPure(appId: string): Promise<SourceResult | null> {
       size: null,
       md5: null,
       source: 'apkpure',
+      preferredDelivery: shouldProxyApkPureDownload(location) ? 'proxy' : undefined,
     };
   } catch {
     return null;
@@ -356,10 +367,13 @@ async function tryApkCombo(appId: string): Promise<SourceResult | null> {
 }
 
 async function tryOnlineApkDownloader(appId: string): Promise<SourceResult | null> {
-  const knownSource = ONLINE_APK_DOWNLOADER_PACKAGES[appId.toLowerCase()];
-  if (!knownSource) return null;
+  const packageOverride = ONLINE_APK_DOWNLOADER_PACKAGE_OVERRIDES[appId.toLowerCase()];
+  const fallback = {
+    fileName: `${appId}.apk`,
+    type: 'APK',
+  };
 
-  const timeout = createAbortSignal(APKCOMBO_TIMEOUT_MS);
+  const timeout = createAbortSignal(ONLINE_APK_DOWNLOADER_TIMEOUT_MS);
   try {
     const apiUrl = `https://online-apk-downloader.com/apk-ajax&packageDownload&id=${encodeURIComponent(appId)}`;
     const res = await fetchWithProxy(apiUrl, {
@@ -379,12 +393,12 @@ async function tryOnlineApkDownloader(appId: string): Promise<SourceResult | nul
 
     return {
       downloadUrl,
-      fileName: fileNameFromDownloadUrl(downloadUrl, knownSource.fileName),
+      fileName: fileNameFromDownloadUrl(downloadUrl, packageOverride?.fileName ?? fallback.fileName),
       version: null,
       size: null,
       md5: null,
       source: 'online-apk-downloader',
-      type: knownSource.type,
+      type: packageOverride?.type ?? fallback.type,
       preferredDelivery: 'proxy',
     };
   } catch {
