@@ -160,26 +160,29 @@ export async function GET(
         getDownloadFailureApps(pageSize, failurePage * pageSize),
       ]);
 
-    return NextResponse.json({
-      visitors: visitors.total,
-      total_users: allVisitors.total,
-      today_new_users: todayNewUsers,
-      total_searches: totalSearches,
-      total_downloads: totalDownloads,
-      all_downloads: allDownloads,
-      today_downloads: todayDownloads,
-      top_searches: topSearches.rows,
-      top_searches_total: topSearches.total,
-      top_downloads: topDownloads.rows,
-      top_downloads_total: topDownloads.total,
-      recent_activity: recentActivity.rows,
-      recent_activity_total: recentActivity.total,
-      visitor_list: visitorList.rows,
-      visitor_list_total: visitorList.total,
-      download_failures: downloadFailures.rows,
-      download_failures_total: downloadFailures.total,
-      unresolved_download_failures: downloadFailures.unresolved,
-    });
+    return NextResponse.json(
+      {
+        visitors: visitors.total,
+        total_users: allVisitors.total,
+        today_new_users: todayNewUsers,
+        total_searches: totalSearches,
+        total_downloads: totalDownloads,
+        all_downloads: allDownloads,
+        today_downloads: todayDownloads,
+        top_searches: topSearches.rows,
+        top_searches_total: topSearches.total,
+        top_downloads: topDownloads.rows,
+        top_downloads_total: topDownloads.total,
+        recent_activity: recentActivity.rows,
+        recent_activity_total: recentActivity.total,
+        visitor_list: visitorList.rows,
+        visitor_list_total: visitorList.total,
+        download_failures: downloadFailures.rows,
+        download_failures_total: downloadFailures.total,
+        unresolved_download_failures: downloadFailures.unresolved,
+      },
+      { headers: { "Cache-Control": "no-store" } }
+    );
   } catch (error) {
     console.error("[API admin] Error:", error);
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });

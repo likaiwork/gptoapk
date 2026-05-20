@@ -5,7 +5,7 @@ import {
   updateDownloadFailureResolved,
 } from "@/lib/db";
 
-export async function PATCH(request: NextRequest): Promise<NextResponse> {
+async function updateDownloadFailureStatus(request: NextRequest): Promise<NextResponse> {
   try {
     const { searchParams } = new URL(request.url);
     const key = searchParams.get("key");
@@ -16,7 +16,7 @@ export async function PATCH(request: NextRequest): Promise<NextResponse> {
 
     const body = await request.json();
     const appId = typeof body.appId === "string" ? body.appId.trim() : "";
-    const resolved = Boolean(body.resolved);
+    const resolved = body.resolved === true || body.resolved === "true";
 
     if (!appId) {
       return NextResponse.json({ error: "Missing appId" }, { status: 400 });
@@ -28,9 +28,20 @@ export async function PATCH(request: NextRequest): Promise<NextResponse> {
       return NextResponse.json({ error: "Failure app not found" }, { status: 404 });
     }
 
-    return NextResponse.json({ success: true });
+    return NextResponse.json(
+      { success: true },
+      { headers: { "Cache-Control": "no-store" } }
+    );
   } catch (error) {
     console.error("[API admin/download-failures] Error:", error);
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
+}
+
+export async function PATCH(request: NextRequest): Promise<NextResponse> {
+  return updateDownloadFailureStatus(request);
+}
+
+export async function POST(request: NextRequest): Promise<NextResponse> {
+  return updateDownloadFailureStatus(request);
 }

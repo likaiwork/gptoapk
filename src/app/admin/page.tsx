@@ -742,13 +742,15 @@ function Dashboard({
   data,
   onViewVisitor,
   onToggleFailureResolved,
+  pendingFailureIds,
   lang,
   onLangChange,
   pagination,
 }: {
   data: AdminData;
   onViewVisitor: (v: VisitorInfo) => void;
-  onToggleFailureResolved: (appId: string, resolved: boolean) => void;
+  onToggleFailureResolved: (appId: string, resolved: boolean) => Promise<void>;
+  pendingFailureIds: Set<string>;
   lang: "zh" | "en";
   onLangChange: (l: "zh" | "en") => void;
   pagination: {
@@ -793,32 +795,38 @@ function Dashboard({
               {data.download_failures.length === 0 && (
                 <tr><td colSpan={6} className="px-4 py-8 text-center text-sm text-gray-400">暂无下载失败记录</td></tr>
               )}
-              {data.download_failures.map((item) => (
-                <tr key={item.app_id} className={item.resolved ? "bg-gray-50/60" : "hover:bg-red-50/40"}>
-                  <td className="px-4 py-3">
-                    <div className="font-medium text-gray-900">{item.app_title || item.app_id}</div>
-                    {item.last_source && <div className="mt-0.5 text-xs text-gray-400">来源：{item.last_source}</div>}
-                  </td>
-                  <td className="px-4 py-3 font-mono text-xs text-gray-500">{item.app_id}</td>
-                  <td className="px-4 py-3 text-right text-sm font-semibold text-red-600">{item.failure_count}</td>
-                  <td className="hidden px-4 py-3 text-xs text-gray-500 md:table-cell">{formatTime(item.last_failed_at)}</td>
-                  <td className="hidden max-w-xs px-4 py-3 text-xs text-gray-500 lg:table-cell">
-                    <span className="line-clamp-2" title={item.last_error || "—"}>{item.last_error || "—"}</span>
-                  </td>
-                  <td className="px-4 py-3 text-right">
-                    <button
-                      onClick={() => onToggleFailureResolved(item.app_id, !item.resolved)}
-                      className={`rounded-lg px-3 py-1.5 text-xs font-medium transition ${
-                        item.resolved
-                          ? "border border-gray-200 bg-white text-gray-500 hover:bg-gray-100"
-                          : "bg-emerald-600 text-white hover:bg-emerald-700"
-                      }`}
-                    >
-                      {item.resolved ? "改为未解决" : "标记已解决"}
-                    </button>
-                  </td>
-                </tr>
-              ))}
+              {data.download_failures.map((item) => {
+                const isPending = pendingFailureIds.has(item.app_id);
+
+                return (
+                  <tr key={item.app_id} className={item.resolved ? "bg-gray-50/60" : "hover:bg-red-50/40"}>
+                    <td className="px-4 py-3">
+                      <div className="font-medium text-gray-900">{item.app_title || item.app_id}</div>
+                      {item.last_source && <div className="mt-0.5 text-xs text-gray-400">来源：{item.last_source}</div>}
+                    </td>
+                    <td className="px-4 py-3 font-mono text-xs text-gray-500">{item.app_id}</td>
+                    <td className="px-4 py-3 text-right text-sm font-semibold text-red-600">{item.failure_count}</td>
+                    <td className="hidden px-4 py-3 text-xs text-gray-500 md:table-cell">{formatTime(item.last_failed_at)}</td>
+                    <td className="hidden max-w-xs px-4 py-3 text-xs text-gray-500 lg:table-cell">
+                      <span className="line-clamp-2" title={item.last_error || "—"}>{item.last_error || "—"}</span>
+                    </td>
+                    <td className="px-4 py-3 text-right">
+                      <button
+                        type="button"
+                        disabled={isPending}
+                        onClick={() => { void onToggleFailureResolved(item.app_id, !item.resolved); }}
+                        className={`cursor-pointer rounded-lg px-3 py-1.5 text-xs font-medium transition disabled:cursor-not-allowed disabled:opacity-60 ${
+                          item.resolved
+                            ? "border border-gray-200 bg-white text-gray-500 hover:bg-gray-100"
+                            : "bg-emerald-600 text-white hover:bg-emerald-700"
+                        }`}
+                      >
+                        {isPending ? "处理中..." : item.resolved ? "改为未解决" : "标记已解决"}
+                      </button>
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
           <div className="flex items-center justify-between border-t border-gray-100 px-4 py-2">
@@ -1053,6 +1061,7 @@ export default function AdminPage() {
   const [appliedDateEnd, setAppliedDateEnd] = useState(() => new Date().toISOString().slice(0, 10));
   const [selectedVisitor, setSelectedVisitor] = useState<VisitorInfo | null>(null);
   const [lang, setLang] = useState<"zh" | "en">("zh");
+  const [pendingFailureIds, setPendingFailureIds] = useState<Set<string>>(() => new Set());
   const initializedRef = useRef(false);
 
   // Pagination state — managed here so page changes trigger re-fetch
@@ -1078,7 +1087,7 @@ export default function AdminPage() {
         params.set("failurePage", String(pages.failurePage ?? 0));
         params.set("pageSize", String(PAGE_SIZE));
       }
-      const res = await fetch(`/api/admin?${params}`);
+      const res = await fetch(`/api/admin?${params}`, { cache: "no-store" });
       if (res.status === 401) {
         setError("密码错误");
         setToken(null);
@@ -1145,21 +1154,59 @@ export default function AdminPage() {
 
   const handleToggleFailureResolved = useCallback(async (appId: string, resolved: boolean) => {
     if (!token) return;
+    const resolvedAt = resolved ? new Date().toISOString() : null;
+    const previousData = data;
+
+    setError("");
+    setPendingFailureIds((current) => {
+      const next = new Set(current);
+      next.add(appId);
+      return next;
+    });
+    setData((current) => {
+      if (!current) return current;
+
+      const currentItem = current.download_failures.find((item) => item.app_id === appId);
+      const unresolvedDelta = currentItem && currentItem.resolved !== resolved
+        ? resolved ? -1 : 1
+        : 0;
+
+      return {
+        ...current,
+        unresolved_download_failures: Math.max(0, current.unresolved_download_failures + unresolvedDelta),
+        download_failures: current.download_failures.map((item) => (
+          item.app_id === appId
+            ? { ...item, resolved, resolved_at: resolvedAt, updated_at: resolvedAt ?? new Date().toISOString() }
+            : item
+        )),
+      };
+    });
+
     try {
       const res = await fetch(`/api/admin/download-failures?key=${encodeURIComponent(token)}`, {
-        method: "PATCH",
+        method: "POST",
         headers: { "Content-Type": "application/json" },
+        cache: "no-store",
         body: JSON.stringify({ appId, resolved }),
       });
       if (!res.ok) {
-        setError("状态更新失败");
+        const body = await res.json().catch(() => null) as { error?: string } | null;
+        setData(previousData);
+        setError(body?.error ? `状态更新失败：${body.error}` : "状态更新失败");
         return;
       }
       await fetchData(token, appliedDateStart, appliedDateEnd, getCurrentPages());
     } catch {
+      setData(previousData);
       setError("状态更新网络错误");
+    } finally {
+      setPendingFailureIds((current) => {
+        const next = new Set(current);
+        next.delete(appId);
+        return next;
+      });
     }
-  }, [token, fetchData, appliedDateStart, appliedDateEnd, getCurrentPages]);
+  }, [token, data, fetchData, appliedDateStart, appliedDateEnd, getCurrentPages]);
 
   useEffect(() => {
     if (initializedRef.current) return;
@@ -1217,7 +1264,7 @@ export default function AdminPage() {
         />
 
         {error && <div className="mb-4 rounded-lg bg-red-50 px-4 py-3 text-sm text-red-600">{error}</div>}
-        {data ? <Dashboard data={data} onViewVisitor={setSelectedVisitor} onToggleFailureResolved={handleToggleFailureResolved} lang={lang} onLangChange={setLang}
+        {data ? <Dashboard data={data} onViewVisitor={setSelectedVisitor} onToggleFailureResolved={handleToggleFailureResolved} pendingFailureIds={pendingFailureIds} lang={lang} onLangChange={setLang}
           pagination={{
             searchPage, downloadPage, activityPage, visitorPage, failurePage,
             onSearchPageChange: makePageFetcher("search", setSearchPage),
