@@ -120,7 +120,7 @@ export default async function RootLayout({
     "@type": "WebApplication",
     "name": "APK Downloader - Google Play APK Extractor",
     "url": "https://gptoapk.com",
-    "description": "Free online APK download tool. Extract APK files from Google Play Store quickly and safely.",
+    "description": "Free online APK download tool for finding Android apps and preparing supported downloads from verified public sources.",
     "applicationCategory": "Utilities",
     "operatingSystem": "Android",
     "offers": {
@@ -135,7 +135,7 @@ export default async function RootLayout({
     "@type": "WebSite",
     "name": "gptoapk.com",
     "url": "https://gptoapk.com",
-    "description": "APK download tool for Android - search and download APK files directly from Google Play",
+    "description": "APK download tool for Android - search apps and prepare supported downloads from verified public sources",
     "potentialAction": {
       "@type": "SearchAction",
       "target": {

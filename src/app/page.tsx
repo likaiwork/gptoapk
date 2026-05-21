@@ -158,7 +158,7 @@ export default function HomeZh() {
             "name": "gptoapk.com",
             "operatingSystem": "Android",
             "applicationCategory": "UtilitiesApplication",
-            "description": "gptoapk.com — Quick and safe APK download tool. Search and download any Android APK file directly from Google Play.",
+            "description": "gptoapk.com — Quick APK download tool for finding free Android apps and preparing supported downloads from verified public sources.",
             "offers": {
               "@type": "Offer",
               "price": "0",
