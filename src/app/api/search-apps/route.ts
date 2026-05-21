@@ -6,8 +6,8 @@ import { proxyImageUrl } from '@/lib/image-proxy';
 export const runtime = 'nodejs';
 export const maxDuration = 60;
 
-const SEARCH_TIMEOUT_MS = 10000;
-const EXACT_TIMEOUT_MS = 8000;
+const SEARCH_TIMEOUT_MS = 25000;
+const EXACT_TIMEOUT_MS = 20000;
 const MAX_QUERY_LENGTH = 200;
 const SEARCH_RESULT_LIMIT = 10;
 const PACKAGE_NAME_REGEX = /^[a-zA-Z][a-zA-Z0-9_]*(?:\.[a-zA-Z][a-zA-Z0-9_]*)+$/;
@@ -116,19 +116,63 @@ async function fetchExactApp(appId: string, lang: string, country: string) {
   return toSearchResult(appInfo);
 }
 
-async function searchApps(term: string, lang: string, country: string) {
-  const apps = await withTimeout(
-    gplay.search({
-      term,
-      num: SEARCH_RESULT_LIMIT,
-      lang,
-      country,
-      price: 'all',
-      requestOptions,
-    } as Parameters<typeof gplay.search>[0] & { requestOptions?: typeof requestOptions }),
-    SEARCH_TIMEOUT_MS,
-    'Network timeout: Cannot search Google Play'
-  );
+async function suggestApps(term: string, lang: string, country: string): Promise<SearchAppResult[]> {
+  try {
+    const suggestions = await withTimeout(
+      gplay.suggest({ term, lang, country, requestOptions } as Parameters<typeof gplay.suggest>[0] & { requestOptions?: typeof requestOptions }),
+      SEARCH_TIMEOUT_MS,
+      'Suggest timeout'
+    );
+
+    // suggest returns {term, appId}[] — use appIds to fetch full details
+    const appIds = (suggestions as Array<{ appId?: string }>)
+      .map(s => s.appId || '')
+      .filter(Boolean)
+      .slice(0, SEARCH_RESULT_LIMIT);
+
+    if (appIds.length === 0) return [];
+
+    // Fetch full details for each suggested app (in parallel)
+    const results = await Promise.allSettled(
+      appIds.map((appId: string) =>
+        fetchExactApp(appId, lang, country)
+      )
+    );
+
+    return results
+      .filter((r) => r.status === 'fulfilled')
+      .map((r) => (r as PromiseFulfilledResult<SearchAppResult>).value);
+  } catch {
+    return [];
+  }
+}
+
+async function searchApps(term: string, lang: string, country: string): Promise<SearchAppResult[]> {
+  let apps: IAppItem[] = [];
+
+  // Try primary search first
+  try {
+    apps = await withTimeout(
+      gplay.search({
+        term,
+        num: SEARCH_RESULT_LIMIT,
+        lang,
+        country,
+        price: 'all',
+        requestOptions,
+      } as Parameters<typeof gplay.search>[0] & { requestOptions?: typeof requestOptions }),
+      SEARCH_TIMEOUT_MS,
+      'Network timeout: Cannot search Google Play'
+    );
+  } catch (e) {
+    console.error('[API search-apps] search() failed, trying suggest fallback:', e instanceof Error ? e.message : e);
+  }
+
+  // If primary search returned nothing, fall back to suggest + exact app fetch
+  if (!apps.length) {
+    console.error('[API search-apps] search returned no results, using suggest fallback');
+    return suggestApps(term, lang, country);
+  }
 
   const seen = new Set<string>();
   return apps
@@ -198,8 +242,9 @@ export async function GET(request: Request) {
     }, { headers: SUCCESS_CACHE_HEADERS });
   } catch (error) {
     console.error('[API search-apps] ERROR:', error instanceof Error ? error.message : error);
+    const errorMsg = error instanceof Error ? error.message : 'Unknown error';
     return NextResponse.json(
-      { error: queryType === 'keyword' ? 'No apps found' : 'App not found or invalid Google Play URL' },
+      { error: queryType === 'keyword' ? `No apps found: ${errorMsg}` : 'App not found or invalid Google Play URL' },
       { status: 404 }
     );
   }
