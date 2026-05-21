@@ -2,11 +2,11 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: {
-    default: "APK Downloader - Download APK from Google Play Links",
+    default: "APK Downloader - Free Android APK Download Tool",
     template: "%s | APK Downloader",
   },
   description:
-    "Download APK files directly from Google Play Store links quickly and securely. Free online APK downloader tool.",
+    "Free online APK downloader tool for finding Android apps and preparing supported downloads from verified public sources.",
   alternates: {
     canonical: "https://gptoapk.com/en",
     languages: {

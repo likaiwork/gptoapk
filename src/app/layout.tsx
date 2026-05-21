@@ -29,22 +29,22 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "APK 下载器 - 从 Google Play 下载 APK | gptoapk.com",
+    default: "APK 下载器 - 免费应用 APK 下载工具 | gptoapk.com",
     template: "%s | APK 下载器 | gptoapk.com",
   },
-  description: "免费在线 APK 下载工具，从 Google Play 链接快速、安全地提取 APK 文件。粘贴链接即可生成下载链接。",
+  description: "免费在线 APK 下载工具，可搜索安卓应用，并在存在免费应用或可信公开来源时生成支持的下载链接。",
   keywords: ["APK下载", "Google Play APK", "下载APK", "APK提取工具", "安卓APK", "Play商店提取APK"],
   openGraph: {
-    title: "APK 下载器 - 从 Google Play 下载 APK",
-    description: "免费在线 APK 下载工具，从 Google Play 链接快速、安全地提取 APK 文件。",
+    title: "APK 下载器 - 免费应用 APK 下载工具",
+    description: "免费在线 APK 下载工具，可搜索安卓应用，并在存在免费应用或可信公开来源时生成支持的下载链接。",
     url: "https://gptoapk.com",
     siteName: "APK 下载器",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "APK 下载器 - 从 Google Play 下载 APK",
-    description: "免费在线 APK 下载工具，快速、安全地提取 APK 文件。",
+    title: "APK 下载器 - 免费应用 APK 下载工具",
+    description: "免费在线 APK 下载工具，支持免费应用和可信公开来源，不提供付费或破解版下载。",
   },
   verification: {
     google: undefined,
