@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   title: "Blog - APK Downloader Guides & Tutorials | gptoapk.com",
   description: "Learn how to download APK from Google Play Store, compare APK download tools, understand APK file structure, and master Android app installation with our comprehensive guides.",
   alternates: {
-    canonical: "https://www.gptoapk.com/blog",
+    canonical: "https://www.gptoapk.com/en/blog",
     languages: {
       zh: "https://www.gptoapk.com/zh/blog",
       en: "https://www.gptoapk.com/en/blog",

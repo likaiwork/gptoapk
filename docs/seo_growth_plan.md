@@ -76,6 +76,7 @@
 - 已检查核心入口、FAQ、Blog、How-to、Russia、Legal、各 sitemap 状态码；核心页面返回 200，旧 `/` 与 `/faq` 返回 307 到 canonical URL。
 - 已打磨首页 `WebSite`、`WebApplication`、`Organization` JSON-LD：补齐稳定 `@id`，并让 `SearchAction` 直接指向 `/en?q=`，避免 schema URL 经过跳转。
 - 已为中英核心博客详情页补齐 `BreadcrumbList` JSON-LD，并统一 BlogPosting、canonical、OpenGraph URL 到 `https://www.gptoapk.com` 主域。
+- 已把旧 `/blog` 与 `/blog/[slug]` 代码中的 canonical / OpenGraph / BlogPosting 信号指向英文 canonical `/en/blog`，并给旧博客详情补齐 `BreadcrumbList`，配合线上 307 跳转减少重复内容信号。
 
 ## 第二阶段：结构化数据
 
@@ -97,6 +98,10 @@
   - `BlogPosting`
   - `BreadcrumbList`
   - canonical / OpenGraph / schema 主域统一为 `https://www.gptoapk.com`
+- [x] 旧博客路径：
+  - `/blog` canonical 指向 `/en/blog`
+  - `/blog/[slug]` canonical / OpenGraph / BlogPosting 指向 `/en/blog/[slug]`
+  - `/blog/[slug]` 补齐 `BreadcrumbList`
 - [ ] 博客文章主图：
   - 统一文章视觉资产后补充 `image`
   - 不使用页面不可见的假主图
