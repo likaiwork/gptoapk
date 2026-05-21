@@ -116,43 +116,13 @@ async function fetchExactApp(appId: string, lang: string, country: string) {
   return toSearchResult(appInfo);
 }
 
-async function suggestApps(term: string, lang: string, country: string): Promise<SearchAppResult[]> {
-  try {
-    const suggestions = await withTimeout(
-      gplay.suggest({ term, lang, country, requestOptions } as Parameters<typeof gplay.suggest>[0] & { requestOptions?: typeof requestOptions }),
-      SEARCH_TIMEOUT_MS,
-      'Suggest timeout'
-    );
-
-    // suggest returns {term, appId}[] — use appIds to fetch full details
-    const appIds = (suggestions as Array<{ appId?: string }>)
-      .map(s => s.appId || '')
-      .filter(Boolean)
-      .slice(0, SEARCH_RESULT_LIMIT);
-
-    if (appIds.length === 0) return [];
-
-    // Fetch full details for each suggested app (in parallel)
-    const results = await Promise.allSettled(
-      appIds.map((appId: string) =>
-        fetchExactApp(appId, lang, country)
-      )
-    );
-
-    return results
-      .filter((r) => r.status === 'fulfilled')
-      .map((r) => (r as PromiseFulfilledResult<SearchAppResult>).value);
-  } catch {
-    return [];
-  }
-}
-
 async function searchApps(term: string, lang: string, country: string): Promise<SearchAppResult[]> {
-  let apps: IAppItem[] = [];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const gplayAny = gplay as any;
 
   // Try primary search first
   try {
-    apps = await withTimeout(
+    const apps: IAppItem[] = await withTimeout(
       gplay.search({
         term,
         num: SEARCH_RESULT_LIMIT,
@@ -164,24 +134,81 @@ async function searchApps(term: string, lang: string, country: string): Promise<
       SEARCH_TIMEOUT_MS,
       'Network timeout: Cannot search Google Play'
     );
+
+    if (apps.length > 0) {
+      const seen = new Set<string>();
+      return apps
+        .filter((app) => {
+          if (!app.appId || seen.has(app.appId)) return false;
+          seen.add(app.appId);
+          return true;
+        })
+        .map(toSearchResult);
+    }
   } catch (e) {
-    console.error('[API search-apps] search() failed, trying suggest fallback:', e instanceof Error ? e.message : e);
+    console.error('[API search-apps] search() failed:', e instanceof Error ? e.message : e);
   }
 
-  // If primary search returned nothing, fall back to suggest + exact app fetch
-  if (!apps.length) {
-    console.error('[API search-apps] search returned no results, using suggest fallback');
-    return suggestApps(term, lang, country);
+  // Fallback 1: try suggest() to get appIds, then app() to get details
+  console.error('[API search-apps] search returned no results, trying suggest fallback');
+  try {
+    const suggestions: Array<{ appId?: string }> = await withTimeout(
+      gplayAny.suggest({ term, lang, country, requestOptions }),
+      SEARCH_TIMEOUT_MS,
+      'Suggest timeout'
+    );
+
+    const appIds = suggestions
+      .map(s => s.appId || '')
+      .filter(Boolean)
+      .slice(0, SEARCH_RESULT_LIMIT);
+
+    if (appIds.length > 0) {
+      const results = await Promise.allSettled(
+        appIds.map((appId: string) => fetchExactApp(appId, lang, country))
+      );
+
+      const suggestResults = results
+        .filter((r) => r.status === 'fulfilled')
+        .map((r) => (r as PromiseFulfilledResult<SearchAppResult>).value);
+
+      if (suggestResults.length > 0) return suggestResults;
+    }
+  } catch (e) {
+    console.error('[API search-apps] suggest fallback also failed:', e instanceof Error ? e.message : e);
   }
 
-  const seen = new Set<string>();
-  return apps
-    .filter((app) => {
-      if (!app.appId || seen.has(app.appId)) return false;
-      seen.add(app.appId);
-      return true;
-    })
-    .map(toSearchResult);
+  // Fallback 2: try list() to find top apps, then filter by term
+  console.error('[API search-apps] suggest also failed, trying list() fallback');
+  try {
+    const listResults: IAppItem[] = await withTimeout(
+      gplayAny.list({
+        collection: gplayAny.collection.TOP_FREE,
+        category: gplayAny.category.APPLICATION,
+        num: 50,
+        lang,
+        country,
+        requestOptions,
+      }),
+      SEARCH_TIMEOUT_MS,
+      'List timeout'
+    );
+
+    const termLower = term.toLowerCase();
+    const matched = listResults.filter(
+      (app: IAppItem) =>
+        (app.appId && app.title?.toLowerCase().includes(termLower)) ||
+        app.developer?.toLowerCase().includes(termLower)
+    ).slice(0, SEARCH_RESULT_LIMIT);
+
+    if (matched.length > 0) {
+      return matched.map(toSearchResult);
+    }
+  } catch (e) {
+    console.error('[API search-apps] list() fallback failed:', e instanceof Error ? e.message : e);
+  }
+
+  return [];
 }
 
 export async function GET(request: Request) {
