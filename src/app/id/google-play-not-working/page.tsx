@@ -41,7 +41,7 @@ export default function GooglePlayNotWorkingPage() {
         gptoapk.com adalah alat download APK paling praktis. Cara kerjanya sederhana:
       </p>
       <ol className="list-decimal list-inside space-y-3 text-slate-700 dark:text-slate-300 mb-8">
-        <li>Buka <a href="https://gptoapk.com" className="text-blue-600 dark:text-blue-400 hover:underline">gptoapk.com</a> di browser HP Anda.</li>
+        <li>Buka <a href="https://www.gptoapk.com" className="text-blue-600 dark:text-blue-400 hover:underline">gptoapk.com</a> di browser HP Anda.</li>
         <li>Ketik nama aplikasi di kotak pencarian (misalnya &quot;ChatGPT&quot;, &quot;Telegram&quot;).</li>
         <li>Klik &quot;Download APK&quot; — dapatkan file APK langsung dari server Google Play.</li>
         <li>Izinkan instalasi dari sumber tidak dikenal dan instal APK.</li>
@@ -109,9 +109,9 @@ export default function GooglePlayNotWorkingPage() {
       <div className="bg-blue-50 dark:bg-blue-900/20 p-6 rounded-xl border border-blue-100 dark:border-blue-800 mt-8">
         <p className="font-semibold text-lg mb-2">Butuh versi terbaru APK?</p>
         <p className="mb-3">
-          <a href="https://gptoapk.com" className="text-blue-600 dark:text-blue-400 hover:underline font-medium">gptoapk.com</a> — cara cepat dan aman untuk mendownload APK. Cukup masukkan nama aplikasi di kotak pencarian.
+          <a href="https://www.gptoapk.com" className="text-blue-600 dark:text-blue-400 hover:underline font-medium">gptoapk.com</a> — cara cepat dan aman untuk mendownload APK. Cukup masukkan nama aplikasi di kotak pencarian.
         </p>
-        <a href="https://gptoapk.com" className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-xl transition-colors">
+        <a href="https://www.gptoapk.com" className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-xl transition-colors">
           Cari Sekarang →
           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
@@ -132,16 +132,16 @@ export default function GooglePlayNotWorkingPage() {
             "author": {
               "@type": "Organization",
               "name": "gptoapk.com",
-              "url": "https://gptoapk.com"
+              "url": "https://www.gptoapk.com"
             },
             "publisher": {
               "@type": "Organization",
               "name": "gptoapk.com",
-              "url": "https://gptoapk.com"
+              "url": "https://www.gptoapk.com"
             },
             "mainEntityOfPage": {
               "@type": "WebPage",
-              "@id": "https://gptoapk.com/id/google-play-not-working"
+              "@id": "https://www.gptoapk.com/id/google-play-not-working"
             },
             "inLanguage": "id"
           })
@@ -159,13 +159,13 @@ export default function GooglePlayNotWorkingPage() {
                 "@type": "ListItem",
                 "position": 1,
                 "name": "gptoapk.com",
-                "item": "https://gptoapk.com/id"
+                "item": "https://www.gptoapk.com/id"
               },
               {
                 "@type": "ListItem",
                 "position": 2,
                 "name": "Google Play Not Working",
-                "item": "https://gptoapk.com/id/google-play-not-working"
+                "item": "https://www.gptoapk.com/id/google-play-not-working"
               }
             ]
           })

@@ -19,7 +19,7 @@ const APKCOMBO_TIMEOUT_MS = Number(process.env.APKCOMBO_TIMEOUT_MS ?? 25000);
 const ONLINE_APK_DOWNLOADER_TIMEOUT_MS = Number(process.env.ONLINE_APK_DOWNLOADER_TIMEOUT_MS ?? 30000);
 const STREAM_TIMEOUT_MS = Number(process.env.APK_STREAM_TIMEOUT_MS ?? 280000);
 const MAX_PROXY_BYTES = Number(process.env.APK_PROXY_MAX_BYTES ?? 1024 * 1024 * 1024);
-const USER_AGENT = 'Mozilla/5.0 (compatible; gptoapk/1.0; +https://gptoapk.com)';
+const USER_AGENT = 'Mozilla/5.0 (compatible; gptoapk/1.0; +https://www.gptoapk.com)';
 const APK_CONTENT_TYPE = 'application/vnd.android.package-archive';
 const DOWNLOAD_CACHE_CONTROL = 'no-store';
 

@@ -8,9 +8,9 @@ export const metadata: Metadata = {
   description:
     "Step-by-step guide to download and install Google Gemini APK on any Android device. Works on all devices without Google Play.",
   alternates: {
-    canonical: "https://gptoapk.com/en/how-to/install-gemini-apk",
+    canonical: "https://www.gptoapk.com/en/how-to/install-gemini-apk",
     languages: {
-      "x-default": "https://gptoapk.com/en/how-to/install-gemini-apk",
+      "x-default": "https://www.gptoapk.com/en/how-to/install-gemini-apk",
     },
   },
 };
@@ -336,8 +336,8 @@ export default function InstallGeminiApkPage() {
       {/* CTA */}
       <div className="bg-blue-50 dark:bg-blue-900/20 p-6 rounded-xl border border-blue-100 dark:border-blue-800 mt-8">
         <p className="font-semibold text-lg mb-2">Need the latest version of the APK?</p>
-        <p className="mb-3"><a href="https://gptoapk.com" className="text-blue-600 dark:text-blue-400 hover:underline font-medium">gptoapk.com</a> — a fast and safe way to download any APK. Simply enter the app name in the search bar.</p>
-        <a href="https://gptoapk.com" className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-xl transition-colors">Search Now →<svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg></a>
+        <p className="mb-3"><a href="https://www.gptoapk.com" className="text-blue-600 dark:text-blue-400 hover:underline font-medium">gptoapk.com</a> — a fast and safe way to download any APK. Simply enter the app name in the search bar.</p>
+        <a href="https://www.gptoapk.com" className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-xl transition-colors">Search Now →<svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg></a>
       </div>
     {/* Schema.org JSON-LD */}
       <Script
@@ -353,16 +353,16 @@ export default function InstallGeminiApkPage() {
             "author": {
               "@type": "Organization",
               "name": "gptoapk.com",
-              "url": "https://gptoapk.com"
+              "url": "https://www.gptoapk.com"
             },
             "publisher": {
               "@type": "Organization",
               "name": "gptoapk.com",
-              "url": "https://gptoapk.com"
+              "url": "https://www.gptoapk.com"
             },
             "mainEntityOfPage": {
               "@type": "WebPage",
-              "@id": "https://gptoapk.com/en/how-to/install-gemini-apk"
+              "@id": "https://www.gptoapk.com/en/how-to/install-gemini-apk"
             },
             "inLanguage": "en"
           })
@@ -391,13 +391,13 @@ export default function InstallGeminiApkPage() {
                 "@type": "ListItem",
                 "position": 1,
                 "name": "gptoapk.com",
-                "item": "https://gptoapk.com/en"
+                "item": "https://www.gptoapk.com/en"
               },
               {
                 "@type": "ListItem",
                 "position": 2,
                 "name": "Install Gemini Apk",
-                "item": "https://gptoapk.com/en/how-to/install-gemini-apk"
+                "item": "https://www.gptoapk.com/en/how-to/install-gemini-apk"
               }
             ]
           })

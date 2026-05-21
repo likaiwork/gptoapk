@@ -7,11 +7,11 @@ export const metadata: Metadata = {
   },
   description: "Gratis nettverktøy for å hente APK-filer fra Google Play-lenker. Lim inn URL eller app-ID og generer nedlastingslenke.",
   alternates: {
-    canonical: "https://gptoapk.com/nb",
+    canonical: "https://www.gptoapk.com/nb",
     languages: {
-      en: "https://gptoapk.com/en",
-      nb: "https://gptoapk.com/nb",
-      "x-default": "https://gptoapk.com/en",
+      en: "https://www.gptoapk.com/en",
+      nb: "https://www.gptoapk.com/nb",
+      "x-default": "https://www.gptoapk.com/en",
     },
   },
 };

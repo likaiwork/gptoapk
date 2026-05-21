@@ -8,11 +8,11 @@ export const metadata: Metadata = {
   description:
     "Gratis verktyg online för att hämta APK-filer från Google Play-länkar. Klistra in URL eller app-ID och skapa nedladdningslänk direkt.",
   alternates: {
-    canonical: "https://gptoapk.com/sv",
+    canonical: "https://www.gptoapk.com/sv",
     languages: {
-      en: "https://gptoapk.com/en",
-      sv: "https://gptoapk.com/sv",
-      "x-default": "https://gptoapk.com/en",
+      en: "https://www.gptoapk.com/en",
+      sv: "https://www.gptoapk.com/sv",
+      "x-default": "https://www.gptoapk.com/en",
     },
   },
 };

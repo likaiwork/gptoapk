@@ -145,12 +145,12 @@ className="max-w-3xl mx-auto px-4 py-16">
             "@type": "CollectionPage",
             "name": "Blog - gptoapk.com",
             "description": "Latest articles about APK downloads, Android apps, and installation guides",
-            "url": "https://gptoapk.com/ko/blog",
+            "url": "https://www.gptoapk.com/ko/blog",
             "inLanguage": "ko",
             "isPartOf": {
               "@type": "WebSite",
               "name": "gptoapk.com",
-              "url": "https://gptoapk.com"
+              "url": "https://www.gptoapk.com"
             }
           }),
         }}

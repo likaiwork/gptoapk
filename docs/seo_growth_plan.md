@@ -35,8 +35,8 @@
 目标：让搜索引擎稳定抓取、正确理解站点结构，避免多语言信号混乱。
 
 - [x] 统一首页 canonical 策略：
-  - `/en` canonical 到 `https://gptoapk.com/en`
-  - `/zh` canonical 到 `https://gptoapk.com/zh`
+  - `/en` canonical 到 `https://www.gptoapk.com/en`
+  - `/zh` canonical 到 `https://www.gptoapk.com/zh`
   - 根路径和 `x-default` 只保留一个清晰默认入口
 - [x] 检查基础多语言页面的 hreflang：
   - 每页包含 self-referencing hreflang
@@ -66,6 +66,7 @@
 ### 执行记录：2026-05-21
 
 - 已把全站默认入口从根路径统一为英文 `/en`，`x-default` 也指向 `/en`，避免和代理跳转策略冲突。
+- 已确认生产环境会从裸域跳转到 `https://www.gptoapk.com`，因此 canonical、sitemap、robots、AI 索引统一改为 `www` 主域。
 - 已修复英文 layout 的中文 alternate，从根路径改为 `/zh`。
 - 已修复中文 FAQ 的英文 alternate，从会跳转的 `/faq` 改为 `/en/faq`，并补齐 self-referencing hreflang。
 - 已为英文根 FAQ 补充 canonical 和中英 alternate，避免旧路径被搜索引擎误判为独立页面。

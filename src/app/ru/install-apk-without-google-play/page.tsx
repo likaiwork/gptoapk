@@ -52,7 +52,7 @@ export default function InstallApkWithoutGooglePlayPage() {
         Используйте проверенные источники для скачивания APK:
       </p>
       <ul className="list-disc list-inside space-y-2 text-slate-700 dark:text-slate-300 mb-6">
-        <li><a href="https://gptoapk.com" className="text-blue-600 dark:text-blue-400 hover:underline">gptoapk.com</a> — скачивание напрямую с серверов Google Play.</li>
+        <li><a href="https://www.gptoapk.com" className="text-blue-600 dark:text-blue-400 hover:underline">gptoapk.com</a> — скачивание напрямую с серверов Google Play.</li>
         <li>Официальные сайты разработчиков (Telegram, Signal, ProtonVPN).</li>
         <li>RuStore — российский магазин приложений от VK.</li>
       </ul>
@@ -137,9 +137,9 @@ export default function InstallApkWithoutGooglePlayPage() {
       <div className="bg-blue-50 dark:bg-blue-900/20 p-6 rounded-xl border border-blue-100 dark:border-blue-800 mt-8">
         <p className="font-semibold text-lg mb-2">Нужна последняя версия APK?</p>
         <p className="mb-3">
-          <a href="https://gptoapk.com" className="text-blue-600 dark:text-blue-400 hover:underline font-medium">gptoapk.com</a> — быстрый и безопасный способ скачать любые APK файлы. Просто введите название приложения в строку поиска.
+          <a href="https://www.gptoapk.com" className="text-blue-600 dark:text-blue-400 hover:underline font-medium">gptoapk.com</a> — быстрый и безопасный способ скачать любые APK файлы. Просто введите название приложения в строку поиска.
         </p>
-        <a href="https://gptoapk.com" className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-xl transition-colors">
+        <a href="https://www.gptoapk.com" className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-xl transition-colors">
           Перейти к поиску →
           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
@@ -160,16 +160,16 @@ export default function InstallApkWithoutGooglePlayPage() {
             "author": {
               "@type": "Organization",
               "name": "gptoapk.com",
-              "url": "https://gptoapk.com"
+              "url": "https://www.gptoapk.com"
             },
             "publisher": {
               "@type": "Organization",
               "name": "gptoapk.com",
-              "url": "https://gptoapk.com"
+              "url": "https://www.gptoapk.com"
             },
             "mainEntityOfPage": {
               "@type": "WebPage",
-              "@id": "https://gptoapk.com/ru/install-apk-without-google-play"
+              "@id": "https://www.gptoapk.com/ru/install-apk-without-google-play"
             },
             "inLanguage": "ru"
           })
@@ -187,13 +187,13 @@ export default function InstallApkWithoutGooglePlayPage() {
                 "@type": "ListItem",
                 "position": 1,
                 "name": "gptoapk.com",
-                "item": "https://gptoapk.com/ru"
+                "item": "https://www.gptoapk.com/ru"
               },
               {
                 "@type": "ListItem",
                 "position": 2,
                 "name": "Установка APK без Google Play",
-                "item": "https://gptoapk.com/ru/install-apk-without-google-play"
+                "item": "https://www.gptoapk.com/ru/install-apk-without-google-play"
               }
             ]
           })

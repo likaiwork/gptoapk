@@ -123,8 +123,8 @@ export default function TiktokApkPage() {
       {/* CTA Block */}
       <div className="bg-blue-50 dark:bg-blue-900/20 p-6 rounded-xl border border-blue-100 dark:border-blue-800 mt-8">
         <p className="font-semibold text-lg mb-2">آخرین نسخه APK را می‌خواهید؟</p>
-        <p className="mb-3"><a href="https://gptoapk.com" className="text-blue-600 dark:text-blue-400 hover:underline font-medium">gptoapk.com</a> — راهی سریع و امن برای دانلود هر فایل APK. فقط نام برنامه را در نوار جستجو وارد کنید.</p>
-        <a href="https://gptoapk.com" className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-xl transition-colors">رفتن به جستجو ←<svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg></a>
+        <p className="mb-3"><a href="https://www.gptoapk.com" className="text-blue-600 dark:text-blue-400 hover:underline font-medium">gptoapk.com</a> — راهی سریع و امن برای دانلود هر فایل APK. فقط نام برنامه را در نوار جستجو وارد کنید.</p>
+        <a href="https://www.gptoapk.com" className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-xl transition-colors">رفتن به جستجو ←<svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg></a>
       </div>
     {/* Schema.org JSON-LD */}
       <Script
@@ -140,16 +140,16 @@ export default function TiktokApkPage() {
             "author": {
               "@type": "Organization",
               "name": "gptoapk.com",
-              "url": "https://gptoapk.com"
+              "url": "https://www.gptoapk.com"
             },
             "publisher": {
               "@type": "Organization",
               "name": "gptoapk.com",
-              "url": "https://gptoapk.com"
+              "url": "https://www.gptoapk.com"
             },
             "mainEntityOfPage": {
               "@type": "WebPage",
-              "@id": "https://gptoapk.com/fa/tiktok-apk"
+              "@id": "https://www.gptoapk.com/fa/tiktok-apk"
             },
             "inLanguage": "fa"
           })
@@ -167,13 +167,13 @@ export default function TiktokApkPage() {
                 "@type": "ListItem",
                 "position": 1,
                 "name": "gptoapk.com",
-                "item": "https://gptoapk.com/fa"
+                "item": "https://www.gptoapk.com/fa"
               },
               {
                 "@type": "ListItem",
                 "position": 2,
                 "name": "TikTok APK",
-                "item": "https://gptoapk.com/fa/tiktok-apk"
+                "item": "https://www.gptoapk.com/fa/tiktok-apk"
               }
             ]
           })

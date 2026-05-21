@@ -6,11 +6,11 @@ export const metadata: Metadata = {
   title: "Blog - APK Downloader | gptoapk.com",
   description: "Mga kumpletong gabay at artikulo tungkol sa pag-download ng APK mula sa Google Play, pag-install ng APK, seguridad, at tips sa Android.",
   alternates: {
-    canonical: "https://gptoapk.com/tl/blog",
+    canonical: "https://www.gptoapk.com/tl/blog",
     languages: {
-      en: "https://gptoapk.com/en/blog",
-      tl: "https://gptoapk.com/tl/blog",
-      "x-default": "https://gptoapk.com/en/blog",
+      en: "https://www.gptoapk.com/en/blog",
+      tl: "https://www.gptoapk.com/tl/blog",
+      "x-default": "https://www.gptoapk.com/en/blog",
     },
   },
 };
@@ -159,12 +159,12 @@ className="max-w-5xl mx-auto px-4 py-16">
             "@type": "CollectionPage",
             "name": "Blog - gptoapk.com",
             "description": "Latest articles about APK downloads, Android apps, and installation guides",
-            "url": "https://gptoapk.com/tl/blog",
+            "url": "https://www.gptoapk.com/tl/blog",
             "inLanguage": "tl",
             "isPartOf": {
               "@type": "WebSite",
               "name": "gptoapk.com",
-              "url": "https://gptoapk.com"
+              "url": "https://www.gptoapk.com"
             }
           }),
         }}

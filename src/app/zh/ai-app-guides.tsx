@@ -17,7 +17,7 @@ export interface AiAppGuide {
   faqs: Array<{ question: string; answer: string }>;
 }
 
-const siteUrl = "https://gptoapk.com";
+const siteUrl = "https://www.gptoapk.com";
 const publishedDate = "2026-05-17";
 const authorUrl = `${siteUrl}/author/gptoapk`;
 

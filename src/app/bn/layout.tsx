@@ -7,11 +7,11 @@ export const metadata: Metadata = {
   },
   description: "Google Play লিংক থেকে APK ফাইল পেতে বিনামূল্যের অনলাইন টুল। URL বা অ্যাপ আইডি লিখে ডাউনলোড লিঙ্ক তৈরি করুন।",
   alternates: {
-    canonical: "https://gptoapk.com/bn",
+    canonical: "https://www.gptoapk.com/bn",
     languages: {
-      en: "https://gptoapk.com/en",
-      bn: "https://gptoapk.com/bn",
-      "x-default": "https://gptoapk.com/en",
+      en: "https://www.gptoapk.com/en",
+      bn: "https://www.gptoapk.com/bn",
+      "x-default": "https://www.gptoapk.com/en",
     },
   },
 };

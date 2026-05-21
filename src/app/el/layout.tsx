@@ -7,11 +7,11 @@ export const metadata: Metadata = {
   },
   description: "Δωρεάν διαδικτυακό εργαλείο για λήψη αρχείων APK από συνδέσμους Google Play. Επικολλήστε URL ή αναγνωριστικό εφαρμογής και δημιουργήστε σύνδεσμο λήψης.",
   alternates: {
-    canonical: "https://gptoapk.com/el",
+    canonical: "https://www.gptoapk.com/el",
     languages: {
-      en: "https://gptoapk.com/en",
-      el: "https://gptoapk.com/el",
-      "x-default": "https://gptoapk.com/en",
+      en: "https://www.gptoapk.com/en",
+      el: "https://www.gptoapk.com/el",
+      "x-default": "https://www.gptoapk.com/en",
     },
   },
 };

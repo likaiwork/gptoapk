@@ -7,12 +7,12 @@ export const metadata: Metadata = {
   description:
     "Aprenda a baixar APK da Google Play Store, comparar ferramentas de download, entender a estrutura do arquivo APK e dominar a instalação de aplicativos Android.",
   alternates: {
-    canonical: "https://gptoapk.com/pt/blog",
+    canonical: "https://www.gptoapk.com/pt/blog",
     languages: {
-      en: "https://gptoapk.com/en/blog",
-      zh: "https://gptoapk.com/zh/blog",
-      pt: "https://gptoapk.com/pt/blog",
-      "x-default": "https://gptoapk.com/en/blog",
+      en: "https://www.gptoapk.com/en/blog",
+      zh: "https://www.gptoapk.com/zh/blog",
+      pt: "https://www.gptoapk.com/pt/blog",
+      "x-default": "https://www.gptoapk.com/en/blog",
     },
   },
 };
@@ -163,12 +163,12 @@ className="max-w-5xl mx-auto px-4 py-16">
             "@type": "CollectionPage",
             "name": "Blog - gptoapk.com",
             "description": "Latest articles about APK downloads, Android apps, and installation guides",
-            "url": "https://gptoapk.com/pt/blog",
+            "url": "https://www.gptoapk.com/pt/blog",
             "inLanguage": "pt",
             "isPartOf": {
               "@type": "WebSite",
               "name": "gptoapk.com",
-              "url": "https://gptoapk.com"
+              "url": "https://www.gptoapk.com"
             }
           }),
         }}

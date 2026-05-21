@@ -18,7 +18,7 @@ export interface PopularAppGuide {
   category: "social" | "messaging" | "video" | "tools" | "ai-overseas";
 }
 
-const siteUrl = "https://gptoapk.com";
+const siteUrl = "https://www.gptoapk.com";
 const publishedDate = "2026-05-19";
 const authorUrl = `${siteUrl}/author/gptoapk`;
 

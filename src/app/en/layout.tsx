@@ -8,11 +8,11 @@ export const metadata: Metadata = {
   description:
     "Free online APK downloader tool for finding Android apps and preparing supported downloads from verified public sources.",
   alternates: {
-    canonical: "https://gptoapk.com/en",
+    canonical: "https://www.gptoapk.com/en",
     languages: {
-      en: "https://gptoapk.com/en",
-      zh: "https://gptoapk.com/zh",
-      "x-default": "https://gptoapk.com/en",
+      en: "https://www.gptoapk.com/en",
+      zh: "https://www.gptoapk.com/zh",
+      "x-default": "https://www.gptoapk.com/en",
     },
   },
 };

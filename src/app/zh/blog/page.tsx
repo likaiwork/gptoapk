@@ -6,10 +6,10 @@ export const metadata: Metadata = {
   title: "博客 - APK 下载指南 | gptoapk.com",
   description: "学习如何从 Google Play 下载 APK，对比 APK 下载工具，了解 APK 文件结构，掌握 Android 应用安装技巧。",
   alternates: {
-    canonical: "https://gptoapk.com/zh/blog",
+    canonical: "https://www.gptoapk.com/zh/blog",
     languages: {
-      en: "https://gptoapk.com/en/blog",
-      "x-default": "https://gptoapk.com/en/blog",
+      en: "https://www.gptoapk.com/en/blog",
+      "x-default": "https://www.gptoapk.com/en/blog",
     },
   },
 };
@@ -266,12 +266,12 @@ className="max-w-5xl mx-auto px-4 py-16">
             "@type": "CollectionPage",
             "name": "Blog - gptoapk.com",
             "description": "Latest articles about APK downloads, Android apps, and installation guides",
-            "url": "https://gptoapk.com/zh/blog",
+            "url": "https://www.gptoapk.com/zh/blog",
             "inLanguage": "zh-Hans",
             "isPartOf": {
               "@type": "WebSite",
               "name": "gptoapk.com",
-              "url": "https://gptoapk.com"
+              "url": "https://www.gptoapk.com"
             }
           }),
         }}

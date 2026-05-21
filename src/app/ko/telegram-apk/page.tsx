@@ -107,8 +107,8 @@ export default function TelegramApkPage() {
       {/* CTA Block */}
       <div className="bg-blue-50 dark:bg-blue-900/20 p-6 rounded-xl border border-blue-100 dark:border-blue-800 mt-8">
         <p className="font-semibold text-lg mb-2">최신 버전의 APK가 필요하신가요?</p>
-        <p className="mb-3"><a href="https://gptoapk.com" className="text-blue-600 dark:text-blue-400 hover:underline font-medium">gptoapk.com</a> — 모든 APK를 빠르고 안전하게 다운로드하는 방법입니다. 검색창에 앱 이름을 입력하기만 하면 됩니다.</p>
-        <a href="https://gptoapk.com" className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-xl transition-colors">지금 검색 →<svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg></a>
+        <p className="mb-3"><a href="https://www.gptoapk.com" className="text-blue-600 dark:text-blue-400 hover:underline font-medium">gptoapk.com</a> — 모든 APK를 빠르고 안전하게 다운로드하는 방법입니다. 검색창에 앱 이름을 입력하기만 하면 됩니다.</p>
+        <a href="https://www.gptoapk.com" className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-xl transition-colors">지금 검색 →<svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg></a>
       </div>
     {/* Schema.org JSON-LD */}
       <Script
@@ -124,16 +124,16 @@ export default function TelegramApkPage() {
             "author": {
               "@type": "Organization",
               "name": "gptoapk.com",
-              "url": "https://gptoapk.com"
+              "url": "https://www.gptoapk.com"
             },
             "publisher": {
               "@type": "Organization",
               "name": "gptoapk.com",
-              "url": "https://gptoapk.com"
+              "url": "https://www.gptoapk.com"
             },
             "mainEntityOfPage": {
               "@type": "WebPage",
-              "@id": "https://gptoapk.com/ko/telegram-apk"
+              "@id": "https://www.gptoapk.com/ko/telegram-apk"
             },
             "inLanguage": "ko"
           })
@@ -151,13 +151,13 @@ export default function TelegramApkPage() {
                 "@type": "ListItem",
                 "position": 1,
                 "name": "gptoapk.com",
-                "item": "https://gptoapk.com/ko"
+                "item": "https://www.gptoapk.com/ko"
               },
               {
                 "@type": "ListItem",
                 "position": 2,
                 "name": "Telegram APK",
-                "item": "https://gptoapk.com/ko/telegram-apk"
+                "item": "https://www.gptoapk.com/ko/telegram-apk"
               }
             ]
           })

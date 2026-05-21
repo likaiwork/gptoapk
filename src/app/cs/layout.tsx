@@ -7,11 +7,11 @@ export const metadata: Metadata = {
   },
   description: "Bezplatný online nástroj pro získání APK z odkazů Google Play. Vložte URL nebo ID aplikace a vygenerujte odkaz ke stažení.",
   alternates: {
-    canonical: "https://gptoapk.com/cs",
+    canonical: "https://www.gptoapk.com/cs",
     languages: {
-      en: "https://gptoapk.com/en",
-      cs: "https://gptoapk.com/cs",
-      "x-default": "https://gptoapk.com/en",
+      en: "https://www.gptoapk.com/en",
+      cs: "https://www.gptoapk.com/cs",
+      "x-default": "https://www.gptoapk.com/en",
     },
   },
 };

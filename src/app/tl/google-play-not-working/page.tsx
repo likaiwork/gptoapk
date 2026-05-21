@@ -41,7 +41,7 @@ export default function GooglePlayNotWorkingPage() {
         Ang gptoapk.com ay ang pinakamadaling paraan para mag-download ng APK. Ganito ito gumagana:
       </p>
       <ol className="list-decimal list-inside space-y-3 text-slate-700 dark:text-slate-300 mb-8">
-        <li>Buksan ang <a href="https://gptoapk.com" className="text-blue-600 dark:text-blue-400 hover:underline">gptoapk.com</a> sa iyong browser.</li>
+        <li>Buksan ang <a href="https://www.gptoapk.com" className="text-blue-600 dark:text-blue-400 hover:underline">gptoapk.com</a> sa iyong browser.</li>
         <li>I-type ang pangalan ng app sa search bar (hal. &quot;ChatGPT&quot;, &quot;Telegram&quot;).</li>
         <li>Pindutin ang &quot;Download APK&quot; — kunin ang APK file direkta mula sa Google Play servers.</li>
         <li>Payagan ang pag-install mula sa hindi kilalang source at i-install ang APK.</li>
@@ -109,9 +109,9 @@ export default function GooglePlayNotWorkingPage() {
       <div className="bg-blue-50 dark:bg-blue-900/20 p-6 rounded-xl border border-blue-100 dark:border-blue-800 mt-8">
         <p className="font-semibold text-lg mb-2">Kailangan ang pinakabagong bersyon ng APK?</p>
         <p className="mb-3">
-          <a href="https://gptoapk.com" className="text-blue-600 dark:text-blue-400 hover:underline font-medium">gptoapk.com</a> — mabilis at ligtas na paraan upang mag-download ng anumang APK. Ilagay lamang ang pangalan ng app sa search bar.
+          <a href="https://www.gptoapk.com" className="text-blue-600 dark:text-blue-400 hover:underline font-medium">gptoapk.com</a> — mabilis at ligtas na paraan upang mag-download ng anumang APK. Ilagay lamang ang pangalan ng app sa search bar.
         </p>
-        <a href="https://gptoapk.com" className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-xl transition-colors">
+        <a href="https://www.gptoapk.com" className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-xl transition-colors">
           Maghanap Ngayon →
           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
@@ -132,16 +132,16 @@ export default function GooglePlayNotWorkingPage() {
             "author": {
               "@type": "Organization",
               "name": "gptoapk.com",
-              "url": "https://gptoapk.com"
+              "url": "https://www.gptoapk.com"
             },
             "publisher": {
               "@type": "Organization",
               "name": "gptoapk.com",
-              "url": "https://gptoapk.com"
+              "url": "https://www.gptoapk.com"
             },
             "mainEntityOfPage": {
               "@type": "WebPage",
-              "@id": "https://gptoapk.com/tl/google-play-not-working"
+              "@id": "https://www.gptoapk.com/tl/google-play-not-working"
             },
             "inLanguage": "tl"
           })
@@ -159,13 +159,13 @@ export default function GooglePlayNotWorkingPage() {
                 "@type": "ListItem",
                 "position": 1,
                 "name": "gptoapk.com",
-                "item": "https://gptoapk.com/tl"
+                "item": "https://www.gptoapk.com/tl"
               },
               {
                 "@type": "ListItem",
                 "position": 2,
                 "name": "Google Play Not Working",
-                "item": "https://gptoapk.com/tl/google-play-not-working"
+                "item": "https://www.gptoapk.com/tl/google-play-not-working"
               }
             ]
           })

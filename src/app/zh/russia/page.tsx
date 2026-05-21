@@ -7,10 +7,10 @@ export const metadata: Metadata = {
   description:
     "Google Play 在俄罗斯无法正常使用？了解如何直接下载 APK 文件。俄罗斯用户的完整指南。",
   alternates: {
-    canonical: "https://gptoapk.com/zh/russia",
+    canonical: "https://www.gptoapk.com/zh/russia",
     languages: {
-      en: "https://gptoapk.com/en/russia",
-      "x-default": "https://gptoapk.com/en/russia",
+      en: "https://www.gptoapk.com/en/russia",
+      "x-default": "https://www.gptoapk.com/en/russia",
     },
   },
 };
@@ -254,16 +254,16 @@ export default function ZhRussiaPage() {
             "author": {
               "@type": "Organization",
               "name": "gptoapk.com",
-              "url": "https://gptoapk.com"
+              "url": "https://www.gptoapk.com"
             },
             "publisher": {
               "@type": "Organization",
               "name": "gptoapk.com",
-              "url": "https://gptoapk.com"
+              "url": "https://www.gptoapk.com"
             },
             "mainEntityOfPage": {
               "@type": "WebPage",
-              "@id": "https://gptoapk.com/zh/russia"
+              "@id": "https://www.gptoapk.com/zh/russia"
             },
             "inLanguage": "zh"
           })
@@ -292,13 +292,13 @@ export default function ZhRussiaPage() {
                 "@type": "ListItem",
                 "position": 1,
                 "name": "gptoapk.com",
-                "item": "https://gptoapk.com/zh"
+                "item": "https://www.gptoapk.com/zh"
               },
               {
                 "@type": "ListItem",
                 "position": 2,
                 "name": "俄罗斯",
-                "item": "https://gptoapk.com/zh/russia"
+                "item": "https://www.gptoapk.com/zh/russia"
               }
             ]
           })

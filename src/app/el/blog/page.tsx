@@ -7,11 +7,11 @@ export const metadata: Metadata = {
   description:
     "Οδηγοί και άρθρα για λήψη APK από το Google Play. Μάθετε πώς να εξάγετε APK, να κατανοείτε τη δομή αρχείων και να εγκαθιστάτε εφαρμογές Android με ασφάλεια.",
   alternates: {
-    canonical: "https://gptoapk.com/el/blog",
+    canonical: "https://www.gptoapk.com/el/blog",
     languages: {
-      en: "https://gptoapk.com/en/blog",
-      el: "https://gptoapk.com/el/blog",
-      "x-default": "https://gptoapk.com/en/blog",
+      en: "https://www.gptoapk.com/en/blog",
+      el: "https://www.gptoapk.com/el/blog",
+      "x-default": "https://www.gptoapk.com/en/blog",
     },
   },
 };
@@ -171,12 +171,12 @@ className="max-w-5xl mx-auto px-4 py-16">
             "@type": "CollectionPage",
             "name": "Blog - gptoapk.com",
             "description": "Latest articles about APK downloads, Android apps, and installation guides",
-            "url": "https://gptoapk.com/el/blog",
+            "url": "https://www.gptoapk.com/el/blog",
             "inLanguage": "el",
             "isPartOf": {
               "@type": "WebSite",
               "name": "gptoapk.com",
-              "url": "https://gptoapk.com"
+              "url": "https://www.gptoapk.com"
             }
           }),
         }}

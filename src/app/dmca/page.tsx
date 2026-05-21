@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   title: "DMCA Copyright Policy",
   description: "DMCA Copyright Policy for gptoapk.com. Learn how to submit copyright infringement notices and counter-notifications.",
   alternates: {
-    canonical: "https://gptoapk.com/dmca",
+    canonical: "https://www.gptoapk.com/dmca",
   },
 };
 

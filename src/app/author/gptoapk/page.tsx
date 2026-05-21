@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description:
     "About the gptoapk.com editorial team, review standards, and Android APK installation guide coverage.",
   alternates: {
-    canonical: "https://gptoapk.com/author/gptoapk",
+    canonical: "https://www.gptoapk.com/author/gptoapk",
   },
 };
 
@@ -16,11 +16,11 @@ export default function GptoapkAuthorPage() {
     "@context": "https://schema.org",
     "@type": "Organization",
     name: "gptoapk.com Editorial",
-    url: "https://gptoapk.com/author/gptoapk",
+    url: "https://www.gptoapk.com/author/gptoapk",
     parentOrganization: {
       "@type": "Organization",
       name: "gptoapk.com",
-      url: "https://gptoapk.com",
+      url: "https://www.gptoapk.com",
     },
     description:
       "The gptoapk.com editorial team writes Android APK installation guides, Google Play troubleshooting content, and AI app compatibility notes.",

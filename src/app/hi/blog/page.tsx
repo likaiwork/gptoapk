@@ -7,12 +7,12 @@ export const metadata: Metadata = {
   description:
     "Google Play स्टोर से APK डाउनलोड करना, APK डाउनलोडर टूल की तुलना, APK फ़ाइल संरचना को समझना और Android ऐप इंस्टॉलेशन में महारत हासिल करना सीखें।",
   alternates: {
-    canonical: "https://gptoapk.com/hi/blog",
+    canonical: "https://www.gptoapk.com/hi/blog",
     languages: {
-      en: "https://gptoapk.com/en/blog",
-      zh: "https://gptoapk.com/zh/blog",
-      hi: "https://gptoapk.com/hi/blog",
-      "x-default": "https://gptoapk.com/en/blog",
+      en: "https://www.gptoapk.com/en/blog",
+      zh: "https://www.gptoapk.com/zh/blog",
+      hi: "https://www.gptoapk.com/hi/blog",
+      "x-default": "https://www.gptoapk.com/en/blog",
     },
   },
 };
@@ -163,12 +163,12 @@ className="max-w-5xl mx-auto px-4 py-16">
             "@type": "CollectionPage",
             "name": "Blog - gptoapk.com",
             "description": "Latest articles about APK downloads, Android apps, and installation guides",
-            "url": "https://gptoapk.com/hi/blog",
+            "url": "https://www.gptoapk.com/hi/blog",
             "inLanguage": "hi",
             "isPartOf": {
               "@type": "WebSite",
               "name": "gptoapk.com",
-              "url": "https://gptoapk.com"
+              "url": "https://www.gptoapk.com"
             }
           }),
         }}

@@ -136,11 +136,11 @@ export const metadata: Metadata = {
   description:
     "Norske guider om APK-nedlasting fra Google Play. Praktiske tips, sikkerhetsråd og trinn-for-trinn-instruksjoner for Android-brukere.",
   alternates: {
-    canonical: "https://gptoapk.com/nb/blog",
+    canonical: "https://www.gptoapk.com/nb/blog",
     languages: {
-      en: "https://gptoapk.com/en/blog",
-      nb: "https://gptoapk.com/nb/blog",
-      "x-default": "https://gptoapk.com/en/blog",
+      en: "https://www.gptoapk.com/en/blog",
+      nb: "https://www.gptoapk.com/nb/blog",
+      "x-default": "https://www.gptoapk.com/en/blog",
     },
   },
 };
@@ -151,7 +151,7 @@ export default function BlogIndexPage() {
     "@type": "Blog",
     headline: "Blogg - APK Downloader | gptoapk.com",
     description: metadata.description,
-    url: "https://gptoapk.com/nb/blog",
+    url: "https://www.gptoapk.com/nb/blog",
     inLanguage: "nb",
   };
 
@@ -168,12 +168,12 @@ export default function BlogIndexPage() {
             "@type": "CollectionPage",
             "name": "Blog - gptoapk.com",
             "description": "Latest articles about APK downloads, Android apps, and installation guides",
-            "url": "https://gptoapk.com/nb/blog",
+            "url": "https://www.gptoapk.com/nb/blog",
             "inLanguage": "nb",
             "isPartOf": {
               "@type": "WebSite",
               "name": "gptoapk.com",
-              "url": "https://gptoapk.com"
+              "url": "https://www.gptoapk.com"
             }
           }),
         }}

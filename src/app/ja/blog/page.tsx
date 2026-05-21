@@ -7,12 +7,12 @@ export const metadata: Metadata = {
   description:
     "Google Play ストアから APK をダウンロードする方法、APK ダウンロードツールの比較、APK ファイル構造の理解、Android アプリのインストールに関する包括的なガイド。",
   alternates: {
-    canonical: "https://gptoapk.com/ja/blog",
+    canonical: "https://www.gptoapk.com/ja/blog",
     languages: {
-      en: "https://gptoapk.com/en/blog",
-      zh: "https://gptoapk.com/zh/blog",
-      ja: "https://gptoapk.com/ja/blog",
-      "x-default": "https://gptoapk.com/en/blog",
+      en: "https://www.gptoapk.com/en/blog",
+      zh: "https://www.gptoapk.com/zh/blog",
+      ja: "https://www.gptoapk.com/ja/blog",
+      "x-default": "https://www.gptoapk.com/en/blog",
     },
   },
 };
@@ -179,12 +179,12 @@ className="max-w-5xl mx-auto px-4 py-16">
             "@type": "CollectionPage",
             "name": "Blog - gptoapk.com",
             "description": "Latest articles about APK downloads, Android apps, and installation guides",
-            "url": "https://gptoapk.com/ja/blog",
+            "url": "https://www.gptoapk.com/ja/blog",
             "inLanguage": "ja",
             "isPartOf": {
               "@type": "WebSite",
               "name": "gptoapk.com",
-              "url": "https://gptoapk.com"
+              "url": "https://www.gptoapk.com"
             }
           }),
         }}

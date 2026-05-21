@@ -8,11 +8,11 @@ export const metadata: Metadata = {
   description:
     "เครื่องมือออนไลน์ฟรีสำหรับดึงไฟล์ APK จากลิงก์ Google Play วาง URL หรือ App ID แล้วสร้างลิงก์ดาวน์โหลดได้ทันที",
   alternates: {
-    canonical: "https://gptoapk.com/th",
+    canonical: "https://www.gptoapk.com/th",
     languages: {
-      en: "https://gptoapk.com/en",
-      th: "https://gptoapk.com/th",
-      "x-default": "https://gptoapk.com/en",
+      en: "https://www.gptoapk.com/en",
+      th: "https://www.gptoapk.com/th",
+      "x-default": "https://www.gptoapk.com/en",
     },
   },
 };

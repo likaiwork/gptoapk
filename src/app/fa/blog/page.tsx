@@ -6,11 +6,11 @@ export const metadata: Metadata = {
   title: "وبلاگ - APK Downloader | gptoapk.com",
   description: "راهنماها و مقالات کامل درباره دانلود APK از گوگل پلی، نصب APK، امنیت و نکات کاربردی اندروید.",
   alternates: {
-    canonical: "https://gptoapk.com/fa/blog",
+    canonical: "https://www.gptoapk.com/fa/blog",
     languages: {
-      en: "https://gptoapk.com/en/blog",
-      fa: "https://gptoapk.com/fa/blog",
-      "x-default": "https://gptoapk.com/en/blog",
+      en: "https://www.gptoapk.com/en/blog",
+      fa: "https://www.gptoapk.com/fa/blog",
+      "x-default": "https://www.gptoapk.com/en/blog",
     },
   },
 };
@@ -159,12 +159,12 @@ className="max-w-5xl mx-auto px-4 py-16" dir="rtl">
             "@type": "CollectionPage",
             "name": "Blog - gptoapk.com",
             "description": "Latest articles about APK downloads, Android apps, and installation guides",
-            "url": "https://gptoapk.com/fa/blog",
+            "url": "https://www.gptoapk.com/fa/blog",
             "inLanguage": "fa",
             "isPartOf": {
               "@type": "WebSite",
               "name": "gptoapk.com",
-              "url": "https://gptoapk.com"
+              "url": "https://www.gptoapk.com"
             }
           }),
         }}

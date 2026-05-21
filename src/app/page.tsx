@@ -167,11 +167,11 @@ export default function HomeZh() {
             "author": {
               "@type": "Organization",
               "name": "gptoapk.com",
-              "url": "https://gptoapk.com"
+              "url": "https://www.gptoapk.com"
             },
             "potentialAction": {
               "@type": "SearchAction",
-              "target": "https://gptoapk.com/?q={search_term_string}",
+              "target": "https://www.gptoapk.com/?q={search_term_string}",
               "query-input": "required name=search_term_string"
             }
           })

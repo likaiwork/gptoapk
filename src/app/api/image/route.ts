@@ -35,7 +35,7 @@ export async function GET(request: Request) {
     const timer = setTimeout(() => controller.abort(), 15000);
     const upstream = await fetch(parsed.toString(), {
       headers: {
-        'User-Agent': 'Mozilla/5.0 (compatible; gptoapk/1.0; +https://gptoapk.com)',
+        'User-Agent': 'Mozilla/5.0 (compatible; gptoapk/1.0; +https://www.gptoapk.com)',
         Accept: 'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8',
       },
       signal: controller.signal,

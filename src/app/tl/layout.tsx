@@ -7,11 +7,11 @@ export const metadata: Metadata = {
   },
   description: "Libreng online tool para kunin ang APK mula sa Google Play links. I-paste ang URL o App ID at gumawa ng download link.",
   alternates: {
-    canonical: "https://gptoapk.com/tl",
+    canonical: "https://www.gptoapk.com/tl",
     languages: {
-      en: "https://gptoapk.com/en",
-      tl: "https://gptoapk.com/tl",
-      "x-default": "https://gptoapk.com/en",
+      en: "https://www.gptoapk.com/en",
+      tl: "https://www.gptoapk.com/tl",
+      "x-default": "https://www.gptoapk.com/en",
     },
   },
 };

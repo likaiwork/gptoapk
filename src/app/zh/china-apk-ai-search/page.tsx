@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Script from "next/script";
 
-const siteUrl = "https://gptoapk.com";
+const siteUrl = "https://www.gptoapk.com";
 const pageUrl = `${siteUrl}/zh/china-apk-ai-search`;
 const updated = "2026-05-19";
 

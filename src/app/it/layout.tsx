@@ -8,11 +8,11 @@ export const metadata: Metadata = {
   description:
     "Strumento online gratuito per ottenere file APK dai link del Google Play Store in modo rapido e sicuro. Incolla URL o ID app e genera il link di download.",
   alternates: {
-    canonical: "https://gptoapk.com/it",
+    canonical: "https://www.gptoapk.com/it",
     languages: {
-      en: "https://gptoapk.com/en",
-      it: "https://gptoapk.com/it",
-      "x-default": "https://gptoapk.com/en",
+      en: "https://www.gptoapk.com/en",
+      it: "https://www.gptoapk.com/it",
+      "x-default": "https://www.gptoapk.com/en",
     },
   },
 };

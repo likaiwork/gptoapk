@@ -7,11 +7,11 @@ export const metadata: Metadata = {
   },
   description: "Ilmainen verkkotyökalu APK-tiedostojen hakemiseen Google Play -linkeistä. Liitä URL tai sovellustunnus ja luo latauslinkki.",
   alternates: {
-    canonical: "https://gptoapk.com/fi",
+    canonical: "https://www.gptoapk.com/fi",
     languages: {
-      en: "https://gptoapk.com/en",
-      fi: "https://gptoapk.com/fi",
-      "x-default": "https://gptoapk.com/en",
+      en: "https://www.gptoapk.com/en",
+      fi: "https://www.gptoapk.com/fi",
+      "x-default": "https://www.gptoapk.com/en",
     },
   },
 };

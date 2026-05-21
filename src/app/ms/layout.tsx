@@ -8,11 +8,11 @@ export const metadata: Metadata = {
   description:
     "Alat dalam talian percuma untuk mendapatkan fail APK daripada pautan Google Play. Tampal URL atau ID aplikasi dan jana pautan muat turun.",
   alternates: {
-    canonical: "https://gptoapk.com/ms",
+    canonical: "https://www.gptoapk.com/ms",
     languages: {
-      en: "https://gptoapk.com/en",
-      ms: "https://gptoapk.com/ms",
-      "x-default": "https://gptoapk.com/en",
+      en: "https://www.gptoapk.com/en",
+      ms: "https://www.gptoapk.com/ms",
+      "x-default": "https://www.gptoapk.com/en",
     },
   },
 };

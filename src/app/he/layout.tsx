@@ -7,11 +7,11 @@ export const metadata: Metadata = {
   },
   description: "כלי מקוון חינמי להורדת קבצי APK מקישורי Google Play. הדביקו כתובת או מזהה אפליקציה ויצרו קישור הורדה.",
   alternates: {
-    canonical: "https://gptoapk.com/he",
+    canonical: "https://www.gptoapk.com/he",
     languages: {
-      en: "https://gptoapk.com/en",
-      he: "https://gptoapk.com/he",
-      "x-default": "https://gptoapk.com/en",
+      en: "https://www.gptoapk.com/en",
+      he: "https://www.gptoapk.com/he",
+      "x-default": "https://www.gptoapk.com/en",
     },
   },
 };

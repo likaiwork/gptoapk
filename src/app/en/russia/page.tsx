@@ -7,10 +7,10 @@ export const metadata: Metadata = {
   description:
     "Google Play not working in Russia? Learn how to download APKs directly without Play Store. Complete guide for Russian users.",
   alternates: {
-    canonical: "https://gptoapk.com/en/russia",
+    canonical: "https://www.gptoapk.com/en/russia",
     languages: {
-      zh: "https://gptoapk.com/zh/russia",
-      "x-default": "https://gptoapk.com/en/russia",
+      zh: "https://www.gptoapk.com/zh/russia",
+      "x-default": "https://www.gptoapk.com/en/russia",
     },
   },
 };
@@ -357,16 +357,16 @@ export default function RussiaPage() {
             "author": {
               "@type": "Organization",
               "name": "gptoapk.com",
-              "url": "https://gptoapk.com"
+              "url": "https://www.gptoapk.com"
             },
             "publisher": {
               "@type": "Organization",
               "name": "gptoapk.com",
-              "url": "https://gptoapk.com"
+              "url": "https://www.gptoapk.com"
             },
             "mainEntityOfPage": {
               "@type": "WebPage",
-              "@id": "https://gptoapk.com/en/russia"
+              "@id": "https://www.gptoapk.com/en/russia"
             },
             "inLanguage": "en"
           })
@@ -395,13 +395,13 @@ export default function RussiaPage() {
                 "@type": "ListItem",
                 "position": 1,
                 "name": "gptoapk.com",
-                "item": "https://gptoapk.com/en"
+                "item": "https://www.gptoapk.com/en"
               },
               {
                 "@type": "ListItem",
                 "position": 2,
                 "name": "Russia",
-                "item": "https://gptoapk.com/en/russia"
+                "item": "https://www.gptoapk.com/en/russia"
               }
             ]
           })

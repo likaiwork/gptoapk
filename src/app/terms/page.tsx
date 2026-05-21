@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   title: "Terms of Service",
   description: "Terms of Service for using gptoapk.com.",
   alternates: {
-    canonical: "https://gptoapk.com/terms",
+    canonical: "https://www.gptoapk.com/terms",
   },
 };
 

@@ -91,7 +91,7 @@ export function detectLocale(acceptLanguage?: string): Locale {
  * Get alternate hreflang URLs for SEO
  */
 export function getAlternates(locale: Locale, path: string = "") {
-  const baseUrl = "https://gptoapk.com";
+  const baseUrl = "https://www.gptoapk.com";
   const alternates: Record<string, string> = {};
   
   for (const loc of locales) {

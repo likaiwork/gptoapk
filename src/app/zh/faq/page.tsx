@@ -5,11 +5,11 @@ export const metadata: Metadata = {
   title: "常见问题 - APK 下载器 | gptoapk.com",
   description: "关于使用 gptoapk.com 从 Google Play 商店下载 APK 的常见问题。了解工作原理、安全性和故障排除技巧。",
   alternates: {
-    canonical: "https://gptoapk.com/zh/faq",
+    canonical: "https://www.gptoapk.com/zh/faq",
     languages: {
-      en: "https://gptoapk.com/en/faq",
-      zh: "https://gptoapk.com/zh/faq",
-      "x-default": "https://gptoapk.com/en/faq",
+      en: "https://www.gptoapk.com/en/faq",
+      zh: "https://www.gptoapk.com/zh/faq",
+      "x-default": "https://www.gptoapk.com/en/faq",
     },
   },
 };

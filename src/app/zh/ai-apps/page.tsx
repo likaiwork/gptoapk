@@ -3,7 +3,7 @@ import Link from "next/link";
 import Script from "next/script";
 import { aiAppGuides } from "../ai-app-guides";
 
-const siteUrl = "https://gptoapk.com";
+const siteUrl = "https://www.gptoapk.com";
 
 export const metadata: Metadata = {
   title: "中文 AI 应用 APK 安装问题汇总",

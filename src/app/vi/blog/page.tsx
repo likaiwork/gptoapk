@@ -7,12 +7,12 @@ export const metadata: Metadata = {
   description:
     "Tìm hiểu cách tải APK từ Google Play Store, so sánh các công cụ tải APK, hiểu cấu trúc tệp APK và làm chủ việc cài đặt ứng dụng Android.",
   alternates: {
-    canonical: "https://gptoapk.com/vi/blog",
+    canonical: "https://www.gptoapk.com/vi/blog",
     languages: {
-      en: "https://gptoapk.com/en/blog",
-      zh: "https://gptoapk.com/zh/blog",
-      vi: "https://gptoapk.com/vi/blog",
-      "x-default": "https://gptoapk.com/en/blog",
+      en: "https://www.gptoapk.com/en/blog",
+      zh: "https://www.gptoapk.com/zh/blog",
+      vi: "https://www.gptoapk.com/vi/blog",
+      "x-default": "https://www.gptoapk.com/en/blog",
     },
   },
 };
@@ -170,12 +170,12 @@ className="max-w-5xl mx-auto px-4 py-16">
             "@type": "CollectionPage",
             "name": "Blog - gptoapk.com",
             "description": "Latest articles about APK downloads, Android apps, and installation guides",
-            "url": "https://gptoapk.com/vi/blog",
+            "url": "https://www.gptoapk.com/vi/blog",
             "inLanguage": "vi",
             "isPartOf": {
               "@type": "WebSite",
               "name": "gptoapk.com",
-              "url": "https://gptoapk.com"
+              "url": "https://www.gptoapk.com"
             }
           }),
         }}

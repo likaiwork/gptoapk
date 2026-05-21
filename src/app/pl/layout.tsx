@@ -8,11 +8,11 @@ export const metadata: Metadata = {
   description:
     "Darmowe narzędzie online do pobierania plików APK z linków Google Play. Wklej adres lub ID aplikacji i wygeneruj link.",
   alternates: {
-    canonical: "https://gptoapk.com/pl",
+    canonical: "https://www.gptoapk.com/pl",
     languages: {
-      en: "https://gptoapk.com/en",
-      pl: "https://gptoapk.com/pl",
-      "x-default": "https://gptoapk.com/en",
+      en: "https://www.gptoapk.com/en",
+      pl: "https://www.gptoapk.com/pl",
+      "x-default": "https://www.gptoapk.com/en",
     },
   },
 };

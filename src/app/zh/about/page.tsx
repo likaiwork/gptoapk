@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   title: "关于我们 — gptoapk.com APK 下载工具",
   description: "gptoapk.com 是独立的 APK 下载和安装指南网站。了解我们的来源验证流程、安全标准和编辑准则。",
   alternates: {
-    canonical: "https://gptoapk.com/zh/about",
+    canonical: "https://www.gptoapk.com/zh/about",
   },
 };
 
@@ -89,9 +89,9 @@ export default function AboutPage() {
             "@type": "AboutPage",
             name: "关于 gptoapk.com",
             description: "gptoapk.com 是独立的 APK 下载和安装指南网站，帮助 Android 用户从 Google Play 获取官方 APK 文件。",
-            url: "https://gptoapk.com/zh/about",
+            url: "https://www.gptoapk.com/zh/about",
             inLanguage: "zh-CN",
-            publisher: { "@type": "Organization", name: "gptoapk.com", url: "https://gptoapk.com" },
+            publisher: { "@type": "Organization", name: "gptoapk.com", url: "https://www.gptoapk.com" },
           }),
         }}
       />

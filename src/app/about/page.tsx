@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   title: "About",
   description: "About gptoapk.com and its Android app search and APK link service.",
   alternates: {
-    canonical: "https://gptoapk.com/about",
+    canonical: "https://www.gptoapk.com/about",
   },
 };
 

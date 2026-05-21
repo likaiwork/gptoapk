@@ -5,7 +5,7 @@ export interface SeoUrlEntry {
   priority: number;
 }
 
-export const siteUrl = "https://gptoapk.com";
+export const siteUrl = "https://www.gptoapk.com";
 
 export const chinaCoreSeoUrls: SeoUrlEntry[] = [
   { path: "/zh", lastModified: "2026-05-19", changeFrequency: "daily", priority: 1 },

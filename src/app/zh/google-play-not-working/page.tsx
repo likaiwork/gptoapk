@@ -44,7 +44,7 @@ export default function GooglePlayNotWorkingPage() {
         确保文件的安全性和完整性。使用方法：
       </p>
       <ol className="list-decimal list-inside space-y-3 text-slate-700 dark:text-slate-300 mb-8">
-        <li>在浏览器中访问 <a href="https://gptoapk.com" className="text-blue-600 dark:text-blue-400 hover:underline">gptoapk.com</a>。</li>
+        <li>在浏览器中访问 <a href="https://www.gptoapk.com" className="text-blue-600 dark:text-blue-400 hover:underline">gptoapk.com</a>。</li>
         <li>在搜索框中输入你想要下载的应用名称（如ChatGPT、Telegram、WhatsApp等）。</li>
         <li>点击搜索结果中的&ldquo;下载APK&rdquo;按钮。</li>
         <li>在手机上允许安装未知来源应用，然后打开APK文件安装。</li>
@@ -130,9 +130,9 @@ export default function GooglePlayNotWorkingPage() {
       <div className="bg-blue-50 dark:bg-blue-900/20 p-6 rounded-xl border border-blue-100 dark:border-blue-800 mt-8">
         <p className="font-semibold text-lg mb-2">需要最新版 APK？</p>
         <p className="mb-3">
-          <a href="https://gptoapk.com" className="text-blue-600 dark:text-blue-400 hover:underline font-medium">gptoapk.com</a> — 快速安全的 APK 下载工具，只需输入应用名称即可搜索下载。
+          <a href="https://www.gptoapk.com" className="text-blue-600 dark:text-blue-400 hover:underline font-medium">gptoapk.com</a> — 快速安全的 APK 下载工具，只需输入应用名称即可搜索下载。
         </p>
-        <a href="https://gptoapk.com" className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-xl transition-colors">
+        <a href="https://www.gptoapk.com" className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-xl transition-colors">
           开始搜索 →
           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
@@ -153,16 +153,16 @@ export default function GooglePlayNotWorkingPage() {
             "author": {
               "@type": "Organization",
               "name": "gptoapk.com",
-              "url": "https://gptoapk.com"
+              "url": "https://www.gptoapk.com"
             },
             "publisher": {
               "@type": "Organization",
               "name": "gptoapk.com",
-              "url": "https://gptoapk.com"
+              "url": "https://www.gptoapk.com"
             },
             "mainEntityOfPage": {
               "@type": "WebPage",
-              "@id": "https://gptoapk.com/zh/google-play-not-working"
+              "@id": "https://www.gptoapk.com/zh/google-play-not-working"
             },
             "inLanguage": "zh"
           })
@@ -180,13 +180,13 @@ export default function GooglePlayNotWorkingPage() {
                 "@type": "ListItem",
                 "position": 1,
                 "name": "gptoapk.com",
-                "item": "https://gptoapk.com/zh"
+                "item": "https://www.gptoapk.com/zh"
               },
               {
                 "@type": "ListItem",
                 "position": 2,
                 "name": "Google Play 无法使用",
-                "item": "https://gptoapk.com/zh/google-play-not-working"
+                "item": "https://www.gptoapk.com/zh/google-play-not-working"
               }
             ]
           })

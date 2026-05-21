@@ -7,11 +7,11 @@ export const metadata: Metadata = {
   description:
     "Poradniki i artykuły o pobieraniu APK z Google Play. Dowiedz się, jak pobierać pliki APK, rozumieć ich strukturę i bezpiecznie instalować aplikacje.",
   alternates: {
-    canonical: "https://gptoapk.com/pl/blog",
+    canonical: "https://www.gptoapk.com/pl/blog",
     languages: {
-      en: "https://gptoapk.com/en/blog",
-      pl: "https://gptoapk.com/pl/blog",
-      "x-default": "https://gptoapk.com/en/blog",
+      en: "https://www.gptoapk.com/en/blog",
+      pl: "https://www.gptoapk.com/pl/blog",
+      "x-default": "https://www.gptoapk.com/en/blog",
     },
   },
 };
@@ -171,12 +171,12 @@ className="max-w-5xl mx-auto px-4 py-16">
             "@type": "CollectionPage",
             "name": "Blog - gptoapk.com",
             "description": "Latest articles about APK downloads, Android apps, and installation guides",
-            "url": "https://gptoapk.com/pl/blog",
+            "url": "https://www.gptoapk.com/pl/blog",
             "inLanguage": "pl",
             "isPartOf": {
               "@type": "WebSite",
               "name": "gptoapk.com",
-              "url": "https://gptoapk.com"
+              "url": "https://www.gptoapk.com"
             }
           }),
         }}

@@ -7,11 +7,11 @@ export const metadata: Metadata = {
   description:
     "Handleidingen en artikelen over het downloaden van APK's uit Google Play. Leer hoe je APK-bestanden downloadt, de structuur begrijpt en apps veilig installeert.",
   alternates: {
-    canonical: "https://gptoapk.com/nl/blog",
+    canonical: "https://www.gptoapk.com/nl/blog",
     languages: {
-      en: "https://gptoapk.com/en/blog",
-      nl: "https://gptoapk.com/nl/blog",
-      "x-default": "https://gptoapk.com/en/blog",
+      en: "https://www.gptoapk.com/en/blog",
+      nl: "https://www.gptoapk.com/nl/blog",
+      "x-default": "https://www.gptoapk.com/en/blog",
     },
   },
 };
@@ -171,12 +171,12 @@ className="max-w-5xl mx-auto px-4 py-16">
             "@type": "CollectionPage",
             "name": "Blog - gptoapk.com",
             "description": "Latest articles about APK downloads, Android apps, and installation guides",
-            "url": "https://gptoapk.com/nl/blog",
+            "url": "https://www.gptoapk.com/nl/blog",
             "inLanguage": "nl",
             "isPartOf": {
               "@type": "WebSite",
               "name": "gptoapk.com",
-              "url": "https://gptoapk.com"
+              "url": "https://www.gptoapk.com"
             }
           }),
         }}

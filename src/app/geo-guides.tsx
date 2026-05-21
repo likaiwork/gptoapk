@@ -31,7 +31,7 @@ export interface GeoGuide {
   ctaBody: string;
 }
 
-const siteUrl = "https://gptoapk.com";
+const siteUrl = "https://www.gptoapk.com";
 const authorUrl = `${siteUrl}/author/gptoapk`;
 const authorName = "gptoapk.com Editorial";
 const updated = "2026-05-17";

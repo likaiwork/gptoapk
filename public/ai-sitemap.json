@@ -1,9 +1,9 @@
 {
-  "$schema": "https://gptoapk.com/ai-sitemap-schema.json",
+  "$schema": "https://www.gptoapk.com/ai-sitemap-schema.json",
   "site": {
     "name": "gptoapk.com",
     "description": "多语言 APK 下载与安装指南网站。帮助 Android 用户搜索应用、安全下载 Google Play 来源的原始 APK 文件。",
-    "url": "https://gptoapk.com",
+    "url": "https://www.gptoapk.com",
     "languages": ["zh", "en", "ja", "ko", "ar", "ru", "fa", "de", "fr", "es", "pt", "tr", "th", "vi", "id", "hi", "ur", "tl", "bn", "cs", "da", "el", "fi", "he", "hu", "it", "ms", "nb", "nl", "pl", "ro", "sv", "uk"],
     "primaryLanguage": "zh",
     "lastUpdated": "2026-05-19"
@@ -69,9 +69,9 @@
     { "path": "/zh/faq", "title": "常见问题 FAQ", "type": "faq", "priority": 0.7 }
   ],
   "sitemaps": [
-    "https://gptoapk.com/sitemap.xml",
-    "https://gptoapk.com/sitemap-zh.xml",
-    "https://gptoapk.com/sitemap-ai.xml"
+    "https://www.gptoapk.com/sitemap.xml",
+    "https://www.gptoapk.com/sitemap-zh.xml",
+    "https://www.gptoapk.com/sitemap-ai.xml"
   ],
   "crawlHints": {
     "preferSchemaTypes": ["FAQPage", "HowTo", "SoftwareApplication", "TechArticle", "BreadcrumbList"],

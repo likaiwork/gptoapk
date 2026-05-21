@@ -5,11 +5,11 @@ export const metadata: Metadata = {
   title: "FAQ - APK Downloader | gptoapk.com",
   description: "Frequently asked questions about downloading APK from Google Play Store using gptoapk.com. Learn how it works, security, and troubleshooting tips.",
   alternates: {
-    canonical: "https://gptoapk.com/en/faq",
+    canonical: "https://www.gptoapk.com/en/faq",
     languages: {
-      en: "https://gptoapk.com/en/faq",
-      zh: "https://gptoapk.com/zh/faq",
-      "x-default": "https://gptoapk.com/en/faq",
+      en: "https://www.gptoapk.com/en/faq",
+      zh: "https://www.gptoapk.com/zh/faq",
+      "x-default": "https://www.gptoapk.com/en/faq",
     },
   },
 };

@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 import { SITE_LOCALES } from "@/lib/site-locales";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://gptoapk.com";
+  const baseUrl = "https://www.gptoapk.com";
 
   const enBlogSlugs = [
     "how-to-download-apk-from-google-play",

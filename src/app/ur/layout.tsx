@@ -7,11 +7,11 @@ export const metadata: Metadata = {
   },
   description: "Google Play لنکس سے APK فائلیں حاصل کرنے کا مفت آن لائن ٹول۔ URL یا ایپ ID چسپاں کریں اور ڈاؤن لوڈ لنک بنائیں۔",
   alternates: {
-    canonical: "https://gptoapk.com/ur",
+    canonical: "https://www.gptoapk.com/ur",
     languages: {
-      en: "https://gptoapk.com/en",
-      ur: "https://gptoapk.com/ur",
-      "x-default": "https://gptoapk.com/en",
+      en: "https://www.gptoapk.com/en",
+      ur: "https://www.gptoapk.com/ur",
+      "x-default": "https://www.gptoapk.com/en",
     },
   },
 };

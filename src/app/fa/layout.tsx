@@ -7,11 +7,11 @@ export const metadata: Metadata = {
   },
   description: "ابزار آنلاین رایگان برای دریافت فایل APK از لینک‌های Google Play. URL یا شناسهٔ اپ را بچسبانید و لینک دانلود بسازید.",
   alternates: {
-    canonical: "https://gptoapk.com/fa",
+    canonical: "https://www.gptoapk.com/fa",
     languages: {
-      en: "https://gptoapk.com/en",
-      fa: "https://gptoapk.com/fa",
-      "x-default": "https://gptoapk.com/en",
+      en: "https://www.gptoapk.com/en",
+      fa: "https://www.gptoapk.com/fa",
+      "x-default": "https://www.gptoapk.com/en",
     },
   },
 };

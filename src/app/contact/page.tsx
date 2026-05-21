@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   title: "Contact",
   description: "Contact gptoapk.com for support, privacy, policy, abuse, and removal requests.",
   alternates: {
-    canonical: "https://gptoapk.com/contact",
+    canonical: "https://www.gptoapk.com/contact",
   },
 };
 

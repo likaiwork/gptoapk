@@ -8,9 +8,9 @@ export const metadata: Metadata = {
   description:
     "Step-by-step guides on installing APK files on Android devices without Google Play Store. Huawei, Xiaomi, Samsung guides included.",
   alternates: {
-    canonical: "https://gptoapk.com/en/how-to",
+    canonical: "https://www.gptoapk.com/en/how-to",
     languages: {
-      "x-default": "https://gptoapk.com/en/how-to",
+      "x-default": "https://www.gptoapk.com/en/how-to",
     },
   },
 };
@@ -351,16 +351,16 @@ export default function HowToPage() {
             "author": {
               "@type": "Organization",
               "name": "gptoapk.com",
-              "url": "https://gptoapk.com"
+              "url": "https://www.gptoapk.com"
             },
             "publisher": {
               "@type": "Organization",
               "name": "gptoapk.com",
-              "url": "https://gptoapk.com"
+              "url": "https://www.gptoapk.com"
             },
             "mainEntityOfPage": {
               "@type": "WebPage",
-              "@id": "https://gptoapk.com/en/how-to"
+              "@id": "https://www.gptoapk.com/en/how-to"
             },
             "inLanguage": "en"
           })
@@ -389,13 +389,13 @@ export default function HowToPage() {
                 "@type": "ListItem",
                 "position": 1,
                 "name": "gptoapk.com",
-                "item": "https://gptoapk.com/en"
+                "item": "https://www.gptoapk.com/en"
               },
               {
                 "@type": "ListItem",
                 "position": 2,
                 "name": "How To",
-                "item": "https://gptoapk.com/en/how-to"
+                "item": "https://www.gptoapk.com/en/how-to"
               }
             ]
           })

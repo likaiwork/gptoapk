@@ -7,11 +7,11 @@ export const metadata: Metadata = {
   description:
     "Oppaita ja artikkeleita APK-latauksesta Google Playsta. Opi purkamaan APK, ymmärtämään tiedostorakennetta ja asentamaan Android-sovelluksia turvallisesti.",
   alternates: {
-    canonical: "https://gptoapk.com/fi/blog",
+    canonical: "https://www.gptoapk.com/fi/blog",
     languages: {
-      en: "https://gptoapk.com/en/blog",
-      fi: "https://gptoapk.com/fi/blog",
-      "x-default": "https://gptoapk.com/en/blog",
+      en: "https://www.gptoapk.com/en/blog",
+      fi: "https://www.gptoapk.com/fi/blog",
+      "x-default": "https://www.gptoapk.com/en/blog",
     },
   },
 };
@@ -171,12 +171,12 @@ className="max-w-5xl mx-auto px-4 py-16">
             "@type": "CollectionPage",
             "name": "Blog - gptoapk.com",
             "description": "Latest articles about APK downloads, Android apps, and installation guides",
-            "url": "https://gptoapk.com/fi/blog",
+            "url": "https://www.gptoapk.com/fi/blog",
             "inLanguage": "fi",
             "isPartOf": {
               "@type": "WebSite",
               "name": "gptoapk.com",
-              "url": "https://gptoapk.com"
+              "url": "https://www.gptoapk.com"
             }
           }),
         }}

@@ -8,9 +8,9 @@ export const metadata: Metadata = {
   description:
     "Step-by-step guide to download and install ChatGPT APK on any Android device. Works on Huawei, Xiaomi, and phones without Google Play.",
   alternates: {
-    canonical: "https://gptoapk.com/en/how-to/install-chatgpt-apk",
+    canonical: "https://www.gptoapk.com/en/how-to/install-chatgpt-apk",
     languages: {
-      "x-default": "https://gptoapk.com/en/how-to/install-chatgpt-apk",
+      "x-default": "https://www.gptoapk.com/en/how-to/install-chatgpt-apk",
     },
   },
 };
@@ -476,16 +476,16 @@ export default function InstallChatGptApkPage() {
             "author": {
               "@type": "Organization",
               "name": "gptoapk.com",
-              "url": "https://gptoapk.com"
+              "url": "https://www.gptoapk.com"
             },
             "publisher": {
               "@type": "Organization",
               "name": "gptoapk.com",
-              "url": "https://gptoapk.com"
+              "url": "https://www.gptoapk.com"
             },
             "mainEntityOfPage": {
               "@type": "WebPage",
-              "@id": "https://gptoapk.com/en/how-to/install-chatgpt-apk"
+              "@id": "https://www.gptoapk.com/en/how-to/install-chatgpt-apk"
             },
             "inLanguage": "en"
           })
@@ -514,13 +514,13 @@ export default function InstallChatGptApkPage() {
                 "@type": "ListItem",
                 "position": 1,
                 "name": "gptoapk.com",
-                "item": "https://gptoapk.com/en"
+                "item": "https://www.gptoapk.com/en"
               },
               {
                 "@type": "ListItem",
                 "position": 2,
                 "name": "Install Chatgpt Apk",
-                "item": "https://gptoapk.com/en/how-to/install-chatgpt-apk"
+                "item": "https://www.gptoapk.com/en/how-to/install-chatgpt-apk"
               }
             ]
           })

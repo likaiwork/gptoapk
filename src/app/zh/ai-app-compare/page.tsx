@@ -3,7 +3,7 @@ import Link from "next/link";
 import Script from "next/script";
 import { aiAppGuides } from "../ai-app-guides";
 
-const siteUrl = "https://gptoapk.com";
+const siteUrl = "https://www.gptoapk.com";
 const pageUrl = `${siteUrl}/zh/ai-app-compare`;
 const updated = "2026-05-19";
 

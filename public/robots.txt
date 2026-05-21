@@ -69,7 +69,7 @@ User-agent: *
 Allow: /
 Disallow: /api/
 
-Host: https://gptoapk.com
-Sitemap: https://gptoapk.com/sitemap.xml
-Sitemap: https://gptoapk.com/sitemap-zh.xml
-Sitemap: https://gptoapk.com/sitemap-ai.xml
+Host: https://www.gptoapk.com
+Sitemap: https://www.gptoapk.com/sitemap.xml
+Sitemap: https://www.gptoapk.com/sitemap-zh.xml
+Sitemap: https://www.gptoapk.com/sitemap-ai.xml

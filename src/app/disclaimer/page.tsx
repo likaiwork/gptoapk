@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   title: "Disclaimer",
   description: "Important disclaimer for gptoapk.com and APK download links.",
   alternates: {
-    canonical: "https://gptoapk.com/disclaimer",
+    canonical: "https://www.gptoapk.com/disclaimer",
   },
 };
 

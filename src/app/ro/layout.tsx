@@ -7,11 +7,11 @@ export const metadata: Metadata = {
   },
   description: "Instrument online gratuit pentru a obține fișiere APK din linkuri Google Play. Lipește URL-ul sau ID-ul aplicației și generează linkul de descărcare.",
   alternates: {
-    canonical: "https://gptoapk.com/ro",
+    canonical: "https://www.gptoapk.com/ro",
     languages: {
-      en: "https://gptoapk.com/en",
-      ro: "https://gptoapk.com/ro",
-      "x-default": "https://gptoapk.com/en",
+      en: "https://www.gptoapk.com/en",
+      ro: "https://www.gptoapk.com/ro",
+      "x-default": "https://www.gptoapk.com/en",
     },
   },
 };

@@ -7,11 +7,11 @@ export const metadata: Metadata = {
   },
   description: "Ingyenes online eszköz APK-fájlok beszerzéséhez Google Play-linkekből. Illessze be az URL-t vagy az alkalmazásazonosítót, és generáljon letöltési linket.",
   alternates: {
-    canonical: "https://gptoapk.com/hu",
+    canonical: "https://www.gptoapk.com/hu",
     languages: {
-      en: "https://gptoapk.com/en",
-      hu: "https://gptoapk.com/hu",
-      "x-default": "https://gptoapk.com/en",
+      en: "https://www.gptoapk.com/en",
+      hu: "https://www.gptoapk.com/hu",
+      "x-default": "https://www.gptoapk.com/en",
     },
   },
 };

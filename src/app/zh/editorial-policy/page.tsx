@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   title: "编辑政策 — gptoapk.com",
   description: "gptoapk.com 的编辑政策与内容准则。了解我们的 APK 来源验证流程、内容更新机制和质量标准。",
   alternates: {
-    canonical: "https://gptoapk.com/zh/editorial-policy",
+    canonical: "https://www.gptoapk.com/zh/editorial-policy",
   },
 };
 
@@ -91,9 +91,9 @@ export default function EditorialPolicyPage() {
             "@type": "WebPage",
             name: "编辑政策 — gptoapk.com",
             description: "gptoapk.com 的编辑政策与内容准则。APK 来源验证、内容更新机制和质量标准。",
-            url: "https://gptoapk.com/zh/editorial-policy",
+            url: "https://www.gptoapk.com/zh/editorial-policy",
             inLanguage: "zh-CN",
-            publisher: { "@type": "Organization", name: "gptoapk.com", url: "https://gptoapk.com" },
+            publisher: { "@type": "Organization", name: "gptoapk.com", url: "https://www.gptoapk.com" },
           }),
         }}
       />

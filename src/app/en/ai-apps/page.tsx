@@ -8,9 +8,9 @@ export const metadata: Metadata = {
   description:
     "Download the latest AI app APKs including ChatGPT, Claude, Gemini, Grok, and DeepSeek. Direct APK downloads for restricted regions.",
   alternates: {
-    canonical: "https://gptoapk.com/en/ai-apps",
+    canonical: "https://www.gptoapk.com/en/ai-apps",
     languages: {
-      "x-default": "https://gptoapk.com/en/ai-apps",
+      "x-default": "https://www.gptoapk.com/en/ai-apps",
     },
   },
 };
@@ -320,16 +320,16 @@ export default function AiAppsPage() {
             "author": {
               "@type": "Organization",
               "name": "gptoapk.com",
-              "url": "https://gptoapk.com"
+              "url": "https://www.gptoapk.com"
             },
             "publisher": {
               "@type": "Organization",
               "name": "gptoapk.com",
-              "url": "https://gptoapk.com"
+              "url": "https://www.gptoapk.com"
             },
             "mainEntityOfPage": {
               "@type": "WebPage",
-              "@id": "https://gptoapk.com/en/ai-apps"
+              "@id": "https://www.gptoapk.com/en/ai-apps"
             },
             "inLanguage": "en"
           })
@@ -358,13 +358,13 @@ export default function AiAppsPage() {
                 "@type": "ListItem",
                 "position": 1,
                 "name": "gptoapk.com",
-                "item": "https://gptoapk.com/en"
+                "item": "https://www.gptoapk.com/en"
               },
               {
                 "@type": "ListItem",
                 "position": 2,
                 "name": "AI Apps",
-                "item": "https://gptoapk.com/en/ai-apps"
+                "item": "https://www.gptoapk.com/en/ai-apps"
               }
             ]
           })

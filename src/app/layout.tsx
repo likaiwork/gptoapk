@@ -37,7 +37,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "APK 下载器 - 免费应用 APK 下载工具",
     description: "免费在线 APK 下载工具，可搜索安卓应用，并在存在免费应用或可信公开来源时生成支持的下载链接。",
-    url: "https://gptoapk.com",
+    url: "https://www.gptoapk.com",
     siteName: "APK 下载器",
     type: "website",
   },
@@ -60,11 +60,11 @@ export const metadata: Metadata = {
     follow: true,
   },
   alternates: {
-    canonical: "https://gptoapk.com/en",
+    canonical: "https://www.gptoapk.com/en",
     languages: {
-      en: "https://gptoapk.com/en",
-      zh: "https://gptoapk.com/zh",
-      "x-default": "https://gptoapk.com/en",
+      en: "https://www.gptoapk.com/en",
+      zh: "https://www.gptoapk.com/zh",
+      "x-default": "https://www.gptoapk.com/en",
     },
   },
 };
@@ -120,7 +120,7 @@ export default async function RootLayout({
     "@context": "https://schema.org",
     "@type": "WebApplication",
     "name": "APK Downloader - Google Play APK Extractor",
-    "url": "https://gptoapk.com",
+    "url": "https://www.gptoapk.com",
     "description": "Free online APK download tool for finding Android apps and preparing supported downloads from verified public sources.",
     "applicationCategory": "Utilities",
     "operatingSystem": "Android",
@@ -135,13 +135,13 @@ export default async function RootLayout({
     "@context": "https://schema.org",
     "@type": "WebSite",
     "name": "gptoapk.com",
-    "url": "https://gptoapk.com",
+    "url": "https://www.gptoapk.com",
     "description": "APK download tool for Android - search apps and prepare supported downloads from verified public sources",
     "potentialAction": {
       "@type": "SearchAction",
       "target": {
         "@type": "EntryPoint",
-        "urlTemplate": "https://gptoapk.com/?q={search_term_string}",
+        "urlTemplate": "https://www.gptoapk.com/?q={search_term_string}",
       },
       "query-input": "required name=search_term_string",
     },
@@ -151,7 +151,7 @@ export default async function RootLayout({
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": "gptoapk.com",
-    "url": "https://gptoapk.com",
+    "url": "https://www.gptoapk.com",
     "sameAs": [
       "https://gptoapk.hashnode.dev",
     ],
@@ -186,11 +186,11 @@ gtag('consent', 'default', {
           <link
             key={locale.hrefLang}
             rel="alternate"
-            href={`https://gptoapk.com${locale.path}`}
+            href={`https://www.gptoapk.com${locale.path}`}
             hrefLang={locale.hrefLang}
           />
         ))}
-        <link rel="alternate" href="https://gptoapk.com/en" hrefLang="x-default" />
+        <link rel="alternate" href="https://www.gptoapk.com/en" hrefLang="x-default" />
 
         {/* OpenSearch & RSS Feed for search engine / AI crawler discovery */}
         <link rel="search" type="application/opensearchdescription+xml" title="gptoapk.com APK 搜索" href="/opensearch.xml" />

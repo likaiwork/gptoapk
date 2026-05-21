@@ -4,9 +4,9 @@
   <ShortName>gptoapk.com APK 搜索</ShortName>
   <Description>搜索并下载来自 Google Play 的 APK 文件</Description>
   <InputEncoding>UTF-8</InputEncoding>
-  <Image width="16" height="16" type="image/x-icon">https://gptoapk.com/favicon.ico</Image>
-  <Url type="text/html" template="https://gptoapk.com/zh?q={searchTerms}"/>
-  <Url type="application/opensearchdescription+xml" rel="self" template="https://gptoapk.com/opensearch.xml"/>
+  <Image width="16" height="16" type="image/x-icon">https://www.gptoapk.com/favicon.ico</Image>
+  <Url type="text/html" template="https://www.gptoapk.com/zh?q={searchTerms}"/>
+  <Url type="application/opensearchdescription+xml" rel="self" template="https://www.gptoapk.com/opensearch.xml"/>
   <Language>zh-CN</Language>
   <Tags>apk download android google play</Tags>
   <LongName>gptoapk.com — Google Play APK 下载搜索</LongName>

@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   title: "Privacy Policy",
   description: "Privacy Policy for gptoapk.com, including analytics, advertising, cookies, your rights under GDPR/CCPA, and contact information.",
   alternates: {
-    canonical: "https://gptoapk.com/privacy",
+    canonical: "https://www.gptoapk.com/privacy",
   },
 };
 

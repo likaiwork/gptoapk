@@ -6,11 +6,11 @@ export const metadata: Metadata = {
   title: "Блог - APK Downloader | gptoapk.com",
   description: "Повні гіди та статті про завантаження APK з Google Play, встановлення APK, безпеку та поради для Android.",
   alternates: {
-    canonical: "https://gptoapk.com/uk/blog",
+    canonical: "https://www.gptoapk.com/uk/blog",
     languages: {
-      en: "https://gptoapk.com/en/blog",
-      uk: "https://gptoapk.com/uk/blog",
-      "x-default": "https://gptoapk.com/en/blog",
+      en: "https://www.gptoapk.com/en/blog",
+      uk: "https://www.gptoapk.com/uk/blog",
+      "x-default": "https://www.gptoapk.com/en/blog",
     },
   },
 };
@@ -159,12 +159,12 @@ className="max-w-5xl mx-auto px-4 py-16">
             "@type": "CollectionPage",
             "name": "Blog - gptoapk.com",
             "description": "Latest articles about APK downloads, Android apps, and installation guides",
-            "url": "https://gptoapk.com/uk/blog",
+            "url": "https://www.gptoapk.com/uk/blog",
             "inLanguage": "uk",
             "isPartOf": {
               "@type": "WebSite",
               "name": "gptoapk.com",
-              "url": "https://gptoapk.com"
+              "url": "https://www.gptoapk.com"
             }
           }),
         }}
