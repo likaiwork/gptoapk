@@ -6,8 +6,38 @@
     "url": "https://www.gptoapk.com",
     "languages": ["zh", "en", "ja", "ko", "ar", "ru", "fa", "de", "fr", "es", "pt", "tr", "th", "vi", "id", "hi", "ur", "tl", "bn", "cs", "da", "el", "fi", "he", "hu", "it", "ms", "nb", "nl", "pl", "ro", "sv", "uk"],
     "primaryLanguage": "zh",
-    "lastUpdated": "2026-05-19"
+    "lastUpdated": "2026-05-21"
   },
+  "englishPages": [
+    {
+      "path": "/en",
+      "title": "English home",
+      "description": "English APK downloader entry for searching free Android apps and downloading original APK files from Google Play sources",
+      "type": "homepage",
+      "priority": 1.0
+    },
+    {
+      "path": "/en/how-to",
+      "title": "APK installation how-to hub",
+      "description": "English hub for APK installation, Google Play access, Huawei setup, and AI app install guides",
+      "type": "hub",
+      "priority": 0.9
+    },
+    {
+      "path": "/en/blog",
+      "title": "APK downloader blog",
+      "description": "English guides about APK files, APK safety, Google Play link conversion, and Android sideloading",
+      "type": "blog",
+      "priority": 0.85
+    },
+    {
+      "path": "/en/faq",
+      "title": "APK downloader FAQ",
+      "description": "Frequently asked questions about free APK downloads, safety, Google Play sources, and unsupported paid apps",
+      "type": "faq",
+      "priority": 0.75
+    }
+  ],
   "chinesePages": [
     {
       "path": "/zh",
@@ -46,6 +76,12 @@
     }
   ],
   "aiAppGuides": [
+    { "path": "/en/how-to/install-chatgpt-apk", "name": "ChatGPT", "packageName": "com.openai.chatgpt", "developer": "OpenAI", "type": "app-guide", "priority": 0.85 },
+    { "path": "/en/how-to/install-claude-apk", "name": "Claude", "packageName": "com.anthropic.claude", "developer": "Anthropic", "type": "app-guide", "priority": 0.8 },
+    { "path": "/en/how-to/install-gemini-apk", "name": "Gemini", "packageName": "com.google.android.apps.bard", "developer": "Google", "type": "app-guide", "priority": 0.8 },
+    { "path": "/en/how-to/install-deepseek-apk", "name": "DeepSeek", "packageName": "com.deepseek.chat", "developer": "DeepSeek", "type": "app-guide", "priority": 0.8 },
+    { "path": "/en/how-to/install-grok-apk", "name": "Grok", "packageName": "ai.x.grok", "developer": "xAI", "type": "app-guide", "priority": 0.75 },
+    { "path": "/en/how-to/install-perplexity-apk", "name": "Perplexity", "packageName": "ai.perplexity.app.android", "developer": "Perplexity AI", "type": "app-guide", "priority": 0.75 },
     { "path": "/zh/doubao-apk", "name": "豆包", "packageName": "com.larus.nova", "developer": "字节跳动", "type": "app-guide", "priority": 0.85 },
     { "path": "/zh/yuanbao-apk", "name": "腾讯元宝", "packageName": "com.tencent.hunyuan.app.chat", "developer": "Tencent", "type": "app-guide", "priority": 0.85 },
     { "path": "/zh/deepseek-apk", "name": "DeepSeek", "packageName": "com.deepseek.chat", "developer": "DeepSeek", "type": "app-guide", "priority": 0.85 },

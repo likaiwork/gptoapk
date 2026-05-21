@@ -77,6 +77,7 @@
 - 已打磨首页 `WebSite`、`WebApplication`、`Organization` JSON-LD：补齐稳定 `@id`，并让 `SearchAction` 直接指向 `/en?q=`，避免 schema URL 经过跳转。
 - 已为中英核心博客详情页补齐 `BreadcrumbList` JSON-LD，并统一 BlogPosting、canonical、OpenGraph URL 到 `https://www.gptoapk.com` 主域。
 - 已把旧 `/blog` 与 `/blog/[slug]` 代码中的 canonical / OpenGraph / BlogPosting 信号指向英文 canonical `/en/blog`，并给旧博客详情补齐 `BreadcrumbList`，配合线上 307 跳转减少重复内容信号。
+- 已更新 `llms.txt`、`ai.txt`、`ai-sitemap.json`：补齐英文核心 hub、英文 AI App 安装页、拆分 sitemap，并把 AI 索引首页入口从会跳转的根路径调整到 `/en`。
 
 ## 第二阶段：结构化数据
 
@@ -227,7 +228,7 @@
 
 目标：让页面更容易被 ChatGPT、Perplexity、Claude、Google AI Overviews 摘录和引用。
 
-- [ ] 保持 `llms.txt` 更新，列出核心 hub 和高质量页面。
+- [x] 保持 `llms.txt` 更新，列出核心 hub 和高质量页面。
 - [ ] 每篇核心文章开头加 40-60 字直接答案。
 - [ ] 每个页面加入自然语言 FAQ。
 - [ ] 用表格表达对比和原因。

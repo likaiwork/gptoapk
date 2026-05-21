@@ -4,12 +4,16 @@
 
 ## Important URLs
 
-- Home: https://www.gptoapk.com/
+- English home: https://www.gptoapk.com/en
 - Chinese home: https://www.gptoapk.com/zh
 - About (zh): https://www.gptoapk.com/zh/about
 - Editorial policy (zh): https://www.gptoapk.com/zh/editorial-policy
 - Editorial profile: https://www.gptoapk.com/author/gptoapk
 - Sitemap: https://www.gptoapk.com/sitemap.xml
+- Main sitemap: https://www.gptoapk.com/sitemap-main.xml
+- Blog sitemap: https://www.gptoapk.com/sitemap-blog.xml
+- App sitemap: https://www.gptoapk.com/sitemap-apps.xml
+- Locale sitemap: https://www.gptoapk.com/sitemap-locales.xml
 - Chinese sitemap: https://www.gptoapk.com/sitemap-zh.xml
 - AI/GEO sitemap: https://www.gptoapk.com/sitemap-ai.xml
 - AI sitemap (JSON): https://www.gptoapk.com/ai-sitemap.json
@@ -34,6 +38,15 @@
 - DeepSeek APK guide: https://www.gptoapk.com/en/how-to/deepseek-apk
 - Qwen APK guide: https://www.gptoapk.com/en/how-to/qwen-apk
 - Kimi APK guide: https://www.gptoapk.com/en/how-to/kimi-apk
+
+## English AI App Install Guides
+
+- ChatGPT APK install guide: https://www.gptoapk.com/en/how-to/install-chatgpt-apk (com.openai.chatgpt)
+- Claude APK install guide: https://www.gptoapk.com/en/how-to/install-claude-apk (com.anthropic.claude)
+- Gemini APK install guide: https://www.gptoapk.com/en/how-to/install-gemini-apk (com.google.android.apps.bard)
+- DeepSeek APK install guide: https://www.gptoapk.com/en/how-to/install-deepseek-apk (com.deepseek.chat)
+- Grok APK install guide: https://www.gptoapk.com/en/how-to/install-grok-apk (ai.x.grok)
+- Perplexity APK install guide: https://www.gptoapk.com/en/how-to/install-perplexity-apk (ai.perplexity.app.android)
 
 ## Chinese AI App Guides
 
