@@ -75,6 +75,7 @@
 - 已为 `/en/faq` 补齐 canonical、self-referencing hreflang、FAQPage 和 BreadcrumbList JSON-LD。
 - 已检查核心入口、FAQ、Blog、How-to、Russia、Legal、各 sitemap 状态码；核心页面返回 200，旧 `/` 与 `/faq` 返回 307 到 canonical URL。
 - 已打磨首页 `WebSite`、`WebApplication`、`Organization` JSON-LD：补齐稳定 `@id`，并让 `SearchAction` 直接指向 `/en?q=`，避免 schema URL 经过跳转。
+- 已为中英核心博客详情页补齐 `BreadcrumbList` JSON-LD，并统一 BlogPosting、canonical、OpenGraph URL 到 `https://www.gptoapk.com` 主域。
 
 ## 第二阶段：结构化数据
 
@@ -92,6 +93,17 @@
   - `Article` 或 `BlogPosting`
   - `BreadcrumbList`
   - 作者、更新时间、主图、描述
+- [x] 中英核心博客详情页：
+  - `BlogPosting`
+  - `BreadcrumbList`
+  - canonical / OpenGraph / schema 主域统一为 `https://www.gptoapk.com`
+- [ ] 博客文章主图：
+  - 统一文章视觉资产后补充 `image`
+  - 不使用页面不可见的假主图
+- [ ] 其他语言生成文章页：
+  - 统一 canonical / BlogPosting 主域
+  - 补齐 `BreadcrumbList`
+  - 等当前未提交生成改动稳定后再批量处理
 - [ ] How-to 页面：
   - `HowTo`
   - 步骤必须在页面正文中可见
