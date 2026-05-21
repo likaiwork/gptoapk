@@ -209,7 +209,7 @@ adb pull [path-from-above]`}</code></pre>
 
         <h2>Frequently Asked Questions</h2>
         <p><strong>Can I download APK from Google Play for free?</strong><br/>Yes, <a href="https://gptoapk.com">gptoapk.com</a> is completely free. No hidden fees, no premium plans.</p>
-        <p><strong>Does this work for paid apps?</strong><br/>Yes, but you&apos;ll need to have purchased the app on your Google account for it to work.</p>
+        <p><strong>Does this work for paid apps?</strong><br/>No. Paid app downloads are not supported. gptoapk.com only supports free apps or apps available from verified public sources.</p>
         <p><strong>Can I download APK on my phone?</strong><br/>Absolutely. Just open <a href="https://gptoapk.com">gptoapk.com</a> in your mobile browser and paste the link.</p>
         <p><strong>Is downloading APK from Google Play legal?</strong><br/>For personal use and app development, absolutely. Redistributing paid apps is illegal.</p>
 
@@ -1012,7 +1012,7 @@ adb pull /data/app/com.example.app-xxx/base.apk`}</code></pre>
         <ol>
           <li>The APK file downloads directly to your computer</li>
         </ol>
-        <p>That's it. The tool fetches the APK directly from Google's servers, so you always get an authentic, unmodified file. It supports both free and paid apps (for paid apps, you'll need to have purchased them on your Google account).</p>
+        <p>That's it. The tool checks verified sources and prepares a supported APK download when available. We do not modify APK files, and we do not support paid apps, cracked apps, or downloads that bypass purchases.</p>
         <blockquote className="border-l-4 border-slate-300 dark:border-slate-600 pl-4 italic text-slate-600 dark:text-slate-400 my-4"><p><strong>Why use gptoapk.com?</strong> It's the only method that works without any software installation. Whether you're on Windows 11, macOS Sequoia, or even Linux, it works identically.</p></blockquote>
         <h2>Method 2: Using ADB to Pull APK from a Connected Device</h2>
         <p>If you already have an Android device handy, you can use Android Debug Bridge (ADB) to pull the APK from your phone to your computer.</p>
@@ -1527,7 +1527,7 @@ adb pull /data/app/com.example.app-xxx/base.apk`}</code></pre>
           <li><strong>App is too large</strong>{'>'}2 GB split APKs): Some downloaders can't handle Android App Bundles. gptoapk.com supports split APKs and bundles.</li>
         </ul>
         <ul>
-          <li><strong>App is paid:</strong> You need to have purchased the app on your Google account. Free apps always work.</li>
+          <li><strong>App is paid:</strong> Paid app downloads are not supported here. Use the official store or developer channel to purchase and install the app.</li>
         </ul>
         <ul>
           <li><strong>App removed from Play Store:</strong> The app may have been taken down. Use a cached version or an archived mirror as a last resort.</li>

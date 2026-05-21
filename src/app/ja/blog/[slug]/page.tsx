@@ -548,7 +548,7 @@ adb pull [上記で確認したパス]`}</code></pre>
 
         <h2>よくある質問（FAQ）</h2>
         <p><strong>Google PlayからAPKを無料でダウンロードできますか？</strong><br/>はい、<a href="https://gptoapk.com">gptoapk.com</a>は完全無料です。隠れた料金もプレミアムプランもありません。</p>
-        <p><strong>有料アプリでも使えますか？</strong><br/>はい、ただしGoogleアカウントでアプリを購入済みである必要があります。</p>
+        <p><strong>有料アプリでも使えますか？</strong><br/>現在は対応していません。gptoapk.com は無料アプリまたは確認済みの公開ソースのみを対象とし、有料アプリや購入回避のダウンロードは提供しません。</p>
         <p><strong>スマートフォンからAPKをダウンロードできますか？</strong><br/>もちろんです。<a href="https://gptoapk.com">gptoapk.com</a>をモバイルブラウザで開いてリンクを貼り付けるだけです。</p>
         <p><strong>Google PlayからAPKをダウンロードするのは合法ですか？</strong><br/>個人利用やアプリ開発の目的であれば問題ありません。ただし、有料アプリを再配布することは違法です。</p>
 

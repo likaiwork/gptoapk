@@ -88,7 +88,7 @@ export default function PtFAQPage() {
             </svg>
           </summary>
           <div className="px-6 pb-6 text-slate-600 dark:text-slate-400 leading-relaxed border-t border-slate-100 dark:border-slate-700 pt-4">
-            Sim, mas você precisa ter comprado o app na sua conta Google para que seja gerado um link de download válido.
+            Ainda não. gptoapk.com oferece suporte apenas a apps gratuitos ou disponíveis em fontes públicas verificadas; não fornecemos apps pagos, apps modificados ou downloads para contornar compras.
           </div>
         </details>
 
@@ -148,7 +148,7 @@ export default function PtFAQPage() {
             </svg>
           </summary>
           <div className="px-6 pb-6 text-slate-600 dark:text-slate-400 leading-relaxed border-t border-slate-100 dark:border-slate-700 pt-4">
-            Para uso pessoal, testes de aplicativos e fins de backup, sim. Redistribuir aplicativos pagos ou material protegido por direitos autorais sem permissão é ilegal.
+            Baixar apps gratuitos para uso pessoal, testes ou backup geralmente é permitido, mas você deve seguir a lei local e os termos do desenvolvedor. Não oferecemos suporte a apps pagos, apps modificados ou material protegido sem permissão.
           </div>
         </details>
 

@@ -4,7 +4,7 @@ import { SITE_LOCALES, localeAliasRegex, type SiteLocale } from "./lib/site-loca
 
 const locales = SITE_LOCALES;
 const defaultLocale: SiteLocale = "en";
-const legalPaths = new Set(["/about", "/privacy", "/terms", "/disclaimer", "/contact", "/author/gptoapk"]);
+const legalPaths = new Set(["/about", "/privacy", "/terms", "/disclaimer", "/dmca", "/contact", "/author/gptoapk"]);
 
 function detectLocale(acceptLanguage: string | null): SiteLocale {
   if (!acceptLanguage) return defaultLocale; // 检查：缺少浏览器语言时使用英文默认值
@@ -70,6 +70,19 @@ export function proxy(request: NextRequest) {
   const matchedLocale = locales.find(
     (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
   );
+
+  if (matchedLocale) {
+    const withoutLocale = pathname === `/${matchedLocale}`
+      ? "/"
+      : pathname.slice(matchedLocale.length + 1) || "/";
+
+    if (legalPaths.has(withoutLocale)) {
+      const newUrl = new URL(request.url);
+      newUrl.pathname = withoutLocale;
+      newUrl.search = request.nextUrl.search;
+      return NextResponse.redirect(newUrl);
+    }
+  }
 
   if (matchedLocale) { // 检查：已带语言前缀时透传 x-locale 让 root layout 设置 html lang/dir
     const requestHeaders = new Headers(request.headers);

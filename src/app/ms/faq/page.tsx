@@ -31,7 +31,7 @@ export default function MsFAQPage() {
     },
     {
       q: "Adakah ia berfungsi untuk apl berbayar?",
-      a: "Ya, tetapi anda mesti telah membeli apl tersebut pada akaun Google anda untuk mendapat pautan yang sah.",
+      a: "Belum disokong. gptoapk.com hanya menyokong apl percuma atau apl daripada sumber awam yang disahkan; kami tidak menyediakan apl berbayar, apl retak, atau muat turun yang memintas pembelian.",
     },
     {
       q: "Perlukah memasang perisian atau sambungan pelayar?",
@@ -51,7 +51,7 @@ export default function MsFAQPage() {
     },
     {
       q: "Adakah memuat turun APK daripada Play sah di sisi undang-undang?",
-      a: "Untuk kegunaan peribadi, ujian dan sandaran biasanya ya. Menjual semula apl berbayar atau bahan berhak cipta tanpa kebenaran adalah salah.",
+      a: "Muat turun apl percuma untuk kegunaan peribadi, ujian atau sandaran biasanya dibenarkan, tetapi anda mesti mematuhi undang-undang tempatan dan terma pembangun. Kami tidak menyokong apl berbayar, apl retak, atau bahan berhak cipta tanpa kebenaran.",
     },
     {
       q: "Adakah gptoapk.com berkaitan dengan Google?",

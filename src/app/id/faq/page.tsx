@@ -88,7 +88,7 @@ export default function IdFAQPage() {
             </svg>
           </summary>
           <div className="px-6 pb-6 text-slate-600 dark:text-slate-400 leading-relaxed border-t border-slate-100 dark:border-slate-700 pt-4">
-            Ya, tetapi kamu harus sudah membeli aplikasi tersebut di akun Google-mu agar tautan unduhan yang sah bisa dibuat.
+            Belum didukung. gptoapk.com hanya mendukung aplikasi gratis atau aplikasi dari sumber publik terverifikasi; kami tidak menyediakan aplikasi berbayar, aplikasi crack, atau unduhan untuk melewati pembelian.
           </div>
         </details>
 
@@ -148,7 +148,7 @@ export default function IdFAQPage() {
             </svg>
           </summary>
           <div className="px-6 pb-6 text-slate-600 dark:text-slate-400 leading-relaxed border-t border-slate-100 dark:border-slate-700 pt-4">
-            Untuk penggunaan pribadi, pengujian aplikasi, dan tujuan cadangan — sepenuhnya legal. Mendistribusikan ulang aplikasi berbayar atau materi berhak cipta tanpa izin adalah ilegal.
+            Mengunduh aplikasi gratis untuk penggunaan pribadi, pengujian, atau cadangan umumnya diperbolehkan, tetapi Anda harus mengikuti hukum setempat dan ketentuan pengembang. Kami tidak mendukung aplikasi berbayar, aplikasi crack, atau materi berhak cipta tanpa izin.
           </div>
         </details>
 

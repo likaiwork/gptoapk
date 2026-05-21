@@ -14,13 +14,29 @@ export default function DisclaimerPage() {
     <LegalPage
       title="Disclaimer"
       description="Please read this disclaimer before using app information or APK download links found through gptoapk.com."
-      updated="May 16, 2026"
+      updated="May 21, 2026"
       sections={[
         {
           title: "Informational tool",
           body: (
             <p>
               gptoapk.com is an informational utility that helps users search Android app information and find available third-party APK download sources. We do not claim ownership of third-party apps, app metadata, trademarks, or package files.
+            </p>
+          ),
+        },
+        {
+          title: "Paid apps and restricted content",
+          body: (
+            <p>
+              gptoapk.com does not provide paid apps for free and does not help bypass purchases, subscriptions, license checks, or developer restrictions. If a requested app is identified as paid or otherwise restricted, the service may refuse the download and show an unsupported notice.
+            </p>
+          ),
+        },
+        {
+          title: "No file hosting",
+          body: (
+            <p>
+              We do not host an APK repository and do not claim to own app packages. Download availability depends on public or third-party sources that may change, fail, or remove files without notice.
             </p>
           ),
         },

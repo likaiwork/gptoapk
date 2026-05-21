@@ -88,7 +88,7 @@ export default function DeFAQPage() {
             </svg>
           </summary>
           <div className="px-6 pb-6 text-slate-600 dark:text-slate-400 leading-relaxed border-t border-slate-100 dark:border-slate-700 pt-4">
-            Ja, allerdings musst du die App mit deinem Google-Konto gekauft haben, damit ein gültiger Download-Link generiert werden kann.
+            Derzeit nicht. gptoapk.com unterstützt nur kostenlose Apps oder Apps aus verifizierten öffentlichen Quellen; wir bieten keine kostenpflichtigen Apps, gecrackten Apps oder Downloads zur Umgehung von Käufen an.
           </div>
         </details>
 
@@ -148,7 +148,7 @@ export default function DeFAQPage() {
             </svg>
           </summary>
           <div className="px-6 pb-6 text-slate-600 dark:text-slate-400 leading-relaxed border-t border-slate-100 dark:border-slate-700 pt-4">
-            Für persönliche Nutzung, App-Tests und Backups — absolut. Das Weiterverbreiten kostenpflichtiger Apps oder urheberrechtlich geschützter Inhalte ohne Erlaubnis ist illegal.
+            Das Herunterladen kostenloser Apps für persönliche Nutzung, Tests oder Backups ist in der Regel erlaubt, sofern lokale Gesetze und Entwicklervorgaben eingehalten werden. Kostenpflichtige Apps, gecrackte Apps oder urheberrechtlich geschützte Inhalte ohne Erlaubnis unterstützen wir nicht.
           </div>
         </details>
 

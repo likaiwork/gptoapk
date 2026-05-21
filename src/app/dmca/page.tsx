@@ -14,7 +14,7 @@ export default function DMCAPage() {
     <LegalPage
       title="DMCA Copyright Policy"
       description="gptoapk.com respects the intellectual property rights of others and expects its users to do the same. This page outlines our policy for responding to copyright infringement claims under the Digital Millennium Copyright Act (DMCA)."
-      updated="May 20, 2026"
+      updated="May 21, 2026"
       sections={[
         {
           title: "Policy statement",
@@ -90,6 +90,14 @@ export default function DMCAPage() {
           body: (
             <p>
               gptoapk.com is an informational tool that helps users search for Android app information and locate APK download sources available publicly on the web. We do not host or store APK files. App names, icons, descriptions, and trademarks belong to their respective owners. If you are a rights holder and believe that any content on gptoapk.com should be removed for reasons beyond copyright infringement, you may still contact us at the email above and we will review your request.
+            </p>
+          ),
+        },
+        {
+          title: "Paid and restricted apps",
+          body: (
+            <p>
+              gptoapk.com does not provide paid apps for free, cracked APKs, or modified packages. Requests involving paid apps may be blocked with an unsupported notice, and repeat abuse or rights-holder reports may result in removal of related links or pages.
             </p>
           ),
         },

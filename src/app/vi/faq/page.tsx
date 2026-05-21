@@ -88,7 +88,7 @@ export default function ViFAQPage() {
             </svg>
           </summary>
           <div className="px-6 pb-6 text-slate-600 dark:text-slate-400 leading-relaxed border-t border-slate-100 dark:border-slate-700 pt-4">
-            Có, nhưng bạn phải đã mua ứng dụng đó trên tài khoản Google của mình để tạo liên kết tải hợp lệ.
+            Chưa hỗ trợ. gptoapk.com chỉ hỗ trợ ứng dụng miễn phí hoặc nguồn công khai đã xác minh; chúng tôi không cung cấp ứng dụng trả phí, bản crack hoặc tải xuống để vượt qua thanh toán.
           </div>
         </details>
 

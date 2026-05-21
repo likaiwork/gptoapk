@@ -88,7 +88,7 @@ export default function JaFAQPage() {
             </svg>
           </summary>
           <div className="px-6 pb-6 text-slate-600 dark:text-slate-400 leading-relaxed border-t border-slate-100 dark:border-slate-700 pt-4">
-            はい、ただし有効なダウンロードリンクを生成するには、ご自身の Google アカウントでアプリを購入済みである必要があります。
+            現在は対応していません。gptoapk.com は無料で入手できるアプリ、または確認済みの公開ソースから入手できるアプリのみを対象とし、有料アプリ、改造版、購入回避を目的としたダウンロードは提供しません。
           </div>
         </details>
 
@@ -148,7 +148,7 @@ export default function JaFAQPage() {
             </svg>
           </summary>
           <div className="px-6 pb-6 text-slate-600 dark:text-slate-400 leading-relaxed border-t border-slate-100 dark:border-slate-700 pt-4">
-            個人使用、アプリのテスト、バックアップ目的であれば問題ありません。許可なく有料アプリや著作権で保護されたコンテンツを再配布することは違法です。
+            無料アプリを個人利用、テスト、バックアップ目的でダウンロードすることは一般的に認められますが、現地法と開発者の利用規約に従う必要があります。有料アプリ、改造版、許可のない著作物のダウンロードはサポートしません。
           </div>
         </details>
 

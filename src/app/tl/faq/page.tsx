@@ -30,7 +30,7 @@ export default function FAQPage() {
     },
     {
       q: "Gumagana ba sa paid apps?",
-      a: "Oo, pero dapat nabili mo na ang app sa Google account mo para valid ang link.",
+      a: "Hindi pa sinusuportahan. Sinusuportahan lang ng gptoapk.com ang free apps o apps mula sa verified public sources; hindi kami nagbibigay ng paid apps, cracked apps, o downloads na umiiwas sa pagbili.",
     },
     {
       q: "Kailangan ba ng software o extension?",
@@ -50,7 +50,7 @@ export default function FAQPage() {
     },
     {
       q: "Legal bang mag-download ng APK mula sa Play?",
-      a: "Karaniwan oo para sa personal use, testing, at backup. Ilegal ang pagbebenta muli ng paid apps o copyrighted material nang walang pahintulot.",
+      a: "Karaniwang pinapayagan ang pag-download ng free apps para sa personal use, testing, o backup, pero kailangan mong sundin ang lokal na batas at terms ng developer. Hindi namin sinusuportahan ang paid apps, cracked apps, o copyrighted material nang walang pahintulot.",
     },
     {
       q: "Affiliated ba ang gptoapk.com sa Google?",

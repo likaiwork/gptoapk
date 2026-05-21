@@ -16,6 +16,9 @@ export default function HomeZh() {
         <div className="mt-8">
           <SearchBox />
         </div>
+        <p className="mx-auto max-w-2xl text-sm leading-6 text-slate-500 dark:text-slate-400">
+          gptoapk.com 仅支持免费应用和可信公开来源，不提供付费应用、破解版或绕过购买限制的下载。
+        </p>
       </div>
 
       {/* Features */}
@@ -36,7 +39,7 @@ export default function HomeZh() {
             </svg>
           </div>
           <h3 className="text-xl font-bold mb-3">安全可靠</h3>
-          <p className="text-slate-600 dark:text-slate-400">文件直接从 Google 服务器获取。无修改，100% 原始 APK。</p>
+          <p className="text-slate-600 dark:text-slate-400">优先使用可信原始来源，不修改 APK，并拦截付费或受限制应用请求。</p>
         </div>
         <div className="bg-white dark:bg-slate-800 p-8 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm text-center">
           <div className="bg-purple-100 dark:bg-purple-900/30 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6 text-purple-600 dark:text-purple-400">
@@ -64,7 +67,7 @@ export default function HomeZh() {
             <div className="bg-blue-600 text-white w-10 h-10 rounded-full flex items-center justify-center font-bold shrink-0">2</div>
             <div>
               <h3 className="text-lg font-bold mb-1">粘贴并生成</h3>
-              <p className="text-slate-600 dark:text-slate-400">将链接粘贴到上方输入框，点击生成下载链接按钮。</p>
+              <p className="text-slate-600 dark:text-slate-400">将链接粘贴到上方输入框，系统会检查可信来源，并在应用受支持时生成下载链接。</p>
             </div>
           </div>
           <div className="flex gap-4 items-start">
@@ -86,8 +89,8 @@ export default function HomeZh() {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
             </svg>
             <div>
-              <p className="font-semibold">源自 Google</p>
-              <p className="text-sm text-slate-600 dark:text-slate-400">文件直接从 Google 服务器获取</p>
+              <p className="font-semibold">可信来源</p>
+              <p className="text-sm text-slate-600 dark:text-slate-400">优先使用可信原始来源</p>
             </div>
           </div>
           <div className="flex gap-3">
@@ -153,7 +156,7 @@ export default function HomeZh() {
           </div>
           <div className="bg-white dark:bg-slate-800 p-6 rounded-xl border border-slate-200 dark:border-slate-700">
             <h3 className="font-bold mb-2">下载 APK 文件安全吗？</h3>
-            <p className="text-slate-600 dark:text-slate-400 text-sm">安全。我们的工具直接从 Google 服务器获取文件，APK 100% 原始且未修改。</p>
+            <p className="text-slate-600 dark:text-slate-400 text-sm">我们优先使用可信原始来源，不修改 APK，不支持付费应用、破解版或绕过购买限制的下载。</p>
           </div>
           <div className="bg-white dark:bg-slate-800 p-6 rounded-xl border border-slate-200 dark:border-slate-700">
             <h3 className="font-bold mb-2">需要安装任何东西吗？</h3>

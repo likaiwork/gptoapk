@@ -88,7 +88,7 @@ export default function EsFAQPage() {
             </svg>
           </summary>
           <div className="px-6 pb-6 text-slate-600 dark:text-slate-400 leading-relaxed border-t border-slate-100 dark:border-slate-700 pt-4">
-            Sí, pero necesitas haber comprado la aplicación con tu cuenta de Google para que se genere un enlace de descarga válido.
+            No por ahora. gptoapk.com solo admite apps gratuitas o disponibles desde fuentes públicas verificadas; no ofrecemos apps de pago, versiones crackeadas ni descargas que eviten compras.
           </div>
         </details>
 
@@ -148,7 +148,7 @@ export default function EsFAQPage() {
             </svg>
           </summary>
           <div className="px-6 pb-6 text-slate-600 dark:text-slate-400 leading-relaxed border-t border-slate-100 dark:border-slate-700 pt-4">
-            Para uso personal, pruebas y copias de seguridad, totalmente. Redistribuir aplicaciones de pago o material protegido por derechos de autor sin permiso es ilegal.
+            Descargar apps gratuitas para uso personal, pruebas o copias de seguridad suele estar permitido, pero debes cumplir la ley local y los términos del desarrollador. No admitimos apps de pago, apps crackeadas ni material protegido sin permiso.
           </div>
         </details>
 

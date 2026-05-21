@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "FAQ - APK Downloader | gptoapk.com",
@@ -9,7 +10,7 @@ export default function FAQPage() {
   const faqs = [
     {
       q: "What is gptoapk.com?",
-      a: "gptoapk.com is a free online tool that allows you to generate APK download links directly from Google Play Store. Just paste a Google Play URL or package name and get a direct download link instantly."
+      a: "gptoapk.com is a free online tool that lets you search Android apps and prepare APK download links when a verified public source is available. Just paste a Google Play URL, package name, or app name to begin."
     },
     {
       q: "Is it free to use?",
@@ -17,11 +18,11 @@ export default function FAQPage() {
     },
     {
       q: "How does it work?",
-      a: "When you paste a Google Play link, our server fetches the APK file directly from Google's CDN and provides you with a download link. We never modify or store the files."
+      a: "When you paste a Google Play link, we check verified sources and prepare a supported download link. We do not modify APK files, do not operate an APK repository, and do not support paid or cracked apps."
     },
     {
       q: "Is it safe to download APK from gptoapk.com?",
-      a: "Absolutely. Files are fetched directly from Google's servers. We never touch or modify the files, so you get 100% original, signature-verified APKs."
+      a: "We prioritize verified original sources and do not modify APK files. You should still review the package name, source, permissions, and signature before installing any APK."
     },
     {
       q: "Can I download APK on my phone?",
@@ -29,7 +30,7 @@ export default function FAQPage() {
     },
     {
       q: "Does it work for paid apps?",
-      a: "Yes, but you need to have purchased the app on your Google account for it to generate a valid download link."
+      a: "No. Paid app downloads are not supported yet. gptoapk.com only supports apps that are free to download or available from verified public sources."
     },
     {
       q: "Do I need to install any software or browser extensions?",
@@ -49,7 +50,7 @@ export default function FAQPage() {
     },
     {
       q: "Is downloading APK from Google Play legal?",
-      a: "For personal use, app testing, and backup purposes — absolutely. Redistributing paid apps or copyrighted material without permission is illegal."
+      a: "Downloading free apps for personal use, testing, or backup is generally allowed, but you must follow local law and each app developer's terms. We do not support downloading paid apps, cracked apps, or copyrighted material without permission."
     },
     {
       q: "Is gptoapk.com affiliated with Google?",
@@ -95,7 +96,7 @@ export default function FAQPage() {
       <div className="mt-16 text-center p-8 bg-blue-50 dark:bg-blue-900/20 rounded-2xl border border-blue-100 dark:border-blue-800">
         <h2 className="text-2xl font-bold mb-3">Still have questions?</h2>
         <p className="text-slate-600 dark:text-slate-400 mb-4">
-          Try our <a href="/" className="text-blue-600 dark:text-blue-400 hover:underline font-medium">APK Downloader</a> and see it in action, or check our <a href="/blog" className="text-blue-600 dark:text-blue-400 hover:underline font-medium">blog</a> for detailed guides.
+          Try our <Link href="/" className="text-blue-600 dark:text-blue-400 hover:underline font-medium">APK Downloader</Link> and see it in action, or check our <Link href="/blog" className="text-blue-600 dark:text-blue-400 hover:underline font-medium">blog</Link> for detailed guides.
         </p>
       </div>
     </div>

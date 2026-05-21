@@ -88,7 +88,7 @@ export default function KoFAQPage() {
             </svg>
           </summary>
           <div className="px-6 pb-6 text-slate-600 dark:text-slate-400 leading-relaxed border-t border-slate-100 dark:border-slate-700 pt-4">
-            네, 다만 유효한 다운로드 링크를 생성하려면 자신의 Google 계정으로 앱을 구매해야 합니다.
+            현재는 지원하지 않습니다. gptoapk.com은 무료로 받을 수 있거나 검증된 공개 출처에서 제공되는 앱만 지원하며, 유료 앱, 크랙 앱, 구매 우회 다운로드는 제공하지 않습니다.
           </div>
         </details>
 
@@ -148,7 +148,7 @@ export default function KoFAQPage() {
             </svg>
           </summary>
           <div className="px-6 pb-6 text-slate-600 dark:text-slate-400 leading-relaxed border-t border-slate-100 dark:border-slate-700 pt-4">
-            개인 사용, 앱 테스트, 백업 목적이라면 전혀 문제없습니다. 허가 없이 유료 앱이나 저작권으로 보호된 자료를 재배포하는 것은 불법입니다.
+            무료 앱을 개인 사용, 테스트, 백업 목적으로 다운로드하는 것은 일반적으로 가능하지만 현지 법률과 개발자 약관을 따라야 합니다. 유료 앱, 크랙 앱, 허가 없는 저작물 다운로드는 지원하지 않습니다.
           </div>
         </details>
 

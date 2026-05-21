@@ -200,7 +200,7 @@ adb pull [上面返回的路径]`}</code></pre>
 
         <h2>常见问题</h2>
         <p><strong>下载 APK 免费吗？</strong><br/>是的，<a href="https://gptoapk.com">gptoapk.com</a> 完全免费使用。</p>
-        <p><strong>付费应用也能下载吗？</strong><br/>可以，但你需要在 Google 账号中已购买该应用才能成功获取。</p>
+        <p><strong>付费应用也能下载吗？</strong><br/>暂时不支持。gptoapk.com 只支持免费应用或可信公开来源，不提供付费应用、破解版或绕过购买限制的下载。</p>
         <p><strong>能在手机上操作吗？</strong><br/>当然可以。直接在手机浏览器打开 <a href="https://gptoapk.com">gptoapk.com</a>，粘贴链接即可。</p>
         <p><strong>从 Google Play 下载 APK 合法吗？</strong><br/>个人使用和应用开发是完全合法的。但重新分发付费应用是违法的。</p>
 
@@ -636,7 +636,7 @@ adb pull [上面返回的路径]`}</code></pre>
 
         <h2>常见问题</h2>
         <p><strong>一定要用电脑吗？</strong><br/>完全不需要，手机浏览器就能完成所有操作。</p>
-        <p><strong>能下载付费应用吗？</strong><br/>可以，前提是你在 Google 账号中已经购买过该应用。</p>
+        <p><strong>能下载付费应用吗？</strong><br/>暂时不支持。请通过官方商店或开发者渠道购买和安装付费应用。</p>
         <p><strong>下载的文件安全吗？</strong><br/>使用 <a href="https://gptoapk.com">gptoapk.com</a> 直接从 Google 服务器获取文件，100% 原始安全。</p>
         <p><strong>需要登录吗？</strong><br/>不需要注册或登录，直接使用。</p>
 

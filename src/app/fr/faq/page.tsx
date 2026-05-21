@@ -148,7 +148,7 @@ export default function FrFAQPage() {
             </svg>
           </summary>
           <div className="px-6 pb-6 text-slate-600 dark:text-slate-400 leading-relaxed border-t border-slate-100 dark:border-slate-700 pt-4">
-            Pour un usage personnel, des tests d&apos;applications et des sauvegardes — absolument. Redistribuer des applications payantes ou du contenu protégé par le droit d&apos;auteur sans autorisation est illégal.
+            Le téléchargement d’applications gratuites pour un usage personnel, des tests ou une sauvegarde est généralement autorisé, mais vous devez respecter la loi locale et les conditions du développeur. Nous ne prenons pas en charge les applications payantes, modifiées ou protégées sans autorisation.
           </div>
         </details>
 

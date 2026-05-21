@@ -16,6 +16,9 @@ export default function EnHome() {
         <div className="mt-8">
           <SearchBox />
         </div>
+        <p className="mx-auto max-w-2xl text-sm leading-6 text-slate-500 dark:text-slate-400">
+          gptoapk.com supports free apps and verified public download sources only. Paid apps, cracked apps, and downloads that bypass purchases are not supported.
+        </p>
       </div>
 
       {/* Features */}
@@ -39,7 +42,7 @@ export default function EnHome() {
           </div>
           <h3 className="text-xl font-bold mb-3">100% Safe &amp; Secure</h3>
           <p className="text-slate-600 dark:text-slate-400">
-            Files fetched directly from Google&apos;s CDN — no middlemen, no modifications, no tracking.
+            We prefer verified original sources, do not modify APK files, and block paid or restricted app requests.
           </p>
         </div>
         <div className="bg-white dark:bg-slate-800 p-8 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm text-center">
@@ -79,7 +82,7 @@ export default function EnHome() {
             <div>
               <h3 className="text-xl font-bold mb-2">Paste &amp; Generate</h3>
               <p className="text-slate-600 dark:text-slate-400">
-                Paste the link or package name into the input box above and click &quot;Generate Link&quot;. Our tool fetches the APK from Google&apos;s servers in real-time.
+                Paste the link or package name into the input box above and click &quot;Generate Link&quot;. Our tool checks verified sources and prepares a download when the app is supported.
               </p>
             </div>
           </div>
