@@ -55,7 +55,7 @@
   - `sitemap-apps.xml`
   - `sitemap-locales.xml`
   - `sitemap-ai.xml`
-- [ ] 检查重要页面状态码：
+- [x] 检查重要页面状态码：
   - 首页、FAQ、Blog、How-to、App 页、Legal 页全部返回 200
   - 旧路径和错误 locale 路径使用 301/308 跳转到 canonical URL
 - [ ] 保持 AdSense 友好：
@@ -73,12 +73,14 @@
 - 已在 sitemap 中为首页、FAQ、Blog 列表、可互译的中英 Blog 详情页、Russia 页补齐 reciprocal alternate。
 - 已新增 `sitemap-main.xml`、`sitemap-blog.xml`、`sitemap-apps.xml`、`sitemap-locales.xml`，并在 `robots.txt` 与 AI sitemap 中公开。
 - 已为 `/en/faq` 补齐 canonical、self-referencing hreflang、FAQPage 和 BreadcrumbList JSON-LD。
+- 已检查核心入口、FAQ、Blog、How-to、Russia、Legal、各 sitemap 状态码；核心页面返回 200，旧 `/` 与 `/faq` 返回 307 到 canonical URL。
+- 已打磨首页 `WebSite`、`WebApplication`、`Organization` JSON-LD：补齐稳定 `@id`，并让 `SearchAction` 直接指向 `/en?q=`，避免 schema URL 经过跳转。
 
 ## 第二阶段：结构化数据
 
 目标：让 Google 更好理解页面类型，提高富结果和 AI 摘录概率。
 
-- [ ] 首页：
+- [x] 首页：
   - `WebSite`
   - `WebApplication`
   - `Organization`

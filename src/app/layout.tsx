@@ -37,7 +37,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "APK 下载器 - 免费应用 APK 下载工具",
     description: "免费在线 APK 下载工具，可搜索安卓应用，并在存在免费应用或可信公开来源时生成支持的下载链接。",
-    url: "https://www.gptoapk.com",
+    url: "https://www.gptoapk.com/en",
     siteName: "APK 下载器",
     type: "website",
   },
@@ -119,8 +119,9 @@ export default async function RootLayout({
   const webApplicationSchema = {
     "@context": "https://schema.org",
     "@type": "WebApplication",
+    "@id": "https://www.gptoapk.com/#web-application",
     "name": "APK Downloader - Google Play APK Extractor",
-    "url": "https://www.gptoapk.com",
+    "url": "https://www.gptoapk.com/en",
     "description": "Free online APK download tool for finding Android apps and preparing supported downloads from verified public sources.",
     "applicationCategory": "Utilities",
     "operatingSystem": "Android",
@@ -134,6 +135,7 @@ export default async function RootLayout({
   const webSiteSchema = {
     "@context": "https://schema.org",
     "@type": "WebSite",
+    "@id": "https://www.gptoapk.com/#website",
     "name": "gptoapk.com",
     "url": "https://www.gptoapk.com",
     "description": "APK download tool for Android - search apps and prepare supported downloads from verified public sources",
@@ -141,7 +143,7 @@ export default async function RootLayout({
       "@type": "SearchAction",
       "target": {
         "@type": "EntryPoint",
-        "urlTemplate": "https://www.gptoapk.com/?q={search_term_string}",
+        "urlTemplate": "https://www.gptoapk.com/en?q={search_term_string}",
       },
       "query-input": "required name=search_term_string",
     },
@@ -150,6 +152,7 @@ export default async function RootLayout({
   const organizationSchema = {
     "@context": "https://schema.org",
     "@type": "Organization",
+    "@id": "https://www.gptoapk.com/#organization",
     "name": "gptoapk.com",
     "url": "https://www.gptoapk.com",
     "sameAs": [
