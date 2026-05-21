@@ -51,6 +51,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
   );
   blogListAlternates["x-default"] = `${baseUrl}/en/blog`;
 
+  const blogDetailAlternates = (slug: string): Record<string, string> => ({
+    en: `${baseUrl}/en/blog/${slug}`,
+    zh: `${baseUrl}/zh/blog/${slug}`,
+    "x-default": `${baseUrl}/en/blog/${slug}`,
+  });
+
+  const russiaAlternates = {
+    en: `${baseUrl}/en/russia`,
+    zh: `${baseUrl}/zh/russia`,
+    "x-default": `${baseUrl}/en/russia`,
+  };
+
   const entries: MetadataRoute.Sitemap = [
     ...(["about", "privacy", "terms", "disclaimer", "dmca", "contact"] as const).map((slug) => ({
       url: `${baseUrl}/${slug}` as const,
@@ -92,9 +104,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7 as const,
       ...(zhBlogSlugs.includes(slug) ? {
         alternates: {
-          languages: {
-            zh: `${baseUrl}/zh/blog/${slug}`,
-          },
+          languages: blogDetailAlternates(slug),
         },
       } : {}),
     })),
@@ -103,18 +113,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date("2026-05-12"),
       changeFrequency: "daily" as const,
       priority: 0.9,
+      alternates: { languages: homepageAlternates },
     },
     {
       url: `${baseUrl}/zh/faq`,
       lastModified: new Date("2026-05-12"),
       changeFrequency: "weekly" as const,
       priority: 0.7,
+      alternates: { languages: faqAlternates },
     },
     {
       url: `${baseUrl}/zh/blog`,
       lastModified: new Date("2026-05-12"),
       changeFrequency: "weekly" as const,
       priority: 0.8,
+      alternates: { languages: blogListAlternates },
     },
     {
       url: `${baseUrl}/zh/ai-apps`,
@@ -127,6 +140,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date("2026-05-11"),
       changeFrequency: "monthly" as const,
       priority: 0.6 as const,
+      ...(enBlogSlugs.includes(slug) ? {
+        alternates: {
+          languages: blogDetailAlternates(slug),
+        },
+      } : {}),
     })),
     // New route: Russia guide (en/zh)
     {
@@ -136,8 +154,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
       alternates: {
         languages: {
-          zh: `${baseUrl}/zh/russia`,
-          "x-default": `${baseUrl}/en/russia`,
+          ...russiaAlternates,
         },
       },
     },
@@ -146,6 +163,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date("2026-05-14"),
       changeFrequency: "monthly" as const,
       priority: 0.6,
+      alternates: {
+        languages: russiaAlternates,
+      },
     },
     // New route: AI Apps hub (en only for now)
     {
@@ -443,18 +463,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
         lastModified: new Date("2026-05-12"),
         changeFrequency: "weekly" as const,
         priority: 0.8 as const,
+        alternates: { languages: homepageAlternates },
       },
       {
         url: `${baseUrl}/${locale}/faq` as const,
         lastModified: new Date("2026-05-12"),
         changeFrequency: "monthly" as const,
         priority: 0.6 as const,
+        alternates: { languages: faqAlternates },
       },
       {
         url: `${baseUrl}/${locale}/blog` as const,
         lastModified: new Date("2026-05-12"),
         changeFrequency: "monthly" as const,
         priority: 0.6 as const,
+        alternates: { languages: blogListAlternates },
       },
     ]),
   ];

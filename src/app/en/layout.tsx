@@ -10,7 +10,8 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://gptoapk.com/en",
     languages: {
-      "zh": "https://gptoapk.com",
+      en: "https://gptoapk.com/en",
+      zh: "https://gptoapk.com/zh",
       "x-default": "https://gptoapk.com/en",
     },
   },

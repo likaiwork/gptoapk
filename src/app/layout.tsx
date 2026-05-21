@@ -60,17 +60,18 @@ export const metadata: Metadata = {
     follow: true,
   },
   alternates: {
-    canonical: "https://gptoapk.com",
+    canonical: "https://gptoapk.com/en",
     languages: {
       en: "https://gptoapk.com/en",
-      "x-default": "https://gptoapk.com",
+      zh: "https://gptoapk.com/zh",
+      "x-default": "https://gptoapk.com/en",
     },
   },
 };
 
 // All 33 supported locales for hreflang
 const HREFLANG_LOCALES = [
-  { code: "en", hrefLang: "en", path: "" },
+  { code: "en", hrefLang: "en", path: "/en" },
   { code: "zh", hrefLang: "zh-Hans", path: "/zh" },
   { code: "ja", hrefLang: "ja", path: "/ja" },
   { code: "ko", hrefLang: "ko", path: "/ko" },
@@ -189,7 +190,7 @@ gtag('consent', 'default', {
             hrefLang={locale.hrefLang}
           />
         ))}
-        <link rel="alternate" href="https://gptoapk.com" hrefLang="x-default" />
+        <link rel="alternate" href="https://gptoapk.com/en" hrefLang="x-default" />
 
         {/* OpenSearch & RSS Feed for search engine / AI crawler discovery */}
         <link rel="search" type="application/opensearchdescription+xml" title="gptoapk.com APK 搜索" href="/opensearch.xml" />
