@@ -208,6 +208,39 @@ async function searchApps(term: string, lang: string, country: string): Promise<
     console.error('[API search-apps] list() fallback failed:', e instanceof Error ? e.message : e);
   }
 
+  // Fallback 3: try direct fetch to Google Play search page and scrape
+  console.error('[API search-apps] all fallbacks failed, trying direct HTTP scrape');
+  try {
+    const searchUrl = `https://play.google.com/store/search?q=${encodeURIComponent(term)}&c=apps&hl=${lang}&gl=${country}`;
+    const resp = await fetch(searchUrl, {
+      signal: AbortSignal.timeout(15000),
+      headers: { 'User-Agent': 'Mozilla/5.0 (compatible; gptoapk/1.0)' },
+    });
+
+    if (resp.ok) {
+      const html = await resp.text();
+      // Try to extract app IDs from the search page HTML
+      const appIdMatches = html.match(/data-docid="([^"]+)"/g) || [];
+      const appIds = [...new Set(
+        appIdMatches.map(m => m.replace('data-docid="', '').replace('"', ''))
+      )].slice(0, SEARCH_RESULT_LIMIT);
+
+      if (appIds.length > 0) {
+        const results = await Promise.allSettled(
+          appIds.map((appId: string) => fetchExactApp(appId, lang, country))
+        );
+
+        const scrapeResults = results
+          .filter((r) => r.status === 'fulfilled')
+          .map((r) => (r as PromiseFulfilledResult<SearchAppResult>).value);
+
+        if (scrapeResults.length > 0) return scrapeResults;
+      }
+    }
+  } catch (e) {
+    console.error('[API search-apps] direct scrape fallback also failed:', e instanceof Error ? e.message : e);
+  }
+
   return [];
 }
 
