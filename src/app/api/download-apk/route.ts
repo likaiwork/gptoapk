@@ -1,7 +1,15 @@
 import { NextResponse } from 'next/server';
 import { getManualDownloadSource, initDatabase } from '@/lib/db';
+import {
+  getPaidAppUnsupportedMessage,
+  localeFromAcceptLanguage,
+  normalizeDownloadLocale,
+  PAID_APP_UNSUPPORTED_ADMIN_ERROR,
+  PAID_APP_UNSUPPORTED_CODE,
+} from '@/lib/download-errors';
 import { fetchDispatcher } from '@/lib/proxy';
 import { analyticsEvents, trackServerEvent } from '@/lib/server-analytics';
+import { getUnsupportedPaidApp } from '@/lib/unsupported-paid-apps';
 
 export const runtime = 'nodejs';
 export const maxDuration = 300;
@@ -146,6 +154,33 @@ function decodeUpstreamUrl(encoded: string) {
 function sourceNameFromParam(value: string | null) {
   if (!value || !/^[a-z0-9_-]{1,40}$/i.test(value)) return 'upstream';
   return value;
+}
+
+function getRequestLocale(request: Request, explicitLocale?: unknown) {
+  return normalizeDownloadLocale(explicitLocale)
+    ?? normalizeDownloadLocale(new URL(request.url).searchParams.get('locale'))
+    ?? localeFromAcceptLanguage(request.headers.get('accept-language'));
+}
+
+function createPaidAppUnsupportedResponse(request: Request, appId: string, startedAt: number, explicitLocale?: unknown) {
+  const paidApp = getUnsupportedPaidApp(appId);
+  const locale = getRequestLocale(request, explicitLocale);
+
+  void trackServerEvent(request, analyticsEvents.downloadFailed, {
+    app_id: appId,
+    stage: 'paid_app_unsupported',
+    reason: PAID_APP_UNSUPPORTED_CODE,
+    app_title: paidApp?.title ?? appId,
+    duration_ms: Date.now() - startedAt,
+  });
+
+  return NextResponse.json({
+    success: false,
+    code: PAID_APP_UNSUPPORTED_CODE,
+    error: getPaidAppUnsupportedMessage(locale),
+    adminError: PAID_APP_UNSUPPORTED_ADMIN_ERROR,
+    appCategory: 'paid',
+  });
 }
 
 function sanitizeFileName(fileName: string) {
@@ -478,6 +513,10 @@ export async function GET(request: Request) {
     return NextResponse.json({ success: false, error: 'Missing appId' }, { status: 400 });
   }
 
+  if (getUnsupportedPaidApp(appId)) {
+    return createPaidAppUnsupportedResponse(request, appId, startedAt);
+  }
+
   const upstreamUrl = upstreamToken ? decodeUpstreamUrl(upstreamToken) : '';
   const result = upstreamUrl && isAllowedDownloadUrl(upstreamUrl)
     ? {
@@ -623,13 +662,18 @@ export async function GET(request: Request) {
 // error page — the client would never see our JSON.
 export async function POST(request: Request) {
   try {
-    const { appId } = await request.json();
+    const { appId, locale } = await request.json();
+    const startedAt = Date.now();
 
     if (!appId || typeof appId !== 'string') {
       return NextResponse.json({ success: false, error: 'Missing appId' });
     }
 
     const cleanId = appId.trim();
+
+    if (getUnsupportedPaidApp(cleanId)) {
+      return createPaidAppUnsupportedResponse(request, cleanId, startedAt, locale);
+    }
 
     // Try Aptoide first (simpler, has CORS, fast metadata).
     // Fall back to APKPure for region-locked or less-common apps.

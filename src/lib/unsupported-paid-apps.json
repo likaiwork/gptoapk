@@ -1,0 +1,12 @@
+{
+  "com.salsarhythm": {
+    "title": "Salsa Rhythm",
+    "sourceUrl": "https://play.google.com/store/apps/details?id=com.salsarhythm",
+    "note": "Google Play lists this as a paid app."
+  },
+  "com.markusmaribu.cambrianlauncher": {
+    "title": "Cambrian Launcher",
+    "sourceUrl": "https://markusmaribu.itch.io/cambrian-launcher",
+    "note": "The developer distributes this app as a paid APK."
+  }
+}

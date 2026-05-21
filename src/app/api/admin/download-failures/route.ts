@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import {
   getAdminApiKey,
   initDatabase,
+  updateDownloadFailureMetadata,
   updateDownloadFailureResolved,
 } from "@/lib/db";
 
@@ -16,14 +17,26 @@ async function updateDownloadFailureStatus(request: NextRequest): Promise<NextRe
 
     const body = await request.json();
     const appId = typeof body.appId === "string" ? body.appId.trim() : "";
+    const hasResolved = "resolved" in body;
     const resolved = body.resolved === true || body.resolved === "true";
+    const lastError = typeof body.error === "string" ? body.error.trim() : "";
+    const lastSource = typeof body.source === "string" ? body.source.trim() : "";
 
     if (!appId) {
       return NextResponse.json({ error: "Missing appId" }, { status: 400 });
     }
+    if (!hasResolved && !lastError && !lastSource) {
+      return NextResponse.json({ error: "Missing update fields" }, { status: 400 });
+    }
 
     await initDatabase();
-    const updated = await updateDownloadFailureResolved(appId, resolved);
+    const resolvedUpdated = hasResolved
+      ? await updateDownloadFailureResolved(appId, resolved)
+      : false;
+    const metadataUpdated = lastError || lastSource
+      ? await updateDownloadFailureMetadata({ appId, lastError, lastSource })
+      : false;
+    const updated = resolvedUpdated || metadataUpdated;
     if (!updated) {
       return NextResponse.json({ error: "Failure app not found" }, { status: 404 });
     }

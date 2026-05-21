@@ -1,3 +1,5 @@
+import fs from "node:fs";
+
 const SITE_HOST = process.env.REPAIR_SITE_HOST || "https://gptoapk.com";
 const ADMIN_KEY = process.env.ADMIN_API_KEY || process.env.REPAIR_ADMIN_KEY || "gptoapk-admin-key-2026";
 const FAILURE_THRESHOLD = Number(process.env.REPAIR_FAILURE_THRESHOLD || 5);
@@ -7,6 +9,11 @@ const SOURCE_TIMEOUT_MS = Number(process.env.REPAIR_SOURCE_TIMEOUT_MS || 30000);
 const MARK_RESOLVED = process.argv.includes("--mark-resolved") || process.env.REPAIR_MARK_RESOLVED === "1";
 const JSON_OUTPUT = process.argv.includes("--json");
 const USER_AGENT = "gptoapk-download-repair/1.0";
+const PAID_APP_UNSUPPORTED_CODE = "PAID_APP_UNSUPPORTED";
+const PAID_APP_UNSUPPORTED_ADMIN_ERROR = "PAID_APP_UNSUPPORTED: Paid apps are not supported for APK download yet.";
+const unsupportedPaidApps = JSON.parse(
+  fs.readFileSync(new URL("../src/lib/unsupported-paid-apps.json", import.meta.url), "utf8")
+);
 
 function withTimeout(timeoutMs) {
   const controller = new AbortController();
@@ -62,6 +69,10 @@ function downloadApiUrl(path = "/api/download-apk") {
 function isVpnLike(item) {
   const text = `${item.app_id || ""} ${item.app_title || ""}`.toLowerCase();
   return /\bvpn\b|proxy|wireguard|openvpn|surfshark|nordvpn|expressvpn|protonvpn/.test(text);
+}
+
+function getUnsupportedPaidApp(appId) {
+  return unsupportedPaidApps[String(appId || "").trim().toLowerCase()] || null;
 }
 
 async function loadFailureRows() {
@@ -150,7 +161,48 @@ async function markResolved(appId) {
   });
 }
 
+async function markPaidUnsupported(item) {
+  const currentError = String(item.last_error || "");
+  const currentSource = String(item.last_source || "");
+  if (currentError.includes(PAID_APP_UNSUPPORTED_CODE) && currentSource === "paid-app") {
+    return { ok: true, skipped: true, status: 200, body: "" };
+  }
+
+  return fetchJson(adminUrl("/api/admin/download-failures"), {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      appId: item.app_id,
+      error: PAID_APP_UNSUPPORTED_ADMIN_ERROR,
+      source: "paid-app",
+    }),
+  });
+}
+
 async function inspectPackage(item) {
+  const paidApp = getUnsupportedPaidApp(item.app_id);
+  if (paidApp) {
+    const mark = await markPaidUnsupported(item);
+    return {
+      appId: item.app_id,
+      title: item.app_title || paidApp.title || item.app_id,
+      failureCount: item.failure_count,
+      lastFailedAt: item.last_failed_at,
+      vpnLike: isVpnLike(item),
+      canDownload: false,
+      unsupportedReason: "paid_app",
+      paidAppTitle: paidApp.title || "",
+      source: "paid-app",
+      proxy: "",
+      downloadUrl: "",
+      fallbackDownloadUrl: "",
+      error: PAID_APP_UNSUPPORTED_ADMIN_ERROR,
+      probes: [],
+      markedPaidUnsupported: Boolean(mark.ok),
+      markError: mark.ok ? "" : `${mark.status} ${mark.body.slice(0, 160)}`,
+    };
+  }
+
   const prepared = await prepareDownload(item.app_id);
   const download = prepared.json || {};
   const canDownload = Boolean(prepared.ok && download.success && download.downloadUrl);
@@ -214,6 +266,15 @@ function printReport(report) {
     console.log("");
   }
 
+  if (report.blockedPaid.length > 0) {
+    console.log("[repair] Paid apps skipped:");
+    for (const item of report.blockedPaid) {
+      const mark = item.markedPaidUnsupported ? " marked-paid" : item.markError ? ` mark-failed=${item.markError}` : "";
+      console.log(`  * ${item.appId} (${item.failureCount}) ${item.paidAppTitle || item.title}${mark}`);
+    }
+    console.log("");
+  }
+
   if (report.skippedVpnLike.length > 0) {
     console.log("[repair] VPN-like packages included in scan:");
     for (const item of report.skippedVpnLike) console.log(`  * ${item.appId} (${item.failureCount})`);
@@ -239,7 +300,8 @@ async function main() {
     markResolved: MARK_RESOLVED,
     candidates: inspected,
     fixed: inspected.filter((item) => item.canDownload),
-    needsWork: inspected.filter((item) => !item.canDownload),
+    blockedPaid: inspected.filter((item) => item.unsupportedReason === "paid_app"),
+    needsWork: inspected.filter((item) => !item.canDownload && item.unsupportedReason !== "paid_app"),
     skippedVpnLike: inspected.filter((item) => item.vpnLike),
   };
 

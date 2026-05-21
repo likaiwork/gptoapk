@@ -739,6 +739,23 @@ export async function updateDownloadFailureResolved(appId: string, resolved: boo
   return rows.length > 0;
 }
 
+export async function updateDownloadFailureMetadata(params: {
+  appId: string;
+  lastError?: string;
+  lastSource?: string;
+}): Promise<boolean> {
+  const rows = await sqlRaw<{ app_id: string }>(
+    `UPDATE download_failure_apps
+     SET last_error = COALESCE(NULLIF($2, ''), last_error),
+         last_source = COALESCE(NULLIF($3, ''), last_source),
+         updated_at = NOW()
+     WHERE app_id = $1
+     RETURNING app_id`,
+    [params.appId, params.lastError || "", params.lastSource || ""]
+  );
+  return rows.length > 0;
+}
+
 export async function getManualDownloadSource(appId: string): Promise<ManualDownloadSource | null> {
   const rows = await sqlRaw<ManualDownloadSource>(
     `SELECT

@@ -1,6 +1,7 @@
 "use client";
 
 import { Fragment, useEffect, useState, useCallback, useRef } from "react";
+import { PAID_APP_UNSUPPORTED_CODE } from "@/lib/download-errors";
 
 // 国家代码 → 中文/英文 映射
 const COUNTRY_NAMES: Record<string, [string, string]> = {
@@ -433,6 +434,15 @@ function formatTime(isoString: string): string {
   return date.toLocaleDateString("zh-CN", { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" });
 }
 
+function isPaidAppUnsupported(error: string, source?: string): boolean {
+  return error.includes(PAID_APP_UNSUPPORTED_CODE) || source === "paid-app";
+}
+
+function formatFailureReason(error: string, source?: string): string {
+  if (isPaidAppUnsupported(error, source)) return "付费应用，暂不支持下载";
+  return error || "—";
+}
+
 function formatFileSize(size: string): string {
   const num = parseFloat(size);
   if (!size || isNaN(num)) return size || "";
@@ -817,6 +827,8 @@ function Dashboard({
               {data.download_failures.map((item) => {
                 const isPending = pendingFailureIds.has(item.app_id);
                 const isManualPending = pendingManualSourceIds.has(item.app_id);
+                const paidUnsupported = isPaidAppUnsupported(item.last_error, item.last_source);
+                const failureReason = formatFailureReason(item.last_error, item.last_source);
                 const draft = manualSourceDrafts[item.app_id] ?? {
                   downloadUrl: item.manual_download_url || "",
                   fileName: item.manual_file_name || "",
@@ -833,12 +845,17 @@ function Dashboard({
                             已配置补源
                           </div>
                         )}
+                        {paidUnsupported && (
+                          <div className="mt-1 inline-flex rounded-full bg-amber-50 px-2 py-0.5 text-[11px] font-medium text-amber-700">
+                            付费应用
+                          </div>
+                        )}
                       </td>
                       <td className="px-4 py-3 font-mono text-xs text-gray-500">{item.app_id}</td>
                       <td className="px-4 py-3 text-right text-sm font-semibold text-red-600">{item.failure_count}</td>
                       <td className="hidden px-4 py-3 text-xs text-gray-500 md:table-cell">{formatTime(item.last_failed_at)}</td>
                       <td className="hidden max-w-xs px-4 py-3 text-xs text-gray-500 lg:table-cell">
-                        <span className="line-clamp-2" title={item.last_error || "—"}>{item.last_error || "—"}</span>
+                        <span className="line-clamp-2" title={failureReason}>{failureReason}</span>
                       </td>
                       <td className="px-4 py-3 text-right">
                         <button

@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { analyticsEvents } from "@/lib/analytics-events";
 import { trackEvent } from "@/lib/client-analytics";
+import { getPaidAppUnsupportedMessage, PAID_APP_UNSUPPORTED_CODE } from "@/lib/download-errors";
 import { downloadUi } from "@/lib/download-ui";
 import { localePathRegex } from "@/lib/site-locales";
 import type { SiteLocale } from "@/lib/site-locales";
@@ -15,6 +16,7 @@ const STARTED_RESET_MS = 15000;
 
 type DownloadResponse = {
   success?: boolean;
+  code?: string;
   error?: string;
   downloadUrl?: string;
   fallbackDownloadUrl?: string;
@@ -77,12 +79,15 @@ export default function DownloadButton({ appId, appName, compact = false }: Down
       const res = await fetch("/api/download-apk", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ appId }),
+        body: JSON.stringify({ appId, locale }),
       });
 
       const data = (await res.json()) as DownloadResponse;
       if (!res.ok || !data.success || !data.downloadUrl) {
-        throw new Error(data.error || "Failed to prepare download");
+        const message = data.code === PAID_APP_UNSUPPORTED_CODE
+          ? getPaidAppUnsupportedMessage(locale)
+          : data.error || "Failed to prepare download";
+        throw new Error(message);
       }
 
       const fileName = data.fileName || `${appId}.apk`;
