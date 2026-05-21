@@ -71,5 +71,9 @@ Disallow: /api/
 
 Host: https://www.gptoapk.com
 Sitemap: https://www.gptoapk.com/sitemap.xml
+Sitemap: https://www.gptoapk.com/sitemap-main.xml
+Sitemap: https://www.gptoapk.com/sitemap-blog.xml
+Sitemap: https://www.gptoapk.com/sitemap-apps.xml
+Sitemap: https://www.gptoapk.com/sitemap-locales.xml
 Sitemap: https://www.gptoapk.com/sitemap-zh.xml
 Sitemap: https://www.gptoapk.com/sitemap-ai.xml

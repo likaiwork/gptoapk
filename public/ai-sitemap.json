@@ -70,6 +70,10 @@
   ],
   "sitemaps": [
     "https://www.gptoapk.com/sitemap.xml",
+    "https://www.gptoapk.com/sitemap-main.xml",
+    "https://www.gptoapk.com/sitemap-blog.xml",
+    "https://www.gptoapk.com/sitemap-apps.xml",
+    "https://www.gptoapk.com/sitemap-locales.xml",
     "https://www.gptoapk.com/sitemap-zh.xml",
     "https://www.gptoapk.com/sitemap-ai.xml"
   ],

@@ -1,9 +1,18 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Script from "next/script";
 
 export const metadata: Metadata = {
   title: "FAQ - APK Downloader | gptoapk.com",
   description: "Frequently asked questions about downloading APK from Google Play Store using gptoapk.com. Learn how it works, security, and troubleshooting tips.",
+  alternates: {
+    canonical: "https://www.gptoapk.com/en/faq",
+    languages: {
+      en: "https://www.gptoapk.com/en/faq",
+      zh: "https://www.gptoapk.com/zh/faq",
+      "x-default": "https://www.gptoapk.com/en/faq",
+    },
+  },
 };
 
 export default function FAQPage() {
@@ -58,6 +67,38 @@ export default function FAQPage() {
     },
   ];
 
+  const faqPageSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.q,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: faq.a,
+      },
+    })),
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://www.gptoapk.com/en",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "FAQ",
+        item: "https://www.gptoapk.com/en/faq",
+      },
+    ],
+  };
+
   return (
     <div className="max-w-4xl mx-auto px-4 py-16">
       <div className="text-center mb-16">
@@ -99,6 +140,17 @@ export default function FAQPage() {
           Try our <Link href="/en" className="text-blue-600 dark:text-blue-400 hover:underline font-medium">APK Downloader</Link> and see it in action, or check our <Link href="/en/blog" className="text-blue-600 dark:text-blue-400 hover:underline font-medium">blog</Link> for detailed guides.
         </p>
       </div>
+
+      <Script
+        id="faq-page-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqPageSchema) }}
+      />
+      <Script
+        id="faq-breadcrumb-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
     </div>
   );
 }

@@ -49,7 +49,7 @@
 - [ ] 深入检查 App、How-to、国家页等深层内容的 hreflang：
   - 只有存在真实同语义页面时才互相 alternate
   - 没有对应翻译时不要硬指向不等价页面
-- [ ] 将 sitemap 拆分为更清晰的类型：
+- [x] 将 sitemap 拆分为更清晰的类型：
   - `sitemap-main.xml`
   - `sitemap-blog.xml`
   - `sitemap-apps.xml`
@@ -71,6 +71,8 @@
 - 已修复中文 FAQ 的英文 alternate，从会跳转的 `/faq` 改为 `/en/faq`，并补齐 self-referencing hreflang。
 - 已为英文根 FAQ 补充 canonical 和中英 alternate，避免旧路径被搜索引擎误判为独立页面。
 - 已在 sitemap 中为首页、FAQ、Blog 列表、可互译的中英 Blog 详情页、Russia 页补齐 reciprocal alternate。
+- 已新增 `sitemap-main.xml`、`sitemap-blog.xml`、`sitemap-apps.xml`、`sitemap-locales.xml`，并在 `robots.txt` 与 AI sitemap 中公开。
+- 已为 `/en/faq` 补齐 canonical、self-referencing hreflang、FAQPage 和 BreadcrumbList JSON-LD。
 
 ## 第二阶段：结构化数据
 
@@ -81,7 +83,7 @@
   - `WebApplication`
   - `Organization`
   - 搜索动作 `SearchAction`
-- [ ] FAQ 页面：
+- [x] FAQ 页面：
   - `FAQPage`
   - 问答内容必须和页面可见内容一致
 - [ ] 博客文章：
