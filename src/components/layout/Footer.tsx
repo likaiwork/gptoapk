@@ -21,6 +21,7 @@ export default function Footer() {
     { href: "/privacy", label: "Privacy" },
     { href: "/terms", label: "Terms" },
     { href: "/disclaimer", label: "Disclaimer" },
+    { href: "/dmca", label: "DMCA" },
     { href: "/contact", label: "Contact" },
   ];
 

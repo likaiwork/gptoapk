@@ -4,6 +4,25 @@ import Script from "next/script";
 
 const posts = [
     {
+      slug: "safe-apk-download-guide-2026",
+      title: "Безопасная загрузка APK из Google Play — Руководство 2026",
+      description:
+        "Полное руководство по безопасному получению оригинальных APK. Объяснение Google Play, надежных сторонних источников и методов проверки после загрузки.",
+      date: "2026-05-21",
+      readTime: "8 min read",
+      tags: ["Загрузка APK", "Безопасность", "Оригинальное ПО"],
+    },
+
+    {
+      slug: "mobile-app-security-scan-guide-2026",
+      title: "Полное руководство по проверке безопасности мобильных приложений — 2026",
+      description:
+        "Научитесь проверять безопасность приложений и выявлять вредоносные APK и трояны. Включает сканирование VirusTotal, проверку разрешений и мониторинг поведения.",
+      date: "2026-05-21",
+      readTime: "8 min read",
+      tags: ["Мобильная безопасность", "Проверка APK", "Антивирус"],
+    },
+{
       slug: "how-to-download-apk-from-google-play",
       title: "Полное руководство по загрузке APK из Google Play (2026)",
       description: "Пошаговая инструкция по извлечению APK-файлов из Google Play Store.",

@@ -4,6 +4,25 @@ import Script from "next/script";
 
 const posts = [
     {
+      slug: "safe-apk-download-guide-2026",
+      title: "Cum să descărcați APK în siguranță de pe Google Play — Ghid 2026",
+      description:
+        "Ghid complet pentru obținerea în siguranță a APK-urilor originale. Explică Google Play, surse terțe de încredere și metode de verificare post-descărcare.",
+      date: "2026-05-21",
+      readTime: "8 min read",
+      tags: ["Descărcare APK", "Securitate", "Software original"],
+    },
+
+    {
+      slug: "mobile-app-security-scan-guide-2026",
+      title: "Ghid complet de scanare a securității aplicațiilor mobile — 2026",
+      description:
+        "Învățați să verificați securitatea aplicațiilor și să identificați APK-urile malițioase și troienii. Include scanarea VirusTotal, revizuirea permisiunilor și monitorizarea comportamentului.",
+      date: "2026-05-21",
+      readTime: "8 min read",
+      tags: ["Securitate mobilă", "Inspecție APK", "Antimalware"],
+    },
+{
       slug: "how-to-download-apk-from-google-play",
       title: "Ghid Complet pentru Descărcarea APK din Google Play (2026)",
       description: "Ghid pas cu pas pentru extragerea fișierelor APK din Google Play Store.",

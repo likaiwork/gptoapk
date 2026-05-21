@@ -18,7 +18,26 @@ export const metadata: Metadata = {
 };
 
 const posts = [
-  {
+    {
+      slug: "safe-apk-download-guide-2026",
+      title: "Télécharger APK en toute sécurité depuis Google Play — Guide 2026",
+      description:
+        "Guide complet pour obtenir des APK originaux en toute sécurité. Explication de Google Play, des sources tierces de confiance et des méthodes de vérification après téléchargement.",
+      date: "2026-05-21",
+      readTime: "8 min read",
+      tags: ["Téléchargement APK", "Sécurité", "Logiciel original"],
+    },
+
+    {
+      slug: "mobile-app-security-scan-guide-2026",
+      title: "Guide complet de vérification de sécurité des applications mobiles — 2026",
+      description:
+        "Apprenez à vérifier la sécurité des applications et à identifier les APK malveillants et les chevaux de Troie. Couvre l'analyse VirusTotal, l'examen des autorisations et la surveillance comportementale.",
+      date: "2026-05-21",
+      readTime: "8 min read",
+      tags: ["Sécurité mobile", "Inspection APK", "Antimalware"],
+    },
+{
     slug: "how-to-download-apk-from-google-play",
     title: "Comment télécharger un APK depuis Google Play : Guide complet (2026)",
     description:

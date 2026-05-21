@@ -26,7 +26,26 @@ interface BlogPost {
 }
 
 const posts: BlogPost[] = [
-  {
+    {
+      slug: "safe-apk-download-guide-2026",
+      title: "APK veilig downloaden van Google Play — Gids 2026",
+      description:
+        "Volledige gids voor het veilig verkrijgen van originele APK's. Uitleg over Google Play, betrouwbare externe bronnen en verificatiemethoden na het downloaden.",
+      date: "2026-05-21",
+      readTime: "8 min read",
+      tags: ["APK downloaden", "Veiligheid", "Originele software"],
+    },
+
+    {
+      slug: "mobile-app-security-scan-guide-2026",
+      title: "Volledige gids voor beveiligingsscan van mobiele apps — 2026",
+      description:
+        "Leer hoe u de veiligheid van apps kunt controleren en schadelijke APK's en Trojaanse paarden kunt identificeren. Omvat VirusTotal-scan, machtigingscontrole en gedragsmonitoring.",
+      date: "2026-05-21",
+      readTime: "8 min read",
+      tags: ["Mobiele beveiliging", "APK-inspectie", "Malwarebescherming"],
+    },
+{
     slug: "how-to-download-apk-from-google-play",
     title: "APK Downloaden van Google Play Store: Volledige Gids (2026)",
     description:

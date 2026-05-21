@@ -26,7 +26,26 @@ interface BlogPost {
 }
 
 const posts: BlogPost[] = [
-  {
+    {
+      slug: "safe-apk-download-guide-2026",
+      title: "APK:n turvallinen lataaminen Google Playsta — Opas 2026",
+      description:
+        "Täydellinen opas alkuperäisten APK-tiedostojen turvalliseen hankintaan. Sisältää Google Playn, luotettavien kolmannen osapuolen lähteiden ja latauksen jälkeiset vahvistusmenetelmät.",
+      date: "2026-05-21",
+      readTime: "8 min read",
+      tags: ["APK-lataus", "Turvallisuus", "Alkuperäinen ohjelmisto"],
+    },
+
+    {
+      slug: "mobile-app-security-scan-guide-2026",
+      title: "Täydellinen opas mobiilisovellusten turvallisuustarkastukseen — 2026",
+      description:
+        "Opi tarkistamaan sovellusten turvallisuus ja tunnistamaan haitalliset APK:t ja troijalaiset. Kattaa VirusTotal-skannauksen, lupien tarkistuksen ja käyttäytymisen seurannan.",
+      date: "2026-05-21",
+      readTime: "8 min read",
+      tags: ["Mobiiliturvallisuus", "APK-tarkastus", "Haittaohjelmasuoja"],
+    },
+{
     slug: "how-to-download-apk-from-google-play",
     title: "APK-lataus Google Play Storesta: Täydellinen Opas (2026)",
     description:

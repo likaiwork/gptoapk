@@ -26,7 +26,26 @@ interface BlogPost {
 }
 
 const posts: BlogPost[] = [
-  {
+    {
+      slug: "safe-apk-download-guide-2026",
+      title: "APK biztonságos letöltése a Google Playről — Útmutató 2026",
+      description:
+        "Teljes útmutató az eredeti APK-k biztonságos beszerzéséhez. Ismerteti a Google Play-t, a megbízható harmadik féltől származó forrásokat és a letöltés utáni ellenőrzési módszereket.",
+      date: "2026-05-21",
+      readTime: "8 min read",
+      tags: ["APK letöltés", "Biztonság", "Eredeti szoftver"],
+    },
+
+    {
+      slug: "mobile-app-security-scan-guide-2026",
+      title: "Teljes útmutató a mobilalkalmazások biztonsági vizsgálatához — 2026",
+      description:
+        "Tanulja meg az alkalmazások biztonságának ellenőrzését és a káros APK-k és trójaiak azonosítását. Tartalmazza a VirusTotal vizsgálatot, az engedélyek ellenőrzését és a viselkedésfigyelést.",
+      date: "2026-05-21",
+      readTime: "8 min read",
+      tags: ["Mobil biztonság", "APK ellenőrzés", "Kártevővédelem"],
+    },
+{
     slug: "how-to-download-apk-from-google-play",
     title: "APK Letöltése a Google Play Áruházból: Teljes Útmutató (2026)",
     description:

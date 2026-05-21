@@ -26,7 +26,26 @@ interface BlogPost {
 }
 
 const posts: BlogPost[] = [
-  {
+    {
+      slug: "safe-apk-download-guide-2026",
+      title: "Come scaricare APK in sicurezza da Google Play — Guida 2026",
+      description:
+        "Guida completa per ottenere APK originali in sicurezza. Spiega Google Play, fonti terze affidabili e metodi di verifica post-download.",
+      date: "2026-05-21",
+      readTime: "8 min read",
+      tags: ["Download APK", "Sicurezza", "Software originale"],
+    },
+
+    {
+      slug: "mobile-app-security-scan-guide-2026",
+      title: "Guida completa alla scansione di sicurezza delle app mobili — 2026",
+      description:
+        "Impara a verificare la sicurezza delle app e identificare APK dannosi e trojan. Include scansione VirusTotal, revisione dei permessi e monitoraggio del comportamento.",
+      date: "2026-05-21",
+      readTime: "8 min read",
+      tags: ["Sicurezza mobile", "Ispezione APK", "Antimalware"],
+    },
+{
     slug: "how-to-download-apk-from-google-play",
     title: "Come Scaricare APK da Google Play Store: Guida Completa (2026)",
     description:

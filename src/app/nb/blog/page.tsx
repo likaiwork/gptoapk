@@ -3,7 +3,26 @@ import Link from "next/link";
 import Script from "next/script";
 
 const posts = [
-  {
+    {
+      slug: "safe-apk-download-guide-2026",
+      title: "Slik laster du ned APK trygt fra Google Play — Guide 2026",
+      description:
+        "Komplett guide for sikker nedlasting av originale APK-er. Forklarer Google Play, pålitelige tredjepartskilder og verifiseringsmetoder etter nedlasting.",
+      date: "2026-05-21",
+      readTime: "8 min read",
+      tags: ["APK-nedlasting", "Sikkerhet", "Original programvare"],
+    },
+
+    {
+      slug: "mobile-app-security-scan-guide-2026",
+      title: "Komplett guide for sikkerhetsskanning av mobilapper — 2026",
+      description:
+        "Lær å sjekke appsikkerhet og identifisere ondsinnede APK-er og trojanere. Dekker VirusTotal-skanning, tillatelsesgjennomgang og atferdsovervåking.",
+      date: "2026-05-21",
+      readTime: "8 min read",
+      tags: ["Mobil sikkerhet", "APK-inspeksjon", "Malware-beskyttelse"],
+    },
+{
     slug: "how-to-download-apk-from-google-play",
     title: "Slik Laster du Ned APK fra Google Play Store: Komplett Guide (2026)",
     description:

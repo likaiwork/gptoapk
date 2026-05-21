@@ -26,7 +26,26 @@ interface BlogPost {
 }
 
 const posts: BlogPost[] = [
-  {
+    {
+      slug: "safe-apk-download-guide-2026",
+      title: "Jak bezpečně stáhnout APK z Google Play — Průvodce 2026",
+      description:
+        "Kompletní průvodce bezpečným získáním originálních APK. Vysvětlení Google Play, důvěryhodných zdrojů a ověřovacích metod po stažení.",
+      date: "2026-05-21",
+      readTime: "8 min read",
+      tags: ["Stažení APK", "Bezpečnost", "Originální software"],
+    },
+
+    {
+      slug: "mobile-app-security-scan-guide-2026",
+      title: "Kompletní průvodce bezpečnostní kontrolou mobilních aplikací — 2026",
+      description:
+        "Naučte se ověřit bezpečnost aplikací a identifikovat škodlivé APK a trojské koně. Zahrnuje skenování VirusTotal, kontrolu oprávnění a sledování chování.",
+      date: "2026-05-21",
+      readTime: "8 min read",
+      tags: ["Mobilní bezpečnost", "Kontrola APK", "Proti malwaru"],
+    },
+{
     slug: "how-to-download-apk-from-google-play",
     title: "Jak Stáhnout APK z Google Play Store: Kompletní Průvodce (2026)",
     description:

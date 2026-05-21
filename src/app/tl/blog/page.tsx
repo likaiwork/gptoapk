@@ -16,7 +16,26 @@ export const metadata: Metadata = {
 };
 
 const blogPosts = [
-  {
+    {
+      slug: "safe-apk-download-guide-2026",
+      title: "Paano Ligtas na Mag-download ng APK mula sa Google Play — Gabay 2026",
+      description:
+        "Kumpletong gabay sa ligtas na pagkuha ng orihinal na APK. Nagpapaliwanag ng Google Play, mga mapagkakatiwalaang third-party na source, at mga paraan ng pag-verify pagkatapos ng download.",
+      date: "2026-05-21",
+      readTime: "8 min read",
+      tags: ["APK Download", "Seguridad", "Orihinal na software"],
+    },
+
+    {
+      slug: "mobile-app-security-scan-guide-2026",
+      title: "Kumpletong Gabay sa Pag-scan ng Seguridad ng Mobile App — 2026",
+      description:
+        "Matutong suriin ang kaligtasan ng app at tukuyin ang mga mapaminsalang APK at Trojan. Sumasaklaw sa VirusTotal scan, pagsusuri ng pahintulot, at pagsubaybay sa pag-uugali.",
+      date: "2026-05-21",
+      readTime: "8 min read",
+      tags: ["Seguridad mobile", "Inspeksyon APK", "Anti-malware"],
+    },
+{
     slug: "how-to-download-apk-from-google-play",
     title: "Paano Mag-download ng APK mula sa Google Play: Kumpletong Gabay (2026)",
     description: "Hakbang-hakbang na gabay sa pag-extract ng APK mula sa Google Play Store gamit ang iba't ibang paraan.",

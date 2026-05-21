@@ -16,7 +16,26 @@ export const metadata: Metadata = {
 };
 
 const blogPosts = [
-  {
+    {
+      slug: "safe-apk-download-guide-2026",
+      title: "Google Play سے محفوظ APK ڈاؤن لوڈ گائیڈ — 2026",
+      description:
+        "اصلی APK محفوظ طریقے سے حاصل کرنے کے لیے مکمل گائیڈ۔ Google Play، قابل اعتماد تیسرے فریق ذرائع اور ڈاؤن لوڈ کے بعد تصدیق کے طریقوں کی وضاحت۔",
+      date: "2026-05-21",
+      readTime: "8 min read",
+      tags: ["APK ڈاؤن لوڈ", "سیکیورٹی", "اصلی سافٹ ویئر"],
+    },
+
+    {
+      slug: "mobile-app-security-scan-guide-2026",
+      title: "موبائل ایپ سیکیورٹی اسکین مکمل گائیڈ — 2026 تازہ ترین خود معائنہ اسکیم",
+      description:
+        "ایپ کی حفاظت کی جانچ کرنا اور نقصان دہ APK اور ٹروجن کی شناخت کرنا سیکھیں۔ VirusTotal اسکین، اجازتوں کا جائزہ اور رویے کی نگرانی شامل ہے۔",
+      date: "2026-05-21",
+      readTime: "8 min read",
+      tags: ["موبایل سیکیورٹی", "APK معائنہ", "میلویئر تحفظ"],
+    },
+{
     slug: "how-to-download-apk-from-google-play",
     title: "Google Play سے APK ڈاؤن لوڈ کرنے کا مکمل گائیڈ (2026)",
     description: "Google Play Store سے APK نکالنے کے لیے مختلف طریقوں کے ساتھ مرحلہ وار گائیڈ۔",

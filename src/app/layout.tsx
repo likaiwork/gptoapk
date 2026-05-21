@@ -5,6 +5,7 @@ import { headers } from "next/headers";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import AnalyticsRouteEvents from "@/components/AnalyticsRouteEvents";
+import CookieConsent from "@/components/CookieConsent";
 import "./globals.css";
 import { SITE_LOCALES, isRtlLocale } from "@/lib/site-locales";
 
@@ -160,6 +161,22 @@ export default async function RootLayout({
       <head>
         <meta name="sogou_site_verification" content="GyoMVFI8X3" />
 
+        {/* Google Consent Mode v2 — set defaults before any tags fire */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('consent', 'default', {
+  'ad_storage': 'denied',
+  'ad_user_data': 'denied',
+  'ad_personalization': 'denied',
+  'analytics_storage': 'denied',
+  'wait_for_update': 500,
+});`,
+          }}
+        />
+
         {/* Google AdSense */}
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7016978419299209" crossOrigin="anonymous"></script>
 
@@ -215,6 +232,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <main className="flex-1">{children}</main>
         <Footer />
         <AnalyticsRouteEvents />
+        <CookieConsent />
 
         <Script
           id="ga4-src"

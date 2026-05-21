@@ -26,7 +26,26 @@ interface BlogPost {
 }
 
 const posts: BlogPost[] = [
-  {
+    {
+      slug: "safe-apk-download-guide-2026",
+      title: "Ασφαλής λήψη APK από το Google Play — Οδηγός 2026",
+      description:
+        "Πλήρης οδηγός για ασφαλή λήψη γνήσιων APK. Επεξήγηση του Google Play, αξιόπιστων τρίτων πηγών και μεθόδων επαλήθευσης μετά τη λήψη.",
+      date: "2026-05-21",
+      readTime: "8 min read",
+      tags: ["Λήψη APK", "Ασφάλεια", "Γνήσιο λογισμικό"],
+    },
+
+    {
+      slug: "mobile-app-security-scan-guide-2026",
+      title: "Πλήρης οδηγός ελέγχου ασφαλείας εφαρμογών κινητού — 2026",
+      description:
+        "Μάθετε να ελέγχετε την ασφάλεια εφαρμογών και να εντοπίζετε κακόβουλα APK και trojans. Καλύπτει σάρωση VirusTotal, έλεγχο αδειών και παρακολούθηση συμπεριφοράς.",
+      date: "2026-05-21",
+      readTime: "8 min read",
+      tags: ["Ασφάλεια κινητού", "Έλεγχος APK", "Προστασία από κακόβουλο λογισμικό"],
+    },
+{
     slug: "how-to-download-apk-from-google-play",
     title: "Πώς να Κατεβάσετε APK από το Google Play Store: Πλήρης Οδηγός (2026)",
     description:

@@ -20,6 +20,25 @@ export const metadata: Metadata = {
 export default function JaBlogPage() {
   const posts = [
     {
+      slug: "safe-apk-download-guide-2026",
+      title: "Google PlayからAPKを安全にダウンロードする方法 — 2026完全ガイド",
+      description:
+        "正規APKを安全に入手するための完全ガイド。Google Play、信頼できるサードパーティソース、ダウンロード後の検証方法を解説。",
+      date: "2026-05-21",
+      readTime: "8 min read",
+      tags: ["APKダウンロード", "セキュリティ", "正規ソフトウェア"],
+    },
+
+    {
+      slug: "mobile-app-security-scan-guide-2026",
+      title: "モバイルアプリセキュリティスキャン完全ガイド — 2026年最新セルフチェック",
+      description:
+        "アプリの安全性を確認し、悪意のあるAPKやトロイの木馬を特定する方法を学びます。VirusTotalスキャン、権限レビュー、行動監視を網羅。",
+      date: "2026-05-21",
+      readTime: "8 min read",
+      tags: ["モバイルセキュリティ", "APK検査", "マルウェア対策"],
+    },
+{
       slug: "how-to-download-apk-from-google-play",
       title: "Google PlayからAPKをダウンロードする完全ガイド（2026年版）",
       description:

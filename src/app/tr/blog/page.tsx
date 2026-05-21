@@ -4,6 +4,25 @@ import Script from "next/script";
 
 const posts = [
     {
+      slug: "safe-apk-download-guide-2026",
+      title: "Google Play'den Güvenli APK İndirme Rehberi — 2026",
+      description:
+        "Orijinal APK'ları güvenle almak için eksiksiz rehber. Google Play, güvenilir üçüncü taraf kaynaklar ve indirme sonrası doğrulama yöntemlerini açıklar.",
+      date: "2026-05-21",
+      readTime: "8 min read",
+      tags: ["APK İndirme", "Güvenlik", "Orijinal yazılım"],
+    },
+
+    {
+      slug: "mobile-app-security-scan-guide-2026",
+      title: "Mobil Uygulama Güvenlik Taraması Eksiksiz Rehberi — 2026",
+      description:
+        "Uygulama güvenliğini kontrol etmeyi ve kötü amaçlı APK'lar ile truva atlarını tanımlamayı öğrenin. VirusTotal taraması, izin incelemesi ve davranış izlemeyi kapsar.",
+      date: "2026-05-21",
+      readTime: "8 min read",
+      tags: ["Mobil güvenlik", "APK incelemesi", "Kötü amaçlı yazılım koruması"],
+    },
+{
       slug: "how-to-download-apk-from-google-play",
       title: "Google Play'den APK İndirme: Kapsamlı Rehber (2026)",
       description: "Google Play Store'dan APK dosyalarını çıkarmak için adım adım kılavuz. Web araçları, ADB komutları ve güvenli indirme ipuçları.",

@@ -27,7 +27,26 @@ interface BlogPost {
 }
 
 const posts: BlogPost[] = [
-  {
+    {
+      slug: "safe-apk-download-guide-2026",
+      title: "Cách tải APK an toàn từ Google Play — Hướng dẫn 2026",
+      description:
+        "Hướng dẫn đầy đủ để tải APK chính hãng một cách an toàn. Giải thích về Google Play, các nguồn bên thứ ba đáng tin cậy và phương pháp xác minh sau khi tải.",
+      date: "2026-05-21",
+      readTime: "8 min read",
+      tags: ["Tải APK", "Bảo mật", "Phần mềm chính hãng"],
+    },
+
+    {
+      slug: "mobile-app-security-scan-guide-2026",
+      title: "Hướng dẫn đầy đủ về quét bảo mật ứng dụng di động — 2026",
+      description:
+        "Tìm hiểu cách kiểm tra độ an toàn của ứng dụng và xác định APK độc hại cũng như trojan. Bao gồm quét VirusTotal, xem xét quyền và giám sát hành vi.",
+      date: "2026-05-21",
+      readTime: "8 min read",
+      tags: ["Bảo mật di động", "Kiểm tra APK", "Chống phần mềm độc hại"],
+    },
+{
     slug: "how-to-download-apk-from-google-play",
     title: "Cách tải APK từ Google Play: Hướng dẫn chi tiết (2026)",
     description: "Hướng dẫn từng bước cách tải tệp APK từ Google Play Store. Tìm hiểu nhiều phương pháp bao gồm công cụ web, ADB và các mẹo tải xuống an toàn.",

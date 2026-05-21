@@ -4,6 +4,25 @@ import Script from "next/script";
 
 const posts = [
     {
+      slug: "safe-apk-download-guide-2026",
+      title: "Google Play에서 APK 안전하게 다운로드하는 방법 — 2026 완벽 가이드",
+      description:
+        "정품 APK를 안전하게 받기 위한 완벽 가이드. Google Play, 신뢰할 수 있는 서드파티 소스, 다운로드 후 검증 방법을 설명합니다.",
+      date: "2026-05-21",
+      readTime: "8 min read",
+      tags: ["APK 다운로드", "보안", "정품 소프트웨어"],
+    },
+
+    {
+      slug: "mobile-app-security-scan-guide-2026",
+      title: "모바일 앱 보안 검사 완벽 가이드 — 2026년 최신 자가 진단 방법",
+      description:
+        "앱 안전성을 확인하고 악성 APK 및 트로이 목마를 식별하는 방법을 알아보세요. VirusTotal 스캔, 권한 검토, 행동 모니터링을 다룹니다.",
+      date: "2026-05-21",
+      readTime: "8 min read",
+      tags: ["모바일 보안", "APK 검사", "악성코드 방지"],
+    },
+{
       slug: "how-to-download-apk-from-google-play",
       title: "Google Play에서 APK 다운로드하는 완벽 가이드 (2026)",
       description: "Google Play 스토어에서 APK 파일을 추출하는 단계별 방법. 웹 도구, ADB 명령어, 안전한 다운로드 팁까지.",

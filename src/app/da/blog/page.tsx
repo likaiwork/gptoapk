@@ -26,7 +26,26 @@ interface BlogPost {
 }
 
 const posts: BlogPost[] = [
-  {
+    {
+      slug: "safe-apk-download-guide-2026",
+      title: "Sådan downloader du APK sikkert fra Google Play — 2026 guide",
+      description:
+        "Komplet guide til sikker hentning af originale APK'er. Forklarer Google Play, pålidelige tredjepartskilder og verifikationsmetoder efter download.",
+      date: "2026-05-21",
+      readTime: "8 min read",
+      tags: ["APK download", "Sikkerhed", "Original software"],
+    },
+
+    {
+      slug: "mobile-app-security-scan-guide-2026",
+      title: "Komplet guide til sikkerhedsscanning af mobilapps — 2026",
+      description:
+        "Lær at kontrollere appsikkerhed og identificere ondsindede APK'er og trojanere. Dækker VirusTotal-scanning, tilladelsesgennemgang og adfærdsovervågning.",
+      date: "2026-05-21",
+      readTime: "8 min read",
+      tags: ["Mobil sikkerhed", "APK-inspektion", "Malwarebeskyttelse"],
+    },
+{
     slug: "how-to-download-apk-from-google-play",
     title: "Sådan Downloader du APK fra Google Play Store: Komplet Guide (2026)",
     description:

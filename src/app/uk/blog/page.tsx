@@ -16,7 +16,26 @@ export const metadata: Metadata = {
 };
 
 const blogPosts = [
-  {
+    {
+      slug: "safe-apk-download-guide-2026",
+      title: "Безпечне завантаження APK з Google Play — Посібник 2026",
+      description:
+        "Повний посібник із безпечного отримання оригінальних APK. Пояснення Google Play, надійних сторонніх джерел та методів перевірки після завантаження.",
+      date: "2026-05-21",
+      readTime: "8 min read",
+      tags: ["Завантаження APK", "Безпека", "Оригінальне ПЗ"],
+    },
+
+    {
+      slug: "mobile-app-security-scan-guide-2026",
+      title: "Повний посібник із перевірки безпеки мобільних додатків — 2026",
+      description:
+        "Навчіться перевіряти безпеку додатків та виявляти шкідливі APK і трояни. Включає сканування VirusTotal, перевірку дозволів та моніторинг поведінки.",
+      date: "2026-05-21",
+      readTime: "8 min read",
+      tags: ["Мобільна безпека", "Перевірка APK", "Антивірус"],
+    },
+{
     slug: "how-to-download-apk-from-google-play",
     title: "Як завантажити APK з Google Play: Повний гід (2026)",
     description: "Покроковий гід із вилучення APK з Google Play Store за допомогою різних методів.",

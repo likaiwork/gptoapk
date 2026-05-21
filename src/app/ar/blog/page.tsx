@@ -18,7 +18,26 @@ export const metadata: Metadata = {
 };
 
 const posts = [
-  {
+    {
+      slug: "safe-apk-download-guide-2026",
+      title: "دليل تحميل APK آمن من Google Play — 2026",
+      description:
+        "دليل كامل للحصول على APK أصلي بأمان. شرح Google Play والمصادر الموثوقة وطرق التحقق بعد التحميل.",
+      date: "2026-05-21",
+      readTime: "8 min read",
+      tags: ["تحميل APK", "الأمان", "البرامج الأصلية"],
+    },
+
+    {
+      slug: "mobile-app-security-scan-guide-2026",
+      title: "دليل فحص أمان تطبيقات الهاتف المحمول — أحدث طرق الفحص الذاتي 2026",
+      description:
+        "تعلم كيفية التحقق من سلامة التطبيقات وتحديد APK الخبيثة وأحصنة طروادة. يغطي فحص VirusTotal ومراجعة الأذونات ومراقبة السلوك.",
+      date: "2026-05-21",
+      readTime: "8 min read",
+      tags: ["أمان المحمول", "فحص APK", "مكافحة البرامج الضارة"],
+    },
+{
     slug: "how-to-download-apk-from-google-play",
     title: "كيفية تنزيل APK من Google Play: الدليل الكامل (2026)",
     description:

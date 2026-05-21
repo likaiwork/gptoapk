@@ -4,6 +4,25 @@ import Script from "next/script";
 
 const posts = [
     {
+      slug: "safe-apk-download-guide-2026",
+      title: "Panduan Muat Turun APK Selamat dari Google Play — 2026",
+      description:
+        "Panduan lengkap mendapatkan APK asli dengan selamat. Menerangkan Google Play, sumber pihak ketiga yang dipercayai, dan kaedah pengesahan selepas muat turun.",
+      date: "2026-05-21",
+      readTime: "8 min read",
+      tags: ["Muat Turun APK", "Keselamatan", "Perisian asli"],
+    },
+
+    {
+      slug: "mobile-app-security-scan-guide-2026",
+      title: "Panduan Lengkap Imbas Keselamatan Aplikasi Mudah Alih — 2026",
+      description:
+        "Belajar memeriksa keselamatan aplikasi dan mengenal pasti APK berbahaya serta trojan. Merangkumi imbasan VirusTotal, semakan kebenaran, dan pemantauan tingkah laku.",
+      date: "2026-05-21",
+      readTime: "8 min read",
+      tags: ["Keselamatan mudah alih", "Pemeriksaan APK", "Antimalware"],
+    },
+{
       slug: "how-to-download-apk-from-google-play",
       title: "Panduan Lengkap Muat Turun APK dari Google Play (2026)",
       description: "Panduan langkah demi langkah untuk mengekstrak fail APK dari Google Play Store.",
