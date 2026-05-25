@@ -4,7 +4,9 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import type { SiteLocale } from "@/lib/site-locales";
 
-const STORAGE_KEY = "gptoapk-cookie-consent";
+import { COOKIE_CONSENT_STORAGE_KEY } from "@/lib/cookie-consent";
+
+const STORAGE_KEY = COOKIE_CONSENT_STORAGE_KEY;
 
 type ConsentChoice = "accepted" | "rejected" | null;
 
@@ -288,6 +290,7 @@ export default function CookieConsent() {
     localStorage.setItem(STORAGE_KEY, value ?? "");
     setVisible(false);
     applyGoogleConsent(value === "accepted");
+    window.dispatchEvent(new CustomEvent("gptoapk-cookie-consent"));
   }
 
   if (!visible) return null;

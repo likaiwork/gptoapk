@@ -10,7 +10,7 @@ import { proxyImageUrl } from "@/lib/image-proxy";
 import { analyticsEvents } from "@/lib/analytics-events";
 import { trackEvent } from "@/lib/client-analytics";
 import DownloadButton from "@/components/DownloadButton";
-import AdUnit from "@/components/AdUnit";
+import AdPlacement from "@/components/AdPlacement";
 
 type QueryType = "url" | "package" | "keyword";
 
@@ -443,8 +443,8 @@ export default function SearchBox() {
             </div>
           </div>
 
-          {/* 搜索结果下方广告 */}
-          <AdUnit slot="0987654321" format="auto" className="mt-5" />
+          {/* Below search results — keep clear of Download buttons */}
+          <AdPlacement className="mt-8" minHeight={100} />
         </>
       )}
     </div>

@@ -6,6 +6,7 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import AnalyticsRouteEvents from "@/components/AnalyticsRouteEvents";
 import CookieConsent from "@/components/CookieConsent";
+import MonetagLoader from "@/components/MonetagLoader";
 import "./globals.css";
 import { SITE_LOCALES, isRtlLocale } from "@/lib/site-locales";
 
@@ -237,6 +238,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <Footer />
         <AnalyticsRouteEvents />
         <CookieConsent />
+        <MonetagLoader />
 
         <Script
           id="ga4-src"

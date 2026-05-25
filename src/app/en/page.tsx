@@ -1,4 +1,5 @@
 import SearchBox from "@/components/SearchBox";
+import AdPlacement from "@/components/AdPlacement";
 import Link from "next/link";
 
 export default function EnHome() {
@@ -19,6 +20,10 @@ export default function EnHome() {
         <p className="mx-auto max-w-2xl text-sm leading-6 text-slate-500 dark:text-slate-400">
           gptoapk.com supports free apps and verified public download sources only. Paid apps, cracked apps, and downloads that bypass purchases are not supported.
         </p>
+      </div>
+
+      <div className="mt-12 max-w-3xl w-full">
+        <AdPlacement minHeight={100} />
       </div>
 
       {/* Features */}
