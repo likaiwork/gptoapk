@@ -1724,7 +1724,7 @@ keytool -printcert -jarfile app.apk
 <p><em>Originally published on gptoapk.com.</em></p>
       </>
     ),
-  }
+  },
 
   {
     slug: "best-apk-installer-tools-2026",
@@ -2328,7 +2328,7 @@ keytool -printcert -jarfile app.apk
         <p>Проверьте: /Download/, /Download/Chrome/, /Download/Edge/, /Android/data/.../files/Download/, /Bluetooth/.</p>
 
         <h3>Метод 6: Поиск через ADB</h3>
-        <pre className="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg overflow-x-auto"><code>adb shell find /storage/emulated/0 -name "*.apk" 2>/dev/null</code></pre>
+        <pre className="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg overflow-x-auto"><code>adb shell find /storage/emulated/0 -name &quot;*.apk&quot; 2&gt;/dev/null</code></pre>
 
         <h3>Метод 7: Скачайте заново с gptoapk.com</h3>
         <p>Если не можете найти файл, посетите <a href="https://gptoapk.com" className="text-blue-600 dark:text-blue-400 hover:underline">gptoapk.com</a> снова. Перед скачиванием проверьте настройки загрузки браузера.</p>
@@ -2353,7 +2353,7 @@ keytool -printcert -jarfile app.apk
         <p>APK-файлы на самом деле не исчезают — они просто сохраняются в неожиданных местах. Проверьте историю загрузок браузера, используйте Files by Google с фильтром APK, ищите *.apk. Если ничего не помогает, <a href="https://gptoapk.com" className="text-blue-600 dark:text-blue-400 hover:underline">gptoapk.com</a> позволяет скачать снова.</p>
       </>
     ),
-
+  },
 
   {
     slug: "best-apk-installer-tools-2026",
@@ -2386,13 +2386,13 @@ keytool -printcert -jarfile app.apk
           <a href="https://www.gptoapk.com" className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-xl transition-colors">
             Попробовать APK Downloader
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth=2 d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
             </svg>
           </a>
         </div>
       </>
     ),
-  }
+  },
 
   {
     slug: "apk-package-name-guide",
@@ -2424,13 +2424,13 @@ keytool -printcert -jarfile app.apk
           <a href="https://www.gptoapk.com" className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-xl transition-colors">
             Попробовать APK Downloader
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth=2 d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
             </svg>
           </a>
         </div>
       </>
     ),
-  }
+  },
 
   {
     slug: "apk-to-ios-guide",
@@ -2461,13 +2461,13 @@ keytool -printcert -jarfile app.apk
           <a href="https://www.gptoapk.com" className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-xl transition-colors">
             Попробовать APK Downloader
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth=2 d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
             </svg>
           </a>
         </div>
       </>
     ),
-  }
+  },
 
   {
     slug: "android-data-migration-guide-2026",
@@ -2500,13 +2500,13 @@ keytool -printcert -jarfile app.apk
           <a href="https://www.gptoapk.com" className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-xl transition-colors">
             Попробовать APK Downloader
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth=2 d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
             </svg>
           </a>
         </div>
       </>
     ),
-  }
+  },
 
   {
     slug: "car-apk-upgrade-guide",
@@ -2539,13 +2539,13 @@ keytool -printcert -jarfile app.apk
           <a href="https://www.gptoapk.com" className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-xl transition-colors">
             Попробовать APK Downloader
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth=2 d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
             </svg>
           </a>
         </div>
       </>
     ),
-  }
+  },
 
   {
     slug: "apk-file-too-large-solutions",
@@ -2576,18 +2576,18 @@ keytool -printcert -jarfile app.apk
           <a href="https://www.gptoapk.com" className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-xl transition-colors">
             Попробовать APK Downloader
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth=2 d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
             </svg>
           </a>
         </div>
       </>
     ),
-  }
+  },
 
   {
     slug: "google-play-cannot-connect-2026-guide",
     title: "Google Play Store не подключается? Полное руководство по устранению неполадок 2026",
-    description: "Google Play Store не подключается? Полное руководство по устранению неполадок 2026. Исправьте ошибки "не удалось подключиться к серверу", "RH-01", "DF-DFERH-01" и "устройство не сертифицировано". 15 проверенных решений для всех Android-телефонов.",
+    description: "Google Play Store не подключается? Полное руководство по устранению неполадок 2026. Исправьте ошибки «не удалось подключиться к серверу», RH-01, DF-DFERH-01 и «устройство не сертифицировано». 15 проверенных решений для всех Android-телефонов.",
     date: "2026-05-24",
     readTime: "12 min read",
     tags: ["Google Play Cannot Connect", "Google Play Not Working", "Play Store Fix", "gptoapk"],
@@ -2613,13 +2613,13 @@ keytool -printcert -jarfile app.apk
           <a href="https://www.gptoapk.com" className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-xl transition-colors">
             Попробовать APK Downloader
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth=2 d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
             </svg>
           </a>
         </div>
       </>
     ),
-  }
+  },
 
   {
     slug: "apk-share-methods-guide",
@@ -2652,13 +2652,13 @@ keytool -printcert -jarfile app.apk
           <a href="https://www.gptoapk.com" className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-xl transition-colors">
             Попробовать APK Downloader
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth=2 d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
             </svg>
           </a>
         </div>
       </>
     ),
-  }
+  },
 
   {
     slug: "disable-apk-auto-update-guide",
@@ -2691,13 +2691,13 @@ keytool -printcert -jarfile app.apk
           <a href="https://www.gptoapk.com" className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-xl transition-colors">
             Попробовать APK Downloader
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth=2 d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
             </svg>
           </a>
         </div>
       </>
     ),
-  }
+  },
 
   {
     slug: "apk-file-not-found-guide",
@@ -2730,16 +2730,13 @@ keytool -printcert -jarfile app.apk
           <a href="https://www.gptoapk.com" className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-xl transition-colors">
             Попробовать APK Downloader
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth=2 d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
             </svg>
           </a>
         </div>
       </>
     ),
-  }
   },
-
-
 ];
 
 export async function generateStaticParams() {

@@ -206,7 +206,7 @@ const posts = [
     readTime: "8 min read",
     tags: ["APK Dosyası Bulunamadı", "İndirilen APK'yı Bul", "Android İndirme Konumu", "APK Dosyası Kayıp", "gptoapk"],
   },
-};
+];
 
 export default function BlogIndexPage() {
   return (

@@ -24,6 +24,7 @@ interface BlogPost {
   date: string;
   readTime: string;
   tags: string[];
+  image?: string;
 }
 
 const posts: BlogPost[] = [

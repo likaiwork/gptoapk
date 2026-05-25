@@ -1891,7 +1891,7 @@ apksigner verify --print-certs app.apk
         </div>
       </>
     ),
-  },,
+  },
   {
     slug: "apk-file-not-found-guide",
     title: "Plik APK Nie Znaleziony Po Pobraniu? Gdzie Znaleźć Pobrane Pliki APK na Androidzie",

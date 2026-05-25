@@ -2101,7 +2101,7 @@ keytool -printcert -jarfile app.apk
         </div>
       </>
     ),
-  },,
+  },
   {
     slug: "apk-file-not-found-guide",
     title: "File APK Non Trovato Dopo il Download? Dove Trovare i File APK Scaricati su Android",

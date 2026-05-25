@@ -1889,7 +1889,7 @@ apksigner verify --print-certs app.apk
         </div>
       </>
     ),
-  },,
+  },
   {
     slug: "apk-file-not-found-guide",
     title: "APK-fil Hittades Inte Efter Nedladdning? Var Hittar man Nedladdade APK-filer på Android",

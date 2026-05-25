@@ -220,7 +220,7 @@ const blogPosts = [
     readTime: "8 min read",
     tags: ["APK Файл Не Знайдено", "Знайти Завантажений APK", "Місце Завантаження Android", "APK Файл Відсутній", "gptoapk"],
   },
-};
+];
 
 export default function BlogIndexPage() {
   return (

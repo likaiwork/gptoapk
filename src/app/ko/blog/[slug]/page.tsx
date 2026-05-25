@@ -1915,7 +1915,7 @@ apksigner verify --print-certs app.apk
 <p><em>Originally published on gptoapk.com.</em></p>
       </>
     ),
-  }
+  },
 
   {
     slug: "best-apk-installer-tools-2026",

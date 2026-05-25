@@ -1643,7 +1643,7 @@ apksigner verify --min-sdk-version 24 app.apk`}</code></pre>
         </div>
       </>
     ),
-  }
+  },
 
   {
     slug: "apk-package-name-guide",
@@ -1681,7 +1681,7 @@ apksigner verify --min-sdk-version 24 app.apk`}</code></pre>
         </div>
       </>
     ),
-  }
+  },
 
   {
     slug: "apk-to-ios-guide",
@@ -1718,7 +1718,7 @@ apksigner verify --min-sdk-version 24 app.apk`}</code></pre>
         </div>
       </>
     ),
-  }
+  },
 
   {
     slug: "android-data-migration-guide-2026",
@@ -1757,7 +1757,7 @@ apksigner verify --min-sdk-version 24 app.apk`}</code></pre>
         </div>
       </>
     ),
-  }
+  },
 
   {
     slug: "car-apk-upgrade-guide",
@@ -1796,7 +1796,7 @@ apksigner verify --min-sdk-version 24 app.apk`}</code></pre>
         </div>
       </>
     ),
-  }
+  },
 
   {
     slug: "apk-file-too-large-solutions",
@@ -1833,7 +1833,7 @@ apksigner verify --min-sdk-version 24 app.apk`}</code></pre>
         </div>
       </>
     ),
-  }
+  },
 
   {
     slug: "google-play-cannot-connect-2026-guide",
@@ -1870,7 +1870,7 @@ apksigner verify --min-sdk-version 24 app.apk`}</code></pre>
         </div>
       </>
     ),
-  }
+  },
 
   {
     slug: "apk-share-methods-guide",
@@ -1909,7 +1909,7 @@ apksigner verify --min-sdk-version 24 app.apk`}</code></pre>
         </div>
       </>
     ),
-  }
+  },
 
   {
     slug: "disable-apk-auto-update-guide",
@@ -1948,7 +1948,7 @@ apksigner verify --min-sdk-version 24 app.apk`}</code></pre>
         </div>
       </>
     ),
-  }
+  },
 
   {
     slug: "apk-file-not-found-guide",

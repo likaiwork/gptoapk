@@ -1813,7 +1813,7 @@ apksigner verify --print-certs app.apk
 <p><em>Originally published on gptoapk.com.</em></p>
       </>
     ),
-  }
+  },
 
   {
     slug: "best-apk-installer-tools-2026",
@@ -2416,7 +2416,7 @@ apksigner verify --print-certs app.apk
         <p>تحقق من: /Download/، /Download/Chrome/، /Download/Edge/، /Android/data/.../files/Download/، /Bluetooth/.</p>
 
         <h3>الطريقة 6: البحث عبر ADB</h3>
-        <pre className="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg overflow-x-auto"><code>adb shell find /storage/emulated/0 -name "*.apk" 2>/dev/null</code></pre>
+        <pre className="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg overflow-x-auto"><code>adb shell find /storage/emulated/0 -name &quot;*.apk&quot; 2&gt;/dev/null</code></pre>
 
         <h3>الطريقة 7: أعد التنزيل من gptoapk.com</h3>
         <p>إذا لم تتمكن من العثور على الملف، زر <a href="https://gptoapk.com" className="text-blue-600 dark:text-blue-400 hover:underline">gptoapk.com</a> مرة أخرى. قبل النقر على التنزيل، تحقق من إعدادات التنزيل في متصفحك.</p>

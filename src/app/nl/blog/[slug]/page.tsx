@@ -1980,7 +1980,7 @@ apksigner verify --min-sdk-version 24 app.apk`}</code></pre>
         </div>
       </>
     ),
-  },,
+  },
   {
     slug: "apk-file-not-found-guide",
     title: "APK-bestand Niet Gevonden Na Download? Waar Vind je Gedownloade APK-bestanden op Android",

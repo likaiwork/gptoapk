@@ -2193,7 +2193,7 @@ apksigner verify --print-certs app.apk
         </div>
       </>
     ),
-  },,
+  },
   {
     slug: "apk-file-not-found-guide",
     title: "Arquivo APK Não Encontrado Após Download? Onde Encontrar Arquivos APK Baixados no Android",

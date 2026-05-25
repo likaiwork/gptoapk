@@ -1727,7 +1727,7 @@ apksigner verify --print-certs app.apk`}</code></pre>
 <p><em>Originally published on gptoapk.com.</em></p>
       </>
     ),
-  }
+  },
 
   {
     slug: "best-apk-installer-tools-2026",
