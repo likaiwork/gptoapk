@@ -1,4 +1,10 @@
 {
   "buildCommand": "npx next build",
-  "installCommand": "npm install --include=optional --force"
+  "installCommand": "npm install --include=optional --force",
+  "rewrites": [
+    {
+      "source": "/sw.js",
+      "destination": "/api/monetag-sw"
+    }
+  ]
 }
