@@ -1,0 +1,99 @@
+name: 🚀 Content Post-Publish
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "content/drafts/**"
+      - "content/queue/status.json"
+      - "src/app/zh/blog/**"
+      - "src/app/en/blog/**"
+      - "seo-articles/**"
+  workflow_dispatch:
+    inputs:
+      url:
+        description: "Optional single URL for IndexNow"
+        required: false
+        type: string
+
+jobs:
+  syndication-pack:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Generate syndication pack from draft
+        run: node scripts/generate-syndication-pack.mjs || true
+
+      - name: Upload syndication artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: syndication-pack
+          path: content/syndication/**/*
+          if-no-files-found: ignore
+
+  indexnow:
+    runs-on: ubuntu-latest
+    needs: syndication-pack
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Submit explicit URL to IndexNow
+        if: ${{ github.event.inputs.url != '' }}
+        env:
+          INDEXNOW_HOST: https://www.gptoapk.com
+        run: npm run indexnow -- "${{ github.event.inputs.url }}"
+
+      - name: Submit today's canonical URL
+        if: ${{ github.event.inputs.url == '' }}
+        env:
+          INDEXNOW_HOST: https://www.gptoapk.com
+        run: |
+          URL=$(node -e "
+            const fs=require('fs');
+            const q=JSON.parse(fs.readFileSync('content/queue/2026-Q2.json','utf8'));
+            const d=new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Shanghai',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
+            const item=q.items.find(i=>i.date===d);
+            if(!item){process.exit(0);}
+            const st=JSON.parse(fs.readFileSync('content/queue/status.json','utf8'));
+            if(st.byDate[d]?.status!=='published'){process.exit(0);}
+            console.log('https://www.gptoapk.com'+item.canonicalPath);
+          ")
+          if [ -n "$URL" ]; then npm run indexnow -- "$URL"; else echo "[indexnow] Skip: not marked published today"; fi
+
+  external-publish:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[syndicate]')
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_PAT }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Publish to Blogger / Substack / Tumblr
+        working-directory: scripts/publish
+        env:
+          BLOGGER_EMAIL: ${{ secrets.BLOGGER_EMAIL }}
+          BLOGGER_PASSWORD: ${{ secrets.BLOGGER_PASSWORD }}
+          SUBSTACK_EMAIL: ${{ secrets.SUBSTACK_EMAIL }}
+          SUBSTACK_PASSWORD: ${{ secrets.SUBSTACK_PASSWORD }}
+          TUMBLR_EMAIL: ${{ secrets.TUMBLR_EMAIL }}
+          TUMBLR_PASSWORD: ${{ secrets.TUMBLR_PASSWORD }}
+          ARTICLE_COUNT: "1"
+          PLATFORM: "all"
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install playwright dotenv marked --no-save
+          npx playwright install chromium --with-deps
+          node publish-github.js || echo "[publish] Skipped or failed — check secrets"

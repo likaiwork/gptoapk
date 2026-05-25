@@ -1,0 +1,59 @@
+name: 📅 Daily Content Reminder
+
+on:
+  schedule:
+    # 09:00 Asia/Shanghai (UTC+8) = 01:00 UTC
+    - cron: "0 1 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  reminder:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Build reminder body
+        id: body
+        run: |
+          node scripts/content-queue.mjs reminder > /tmp/reminder.md
+          DATE=$(node -e "
+            console.log(new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Shanghai', year:'numeric', month:'2-digit', day:'2-digit' }).format(new Date()));
+          ")
+          echo "date=$DATE" >> "$GITHUB_OUTPUT"
+          TITLE="📅 今日内容 ${DATE} · gptoapk"
+          echo "title<<EOF" >> "$GITHUB_OUTPUT"
+          echo "$TITLE" >> "$GITHUB_OUTPUT"
+          echo "EOF" >> "$GITHUB_OUTPUT"
+
+      - name: Ensure label exists
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh label create "daily-content" --color "1D76DB" --description "Daily SEO content reminder" 2>/dev/null || true
+
+      - name: Close previous open daily reminders
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh issue list --label "daily-content" --state open --json number --jq '.[].number' | while read -r n; do
+            gh issue close "$n" --comment "Superseded by newer daily reminder."
+          done || true
+
+      - name: Create daily reminder issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh issue create \
+            --title "${{ steps.body.outputs.title }}" \
+            --body-file /tmp/reminder.md \
+            --label "daily-content"

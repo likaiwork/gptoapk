@@ -7,6 +7,9 @@
     "build": "next build",
     "baidu-submit": "node scripts/baidu-submit.mjs",
     "indexnow": "node scripts/indexnow-submit.mjs",
+    "content:today": "node scripts/content-queue.mjs today",
+    "content:reminder": "node scripts/content-queue.mjs reminder",
+    "content:syndication": "node scripts/generate-syndication-pack.mjs",
     "repair-download-failures": "node scripts/repair-download-failures.mjs",
     "start": "next start",
     "lint": "eslint"

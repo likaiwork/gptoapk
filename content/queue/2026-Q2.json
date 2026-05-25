@@ -1,0 +1,2097 @@
+{
+  "version": 1,
+  "timezone": "Asia/Shanghai",
+  "collaboration": [
+    "A",
+    "B"
+  ],
+  "startDate": "2026-05-25",
+  "endDate": "2026-08-22",
+  "items": [
+    {
+      "date": "2026-05-25",
+      "locale": "zh",
+      "slug": "google-play-not-open-2026",
+      "title": "Google Play 打不开/无法连接？2026 华为小米通用解法",
+      "keywords": [
+        "Google Play 打不开",
+        "华为",
+        "小米",
+        "APK"
+      ],
+      "syndication": {
+        "auto": [
+          "indexnow",
+          "baidu"
+        ],
+        "manual": [
+          "zhihu",
+          "csdn",
+          "juejin"
+        ]
+      },
+      "canonicalPath": "/zh/blog/google-play-not-open-2026",
+      "status": "pending"
+    },
+    {
+      "date": "2026-05-26",
+      "locale": "zh",
+      "slug": "chatgpt-apk-without-play-store",
+      "title": "ChatGPT APK 无法从 Google Play 下载怎么办（2026）",
+      "keywords": [
+        "ChatGPT APK",
+        "Google Play",
+        "安装"
+      ],
+      "syndication": {
+        "auto": [
+          "indexnow",
+          "baidu"
+        ],
+        "manual": [
+          "zhihu",
+          "csdn",
+          "juejin"
+        ]
+      },
+      "canonicalPath": "/zh/blog/chatgpt-apk-without-play-store",
+      "status": "pending"
+    },
+    {
+      "date": "2026-05-27",
+      "locale": "zh",
+      "slug": "apk-install-error-codes-2026",
+      "title": "APK 安装失败错误代码大全：解析错误与 INSTALL_FAILED",
+      "keywords": [
+        "APK 安装失败",
+        "解析错误",
+        "安卓"
+      ],
+      "syndication": {
+        "auto": [
+          "indexnow",
+          "baidu"
+        ],
+        "manual": [
+          "zhihu",
+          "csdn",
+          "juejin"
+        ]
+      },
+      "canonicalPath": "/zh/blog/apk-install-error-codes-2026",
+      "status": "pending"
+    },
+    {
+      "date": "2026-05-28",
+      "locale": "zh",
+      "slug": "china-ai-apk-package-names",
+      "title": "豆包/元宝/DeepSeek/Kimi/通义千问 APK 包名核对指南",
+      "keywords": [
+        "豆包",
+        "DeepSeek",
+        "APK 包名"
+      ],
+      "syndication": {
+        "auto": [
+          "indexnow",
+          "baidu"
+        ],
+        "manual": [
+          "zhihu",
+          "csdn",
+          "juejin"
+        ]
+      },
+      "canonicalPath": "/zh/blog/china-ai-apk-package-names",
+      "status": "pending"
+    },
+    {
+      "date": "2026-05-29",
+      "locale": "zh",
+      "slug": "social-apk-safe-install-2026",
+      "title": "Instagram/TikTok/WhatsApp/Telegram APK 安全安装清单",
+      "keywords": [
+        "TikTok APK",
+        "WhatsApp",
+        "安全"
+      ],
+      "syndication": {
+        "auto": [
+          "indexnow",
+          "baidu"
+        ],
+        "manual": [
+          "zhihu",
+          "csdn",
+          "juejin"
+        ]
+      },
+      "canonicalPath": "/zh/blog/social-apk-safe-install-2026",
+      "status": "pending"
+    },
+    {
+      "date": "2026-05-30",
+      "locale": "en",
+      "slug": "chatgpt-apk-without-google-play",
+      "title": "How to Install ChatGPT APK Without Google Play (2026)",
+      "keywords": [
+        "ChatGPT APK",
+        "Google Play"
+      ],
+      "syndication": {
+        "auto": [
+          "indexnow",
+          "blogger",
+          "substack",
+          "tumblr"
+        ],
+        "manual": [
+          "linkedin"
+        ]
+      },
+      "canonicalPath": "/en/blog/chatgpt-apk-without-google-play",
+      "status": "pending"
+    },
+    {
+      "date": "2026-05-31",
+      "locale": "en",
+      "slug": "apk-parse-error-fix-2026",
+      "title": "APK Parse Error Fix: There Was a Problem Parsing the Package",
+      "keywords": [
+        "APK parse error",
+        "Android"
+      ],
+      "syndication": {
+        "auto": [
+          "indexnow",
+          "blogger",
+          "substack",
+          "tumblr"
+        ],
+        "manual": [
+          "linkedin"
+        ]
+      },
+      "canonicalPath": "/en/blog/apk-parse-error-fix-2026",
+      "status": "pending"
+    },
+    {
+      "date": "2026-06-01",
+      "locale": "zh",
+      "slug": "install-telegram-without-gms",
+      "title": "无 GMS 安卓手机安装 Telegram 完整步骤",
+      "keywords": [
+        "Telegram APK",
+        "无 GMS",
+        "华为"
+      ],
+      "syndication": {
+        "auto": [
+          "indexnow",
+          "baidu"
+        ],
+        "manual": [
+          "zhihu",
+          "csdn",
+          "juejin"
+        ]
+      },
+      "canonicalPath": "/zh/blog/install-telegram-without-gms",
+      "status": "pending"
+    },
+    {
+      "date": "2026-06-02",
+      "locale": "zh",
+      "slug": "tiktok-apk-china-install",
+      "title": "TikTok APK 国内安卓安装与更新指南 2026",
+      "keywords": [
+        "TikTok APK",
+        "下载",
+        "安装"
+      ],
+      "syndication": {
+        "auto": [
+          "indexnow",
+          "baidu"
+        ],
+        "manual": [
+          "zhihu",
+          "csdn",
+          "juejin"
+        ]
+      },
+      "canonicalPath": "/zh/blog/tiktok-apk-china-install",
+      "status": "pending"
+    },
+    {
+      "date": "2026-06-03",
+      "locale": "zh",
+      "slug": "claude-apk-install-guide-zh",
+      "title": "Claude APK 安卓安装教程与常见问题",
+      "keywords": [
+        "Claude APK",
+        "安装教程"
+      ],
+      "syndication": {
+        "auto": [
+          "indexnow",
+          "baidu"
+        ],
+        "manual": [
+          "zhihu",
+          "csdn",
+          "juejin"
+        ]
+      },
+      "canonicalPath": "/zh/blog/claude-apk-install-guide-zh",
+      "status": "pending"
+    },
+    {
+      "date": "2026-06-04",
+      "locale": "zh",
+      "slug": "apk-signature-verify-practical",
+      "title": "如何验证 APK 签名：防止下载到假包",
+      "keywords": [
+        "APK 签名",
+        "安全"
+      ],
+      "syndication": {
+        "auto": [
+          "indexnow",
+          "baidu"
+        ],
+        "manual": [
+          "zhihu",
+          "csdn",
+          "juejin"
+        ]
+      },
+      "canonicalPath": "/zh/blog/apk-signature-verify-practical",
+      "status": "pending"
+    },
+    {
+      "date": "2026-06-05",
+      "locale": "zh",
+      "slug": "gptoapk-how-to-use",
+      "title": "gptoapk 使用教程：从 Play 链接到 APK 下载",
+      "keywords": [
+        "gptoapk",
+        "APK 下载器"
+      ],
+      "syndication": {
+        "auto": [
+          "indexnow",
+          "baidu"
+        ],
+        "manual": [
+          "zhihu",
+          "csdn",
+          "juejin"
+        ]
+      },
+      "canonicalPath": "/zh/blog/gptoapk-how-to-use",
+      "status": "pending"
+    },
+    {
+      "date": "2026-06-06",
+      "locale": "en",
+      "slug": "telegram-apk-safe-install",
+      "title": "Install Telegram APK on Android: Safe Step-by-Step Guide",
+      "keywords": [
+        "Telegram APK"
+      ],
+      "syndication": {
+        "auto": [
+          "indexnow",
+          "blogger",
+          "substack",
+          "tumblr"
+        ],
+        "manual": [
+          "linkedin"
+        ]
+      },
+      "canonicalPath": "/en/blog/telegram-apk-safe-install",
+      "status": "pending"
+    },
+    {
+      "date": "2026-06-07",
+      "locale": "en",
+      "slug": "tiktok-apk-download-guide-en",
+      "title": "TikTok APK Download Guide for Android (2026)",
+      "keywords": [
+        "TikTok APK"
+      ],
+      "syndication": {
+        "auto": [
+          "indexnow",
+          "blogger",
+          "substack",
+          "tumblr"
+        ],
+        "manual": [
+          "linkedin"
+        ]
+      },
+      "canonicalPath": "/en/blog/tiktok-apk-download-guide-en",
+      "status": "pending"
+    },
+    {
+      "date": "2026-06-08",
+      "locale": "zh",
+      "slug": "xiaomi-sideload-settings",
+      "title": "小米手机允许安装未知应用与侧载设置",
+      "keywords": [
+        "小米",
+        "侧载",
+        "APK"
+      ],
+      "syndication": {
+        "auto": [
+          "indexnow",
+          "baidu"
+        ],
+        "manual": [
+          "zhihu",
+          "csdn",
+          "juejin"
+        ]
+      },
+      "canonicalPath": "/zh/blog/xiaomi-sideload-settings",
+      "status": "pending"
+    },
+    {
+      "date": "2026-06-09",
+      "locale": "zh",
+      "slug": "huawei-overseas-ai-apps",
+      "title": "华为手机安装海外 AI 应用（ChatGPT/Gemini）",
+      "keywords": [
+        "华为",
+        "ChatGPT",
+        "APK"
+      ],
+      "syndication": {
+        "auto": [
+          "indexnow",
+          "baidu"
+        ],
+        "manual": [
+          "zhihu",
+          "csdn",
+          "juejin"
+        ]
+      },
+      "canonicalPath": "/zh/blog/huawei-overseas-ai-apps",
+      "status": "pending"
+    },
+    {
+      "date": "2026-06-10",
+      "locale": "zh",
+      "slug": "apk-vs-aab-explained-zh",
+      "title": "APK 和 AAB 有什么区别？普通用户该下哪种",
+      "keywords": [
+        "APK",
+        "AAB",
+        "Android"
+      ],
+      "syndication": {
+        "auto": [
+          "indexnow",
+          "baidu"
+        ],
+        "manual": [
+          "zhihu",
+          "csdn",
+          "juejin"
+        ]
+      },
+      "canonicalPath": "/zh/blog/apk-vs-aab-explained-zh",
+      "status": "pending"
+    },
+    {
+      "date": "2026-06-11",
+      "locale": "zh",
+      "slug": "extract-apk-from-play-link",
+      "title": "从 Google Play 分享链接提取 APK 的步骤",
+      "keywords": [
+        "Google Play",
+        "APK 提取"
+      ],
+      "syndication": {
+        "auto": [
+          "indexnow",
+          "baidu"
+        ],
+        "manual": [
+          "zhihu",
+          "csdn",
+          "juejin"
+        ]
+      },
+      "canonicalPath": "/zh/blog/extract-apk-from-play-link",
+      "status": "pending"
+    },
+    {
+      "date": "2026-06-12",
+      "locale": "zh",
+      "slug": "vpn-apk-risk-notice-zh",
+      "title": "VPN 类 APK 下载风险提示与合规说明",
+      "keywords": [
+        "VPN APK",
+        "安全"
+      ],
+      "syndication": {
+        "auto": [
+          "indexnow",
+          "baidu"
+        ],
+        "manual": [
+          "zhihu",
+          "csdn",
+          "juejin"
+        ]
+      },
+      "canonicalPath": "/zh/blog/vpn-apk-risk-notice-zh",
+      "status": "pending"
+    },
+    {
+      "date": "2026-06-13",
+      "locale": "en",
+      "slug": "unknown-sources-samsung-xiaomi",
+      "title": "Enable Unknown Sources on Samsung and Xiaomi",
+      "keywords": [
+        "unknown sources",
+        "APK"
+      ],
+      "syndication": {
+        "auto": [
+          "indexnow",
+          "blogger",
+          "substack",
+          "tumblr"
+        ],
+        "manual": [
+          "linkedin"
+        ]
+      },
+      "canonicalPath": "/en/blog/unknown-sources-samsung-xiaomi",
+      "status": "pending"
+    },
+    {
+      "date": "2026-06-14",
+      "locale": "en",
+      "slug": "best-apk-downloader-tools-2026",
+      "title": "Best APK Downloader Tools Compared (2026)",
+      "keywords": [
+        "APK downloader"
+      ],
+      "syndication": {
+        "auto": [
+          "indexnow",
+          "blogger",
+          "substack",
+          "tumblr"
+        ],
+        "manual": [
+          "linkedin"
+        ]
+      },
+      "canonicalPath": "/en/blog/best-apk-downloader-tools-2026",
+      "status": "pending"
+    },
+    {
+      "date": "2026-06-15",
+      "locale": "zh",
+      "slug": "china-ai-assistant-compare-2026",
+      "title": "2026 国内 AI 助手 APK 横评：豆包 vs 元宝 vs DeepSeek",
+      "keywords": [
+        "AI 助手",
+        "APK 对比"
+      ],
+      "syndication": {
+        "auto": [
+          "indexnow",
+          "baidu"
+        ],
+        "manual": [
+          "zhihu",
+          "csdn",
+          "juejin"
+        ]
+      },
+      "canonicalPath": "/zh/blog/china-ai-assistant-compare-2026",
+      "status": "pending"
+    },
+    {
+      "date": "2026-06-16",
+      "locale": "zh",
+      "slug": "instagram-apk-install-zh",
+      "title": "Instagram APK 安装与无法登录排查",
+      "keywords": [
+        "Instagram APK"
+      ],
+      "syndication": {
+        "auto": [
+          "indexnow",
+          "baidu"
+        ],
+        "manual": [
+          "zhihu",
+          "csdn",
+          "juejin"
+        ]
+      },
+      "canonicalPath": "/zh/blog/instagram-apk-install-zh",
+      "status": "pending"
+    },
+    {
+      "date": "2026-06-17",
+      "locale": "zh",
+      "slug": "whatsapp-apk-update-failed",
+      "title": "WhatsApp APK 更新失败/无法安装的解决办法",
+      "keywords": [
+        "WhatsApp APK"
+      ],
+      "syndication": {
+        "auto": [
+          "indexnow",
+          "baidu"
+        ],
+        "manual": [
+          "zhihu",
+          "csdn",
+          "juejin"
+        ]
+      },
+      "canonicalPath": "/zh/blog/whatsapp-apk-update-failed",
+      "status": "pending"
+    },
+    {
+      "date": "2026-06-18",
+      "locale": "zh",
+      "slug": "clear-play-cache-not-working",
+      "title": "清理 Google Play 缓存无效时还能怎么做",
+      "keywords": [
+        "Google Play",
+        "故障"
+      ],
+      "syndication": {
+        "auto": [
+          "indexnow",
+          "baidu"
+        ],
+        "manual": [
+          "zhihu",
+          "csdn",
+          "juejin"
+        ]
+      },
+      "canonicalPath": "/zh/blog/clear-play-cache-not-working",
+      "status": "pending"
+    },
+    {
+      "date": "2026-06-19",
+      "locale": "zh",
+      "slug": "fake-apk-how-to-spot",
+      "title": "如何识别假 APK：签名、包名与来源核对",
+      "keywords": [
+        "假 APK",
+        "安全"
+      ],
+      "syndication": {
+        "auto": [
+          "indexnow",
+          "baidu"
+        ],
+        "manual": [
+          "zhihu",
+          "csdn",
+          "juejin"
+        ]
+      },
+      "canonicalPath": "/zh/blog/fake-apk-how-to-spot",
+      "status": "pending"
+    },
+    {
+      "date": "2026-06-20",
+      "locale": "en",
+      "slug": "verify-apk-signature-guide",
+      "title": "How to Verify APK Signature Before Installing",
+      "keywords": [
+        "APK signature"
+      ],
+      "syndication": {
+        "auto": [
+          "indexnow",
+          "blogger",
+          "substack",
+          "tumblr"
+        ],
+        "manual": [
+          "linkedin"
+        ]
+      },
+      "canonicalPath": "/en/blog/verify-apk-signature-guide",
+      "status": "pending"
+    },
+    {
+      "date": "2026-06-21",
+      "locale": "en",
+      "slug": "transfer-apk-phone-to-pc",
+      "title": "Transfer APK Files from Phone to PC (2026)",
+      "keywords": [
+        "transfer APK"
+      ],
+      "syndication": {
+        "auto": [
+          "indexnow",
+          "blogger",
+          "substack",
+          "tumblr"
+        ],
+        "manual": [
+          "linkedin"
+        ]
+      },
+      "canonicalPath": "/en/blog/transfer-apk-phone-to-pc",
+      "status": "pending"
+    },
+    {
+      "date": "2026-06-22",
+      "locale": "zh",
+      "slug": "google-play-not-open-2026",
+      "title": "Google Play 打不开/无法连接？2026 华为小米通用解法",
+      "keywords": [
+        "Google Play 打不开",
+        "华为",
+        "小米",
+        "APK"
+      ],
+      "syndication": {
+        "auto": [
+          "indexnow",
+          "baidu"
+        ],
+        "manual": [
+          "zhihu",
+          "csdn",
+          "juejin"
+        ]
+      },
+      "canonicalPath": "/zh/blog/google-play-not-open-2026",
+      "status": "pending"
+    },
+    {
+      "date": "2026-06-23",
+      "locale": "zh",
+      "slug": "chatgpt-apk-without-play-store",
+      "title": "ChatGPT APK 无法从 Google Play 下载怎么办（2026）",
+      "keywords": [
+        "ChatGPT APK",
+        "Google Play",
+        "安装"
+      ],
+      "syndication": {
+        "auto": [
+          "indexnow",
+          "baidu"
+        ],
+        "manual": [
+          "zhihu",
+          "csdn",
+          "juejin"
+        ]
+      },
+      "canonicalPath": "/zh/blog/chatgpt-apk-without-play-store",
+      "status": "pending"
+    },
+    {
+      "date": "2026-06-24",
+      "locale": "zh",
+      "slug": "apk-install-error-codes-2026",
+      "title": "APK 安装失败错误代码大全：解析错误与 INSTALL_FAILED",
+      "keywords": [
+        "APK 安装失败",
+        "解析错误",
+        "安卓"
+      ],
+      "syndication": {
+        "auto": [
+          "indexnow",
+          "baidu"
+        ],
+        "manual": [
+          "zhihu",
+          "csdn",
+          "juejin"
+        ]
+      },
+      "canonicalPath": "/zh/blog/apk-install-error-codes-2026",
+      "status": "pending"
+    },
+    {
+      "date": "2026-06-25",
+      "locale": "zh",
+      "slug": "china-ai-apk-package-names",
+      "title": "豆包/元宝/DeepSeek/Kimi/通义千问 APK 包名核对指南",
+      "keywords": [
+        "豆包",
+        "DeepSeek",
+        "APK 包名"
+      ],
+      "syndication": {
+        "auto": [
+          "indexnow",
+          "baidu"
+        ],
+        "manual": [
+          "zhihu",
+          "csdn",
+          "juejin"
+        ]
+      },
+      "canonicalPath": "/zh/blog/china-ai-apk-package-names",
+      "status": "pending"
+    },
+    {
+      "date": "2026-06-26",
+      "locale": "zh",
+      "slug": "social-apk-safe-install-2026",
+      "title": "Instagram/TikTok/WhatsApp/Telegram APK 安全安装清单",
+      "keywords": [
+        "TikTok APK",
+        "WhatsApp",
+        "安全"
+      ],
+      "syndication": {
+        "auto": [
+          "indexnow",
+          "baidu"
+        ],
+        "manual": [
+          "zhihu",
+          "csdn",
+          "juejin"
+        ]
+      },
+      "canonicalPath": "/zh/blog/social-apk-safe-install-2026",
+      "status": "pending"
+    },
+    {
+      "date": "2026-06-27",
+      "locale": "en",
+      "slug": "gemini-apk-install-without-play",
+      "title": "Install Gemini APK Without Google Play Store",
+      "keywords": [
+        "Gemini APK"
+      ],
+      "syndication": {
+        "auto": [
+          "indexnow",
+          "blogger",
+          "substack",
+          "tumblr"
+        ],
+        "manual": [
+          "linkedin"
+        ]
+      },
+      "canonicalPath": "/en/blog/gemini-apk-install-without-play",
+      "status": "pending"
+    },
+    {
+      "date": "2026-06-28",
+      "locale": "en",
+      "slug": "claude-apk-android-install",
+      "title": "Claude APK for Android: Download and Install Guide",
+      "keywords": [
+        "Claude APK"
+      ],
+      "syndication": {
+        "auto": [
+          "indexnow",
+          "blogger",
+          "substack",
+          "tumblr"
+        ],
+        "manual": [
+          "linkedin"
+        ]
+      },
+      "canonicalPath": "/en/blog/claude-apk-android-install",
+      "status": "pending"
+    },
+    {
+      "date": "2026-06-29",
+      "locale": "zh",
+      "slug": "install-telegram-without-gms",
+      "title": "无 GMS 安卓手机安装 Telegram 完整步骤",
+      "keywords": [
+        "Telegram APK",
+        "无 GMS",
+        "华为"
+      ],
+      "syndication": {
+        "auto": [
+          "indexnow",
+          "baidu"
+        ],
+        "manual": [
+          "zhihu",
+          "csdn",
+          "juejin"
+        ]
+      },
+      "canonicalPath": "/zh/blog/install-telegram-without-gms",
+      "status": "pending"
+    },
+    {
+      "date": "2026-06-30",
+      "locale": "zh",
+      "slug": "tiktok-apk-china-install",
+      "title": "TikTok APK 国内安卓安装与更新指南 2026",
+      "keywords": [
+        "TikTok APK",
+        "下载",
+        "安装"
+      ],
+      "syndication": {
+        "auto": [
+          "indexnow",
+          "baidu"
+        ],
+        "manual": [
+          "zhihu",
+          "csdn",
+          "juejin"
+        ]
+      },
+      "canonicalPath": "/zh/blog/tiktok-apk-china-install",
+      "status": "pending"
+    },
+    {
+      "date": "2026-07-01",
+      "locale": "zh",
+      "slug": "claude-apk-install-guide-zh",
+      "title": "Claude APK 安卓安装教程与常见问题",
+      "keywords": [
+        "Claude APK",
+        "安装教程"
+      ],
+      "syndication": {
+        "auto": [
+          "indexnow",
+          "baidu"
+        ],
+        "manual": [
+          "zhihu",
+          "csdn",
+          "juejin"
+        ]
+      },
+      "canonicalPath": "/zh/blog/claude-apk-install-guide-zh",
+      "status": "pending"
+    },
+    {
+      "date": "2026-07-02",
+      "locale": "zh",
+      "slug": "apk-signature-verify-practical",
+      "title": "如何验证 APK 签名：防止下载到假包",
+      "keywords": [
+        "APK 签名",
+        "安全"
+      ],
+      "syndication": {
+        "auto": [
+          "indexnow",
+          "baidu"
+        ],
+        "manual": [
+          "zhihu",
+          "csdn",
+          "juejin"
+        ]
+      },
+      "canonicalPath": "/zh/blog/apk-signature-verify-practical",
+      "status": "pending"
+    },
+    {
+      "date": "2026-07-03",
+      "locale": "zh",
+      "slug": "gptoapk-how-to-use",
+      "title": "gptoapk 使用教程：从 Play 链接到 APK 下载",
+      "keywords": [
+        "gptoapk",
+        "APK 下载器"
+      ],
+      "syndication": {
+        "auto": [
+          "indexnow",
+          "baidu"
+        ],
+        "manual": [
+          "zhihu",
+          "csdn",
+          "juejin"
+        ]
+      },
+      "canonicalPath": "/zh/blog/gptoapk-how-to-use",
+      "status": "pending"
+    },
+    {
+      "date": "2026-07-04",
+      "locale": "en",
+      "slug": "whatsapp-apk-update-android",
+      "title": "WhatsApp APK Update Failed? 7 Fixes That Work",
+      "keywords": [
+        "WhatsApp APK"
+      ],
+      "syndication": {
+        "auto": [
+          "indexnow",
+          "blogger",
+          "substack",
+          "tumblr"
+        ],
+        "manual": [
+          "linkedin"
+        ]
+      },
+      "canonicalPath": "/en/blog/whatsapp-apk-update-android",
+      "status": "pending"
+    },
+    {
+      "date": "2026-07-05",
+      "locale": "en",
+      "slug": "youtube-apk-region-restrictions",
+      "title": "YouTube APK When Google Play Is Limited in Your Region",
+      "keywords": [
+        "YouTube APK"
+      ],
+      "syndication": {
+        "auto": [
+          "indexnow",
+          "blogger",
+          "substack",
+          "tumblr"
+        ],
+        "manual": [
+          "linkedin"
+        ]
+      },
+      "canonicalPath": "/en/blog/youtube-apk-region-restrictions",
+      "status": "pending"
+    },
+    {
+      "date": "2026-07-06",
+      "locale": "zh",
+      "slug": "xiaomi-sideload-settings",
+      "title": "小米手机允许安装未知应用与侧载设置",
+      "keywords": [
+        "小米",
+        "侧载",
+        "APK"
+      ],
+      "syndication": {
+        "auto": [
+          "indexnow",
+          "baidu"
+        ],
+        "manual": [
+          "zhihu",
+          "csdn",
+          "juejin"
+        ]
+      },
+      "canonicalPath": "/zh/blog/xiaomi-sideload-settings",
+      "status": "pending"
+    },
+    {
+      "date": "2026-07-07",
+      "locale": "zh",
+      "slug": "huawei-overseas-ai-apps",
+      "title": "华为手机安装海外 AI 应用（ChatGPT/Gemini）",
+      "keywords": [
+        "华为",
+        "ChatGPT",
+        "APK"
+      ],
+      "syndication": {
+        "auto": [
+          "indexnow",
+          "baidu"
+        ],
+        "manual": [
+          "zhihu",
+          "csdn",
+          "juejin"
+        ]
+      },
+      "canonicalPath": "/zh/blog/huawei-overseas-ai-apps",
+      "status": "pending"
+    },
+    {
+      "date": "2026-07-08",
+      "locale": "zh",
+      "slug": "apk-vs-aab-explained-zh",
+      "title": "APK 和 AAB 有什么区别？普通用户该下哪种",
+      "keywords": [
+        "APK",
+        "AAB",
+        "Android"
+      ],
+      "syndication": {
+        "auto": [
+          "indexnow",
+          "baidu"
+        ],
+        "manual": [
+          "zhihu",
+          "csdn",
+          "juejin"
+        ]
+      },
+      "canonicalPath": "/zh/blog/apk-vs-aab-explained-zh",
+      "status": "pending"
+    },
+    {
+      "date": "2026-07-09",
+      "locale": "zh",
+      "slug": "extract-apk-from-play-link",
+      "title": "从 Google Play 分享链接提取 APK 的步骤",
+      "keywords": [
+        "Google Play",
+        "APK 提取"
+      ],
+      "syndication": {
+        "auto": [
+          "indexnow",
+          "baidu"
+        ],
+        "manual": [
+          "zhihu",
+          "csdn",
+          "juejin"
+        ]
+      },
+      "canonicalPath": "/zh/blog/extract-apk-from-play-link",
+      "status": "pending"
+    },
+    {
+      "date": "2026-07-10",
+      "locale": "zh",
+      "slug": "vpn-apk-risk-notice-zh",
+      "title": "VPN 类 APK 下载风险提示与合规说明",
+      "keywords": [
+        "VPN APK",
+        "安全"
+      ],
+      "syndication": {
+        "auto": [
+          "indexnow",
+          "baidu"
+        ],
+        "manual": [
+          "zhihu",
+          "csdn",
+          "juejin"
+        ]
+      },
+      "canonicalPath": "/zh/blog/vpn-apk-risk-notice-zh",
+      "status": "pending"
+    },
+    {
+      "date": "2026-07-11",
+      "locale": "en",
+      "slug": "instagram-apk-install-troubleshoot",
+      "title": "Instagram APK Install Troubleshooting on Android",
+      "keywords": [
+        "Instagram APK"
+      ],
+      "syndication": {
+        "auto": [
+          "indexnow",
+          "blogger",
+          "substack",
+          "tumblr"
+        ],
+        "manual": [
+          "linkedin"
+        ]
+      },
+      "canonicalPath": "/en/blog/instagram-apk-install-troubleshoot",
+      "status": "pending"
+    },
+    {
+      "date": "2026-07-12",
+      "locale": "en",
+      "slug": "install-apk-samsung-guide",
+      "title": "How to Install APK Files on Samsung Galaxy",
+      "keywords": [
+        "Samsung",
+        "APK"
+      ],
+      "syndication": {
+        "auto": [
+          "indexnow",
+          "blogger",
+          "substack",
+          "tumblr"
+        ],
+        "manual": [
+          "linkedin"
+        ]
+      },
+      "canonicalPath": "/en/blog/install-apk-samsung-guide",
+      "status": "pending"
+    },
+    {
+      "date": "2026-07-13",
+      "locale": "zh",
+      "slug": "china-ai-assistant-compare-2026",
+      "title": "2026 国内 AI 助手 APK 横评：豆包 vs 元宝 vs DeepSeek",
+      "keywords": [
+        "AI 助手",
+        "APK 对比"
+      ],
+      "syndication": {
+        "auto": [
+          "indexnow",
+          "baidu"
+        ],
+        "manual": [
+          "zhihu",
+          "csdn",
+          "juejin"
+        ]
+      },
+      "canonicalPath": "/zh/blog/china-ai-assistant-compare-2026",
+      "status": "pending"
+    },
+    {
+      "date": "2026-07-14",
+      "locale": "zh",
+      "slug": "instagram-apk-install-zh",
+      "title": "Instagram APK 安装与无法登录排查",
+      "keywords": [
+        "Instagram APK"
+      ],
+      "syndication": {
+        "auto": [
+          "indexnow",
+          "baidu"
+        ],
+        "manual": [
+          "zhihu",
+          "csdn",
+          "juejin"
+        ]
+      },
+      "canonicalPath": "/zh/blog/instagram-apk-install-zh",
+      "status": "pending"
+    },
+    {
+      "date": "2026-07-15",
+      "locale": "zh",
+      "slug": "whatsapp-apk-update-failed",
+      "title": "WhatsApp APK 更新失败/无法安装的解决办法",
+      "keywords": [
+        "WhatsApp APK"
+      ],
+      "syndication": {
+        "auto": [
+          "indexnow",
+          "baidu"
+        ],
+        "manual": [
+          "zhihu",
+          "csdn",
+          "juejin"
+        ]
+      },
+      "canonicalPath": "/zh/blog/whatsapp-apk-update-failed",
+      "status": "pending"
+    },
+    {
+      "date": "2026-07-16",
+      "locale": "zh",
+      "slug": "clear-play-cache-not-working",
+      "title": "清理 Google Play 缓存无效时还能怎么做",
+      "keywords": [
+        "Google Play",
+        "故障"
+      ],
+      "syndication": {
+        "auto": [
+          "indexnow",
+          "baidu"
+        ],
+        "manual": [
+          "zhihu",
+          "csdn",
+          "juejin"
+        ]
+      },
+      "canonicalPath": "/zh/blog/clear-play-cache-not-working",
+      "status": "pending"
+    },
+    {
+      "date": "2026-07-17",
+      "locale": "zh",
+      "slug": "fake-apk-how-to-spot",
+      "title": "如何识别假 APK：签名、包名与来源核对",
+      "keywords": [
+        "假 APK",
+        "安全"
+      ],
+      "syndication": {
+        "auto": [
+          "indexnow",
+          "baidu"
+        ],
+        "manual": [
+          "zhihu",
+          "csdn",
+          "juejin"
+        ]
+      },
+      "canonicalPath": "/zh/blog/fake-apk-how-to-spot",
+      "status": "pending"
+    },
+    {
+      "date": "2026-07-18",
+      "locale": "en",
+      "slug": "google-play-not-working-fixes",
+      "title": "Google Play Not Working? 7 Fixes Before Using APK",
+      "keywords": [
+        "Google Play"
+      ],
+      "syndication": {
+        "auto": [
+          "indexnow",
+          "blogger",
+          "substack",
+          "tumblr"
+        ],
+        "manual": [
+          "linkedin"
+        ]
+      },
+      "canonicalPath": "/en/blog/google-play-not-working-fixes",
+      "status": "pending"
+    },
+    {
+      "date": "2026-07-19",
+      "locale": "en",
+      "slug": "apk-obb-games-install",
+      "title": "How to Install APK with OBB Files for Large Games",
+      "keywords": [
+        "APK OBB"
+      ],
+      "syndication": {
+        "auto": [
+          "indexnow",
+          "blogger",
+          "substack",
+          "tumblr"
+        ],
+        "manual": [
+          "linkedin"
+        ]
+      },
+      "canonicalPath": "/en/blog/apk-obb-games-install",
+      "status": "pending"
+    },
+    {
+      "date": "2026-07-20",
+      "locale": "zh",
+      "slug": "google-play-not-open-2026",
+      "title": "Google Play 打不开/无法连接？2026 华为小米通用解法",
+      "keywords": [
+        "Google Play 打不开",
+        "华为",
+        "小米",
+        "APK"
+      ],
+      "syndication": {
+        "auto": [
+          "indexnow",
+          "baidu"
+        ],
+        "manual": [
+          "zhihu",
+          "csdn",
+          "juejin"
+        ]
+      },
+      "canonicalPath": "/zh/blog/google-play-not-open-2026",
+      "status": "pending"
+    },
+    {
+      "date": "2026-07-21",
+      "locale": "zh",
+      "slug": "chatgpt-apk-without-play-store",
+      "title": "ChatGPT APK 无法从 Google Play 下载怎么办（2026）",
+      "keywords": [
+        "ChatGPT APK",
+        "Google Play",
+        "安装"
+      ],
+      "syndication": {
+        "auto": [
+          "indexnow",
+          "baidu"
+        ],
+        "manual": [
+          "zhihu",
+          "csdn",
+          "juejin"
+        ]
+      },
+      "canonicalPath": "/zh/blog/chatgpt-apk-without-play-store",
+      "status": "pending"
+    },
+    {
+      "date": "2026-07-22",
+      "locale": "zh",
+      "slug": "apk-install-error-codes-2026",
+      "title": "APK 安装失败错误代码大全：解析错误与 INSTALL_FAILED",
+      "keywords": [
+        "APK 安装失败",
+        "解析错误",
+        "安卓"
+      ],
+      "syndication": {
+        "auto": [
+          "indexnow",
+          "baidu"
+        ],
+        "manual": [
+          "zhihu",
+          "csdn",
+          "juejin"
+        ]
+      },
+      "canonicalPath": "/zh/blog/apk-install-error-codes-2026",
+      "status": "pending"
+    },
+    {
+      "date": "2026-07-23",
+      "locale": "zh",
+      "slug": "china-ai-apk-package-names",
+      "title": "豆包/元宝/DeepSeek/Kimi/通义千问 APK 包名核对指南",
+      "keywords": [
+        "豆包",
+        "DeepSeek",
+        "APK 包名"
+      ],
+      "syndication": {
+        "auto": [
+          "indexnow",
+          "baidu"
+        ],
+        "manual": [
+          "zhihu",
+          "csdn",
+          "juejin"
+        ]
+      },
+      "canonicalPath": "/zh/blog/china-ai-apk-package-names",
+      "status": "pending"
+    },
+    {
+      "date": "2026-07-24",
+      "locale": "zh",
+      "slug": "social-apk-safe-install-2026",
+      "title": "Instagram/TikTok/WhatsApp/Telegram APK 安全安装清单",
+      "keywords": [
+        "TikTok APK",
+        "WhatsApp",
+        "安全"
+      ],
+      "syndication": {
+        "auto": [
+          "indexnow",
+          "baidu"
+        ],
+        "manual": [
+          "zhihu",
+          "csdn",
+          "juejin"
+        ]
+      },
+      "canonicalPath": "/zh/blog/social-apk-safe-install-2026",
+      "status": "pending"
+    },
+    {
+      "date": "2026-07-25",
+      "locale": "en",
+      "slug": "old-apk-version-download",
+      "title": "How to Download Older APK Versions Safely",
+      "keywords": [
+        "old APK"
+      ],
+      "syndication": {
+        "auto": [
+          "indexnow",
+          "blogger",
+          "substack",
+          "tumblr"
+        ],
+        "manual": [
+          "linkedin"
+        ]
+      },
+      "canonicalPath": "/en/blog/old-apk-version-download",
+      "status": "pending"
+    },
+    {
+      "date": "2026-07-26",
+      "locale": "en",
+      "slug": "apkmirror-alternatives-safe",
+      "title": "Safe APKMirror Alternatives in 2026",
+      "keywords": [
+        "APKMirror"
+      ],
+      "syndication": {
+        "auto": [
+          "indexnow",
+          "blogger",
+          "substack",
+          "tumblr"
+        ],
+        "manual": [
+          "linkedin"
+        ]
+      },
+      "canonicalPath": "/en/blog/apkmirror-alternatives-safe",
+      "status": "pending"
+    },
+    {
+      "date": "2026-07-27",
+      "locale": "zh",
+      "slug": "install-telegram-without-gms",
+      "title": "无 GMS 安卓手机安装 Telegram 完整步骤",
+      "keywords": [
+        "Telegram APK",
+        "无 GMS",
+        "华为"
+      ],
+      "syndication": {
+        "auto": [
+          "indexnow",
+          "baidu"
+        ],
+        "manual": [
+          "zhihu",
+          "csdn",
+          "juejin"
+        ]
+      },
+      "canonicalPath": "/zh/blog/install-telegram-without-gms",
+      "status": "pending"
+    },
+    {
+      "date": "2026-07-28",
+      "locale": "zh",
+      "slug": "tiktok-apk-china-install",
+      "title": "TikTok APK 国内安卓安装与更新指南 2026",
+      "keywords": [
+        "TikTok APK",
+        "下载",
+        "安装"
+      ],
+      "syndication": {
+        "auto": [
+          "indexnow",
+          "baidu"
+        ],
+        "manual": [
+          "zhihu",
+          "csdn",
+          "juejin"
+        ]
+      },
+      "canonicalPath": "/zh/blog/tiktok-apk-china-install",
+      "status": "pending"
+    },
+    {
+      "date": "2026-07-29",
+      "locale": "zh",
+      "slug": "claude-apk-install-guide-zh",
+      "title": "Claude APK 安卓安装教程与常见问题",
+      "keywords": [
+        "Claude APK",
+        "安装教程"
+      ],
+      "syndication": {
+        "auto": [
+          "indexnow",
+          "baidu"
+        ],
+        "manual": [
+          "zhihu",
+          "csdn",
+          "juejin"
+        ]
+      },
+      "canonicalPath": "/zh/blog/claude-apk-install-guide-zh",
+      "status": "pending"
+    },
+    {
+      "date": "2026-07-30",
+      "locale": "zh",
+      "slug": "apk-signature-verify-practical",
+      "title": "如何验证 APK 签名：防止下载到假包",
+      "keywords": [
+        "APK 签名",
+        "安全"
+      ],
+      "syndication": {
+        "auto": [
+          "indexnow",
+          "baidu"
+        ],
+        "manual": [
+          "zhihu",
+          "csdn",
+          "juejin"
+        ]
+      },
+      "canonicalPath": "/zh/blog/apk-signature-verify-practical",
+      "status": "pending"
+    },
+    {
+      "date": "2026-07-31",
+      "locale": "zh",
+      "slug": "gptoapk-how-to-use",
+      "title": "gptoapk 使用教程：从 Play 链接到 APK 下载",
+      "keywords": [
+        "gptoapk",
+        "APK 下载器"
+      ],
+      "syndication": {
+        "auto": [
+          "indexnow",
+          "baidu"
+        ],
+        "manual": [
+          "zhihu",
+          "csdn",
+          "juejin"
+        ]
+      },
+      "canonicalPath": "/zh/blog/gptoapk-how-to-use",
+      "status": "pending"
+    },
+    {
+      "date": "2026-08-01",
+      "locale": "en",
+      "slug": "chatgpt-apk-without-google-play",
+      "title": "How to Install ChatGPT APK Without Google Play (2026)",
+      "keywords": [
+        "ChatGPT APK",
+        "Google Play"
+      ],
+      "syndication": {
+        "auto": [
+          "indexnow",
+          "blogger",
+          "substack",
+          "tumblr"
+        ],
+        "manual": [
+          "linkedin"
+        ]
+      },
+      "canonicalPath": "/en/blog/chatgpt-apk-without-google-play",
+      "status": "pending"
+    },
+    {
+      "date": "2026-08-02",
+      "locale": "en",
+      "slug": "apk-parse-error-fix-2026",
+      "title": "APK Parse Error Fix: There Was a Problem Parsing the Package",
+      "keywords": [
+        "APK parse error",
+        "Android"
+      ],
+      "syndication": {
+        "auto": [
+          "indexnow",
+          "blogger",
+          "substack",
+          "tumblr"
+        ],
+        "manual": [
+          "linkedin"
+        ]
+      },
+      "canonicalPath": "/en/blog/apk-parse-error-fix-2026",
+      "status": "pending"
+    },
+    {
+      "date": "2026-08-03",
+      "locale": "zh",
+      "slug": "xiaomi-sideload-settings",
+      "title": "小米手机允许安装未知应用与侧载设置",
+      "keywords": [
+        "小米",
+        "侧载",
+        "APK"
+      ],
+      "syndication": {
+        "auto": [
+          "indexnow",
+          "baidu"
+        ],
+        "manual": [
+          "zhihu",
+          "csdn",
+          "juejin"
+        ]
+      },
+      "canonicalPath": "/zh/blog/xiaomi-sideload-settings",
+      "status": "pending"
+    },
+    {
+      "date": "2026-08-04",
+      "locale": "zh",
+      "slug": "huawei-overseas-ai-apps",
+      "title": "华为手机安装海外 AI 应用（ChatGPT/Gemini）",
+      "keywords": [
+        "华为",
+        "ChatGPT",
+        "APK"
+      ],
+      "syndication": {
+        "auto": [
+          "indexnow",
+          "baidu"
+        ],
+        "manual": [
+          "zhihu",
+          "csdn",
+          "juejin"
+        ]
+      },
+      "canonicalPath": "/zh/blog/huawei-overseas-ai-apps",
+      "status": "pending"
+    },
+    {
+      "date": "2026-08-05",
+      "locale": "zh",
+      "slug": "apk-vs-aab-explained-zh",
+      "title": "APK 和 AAB 有什么区别？普通用户该下哪种",
+      "keywords": [
+        "APK",
+        "AAB",
+        "Android"
+      ],
+      "syndication": {
+        "auto": [
+          "indexnow",
+          "baidu"
+        ],
+        "manual": [
+          "zhihu",
+          "csdn",
+          "juejin"
+        ]
+      },
+      "canonicalPath": "/zh/blog/apk-vs-aab-explained-zh",
+      "status": "pending"
+    },
+    {
+      "date": "2026-08-06",
+      "locale": "zh",
+      "slug": "extract-apk-from-play-link",
+      "title": "从 Google Play 分享链接提取 APK 的步骤",
+      "keywords": [
+        "Google Play",
+        "APK 提取"
+      ],
+      "syndication": {
+        "auto": [
+          "indexnow",
+          "baidu"
+        ],
+        "manual": [
+          "zhihu",
+          "csdn",
+          "juejin"
+        ]
+      },
+      "canonicalPath": "/zh/blog/extract-apk-from-play-link",
+      "status": "pending"
+    },
+    {
+      "date": "2026-08-07",
+      "locale": "zh",
+      "slug": "vpn-apk-risk-notice-zh",
+      "title": "VPN 类 APK 下载风险提示与合规说明",
+      "keywords": [
+        "VPN APK",
+        "安全"
+      ],
+      "syndication": {
+        "auto": [
+          "indexnow",
+          "baidu"
+        ],
+        "manual": [
+          "zhihu",
+          "csdn",
+          "juejin"
+        ]
+      },
+      "canonicalPath": "/zh/blog/vpn-apk-risk-notice-zh",
+      "status": "pending"
+    },
+    {
+      "date": "2026-08-08",
+      "locale": "en",
+      "slug": "telegram-apk-safe-install",
+      "title": "Install Telegram APK on Android: Safe Step-by-Step Guide",
+      "keywords": [
+        "Telegram APK"
+      ],
+      "syndication": {
+        "auto": [
+          "indexnow",
+          "blogger",
+          "substack",
+          "tumblr"
+        ],
+        "manual": [
+          "linkedin"
+        ]
+      },
+      "canonicalPath": "/en/blog/telegram-apk-safe-install",
+      "status": "pending"
+    },
+    {
+      "date": "2026-08-09",
+      "locale": "en",
+      "slug": "tiktok-apk-download-guide-en",
+      "title": "TikTok APK Download Guide for Android (2026)",
+      "keywords": [
+        "TikTok APK"
+      ],
+      "syndication": {
+        "auto": [
+          "indexnow",
+          "blogger",
+          "substack",
+          "tumblr"
+        ],
+        "manual": [
+          "linkedin"
+        ]
+      },
+      "canonicalPath": "/en/blog/tiktok-apk-download-guide-en",
+      "status": "pending"
+    },
+    {
+      "date": "2026-08-10",
+      "locale": "zh",
+      "slug": "china-ai-assistant-compare-2026",
+      "title": "2026 国内 AI 助手 APK 横评：豆包 vs 元宝 vs DeepSeek",
+      "keywords": [
+        "AI 助手",
+        "APK 对比"
+      ],
+      "syndication": {
+        "auto": [
+          "indexnow",
+          "baidu"
+        ],
+        "manual": [
+          "zhihu",
+          "csdn",
+          "juejin"
+        ]
+      },
+      "canonicalPath": "/zh/blog/china-ai-assistant-compare-2026",
+      "status": "pending"
+    },
+    {
+      "date": "2026-08-11",
+      "locale": "zh",
+      "slug": "instagram-apk-install-zh",
+      "title": "Instagram APK 安装与无法登录排查",
+      "keywords": [
+        "Instagram APK"
+      ],
+      "syndication": {
+        "auto": [
+          "indexnow",
+          "baidu"
+        ],
+        "manual": [
+          "zhihu",
+          "csdn",
+          "juejin"
+        ]
+      },
+      "canonicalPath": "/zh/blog/instagram-apk-install-zh",
+      "status": "pending"
+    },
+    {
+      "date": "2026-08-12",
+      "locale": "zh",
+      "slug": "whatsapp-apk-update-failed",
+      "title": "WhatsApp APK 更新失败/无法安装的解决办法",
+      "keywords": [
+        "WhatsApp APK"
+      ],
+      "syndication": {
+        "auto": [
+          "indexnow",
+          "baidu"
+        ],
+        "manual": [
+          "zhihu",
+          "csdn",
+          "juejin"
+        ]
+      },
+      "canonicalPath": "/zh/blog/whatsapp-apk-update-failed",
+      "status": "pending"
+    },
+    {
+      "date": "2026-08-13",
+      "locale": "zh",
+      "slug": "clear-play-cache-not-working",
+      "title": "清理 Google Play 缓存无效时还能怎么做",
+      "keywords": [
+        "Google Play",
+        "故障"
+      ],
+      "syndication": {
+        "auto": [
+          "indexnow",
+          "baidu"
+        ],
+        "manual": [
+          "zhihu",
+          "csdn",
+          "juejin"
+        ]
+      },
+      "canonicalPath": "/zh/blog/clear-play-cache-not-working",
+      "status": "pending"
+    },
+    {
+      "date": "2026-08-14",
+      "locale": "zh",
+      "slug": "fake-apk-how-to-spot",
+      "title": "如何识别假 APK：签名、包名与来源核对",
+      "keywords": [
+        "假 APK",
+        "安全"
+      ],
+      "syndication": {
+        "auto": [
+          "indexnow",
+          "baidu"
+        ],
+        "manual": [
+          "zhihu",
+          "csdn",
+          "juejin"
+        ]
+      },
+      "canonicalPath": "/zh/blog/fake-apk-how-to-spot",
+      "status": "pending"
+    },
+    {
+      "date": "2026-08-15",
+      "locale": "en",
+      "slug": "unknown-sources-samsung-xiaomi",
+      "title": "Enable Unknown Sources on Samsung and Xiaomi",
+      "keywords": [
+        "unknown sources",
+        "APK"
+      ],
+      "syndication": {
+        "auto": [
+          "indexnow",
+          "blogger",
+          "substack",
+          "tumblr"
+        ],
+        "manual": [
+          "linkedin"
+        ]
+      },
+      "canonicalPath": "/en/blog/unknown-sources-samsung-xiaomi",
+      "status": "pending"
+    },
+    {
+      "date": "2026-08-16",
+      "locale": "en",
+      "slug": "best-apk-downloader-tools-2026",
+      "title": "Best APK Downloader Tools Compared (2026)",
+      "keywords": [
+        "APK downloader"
+      ],
+      "syndication": {
+        "auto": [
+          "indexnow",
+          "blogger",
+          "substack",
+          "tumblr"
+        ],
+        "manual": [
+          "linkedin"
+        ]
+      },
+      "canonicalPath": "/en/blog/best-apk-downloader-tools-2026",
+      "status": "pending"
+    },
+    {
+      "date": "2026-08-17",
+      "locale": "zh",
+      "slug": "google-play-not-open-2026",
+      "title": "Google Play 打不开/无法连接？2026 华为小米通用解法",
+      "keywords": [
+        "Google Play 打不开",
+        "华为",
+        "小米",
+        "APK"
+      ],
+      "syndication": {
+        "auto": [
+          "indexnow",
+          "baidu"
+        ],
+        "manual": [
+          "zhihu",
+          "csdn",
+          "juejin"
+        ]
+      },
+      "canonicalPath": "/zh/blog/google-play-not-open-2026",
+      "status": "pending"
+    },
+    {
+      "date": "2026-08-18",
+      "locale": "zh",
+      "slug": "chatgpt-apk-without-play-store",
+      "title": "ChatGPT APK 无法从 Google Play 下载怎么办（2026）",
+      "keywords": [
+        "ChatGPT APK",
+        "Google Play",
+        "安装"
+      ],
+      "syndication": {
+        "auto": [
+          "indexnow",
+          "baidu"
+        ],
+        "manual": [
+          "zhihu",
+          "csdn",
+          "juejin"
+        ]
+      },
+      "canonicalPath": "/zh/blog/chatgpt-apk-without-play-store",
+      "status": "pending"
+    },
+    {
+      "date": "2026-08-19",
+      "locale": "zh",
+      "slug": "apk-install-error-codes-2026",
+      "title": "APK 安装失败错误代码大全：解析错误与 INSTALL_FAILED",
+      "keywords": [
+        "APK 安装失败",
+        "解析错误",
+        "安卓"
+      ],
+      "syndication": {
+        "auto": [
+          "indexnow",
+          "baidu"
+        ],
+        "manual": [
+          "zhihu",
+          "csdn",
+          "juejin"
+        ]
+      },
+      "canonicalPath": "/zh/blog/apk-install-error-codes-2026",
+      "status": "pending"
+    },
+    {
+      "date": "2026-08-20",
+      "locale": "zh",
+      "slug": "china-ai-apk-package-names",
+      "title": "豆包/元宝/DeepSeek/Kimi/通义千问 APK 包名核对指南",
+      "keywords": [
+        "豆包",
+        "DeepSeek",
+        "APK 包名"
+      ],
+      "syndication": {
+        "auto": [
+          "indexnow",
+          "baidu"
+        ],
+        "manual": [
+          "zhihu",
+          "csdn",
+          "juejin"
+        ]
+      },
+      "canonicalPath": "/zh/blog/china-ai-apk-package-names",
+      "status": "pending"
+    },
+    {
+      "date": "2026-08-21",
+      "locale": "zh",
+      "slug": "social-apk-safe-install-2026",
+      "title": "Instagram/TikTok/WhatsApp/Telegram APK 安全安装清单",
+      "keywords": [
+        "TikTok APK",
+        "WhatsApp",
+        "安全"
+      ],
+      "syndication": {
+        "auto": [
+          "indexnow",
+          "baidu"
+        ],
+        "manual": [
+          "zhihu",
+          "csdn",
+          "juejin"
+        ]
+      },
+      "canonicalPath": "/zh/blog/social-apk-safe-install-2026",
+      "status": "pending"
+    },
+    {
+      "date": "2026-08-22",
+      "locale": "en",
+      "slug": "verify-apk-signature-guide",
+      "title": "How to Verify APK Signature Before Installing",
+      "keywords": [
+        "APK signature"
+      ],
+      "syndication": {
+        "auto": [
+          "indexnow",
+          "blogger",
+          "substack",
+          "tumblr"
+        ],
+        "manual": [
+          "linkedin"
+        ]
+      },
+      "canonicalPath": "/en/blog/verify-apk-signature-guide",
+      "status": "pending"
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+---
+description: Daily SEO content workflow (queue, drafts, syndication A+B)
+alwaysApply: true
+---
+
+# Daily content (gptoapk)
+
+When the user says **写今天的**, **发今天的**, **今日内容**, or opens a `daily-content` GitHub Issue:
+
+1. Read `content/queue/2026-Q2.json` + `content/queue/status.json` for **Asia/Shanghai today** (`node scripts/content-queue.mjs today`).
+2. Full plan: `docs/content-marketing-plan.md`.
+
+## Write (方式 A)
+
+- Create `content/drafts/{date}-{locale}-{slug}.md` from `content/drafts/TEMPLATE.md`.
+- zh: 1200–1800 字；en: 1000–1500 字；内链 3 条到 gptoapk 工具页与相关 `*-apk`。
+- Integrate into `src/app/{locale}/blog/` (list + `[slug]/page.tsx`) matching existing post patterns.
+- Run `node scripts/generate-syndication-pack.mjs` after draft exists.
+
+## Publish split
+
+| Who | What |
+|-----|------|
+| **Agent / CI auto** | git push, Vercel, IndexNow, Baidu (cron), Blogger/Substack/Tumblr when secrets set |
+| **User manual** | 知乎、CSDN、掘金 — copy from `content/syndication/zh/{date}.md` |
+
+## After site publish
+
+```bash
+node scripts/content-queue.mjs mark published YYYY-MM-DD
+```
+
+Commit message may include `[syndicate]` to trigger optional external publish workflow.
+
+## Do not
+
+- Batch-publish 33-language thin translations.
+- Full-text syndicate to third parties (summary + canonical link only).
