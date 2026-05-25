@@ -11,6 +11,11 @@ import { analyticsEvents } from "@/lib/analytics-events";
 import { trackEvent } from "@/lib/client-analytics";
 import DownloadButton from "@/components/DownloadButton";
 import AdPlacement from "@/components/AdPlacement";
+import {
+  getSearchCacheKey,
+  SEARCH_RESET_EVENT,
+  shouldRestoreSearchFromCache,
+} from "@/lib/search-cache";
 
 type QueryType = "url" | "package" | "keyword";
 
@@ -50,7 +55,6 @@ type SearchCache = {
 };
 
 const PACKAGE_NAME_REGEX = /^[a-zA-Z][a-zA-Z0-9_]*(?:\.[a-zA-Z][a-zA-Z0-9_]*)+$/;
-const SEARCH_CACHE_PREFIX = "gptoapk.searchState:";
 
 function getInputType(value: string) {
   if (!value) return "empty";
@@ -115,10 +119,6 @@ function getMetaItems(app: SearchResult) {
   ].filter(Boolean);
 }
 
-function getSearchCacheKey(pathname: string) {
-  return `${SEARCH_CACHE_PREFIX}${pathname}`;
-}
-
 function isSearchCache(value: unknown): value is SearchCache {
   if (!value || typeof value !== "object") return false;
   const cache = value as Partial<SearchCache>;
@@ -172,12 +172,34 @@ export default function SearchBox() {
   const copy = getLocalizedCopy(locale);
   const cacheKey = getSearchCacheKey(pathname);
 
-  useEffect(() => {
-    const cache = readSearchCache(cacheKey);
-    if (!cache?.results.length) return;
+  const resetSearchState = () => {
+    setUrl("");
+    setResults([]);
+    setQueryType(null);
+    setResultLang("en");
+    setResultCountry("us");
+    setError("");
+    setIsFetching(false);
+    clearSearchCache(cacheKey);
+  };
 
-    let scrollFrame: number | undefined;
-    const restoreFrame = requestAnimationFrame(() => {
+  useEffect(() => {
+    const onReset = (event: Event) => {
+      const detail = (event as CustomEvent<{ pathname?: string }>).detail;
+      if (detail?.pathname && detail.pathname !== pathname) return;
+      resetSearchState();
+    };
+
+    window.addEventListener(SEARCH_RESET_EVENT, onReset);
+    return () => window.removeEventListener(SEARCH_RESET_EVENT, onReset);
+  }, [cacheKey, pathname]);
+
+  useEffect(() => {
+    const restoreFromCache = () => {
+      if (!shouldRestoreSearchFromCache()) return;
+      const cache = readSearchCache(cacheKey);
+      if (!cache?.results.length) return;
+
       setUrl(cache.query);
       setResults(cache.results);
       setQueryType(cache.queryType);
@@ -186,16 +208,20 @@ export default function SearchBox() {
       setError("");
 
       if (typeof cache.scrollY === "number") {
-        scrollFrame = requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
           window.scrollTo({ top: cache.scrollY, behavior: "auto" });
         });
       }
-    });
-
-    return () => {
-      cancelAnimationFrame(restoreFrame);
-      if (scrollFrame) cancelAnimationFrame(scrollFrame);
     };
+
+    restoreFromCache();
+
+    const onPageShow = (event: PageTransitionEvent) => {
+      if (event.persisted) restoreFromCache();
+    };
+
+    window.addEventListener("pageshow", onPageShow);
+    return () => window.removeEventListener("pageshow", onPageShow);
   }, [cacheKey]);
 
   const handleGenerate = async () => {

@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useState, useRef, useEffect } from "react";
 import { LANGUAGE_SWITCHER_ITEMS } from "@/lib/language-menu";
 import { isRtlLocale, localePathRegex, type SiteLocale } from "@/lib/site-locales";
+import { dispatchSearchReset } from "@/lib/search-cache";
 
 const zhBlogSlugs = new Set([
   "how-to-download-apk-from-google-play",
@@ -59,6 +60,10 @@ export default function Header() {
   const homeHref = `/${currentLocale}`;
   const blogHref = `/${currentLocale}/blog`;
   const faqHref = `/${currentLocale}/faq`;
+
+  const goHome = () => {
+    dispatchSearchReset(homeHref);
+  };
 
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -159,6 +164,7 @@ export default function Header() {
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
         <Link
           href={homeHref}
+          onClick={goHome}
           className="flex items-center gap-2 font-bold text-xl tracking-tight text-blue-600 dark:text-blue-400"
         >
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
@@ -167,7 +173,7 @@ export default function Header() {
           APK Downloader
         </Link>
         <nav className="flex items-center gap-6 text-sm font-medium">
-          <Link href={homeHref} className="hover:text-blue-600 transition-colors">
+          <Link href={homeHref} onClick={goHome} className="hover:text-blue-600 transition-colors">
             {labels.home}
           </Link>
           <Link href={blogHref} className="hover:text-blue-600 transition-colors">

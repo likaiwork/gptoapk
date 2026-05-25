@@ -51,7 +51,7 @@ const posts: BlogPost[] = [
           <li>Copy the app&apos;s URL from your browser&apos;s address bar (looks like <code>https://play.google.com/store/apps/details?id=com.example.app</code>)</li>
           <li>Or just copy the package name (e.g., <code>com.example.app</code>)</li>
           <li>Paste it into the input box on <a href="https://www.gptoapk.com">gptoapk.com</a></li>
-          <li>Click &quot;Generate Link&quot;</li>
+          <li>Click 'Generate Link'</li>
           <li>Your APK download link is ready instantly</li>
         </ol>
         <p><strong>No registration required. No captchas. Completely free.</strong></p>
@@ -79,7 +79,7 @@ adb pull [path-from-above]`}</code></pre>
 
         <h2>Tips for Safe APK Installation</h2>
         <ol>
-          <li>Enable &quot;Install from Unknown Sources&quot; in your device settings</li>
+          <li>Enable 'Install from Unknown Sources' in your device settings</li>
           <li>Check app permissions before installing</li>
           <li>Verify file integrity — compare SHA-256 hashes if available</li>
           <li>Use trusted APK downloader tools only — avoid sketchy sites</li>
@@ -268,27 +268,27 @@ adb pull [path-from-above]`}</code></pre>
         <p><strong>Option A — Download directly on your phone:</strong> Open <a href="https://www.gptoapk.com">gptoapk.com</a> in your mobile browser. The APK will be saved to your Downloads folder.</p>
         <p><strong>Option B — Download on PC then transfer:</strong> Use USB cable, cloud storage, or messaging apps to move the APK to your phone.</p>
 
-        <h2>Step 3: Enable &quot;Install from Unknown Sources&quot;</h2>
+        <h2>Step 3: Enable 'Install from Unknown Sources'</h2>
         <p>Different phone manufacturers have different settings paths:</p>
         <ul>
-          <li><strong>Xiaomi MIUI:</strong> Settings → Security → Install unknown apps → Allow &quot;File Manager&quot;</li>
-          <li><strong>Huawei/HarmonyOS:</strong> Settings → Security → Install external apps → Enable &quot;File Manager&quot;</li>
-          <li><strong>Samsung One UI:</strong> Settings → Biometrics and security → Install unknown apps → Enable &quot;My Files&quot;</li>
-          <li><strong>Stock Android:</strong> Settings → Apps → Special app access → Install unknown apps → Enable &quot;Files&quot;</li>
+          <li><strong>Xiaomi MIUI:</strong> Settings → Security → Install unknown apps → Allow 'File Manager'</li>
+          <li><strong>Huawei/HarmonyOS:</strong> Settings → Security → Install external apps → Enable 'File Manager'</li>
+          <li><strong>Samsung One UI:</strong> Settings → Biometrics and security → Install unknown apps → Enable 'My Files'</li>
+          <li><strong>Stock Android:</strong> Settings → Apps → Special app access → Install unknown apps → Enable 'Files'</li>
         </ul>
 
         <h2>Step 4: Install the APK</h2>
         <ol>
-          <li>Open your Files app (usually called &quot;File Manager&quot;)</li>
+          <li>Open your Files app (usually called 'File Manager')</li>
           <li>Go to the Downloads folder</li>
           <li>Tap the APK file</li>
-          <li>Tap &quot;Install&quot; on the confirmation screen</li>
+          <li>Tap 'Install' on the confirmation screen</li>
           <li>Wait a few seconds — you&apos;re done!</li>
         </ol>
 
         <h2>Troubleshooting Common Issues</h2>
-        <p><strong>&quot;Parse error&quot;</strong> — The APK may be corrupted or incompatible with your Android version. Try downloading again from <a href="https://www.gptoapk.com">gptoapk.com</a>.</p>
-        <p><strong>&quot;App not installed&quot;</strong> — You may have a conflicting version installed. Uninstall the old version first, or make sure the new APK has the same signature.</p>
+        <p><strong>'Parse error'</strong> — The APK may be corrupted or incompatible with your Android version. Try downloading again from <a href="https://www.gptoapk.com">gptoapk.com</a>.</p>
+        <p><strong>'App not installed'</strong> — You may have a conflicting version installed. Uninstall the old version first, or make sure the new APK has the same signature.</p>
         <p><strong>Grayed-out install button</strong> — Close split-screen or pop-up overlays and try again.</p>
 
         <div className="bg-blue-50 dark:bg-blue-900/20 p-6 rounded-xl border border-blue-100 dark:border-blue-800 mt-8">
