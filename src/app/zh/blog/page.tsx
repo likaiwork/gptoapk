@@ -16,6 +16,15 @@ export const metadata: Metadata = {
 
 const posts = [
   {
+    slug: "google-play-not-open-2026",
+    title: "Google Play 打不开/无法连接？2026 华为小米通用解法",
+    description:
+      "先判断闪退、白屏还是无法连接，再按华为、小米、OPPO 分品牌排查。附 5 分钟快修清单与 APK 直装方案。",
+    date: "2026-05-25",
+    readTime: "11 分钟阅读",
+    tags: ["Google Play", "华为", "小米", "APK", "gptoapk"],
+  },
+  {
     slug: "google-play-cannot-open-fixes-2026",
     title: "Google Play 打不开/无法连接/进不去？2026 最新解决方法（华为/小米通用）",
     description: "Google Play 打不开怎么办？本文汇总了华为、小米、OPPO 等手机 Google Play 无法连接的 10 种解决方法，从清除缓存到 APK 直装。",
