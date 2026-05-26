@@ -23,7 +23,7 @@ export default function HomeZh() {
       </div>
 
       <div className="mt-12 max-w-3xl w-full">
-        <AdPlacement minHeight={100} label="广告" />
+        <AdPlacement minHeight={100} label="广告" loadInPagePush />
       </div>
 
       {/* Features */}

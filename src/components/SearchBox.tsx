@@ -10,7 +10,6 @@ import { proxyImageUrl } from "@/lib/image-proxy";
 import { analyticsEvents } from "@/lib/analytics-events";
 import { trackEvent } from "@/lib/client-analytics";
 import DownloadButton from "@/components/DownloadButton";
-import AdPlacement from "@/components/AdPlacement";
 import {
   getSearchCacheKey,
   SEARCH_RESET_EVENT,
@@ -469,8 +468,6 @@ export default function SearchBox() {
             </div>
           </div>
 
-          {/* Below search results — keep clear of Download buttons */}
-          <AdPlacement className="mt-8" minHeight={100} />
         </>
       )}
     </div>

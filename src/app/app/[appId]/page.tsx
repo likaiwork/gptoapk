@@ -4,7 +4,6 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import Script from "next/script";
 import DownloadButton from "@/components/DownloadButton";
-import AdPlacement from "@/components/AdPlacement";
 import { gplayRequestOptions as requestOptions } from "@/lib/proxy";
 import { proxyImageUrl } from "@/lib/image-proxy";
 
@@ -167,8 +166,6 @@ export default async function AppDownloadPage(props: { params: Promise<{ appId: 
           </div>
         </div>
       </div>
-
-      <AdPlacement className="mt-10 w-full" minHeight={100} />
 
       {/* Description Section */}
       <div className="mt-12 w-full">

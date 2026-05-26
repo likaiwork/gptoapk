@@ -24,7 +24,7 @@ export default function AdPlacement({
   className = "",
   minHeight = 90,
   label = "Advertisement",
-  loadInPagePush = true,
+  loadInPagePush = false,
   showPlaceholder = true,
 }: AdPlacementProps) {
   useEffect(() => {

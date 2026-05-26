@@ -23,7 +23,7 @@ export default function EnHome() {
       </div>
 
       <div className="mt-12 max-w-3xl w-full">
-        <AdPlacement minHeight={100} />
+        <AdPlacement minHeight={100} loadInPagePush />
       </div>
 
       {/* Features */}

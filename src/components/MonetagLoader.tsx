@@ -9,6 +9,7 @@ import {
 import {
   isMonetagExcludedPath,
   MONETAG_MAIN_ZONE,
+  MONETAG_MULTITAG_ENABLED,
   MONETAG_TAG_SCRIPT_SRC,
 } from "@/lib/monetag";
 
@@ -28,13 +29,14 @@ function injectMultiTagScript() {
 }
 
 /**
- * Sharp-witted MultiTag: Popunder + Push + In-Page Push + Vignette.
- * Loads after cookie consent. Matches Monetag install: tag.min.js + /sw.js.
+ * Optional MultiTag (Popunder + Push + Vignette). Off by default — see MONETAG_MULTITAG_ENABLED.
+ * In-page slots use {@link AdPlacement} instead.
  */
 export default function MonetagLoader() {
   const pathname = usePathname();
 
   useEffect(() => {
+    if (!MONETAG_MULTITAG_ENABLED) return;
     if (isMonetagExcludedPath(pathname)) return;
 
     const maybeLoad = () => {
