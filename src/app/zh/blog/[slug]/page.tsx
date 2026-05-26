@@ -15,6 +15,148 @@ interface BlogPost {
 
 const zhPosts: BlogPost[] = [
   {
+    slug: "chatgpt-apk-without-play-store",
+    title: "ChatGPT APK 无法从 Google Play 下载怎么办（2026）",
+    description:
+      "Play 搜不到或无法下载 ChatGPT？核对 OpenAI 与包名 com.openai.chatgpt，用 APK 安全安装，并了解登录与网络注意事项。",
+    date: "2026-05-26",
+    readTime: "10 分钟阅读",
+    tags: ["ChatGPT APK", "Google Play", "安装", "gptoapk"],
+    content: (
+      <>
+        <p className="lead">
+          想在安卓手机上用 <strong>ChatGPT</strong>，却在 Google Play 里搜不到、提示不可用，或商店根本打不开？在国内这很常见。本文说明原因、安装前要核对的<strong>包名与开发者</strong>，以及用 APK 安装的完整步骤与注意事项（2026）。
+        </p>
+
+        <div className="mb-8 border-l-4 border-blue-600 bg-blue-50 p-5 dark:bg-blue-950/30">
+          <p className="mb-2 text-sm font-semibold text-blue-700 dark:text-blue-300">快速答案</p>
+          <p className="leading-relaxed text-slate-700 dark:text-slate-200">
+            在{" "}
+            <Link href="/zh" className="text-blue-600 dark:text-blue-400 hover:underline">
+              gptoapk.com/zh
+            </Link>{" "}
+            搜索 <strong>ChatGPT</strong> 或包名 <code>com.openai.chatgpt</code>，确认开发者为 <strong>OpenAI</strong> 后下载 APK，并在设置中允许「未知来源」安装。
+          </p>
+        </div>
+
+        <h2>为什么 Google Play 下不了 ChatGPT？</h2>
+        <ul>
+          <li>
+            <strong>无法使用 Google Play</strong>：大陆地区通常无法直接访问 Play 商店。
+          </li>
+          <li>
+            <strong>地区与账号</strong>：Play 列表按地区分发，部分账号看不到 ChatGPT。
+          </li>
+          <li>
+            <strong>华为 / 荣耀无 GMS</strong>：没有完整谷歌服务时，Play 无法正常使用。
+          </li>
+          <li>
+            <strong>替代路径</strong>：在核对来源的前提下，通过 APK 安装官方应用是常见做法。
+          </li>
+        </ul>
+        <p>
+          若 Play 本身打不开，可先读{" "}
+          <Link href="/zh/blog/google-play-not-open-2026" className="text-blue-600 dark:text-blue-400 hover:underline">
+            Google Play 打不开分品牌排查
+          </Link>
+          。
+        </p>
+
+        <h2>安装前必核对（防假包）</h2>
+        <div className="overflow-x-auto my-6">
+          <table className="w-full border-collapse">
+            <thead>
+              <tr className="bg-gray-100 dark:bg-gray-800">
+                <th className="p-3 text-left border border-gray-200 dark:border-gray-700">项目</th>
+                <th className="p-3 text-left border border-gray-200 dark:border-gray-700">正确信息</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr className="border-b border-gray-200 dark:border-gray-700">
+                <td className="p-3 border border-gray-200 dark:border-gray-700">应用名称</td>
+                <td className="p-3 border border-gray-200 dark:border-gray-700">ChatGPT</td>
+              </tr>
+              <tr className="bg-gray-50 dark:bg-gray-800/50 border-b border-gray-200 dark:border-gray-700">
+                <td className="p-3 border border-gray-200 dark:border-gray-700">开发者</td>
+                <td className="p-3 border border-gray-200 dark:border-gray-700">OpenAI</td>
+              </tr>
+              <tr className="border-b border-gray-200 dark:border-gray-700">
+                <td className="p-3 border border-gray-200 dark:border-gray-700">包名</td>
+                <td className="p-3 border border-gray-200 dark:border-gray-700">
+                  <code>com.openai.chatgpt</code>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          名称相近的「GPT 助手」「免费 ChatGPT」等第三方应用，并非官方客户端。更多核对方法见{" "}
+          <Link href="/zh/blog/apk-signature-verification-security-guide" className="text-blue-600 dark:text-blue-400 hover:underline">
+            APK 签名与安全指南
+          </Link>
+          。
+        </p>
+
+        <h2>用 gptoapk 下载 ChatGPT APK（分步）</h2>
+        <ol>
+          <li>
+            手机浏览器打开{" "}
+            <Link href="/zh/chatgpt-apk" className="text-blue-600 dark:text-blue-400 hover:underline">
+              ChatGPT APK 专题页
+            </Link>{" "}
+            或{" "}
+            <Link href="/zh" className="text-blue-600 dark:text-blue-400 hover:underline">
+              首页搜索
+            </Link>
+            。
+          </li>
+          <li>
+            输入 <strong>ChatGPT</strong>，或粘贴 Google Play 分享链接（若你能从其他设备获取）。
+          </li>
+          <li>在结果页核对图标、开发者、包名后，点击下载 APK。</li>
+          <li>
+            设置 → 应用 → 特殊权限 → <strong>安装未知应用</strong> → 对你使用的浏览器/文件管理器允许安装。
+          </li>
+          <li>打开下载好的 APK 完成安装；若提示解析错误，请重新下载完整文件。</li>
+        </ol>
+        <p>
+          安装失败代码可参考{" "}
+          <Link href="/zh/blog/apk-install-failed-error-codes-guide" className="text-blue-600 dark:text-blue-400 hover:underline">
+            APK 安装失败错误大全
+          </Link>
+          。
+        </p>
+
+        <h2>装好之后：登录与网络</h2>
+        <p>
+          <strong>安装成功 ≠ 一定能登录。</strong> ChatGPT 需要访问 OpenAI 服务，请自行准备符合当地法规、可正常连接的网络环境。若仅无法使用 Play，也可对比国内 AI 应用，见{" "}
+          <Link href="/zh/china-apk-ai-search" className="text-blue-600 dark:text-blue-400 hover:underline">
+            国内 AI / 应用 APK 汇总
+          </Link>
+          。
+        </p>
+
+        <h2>常见问题</h2>
+        <h3>Play 里能看到 ChatGPT 但无法安装？</h3>
+        <p>可能是地区、账号或设备兼容性限制。可改用 APK，并确认 Android 版本满足应用要求。</p>
+        <h3>华为手机可以吗？</h3>
+        <p>可以安装 APK，但需自行解决谷歌服务或网络环境问题；华为用户也可先看 Play/GMS 相关排查文章。</p>
+        <h3>gptoapk 提供破解或免付费版吗？</h3>
+        <p>
+          不提供。仅协助获取<strong>免费应用</strong>在可信公开来源的安装包信息，请勿安装声称「破解会员」的修改版。
+        </p>
+
+        <h2>总结</h2>
+        <ol>
+          <li>Play 不可用或搜不到时，用 APK 是常见路径。</li>
+          <li>必须核对 OpenAI + 包名 <code>com.openai.chatgpt</code>。</li>
+          <li>在 gptoapk 搜索或贴 Play 链接生成下载入口。</li>
+          <li>安装后自行解决登录所需网络环境。</li>
+        </ol>
+      </>
+    ),
+  },
+  {
     slug: "google-play-not-open-2026",
     title: "Google Play 打不开/无法连接？2026 华为小米通用解法",
     description:

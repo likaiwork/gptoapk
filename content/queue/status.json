@@ -1,11 +1,30 @@
 {
-  "updatedAt": "2026-05-25T06:13:16.292Z",
+  "updatedAt": "2026-05-26T00:45:42.424Z",
+  "today": {
+    "date": "2026-05-26",
+    "locale": "zh",
+    "slug": "chatgpt-apk-without-play-store",
+    "title": "ChatGPT APK 无法从 Google Play 下载怎么办（2026）",
+    "keywords": [
+      "ChatGPT APK",
+      "Google Play",
+      "安装"
+    ],
+    "status": "drafted",
+    "draftPath": "content/drafts/2026-05-26-zh-chatgpt-apk-without-play-store.md"
+  },
   "byDate": {
     "2026-05-25": {
       "status": "published",
       "note": "",
       "publishedUrl": "https://www.gptoapk.com/zh/blog/google-play-not-open-2026",
       "at": "2026-05-25T06:13:16.292Z"
+    },
+    "2026-05-26": {
+      "status": "published",
+      "note": "",
+      "publishedUrl": "https://www.gptoapk.com/zh/blog/chatgpt-apk-without-play-store",
+      "at": "2026-05-26T00:45:42.424Z"
     }
   }
 }

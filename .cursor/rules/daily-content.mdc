@@ -16,6 +16,7 @@ When the user says **写今天的**, **发今天的**, **今日内容**, or open
 - zh: 1200–1800 字；en: 1000–1500 字；内链 3 条到 gptoapk 工具页与相关 `*-apk`。
 - Integrate into `src/app/{locale}/blog/` (list + `[slug]/page.tsx`) matching existing post patterns.
 - Run `node scripts/generate-syndication-pack.mjs` after draft exists.
+- Same-day short video: add `content/video-scripts/{date}-{slug}.md` (9:16, 60–90s, 剪映用).
 
 ## Publish split
 

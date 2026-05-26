@@ -16,6 +16,15 @@ export const metadata: Metadata = {
 
 const posts = [
   {
+    slug: "chatgpt-apk-without-play-store",
+    title: "ChatGPT APK 无法从 Google Play 下载怎么办（2026）",
+    description:
+      "Play 搜不到或无法下载 ChatGPT？核对 OpenAI 与包名 com.openai.chatgpt，用 APK 安全安装，并了解登录与网络注意事项。",
+    date: "2026-05-26",
+    readTime: "10 分钟阅读",
+    tags: ["ChatGPT APK", "Google Play", "安装", "gptoapk"],
+  },
+  {
     slug: "google-play-not-open-2026",
     title: "Google Play 打不开/无法连接？2026 华为小米通用解法",
     description:
