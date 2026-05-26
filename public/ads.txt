@@ -1,1 +1,2 @@
-google.com, pub-7016978419299209, DIRECT, f08c47fec0942fa0
+# Google AdSense is not active on this site.
+# Add your Monetag ads.txt line from: Monetag dashboard → Sites → ads.txt

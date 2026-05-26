@@ -52,7 +52,6 @@ export const metadata: Metadata = {
     google: undefined,
     yandex: undefined,
     other: {
-      "google-adsense-account": "ca-pub-7016978419299209",
       msvalidate: BING_VERIFICATION,
       sogou_site_verification: "GyoMVFI8X3",
     },
@@ -181,13 +180,6 @@ gtag('consent', 'default', {
   'wait_for_update': 500,
 });`,
           }}
-        />
-
-        {/* AdSense — consent defaults deny ads until the user accepts cookies */}
-        <script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7016978419299209"
-          crossOrigin="anonymous"
         />
 
         {/* Hreflang tags for all 33 languages */}

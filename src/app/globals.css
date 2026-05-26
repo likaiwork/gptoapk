@@ -35,9 +35,3 @@ body {
   contain: layout paint;
   max-width: 100%;
 }
-
-.ad-placement ins.adsbygoogle,
-.ad-unit ins.adsbygoogle {
-  display: block !important;
-  max-width: 100%;
-}

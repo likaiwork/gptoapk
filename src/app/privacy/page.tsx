@@ -42,7 +42,7 @@ export default function PrivacyPolicyPage() {
               <ul className="list-disc pl-6 space-y-1">
                 <li><strong>Essential cookies:</strong> necessary for the website to function properly (e.g., cookie consent preference).</li>
                 <li><strong>Analytics cookies:</strong> help us understand how visitors interact with the website (Google Analytics, Microsoft Clarity).</li>
-                <li><strong>Advertising cookies:</strong> used by Google AdSense and other advertising partners to serve relevant ads based on your interests and browsing history.</li>
+                <li><strong>Advertising cookies:</strong> used by our advertising partners to serve and measure ads on this site.</li>
               </ul>
               <p className="mt-3">
                 You can control and delete cookies through your browser settings. Note that disabling cookies may affect the functionality of certain features.
@@ -51,37 +51,24 @@ export default function PrivacyPolicyPage() {
           ),
         },
         {
-          title: "Google AdSense and advertising partners",
+          title: "Advertising partners",
           body: (
             <>
               <p>
-                We use Google AdSense to display advertisements on gptoapk.com. Google AdSense may use cookies and web beacons to collect information about your visits to this and other websites in order to provide advertisements about goods and services that may be of interest to you.
+                We display advertisements through third-party advertising partners (for example Monetag). These partners may use cookies or similar technologies to deliver ads, measure performance, and limit how often you see the same ad.
               </p>
               <ul className="list-disc pl-6 space-y-2 mt-2">
                 <li>
-                  Google, as a <strong>third-party vendor</strong>, uses cookies to serve ads on gptoapk.com.
+                  Ads load only after you choose <strong>Accept All</strong> in our cookie banner (where required).
                 </li>
                 <li>
-                  Google&apos;s use of the <strong>DART cookie</strong> enables it to serve ads to users based on their visit to gptoapk.com and other sites on the Internet.
+                  You can withdraw consent by clearing site data or using your browser&apos;s cookie controls.
                 </li>
                 <li>
-                  You may opt out of the DART cookie by visiting the Google ad and content network privacy policy at{" "}
-                  <a className="text-blue-600 hover:underline dark:text-blue-400" href="https://policies.google.com/technologies/ads" target="_blank" rel="noopener noreferrer">
-                    https://policies.google.com/technologies/ads
-                  </a>.
-                </li>
-                <li>
-                  You can manage personalized ad settings or opt out of personalized advertising through{" "}
-                  <a className="text-blue-600 hover:underline dark:text-blue-400" href="https://adssettings.google.com" target="_blank" rel="noopener noreferrer">
-                    Google Ad Settings
-                  </a>{" "}
-                  or the{" "}
+                  For industry opt-out tools, see the{" "}
                   <a className="text-blue-600 hover:underline dark:text-blue-400" href="https://www.aboutads.info/choices/" target="_blank" rel="noopener noreferrer">
                     Network Advertising Initiative opt-out page
                   </a>.
-                </li>
-                <li>
-                  Third-party vendors, including Google, may also serve ads based on a user&apos;s prior visits to this website.
                 </li>
               </ul>
             </>
@@ -115,7 +102,7 @@ export default function PrivacyPolicyPage() {
               <li>To process search queries and return app information</li>
               <li>To prepare APK download links from third-party sources</li>
               <li>To analyze website traffic and usage patterns</li>
-              <li>To serve advertisements through Google AdSense</li>
+              <li>To serve advertisements through our advertising partners</li>
               <li>To detect and prevent fraud, abuse, and security incidents</li>
               <li>To comply with legal obligations</li>
             </ul>
