@@ -6,6 +6,7 @@ import {
   COOKIE_CONSENT_STORAGE_KEY,
   hasAdvertisingConsent,
 } from "@/lib/cookie-consent";
+import { injectMonetagInPageScript } from "@/lib/monetag-inpage";
 import {
   isMonetagExcludedPath,
   MONETAG_MAIN_ZONE,
@@ -29,18 +30,22 @@ function injectMultiTagScript() {
 }
 
 /**
- * Optional MultiTag (Popunder + Push + Vignette). Off by default — see MONETAG_MULTITAG_ENABLED.
- * In-page slots use {@link AdPlacement} instead.
+ * Loads Monetag after cookie consent.
+ * Default: in-page banners only. Set NEXT_PUBLIC_MONETAG_MULTITAG=true for popunder/vignette.
  */
 export default function MonetagLoader() {
   const pathname = usePathname();
 
   useEffect(() => {
-    if (!MONETAG_MULTITAG_ENABLED) return;
     if (isMonetagExcludedPath(pathname)) return;
 
     const maybeLoad = () => {
-      if (hasAdvertisingConsent()) injectMultiTagScript();
+      if (!hasAdvertisingConsent()) return;
+      if (MONETAG_MULTITAG_ENABLED) {
+        injectMultiTagScript();
+      } else {
+        injectMonetagInPageScript();
+      }
     };
 
     maybeLoad();

@@ -44,8 +44,7 @@ export function isMonetagExcludedPath(pathname: string) {
     return true;
   }
 
-  // Home + search + app detail: users tap Download / links frequently
-  if (pathname === "/" || pathname === "/zh" || pathname === "/en") return true;
+  // App detail: keep clear of Download buttons
   if (pathname.startsWith("/app/")) return true;
   if (/^\/(zh|en|ja|ko|ru|pt|es|id|hi|fr|de|vi|ar|tr|it|nl|pl|uk|th|ms|sv|da|fi|nb|cs|ro|el|hu|bn|tl|he|fa|ur)\/app\//.test(pathname)) {
     return true;

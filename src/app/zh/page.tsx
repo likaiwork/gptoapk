@@ -1,5 +1,4 @@
 import SearchBox from "@/components/SearchBox";
-import AdPlacement from "@/components/AdPlacement";
 import Link from "next/link";
 
 export default function HomeZh() {
@@ -20,10 +19,6 @@ export default function HomeZh() {
         <p className="mx-auto max-w-2xl text-sm leading-6 text-slate-500 dark:text-slate-400">
           gptoapk.com 仅支持免费应用和可信公开来源，不提供付费应用、破解版或绕过购买限制的下载。
         </p>
-      </div>
-
-      <div className="mt-12 max-w-3xl w-full">
-        <AdPlacement minHeight={100} label="广告" loadInPagePush />
       </div>
 
       {/* Features */}

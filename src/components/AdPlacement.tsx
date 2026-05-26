@@ -2,9 +2,8 @@
 
 import { useEffect } from "react";
 import { hasAdvertisingConsent } from "@/lib/cookie-consent";
-import { MONETAG_MAIN_ZONE, monetagInPagePushScriptUrl } from "@/lib/monetag";
-
-const INPAGE_SCRIPT_ID = `monetag-inpage-${MONETAG_MAIN_ZONE}`;
+import { MONETAG_MAIN_ZONE } from "@/lib/monetag";
+import { injectMonetagInPageScript } from "@/lib/monetag-inpage";
 
 type AdPlacementProps = {
   className?: string;
@@ -24,19 +23,12 @@ export default function AdPlacement({
   className = "",
   minHeight = 90,
   label = "Advertisement",
-  loadInPagePush = false,
+  loadInPagePush = true,
   showPlaceholder = true,
 }: AdPlacementProps) {
   useEffect(() => {
     if (!loadInPagePush || !hasAdvertisingConsent()) return;
-    if (document.getElementById(INPAGE_SCRIPT_ID)) return;
-
-    const script = document.createElement("script");
-    script.id = INPAGE_SCRIPT_ID;
-    script.async = true;
-    script.setAttribute("data-cfasync", "false");
-    script.src = monetagInPagePushScriptUrl();
-    document.head.appendChild(script);
+    injectMonetagInPageScript();
   }, [loadInPagePush]);
 
   if (!showPlaceholder) {

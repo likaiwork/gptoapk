@@ -229,6 +229,8 @@
 目标：让页面更容易被 ChatGPT、Perplexity、Claude、Google AI Overviews 摘录和引用。
 
 - [x] 保持 `llms.txt` 更新，列出核心 hub 和高质量页面。
+- [x] 2026-05-26 中文日更：`/zh/blog/chatgpt-apk-without-play-store` 已发布；外链包 `content/syndication/zh/2026-05-26.md`。
+- [ ] **2026-05-27** 中文：`apk-install-error-codes-2026`（APK 安装失败错误代码）。
 - [ ] 每篇核心文章开头加 40-60 字直接答案。
 - [ ] 每个页面加入自然语言 FAQ。
 - [ ] 用表格表达对比和原因。

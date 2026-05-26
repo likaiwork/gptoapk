@@ -6,8 +6,8 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import AnalyticsRouteEvents from "@/components/AnalyticsRouteEvents";
 import CookieConsent from "@/components/CookieConsent";
-import AdSenseLoader from "@/components/AdSenseLoader";
 import MonetagLoader from "@/components/MonetagLoader";
+import SiteAdStrip from "@/components/SiteAdStrip";
 import "./globals.css";
 import { SITE_LOCALES, isRtlLocale } from "@/lib/site-locales";
 
@@ -183,6 +183,13 @@ gtag('consent', 'default', {
           }}
         />
 
+        {/* AdSense — consent defaults deny ads until the user accepts cookies */}
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7016978419299209"
+          crossOrigin="anonymous"
+        />
+
         {/* Hreflang tags for all 33 languages */}
         {HREFLANG_LOCALES.map((locale) => (
           <link
@@ -233,10 +240,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
         <Header />
         <main className="flex-1">{children}</main>
+        <SiteAdStrip />
         <Footer />
         <AnalyticsRouteEvents />
         <CookieConsent />
-        <AdSenseLoader />
         <MonetagLoader />
 
         <Script
