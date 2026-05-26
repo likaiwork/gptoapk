@@ -6,32 +6,12 @@ import {
   COOKIE_CONSENT_STORAGE_KEY,
   hasAdvertisingConsent,
 } from "@/lib/cookie-consent";
-import { injectMonetagInPageScript } from "@/lib/monetag-inpage";
-import {
-  isMonetagExcludedPath,
-  MONETAG_MAIN_ZONE,
-  MONETAG_MULTITAG_ENABLED,
-  MONETAG_TAG_SCRIPT_SRC,
-} from "@/lib/monetag";
-
-const MULTITAG_SCRIPT_ID = `monetag-multitag-${MONETAG_MAIN_ZONE}`;
-
-function injectMultiTagScript() {
-  if (typeof document === "undefined") return;
-  if (document.getElementById(MULTITAG_SCRIPT_ID)) return;
-
-  const script = document.createElement("script");
-  script.id = MULTITAG_SCRIPT_ID;
-  script.src = MONETAG_TAG_SCRIPT_SRC;
-  script.async = true;
-  script.setAttribute("data-cfasync", "false");
-  script.setAttribute("data-zone", String(MONETAG_MAIN_ZONE));
-  document.head.appendChild(script);
-}
+import { injectMonetagTagScript } from "@/lib/monetag-inpage";
+import { isMonetagExcludedPath } from "@/lib/monetag";
 
 /**
- * Loads Monetag after cookie consent.
- * Default: in-page banners only. Set NEXT_PUBLIC_MONETAG_MULTITAG=true for popunder/vignette.
+ * Loads Monetag tag.min.js after cookie consent (site-wide except download pages).
+ * Disable Onclick/Popunder in the Monetag dashboard if you only want in-page banners.
  */
 export default function MonetagLoader() {
   const pathname = usePathname();
@@ -41,11 +21,10 @@ export default function MonetagLoader() {
 
     const maybeLoad = () => {
       if (!hasAdvertisingConsent()) return;
-      if (MONETAG_MULTITAG_ENABLED) {
-        injectMultiTagScript();
-      } else {
-        injectMonetagInPageScript();
-      }
+      // Let React paint ad slots (SiteAdStrip) before the tag scans the DOM.
+      requestAnimationFrame(() => {
+        injectMonetagTagScript();
+      });
     };
 
     maybeLoad();

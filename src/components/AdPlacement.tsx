@@ -1,21 +1,17 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { hasAdvertisingConsent } from "@/lib/cookie-consent";
+import { COOKIE_CONSENT_STORAGE_KEY } from "@/lib/cookie-consent";
 import { MONETAG_MAIN_ZONE } from "@/lib/monetag";
-import { injectMonetagInPageScript } from "@/lib/monetag-inpage";
+import { injectMonetagTagScript } from "@/lib/monetag-inpage";
 
 type AdPlacementProps = {
   className?: string;
-  /** Minimum reserved height so layout does not jump */
   minHeight?: number;
   label?: string;
-  /**
-   * Load dedicated In-Page Push script for this slot.
-   * MultiTag in head may already show banners; enable for high-value content slots.
-   */
-  loadInPagePush?: boolean;
-  /** Show dashed placeholder before ad creative loads */
+  /** Reserve a slot and load the Monetag tag when consent is granted */
+  loadTag?: boolean;
   showPlaceholder?: boolean;
 };
 
@@ -23,24 +19,46 @@ export default function AdPlacement({
   className = "",
   minHeight = 90,
   label = "Advertisement",
-  loadInPagePush = true,
+  loadTag = true,
   showPlaceholder = true,
 }: AdPlacementProps) {
-  useEffect(() => {
-    if (!loadInPagePush || !hasAdvertisingConsent()) return;
-    injectMonetagInPageScript();
-  }, [loadInPagePush]);
+  const slotRef = useRef<HTMLDivElement>(null);
+  const [hasConsent, setHasConsent] = useState(false);
+  const [tagRequested, setTagRequested] = useState(false);
 
-  if (!showPlaceholder) {
-    return (
-      <div
-        className={`monetag-slot w-full ${className}`}
-        data-zone={MONETAG_MAIN_ZONE}
-        style={{ minHeight }}
-        aria-label={label}
-      />
-    );
-  }
+  useEffect(() => {
+    const sync = () => setHasConsent(hasAdvertisingConsent());
+    const onStorage = (event: StorageEvent) => {
+      if (event.key === COOKIE_CONSENT_STORAGE_KEY) sync();
+    };
+    sync();
+    window.addEventListener("gptoapk-cookie-consent", sync);
+    window.addEventListener("storage", onStorage);
+    return () => {
+      window.removeEventListener("gptoapk-cookie-consent", sync);
+      window.removeEventListener("storage", onStorage);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!loadTag || !hasConsent || tagRequested) return;
+    setTagRequested(true);
+    requestAnimationFrame(() => injectMonetagTagScript());
+  }, [loadTag, hasConsent, tagRequested]);
+
+  if (!hasConsent) return null;
+
+  const slot = (
+    <div
+      ref={slotRef}
+      className={`monetag-slot w-full ${className}`}
+      data-zone={MONETAG_MAIN_ZONE}
+      style={{ minHeight }}
+      aria-label={label}
+    />
+  );
+
+  if (!showPlaceholder) return slot;
 
   return (
     <aside
@@ -51,10 +69,7 @@ export default function AdPlacement({
       <p className="px-3 pt-2 text-[10px] font-medium uppercase tracking-wide text-slate-400">
         {label}
       </p>
-      <div
-        className="monetag-slot px-2 pb-2"
-        data-zone={MONETAG_MAIN_ZONE}
-      />
+      {slot}
     </aside>
   );
 }
