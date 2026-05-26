@@ -1,0 +1,32 @@
+{
+  "com.cloudflare.onedotonedotonedotone": {
+    "title": "1.1.1.1 + WARP",
+    "category": "vpn",
+    "note": "Major VPN/network apps are not distributed on public APK mirrors."
+  },
+  "com.nordvpn.android": {
+    "title": "NordVPN",
+    "category": "vpn",
+    "note": "VPN client APKs are rarely available from third-party mirrors."
+  },
+  "com.surfshark.vpnclient.android": {
+    "title": "Surfshark VPN",
+    "category": "vpn",
+    "note": "VPN client APKs are rarely available from third-party mirrors."
+  },
+  "com.expressvpn.vpn": {
+    "title": "ExpressVPN",
+    "category": "vpn",
+    "note": "VPN client APKs are rarely available from third-party mirrors."
+  },
+  "eu.klearly.pay": {
+    "title": "Klearly Pay",
+    "category": "unlisted",
+    "note": "No public APK mirror lists this package."
+  },
+  "sg.ndi.sp": {
+    "title": "NDI SP",
+    "category": "unlisted",
+    "note": "No public APK mirror lists this package."
+  }
+}

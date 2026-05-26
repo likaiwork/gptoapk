@@ -4,6 +4,10 @@ export const PAID_APP_UNSUPPORTED_CODE = "PAID_APP_UNSUPPORTED";
 export const PAID_APP_UNSUPPORTED_ADMIN_ERROR =
   "PAID_APP_UNSUPPORTED: Paid apps are not supported for APK download yet.";
 
+export const MIRROR_UNAVAILABLE_CODE = "MIRROR_UNAVAILABLE";
+export const MIRROR_UNAVAILABLE_ADMIN_ERROR =
+  "MIRROR_UNAVAILABLE: No public APK mirror currently lists this app.";
+
 export const paidAppUnsupportedMessages: Record<SiteLocale, string> = {
   en: "This is a paid app. Paid app downloads are not supported yet.",
   zh: "这是付费应用，暂时不支持付费应用下载。",
@@ -62,4 +66,44 @@ export function localeFromAcceptLanguage(value: string | null): SiteLocale {
 
 export function getPaidAppUnsupportedMessage(locale: SiteLocale | null | undefined): string {
   return paidAppUnsupportedMessages[locale ?? "en"] ?? paidAppUnsupportedMessages.en;
+}
+
+export const mirrorUnavailableMessages: Record<SiteLocale, string> = {
+  en: "This app is not available from public APK mirrors. Please install it from Google Play or the developer's official site.",
+  zh: "公共 APK 镜像站目前没有该应用，请从 Google Play 或开发者官网安装。",
+  ja: "公開 APK ミラーにこのアプリはありません。Google Play または公式サイトからインストールしてください。",
+  pt: "Este app não está disponível em espelhos públicos de APK. Instale pelo Google Play ou site oficial.",
+  es: "Esta app no está en mirrors públicos de APK. Instálala desde Google Play o el sitio oficial.",
+  ru: "Приложение недоступно в публичных APK-зеркалах. Установите из Google Play или с официального сайта.",
+  id: "Aplikasi ini tidak ada di mirror APK publik. Pasang dari Google Play atau situs resmi.",
+  hi: "यह ऐप सार्वजनिक APK mirrors पर उपलब्ध नहीं है। Google Play या आधिकारिक साइट से इंस्टॉल करें।",
+  ko: "공개 APK 미러에 이 앱이 없습니다. Google Play 또는 공식 사이트에서 설치하세요.",
+  fr: "Cette app n'est pas disponible sur les miroirs APK publics. Installez-la via Google Play ou le site officiel.",
+  de: "Diese App ist in öffentlichen APK-Spiegeln nicht verfügbar. Bitte über Google Play oder die offizielle Website installieren.",
+  vi: "Ứng dụng này không có trên mirror APK công khai. Hãy cài từ Google Play hoặc trang chính thức.",
+  ar: "التطبيق غير متوفر على مرايا APK العامة. ثبّته من Google Play أو الموقع الرسمي.",
+  tr: "Bu uygulama genel APK aynalarında yok. Google Play veya resmi siteden yükleyin.",
+  it: "Questa app non è disponibile su mirror APK pubblici. Installala da Google Play o dal sito ufficiale.",
+  nl: "Deze app staat niet op openbare APK-mirrors. Installeer via Google Play of de officiële site.",
+  pl: "Ta aplikacja nie jest dostępna w publicznych mirrorach APK. Zainstaluj z Google Play lub strony oficjalnej.",
+  uk: "Застосунок недоступний у публічних APK-дзеркалах. Встановіть з Google Play або офіційного сайту.",
+  th: "แอปนี้ไม่มีใน mirror APK สาธารณะ ติดตั้งจาก Google Play หรือเว็บไซต์ทางการ",
+  ms: "Apl ini tiada di cermin APK awam. Pasang dari Google Play atau laman rasmi.",
+  sv: "Appen finns inte på offentliga APK-speglar. Installera från Google Play eller officiella webbplatsen.",
+  da: "Denne app findes ikke på offentlige APK-spejle. Installer fra Google Play eller det officielle websted.",
+  fi: "Sovellusta ei ole julkisissa APK-peileissä. Asenna Google Playsta tai viralliselta sivustolta.",
+  nb: "Appen finnes ikke på offentlige APK-speil. Installer fra Google Play eller offisiell nettside.",
+  cs: "Aplikace není na veřejných APK zrcadlech. Nainstalujte z Google Play nebo oficiálního webu.",
+  ro: "Aplicația nu este pe oglinzi APK publice. Instalați din Google Play sau site-ul oficial.",
+  el: "Η εφαρμογή δεν υπάρχει σε δημόσιους καθρέπτες APK. Εγκαταστήστε από Google Play ή επίσημη ιστοσελίδα.",
+  hu: "Az alkalmazás nem érhető el nyilvános APK tükrökön. Telepítse a Google Playből vagy a hivatalos oldalról.",
+  bn: "এই অ্যাপ পাবলিক APK mirror-এ নেই। Google Play বা অফিসিয়াল সাইট থেকে ইনস্টল করুন।",
+  tl: "Wala ang app sa public APK mirrors. I-install mula sa Google Play o opisyal na site.",
+  he: "האפליקציה אינה זמינה במראות APK ציבוריות. התקינו מ-Google Play או מהאתר הרשמי.",
+  fa: "این برنامه در آینه‌های عمومی APK موجود نیست. از Google Play یا سایت رسمی نصب کنید.",
+  ur: "یہ app عوامی APK mirrors پر دستیاب نہیں۔ Google Play یا سرکاری سائٹ سے انسٹال کریں۔",
+};
+
+export function getMirrorUnavailableMessage(locale: SiteLocale | null | undefined): string {
+  return mirrorUnavailableMessages[locale ?? "en"] ?? mirrorUnavailableMessages.en;
 }

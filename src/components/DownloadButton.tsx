@@ -4,7 +4,12 @@ import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { analyticsEvents } from "@/lib/analytics-events";
 import { trackEvent } from "@/lib/client-analytics";
-import { getPaidAppUnsupportedMessage, PAID_APP_UNSUPPORTED_CODE } from "@/lib/download-errors";
+import {
+  getMirrorUnavailableMessage,
+  getPaidAppUnsupportedMessage,
+  MIRROR_UNAVAILABLE_CODE,
+  PAID_APP_UNSUPPORTED_CODE,
+} from "@/lib/download-errors";
 import { downloadUi } from "@/lib/download-ui";
 import { localePathRegex } from "@/lib/site-locales";
 import type { SiteLocale } from "@/lib/site-locales";
@@ -86,8 +91,10 @@ export default function DownloadButton({ appId, appName, compact = false }: Down
       if (!res.ok || !data.success || !data.downloadUrl) {
         const message = data.code === PAID_APP_UNSUPPORTED_CODE
           ? getPaidAppUnsupportedMessage(locale)
-          : data.error || "Failed to prepare download";
-        throw new Error(message);
+          : data.code === MIRROR_UNAVAILABLE_CODE
+            ? getMirrorUnavailableMessage(locale)
+            : data.error || "Failed to prepare download";
+        throw new Error(message, { cause: data.code });
       }
 
       const fileName = data.fileName || `${appId}.apk`;
@@ -144,26 +151,29 @@ export default function DownloadButton({ appId, appName, compact = false }: Down
       }, STARTED_RESET_MS);
     } catch (err: unknown) {
       const message = err instanceof Error ? err.message : "Download failed";
+      const skipFailureLog = err instanceof Error
+        && (err.cause === PAID_APP_UNSUPPORTED_CODE || err.cause === MIRROR_UNAVAILABLE_CODE);
       trackEvent(analyticsEvents.downloadPrepareFailed, {
         app_id: appId,
         reason: message,
         duration_ms: Math.round(performance.now() - startedAt),
       });
-      // 记录失败状态
-      fetch('/api/track-download', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          appId,
-          appTitle: appName || appId,
-          source: "",
-          downloadUrl: "",
-          version: "",
-          fileSize: "",
-          success: false,
-          error: message,
-        }),
-      }).catch(() => {});
+      if (!skipFailureLog) {
+        fetch('/api/track-download', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            appId,
+            appTitle: appName || appId,
+            source: "",
+            downloadUrl: "",
+            version: "",
+            fileSize: "",
+            success: false,
+            error: message,
+          }),
+        }).catch(() => {});
+      }
       if (intervalRef.current) clearInterval(intervalRef.current);
       setError(message);
       setStatus("idle");

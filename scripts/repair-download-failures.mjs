@@ -11,8 +11,13 @@ const JSON_OUTPUT = process.argv.includes("--json");
 const USER_AGENT = "gptoapk-download-repair/1.0";
 const PAID_APP_UNSUPPORTED_CODE = "PAID_APP_UNSUPPORTED";
 const PAID_APP_UNSUPPORTED_ADMIN_ERROR = "PAID_APP_UNSUPPORTED: Paid apps are not supported for APK download yet.";
+const MIRROR_UNAVAILABLE_CODE = "MIRROR_UNAVAILABLE";
+const MIRROR_UNAVAILABLE_ADMIN_ERROR = "MIRROR_UNAVAILABLE: No public APK mirror currently lists this app.";
 const unsupportedPaidApps = JSON.parse(
   fs.readFileSync(new URL("../src/lib/unsupported-paid-apps.json", import.meta.url), "utf8")
+);
+const unsupportedNoMirrorApps = JSON.parse(
+  fs.readFileSync(new URL("../src/lib/unsupported-no-mirror-apps.json", import.meta.url), "utf8")
 );
 
 function withTimeout(timeoutMs) {
@@ -73,6 +78,10 @@ function isVpnLike(item) {
 
 function getUnsupportedPaidApp(appId) {
   return unsupportedPaidApps[String(appId || "").trim().toLowerCase()] || null;
+}
+
+function getUnsupportedNoMirrorApp(appId) {
+  return unsupportedNoMirrorApps[String(appId || "").trim().toLowerCase()] || null;
 }
 
 async function loadFailureRows() {
@@ -161,6 +170,27 @@ async function markResolved(appId) {
   });
 }
 
+async function markMirrorUnavailable(item) {
+  const noMirror = getUnsupportedNoMirrorApp(item.app_id);
+  if (!noMirror) return { ok: false, skipped: true, status: 0, body: "" };
+
+  const currentError = String(item.last_error || "");
+  const currentSource = String(item.last_source || "");
+  if (currentError.includes(MIRROR_UNAVAILABLE_CODE) && currentSource === "no-mirror") {
+    return { ok: true, skipped: true, status: 200, body: "" };
+  }
+
+  return fetchJson(adminUrl("/api/admin/download-failures"), {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      appId: item.app_id,
+      error: MIRROR_UNAVAILABLE_ADMIN_ERROR,
+      source: "no-mirror",
+    }),
+  });
+}
+
 async function markPaidUnsupported(item) {
   const currentError = String(item.last_error || "");
   const currentSource = String(item.last_source || "");
@@ -180,6 +210,28 @@ async function markPaidUnsupported(item) {
 }
 
 async function inspectPackage(item) {
+  const noMirrorApp = getUnsupportedNoMirrorApp(item.app_id);
+  if (noMirrorApp) {
+    const mark = await markMirrorUnavailable(item);
+    return {
+      appId: item.app_id,
+      title: item.app_title || noMirrorApp.title || item.app_id,
+      failureCount: item.failure_count,
+      lastFailedAt: item.last_failed_at,
+      vpnLike: isVpnLike(item),
+      canDownload: false,
+      unsupportedReason: "no_mirror",
+      source: "no-mirror",
+      proxy: "",
+      downloadUrl: "",
+      fallbackDownloadUrl: "",
+      error: MIRROR_UNAVAILABLE_ADMIN_ERROR,
+      probes: [],
+      markedMirrorUnavailable: Boolean(mark.ok),
+      markError: mark.ok ? "" : `${mark.status} ${mark.body.slice(0, 160)}`,
+    };
+  }
+
   const paidApp = getUnsupportedPaidApp(item.app_id);
   if (paidApp) {
     const mark = await markPaidUnsupported(item);
@@ -301,7 +353,8 @@ async function main() {
     candidates: inspected,
     fixed: inspected.filter((item) => item.canDownload),
     blockedPaid: inspected.filter((item) => item.unsupportedReason === "paid_app"),
-    needsWork: inspected.filter((item) => !item.canDownload && item.unsupportedReason !== "paid_app"),
+    blockedNoMirror: inspected.filter((item) => item.unsupportedReason === "no_mirror"),
+    needsWork: inspected.filter((item) => !item.canDownload && item.unsupportedReason !== "paid_app" && item.unsupportedReason !== "no_mirror"),
     skippedVpnLike: inspected.filter((item) => item.vpnLike),
   };
 

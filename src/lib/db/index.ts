@@ -501,7 +501,14 @@ export async function logDownload(params: DownloadLogParams): Promise<boolean> {
     VALUES (${params.visitorId}, ${params.appId}, ${params.appTitle}, ${params.source}, ${params.downloadUrl}, ${params.version}, ${params.fileSize}, ${params.success}, NOW(), ${params.ipHash || ""})
   `;
 
-  if (!params.success && params.appId) {
+  const errorText = params.error || "";
+  const isExpectedBlockedFailure =
+    errorText.includes("PAID_APP_UNSUPPORTED") ||
+    errorText.includes("MIRROR_UNAVAILABLE") ||
+    errorText.includes("付费应用") ||
+    errorText.includes("public APK mirrors");
+
+  if (!params.success && params.appId && !isExpectedBlockedFailure) {
     await sql`
       INSERT INTO download_failure_apps (
         app_id,

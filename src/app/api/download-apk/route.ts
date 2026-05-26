@@ -1,14 +1,18 @@
 import { NextResponse } from 'next/server';
 import { getManualDownloadSource, initDatabase } from '@/lib/db';
 import {
+  getMirrorUnavailableMessage,
   getPaidAppUnsupportedMessage,
   localeFromAcceptLanguage,
   normalizeDownloadLocale,
+  MIRROR_UNAVAILABLE_ADMIN_ERROR,
+  MIRROR_UNAVAILABLE_CODE,
   PAID_APP_UNSUPPORTED_ADMIN_ERROR,
   PAID_APP_UNSUPPORTED_CODE,
 } from '@/lib/download-errors';
 import { fetchDispatcher } from '@/lib/proxy';
 import { analyticsEvents, trackServerEvent } from '@/lib/server-analytics';
+import { getUnsupportedNoMirrorApp } from '@/lib/unsupported-no-mirror-apps';
 import { getUnsupportedPaidApp } from '@/lib/unsupported-paid-apps';
 
 export const runtime = 'nodejs';
@@ -180,6 +184,27 @@ function createPaidAppUnsupportedResponse(request: Request, appId: string, start
     error: getPaidAppUnsupportedMessage(locale),
     adminError: PAID_APP_UNSUPPORTED_ADMIN_ERROR,
     appCategory: 'paid',
+  });
+}
+
+function createMirrorUnavailableResponse(request: Request, appId: string, startedAt: number, explicitLocale?: unknown) {
+  const blocked = getUnsupportedNoMirrorApp(appId);
+  const locale = getRequestLocale(request, explicitLocale);
+
+  void trackServerEvent(request, analyticsEvents.downloadFailed, {
+    app_id: appId,
+    stage: 'mirror_unavailable',
+    reason: MIRROR_UNAVAILABLE_CODE,
+    app_title: blocked?.title ?? appId,
+    duration_ms: Date.now() - startedAt,
+  });
+
+  return NextResponse.json({
+    success: false,
+    code: MIRROR_UNAVAILABLE_CODE,
+    error: getMirrorUnavailableMessage(locale),
+    adminError: MIRROR_UNAVAILABLE_ADMIN_ERROR,
+    appCategory: blocked?.category ?? 'unlisted',
   });
 }
 
@@ -517,6 +542,10 @@ export async function GET(request: Request) {
     return createPaidAppUnsupportedResponse(request, appId, startedAt);
   }
 
+  if (getUnsupportedNoMirrorApp(appId)) {
+    return createMirrorUnavailableResponse(request, appId, startedAt);
+  }
+
   const upstreamUrl = upstreamToken ? decodeUpstreamUrl(upstreamToken) : '';
   const result = upstreamUrl && isAllowedDownloadUrl(upstreamUrl)
     ? {
@@ -673,6 +702,10 @@ export async function POST(request: Request) {
 
     if (getUnsupportedPaidApp(cleanId)) {
       return createPaidAppUnsupportedResponse(request, cleanId, startedAt, locale);
+    }
+
+    if (getUnsupportedNoMirrorApp(cleanId)) {
+      return createMirrorUnavailableResponse(request, cleanId, startedAt, locale);
     }
 
     // Try Aptoide first (simpler, has CORS, fast metadata).
