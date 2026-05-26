@@ -16,6 +16,51 @@ export const metadata: Metadata = {
 
 const posts = [
   {
+    slug: "deepseek-apk-install",
+    title: "DeepSeek APK 下载与安装指南（2026 Android 最新版）",
+    description:
+      "DeepSeek 没有官方 Google Play 版本？本文教你从官网、GitHub 和第三方渠道获取 DeepSeek APK，并解决安装中常见问题。",
+    date: "2026-05-26",
+    readTime: "8 分钟阅读",
+    tags: ["DeepSeek APK", "AI 助手", "APK 下载", "gptoapk"],
+  },
+  {
+    slug: "grok-apk-install-guide",
+    title: "Grok APK 下载安装教程：手机上没有 Google Play 怎么用 xAI 的 AI 助手（2026）",
+    description:
+      "Grok 是 xAI 的 AI 助手，但 Google Play 下载受限。本文教你通过 APK 安装 Grok、解决地区限制和 GMS 依赖问题。",
+    date: "2026-05-26",
+    readTime: "9 分钟阅读",
+    tags: ["Grok APK", "xAI", "AI 助手", "APK 下载", "gptoapk"],
+  },
+  {
+    slug: "xiaohongshu-apk-overseas-install",
+    title: "小红书 APK 海外下载安装教程：在国外怎么装小红书（2026）",
+    description:
+      "在国外 Google Play 搜不到小红书？本文教你三种方法海外下载安装小红书 APK，以及海外版和国内版功能差异。",
+    date: "2026-05-26",
+    readTime: "8 分钟阅读",
+    tags: ["小红书 APK", "海外下载", "APK 安装", "gptoapk"],
+  },
+  {
+    slug: "tiktok-apk-latest-install",
+    title: "TikTok APK 最新版下载安装指南：区域限制解除与版本选择（2026）",
+    description:
+      "TikTok APK 下载时被区域限制？本文教你如何安装 TikTok、选择国际版还是国内版（抖音）、以及版本选择策略。",
+    date: "2026-05-26",
+    readTime: "10 分钟阅读",
+    tags: ["TikTok APK", "抖音", "区域限制", "APK 安装", "gptoapk"],
+  },
+  {
+    slug: "ai-translation-app-apk-recommend",
+    title: "AI 翻译 App APK 下载推荐：2026 年最好用的 5 款 AI 语音翻译安卓应用",
+    description:
+      "2026 年 AI 翻译 App 竞争白热化。本文推荐 5 款最好用的 AI 语音翻译安卓应用，附 APK 下载方式和功能对比。",
+    date: "2026-05-26",
+    readTime: "9 分钟阅读",
+    tags: ["AI 翻译", "翻译 App", "APK 下载", "安卓推荐", "gptoapk"],
+  },
+  {
     slug: "chatgpt-apk-without-play-store",
     title: "ChatGPT APK 无法从 Google Play 下载怎么办（2026）",
     description:
