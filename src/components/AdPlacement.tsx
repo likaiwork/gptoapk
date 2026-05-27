@@ -41,7 +41,15 @@ export default function AdPlacement({
   }, []);
 
   useEffect(() => {
+    const isMobile =
+      typeof window !== "undefined" &&
+      window.matchMedia("(max-width: 768px)").matches;
+
     if (!loadTag || !hasConsent || tagRequested) return;
+
+    // Temporary: avoid intrusive popups/push prompts on mobile.
+    if (isMobile) return;
+
     setTagRequested(true);
     requestAnimationFrame(() => injectMonetagTagScript());
   }, [loadTag, hasConsent, tagRequested]);
