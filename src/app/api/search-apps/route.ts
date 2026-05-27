@@ -2,7 +2,8 @@ import { NextResponse } from 'next/server';
 import gplay, { type IAppItem, type IAppItemFullDetail } from 'google-play-scraper';
 import { gplayRequestOptions as requestOptions } from '@/lib/proxy';
 import { proxyImageUrl } from '@/lib/image-proxy';
-import { getUnsupportedNoMirrorAppsByCategory } from '@/lib/unsupported-no-mirror-apps';
+import { isUnsupportedNoMirrorApp } from '@/lib/unsupported-no-mirror-apps';
+import { VPN_DOWNLOADABLE_APP_IDS } from '@/lib/vpn-downloadable-apps';
 
 export const runtime = 'nodejs';
 export const maxDuration = 60;
@@ -127,6 +128,37 @@ async function fetchExactApp(appId: string, lang: string, country: string) {
   );
 
   return toSearchResult(appInfo);
+}
+
+async function searchDownloadableVpnApps(
+  lang: string,
+  country: string,
+): Promise<SearchAppResult[]> {
+  const blocked = new Set<string>();
+  const merged: SearchAppResult[] = [];
+
+  const push = (item: SearchAppResult) => {
+    if (!item.appId || blocked.has(item.appId) || isUnsupportedNoMirrorApp(item.appId)) return;
+    blocked.add(item.appId);
+    merged.push(item);
+  };
+
+  try {
+    const fromSearch = await searchApps('vpn', lang, country);
+    for (const app of fromSearch) push(app);
+  } catch {
+    // searchApps may throw; curated list still applies
+  }
+
+  const curated = await Promise.allSettled(
+    VPN_DOWNLOADABLE_APP_IDS.map((appId) => fetchExactApp(appId, lang, country)),
+  );
+
+  for (const result of curated) {
+    if (result.status === 'fulfilled') push(result.value);
+  }
+
+  return merged.slice(0, SEARCH_RESULT_LIMIT);
 }
 
 async function searchApps(term: string, lang: string, country: string): Promise<SearchAppResult[]> {
@@ -274,34 +306,18 @@ export async function GET(request: Request) {
   const queryType = getQueryType(query);
 
   try {
-    // VPN keywords are notoriously inconsistent in Google Play search scraping.
-    // Provide deterministic fallback results so the UI never shows empty lists.
     if (queryType === 'keyword' && isVpnKeyword(query)) {
-      const vpnApps = getUnsupportedNoMirrorAppsByCategory('vpn');
-      if (vpnApps.length > 0) {
-        return NextResponse.json({
-          query,
-          queryType,
-          lang: requestedLang,
-          country: requestedCountry,
-          results: vpnApps.map((a) => ({
-            appId: a.appId,
-            title: a.title,
-            summary: a.note ?? null,
-            developer: null,
-            developerId: null,
-            icon: null,
-            score: null,
-            scoreText: null,
-            priceText: null,
-            free: null,
-            version: null,
-            size: null,
-            updated: null,
-            url: null,
-          })),
-        }, { headers: SUCCESS_CACHE_HEADERS });
+      const results = await searchDownloadableVpnApps(requestedLang, requestedCountry);
+      if (results.length === 0) {
+        return NextResponse.json({ error: 'No apps found' }, { status: 404 });
       }
+      return NextResponse.json({
+        query,
+        queryType,
+        lang: requestedLang,
+        country: requestedCountry,
+        results,
+      }, { headers: SUCCESS_CACHE_HEADERS });
     }
 
     if (queryType === 'url') {
@@ -331,7 +347,8 @@ export async function GET(request: Request) {
       }, { headers: SUCCESS_CACHE_HEADERS });
     }
 
-    const results = await searchApps(query, requestedLang, requestedCountry);
+    let results = await searchApps(query, requestedLang, requestedCountry);
+    results = results.filter((app) => !isUnsupportedNoMirrorApp(app.appId));
     if (results.length === 0) {
       return NextResponse.json({ error: 'No apps found' }, { status: 404 });
     }

@@ -10,6 +10,8 @@ import { proxyImageUrl } from "@/lib/image-proxy";
 import { analyticsEvents } from "@/lib/analytics-events";
 import { trackEvent } from "@/lib/client-analytics";
 import DownloadButton from "@/components/DownloadButton";
+import { getMirrorUnavailableMessage } from "@/lib/download-errors";
+import { isUnsupportedNoMirrorApp } from "@/lib/unsupported-no-mirror-apps";
 import {
   getSearchCacheKey,
   SEARCH_RESET_EVENT,
@@ -79,6 +81,8 @@ function getLocalizedCopy(locale: SiteLocale) {
       openDetails: "查看详情",
       noSummary: "暂无简介",
       fallbackLabel: "试试这个入口",
+      playStoreInstall: "前往 Google Play 安装",
+      vpnResultsNote: "以下为镜像站可下载的 VPN 应用（NordVPN 等大厂客户端通常不提供公开 APK）。",
     };
   }
 
@@ -92,7 +96,21 @@ function getLocalizedCopy(locale: SiteLocale) {
     openDetails: "View details",
     noSummary: "No summary available",
     fallbackLabel: "Try this page",
+    playStoreInstall: "Install from Google Play",
+    vpnResultsNote: "Showing VPN apps available from our download sources. Major brands like NordVPN are not on public mirrors.",
   };
+}
+
+function buildPlayStoreHref(appId: string, lang?: string, country?: string) {
+  const params = new URLSearchParams({ id: appId });
+  if (lang) params.set("hl", lang);
+  if (country) params.set("gl", country);
+  return `https://play.google.com/store/apps/details?${params.toString()}`;
+}
+
+function isVpnKeywordQuery(query: string) {
+  const q = query.trim().toLowerCase();
+  return q === "vpn" || q.includes("vpn") || q.includes("加速器") || q.includes("代理");
 }
 
 function getSearchFallback(query: string, locale: SiteLocale): SearchFallback | null {
@@ -444,6 +462,9 @@ export default function SearchBox() {
               <h2 className="text-lg font-bold text-slate-900 dark:text-white">
                 {resultHeading}
               </h2>
+              {isVpnKeywordQuery(url) && (
+                <p className="text-sm text-slate-600 dark:text-slate-300">{copy.vpnResultsNote}</p>
+              )}
             </div>
 
             <div className="divide-y divide-slate-100 dark:divide-slate-700">
@@ -451,6 +472,7 @@ export default function SearchBox() {
               const metaItems = getMetaItems(app);
               const developerHref = buildDeveloperHref(app.developerId, app.developer, resultLang, resultCountry);
               const iconUrl = proxyImageUrl(app.icon);
+              const mirrorBlocked = isUnsupportedNoMirrorApp(app.appId);
 
               return (
                 <article key={app.appId} className="flex flex-col gap-4 p-4 sm:flex-row sm:items-center sm:p-5">
@@ -504,7 +526,23 @@ export default function SearchBox() {
                     </div>
 
                     <div className="flex shrink-0 flex-col gap-2 sm:items-end">
-                      <DownloadButton appId={app.appId} appName={app.title} compact />
+                      {mirrorBlocked ? (
+                        <div className="w-full max-w-xs space-y-2 rounded-xl border border-amber-200 bg-amber-50 p-3 text-left dark:border-amber-900/50 dark:bg-amber-950/30">
+                          <p className="text-xs text-amber-900 dark:text-amber-100">
+                            {getMirrorUnavailableMessage(locale)}
+                          </p>
+                          <a
+                            href={buildPlayStoreHref(app.appId, resultLang, resultCountry)}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex w-full items-center justify-center rounded-lg bg-amber-500 px-3 py-2 text-sm font-bold text-white hover:bg-amber-600"
+                          >
+                            {copy.playStoreInstall}
+                          </a>
+                        </div>
+                      ) : (
+                        <DownloadButton appId={app.appId} appName={app.title} compact />
+                      )}
                       <Link
                         href={buildAppHref(app.appId, resultLang, resultCountry)}
                         onClick={saveCurrentSearchPosition}
