@@ -15,3 +15,19 @@ export function getUnsupportedNoMirrorApp(appId: string): UnsupportedNoMirrorApp
 export function isUnsupportedNoMirrorApp(appId: string): boolean {
   return Boolean(getUnsupportedNoMirrorApp(appId));
 }
+
+export function getUnsupportedNoMirrorAppsByCategory(
+  category: UnsupportedNoMirrorApp["category"],
+): Array<{ appId: string; title: string; category?: UnsupportedNoMirrorApp["category"]; note?: string }> {
+  const out: Array<{ appId: string; title: string; category?: UnsupportedNoMirrorApp["category"]; note?: string }> = [];
+  for (const [appId, app] of Object.entries(unsupportedNoMirrorApps)) {
+    if (!category) {
+      out.push({ appId, title: app.title, category: app.category, note: app.note });
+      continue;
+    }
+    if (app.category === category) {
+      out.push({ appId, title: app.title, category: app.category, note: app.note });
+    }
+  }
+  return out;
+}

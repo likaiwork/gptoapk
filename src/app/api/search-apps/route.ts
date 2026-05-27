@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import gplay, { type IAppItem, type IAppItemFullDetail } from 'google-play-scraper';
 import { gplayRequestOptions as requestOptions } from '@/lib/proxy';
 import { proxyImageUrl } from '@/lib/image-proxy';
+import { getUnsupportedNoMirrorAppsByCategory } from '@/lib/unsupported-no-mirror-apps';
 
 export const runtime = 'nodejs';
 export const maxDuration = 60;
@@ -79,6 +80,18 @@ function getQueryType(query: string): QueryType {
   if (query.includes('play.google.com')) return 'url';
   if (PACKAGE_NAME_REGEX.test(query)) return 'package';
   return 'keyword';
+}
+
+function isVpnKeyword(term: string): boolean {
+  const q = term.toLowerCase();
+  return (
+    q === 'vpn' ||
+    q.includes('vpn') ||
+    q.includes('virtual private network') ||
+    q.includes('加速器') ||
+    q.includes('翻墙') ||
+    q.includes('代理')
+  );
 }
 
 function getUpdatedDate(value: unknown) {
@@ -261,6 +274,36 @@ export async function GET(request: Request) {
   const queryType = getQueryType(query);
 
   try {
+    // VPN keywords are notoriously inconsistent in Google Play search scraping.
+    // Provide deterministic fallback results so the UI never shows empty lists.
+    if (queryType === 'keyword' && isVpnKeyword(query)) {
+      const vpnApps = getUnsupportedNoMirrorAppsByCategory('vpn');
+      if (vpnApps.length > 0) {
+        return NextResponse.json({
+          query,
+          queryType,
+          lang: requestedLang,
+          country: requestedCountry,
+          results: vpnApps.map((a) => ({
+            appId: a.appId,
+            title: a.title,
+            summary: a.note ?? null,
+            developer: null,
+            developerId: null,
+            icon: null,
+            score: null,
+            scoreText: null,
+            priceText: null,
+            free: null,
+            version: null,
+            size: null,
+            updated: null,
+            url: null,
+          })),
+        }, { headers: SUCCESS_CACHE_HEADERS });
+      }
+    }
+
     if (queryType === 'url') {
       const parsed = parseGooglePlayUrl(query);
       if (!parsed) {
