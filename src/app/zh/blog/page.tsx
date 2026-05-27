@@ -16,6 +16,15 @@ export const metadata: Metadata = {
 
 const posts = [
   {
+    slug: "apk-install-error-codes-2026",
+    title: "APK 安装失败错误代码大全：解析错误与 INSTALL_FAILED（2026）",
+    description:
+      "安卓 APK 装不上？对照解析错误、INSTALL_FAILED 与 (-11)(-28)(-29) 数字代码，按 MIUI/ColorOS 分步排查并重新下载完整包。",
+    date: "2026-05-27",
+    readTime: "12 分钟阅读",
+    tags: ["APK 安装失败", "解析错误", "INSTALL_FAILED", "gptoapk"],
+  },
+  {
     slug: "deepseek-apk-install",
     title: "DeepSeek APK 下载与安装指南（2026 Android 最新版）",
     description:

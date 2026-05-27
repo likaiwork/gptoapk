@@ -15,6 +15,178 @@ interface BlogPost {
 
 const zhPosts: BlogPost[] = [
   {
+    slug: "apk-install-error-codes-2026",
+    title: "APK 安装失败错误代码大全：解析错误与 INSTALL_FAILED（2026）",
+    description:
+      "安卓 APK 装不上？对照解析错误、INSTALL_FAILED 与 (-11)(-28)(-29) 数字代码，按 MIUI/ColorOS 分步排查并重新下载完整包。",
+    date: "2026-05-27",
+    readTime: "12 分钟阅读",
+    tags: ["APK 安装失败", "解析错误", "INSTALL_FAILED", "gptoapk"],
+    content: (
+      <>
+        <p className="lead">
+          下载好 APK，一点「安装」就弹出红字——<strong>「解析软件包时出现问题」</strong>、<strong>INSTALL_FAILED_…</strong> 或 <strong>安装失败 (-11)</strong>？这在 2026 年的小米、华为、OPPO、vivo 上尤其常见。本文按<strong>错误提示 → 原因 → 解决步骤</strong>整理，并说明何时应重新下载完整 APK。
+        </p>
+
+        <div className="mb-8 border-l-4 border-blue-600 bg-blue-50 p-5 dark:bg-blue-950/30">
+          <p className="mb-2 text-sm font-semibold text-blue-700 dark:text-blue-300">快速答案</p>
+          <p className="leading-relaxed text-slate-700 dark:text-slate-200">
+            ① 删除当前 APK，在{" "}
+            <Link href="/zh" className="text-blue-600 dark:text-blue-400 hover:underline">
+              gptoapk.com/zh
+            </Link>{" "}
+            重新下载；② 至少留出 <strong>2GB</strong> 可用空间；③ 签名冲突时<strong>先卸载旧版</strong>；④ MIUI/ColorOS 给浏览器开启「安装未知应用」。
+          </p>
+        </div>
+
+        <h2>安装前先做的 3 件事</h2>
+        <ol>
+          <li>
+            确认 APK 大小与来源页一致（文件过小多为<strong>下载中断</strong>）。
+          </li>
+          <li>
+            设置 → 应用 → 特殊权限 → <strong>安装未知应用</strong> → 对你使用的<strong>浏览器或文件管理器</strong>单独允许（Android 8+ 按应用授权，不是全局开关）。
+          </li>
+          <li>
+            若从 Play 分享链接下载，可先读{" "}
+            <Link href="/zh/blog/how-to-install-apk-on-android" className="text-blue-600 dark:text-blue-400 hover:underline">
+              Android 安装 APK 分步指南
+            </Link>
+            。
+          </li>
+        </ol>
+
+        <h2>常见错误对照表（2026）</h2>
+        <div className="overflow-x-auto my-6">
+          <table className="w-full border-collapse text-sm">
+            <thead>
+              <tr className="bg-gray-100 dark:bg-gray-800">
+                <th className="p-3 text-left border border-gray-200 dark:border-gray-700">你看到的提示</th>
+                <th className="p-3 text-left border border-gray-200 dark:border-gray-700">常见原因</th>
+                <th className="p-3 text-left border border-gray-200 dark:border-gray-700">优先处理</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr className="border-b border-gray-200 dark:border-gray-700">
+                <td className="p-3 border border-gray-200 dark:border-gray-700">解析软件包时出现问题</td>
+                <td className="p-3 border border-gray-200 dark:border-gray-700">APK 损坏、不完整；Android 版本低于 minSdk</td>
+                <td className="p-3 border border-gray-200 dark:border-gray-700">删包重下；换 Wi‑Fi；检查系统版本</td>
+              </tr>
+              <tr className="bg-gray-50 dark:bg-gray-800/50 border-b border-gray-200 dark:border-gray-700">
+                <td className="p-3 border border-gray-200 dark:border-gray-700">无效的安装包 / 不是有效的安装文件</td>
+                <td className="p-3 border border-gray-200 dark:border-gray-700">下载到 HTML 错误页、后缀被改、实为 XAPK 未解压</td>
+                <td className="p-3 border border-gray-200 dark:border-gray-700">用 gptoapk 重下；XAPK 需专用安装器</td>
+              </tr>
+              <tr className="border-b border-gray-200 dark:border-gray-700">
+                <td className="p-3 border border-gray-200 dark:border-gray-700">安装失败 (-11)</td>
+                <td className="p-3 border border-gray-200 dark:border-gray-700">存储空间不足（安装需约 APK 大小 × 2~3）</td>
+                <td className="p-3 border border-gray-200 dark:border-gray-700">清理 Download 里旧 .apk；清缓存</td>
+              </tr>
+              <tr className="bg-gray-50 dark:bg-gray-800/50 border-b border-gray-200 dark:border-gray-700">
+                <td className="p-3 border border-gray-200 dark:border-gray-700">安装失败 (-28)</td>
+                <td className="p-3 border border-gray-200 dark:border-gray-700">与已装应用<strong>签名不一致</strong>（同包名不同来源）</td>
+                <td className="p-3 border border-gray-200 dark:border-gray-700">卸载旧版 → 重启 → 再装</td>
+              </tr>
+              <tr className="border-b border-gray-200 dark:border-gray-700">
+                <td className="p-3 border border-gray-200 dark:border-gray-700">安装失败 (-29)</td>
+                <td className="p-3 border border-gray-200 dark:border-gray-700">仅 v1 签名，Android 7+ 校验更严</td>
+                <td className="p-3 border border-gray-200 dark:border-gray-700">下载较新渠道 APK</td>
+              </tr>
+              <tr className="bg-gray-50 dark:bg-gray-800/50 border-b border-gray-200 dark:border-gray-700">
+                <td className="p-3 border border-gray-200 dark:border-gray-700">INSTALL_FAILED_ALREADY_EXISTS</td>
+                <td className="p-3 border border-gray-200 dark:border-gray-700">同包名应用已存在且无法覆盖</td>
+                <td className="p-3 border border-gray-200 dark:border-gray-700">卸载后重装，或走「更新」而非降级</td>
+              </tr>
+              <tr className="border-b border-gray-200 dark:border-gray-700">
+                <td className="p-3 border border-gray-200 dark:border-gray-700">INSTALL_FAILED_UPDATE_INCOMPATIBLE</td>
+                <td className="p-3 border border-gray-200 dark:border-gray-700">想装旧版但数据/签名与新版不兼容</td>
+                <td className="p-3 border border-gray-200 dark:border-gray-700">卸载当前版（会清数据）再装目标版</td>
+              </tr>
+              <tr className="bg-gray-50 dark:bg-gray-800/50 border-b border-gray-200 dark:border-gray-700">
+                <td className="p-3 border border-gray-200 dark:border-gray-700">INSTALL_FAILED_NO_MATCHING_ABIS</td>
+                <td className="p-3 border border-gray-200 dark:border-gray-700">CPU 架构不匹配（如仅 arm64 包装在 32 位机）</td>
+                <td className="p-3 border border-gray-200 dark:border-gray-700">换 universal 或匹配架构的 APK</td>
+              </tr>
+              <tr className="border-b border-gray-200 dark:border-gray-700">
+                <td className="p-3 border border-gray-200 dark:border-gray-700">进度条走完但未安装 / 无具体代码</td>
+                <td className="p-3 border border-gray-200 dark:border-gray-700">厂商安全拦截、分身/工作资料冲突</td>
+                <td className="p-3 border border-gray-200 dark:border-gray-700">关 MIUI 优化（开发者选项）或换官方文件管理器安装</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2>分品牌补充（MIUI / ColorOS / 华为）</h2>
+        <ul>
+          <li>
+            <strong>小米 / Redmi（MIUI / HyperOS）</strong>：除「安装未知应用」外，部分机型需在安全中心关闭对「风险应用」的拦截；安装完若闪退可尝试关闭「MIUI 优化」后重装。
+          </li>
+          <li>
+            <strong>OPPO / Realme（ColorOS）</strong>：设置 → 密码与安全 → 系统安全 → 安装外部来源应用，对浏览器单独放行。
+          </li>
+          <li>
+            <strong>华为 / 荣耀</strong>：无 GMS 不影响 APK 安装本身，但依赖 Google 登录的应用装完仍可能无法使用；Play 问题见{" "}
+            <Link href="/zh/blog/google-play-not-open-2026" className="text-blue-600 dark:text-blue-400 hover:underline">
+              Google Play 打不开排查
+            </Link>
+            。
+          </li>
+        </ul>
+
+        <h2>5 分钟排查流程</h2>
+        <ol>
+          <li>看文件大小是否正常 → 不正常则删包，在 gptoapk 重新生成下载链接。</li>
+          <li>看存储空间是否 ≥2GB → 清理 Downloads 目录下已装过的 .apk。</li>
+          <li>是否已装同包名应用 → 卸载旧版（注意会删除数据）。</li>
+          <li>是否仅 v1 签名或架构不对 → 换较新、通用架构包。</li>
+          <li>仍失败 → 重启手机，换系统自带「文件管理」点 APK 安装，排除浏览器下载器问题。</li>
+        </ol>
+        <p>
+          开发者/安全向核对可参考{" "}
+          <Link href="/zh/blog/apk-signature-verification-security-guide" className="text-blue-600 dark:text-blue-400 hover:underline">
+            APK 签名验证指南
+          </Link>
+          ；更早期的错误汇总见{" "}
+          <Link href="/zh/blog/apk-install-failed-error-codes-guide" className="text-blue-600 dark:text-blue-400 hover:underline">
+            2026-05 版错误代码指南
+          </Link>
+          。
+        </p>
+
+        <h2>用 gptoapk 减少「解析错误」</h2>
+        <p>
+          解析失败多数是<strong>传输中断</strong>。在{" "}
+          <Link href="/zh" className="text-blue-600 dark:text-blue-400 hover:underline">
+            gptoapk 首页
+          </Link>{" "}
+          搜索应用名或粘贴 Google Play 链接，在结果页核对包名与开发者后再下载；若安装 ChatGPT、Telegram 等海外应用，可对照{" "}
+          <Link href="/zh/china-apk-ai-search" className="text-blue-600 dark:text-blue-400 hover:underline">
+            国内 AI / 应用 APK 汇总
+          </Link>{" "}
+          专题页。
+        </p>
+
+        <h2>常见问题</h2>
+        <h3>解析错误但 APK 大小看起来正常？</h3>
+        <p>可能是 CDN 返回了错误页或 zip 伪装。用电脑浏览器下载后对比 MD5/大小，或换网络重试。</p>
+        <h3>提示「与已安装应用签名不同」？</h3>
+        <p>你曾装过修改版或不同商店渠道包。必须卸载旧版（含分身、双开里的副本）再装官方包。</p>
+        <h3>安装成功但打开闪退？</h3>
+        <p>常见为缺少 GMS、地区限制或架构不对，与「安装失败」是不同阶段的问题，需单独排查运行环境。</p>
+        <h3>ADB 能装，手机点 APK 不能装？</h3>
+        <p>多为未知来源权限未给当前安装器。对「文件管理」或「浏览器」单独授权，或 <code>adb install -r xxx.apk</code>。</p>
+
+        <h2>总结</h2>
+        <ol>
+          <li>解析错误 / 无效包 → 优先<strong>重新下载完整 APK</strong>。</li>
+          <li>(-11) → 清空间；( -28 / ALREADY_EXISTS ) → 卸旧版。</li>
+          <li>MIUI/ColorOS 记得按应用授权「安装未知应用」。</li>
+          <li>在 gptoapk 搜索或贴 Play 链接，减少损坏包概率。</li>
+        </ol>
+      </>
+    ),
+  },
+  {
     slug: "deepseek-apk-install",
     title: "DeepSeek APK 下载与安装指南（2026 Android 最新版）",
     description: "DeepSeek 没有官方 Google Play 版本？本文教你从官网、GitHub 和第三方渠道获取 DeepSeek APK，并解决安装中常见问题。",
@@ -675,8 +847,8 @@ const zhPosts: BlogPost[] = [
         </ol>
         <p>
           安装失败代码可参考{" "}
-          <Link href="/zh/blog/apk-install-failed-error-codes-guide" className="text-blue-600 dark:text-blue-400 hover:underline">
-            APK 安装失败错误大全
+          <Link href="/zh/blog/apk-install-error-codes-2026" className="text-blue-600 dark:text-blue-400 hover:underline">
+            APK 安装失败错误大全（2026）
           </Link>
           。
         </p>
