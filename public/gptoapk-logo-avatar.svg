@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#00D2FF"/>
+      <stop offset="1" stop-color="#2F6BFF"/>
+    </linearGradient>
+
+    <linearGradient id="arrow" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.95"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0.75"/>
+    </linearGradient>
+
+    <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="18" stdDeviation="22" flood-color="#2F6BFF" flood-opacity="0.25"/>
+    </filter>
+
+    <!-- Subtle dot pattern -->
+    <pattern id="dots" width="60" height="60" patternUnits="userSpaceOnUse">
+      <circle cx="12" cy="18" r="4" fill="#ffffff" opacity="0.15"/>
+      <circle cx="42" cy="40" r="3.5" fill="#ffffff" opacity="0.12"/>
+    </pattern>
+  </defs>
+
+  <!-- Rounded badge -->
+  <g filter="url(#softShadow)">
+    <rect x="96" y="96" width="832" height="832" rx="164" fill="url(#bg)"/>
+    <rect x="96" y="96" width="832" height="832" rx="164" fill="url(#dots)"/>
+  </g>
+
+  <!-- AI bubble -->
+  <g>
+    <path d="M520 520c0-88 72-160 160-160s160 72 160 160-72 160-160 160-160-72-160-160z"
+      fill="none" stroke="#FFFFFF" stroke-opacity="0.85" stroke-width="10"/>
+    <path d="M560 520c0-66 54-120 120-120s120 54 120 120-54 120-120 120-120-54-120-120z"
+      fill="#FFFFFF" fill-opacity="0.12" stroke="#FFFFFF" stroke-opacity="0.65" stroke-width="6"/>
+
+    <g fill="#FFFFFF" opacity="0.92">
+      <circle cx="632" cy="476" r="10"/>
+      <circle cx="672" cy="476" r="10"/>
+      <circle cx="652" cy="512" r="10"/>
+      <circle cx="632" cy="548" r="10"/>
+      <circle cx="672" cy="548" r="10"/>
+    </g>
+  </g>
+
+  <!-- Download arrow -->
+  <g>
+    <path d="M690 330 C690 330 690 470 690 470 C690 470 690 470 690 470"
+      stroke="url(#arrow)" stroke-width="18" stroke-linecap="round"/>
+
+    <path d="M690 520 L610 600 L650 600 L650 700 L730 700 L730 600 L770 600 Z"
+      fill="#FFFFFF" fill-opacity="0.92"/>
+  </g>
+
+  <!-- Brand text -->
+  <g>
+    <text x="340" y="655" font-family="Arial, Helvetica, sans-serif" font-size="86" font-weight="800" fill="#FFFFFF" opacity="0.95">
+      gptoapk
+    </text>
+  </g>
+</svg>
+
