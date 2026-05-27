@@ -53,6 +53,11 @@ type SearchCache = {
   scrollY?: number;
 };
 
+type SearchFallback = {
+  href: string;
+  label: string;
+};
+
 const PACKAGE_NAME_REGEX = /^[a-zA-Z][a-zA-Z0-9_]*(?:\.[a-zA-Z][a-zA-Z0-9_]*)+$/;
 
 function getInputType(value: string) {
@@ -73,6 +78,7 @@ function getLocalizedCopy(locale: SiteLocale) {
       exactMatch: "已找到匹配应用",
       openDetails: "查看详情",
       noSummary: "暂无简介",
+      fallbackLabel: "试试这个入口",
     };
   }
 
@@ -85,7 +91,36 @@ function getLocalizedCopy(locale: SiteLocale) {
     exactMatch: "Matched app found",
     openDetails: "View details",
     noSummary: "No summary available",
+    fallbackLabel: "Try this page",
   };
+}
+
+function getSearchFallback(query: string, locale: SiteLocale): SearchFallback | null {
+  const q = query.trim().toLowerCase();
+
+  const vpnKeywords = [
+    "vpn",
+    "vpn apk",
+    "virtual private network",
+    "加速器",
+    "翻墙",
+    "代理",
+  ];
+  if (vpnKeywords.some((k) => q.includes(k))) {
+    return {
+      href: `/${locale}/vpn-apk`,
+      label: "VPN APK",
+    };
+  }
+
+  if (q.includes("chatgpt")) {
+    return {
+      href: `/${locale}/chatgpt-apk`,
+      label: "ChatGPT APK",
+    };
+  }
+
+  return null;
 }
 
 function buildAppHref(appId: string, lang?: string, country?: string) {
@@ -164,6 +199,7 @@ export default function SearchBox() {
   const [queryType, setQueryType] = useState<QueryType | null>(null);
   const [resultLang, setResultLang] = useState("en");
   const [resultCountry, setResultCountry] = useState("us");
+  const [fallback, setFallback] = useState<SearchFallback | null>(null);
   const pathname = usePathname();
   const localeMatch = pathname.match(localePathRegex);
   const locale = (localeMatch?.[1] as SiteLocale | undefined) ?? "en";
@@ -179,6 +215,7 @@ export default function SearchBox() {
     setResultCountry("us");
     setError("");
     setIsFetching(false);
+    setFallback(null);
     clearSearchCache(cacheKey);
   };
 
@@ -236,6 +273,7 @@ export default function SearchBox() {
     if (!query) {
       setError(copy.emptyError);
       setResults([]);
+      setFallback(null);
       clearSearchCache(cacheKey);
       trackEvent(analyticsEvents.parseFailed, {
         locale,
@@ -247,6 +285,7 @@ export default function SearchBox() {
     setIsFetching(true);
     setError("");
     setResults([]);
+    setFallback(null);
 
     try {
       const params = new URLSearchParams({
@@ -269,6 +308,7 @@ export default function SearchBox() {
       setQueryType(nextQueryType);
       setResultLang(nextLang);
       setResultCountry(nextCountry);
+      setFallback(null);
       writeSearchCache(cacheKey, {
         query,
         queryType: nextQueryType,
@@ -308,6 +348,7 @@ export default function SearchBox() {
         reason: message,
       });
       setError(message);
+      setFallback(getSearchFallback(query, locale));
       clearSearchCache(cacheKey);
     } finally {
       setIsFetching(false);
@@ -380,6 +421,16 @@ export default function SearchBox() {
       {error && (
         <div className="mt-4 p-3 bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 rounded-lg text-sm text-center">
           {error}
+          {fallback && (
+            <div className="mt-2">
+              <Link
+                href={fallback.href}
+                className="font-semibold underline hover:no-underline"
+              >
+                {copy.fallbackLabel}: {fallback.label}
+              </Link>
+            </div>
+          )}
         </div>
       )}
 
