@@ -16,6 +16,33 @@ export const metadata: Metadata = {
 
 const posts = [
   {
+    slug: "top-10-apk-websites",
+    title: "十大APK下载网站推荐（2026版）",
+    description:
+      "2026 年常用 APK 下载网站 10 强清单，覆盖安全性、更新速度、是否支持国内访问与安装便利度。",
+    date: "2026-05-28",
+    readTime: "9 分钟阅读",
+    tags: ["APK 下载网站", "网站推荐", "安卓", "gptoapk"],
+  },
+  {
+    slug: "best-apk-sites-for-android",
+    title: "APK下载站推荐：Android用户怎么选最稳（2026）",
+    description:
+      "从 APKMirror、APKPure 到 gptoapk，按下载成功率、更新频率、易用性对比，帮你选最适合自己的 APK 下载站。",
+    date: "2026-05-28",
+    readTime: "8 分钟阅读",
+    tags: ["APK 下载站", "Android", "对比", "gptoapk"],
+  },
+  {
+    slug: "apkpure-alternatives",
+    title: "APKPure 平替推荐：APKPure 不可用时的 6 个替代方案",
+    description:
+      "APKPure 打不开、下载慢或无目标应用？这篇汇总 6 个可替代平台，并给出不同场景下的选择建议。",
+    date: "2026-05-28",
+    readTime: "8 分钟阅读",
+    tags: ["APKPure", "替代方案", "APK 下载", "gptoapk"],
+  },
+  {
     slug: "china-ai-apk-package-names",
     title: "豆包/元宝/DeepSeek/Kimi/通义千问 APK 包名核对指南",
     description:
