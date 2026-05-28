@@ -16,6 +16,22 @@ export const metadata: Metadata = {
 
 const posts = [
   {
+    slug: "tiktok-download-install-guide",
+    title: "TikTok国际版下载：2026最新安卓APK安装教程",
+    description: "TikTok国际版下载完整教程。涵盖APK获取、安装故障排查、TikTok和抖音区别、怎么读、注册使用等。2026最新指南。",
+    date: "2026-05-28",
+    readTime: "10 分钟阅读",
+    tags: ["TikTok", "国际版", "APK", "安卓", "海外抖音", "gptoapk"],
+  },
+  {
+    slug: "what-is-tiktok-complete-guide",
+    title: "TikTok是什么？和抖音什么关系？一文看懂海外抖音",
+    description: "TikTok是什么意思？是中国公司吗？和抖音什么区别？怎么读？从母公司字节跳动到全球运营，一篇看懂全球最大短视频平台。",
+    date: "2026-05-28",
+    readTime: "10 分钟阅读",
+    tags: ["TikTok", "抖音", "字节跳动", "海外抖音", "国际版", "gptoapk"],
+  },
+  {
     slug: "top-10-apk-websites",
     title: "十大APK下载网站推荐（2026版）",
     description:
