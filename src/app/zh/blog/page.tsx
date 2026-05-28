@@ -16,6 +16,22 @@ export const metadata: Metadata = {
 
 const posts = [
   {
+    slug: "facebook-download-install-guide",
+    title: "Facebook安卓下载：2026最新版安装教程（官方正版）",
+    description: "Facebook安卓下载完整教程。涵盖官方APK获取、Messenger下载、Facebook注册登录、官网入口等。2026年最新版安装指南。",
+    date: "2026-05-28",
+    readTime: "10 分钟阅读",
+    tags: ["Facebook", "安卓下载", "APK安装", "社交软件", "gptoapk"],
+  },
+  {
+    slug: "what-is-facebook-complete-guide",
+    title: "facebook是什么意思？新手从零到精通完全指南",
+    description: "Facebook是什么意思？从什么是Facebook、怎么注册登录到如何使用、创始人、改名Meta、股价市值，一篇看懂全球最大社交平台。",
+    date: "2026-05-28",
+    readTime: "10 分钟阅读",
+    tags: ["Facebook", "社交平台", "新手教程", "注册登录", "gptoapk"],
+  },
+  {
     slug: "apk-download-security-guide-2026",
     title: "APK 下载安全完全指南：2026 年如何判断一个 APK 文件是否安全",
     description:
