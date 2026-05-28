@@ -37,6 +37,11 @@ export function isMonetagExcludedPath(pathname: string) {
   if (/^\/(zh|en|ja|ko|ru|pt|es|id|hi|fr|de|vi|ar|tr|it|nl|pl|uk|th|ms|sv|da|fi|nb|cs|ro|el|hu|bn|tl|he|fa|ur)\/app\//.test(pathname)) {
     return true;
   }
+  // Blog pages: avoid overlay blocking article links
+  if (pathname.startsWith("/blog")) return true;
+  if (/^\/(zh|en|ja|ko|ru|pt|es|id|hi|fr|de|vi|ar|tr|it|nl|pl|uk|th|ms|sv|da|fi|nb|cs|ro|el|hu|bn|tl|he|fa|ur)\/blog/.test(pathname)) {
+    return true;
+  }
 
   return false;
 }
