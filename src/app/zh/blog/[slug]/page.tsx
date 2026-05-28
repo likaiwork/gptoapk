@@ -10024,9 +10024,21 @@ export default async function BlogPostPage({
         <div className="mt-8 p-6 bg-gray-50 dark:bg-gray-800/50 rounded-xl border border-gray-100 dark:border-gray-700">
           <h2 className="text-xl font-bold mb-4">相关文章</h2>
           <ul className="space-y-2">
-            <li><a href="/zh/blog/top-10-apk-websites" className="text-blue-600 dark:text-blue-400 hover:underline">十大APK下载网站推荐</a></li>
-            <li><a href="/zh/blog/best-apk-sites-for-android" className="text-blue-600 dark:text-blue-400 hover:underline">APK下载站推荐</a></li>
-            <li><a href="/zh/blog/apkpure-alternatives" className="text-blue-600 dark:text-blue-400 hover:underline">APKPure 平替推荐</a></li>
+            <li>
+              <Link href="/zh/blog/safest-apk-download-sites-2026" className="text-blue-600 dark:text-blue-400 hover:underline">
+                十大APK下载网站推荐
+              </Link>
+            </li>
+            <li>
+              <Link href="/zh/blog/best-free-apk-downloaders-comparison-cn" className="text-blue-600 dark:text-blue-400 hover:underline">
+                APK下载站推荐
+              </Link>
+            </li>
+            <li>
+              <Link href="/zh/blog/safe-reliable-apk-download-sites" className="text-blue-600 dark:text-blue-400 hover:underline">
+                APKPure 平替推荐
+              </Link>
+            </li>
           </ul>
         </div>
 
