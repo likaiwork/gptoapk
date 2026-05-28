@@ -15,6 +15,117 @@ interface BlogPost {
 
 const zhPosts: BlogPost[] = [
   {
+    slug: "china-ai-apk-package-names",
+    title: "豆包/元宝/DeepSeek/Kimi/通义千问 APK 包名核对指南",
+    description:
+      "2026 最新国内 AI 应用 APK 包名核对表：豆包、元宝、DeepSeek、Kimi、通义千问，避免下载到同名假包。",
+    date: "2026-05-28",
+    readTime: "9 分钟阅读",
+    tags: ["豆包", "DeepSeek", "APK 包名", "元宝", "Kimi", "gptoapk"],
+    content: (
+      <>
+        <p className="lead">
+          想装豆包、元宝、DeepSeek、Kimi、通义千问，最容易踩的坑不是“安装失败”，而是<strong>下错包</strong>。2026 年同名应用很多，图标也能仿，真正能判断真伪的是<strong>开发者 + 包名</strong>。
+        </p>
+
+        <div className="mb-8 border-l-4 border-blue-600 bg-blue-50 p-5 dark:bg-blue-950/30">
+          <p className="mb-2 text-sm font-semibold text-blue-700 dark:text-blue-300">快速答案</p>
+          <p className="leading-relaxed text-slate-700 dark:text-slate-200">
+            下载前对照包名：豆包 <code>com.larus.nova</code>、元宝 <code>com.tencent.hunyuan.app.chat</code>、DeepSeek <code>com.deepseek.chat</code>、Kimi <code>com.moonshot.kimichat</code>、通义千问 <code>ai.qwenlm.chat.android</code>。任意一项不匹配，直接不要安装。
+          </p>
+        </div>
+
+        <h2>2026 国内 AI 应用包名核对表</h2>
+        <div className="overflow-x-auto my-6">
+          <table className="w-full border-collapse text-sm">
+            <thead>
+              <tr className="bg-gray-100 dark:bg-gray-800">
+                <th className="p-3 text-left border border-gray-200 dark:border-gray-700">应用</th>
+                <th className="p-3 text-left border border-gray-200 dark:border-gray-700">官方包名</th>
+                <th className="p-3 text-left border border-gray-200 dark:border-gray-700">核对重点</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr className="border-b border-gray-200 dark:border-gray-700">
+                <td className="p-3 border border-gray-200 dark:border-gray-700">豆包</td>
+                <td className="p-3 border border-gray-200 dark:border-gray-700"><code>com.larus.nova</code></td>
+                <td className="p-3 border border-gray-200 dark:border-gray-700">开发者与字节系信息是否一致</td>
+              </tr>
+              <tr className="bg-gray-50 dark:bg-gray-800/50 border-b border-gray-200 dark:border-gray-700">
+                <td className="p-3 border border-gray-200 dark:border-gray-700">腾讯元宝</td>
+                <td className="p-3 border border-gray-200 dark:border-gray-700"><code>com.tencent.hunyuan.app.chat</code></td>
+                <td className="p-3 border border-gray-200 dark:border-gray-700">是否显示腾讯开发者主体</td>
+              </tr>
+              <tr className="border-b border-gray-200 dark:border-gray-700">
+                <td className="p-3 border border-gray-200 dark:border-gray-700">DeepSeek</td>
+                <td className="p-3 border border-gray-200 dark:border-gray-700"><code>com.deepseek.chat</code></td>
+                <td className="p-3 border border-gray-200 dark:border-gray-700">警惕“DeepSeek Pro/极速版”同名壳包</td>
+              </tr>
+              <tr className="bg-gray-50 dark:bg-gray-800/50 border-b border-gray-200 dark:border-gray-700">
+                <td className="p-3 border border-gray-200 dark:border-gray-700">Kimi</td>
+                <td className="p-3 border border-gray-200 dark:border-gray-700"><code>com.moonshot.kimichat</code></td>
+                <td className="p-3 border border-gray-200 dark:border-gray-700">开发者应为 Moonshot 相关主体</td>
+              </tr>
+              <tr className="border-b border-gray-200 dark:border-gray-700">
+                <td className="p-3 border border-gray-200 dark:border-gray-700">通义千问</td>
+                <td className="p-3 border border-gray-200 dark:border-gray-700"><code>ai.qwenlm.chat.android</code></td>
+                <td className="p-3 border border-gray-200 dark:border-gray-700">优先选阿里系官方发布渠道</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2>安装前必须核对的 3 项</h2>
+        <ol>
+          <li><strong>应用名：</strong>同名不代表同应用，仅作第一层筛选。</li>
+          <li><strong>开发者：</strong>看公司主体，不看“看起来像官方”的图标。</li>
+          <li><strong>包名：</strong>最终判定字段；与上表不一致就放弃。</li>
+        </ol>
+
+        <h2>如何降低下错包概率</h2>
+        <ul>
+          <li>优先从官方商店或可信来源下载，不要在“网盘合集”里盲下。</li>
+          <li>安装前看权限，若 AI 聊天应用要求短信/通话等高敏权限要警惕。</li>
+          <li>下载后可参考{" "}
+            <Link href="/zh/blog/apk-signature-verification-security-guide" className="text-blue-600 dark:text-blue-400 hover:underline">
+              APK 签名验证指南
+            </Link>
+            {" "}做二次核验。</li>
+        </ul>
+
+        <h2>与安装报错排查搭配使用</h2>
+        <p>
+          如果你已经下载了 APK 但安装失败，可直接看{" "}
+          <Link href="/zh/blog/apk-install-error-codes-2026" className="text-blue-600 dark:text-blue-400 hover:underline">
+            APK 安装失败错误代码大全（2026）
+          </Link>
+          ，按错误码快速定位问题。
+        </p>
+
+        <h2>常见问题</h2>
+        <h3>同名应用里哪个是真的？</h3>
+        <p>先看开发者，再看包名。开发者不一致或包名不在上表内，一律视为高风险。</p>
+        <h3>包名一致就百分百安全吗？</h3>
+        <p>还不够。还需看签名、来源渠道和权限申请，避免二次打包的恶意壳。</p>
+        <h3>国内 AI 应用专题入口在哪？</h3>
+        <p>
+          可从{" "}
+          <Link href="/zh/china-apk-ai-search" className="text-blue-600 dark:text-blue-400 hover:underline">
+            中国 AI 应用 APK 汇总页
+          </Link>
+          {" "}进入，再跳转到具体应用页。
+        </p>
+
+        <h2>总结</h2>
+        <ol>
+          <li>核对 AI 应用先看包名，不要只看名称与图标。</li>
+          <li>豆包/元宝/DeepSeek/Kimi/通义千问的官方包名建议收藏对照。</li>
+          <li>下载后如遇错误码，结合安装失败指南一起排查效率更高。</li>
+        </ol>
+      </>
+    ),
+  },
+  {
     slug: "facebook-download-install-guide",
     title: "Facebook安卓下载：2026最新版安装教程（官方正版）",
     description: "Facebook安卓下载完整教程。涵盖官方APK获取、Messenger下载、Facebook注册登录、官网入口等。2026年最新版安装指南。",

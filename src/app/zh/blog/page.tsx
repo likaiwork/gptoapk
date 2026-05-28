@@ -16,6 +16,15 @@ export const metadata: Metadata = {
 
 const posts = [
   {
+    slug: "china-ai-apk-package-names",
+    title: "豆包/元宝/DeepSeek/Kimi/通义千问 APK 包名核对指南",
+    description:
+      "2026 最新国内 AI 应用 APK 包名核对表：豆包、元宝、DeepSeek、Kimi、通义千问，避免下载到同名假包。",
+    date: "2026-05-28",
+    readTime: "9 分钟阅读",
+    tags: ["豆包", "DeepSeek", "APK 包名", "元宝", "Kimi", "gptoapk"],
+  },
+  {
     slug: "facebook-download-install-guide",
     title: "Facebook安卓下载：2026最新版安装教程（官方正版）",
     description: "Facebook安卓下载完整教程。涵盖官方APK获取、Messenger下载、Facebook注册登录、官网入口等。2026年最新版安装指南。",
