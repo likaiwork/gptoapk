@@ -16,6 +16,22 @@ export const metadata: Metadata = {
 
 const posts = [
   {
+    slug: "zoom-with-humanity-game-guide",
+    title: "Zoom与人性游戏攻略：下载安装与同步使用指南",
+    description: "Zoom与人性是什么？Zoom与人性Zoom1有什么区别？本文带你了解\u201cZoom与人性\u201d这款互动游戏，教你下载安装和同步游戏进度。",
+    date: "2026-05-29",
+    readTime: "9 分钟阅读",
+    tags: ["Zoom与人性", "互动游戏", "Zoom与人性的区别", "Zoom游戏下载", "Zoom怎么同步", "gptoapk"],
+  },
+  {
+    slug: "zoom-download-guide",
+    title: "Zoom视频会议软件下载安装指南：2026最新安卓版",
+    description: "Zoom是什么？Zoom怎么读？安卓版Zoom怎么下载？本文从Zoom是什么开始，教你下载安装Zoom视频会议APP并使用全部功能。",
+    date: "2026-05-29",
+    readTime: "10 分钟阅读",
+    tags: ["Zoom", "Zoom视频会议", "Zoom下载", "Zoom安卓版", "Zoom是什么意思", "Zoom会议", "gptoapk"],
+  },
+  {
     slug: "whatsapp-vs-wechat-guide",
     title: "WhatsApp不能用了？与微信全面对比及常见问题解决指南",
     description: "WhatsApp不能用了怎么办？WhatsApp和微信有什么区别？本文整理了WhatsApp常见故障解决方案，以及WhatsApp与微信的全面对比分析。",
