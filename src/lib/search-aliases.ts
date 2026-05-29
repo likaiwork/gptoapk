@@ -64,7 +64,7 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
   },
   {
     appIds: ["com.moomoo.trade"],
-    aliases: ["moomoo", "moomoo trade"],
+    aliases: ["moomoo", "moomoo trade", "moomoo下载", "moomoo app", "富途moomoo"],
   },
   {
     appIds: ["global.longbridge.app.android"],
@@ -86,23 +86,23 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
   },
   {
     appIds: ["org.dayup.stocks.hk", "org.dayup.stocks"],
-    aliases: ["微牛", "webull"],
+    aliases: ["微牛", "webull", "微牛证券", "webull下载", "webull app"],
   },
   {
     appIds: ["com.snowballfinance.android"],
-    aliases: ["雪盈", "雪盈证券", "snowball x", "snowballx"],
+    aliases: ["雪盈", "雪盈证券", "snowball x", "snowballx", "雪盈app", "雪盈下载"],
   },
   {
     appIds: ["com.xueqiu.android"],
-    aliases: ["雪球", "xueqiu"],
+    aliases: ["雪球", "xueqiu", "雪球app", "雪球下载"],
   },
   {
     appIds: ["com.eastmoney.android.berlin"],
-    aliases: ["东方财富", "东财", "eastmoney"],
+    aliases: ["东方财富", "东财", "eastmoney", "东方财富app", "东财app"],
   },
   {
     appIds: ["com.hexin.plat.android"],
-    aliases: ["同花顺", "ths", "hexin"],
+    aliases: ["同花顺", "ths", "hexin", "同花顺app", "同花顺下载"],
   },
   {
     appIds: ["com.huasheng.stock.gg"],

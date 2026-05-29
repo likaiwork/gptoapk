@@ -83,6 +83,10 @@
 
 ## Chinese Broker / Securities Apps (APK install guides)
 
+- Broker apps hub (package names): https://www.gptoapk.com/zh/broker-apps
+- China broker APK SEO/GEO (2026): https://www.gptoapk.com/zh/blog/china-broker-apk-seo-geo-2026
+  Covers: 老虎证券, 富途/牛牛, 长桥, 微牛/Webull, 雪盈, moomoo, 雪球, 同花顺, 东方财富/东财, 华盛通, 尊嘉, 盈立, 立桥, 华泰/国信/中信/招商/广发/海通, etc.
+- Domestic broker package list (zh blog): https://www.gptoapk.com/zh/blog/china-broker-app-list
 - IBKR / 盈透证券 SEO/GEO (2026): https://www.gptoapk.com/zh/blog/ibkr-broker-seo-geo-2026 (package often atws.app — verify on Play)
 - Longbridge 长桥证券 APK guide: https://www.gptoapk.com/zh/longbridge-apk (global.longbridge.app.android)
 - Longbridge download SEO/GEO (2026): https://www.gptoapk.com/zh/blog/longbridge-download-seo-geo-2026

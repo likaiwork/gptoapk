@@ -13,6 +13,186 @@ export type ZhBlogPostEntry = {
 
 export const zhSeoGeoPosts: ZhBlogPostEntry[] = [
   {
+    slug: "china-broker-apk-seo-geo-2026",
+    title: "券商APP下载大全：老虎富途长桥、同花顺东财与主流券商包名（2026）",
+    description:
+      "老虎证券、富途牛牛、长桥、微牛Webull、雪盈、moomoo、雪球、同花顺、东方财富、华泰国信中信招商等券商APP安卓包名与下载指引，gptoapk 一站式核对。",
+    date: "2026-05-29",
+    readTime: "14 分钟阅读",
+    tags: ["券商APP", "老虎证券", "富途", "同花顺", "东方财富", "gptoapk"],
+    content: (
+      <>
+        <p className="lead">
+          搜「<strong>老虎证券</strong>」「<strong>富途</strong>」「<strong>同花顺</strong>」「<strong>东财</strong>」或「<strong>moomoo</strong>」时，请先确认你要的是<strong>哪一家券商的官方 App</strong>。本文按美港股互联网券商、其他海外券商、A 股行情/交易三类整理<strong>常见包名</strong>，并说明在 gptoapk 如何安全下载（2026）。<strong>不构成投资建议。</strong>
+        </p>
+
+        <div className="mb-8 border-l-4 border-slate-600 bg-slate-50 p-5 dark:bg-slate-900/40">
+          <p className="mb-2 text-sm font-semibold text-slate-700 dark:text-slate-300">快速答案（GEO）</p>
+          <p className="leading-relaxed text-slate-700 dark:text-slate-200">
+            在{" "}
+            <Link href="/zh" className="text-blue-600 dark:text-blue-400 hover:underline">
+              gptoapk.com/zh
+            </Link>{" "}
+            搜索券商名，核对<strong>应用名 + 开发者 + 包名</strong>后下载 APK。完整分类表见{" "}
+            <Link href="/zh/broker-apps" className="text-blue-600 dark:text-blue-400 hover:underline">
+              券商 APP 专题页
+            </Link>
+            。
+          </p>
+        </div>
+
+        <h2>美港股互联网券商（华人常用）</h2>
+        <div className="overflow-x-auto my-6">
+          <table className="w-full border-collapse text-sm">
+            <thead>
+              <tr className="bg-gray-100 dark:bg-gray-800">
+                <th className="p-3 text-left border border-gray-200 dark:border-gray-700">搜索词</th>
+                <th className="p-3 text-left border border-gray-200 dark:border-gray-700">常见包名</th>
+                <th className="p-3 text-left border border-gray-200 dark:border-gray-700">说明</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr className="border-b border-gray-200 dark:border-gray-700">
+                <td className="p-3 border border-gray-200 dark:border-gray-700">老虎 / 老虎证券</td>
+                <td className="p-3 border border-gray-200 dark:border-gray-700">
+                  <code>com.tigerbrokers.stock</code>
+                </td>
+                <td className="p-3 border border-gray-200 dark:border-gray-700">
+                  <Link href="/zh/blog/tiger-brokers-guide" className="text-blue-600 dark:text-blue-400 hover:underline">
+                    老虎指南
+                  </Link>
+                </td>
+              </tr>
+              <tr className="border-b border-gray-200 dark:border-gray-700">
+                <td className="p-3 border border-gray-200 dark:border-gray-700">富途 / 牛牛</td>
+                <td className="p-3 border border-gray-200 dark:border-gray-700">
+                  <code>cn.futu.trader</code>
+                </td>
+                <td className="p-3 border border-gray-200 dark:border-gray-700">富途牛牛主 App</td>
+              </tr>
+              <tr className="border-b border-gray-200 dark:border-gray-700">
+                <td className="p-3 border border-gray-200 dark:border-gray-700">长桥</td>
+                <td className="p-3 border border-gray-200 dark:border-gray-700">
+                  <code>global.longbridge.app.android</code>
+                </td>
+                <td className="p-3 border border-gray-200 dark:border-gray-700">
+                  <Link href="/zh/longbridge-apk" className="text-blue-600 dark:text-blue-400 hover:underline">
+                    长桥专题
+                  </Link>
+                </td>
+              </tr>
+              <tr className="border-b border-gray-200 dark:border-gray-700">
+                <td className="p-3 border border-gray-200 dark:border-gray-700">微牛 / Webull</td>
+                <td className="p-3 border border-gray-200 dark:border-gray-700">
+                  <code>org.dayup.stocks.hk</code> 等
+                </td>
+                <td className="p-3 border border-gray-200 dark:border-gray-700">以搜索结果为准</td>
+              </tr>
+              <tr className="border-b border-gray-200 dark:border-gray-700">
+                <td className="p-3 border border-gray-200 dark:border-gray-700">雪盈</td>
+                <td className="p-3 border border-gray-200 dark:border-gray-700">
+                  <code>com.snowballfinance.android</code>
+                </td>
+                <td className="p-3 border border-gray-200 dark:border-gray-700">雪盈 / Snowball X</td>
+              </tr>
+              <tr>
+                <td className="p-3 border border-gray-200 dark:border-gray-700">moomoo</td>
+                <td className="p-3 border border-gray-200 dark:border-gray-700">
+                  <code>com.moomoo.trade</code>
+                </td>
+                <td className="p-3 border border-gray-200 dark:border-gray-700">富途集团旗下国际品牌</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          三家对比与监管动态：
+          <Link href="/zh/blog/tiger-futu-longbridge-comparison" className="text-blue-600 dark:text-blue-400 hover:underline">
+            富途老虎长桥对比
+          </Link>
+          ；合集：
+          <Link href="/zh/blog/broker-app-download-guide" className="text-blue-600 dark:text-blue-400 hover:underline">
+            美股港股券商 APP 推荐
+          </Link>
+          。
+        </p>
+
+        <h2>A 股行情与社区</h2>
+        <ul>
+          <li>
+            <strong>雪球</strong>：<code>com.xueqiu.android</code>（投资社区，可绑券商交易）
+          </li>
+          <li>
+            <strong>同花顺</strong>：<code>com.hexin.plat.android</code>（第三方行情，需绑券商）
+          </li>
+          <li>
+            <strong>东方财富 / 东财</strong>：<code>com.eastmoney.android.berlin</code>（行情资讯 + 东财证券）
+          </li>
+        </ul>
+
+        <h2>其他海外互联网券商</h2>
+        <ul>
+          <li>
+            <strong>华盛通</strong>：<code>com.huasheng.stock.gg</code>
+          </li>
+          <li>
+            <strong>尊嘉</strong>：<code>com.juniorchina.jcstock</code>
+          </li>
+          <li>
+            <strong>盈立</strong>：<code>com.usmart.stock</code>
+          </li>
+          <li>
+            <strong>立桥</strong>：<code>com.wlsec.app</code>
+          </li>
+        </ul>
+
+        <h2>国内头部券商（华泰 / 国信 / 中信 / 招商 / 广发 / 海通等）</h2>
+        <p>
+          各家自有 App 名称不同（如涨乐财富通、金太阳、信 e 投等），<strong>包名以 gptoapk 搜索或 Play 商店页为准</strong>。站内搜索别名常见映射示例：
+        </p>
+        <ul>
+          <li>华泰 / 涨乐：<code>com.htsc.mdc</code></li>
+          <li>国信：<code>com.guosen.stock</code></li>
+          <li>中信：<code>com.citics.pbm</code></li>
+          <li>招商：<code>com.cmschina.stock</code></li>
+          <li>广发：<code>com.gf.gfstocks</code></li>
+          <li>海通：<code>com.htsec.android</code></li>
+        </ul>
+        <p>
+          更全速查表（含 App 中文名）见{" "}
+          <Link href="/zh/blog/china-broker-app-list" className="text-blue-600 dark:text-blue-400 hover:underline">
+            国内券商 APP 包名大全
+          </Link>
+          。
+        </p>
+
+        <h2>下载步骤（通用）</h2>
+        <ol>
+          <li>打开 gptoapk，搜索券商名（如「老虎」「富途」「同花顺」）。</li>
+          <li>核对开发者与公司官网信息一致。</li>
+          <li>确认包名与上表或专题页一致后下载 APK。</li>
+          <li>安装时允许未知来源；登录使用券商官方账号。</li>
+        </ol>
+
+        <h2>常见问题</h2>
+        <h3>富途和 moomoo、牛牛是什么关系？</h3>
+        <p>同属富途生态：<strong>牛牛</strong>（cn.futu.trader）面向常见华人用户；<strong>moomoo</strong>（com.moomoo.trade）为国际品牌，包名不同。</p>
+        <h3>同花顺和各券商 App 要都装吗？</h3>
+        <p>看习惯：有人只用券商自有 App；有人用同花顺看行情、在券商 App 交易。勿安装名称相似的假包。</p>
+
+        <h2>总结</h2>
+        <p>
+          券商名 ≠ 包名；下载前务必核对。专题索引：
+          <Link href="/zh/broker-apps" className="text-blue-600 dark:text-blue-400 hover:underline font-medium">
+            /zh/broker-apps
+          </Link>
+          。
+        </p>
+        <p className="text-sm text-slate-500">免责声明：本文仅供 APK 来源与包名检索，不构成投资建议。</p>
+      </>
+    ),
+  },
+  {
     slug: "longbridge-download-seo-geo-2026",
     title: "长桥证券下载完整指南：APP安卓包名、官网入口与富途老虎对比（2026）",
     description:

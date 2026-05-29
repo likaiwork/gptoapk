@@ -22,6 +22,8 @@ const problemGuides = [
   { title: "ChatGPT APK 无法从 Google Play 下载怎么办", href: "/zh/chatgpt-apk-without-google-play" },
   { title: "ChatGPT下载完整指南（是什么/怎么下载/注册）", href: "/zh/blog/chatgpt-download-seo-geo-2026" },
   { title: "APK软件与游戏下载、电视猫/电视家3.0", href: "/zh/blog/apk-software-game-tv-download-2026" },
+  { title: "券商APP下载大全（老虎富途长桥/同花顺东财/包名速查）", href: "/zh/blog/china-broker-apk-seo-geo-2026" },
+  { title: "券商APP专题页（包名表）", href: "/zh/broker-apps" },
   { title: "长桥证券下载完整指南（APP安卓/国家/富途老虎对比）", href: "/zh/blog/longbridge-download-seo-geo-2026" },
   { title: "盈透证券IBKR完整指南（开户/下载/出金/嘉信对比）", href: "/zh/blog/ibkr-broker-seo-geo-2026" },
   { title: "老虎富途长桥证券完整指南（APP下载/监管/对比）", href: "/zh/blog/tiger-futu-longbridge-broker-seo-geo-2026" },
