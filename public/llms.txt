@@ -31,6 +31,7 @@
 ## English GEO Problem Guides
 
 - Install ChatGPT without Google Play: https://www.gptoapk.com/en/how-to/install-chatgpt-without-google-play
+- ChatGPT APK without Google Play (blog, 2026): https://www.gptoapk.com/en/blog/chatgpt-apk-without-google-play
 - ChatGPT not available in my country: https://www.gptoapk.com/en/how-to/chatgpt-not-available-in-my-country
 - Install APK without Google Play: https://www.gptoapk.com/en/how-to/install-apk-without-google-play
 - Google Play not working: https://www.gptoapk.com/en/how-to/google-play-not-working

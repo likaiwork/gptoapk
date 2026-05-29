@@ -24,6 +24,15 @@ interface BlogPost {
 }
 
 const posts: BlogPost[] = [
+  {
+    slug: "chatgpt-apk-without-google-play",
+    title: "How to Install ChatGPT APK Without Google Play (2026)",
+    description:
+      "Install ChatGPT on Android when Google Play is unavailable: verify com.openai.chatgpt, download safely, enable unknown apps, and fix common sideload errors.",
+    date: "2026-05-29",
+    readTime: "9 min read",
+    tags: ["ChatGPT APK", "Google Play", "Android", "Sideload", "OpenAI"],
+  },
   { slug: "chatgpt-download-install-guide", title: "ChatGPT Download & Installation: Complete 2026 Guide", description: "How to download ChatGPT in 2026 — official website, iOS and Android apps, APK download, and step-by-step installation guide for all devices.", date: "2026-05-27", readTime: "8 min read", tags: ["ChatGPT Download", "ChatGPT App", "AI Assistant", "APK"] },
   { slug: "chatgpt-beginners-guide", title: "ChatGPT Registration & Beginner's Guide (2026)", description: "Complete beginner's guide to ChatGPT — how to register without a Chinese phone number, basic usage tips, account management, and which version to choose.", date: "2026-05-27", readTime: "10 min read", tags: ["ChatGPT Registration", "How to Use ChatGPT", "ChatGPT Account", "AI Guide"] },
   { slug: "chatgpt-china-guide-2026", title: "How to Use ChatGPT in China: Complete 2026 Guide", description: "How to use ChatGPT in China in 2026 — APK download, VPN setup, registration with overseas phone number, and everything else you need to know.", date: "2026-05-27", readTime: "10 min read", tags: ["ChatGPT China", "VPN", "ChatGPT Chinese", "AI Access"] },

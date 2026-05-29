@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-05-29T04:46:16.668Z",
+  "updatedAt": "2026-05-29T05:47:41.006Z",
   "today": {
     "date": "2026-05-26",
     "locale": "zh",
@@ -43,6 +43,12 @@
       "note": "",
       "publishedUrl": "https://www.gptoapk.com/zh/blog/social-apk-safe-install-2026",
       "at": "2026-05-29T04:46:16.668Z"
+    },
+    "2026-05-30": {
+      "status": "published",
+      "note": "",
+      "publishedUrl": "https://www.gptoapk.com/en/blog/chatgpt-apk-without-google-play",
+      "at": "2026-05-29T05:47:41.006Z"
     }
   }
 }
