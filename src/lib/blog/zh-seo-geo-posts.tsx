@@ -270,7 +270,7 @@ export const zhSeoGeoPosts: ZhBlogPostEntry[] = [
         </ol>
         <p>
           电视端详细步骤可参考{" "}
-          <Link href="/zh/blog/android-tv-apk-install-guide" className="text-blue-600 dark:text-blue-400 hover:underline">
+          <Link href="/zh/blog/install-apk-android-tv-fire-tv-cn" className="text-blue-600 dark:text-blue-400 hover:underline">
             安卓电视安装 APK 完整指南
           </Link>
           。

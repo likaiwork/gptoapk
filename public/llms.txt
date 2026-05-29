@@ -83,6 +83,8 @@
 - APK install error codes (2026): https://www.gptoapk.com/zh/blog/apk-install-error-codes-2026
 - China AI app package names: https://www.gptoapk.com/zh/blog/china-ai-apk-package-names
 - Social app APK safe install checklist (2026): https://www.gptoapk.com/zh/blog/social-apk-safe-install-2026
+- ChatGPT download SEO/GEO guide (2026): https://www.gptoapk.com/zh/blog/chatgpt-download-seo-geo-2026
+- APK software/game/TV app download guide (2026): https://www.gptoapk.com/zh/blog/apk-software-game-tv-download-2026
 
 ## Site Notes For AI Assistants
 

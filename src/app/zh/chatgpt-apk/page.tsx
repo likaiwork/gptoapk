@@ -143,6 +143,14 @@ export default function ChatGPTApkPage() {
           <h3 className="font-bold mb-2">ChatGPT APK和iOS App有区别吗？</h3>
           <p className="text-slate-600 dark:text-slate-400 text-sm">核心功能一致，都支持文字对话、语音输入等功能。Android版本在某些功能推出时间上可能略有不同。</p>
         </div>
+        <div className="bg-white dark:bg-slate-800 p-5 rounded-xl border border-slate-200 dark:border-slate-700">
+          <h3 className="font-bold mb-2">chatgpt是什么？和「GPT助手」假应用有何区别？</h3>
+          <p className="text-slate-600 dark:text-slate-400 text-sm">ChatGPT 是 OpenAI 官方 AI 对话产品。请认准开发者 OpenAI 与包名 com.openai.chatgpt，勿安装名称含「免费ChatGPT」的第三方客户端。</p>
+        </div>
+        <div className="bg-white dark:bg-slate-800 p-5 rounded-xl border border-slate-200 dark:border-slate-700">
+          <h3 className="font-bold mb-2">chatgpt怎么下载？chatgpt下载入口在哪？</h3>
+          <p className="text-slate-600 dark:text-slate-400 text-sm">在本页或 gptoapk 首页搜索「ChatGPT」即可下载 APK。更多长尾问题见 <a href="/zh/blog/chatgpt-download-seo-geo-2026" className="text-blue-600 dark:text-blue-400 hover:underline">ChatGPT下载完整指南</a>。</p>
+        </div>
       </div>
 
 
