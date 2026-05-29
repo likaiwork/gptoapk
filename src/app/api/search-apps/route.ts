@@ -8,6 +8,7 @@ import { buildCuratedSearchResult, getCuratedSearchAppMeta } from '@/lib/curated
 import { resolvePlayPackageIdAlias, resolveSearchAliasAppIds } from '@/lib/search-aliases';
 import { recordSearchFailure, recordSearchSuccess } from '@/lib/record-search-failure';
 import type { SearchFailureKind } from '@/lib/search-failure-key';
+import { shouldPersistSearchFailure } from '@/lib/search-failure-reconcile';
 
 export const runtime = 'nodejs';
 export const maxDuration = 60;
@@ -381,14 +382,16 @@ function searchFailureResponse(
   lang?: string,
   country?: string,
 ) {
-  void recordSearchFailure({
-    query,
-    queryType,
-    failureKind,
-    lastError: error,
-    lang,
-    country,
-  });
+  if (shouldPersistSearchFailure(query, failureKind)) {
+    void recordSearchFailure({
+      query,
+      queryType,
+      failureKind,
+      lastError: error,
+      lang,
+      country,
+    });
+  }
   return NextResponse.json({ error }, { status });
 }
 

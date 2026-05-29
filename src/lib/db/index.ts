@@ -1,5 +1,6 @@
 import { createPool } from "@vercel/postgres";
 import type { QueryResultRow } from "@vercel/postgres";
+import { canResolveSearchQueryNow } from "@/lib/search-failure-reconcile";
 
 type Primitive = string | number | boolean | undefined | null;
 
@@ -863,7 +864,7 @@ export async function logSearchFailure(params: SearchFailureLogParams): Promise<
   `;
 }
 
-export async function resolveSearchFailuresForQuery(query: string, queryType: string): Promise<void> {
+export async function resolveSearchFailuresForQuery(query: string, _queryType?: string): Promise<void> {
   const normalized = query.trim().toLowerCase().replace(/\s+/g, " ");
   if (!normalized) return;
 
@@ -873,9 +874,30 @@ export async function resolveSearchFailuresForQuery(query: string, queryType: st
         resolved_at = NOW(),
         updated_at = NOW()
     WHERE normalized_query = ${normalized}
-      AND query_type = ${queryType}
       AND resolved = FALSE
   `;
+}
+
+export async function reconcileResolvableSearchFailures(
+  limit = 500,
+): Promise<{ checked: number; resolved: number }> {
+  const rows = await sqlRaw<{ query_key: string; query: string }>(
+    `SELECT query_key, query
+     FROM search_failure_queries
+     WHERE resolved = FALSE
+     ORDER BY last_failed_at DESC
+     LIMIT $1`,
+    [limit],
+  );
+
+  let resolved = 0;
+  for (const row of rows) {
+    if (!canResolveSearchQueryNow(row.query)) continue;
+    const ok = await updateSearchFailureResolved(row.query_key, true);
+    if (ok) resolved += 1;
+  }
+
+  return { checked: rows.length, resolved };
 }
 
 export async function getSearchFailureQueries(

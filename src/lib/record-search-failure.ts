@@ -4,6 +4,7 @@ import {
   normalizeSearchQuery,
   type SearchFailureKind,
 } from "@/lib/search-failure-key";
+import { shouldPersistSearchFailure } from "@/lib/search-failure-reconcile";
 
 export async function recordSearchFailure(params: {
   query: string;
@@ -14,7 +15,7 @@ export async function recordSearchFailure(params: {
   country?: string;
 }): Promise<void> {
   const trimmed = params.query.trim();
-  if (!trimmed) return;
+  if (!shouldPersistSearchFailure(trimmed, params.failureKind)) return;
 
   try {
     await initDatabase();

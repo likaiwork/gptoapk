@@ -182,6 +182,9 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
       "应用商店",
       "安卓应用商店",
       "goodplay",
+      "googleplay下载",
+      "谷歌商店",
+      "google play下载",
     ],
   },
   {

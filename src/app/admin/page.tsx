@@ -783,6 +783,8 @@ function Dashboard({
   onViewVisitor,
   onToggleFailureResolved,
   onToggleSearchFailureResolved,
+  onReconcileSearchFailures,
+  reconcilingSearchFailures,
   onManualSourceDraftChange,
   onSaveManualSource,
   onDeleteManualSource,
@@ -798,6 +800,8 @@ function Dashboard({
   onViewVisitor: (v: VisitorInfo) => void;
   onToggleFailureResolved: (appId: string, resolved: boolean) => Promise<void>;
   onToggleSearchFailureResolved: (queryKey: string, resolved: boolean) => Promise<void>;
+  onReconcileSearchFailures: () => Promise<void>;
+  reconcilingSearchFailures: boolean;
   onManualSourceDraftChange: (appId: string, draft: Partial<ManualSourceDraft>) => void;
   onSaveManualSource: (item: DownloadFailureApp) => Promise<void>;
   onDeleteManualSource: (appId: string) => Promise<void>;
@@ -835,6 +839,14 @@ function Dashboard({
           <h2 className="text-lg font-semibold text-gray-900">搜索失败关键词</h2>
           <MetricPill label="未解决" value={data.unresolved_search_failures} />
           <MetricPill label="全部记录" value={data.search_failures_total} />
+          <button
+            type="button"
+            disabled={reconcilingSearchFailures || data.unresolved_search_failures === 0}
+            onClick={() => { void onReconcileSearchFailures(); }}
+            className="ml-auto cursor-pointer rounded-lg border border-amber-200 bg-amber-50 px-3 py-1.5 text-xs font-medium text-amber-900 hover:bg-amber-100 disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            {reconcilingSearchFailures ? "校验中..." : "批量校验（已有别名/兜底则标记已解决）"}
+          </button>
         </div>
         <div className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
           <table className="min-w-full divide-y divide-gray-200 text-sm">
@@ -1251,6 +1263,7 @@ export default function AdminPage() {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState<AdminData | null>(null);
   const [error, setError] = useState("");
+  const [notice, setNotice] = useState("");
   const [dateStart, setDateStart] = useState(() => new Date().toISOString().slice(0, 10));
   const [dateEnd, setDateEnd] = useState(() => new Date().toISOString().slice(0, 10));
   const [appliedDateStart, setAppliedDateStart] = useState(() => new Date().toISOString().slice(0, 10));
@@ -1270,6 +1283,7 @@ export default function AdminPage() {
   const [failurePage, setFailurePage] = useState(0);
   const [searchFailurePage, setSearchFailurePage] = useState(0);
   const [pendingSearchFailureKeys, setPendingSearchFailureKeys] = useState<Set<string>>(() => new Set());
+  const [reconcilingSearchFailures, setReconcilingSearchFailures] = useState(false);
 
   const fetchData = useCallback(async (authToken: string, start?: string, end?: string, pages?: {
     searchPage?: number; downloadPage?: number; activityPage?: number; visitorPage?: number; failurePage?: number; searchFailurePage?: number;
@@ -1423,6 +1437,45 @@ export default function AdminPage() {
       });
     }
   }, [token, data, fetchData, appliedDateStart, appliedDateEnd, getCurrentPages]);
+
+  const handleReconcileSearchFailures = useCallback(async () => {
+    if (!token) return;
+    setError("");
+    setNotice("");
+    setReconcilingSearchFailures(true);
+    try {
+      const res = await fetch(
+        `/api/admin/search-failures/reconcile?key=${encodeURIComponent(token)}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          cache: "no-store",
+          body: JSON.stringify({ limit: 500 }),
+        },
+      );
+      const body = await res.json().catch(() => null) as {
+        error?: string;
+        checked?: number;
+        resolved?: number;
+      } | null;
+      if (!res.ok) {
+        setError(body?.error ? `批量校验失败：${body.error}` : "批量校验失败");
+        return;
+      }
+      await fetchData(token, appliedDateStart, appliedDateEnd, getCurrentPages());
+      if (typeof body?.resolved === "number" && typeof body?.checked === "number") {
+        setNotice(
+          body.resolved > 0
+            ? `已校验 ${body.checked} 条，标记已解决 ${body.resolved} 条（当前搜索已能命中别名/兜底）。`
+            : `已校验 ${body.checked} 条，暂无新增可自动解决的记录。`,
+        );
+      }
+    } catch {
+      setError("批量校验网络错误");
+    } finally {
+      setReconcilingSearchFailures(false);
+    }
+  }, [token, fetchData, appliedDateStart, appliedDateEnd, getCurrentPages]);
 
   const handleToggleFailureResolved = useCallback(async (appId: string, resolved: boolean) => {
     if (!token) return;
@@ -1631,12 +1684,15 @@ export default function AdminPage() {
           onApply={handleDateApply}
         />
 
+        {notice && <div className="mb-4 rounded-lg bg-emerald-50 px-4 py-3 text-sm text-emerald-800">{notice}</div>}
         {error && <div className="mb-4 rounded-lg bg-red-50 px-4 py-3 text-sm text-red-600">{error}</div>}
         {data ? <Dashboard
           data={data}
           onViewVisitor={setSelectedVisitor}
           onToggleFailureResolved={handleToggleFailureResolved}
           onToggleSearchFailureResolved={handleToggleSearchFailureResolved}
+          onReconcileSearchFailures={handleReconcileSearchFailures}
+          reconcilingSearchFailures={reconcilingSearchFailures}
           onManualSourceDraftChange={handleManualSourceDraftChange}
           onSaveManualSource={handleSaveManualSource}
           onDeleteManualSource={handleDeleteManualSource}
