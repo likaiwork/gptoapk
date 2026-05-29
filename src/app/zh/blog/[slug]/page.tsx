@@ -15,6 +15,7 @@ interface BlogPost {
 }
 
 const zhPosts: BlogPost[] = [
+  ...zhSeoGeoPosts,
   {
     slug: "longbridge-securities-advanced",
     title: "长桥证券攻略：2026最新入金出金与使用技巧",
@@ -821,7 +822,6 @@ const zhPosts: BlogPost[] = [
       </>
     ),
   },
-  ...zhSeoGeoPosts,
   {
     slug: "tiger-futu-longbridge-comparison",
     title: "富途老虎长桥证券对比与监管动态：2026最新解读",

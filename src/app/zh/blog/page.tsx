@@ -33,7 +33,6 @@ const posts = [
     readTime: "10 分钟阅读",
     tags: ["长桥证券", "Longbridge", "长桥APP", "长桥下载", "长桥开户", "gptoapk"],
   },
-  ...zhSeoGeoPostList,
   {
     slug: "tiger-futu-longbridge-comparison",
     title: "富途老虎长桥证券对比与监管动态：2026最新解读",

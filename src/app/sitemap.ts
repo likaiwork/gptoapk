@@ -22,6 +22,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ];
 
   const zhBlogSlugs = [
+    "facebook-download-seo-geo-2026",
+    "chatgpt-download-seo-geo-2026",
+    "apk-software-game-tv-download-2026",
+    "longbridge-securities-guide",
+    "longbridge-securities-advanced",
     "how-to-download-apk-from-google-play",
     "apk-downloader-tool-comparison",
     "what-is-an-apk-file",
