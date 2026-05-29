@@ -8,8 +8,12 @@ export type UnsupportedPaidApp = {
 
 const unsupportedPaidApps = paidApps as Record<string, UnsupportedPaidApp>;
 
+const unsupportedPaidByLowercase = Object.fromEntries(
+  Object.entries(unsupportedPaidApps).map(([appId, app]) => [appId.toLowerCase(), app]),
+) as Record<string, UnsupportedPaidApp>;
+
 export function getUnsupportedPaidApp(appId: string): UnsupportedPaidApp | null {
-  return unsupportedPaidApps[appId.trim().toLowerCase()] ?? null;
+  return unsupportedPaidByLowercase[appId.trim().toLowerCase()] ?? null;
 }
 
 export function isUnsupportedPaidApp(appId: string): boolean {

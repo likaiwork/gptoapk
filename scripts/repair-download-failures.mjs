@@ -77,12 +77,21 @@ function isVpnLike(item) {
   return /\bvpn\b|proxy|wireguard|openvpn|surfshark|nordvpn|expressvpn|protonvpn/.test(text);
 }
 
+function buildLowercaseMap(record) {
+  return Object.fromEntries(
+    Object.entries(record).map(([appId, app]) => [appId.toLowerCase(), app]),
+  );
+}
+
+const unsupportedPaidByLowercase = buildLowercaseMap(unsupportedPaidApps);
+const unsupportedNoMirrorByLowercase = buildLowercaseMap(unsupportedNoMirrorApps);
+
 function getUnsupportedPaidApp(appId) {
-  return unsupportedPaidApps[String(appId || "").trim().toLowerCase()] || null;
+  return unsupportedPaidByLowercase[String(appId || "").trim().toLowerCase()] || null;
 }
 
 function getUnsupportedNoMirrorApp(appId) {
-  return unsupportedNoMirrorApps[String(appId || "").trim().toLowerCase()] || null;
+  return unsupportedNoMirrorByLowercase[String(appId || "").trim().toLowerCase()] || null;
 }
 
 async function loadFailureRows() {

@@ -8,8 +8,12 @@ export type UnsupportedNoMirrorApp = {
 
 const unsupportedNoMirrorApps = noMirrorApps as Record<string, UnsupportedNoMirrorApp>;
 
+const unsupportedNoMirrorByLowercase = Object.fromEntries(
+  Object.entries(unsupportedNoMirrorApps).map(([appId, app]) => [appId.toLowerCase(), app]),
+) as Record<string, UnsupportedNoMirrorApp>;
+
 export function getUnsupportedNoMirrorApp(appId: string): UnsupportedNoMirrorApp | null {
-  return unsupportedNoMirrorApps[appId.trim().toLowerCase()] ?? null;
+  return unsupportedNoMirrorByLowercase[appId.trim().toLowerCase()] ?? null;
 }
 
 export function isUnsupportedNoMirrorApp(appId: string): boolean {
