@@ -5,10 +5,16 @@ alwaysApply: true
 
 # Daily content (gptoapk)
 
-When the user says **写今天的**, **发今天的**, **今日内容**, or opens a `daily-content` GitHub Issue:
+When the user says **写今天的**, **发今天的**, **今日内容**, **继续做 SEO**, **继续做 GEO**, or opens a `daily-content` GitHub Issue:
 
 1. Read `content/queue/2026-Q2.json` + `content/queue/status.json` for **Asia/Shanghai today** (`node scripts/content-queue.mjs today`).
 2. Full plan: `docs/content-marketing-plan.md`.
+3. **Proactive:** If the user asks to continue daily SEO/GEO or set up automation, run the full pipeline for today without waiting for extra confirmation (commit + push unless they said not to).
+
+## Reminder (方式 B)
+
+- GitHub Actions **daily-content-reminder.yml** creates a `daily-content` Issue at **09:00 Asia/Shanghai** with today's checklist.
+- User can also say **写今天的** any time in Cursor to trigger the same pipeline.
 
 ## Write (方式 A)
 

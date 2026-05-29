@@ -16,6 +16,15 @@ export const metadata: Metadata = {
 
 const posts = [
   {
+    slug: "social-apk-safe-install-2026",
+    title: "Instagram/TikTok/WhatsApp/Telegram APK 安全安装清单",
+    description:
+      "2026 社交 App APK 安全安装清单：四款热门应用官方包名、下载前核对项、假包识别与分步安装，避免装错或被窃号。",
+    date: "2026-05-29",
+    readTime: "10 分钟阅读",
+    tags: ["TikTok APK", "WhatsApp", "Telegram", "Instagram", "安全", "gptoapk"],
+  },
+  {
     slug: "twitter-china-access-guide",
     title: "国内怎么上Twitter？2026最新完整指南",
     description: "国内怎么上Twitter？Twitter加速器怎么用？本文整理了访问Twitter的可行方法、APP下载、账号注册和常见问题解决方案。",

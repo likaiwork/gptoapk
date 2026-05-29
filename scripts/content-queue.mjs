@@ -161,9 +161,11 @@ function formatReminder(item) {
 
 **状态：** ${item.status}
 
-### Agent（方式 A）
+### Agent（方式 A · 建议自动执行）
 
-在 Cursor 说：\`写今天的 ${item.locale}\`
+在 Cursor 说：\`写今天的\`、\`写今天的 ${item.locale}\` 或 \`发今天的\`
+
+> 每日 **北京时间 09:00** 本 Issue 自动创建。Agent 应完成：母版 → 入站博客 → 外链包 → 短视频脚本 → push（commit 可含 \`[syndicate]\`）。
 
 ### 待办
 
@@ -171,7 +173,9 @@ function formatReminder(item) {
 - [ ] 入站博客并 push
 ${auto}
 ${manual}
+- [ ] 短视频：\`content/video-scripts/${item.date}-${item.slug}.md\`
 - [ ] 国内草稿：\`content/syndication/${item.locale}/${item.date}.md\`（zh 时生成）
+- [ ] 更新 \`public/llms.txt\`（如有新 GEO 页）
 
 ### 完成后
 
