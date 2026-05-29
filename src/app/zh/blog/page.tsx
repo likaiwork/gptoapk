@@ -18,6 +18,22 @@ export const metadata: Metadata = {
 const posts = [
   ...zhSeoGeoPostList,
   {
+    slug: "china-broker-app-list",
+    title: "国内券商APP下载指南：同花顺东财华泰国信中信招商等主流券商APP包名大全",
+    description: "最全的国内主流券商APP包名大全。同花顺(com.hexin.plat.android)、东方财富(com.eastmoney.android.berlin)、华泰、国信、中信、招商、广发、海通等券商APP下载教程。",
+    date: "2026-05-29",
+    readTime: "10 分钟阅读",
+    tags: ["券商APP", "同花顺", "东方财富", "华泰证券", "中信证券", "券商包名", "gptoapk"],
+  },
+  {
+    slug: "broker-app-download-guide",
+    title: "美股港股券商APP推荐：老虎富途长桥等主流券商下载指南",
+    description: "老虎证券(com.tigerbrokers.stock)、富途牛牛(cn.futu.trader)、长桥、微牛、雪盈、moomoo等主流券商APP下载指南，附包名和对比。",
+    date: "2026-05-29",
+    readTime: "12 分钟阅读",
+    tags: ["老虎证券", "富途牛牛", "长桥证券", "券商APP", "券商下载", "美股券商", "gptoapk"],
+  },
+  {
     slug: "longbridge-securities-advanced",
     title: "长桥证券攻略：2026最新入金出金与使用技巧",
     description: "长桥证券入金怎么操作？出金多久到账？本文深入讲解长桥证券的入金出金流程、交易技巧和常见问题解决。",
