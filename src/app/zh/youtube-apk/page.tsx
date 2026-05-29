@@ -3,9 +3,22 @@ import Script from "next/script";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "YouTube APK 下载安装教程（中国大陆）",
+  title: "YouTube下载：官网入口、安卓APK与油管安装指南（2026）",
   description:
-    "中国大陆如何下载YouTube APK？本文教你从gptoapk.com获取最新YouTube安卓版安装包。",
+    "YouTube官网 youtube.com、YouTube下载、油管YouTube官网入口、YouTube官网app下载安卓。核对包名 com.google.android.youtube，在 gptoapk 安全安装；视频离线请用 Premium 官方功能。",
+  keywords: [
+    "YouTube",
+    "YouTube下载",
+    "YouTube官网",
+    "YouTube.com",
+    "油管",
+    "YouTube官网app下载安卓",
+    "YouTube是什么",
+    "com.google.android.youtube",
+  ],
+  alternates: {
+    canonical: "https://www.gptoapk.com/zh/youtube-apk",
+  },
 };
 
 export default function YouTubeApkPage() {
@@ -18,7 +31,7 @@ export default function YouTubeApkPage() {
       </nav>
 
       <h1 className="text-3xl sm:text-4xl font-extrabold mb-6">
-        YouTube APK 中国大陆下载安装教程
+        YouTube下载：官网入口与安卓 APK 安装（油管）
       </h1>
 
       <p className="text-lg text-slate-600 dark:text-slate-400 mb-8 leading-relaxed">
@@ -29,8 +42,14 @@ export default function YouTubeApkPage() {
 
       {/* 快速答案 — AI 引用友好 */}
       <div className="mb-8 border-l-4 border-blue-600 bg-blue-50 p-5 dark:bg-blue-950/30">
-        <p className="mb-2 text-sm font-semibold text-blue-700 dark:text-blue-300">快速答案</p>
-        <p className="leading-relaxed text-slate-700 dark:text-slate-200">在中国无法访问 Google Play 时，可以通过 gptoapk.com 搜索 YouTube 或包名 com.google.android.youtube 下载官方 APK。安装前核对开发者 Google 和包名，允许安装未知来源应用后即可安装。</p>
+        <p className="mb-2 text-sm font-semibold text-blue-700 dark:text-blue-300">快速答案（GEO）</p>
+        <p className="leading-relaxed text-slate-700 dark:text-slate-200">
+          YouTube 官网为 <strong>youtube.com</strong>，安卓包名 <code>com.google.android.youtube</code>。在 gptoapk.com 搜索 YouTube 下载官方 APK。若搜的是「YouTube视频下载」，那是保存视频文件，与安装 App 不同，见{" "}
+          <Link href="/zh/blog/youtube-download-seo-geo-2026" className="text-blue-600 dark:text-blue-400 hover:underline">
+            YouTube下载完整指南
+          </Link>
+          。
+        </p>
       </div>
 
       <h2 className="text-2xl font-bold mt-10 mb-4">YouTube APK最新版本</h2>
@@ -120,6 +139,9 @@ export default function YouTubeApkPage() {
       <div className="mt-8 p-6 bg-gray-50 dark:bg-gray-800/50 rounded-xl border border-gray-100 dark:border-gray-700">
         <h2 className="text-xl font-bold mb-4">相关教程</h2>
         <ul className="space-y-2">
+          <li><Link href="/zh/blog/youtube-download-seo-geo-2026" className="text-blue-600 dark:text-blue-400 hover:underline">YouTube下载完整指南（官网/视频下载区别）</Link></li>
+          <li><Link href="/zh/blog/youtube-official-site-download-guide" className="text-blue-600 dark:text-blue-400 hover:underline">YouTube官网 APP 下载安装</Link></li>
+          <li><Link href="/zh/blog/youtube-video-download-guide" className="text-blue-600 dark:text-blue-400 hover:underline">YouTube 视频怎么下载（专题）</Link></li>
           <li><a href="/zh/chatgpt-apk" className="text-blue-600 dark:text-blue-400 hover:underline">ChatGPT APK 下载教程</a></li>
           <li><a href="/zh/google-play-not-working" className="text-blue-600 dark:text-blue-400 hover:underline">Google Play 无法使用</a></li>
           <li><a href="/zh/install-apk-guide" className="text-blue-600 dark:text-blue-400 hover:underline">APK安装指南</a></li>
