@@ -101,6 +101,8 @@ function normalizeUserSearchQuery(query: string): string {
   if (/^https?:\/\/(www\.)?whatsapp\.com\/?/i.test(trimmed)) return 'whatsapp';
   if (/^https?:\/\/(www\.)?web\.whatsapp\.com\/?/i.test(trimmed)) return 'whatsapp';
   if (/^https?:\/\/wa\.me\//i.test(trimmed)) return 'whatsapp';
+  if (/^https?:\/\/([\w-]+\.)?zoom\.us\//i.test(trimmed)) return 'zoom';
+  if (/^zoommtg:/i.test(trimmed)) return 'zoom';
   return trimmed;
 }
 

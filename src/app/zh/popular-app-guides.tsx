@@ -218,6 +218,50 @@ export const popularAppGuides: Record<string, PopularAppGuide> = {
       },
     ],
   },
+  zoom: {
+    slug: "zoom-apk",
+    name: "Zoom",
+    titleName: "Zoom Workplace",
+    developer: "Zoom",
+    packageName: "us.zoom.videomeetings",
+    searchTerms: ["Zoom", "zoom", "zoom视频会议", "us.zoom.videomeetings"],
+    category: "tools",
+    summary:
+      "Zoom（Zoom Workplace）是主流视频会议与协作平台，支持会议、聊天、白板等。安卓会议客户端包名为 us.zoom.videomeetings，官网 zoom.us。",
+    citationAnswer:
+      "在 gptoapk.com/zh 搜索 Zoom，核对包名 us.zoom.videomeetings 与开发者 Zoom 后下载 APK。勿与「Zoom与人性」游戏或 zoomlion（中联重科）混淆。",
+    whyNeedApk:
+      "zoom软件下载、zoom安卓版下载 在无法使用 Google Play 时，可通过 APK 获取最新会议客户端。",
+    highlights: ["视频会议与网络研讨会", "屏幕共享", "会议聊天", "云端录制（视账号）", "Zoom AI Companion（视套餐）"],
+    installNotes: [
+      "在 gptoapk.com 搜索 Zoom 或 zoom视频会议。",
+      "核对包名 us.zoom.videomeetings。",
+      "下载 APK 并允许安装未知来源应用。",
+      "安装后用会议号/链接加入，或登录账号发起会议。",
+    ],
+    faqs: [
+      {
+        question: "zoom软件下载 / zoom安卓版下载 怎么操作？",
+        answer: "在 gptoapk 搜索 Zoom，确认包名 us.zoom.videomeetings 后安装。详见《Zoom下载完整指南》。",
+      },
+      {
+        question: "zoom是什么意思？zoom怎么读？",
+        answer: "作品牌指视频会议平台 Zoom；英文 zoom 也有「放大」之意。中文常读「祖姆」。",
+      },
+      {
+        question: "zoom与人性zoom1区别？",
+        answer: "「Zoom与人性」是互动游戏，不是会议软件。对比与同步见站内游戏攻略，勿混用包名。",
+      },
+      {
+        question: "zoomlion、zoomin、zoomair 是 Zoom 吗？",
+        answer: "不是。分别为中联重科、相机变焦、Nike 气垫等，与 Zoom 会议 App 无关。",
+      },
+      {
+        question: "zoom人牛okzoom 等乱码词是什么？",
+        answer: "多为搜索误组合，非正规产品。请改用 Zoom 会议或 Zoom与人性 等准确名称搜索。",
+      },
+    ],
+  },
   whatsapp: {
     slug: "whatsapp-apk",
     name: "WhatsApp",

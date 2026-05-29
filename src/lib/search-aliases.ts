@@ -181,6 +181,24 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
     aliases: ["电视家", "电视家3.0", "电视家3.0 apk", "电视家3.0 apk下载", "电视家apk", "dianshijia"],
   },
   {
+    appIds: ["us.zoom.videomeetings"],
+    aliases: [
+      "zoom",
+      "zoom下载",
+      "zoom软件下载",
+      "zoom安卓版下载",
+      "zoom安卓下载",
+      "zoom视频会议",
+      "zoom会议",
+      "zoom workplace",
+      "zoom workplace下载",
+      "zoom是什么意思",
+      "zoom怎么读",
+      "zoom.us",
+      "zoom官网",
+    ],
+  },
+  {
     appIds: ["com.whatsapp"],
     aliases: [
       "whatsapp",

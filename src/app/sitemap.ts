@@ -22,6 +22,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ];
 
   const zhBlogSlugs = [
+    "zoom-download-seo-geo-2026",
     "whatsapp-download-seo-geo-2026",
     "twitter-download-seo-geo-2026",
     "youtube-download-seo-geo-2026",
@@ -324,6 +325,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       { slug: "instagram-apk", priority: 0.8 as const, lastModified: "2026-05-19" },
       { slug: "tiktok-apk", priority: 0.8 as const, lastModified: "2026-05-19" },
       { slug: "whatsapp-apk", priority: 0.8 as const, lastModified: "2026-05-19" },
+      { slug: "zoom-apk", priority: 0.8 as const, lastModified: "2026-05-29" },
       { slug: "social-apps", priority: 0.85 as const, lastModified: "2026-05-19" },
       { slug: "about", priority: 0.5 as const, lastModified: "2026-05-19" },
       { slug: "editorial-policy", priority: 0.5 as const, lastModified: "2026-05-19" },
