@@ -93,6 +93,8 @@ function normalizeUserSearchQuery(query: string): string {
   if (/^https?:\/\/(www\.)?grok\.com\/?/i.test(trimmed)) return 'grok';
   if (/^https?:\/\/(www\.)?facebook\.com\/?/i.test(trimmed)) return 'facebook';
   if (/^https?:\/\/(www\.)?messenger\.com\/?/i.test(trimmed)) return 'facebook messenger';
+  if (/^https?:\/\/(www\.)?tiktok\.com\/?/i.test(trimmed)) return 'tiktok';
+  if (/^https?:\/\/(www\.)?business\.tiktok\.com\/?/i.test(trimmed)) return 'tiktok';
   return trimmed;
 }
 
