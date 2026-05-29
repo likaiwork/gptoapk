@@ -28,5 +28,15 @@
     "title": "NDI SP",
     "category": "unlisted",
     "note": "No public APK mirror lists this package."
+  },
+  "io.mawingu.co": {
+    "title": "Mawingu Selfcare",
+    "category": "unlisted",
+    "note": "ISP account app; not distributed on public APK mirrors."
+  },
+  "com.solidworks.eDrawingsAndroid": {
+    "title": "eDrawings",
+    "category": "unlisted",
+    "note": "No direct APK CDN link from mirrors; APKPure only lists version pages."
   }
 }

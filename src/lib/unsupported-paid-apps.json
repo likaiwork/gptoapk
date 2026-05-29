@@ -8,5 +8,10 @@
     "title": "Cambrian Launcher",
     "sourceUrl": "https://markusmaribu.itch.io/cambrian-launcher",
     "note": "The developer distributes this app as a paid APK."
+  },
+  "com.mojang.minecraftpe": {
+    "title": "Minecraft",
+    "sourceUrl": "https://play.google.com/store/apps/details?id=com.mojang.minecraftpe",
+    "note": "Paid game; public mirrors only expose version listing pages, not installable APKs."
   }
 }

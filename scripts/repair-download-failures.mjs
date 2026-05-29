@@ -2,7 +2,8 @@ import fs from "node:fs";
 
 const SITE_HOST = process.env.REPAIR_SITE_HOST || "https://gptoapk.com";
 const ADMIN_KEY = process.env.ADMIN_API_KEY || process.env.REPAIR_ADMIN_KEY || "gptoapk-admin-key-2026";
-const FAILURE_THRESHOLD = Number(process.env.REPAIR_FAILURE_THRESHOLD || 5);
+// Default 3 = apps with more than 3 failures (failure_count > 3). Set REPAIR_FAILURE_THRESHOLD=2 to include count === 3.
+const FAILURE_THRESHOLD = Number(process.env.REPAIR_FAILURE_THRESHOLD || 3);
 const PAGE_SIZE = Number(process.env.REPAIR_PAGE_SIZE || 100);
 const REQUEST_TIMEOUT_MS = Number(process.env.REPAIR_REQUEST_TIMEOUT_MS || 45000);
 const SOURCE_TIMEOUT_MS = Number(process.env.REPAIR_SOURCE_TIMEOUT_MS || 30000);
