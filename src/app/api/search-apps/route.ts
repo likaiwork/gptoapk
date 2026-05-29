@@ -4,6 +4,7 @@ import { gplayRequestOptions as requestOptions } from '@/lib/proxy';
 import { proxyImageUrl } from '@/lib/image-proxy';
 import { isUnsupportedNoMirrorApp } from '@/lib/unsupported-no-mirror-apps';
 import { VPN_DOWNLOADABLE_APP_IDS } from '@/lib/vpn-downloadable-apps';
+import { buildCuratedSearchResult, getCuratedSearchAppMeta } from '@/lib/curated-search-apps';
 import { resolvePlayPackageIdAlias, resolveSearchAliasAppIds } from '@/lib/search-aliases';
 import { recordSearchFailure, recordSearchSuccess } from '@/lib/record-search-failure';
 import type { SearchFailureKind } from '@/lib/search-failure-key';
@@ -86,6 +87,13 @@ function getQueryType(query: string): QueryType {
   return 'keyword';
 }
 
+/** Map common mistaken inputs before query-type detection. */
+function normalizeUserSearchQuery(query: string): string {
+  const trimmed = query.trim();
+  if (/^https?:\/\/(www\.)?grok\.com\/?/i.test(trimmed)) return 'grok';
+  return trimmed;
+}
+
 function isVpnKeyword(term: string): boolean {
   const q = term.toLowerCase();
   return (
@@ -125,13 +133,20 @@ function toSearchResult(app: IAppItem | IAppItemFullDetail): SearchAppResult {
 
 async function fetchExactApp(appId: string, lang: string, country: string) {
   const resolvedAppId = resolvePlayPackageIdAlias(appId);
-  const appInfo = await withTimeout(
-    gplay.app({ appId: resolvedAppId, lang, country, requestOptions } as Parameters<typeof gplay.app>[0]),
-    EXACT_TIMEOUT_MS,
-    'Network timeout: Cannot connect to Google Play'
-  );
+  const curated = getCuratedSearchAppMeta(resolvedAppId);
 
-  return toSearchResult(appInfo);
+  try {
+    const appInfo = await withTimeout(
+      gplay.app({ appId: resolvedAppId, lang, country, requestOptions } as Parameters<typeof gplay.app>[0]),
+      EXACT_TIMEOUT_MS,
+      'Network timeout: Cannot connect to Google Play'
+    );
+
+    return toSearchResult(appInfo);
+  } catch (error) {
+    if (curated) return buildCuratedSearchResult(curated);
+    throw error;
+  }
 }
 
 async function searchDownloadableVpnApps(
@@ -363,14 +378,28 @@ function searchFailureResponse(
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
-  const query = searchParams.get('q')?.trim() ?? '';
+  const rawQuery = searchParams.get('q')?.trim() ?? '';
   const requestedLang = normalizeLocale(searchParams.get('hl'), 'en');
   const requestedCountry = normalizeCountry(searchParams.get('gl'), 'us');
-  const queryType = getQueryType(query);
 
-  if (!query) {
+  if (!rawQuery) {
     return searchFailureResponse('', 'keyword', 'search_error', 'Missing search query', 400, requestedLang, requestedCountry);
   }
+
+  if (/^file:\/\//i.test(rawQuery)) {
+    return searchFailureResponse(
+      rawQuery,
+      'keyword',
+      'invalid_url',
+      'Local file paths cannot be searched. Enter an app name, package name, or Google Play link.',
+      400,
+      requestedLang,
+      requestedCountry,
+    );
+  }
+
+  const query = normalizeUserSearchQuery(rawQuery);
+  const queryType = getQueryType(query);
 
   if (query.length > MAX_QUERY_LENGTH) {
     return searchFailureResponse(query, queryType, 'query_too_long', 'Search query is too long', 400, requestedLang, requestedCountry);

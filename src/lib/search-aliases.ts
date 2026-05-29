@@ -113,8 +113,32 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
     aliases: ["ipynb viewer", "ipynb", "jupyter notebook viewer", "notebook viewer"],
   },
   {
+    appIds: ["com.android.vending"],
+    aliases: [
+      "googleplay",
+      "google play",
+      "google play store",
+      "play store",
+      "playstore",
+      "googleplay商店",
+      "谷歌play",
+      "谷歌 play",
+      "应用商店",
+      "安卓应用商店",
+      "goodplay",
+    ],
+  },
+  {
     appIds: ["com.google.android.play.games"],
-    aliases: ["goodplay", "google play games", "play games"],
+    aliases: ["google play games", "play games", "play 游戏"],
+  },
+  {
+    appIds: ["com.autonavi.minimap"],
+    aliases: ["高德地图", "高德", "amap", "gaode"],
+  },
+  {
+    appIds: ["com.garena.game.nfsm"],
+    aliases: ["极品飞车", "极品飞车·集结", "极品飞车集结", "nfsm", "need for speed mobile"],
   },
   {
     appIds: ["com.spisoft.quicknote"],
