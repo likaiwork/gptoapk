@@ -16,6 +16,22 @@ export const metadata: Metadata = {
 
 const posts = [
   {
+    slug: "youtube-video-download-guide",
+    title: "YouTube视频怎么下载？2026年最全手机下载指南",
+    description: "想下载YouTube视频到手机？本文整理了SnapTube、NewPipe、在线下载网站等5种方法，教你轻松把YouTube视频保存到本地。",
+    date: "2026-05-29",
+    readTime: "10 分钟阅读",
+    tags: ["YouTube视频下载", "YouTube下载", "视频下载器", "SnapTube", "NewPipe", "Android", "gptoapk"],
+  },
+  {
+    slug: "youtube-official-site-download-guide",
+    title: "YouTube官网APP下载安装指南（2026最新版）",
+    description: "YouTube官网入口在哪？YouTube怎么读？本文从YouTube官网开始，一步步教你完成安卓手机上的YouTube APP下载安装。2026最新版。",
+    date: "2026-05-29",
+    readTime: "10 分钟阅读",
+    tags: ["YouTube", "YouTube官网", "YouTube下载", "油管", "APK下载", "Android", "gptoapk"],
+  },
+  {
     slug: "tiktok-download-install-guide",
     title: "TikTok国际版下载：2026最新安卓APK安装教程",
     description: "TikTok国际版下载完整教程。涵盖APK获取、安装故障排查、TikTok和抖音区别、怎么读、注册使用等。2026最新指南。",
