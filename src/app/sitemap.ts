@@ -22,6 +22,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ];
 
   const zhBlogSlugs = [
+    "twitter-download-seo-geo-2026",
     "youtube-download-seo-geo-2026",
     "tiktok-download-seo-geo-2026",
     "facebook-download-seo-geo-2026",
@@ -317,6 +318,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       { slug: "ai-apps-without-play-store", priority: 0.75 as const, lastModified: "2026-05-17" },
       { slug: "telegram-russia-apk", priority: 0.7 as const, lastModified: "2026-05-17" },
       { slug: "android-apk-safe-install", priority: 0.75 as const, lastModified: "2026-05-17" },
+      { slug: "twitter-apk", priority: 0.8 as const, lastModified: "2026-05-29" },
       { slug: "facebook-apk", priority: 0.8 as const, lastModified: "2026-05-29" },
       { slug: "instagram-apk", priority: 0.8 as const, lastModified: "2026-05-19" },
       { slug: "tiktok-apk", priority: 0.8 as const, lastModified: "2026-05-19" },

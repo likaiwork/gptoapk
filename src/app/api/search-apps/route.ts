@@ -97,6 +97,7 @@ function normalizeUserSearchQuery(query: string): string {
   if (/^https?:\/\/(www\.)?business\.tiktok\.com\/?/i.test(trimmed)) return 'tiktok';
   if (/^https?:\/\/((www|m)\.)?youtube\.com\/?/i.test(trimmed)) return 'youtube';
   if (/^https?:\/\/youtu\.be\//i.test(trimmed)) return 'youtube';
+  if (/^https?:\/\/(www\.)?(twitter|x)\.com\/?/i.test(trimmed)) return 'twitter';
   return trimmed;
 }
 

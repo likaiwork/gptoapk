@@ -5,7 +5,7 @@ export type SitemapSection = "main" | "blog" | "apps" | "locales";
 
 const localePattern = /^\/[a-z]{2}(?:\/|$)/;
 const appSlugPattern =
-  /(?:chatgpt|telegram|whatsapp|tiktok|youtube|claude|gemini|deepseek|qwen|kimi|doubao|yuanbao|qianwen|instagram|vpn)-apk$/;
+  /(?:chatgpt|telegram|whatsapp|tiktok|twitter|youtube|claude|gemini|deepseek|qwen|kimi|doubao|yuanbao|qianwen|instagram|vpn)-apk$/;
 
 function pathnameOf(entry: MetadataRoute.Sitemap[number]) {
   return new URL(entry.url).pathname;

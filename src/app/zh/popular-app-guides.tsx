@@ -107,6 +107,65 @@ export const popularAppGuides: Record<string, PopularAppGuide> = {
       },
     ],
   },
+  twitter: {
+    slug: "twitter-apk",
+    name: "X (Twitter)",
+    titleName: "Twitter / X",
+    developer: "X Corp.",
+    packageName: "com.twitter.android",
+    searchTerms: [
+      "Twitter",
+      "twitter",
+      "X",
+      "推特",
+      "twitter下载",
+      "com.twitter.android",
+    ],
+    category: "social",
+    summary:
+      "Twitter 已品牌升级为 X（推特），是全球短文本社交平台。Android 官方包名为 com.twitter.android，官网入口为 x.com（twitter.com 跳转）。",
+    citationAnswer:
+      "在 gptoapk.com/zh 搜索 Twitter 或 X，核对包名 com.twitter.android 与开发者 X Corp. 后下载 APK。官网为 x.com；注册与中文界面在 App 内设置。",
+    whyNeedApk:
+      "twitter下载、twitter安卓下载、twitter官网下载安卓版 在国内应用商店与 Google Play 均不易获取。通过 APK 核对包名安装是常见方式。",
+    highlights: ["发推与转发", "关注与私信", "趋势话题", "Spaces 音频", "Premium 订阅（可选）"],
+    installNotes: [
+      "在 gptoapk.com 搜索 Twitter 或 X。",
+      "核对包名 com.twitter.android、开发者 X Corp.。",
+      "下载 APK 后允许安装未知来源应用。",
+      "安装后注册登录；界面语言可在设置中改为中文。",
+    ],
+    faqs: [
+      {
+        question: "twitter下载 / twitter官方下载 / twitter安卓下载 怎么操作？",
+        answer:
+          "在 gptoapk.com 搜索 Twitter，确认包名 com.twitter.android 后下载安装。详见站内《Twitter下载完整指南》。",
+      },
+      {
+        question: "twitter是什么？twitter是什么意思？",
+        answer:
+          "Twitter（推特）是全球社交平台，现品牌多为 X。与「twitter什么意思」同义，指同一类产品，不是单独破解版名称。",
+      },
+      {
+        question: "twitter官网入口 / twitter.com / twitter官网登录入口？",
+        answer: "官网为 x.com，twitter.com 会跳转。登录可在网页或 App 内完成。",
+      },
+      {
+        question: "twitter中文版 / twitter中文 要下哪个包？",
+        answer: "无单独中文版 APK。安装官方 App 后，在设置中将语言改为简体中文即可。",
+      },
+      {
+        question: "国内怎么上twitter、twitter上不去、twitter加速器？",
+        answer:
+          "属于网络访问问题，与 APK 安装不同。gptoapk 不提供加速器；可先安装官方 App，网络环境请自行合规解决。详见《国内怎么上Twitter》专题。",
+      },
+      {
+        question: "twitter注册 要注意什么？",
+        answer:
+          "可用邮箱或手机号注册；国内 +86 有时收不到验证码，建议优先邮箱。须遵守平台规则与当地法律。",
+      },
+    ],
+  },
   facebook: {
     slug: "facebook-apk",
     name: "Facebook",
