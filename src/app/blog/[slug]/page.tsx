@@ -15,559 +15,1004 @@ interface BlogPost {
 
 const posts: BlogPost[] = [
   {
-    slug: "ibkr-vs-schwab-broker-comparison",
-    title: "Interactive Brokers (IBKR) vs Charles Schwab 2026: Which Broker Is Better for You?",
-    description: "In-depth comparison of Interactive Brokers vs Charles Schwab in 2026. Fees, features, account minimums, trading platforms, and which broker is better for different investors.",
+    slug: "tiger-brokers-download-guide",
+    title: "Tiger Brokers: App Download, Account Opening & Complete Guide 2026",
+    description: "Complete guide to Tiger Brokers in 2026. How to download the Tiger Trade app on Android, open an account, deposit funds, and what you need to know about regulatory updates.",
     date: "2026-05-29",
-    readTime: "10 min read",
-    tags: ["IBKR", "Charles Schwab", "Broker Comparison", "IBKR vs Schwab", "Online Broker", "Investing", "gptoapk"],
+    readTime: "12 min read",
+    tags: ["Tiger Brokers", "Tiger Trade", "Online Broker", "Tiger App", "Investing", "Broker Download", "gptoapk"],
     content: (
       <>
-        <h1>Interactive Brokers (IBKR) vs Charles Schwab 2026: Which Broker Is Better?</h1>
-        <p>If you&apos;re a Chinese investor choosing between <strong>Interactive Brokers (IBKR)</strong> and <strong>Charles Schwab (嘉信理财)</strong>, you&apos;re dealing with two of the best options available. But they serve different needs.</p>
-        <p>This comprehensive comparison covers everything you need to know.</p>
+        <h1>Tiger Brokers: App Download, Account Opening &amp; Complete Guide 2026</h1>
+
+        <h2>What Is Tiger Brokers?</h2>
+        <p><strong>Tiger Brokers</strong> (legal name: UP Fintech Holding Limited, NASDAQ: TIGR) is a leading online brokerage founded in 2014, primarily serving Chinese and Asian investors who want access to US, Hong Kong, and global markets.</p>
+
+        <h3>Key Facts</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Fact</th>
+              <th>Details</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Founder</td>
+              <td><strong>Wu Tianhua</strong> (巫天华)</td>
+            </tr>
+            <tr>
+              <td>Founded</td>
+              <td>2014</td>
+            </tr>
+            <tr>
+              <td>Stock Ticker</td>
+              <td><strong>TIGR</strong> (NASDAQ)</td>
+            </tr>
+            <tr>
+              <td>Key Backers</td>
+              <td>Xiaomi, Interactive Brokers</td>
+            </tr>
+            <tr>
+              <td>Users</td>
+              <td>~10 million</td>
+            </tr>
+            <tr>
+              <td>Headquarters</td>
+              <td>Beijing / Singapore / Hong Kong</td>
+            </tr>
+            <tr>
+              <td>Primary Markets</td>
+              <td>US stocks, HK stocks, A-shares</td>
+            </tr>
+            <tr>
+              <td>Known For</td>
+              <td>Low commissions, clean interface, moomoo community</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>Who Is the Founder of Tiger Brokers?</h3>
+        <p><strong>Wu Tianhua</strong> (also known as Tracy Wu or Tianhua Wu) founded Tiger Brokers in 2014.</p>
+        <ul>
+          <li><strong>Education</strong>: Tsinghua University (Computer Science, BS + MS)</li>
+          <li><strong>Previous role</strong>: Executive at NetEase (Youdao division)</li>
+          <li><strong>Motivation</strong>: Create an easy way for Chinese investors to trade US and HK stocks</li>
+          <li><strong>Current role</strong>: Chairman &amp; CEO of UP Fintech</li>
+        </ul>
 
         <hr />
 
-        <h2>Quick Overview</h2>
+        <h2>Tiger Brokers Shareholders</h2>
+        <p>Major shareholders include:</p>
+        <ul>
+          <li><strong>Xiaomi Corporation</strong> — Early institutional investor</li>
+          <li><strong>ZhenFund</strong> — Angel investor (founded by Bob Xu, also a Tsinghua alum)</li>
+          <li><strong>Interactive Brokers (IBKR)</strong> — Strategic partner and shareholder</li>
+          <li><strong>Wall Street institutions</strong> — Goldman Sachs, Morgan Stanley (IPO underwriters)</li>
+        </ul>
+        <p>The Xiaomi connection gives Tiger Brokers credibility and distribution in the Chinese market.</p>
+
+        <hr />
+
+        <h2>Tiger Brokers App Download for Android</h2>
+
+        <h3>Method 1: Official Website</h3>
+        <p><strong>Tiger Brokers official site:</strong> https://www.tigerbrokers.com</p>
+        <ul>
+          <li>Visit the site → Click &quot;Download App&quot;</li>
+          <li>Direct APK download available (no Google Play needed)</li>
+          <li>This is the recommended method for Chinese users</li>
+        </ul>
+
+        <h3>Method 2: Google Play Store</h3>
+        <ol>
+          <li>Open <strong>Google Play Store</strong></li>
+          <li>Search <strong>&quot;Tiger Brokers&quot;</strong> or <strong>&quot;Tiger Trade&quot;</strong></li>
+          <li>Find the official app (developer: Tiger Brokers)</li>
+          <li>Tap <strong>&quot;Install&quot;</strong></li>
+        </ol>
+
+        <h3>Method 3: APK Download (No Google Play)</h3>
+        <p>✅ <strong>APKPure / APKMirror</strong></p>
+        <ul>
+          <li>Search &quot;Tiger Brokers&quot; or &quot;Tiger Trade&quot;</li>
+          <li>Download the latest version</li>
+        </ul>
+
+        <h3>What If the App Won&apos;t Download?</h3>
+        <p>If you can&apos;t download the Tiger Brokers app, try:</p>
+        <ol>
+          <li><strong>Switch networks</strong> — try WiFi vs mobile data</li>
+          <li><strong>Use a VPN/proxy</strong> — may be needed in some regions</li>
+          <li><strong>Download from the official website</strong> — direct APK works without app store</li>
+          <li><strong>Clear Google Play cache</strong> — Settings → Apps → Google Play → Clear cache</li>
+          <li><strong>Enable unknown sources</strong> — allow installation from outside the Play Store</li>
+          <li><strong>Contact support</strong> — get direct download link from customer service</li>
+        </ol>
+        <blockquote><p>⚠️ <strong>Only download from official sources</strong> to avoid fake/malicious apps.</p></blockquote>
+
+        <h3>Tiger Brokers Apps</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>App Name</th>
+              <th>Platform</th>
+              <th>Purpose</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Tiger Trade</strong></td>
+              <td>Android, iOS</td>
+              <td>Primary mobile trading app</td>
+            </tr>
+            <tr>
+              <td><strong>Tiger Trade PC</strong></td>
+              <td>Windows, Mac</td>
+              <td>Desktop trading platform</td>
+            </tr>
+            <tr>
+              <td><strong>moomoo</strong></td>
+              <td>Android, iOS</td>
+              <td>Community-focused trading app</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h2>How to Open a Tiger Brokers Account</h2>
+
+        <h3>Documents Needed</h3>
+        <ol>
+          <li><strong>ID</strong>: Passport (recommended) or national ID card</li>
+          <li><strong>Proof of address</strong>: Utility bill or bank statement (within 3 months)</li>
+          <li><strong>Bank account</strong>: For deposits and withdrawals</li>
+        </ol>
+
+        <h3>Step-by-Step</h3>
+        <p><strong>Step 1: Download the App</strong></p>
+        <ul>
+          <li>Download Tiger Trade from the official website or app store</li>
+        </ul>
+        <p><strong>Step 2: Register</strong></p>
+        <ul>
+          <li>Enter your phone number or email</li>
+          <li>Set a password</li>
+          <li>Verify with SMS code</li>
+        </ul>
+        <p><strong>Step 3: Fill in Personal Info</strong></p>
+        <ul>
+          <li>Name (match your ID exactly)</li>
+          <li>Date of birth</li>
+          <li>Country of residence</li>
+          <li>ID number</li>
+          <li>Employment info</li>
+        </ul>
+        <p><strong>Step 4: Tax Declaration</strong></p>
+        <ul>
+          <li>Complete <strong>W-8BEN form</strong> (for non-US tax residents)</li>
+        </ul>
+        <p><strong>Step 5: Submit Documents</strong></p>
+        <ul>
+          <li>Upload a photo of your ID/passport</li>
+          <li>Upload proof of address</li>
+          <li>Complete risk assessment questionnaire</li>
+        </ul>
+        <p><strong>Step 6: Wait for Approval</strong></p>
+        <ul>
+          <li>Typically <strong>1-3 business days</strong></li>
+          <li>You&apos;ll receive email notification</li>
+          <li>Then you can fund your account and start trading</li>
+        </ul>
+
+        <h2>Deposit &amp; Withdrawal</h2>
+
+        <h3>Deposit Methods</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Method</th>
+              <th>Recommended</th>
+              <th>Time</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Hong Kong Bank Transfer</td>
+              <td>⭐⭐⭐⭐⭐</td>
+              <td>1-2 days</td>
+              <td>Best option</td>
+            </tr>
+            <tr>
+              <td>International Wire</td>
+              <td>⭐⭐⭐</td>
+              <td>2-5 days</td>
+              <td>Higher fees</td>
+            </tr>
+            <tr>
+              <td>FPS (Faster Payment System)</td>
+              <td>⭐⭐⭐⭐</td>
+              <td>Same day</td>
+              <td>HK banks only</td>
+            </tr>
+            <tr>
+              <td>eDDA (Instant Transfer)</td>
+              <td>⭐⭐⭐⭐</td>
+              <td>Instant</td>
+              <td>Select HK banks</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>Withdrawal</h3>
+        <ol>
+          <li>App → My → Funds → Withdraw</li>
+          <li>Select withdrawal account</li>
+          <li>Enter amount</li>
+          <li>Confirm</li>
+          <li>Arrival: 1-3 business days</li>
+        </ol>
+
+        <h3>Deposit Requirements</h3>
+        <ul>
+          <li><strong>No minimum deposit</strong> for cash accounts</li>
+          <li>Funding is flexible — start with any amount</li>
+        </ul>
+
+        <h2>Tiger Brokers Regulatory Status</h2>
+
+        <h3>Recent Regulatory Events</h3>
+        <p>Starting in 2021-2022, Tiger Brokers underwent regulatory adjustments:</p>
+        <table>
+          <thead>
+            <tr>
+              <th>Event</th>
+              <th>Impact</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>December 2021</td>
+              <td>CSRC named Tiger for cross-border compliance issues</td>
+            </tr>
+            <tr>
+              <td>2022</td>
+              <td>New account openings for mainland China users paused</td>
+            </tr>
+            <tr>
+              <td>2023</td>
+              <td>Tiger Trade app removed from mainland app stores</td>
+            </tr>
+            <tr>
+              <td>2024-2026</td>
+              <td>Continuous compliance improvements</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>Did Tiger Brokers &quot;Stand Up To&quot; Regulators?</h3>
+        <p>There are social media stories about Tiger Brokers &quot;standing up to&quot; Chinese regulators (硬刚).</p>
+        <p><strong>The truth:</strong> Tiger Brokers has cooperated with regulatory requirements, not resisted them. The company:</p>
+        <ul>
+          <li>Paused mainland new accounts as requested</li>
+          <li>Removed apps from mainland stores</li>
+          <li>Updated compliance procedures</li>
+          <li>Issued statements emphasizing lawful operations</li>
+        </ul>
+        <p>The &quot;hard talk&quot; narrative is largely <strong>media exaggeration</strong>.</p>
+
+        <h3>Official Responses</h3>
+        <p>Tiger Brokers has issued statements:</p>
+        <ul>
+          <li>&quot;Committed to compliance with all applicable laws and regulations&quot;</li>
+          <li>&quot;Cooperation with regulatory authorities&quot;</li>
+          <li>&quot;Protection of investor interests&quot;</li>
+          <li>Denied claims of resisting regulatory demands</li>
+        </ul>
+
+        <h2>Is Tiger Brokers Safe?</h2>
+        <p><strong>Yes.</strong> Tiger Brokers is:</p>
+        <ul>
+          <li><strong>NASDAQ-listed</strong> public company (TIGR)</li>
+          <li><strong>Regulated by</strong>: US SEC/FINRA, Hong Kong SFC, Singapore MAS</li>
+          <li><strong>Client assets</strong>: Segregated and held by custodial banks</li>
+          <li><strong>SIPC insured</strong>: Up to $500,000 securities protection</li>
+          <li><strong>Independent audit</strong>: By major accounting firms</li>
+        </ul>
+
+        <h2>Key Features</h2>
+
+        <h3>Trading Products</h3>
+        <ul>
+          <li><strong>US stocks</strong>: Regular shares, fractional shares</li>
+          <li><strong>US options</strong>: Calls, puts, multi-leg strategies</li>
+          <li><strong>Hong Kong stocks</strong>: Main board, GEM</li>
+          <li><strong>HK options/ warrants</strong></li>
+          <li><strong>A-shares</strong>: Via Stock Connect</li>
+          <li><strong>Futures</strong>: Global futures markets</li>
+        </ul>
+
+        <h3>Special Features</h3>
+        <ul>
+          <li><strong>Free US Level 2 market data</strong> for active users</li>
+          <li><strong>IPO subscriptions</strong> — participate in US/HK IPOs</li>
+          <li><strong>Dark pool trading</strong> — large block trades</li>
+          <li><strong>Conditional orders</strong> — stop-loss, trailing stop</li>
+          <li><strong>Paper trading</strong> — practice with virtual money</li>
+        </ul>
+
+        <h3>Community</h3>
+        <ul>
+          <li><strong>moomoo community</strong>: Social trading, idea sharing</li>
+          <li><strong>Market news and analysis</strong>: Curated content</li>
+          <li><strong>Live streams</strong>: Expert market commentary</li>
+        </ul>
+
+        <h2>Common Questions</h2>
+
+        <h3>Q1: Can Chinese users still open Tiger Brokers accounts?</h3>
+        <p><strong>Existing users:</strong> Accounts remain fully functional.<br/><strong>New mainland users:</strong> New account opening for mainland ID holders is paused as part of regulatory compliance.<br/><strong>Hong Kong/overseas users:</strong> Normal account opening.</p>
+
+        <h3>Q2: Is Tiger Brokers shutting down?</h3>
+        <p><strong>No.</strong> The company operates normally across all jurisdictions. Mainland business was adjusted, not closed. Hong Kong and Singapore operations continue to expand.</p>
+
+        <h3>Q3: What is Tiger Brokers&apos; stock symbol?</h3>
+        <p><strong>TIGR</strong> on the NASDAQ Stock Exchange (US).</p>
+
+        <h3>Q4: Did Tiger Brokers get fined?</h3>
+        <p>There have been regulatory compliance adjustments, but this was part of an <strong>industry-wide</strong> process affecting all cross-border brokers, not a targeted penalty against Tiger alone.</p>
+
+        <h3>Q5: Why can&apos;t I download the Tiger Brokers app?</h3>
+        <p>If you&apos;re having trouble:</p>
+        <ul>
+          <li>The app may not be available in your region&apos;s app store</li>
+          <li>Try downloading directly from the Tiger Brokers website</li>
+          <li>Use a VPN if in mainland China</li>
+          <li>Clear app store cache</li>
+        </ul>
+
+        <h3>Q6: Is Tiger Brokers better than Futu?</h3>
+        <p>It depends:</p>
+        <ul>
+          <li><strong>Tiger</strong>: Lower fees, simpler interface</li>
+          <li><strong>Futu</strong>: More features, better community</li>
+          <li>Both are legitimate and well-regarded</li>
+        </ul>
+
+        <h2>Summary</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Category</th>
+              <th>Details</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>What</strong></td>
+              <td>Online broker for US/HK stocks (NASDAQ: TIGR)</td>
+            </tr>
+            <tr>
+              <td><strong>Founder</strong></td>
+              <td>Wu Tianhua (Tsinghua, ex-NetEase)</td>
+            </tr>
+            <tr>
+              <td><strong>Backed By</strong></td>
+              <td>Xiaomi, Interactive Brokers</td>
+            </tr>
+            <tr>
+              <td><strong>App Download</strong></td>
+              <td>tigerbrokers.com or Google Play</td>
+            </tr>
+            <tr>
+              <td><strong>Account</strong></td>
+              <td>Easy, 1-3 days approval</td>
+            </tr>
+            <tr>
+              <td><strong>Deposit</strong></td>
+              <td>HK bank transfer recommended</td>
+            </tr>
+            <tr>
+              <td><strong>Regulatory</strong></td>
+              <td>Compliant, serving existing users normally</td>
+            </tr>
+            <tr>
+              <td><strong>Safe?</strong></td>
+              <td>Yes — regulated, listed, insured</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p>Tiger Brokers remains a solid choice for investors who want a low-cost, functional broker for US and Hong Kong markets.</p>
+
+        <div className="bg-blue-50 dark:bg-blue-900/20 p-6 rounded-xl border border-blue-100 dark:border-blue-800 mt-8">
+          <p className="font-semibold text-lg mb-2">Powered by gptoapk.com</p>
+          <p className="mb-3">This is not investment advice. Investing involves risk.</p>
+        </div>
+      </>
+    ),
+  },
+  {
+    slug: "tiger-brokers-futu-longbridge-comparison",
+    title: "Tiger Brokers vs Futu vs Longbridge: Complete Comparison 2026",
+    description: "Complete comparison of Tiger Brokers, Futu Securities, and Longbridge Securities in 2026. Fees, features, regulatory status, and which broker is best for Chinese investors.",
+    date: "2026-05-29",
+    readTime: "14 min read",
+    tags: ["Tiger Brokers", "Futu", "Longbridge", "Broker Comparison", "Online Broker", "Investing", "gptoapk"],
+    content: (
+      <>
+        <h1>Tiger Brokers vs Futu vs Longbridge: Complete Comparison 2026</h1>
+
+        <p>Three major online brokers have dominated the Chinese investor market: <strong>Tiger Brokers</strong> (TIGR), <strong>Futu Securities</strong> (FUTU), and <strong>Longbridge Securities</strong>. Each is backed by a Chinese tech giant and offers US and Hong Kong stock trading.</p>
+        <p>This comprehensive guide compares them across every dimension.</p>
+
+        <hr />
+
+        <h2>Company Overview</h2>
         <table>
           <thead>
             <tr>
               <th>Feature</th>
-              <th>Interactive Brokers (IBKR)</th>
-              <th>Charles Schwab</th>
+              <th>Tiger Brokers</th>
+              <th>Futu Securities</th>
+              <th>Longbridge Securities</th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td>Founded</td>
-              <td>1978</td>
-              <td>1971</td>
+              <td>2014</td>
+              <td>2014</td>
+              <td>2019</td>
+            </tr>
+            <tr>
+              <td>Founder</td>
+              <td>Wu Tianhua (NetEase)</td>
+              <td>Li Hua (Tencent)</td>
+              <td>Alibaba alumni</td>
+            </tr>
+            <tr>
+              <td>Backed By</td>
+              <td><strong>Xiaomi</strong></td>
+              <td><strong>Tencent</strong></td>
+              <td><strong>Alibaba</strong></td>
+            </tr>
+            <tr>
+              <td>Stock Ticker</td>
+              <td>TIGR (NASDAQ)</td>
+              <td>FUTU (NASDAQ)</td>
+              <td>Not listed</td>
+            </tr>
+            <tr>
+              <td>Users</td>
+              <td>~10 million</td>
+              <td>~20 million+</td>
+              <td>~1 million</td>
             </tr>
             <tr>
               <td>HQ</td>
-              <td>Greenwich, CT, USA</td>
-              <td>Westlake, TX, USA</td>
+              <td>Beijing/Singapore/HK</td>
+              <td>Shenzhen/HK</td>
+              <td>Singapore/HK</td>
             </tr>
             <tr>
-              <td>Client Assets</td>
-              <td>$140+ billion</td>
-              <td>$8+ trillion</td>
-            </tr>
-            <tr>
-              <td>Global Clients</td>
-              <td>2+ million</td>
-              <td>35+ million</td>
-            </tr>
-            <tr>
-              <td>Publicly Traded</td>
-              <td>✅ NASDAQ: IBKR</td>
-              <td>✅ NYSE: SCHW</td>
-            </tr>
-            <tr>
-              <td>Primary Focus</td>
-              <td>Active &amp; international traders</td>
-              <td>Long-term retail investors</td>
+              <td>Key Markets</td>
+              <td>US, HK, SG</td>
+              <td>US, HK, SG</td>
+              <td>US, HK, SG</td>
             </tr>
           </tbody>
         </table>
+
+        <h2>The &quot;Big Three&quot; Backers</h2>
+
+        <h3>Futu → Tencent</h3>
+        <ul>
+          <li>Tencent holds ~20%+ of Futu</li>
+          <li>Founder Li Hua was a former Tencent product manager</li>
+          <li>Products reflect Tencent&apos;s design philosophy</li>
+        </ul>
+
+        <h3>Tiger Brokers → Xiaomi</h3>
+        <ul>
+          <li>Xiaomi was an early major investor</li>
+          <li>Interactive Brokers is also a strategic shareholder</li>
+          <li>Known for practical, no-frills products</li>
+        </ul>
+
+        <h3>Longbridge → Alibaba</h3>
+        <ul>
+          <li>Core team from Alibaba/Ant Group</li>
+          <li>Backed by Lakeside Capital (Alibaba-affiliated)</li>
+          <li>Newer entrant with modern product design</li>
+        </ul>
+
+        <hr />
+
+        <h2>Where Is Longbridge Securities Based?</h2>
+        <p><strong>Longbridge Securities</strong> is headquartered in <strong>Singapore</strong> and regulated by:</p>
+        <ul>
+          <li><strong>Monetary Authority of Singapore (MAS)</strong> — Primary regulator</li>
+          <li><strong>Hong Kong SFC</strong> — Hong Kong operations</li>
+          <li><strong>New Zealand FMA</strong> — Additional licensing</li>
+        </ul>
+        <p>Despite being newer, Longbridge has strong regulatory compliance across multiple jurisdictions.</p>
+
+        <hr />
 
         <h2>Fees &amp; Commissions Comparison</h2>
         <table>
           <thead>
             <tr>
               <th>Fee Type</th>
-              <th>IBKR</th>
-              <th>Schwab</th>
+              <th>Tiger Brokers</th>
+              <th>Futu</th>
+              <th>Longbridge</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td><strong>US Stock Trades</strong></td>
-              <td>$0.0035/share (min $1, max 1% of value)</td>
-              <td><strong>$0 (free)</strong></td>
+              <td><strong>US Stock Commission</strong></td>
+              <td>Low (~$0.005/share)</td>
+              <td>Medium (~$0.01/share)</td>
+              <td>Low (~$0.005/share)</td>
+            </tr>
+            <tr>
+              <td><strong>HK Stock Commission</strong></td>
+              <td>Low (~0.03%)</td>
+              <td>Medium (~0.03% min)</td>
+              <td>Low (~0.025%)</td>
             </tr>
             <tr>
               <td><strong>Options</strong></td>
-              <td>$0.65/contract (capped at 1% of trade)</td>
-              <td><strong>$0.65/contract</strong></td>
+              <td>$1-2/contract</td>
+              <td>$1-2/contract</td>
+              <td>$0.85/contract</td>
             </tr>
             <tr>
-              <td><strong>Mutual Funds</strong></td>
-              <td>$14.95/trade or free for select funds</td>
-              <td><strong>$0 (over 4,000 funds)</strong></td>
+              <td><strong>Platform Fee</strong></td>
+              <td>Low</td>
+              <td>Medium</td>
+              <td>Low</td>
             </tr>
             <tr>
               <td><strong>Account Minimum</strong></td>
-              <td>$0 (cash) / $2,000 (margin)</td>
-              <td><strong>$0</strong></td>
-            </tr>
-            <tr>
-              <td><strong>Annual Fee</strong></td>
-              <td>$0 (no inactivity fee as of 2026)</td>
-              <td><strong>$0</strong></td>
-            </tr>
-            <tr>
-              <td><strong>Margin Rate</strong></td>
-              <td><strong>Best in industry</strong> (SOFR + 0.5% to 1.5%)</td>
-              <td>SOFR + 3.25%+</td>
-            </tr>
-            <tr>
-              <td><strong>Currency Conversion</strong></td>
-              <td><strong>~0.02%</strong> (near market rate)</td>
-              <td>0.4% to 1%</td>
-            </tr>
-            <tr>
-              <td><strong>Wire Transfer Out</strong></td>
-              <td>~$15</td>
-              <td>$25</td>
-            </tr>
-            <tr>
-              <td><strong>International Trading</strong></td>
-              <td>Included</td>
-              <td>Additional fees</td>
-            </tr>
-          </tbody>
-        </table>
-
-        <p><strong>Winner on fees: IBKR</strong> — lower margin rates and currency conversion costs, though Schwab wins on free stock trades</p>
-
-        <h2>Account Opening Comparison</h2>
-        <table>
-          <thead>
-            <tr>
-              <th>Requirement</th>
-              <th>IBKR</th>
-              <th>Schwab</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><strong>Chinese Residents</strong></td>
-              <td>✅ Possible</td>
-              <td>⚠️ Possible but harder</td>
-            </tr>
-            <tr>
-              <td><strong>Minimum Deposit</strong></td>
-              <td>$0 (cash)</td>
+              <td>$0</td>
+              <td>$0</td>
               <td>$0</td>
             </tr>
             <tr>
-              <td><strong>Identity Document</strong></td>
-              <td>Passport recommended</td>
-              <td>Passport</td>
+              <td><strong>Inactivity Fee</strong></td>
+              <td>None</td>
+              <td>None</td>
+              <td>None</td>
             </tr>
             <tr>
-              <td><strong>Proof of Address</strong></td>
-              <td>Required (English preferred)</td>
-              <td>Required</td>
-            </tr>
-            <tr>
-              <td><strong>W-8BEN Required</strong></td>
-              <td>✅ Yes</td>
-              <td>✅ Yes</td>
-            </tr>
-            <tr>
-              <td><strong>Approval Time</strong></td>
-              <td>1-5 business days</td>
-              <td>3-7 business days</td>
-            </tr>
-            <tr>
-              <td><strong>Difficulty for Chinese</strong></td>
-              <td>Moderate</td>
-              <td>Higher</td>
+              <td><strong>Currency Conversion</strong></td>
+              <td>Competitive</td>
+              <td>Higher spread</td>
+              <td>Competitive</td>
             </tr>
           </tbody>
         </table>
+        <p><strong>Winner on fees:</strong> Tiger Brokers and Longbridge are generally cheaper; Futu charges slightly more for its richer features.</p>
 
-        <p><strong>Winner: IBKR</strong> — more accessible and forgiving for Chinese residents</p>
+        <hr />
 
         <h2>Trading Platforms</h2>
         <table>
           <thead>
             <tr>
               <th>Feature</th>
-              <th>IBKR</th>
-              <th>Schwab</th>
+              <th>Tiger Brokers</th>
+              <th>Futu</th>
+              <th>Longbridge</th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td><strong>Mobile App</strong></td>
-              <td>IBKR Mobile &amp; GlobalTrader</td>
-              <td>Schwab Mobile</td>
+              <td>Tiger Trade (clean)</td>
+              <td>Futubull (feature-rich)</td>
+              <td>Longbridge (modern)</td>
             </tr>
             <tr>
-              <td><strong>Desktop Platform</strong></td>
-              <td>TWS (Trader Workstation)</td>
-              <td>StreetSmart Edge (retired) → Thinkorswim</td>
+              <td><strong>Desktop App</strong></td>
+              <td>Tiger Trade PC</td>
+              <td>Futubull PC</td>
+              <td>moomoo desktop</td>
             </tr>
             <tr>
-              <td><strong>Web Platform</strong></td>
-              <td>Client Portal (web)</td>
-              <td>Schwab.com</td>
+              <td><strong>Web Trading</strong></td>
+              <td>✅</td>
+              <td>✅</td>
+              <td>✅</td>
             </tr>
             <tr>
-              <td><strong>Beginner Friendly</strong></td>
-              <td>⚠️ GlobalTrader is simpler</td>
-              <td>✅ Yes, very user-friendly</td>
+              <td><strong>Real-time US Quotes</strong></td>
+              <td>Free for clients</td>
+              <td>Free for clients</td>
+              <td>Free for clients</td>
             </tr>
             <tr>
-              <td><strong>Advanced Trading</strong></td>
-              <td>✅ TWS is industry-leading</td>
-              <td>✅ Thinkorswim (from TD Ameritrade)</td>
+              <td><strong>Level 2 Data</strong></td>
+              <td>Free (US stocks)</td>
+              <td>Free (US stocks)</td>
+              <td>Free</td>
             </tr>
             <tr>
               <td><strong>Charting</strong></td>
-              <td>Professional-grade</td>
+              <td>Good</td>
               <td>Excellent</td>
+              <td>Very good</td>
             </tr>
             <tr>
-              <td><strong>API/Algorithmic Trading</strong></td>
-              <td>✅ Best in class</td>
-              <td>Limited</td>
+              <td><strong>IPO Subscription</strong></td>
+              <td>✅</td>
+              <td>✅</td>
+              <td>✅</td>
             </tr>
             <tr>
-              <td><strong>Paper Trading</strong></td>
-              <td>✅ Yes</td>
-              <td>✅ Yes</td>
+              <td><strong>Dark Pool Trading</strong></td>
+              <td>✅</td>
+              <td>✅</td>
+              <td>✅</td>
             </tr>
           </tbody>
         </table>
+        <p><strong>Winner on platform:</strong> Futu (most features), but Tiger and Longbridge have cleaner interfaces</p>
 
-        <p><strong>Winner: IBKR</strong> — TWS is unmatched for professional traders; Schwab wins on beginner-friendliness</p>
+        <hr />
 
-        <h2>Global Market Access</h2>
+        <h2>Account Opening Comparison</h2>
         <table>
           <thead>
             <tr>
-              <th>Feature</th>
-              <th>IBKR</th>
-              <th>Schwab</th>
+              <th>Requirement</th>
+              <th>Tiger Brokers</th>
+              <th>Futu</th>
+              <th>Longbridge</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td><strong>Countries</strong></td>
-              <td><strong>33 countries, 150+ markets</strong></td>
-              <td>US, Canada, UK, Hong Kong, Japan</td>
+              <td><strong>Mainland China Users</strong></td>
+              <td>⚠️ New accounts paused</td>
+              <td>⚠️ New accounts paused</td>
+              <td>⚠️ New accounts paused</td>
             </tr>
             <tr>
-              <td><strong>US Stocks</strong></td>
+              <td><strong>Hong Kong Users</strong></td>
+              <td>✅ Easy</td>
+              <td>✅ Easy</td>
+              <td>✅ Easy</td>
+            </tr>
+            <tr>
+              <td><strong>Overseas Users</strong></td>
+              <td>✅ Easy</td>
+              <td>✅ Easy</td>
+              <td>✅ Easy</td>
+            </tr>
+            <tr>
+              <td><strong>Documents Needed</strong></td>
+              <td>ID/Passport + Proof of Address</td>
+              <td>ID/Passport + Proof of Address</td>
+              <td>ID/Passport + Proof of Address</td>
+            </tr>
+            <tr>
+              <td><strong>W-8BEN Required</strong></td>
               <td>✅</td>
               <td>✅</td>
-            </tr>
-            <tr>
-              <td><strong>Hong Kong Stocks</strong></td>
-              <td>✅</td>
               <td>✅</td>
             </tr>
             <tr>
-              <td><strong>European Stocks</strong></td>
-              <td>✅</td>
-              <td>❌ (limited)</td>
-            </tr>
-            <tr>
-              <td><strong>Asian Stocks</strong> (Japan, Korea, etc.)</td>
-              <td>✅</td>
-              <td>❌</td>
-            </tr>
-            <tr>
-              <td><strong>Emerging Markets</strong></td>
-              <td>✅</td>
-              <td>❌</td>
-            </tr>
-            <tr>
-              <td><strong>Futures</strong></td>
-              <td>✅ (global futures)</td>
-              <td>✅ (US futures)</td>
-            </tr>
-            <tr>
-              <td><strong>Forex</strong></td>
-              <td>✅ (best in class)</td>
-              <td>❌</td>
-            </tr>
-            <tr>
-              <td><strong>Bonds</strong></td>
-              <td>✅ (global bonds)</td>
-              <td>✅ (US bonds)</td>
-            </tr>
-            <tr>
-              <td><strong>Options</strong></td>
-              <td>✅ Multi-market</td>
-              <td>✅ US options only</td>
+              <td><strong>Approval Time</strong></td>
+              <td>1-3 days</td>
+              <td>1-3 days</td>
+              <td>1-3 days</td>
             </tr>
           </tbody>
         </table>
 
-        <p><strong>Winner: IBKR</strong> — unparalleled global market access</p>
+        <hr />
 
-        <h2>Deposit &amp; Withdrawal for Chinese Users</h2>
+        <h2>Regulatory Status &amp; &quot;Hard Talk&quot; Controversy</h2>
+
+        <h3>What Happened?</h3>
+        <p>Starting in 2021, Chinese regulators began scrutinizing cross-border securities services offered by online brokers:</p>
         <table>
           <thead>
             <tr>
-              <th>Aspect</th>
-              <th>IBKR</th>
-              <th>Schwab</th>
+              <th>Date</th>
+              <th>Event</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td><strong>Recommended Deposit</strong></td>
-              <td>Hong Kong bank transfer</td>
-              <td>International wire</td>
+              <td>Oct 2021</td>
+              <td>China&apos;s central bank warns about illegal cross-border securities services</td>
             </tr>
             <tr>
-              <td><strong>Minimum Deposit</strong></td>
-              <td>$0 (cash) $2,000 (margin)</td>
-              <td>$0</td>
+              <td>Dec 2021</td>
+              <td>CSRC (China Securities Regulatory Commission) names Futu and Tiger for illegal cross-border operations</td>
             </tr>
             <tr>
-              <td><strong>Withdrawal to HK Bank</strong></td>
-              <td>✅ 1-2 days, ~$15</td>
-              <td>✅ 2-3 days</td>
+              <td>2022</td>
+              <td>Both brokers <strong>pause new account openings</strong> for mainland users</td>
             </tr>
             <tr>
-              <td><strong>Withdrawal to China Bank</strong></td>
-              <td>⚠️ Possible but restricted</td>
-              <td>⚠️ Possible but restricted</td>
+              <td>2023</td>
+              <td>Apps removed from mainland China app stores</td>
             </tr>
             <tr>
-              <td><strong>Currency Conversion</strong></td>
-              <td><strong>Best rate</strong> (~0.02% spread)</td>
-              <td>Higher spreads</td>
+              <td>2024-2026</td>
+              <td>Compliance rectification ongoing</td>
             </tr>
           </tbody>
         </table>
 
-        <p><strong>Winner: IBKR</strong> — better currency conversion and more deposit options</p>
+        <h3>The &quot;Hard Talk&quot; Story</h3>
+        <p>Chinese social media has circulated stories about Tiger Brokers and Futu &quot;standing up to&quot; regulators (硬刚 / yìng gāng).</p>
+        <p><strong>The reality:</strong> Neither broker &quot;fought&quot; regulators. Both:</p>
+        <ol>
+          <li>Cooperated fully with regulatory demands</li>
+          <li>Paused mainland new account openings</li>
+          <li>Removed apps from mainland stores</li>
+          <li>Updated compliance procedures</li>
+          <li>Continued serving existing users normally</li>
+        </ol>
+        <p>The &quot;hard talk&quot; narrative was largely <strong>media and social media embellishment</strong>.</p>
 
-        <h2>Interest on Uninvested Cash</h2>
+        <h3>Current Status for Chinese Users</h3>
         <table>
           <thead>
             <tr>
-              <th>Feature</th>
-              <th>IBKR</th>
-              <th>Schwab</th>
+              <th>Activity</th>
+              <th>Status</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td><strong>Under $10,000</strong></td>
-              <td>SOFR - 1% (variable)</td>
-              <td><strong>0.01%</strong> (negligible)</td>
+              <td>New account for mainland ID</td>
+              <td>❌ Paused</td>
             </tr>
             <tr>
-              <td><strong>$10,000+</strong></td>
-              <td>SOFR - 0.75%</td>
-              <td>Variable (better rates for large balances)</td>
+              <td>New deposit from mainland bank</td>
+              <td>❌ Restricted</td>
             </tr>
             <tr>
-              <td><strong>Progressive Rate</strong></td>
-              <td>No, flat rate</td>
-              <td>Yes, better for larger amounts</td>
+              <td>Existing account trading</td>
+              <td>✅ Normal</td>
+            </tr>
+            <tr>
+              <td>Withdrawal to HK bank</td>
+              <td>✅ Normal</td>
+            </tr>
+            <tr>
+              <td>Withdrawal to mainland bank</td>
+              <td>⚠️ Possible but limited</td>
+            </tr>
+            <tr>
+              <td>Hong Kong/overseas accounts</td>
+              <td>✅ Fully available</td>
             </tr>
           </tbody>
         </table>
 
-        <p><strong>Winner: Draw</strong> — IBKR for smaller balances, Schwab for very large cash holdings</p>
+        <hr />
 
-        <h2>Customer Support</h2>
-        <table>
-          <thead>
-            <tr>
-              <th>Feature</th>
-              <th>IBKR</th>
-              <th>Schwab</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><strong>Chinese Phone Support</strong></td>
-              <td>✅ Available</td>
-              <td>✅ Available</td>
-            </tr>
-            <tr>
-              <td><strong>24/7 Support</strong></td>
-              <td>✅ Yes</td>
-              <td>✅ Yes</td>
-            </tr>
-            <tr>
-              <td><strong>Online Chat</strong></td>
-              <td>✅</td>
-              <td>✅</td>
-            </tr>
-            <tr>
-              <td><strong>Branch Network</strong></td>
-              <td>❌ No physical branches</td>
-              <td>✅ US branches only</td>
-            </tr>
-            <tr>
-              <td><strong>Chinese WeChat Account</strong></td>
-              <td>✅ 盈透证券</td>
-              <td>⚠️ Limited</td>
-            </tr>
-          </tbody>
-        </table>
-
-        <p><strong>Winner: Draw</strong> — both offer solid support for Chinese users</p>
-
-        <h2>Regulatory &amp; Safety</h2>
-        <table>
-          <thead>
-            <tr>
-              <th>Aspect</th>
-              <th>IBKR</th>
-              <th>Schwab</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><strong>US Regulation</strong></td>
-              <td>SEC, FINRA</td>
-              <td>SEC, FINRA</td>
-            </tr>
-            <tr>
-              <td><strong>SIPC Insurance</strong></td>
-              <td>✅ $500,000</td>
-              <td>✅ $500,000</td>
-            </tr>
-            <tr>
-              <td><strong>Additional Insurance</strong></td>
-              <td>✅ $30M (Lloyd&apos;s)</td>
-              <td>✅ $150M (Lloyd&apos;s)</td>
-            </tr>
-            <tr>
-              <td><strong>Audit</strong></td>
-              <td>Big Four auditor</td>
-              <td>Big Four auditor</td>
-            </tr>
-            <tr>
-              <td><strong>Bankruptcy Protection</strong></td>
-              <td>✅ Segregated accounts</td>
-              <td>✅ Segregated accounts</td>
-            </tr>
-          </tbody>
-        </table>
-
-        <p><strong>Winner: Draw</strong> — both are highly secure</p>
-
-        <h2>Best For: Use Case Comparison</h2>
-        <h3>Choose Interactive Brokers (IBKR) If...</h3>
+        <h2>Tiger Brokers Response to Regulatory Issues</h2>
+        <p>Tiger Brokers has issued several official statements addressing regulatory concerns:</p>
         <ul>
-          <li>✅ You trade <strong>international markets</strong> (Europe, Asia, emerging markets)</li>
-          <li>✅ You trade <strong>futures, options, or forex</strong></li>
-          <li>✅ You need <strong>best-in-class margin rates</strong></li>
-          <li>✅ You do <strong>currency conversion</strong> frequently</li>
-          <li>✅ Your investment is <strong>$25,000+</strong></li>
-          <li>✅ You&apos;re an <strong>active or professional trader</strong></li>
-          <li>✅ You need <strong>API or algorithmic trading</strong></li>
-          <li>✅ You want the <strong>broadest product selection</strong></li>
+          <li><strong>Committed to compliance</strong>: Stated cooperation with regulators</li>
+          <li><strong>Denied &quot;hard talk&quot;</strong>: Rejected claims of resisting regulatory demands</li>
+          <li><strong>Protecting user interests</strong>: Ensured existing user accounts function normally</li>
+          <li><strong>Continuous improvement</strong>: Ongoing compliance system upgrades</li>
+        </ul>
+        <p>The company&apos;s official stance emphasizes lawful operations and investor protection.</p>
+
+        <hr />
+
+        <h2>Is Tiger Brokers Closing?</h2>
+        <p><strong>No.</strong> Rumors about Tiger Brokers closing are false. The company operates normally:</p>
+        <ul>
+          <li>Hong Kong operations continue to grow</li>
+          <li>Singapore operations expanding</li>
+          <li>US operations stable</li>
+          <li>Existing user accounts fully functional</li>
+          <li>Withdrawal channels open</li>
+        </ul>
+        <p>The same applies to Futu and Longbridge — <strong>all three continue normal operations</strong>.</p>
+
+        <hr />
+
+        <h2>Tiger Brokers vs Futu: Which Is Better?</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Factor</th>
+              <th>Choose Tiger Brokers</th>
+              <th>Choose Futu</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Price</td>
+              <td>✅ Lower commissions</td>
+              <td>❌ Slightly higher</td>
+            </tr>
+            <tr>
+              <td>Features</td>
+              <td>❌ Simpler</td>
+              <td>✅ More features</td>
+            </tr>
+            <tr>
+              <td>Community</td>
+              <td>✅ moomoo community</td>
+              <td>✅ Futubull community</td>
+            </tr>
+            <tr>
+              <td>Beginner Friendly</td>
+              <td>✅ Clean interface</td>
+              <td>⚠️ Can be overwhelming</td>
+            </tr>
+            <tr>
+              <td>Advanced Trading</td>
+              <td>⚠️ Basic advanced tools</td>
+              <td>✅ Advanced tools</td>
+            </tr>
+            <tr>
+              <td>IPO Allocation</td>
+              <td>✅ Good</td>
+              <td>✅ Good</td>
+            </tr>
+            <tr>
+              <td>International Markets</td>
+              <td>✅ Multiple markets</td>
+              <td>✅ Multiple markets</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>Quick Decision Guide</h3>
+        <p><strong>Choose Tiger Brokers if:</strong></p>
+        <ul>
+          <li>You want lower commissions</li>
+          <li>You prefer a clean, simple interface</li>
+          <li>You&apos;re cost-conscious</li>
+          <li>You mainly trade US and HK stocks</li>
+        </ul>
+        <p><strong>Choose Futu if:</strong></p>
+        <ul>
+          <li>You want the most features</li>
+          <li>You value rich community interaction</li>
+          <li>You trade options/futures actively</li>
+          <li>You want the best IPO experience</li>
         </ul>
 
-        <h3>Choose Charles Schwab If...</h3>
+        <hr />
+
+        <h2>Longbridge: The New Challenger</h2>
+        <p>Longbridge entered later but with strong technology:</p>
+        <p><strong>Pros:</strong></p>
         <ul>
-          <li>✅ You primarily trade <strong>US stocks and ETFs</strong></li>
-          <li>✅ You want <strong>commission-free stock trading</strong></li>
-          <li>✅ You&apos;re a <strong>beginner or casual investor</strong></li>
-          <li>✅ You want a <strong>simple, clean platform</strong></li>
-          <li>✅ You prefer <strong>long-term buy-and-hold investing</strong></li>
-          <li>✅ You want <strong>Schwab&apos;s excellent customer service</strong></li>
-          <li>✅ You have <strong>access to US banking</strong> (Schwab Bank)</li>
+          <li>Modern, well-designed app</li>
+          <li>Low commissions</li>
+          <li>Strong Singapore regulation (MAS)</li>
+          <li>Good for beginners</li>
+        </ul>
+        <p><strong>Cons:</strong></p>
+        <ul>
+          <li>Smaller user base</li>
+          <li>Less community content</li>
+          <li>Fewer advanced features</li>
+          <li>Not yet profitable (startup phase)</li>
         </ul>
 
-        <h2>The Smart Approach for Chinese Investors</h2>
-        <p>Many experienced investors use <strong>both brokers</strong> strategically:</p>
-        <h3>The Dual-Broker Strategy</h3>
+        <hr />
+
+        <h2>Best Broker by Use Case</h2>
         <table>
           <thead>
             <tr>
-              <th>Purpose</th>
-              <th>Use</th>
+              <th>Use Case</th>
+              <th>Best Choice</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td><strong>US stocks (long-term)</strong></td>
-              <td>Charles Schwab (free trades)</td>
+              <td>Low-cost trading</td>
+              <td><strong>Tiger Brokers</strong> or <strong>Longbridge</strong></td>
             </tr>
             <tr>
-              <td><strong>International stocks</strong></td>
-              <td>Interactive Brokers</td>
+              <td>Features &amp; Tools</td>
+              <td><strong>Futu</strong></td>
             </tr>
             <tr>
-              <td><strong>Futures &amp; options</strong></td>
-              <td>Interactive Brokers</td>
+              <td>Community Engagement</td>
+              <td><strong>Futu</strong></td>
             </tr>
             <tr>
-              <td><strong>Forex trading</strong></td>
-              <td>Interactive Brokers</td>
+              <td>Simple Interface</td>
+              <td><strong>Tiger Brokers</strong></td>
             </tr>
             <tr>
-              <td><strong>Large account (&gt;$25K)</strong></td>
-              <td>Interactive Brokers (lower margin)</td>
+              <td>New Investors</td>
+              <td><strong>Longbridge</strong> or <strong>Tiger Brokers</strong></td>
             </tr>
             <tr>
-              <td><strong>Beginners testing the waters</strong></td>
-              <td>Interactive Brokers GlobalTrader</td>
+              <td>Options Trading</td>
+              <td><strong>Futu</strong></td>
+            </tr>
+            <tr>
+              <td>IPO Subscriptions</td>
+              <td><strong>Futu</strong> or <strong>Tiger Brokers</strong></td>
+            </tr>
+            <tr>
+              <td>Hong Kong Investors</td>
+              <td><strong>All three</strong> (any works)</td>
             </tr>
           </tbody>
         </table>
 
-        <h2>Conclusion</h2>
+        <hr />
+
+        <h2>Common Questions</h2>
+
+        <h3>Q1: Can mainland Chinese still use these brokers?</h3>
+        <p><strong>Existing users:</strong> Yes — accounts remain fully functional for trading and withdrawals.<br/><strong>New users:</strong> Account opening for mainland ID holders is paused.</p>
+
+        <h3>Q2: Did Tiger Brokers get fined?</h3>
+        <p>There have been regulatory adjustments, but this was part of an <strong>industry-wide compliance process</strong>, not selective penalties against individual brokers.</p>
+
+        <h3>Q3: Is Longbridge Securities safe?</h3>
+        <p>Yes, Longbridge is licensed by MAS (Singapore), SFC (Hong Kong), and FMA (New Zealand). Client assets are protected by regulatory requirements.</p>
+
+        <h3>Q4: Who founded Tiger Brokers?</h3>
+        <p><strong>Wu Tianhua</strong> (巫天华), a Tsinghua University computer science graduate and former NetEase executive.</p>
+
+        <h3>Q5: What is Tiger Brokers&apos; stock ticker?</h3>
+        <p><strong>TIGR</strong> on NASDAQ. The company&apos;s legal name is <strong>UP Fintech Holding Limited</strong>.</p>
+
+        <h3>Q6: Are rumors about brokers closing true?</h3>
+        <p><strong>No.</strong> All three brokers (Tiger, Futu, Longbridge) operate normally — especially their Hong Kong, Singapore, and international operations.</p>
+
+        <hr />
+
+        <h2>Summary</h2>
         <table>
           <thead>
             <tr>
-              <th>Category</th>
-              <th>Winner</th>
+              <th>Broker</th>
+              <th>Backed By</th>
+              <th>Best For</th>
+              <th>Key Advantage</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td>US Stock Trading Costs</td>
-              <td><strong>Schwab</strong> (free)</td>
+              <td><strong>Tiger Brokers</strong></td>
+              <td>Xiaomi</td>
+              <td>Cost-conscious traders</td>
+              <td>Low commissions, clean UI</td>
             </tr>
             <tr>
-              <td>Global Market Access</td>
-              <td><strong>IBKR</strong> (150+ markets)</td>
+              <td><strong>Futu Securities</strong></td>
+              <td>Tencent</td>
+              <td>Feature-lovers</td>
+              <td>Rich tools, strong community</td>
             </tr>
             <tr>
-              <td>Margin Rates</td>
-              <td><strong>IBKR</strong> (industry best)</td>
-            </tr>
-            <tr>
-              <td>Currency Conversion</td>
-              <td><strong>IBKR</strong> (near market rate)</td>
-            </tr>
-            <tr>
-              <td>Beginner Experience</td>
-              <td><strong>Schwab</strong></td>
-            </tr>
-            <tr>
-              <td>Advanced Trading Tools</td>
-              <td><strong>IBKR</strong> (TWS)</td>
-            </tr>
-            <tr>
-              <td>Account Opening (Chinese)</td>
-              <td><strong>IBKR</strong> (easier)</td>
-            </tr>
-            <tr>
-              <td>Customer Support</td>
-              <td><strong>Draw</strong></td>
-            </tr>
-            <tr>
-              <td>Safety &amp; Regulation</td>
-              <td><strong>Draw</strong></td>
+              <td><strong>Longbridge Securities</strong></td>
+              <td>Alibaba</td>
+              <td>Modern investors</td>
+              <td>Clean design, good regulation</td>
             </tr>
           </tbody>
         </table>
 
-        <p><strong>The bottom line:</strong></p>
-        <ul>
-          <li>Use <strong>IBKR</strong> if you need global access, low margins, and professional tools</li>
-          <li>Use <strong>Schwab</strong> if you just want to trade US stocks for free with a simple interface</li>
-          <li>Use <strong>both</strong> if you want the best of both worlds</li>
-        </ul>
+        <p><strong>The bottom line:</strong> All three are legitimate, regulated brokers. Choose based on your priorities — fees, features, or design. And despite regulatory adjustments, they all continue serving existing users normally.</p>
 
         <div className="bg-blue-50 dark:bg-blue-900/20 p-6 rounded-xl border border-blue-100 dark:border-blue-800 mt-8">
           <p className="font-semibold text-lg mb-2">Powered by gptoapk.com</p>
