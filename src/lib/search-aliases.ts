@@ -181,6 +181,29 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
     aliases: ["电视家", "电视家3.0", "电视家3.0 apk", "电视家3.0 apk下载", "电视家apk", "dianshijia"],
   },
   {
+    appIds: ["com.whatsapp"],
+    aliases: [
+      "whatsapp",
+      "whatsapp messenger",
+      "whatsappmessenger",
+      "whatsapp下载",
+      "whatsapp官方下载",
+      "whatsapp官方网下载",
+      "whatsapp官网下载",
+      "whatsapp是什么",
+      "whatsapp安卓下载",
+      "whatsapp.com",
+      "whatsapp web",
+      "whatsapp网页版",
+      "whatsapp网页",
+      "wa",
+    ],
+  },
+  {
+    appIds: ["com.whatsapp.w4b"],
+    aliases: ["whatsapp business", "whatsapp商业版", "whatsapp商家版"],
+  },
+  {
     appIds: ["com.twitter.android"],
     aliases: [
       "twitter",

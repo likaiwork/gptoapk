@@ -22,6 +22,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ];
 
   const zhBlogSlugs = [
+    "whatsapp-download-seo-geo-2026",
     "twitter-download-seo-geo-2026",
     "youtube-download-seo-geo-2026",
     "tiktok-download-seo-geo-2026",

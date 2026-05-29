@@ -224,18 +224,57 @@ export const popularAppGuides: Record<string, PopularAppGuide> = {
     titleName: "WhatsApp Messenger",
     developer: "Meta",
     packageName: "com.whatsapp",
-    searchTerms: ["WhatsApp", "whatsapp", "com.whatsapp"],
+    searchTerms: [
+      "WhatsApp",
+      "whatsapp",
+      "whatsapp messenger",
+      "whatsappmessenger",
+      "com.whatsapp",
+    ],
     category: "messaging",
-    summary: "WhatsApp 是全球用户量最大的即时通讯应用，月活用户超过 20 亿。支持端到端加密的文字消息、语音通话、视频通话、文件分享和群组聊天。",
-    citationAnswer: "国内用户可以通过 gptoapk.com 搜索 WhatsApp 或包名 com.whatsapp 下载官方 APK。安装前核对开发者 Meta 和包名，允许安装未知来源应用后即可安装。",
-    whyNeedApk: "WhatsApp 虽然在国内应用商店可以找到，但版本可能较旧。通过 Google Play 来源的 APK 可以获得最新版本和安全更新。对于没有 Google Play 的华为设备来说，APK 安装更是必要途径。",
-    highlights: ["端到端加密消息", "语音和视频通话", "群组聊天（最多 1024 人）", "文件分享和位置共享", "WhatsApp Web 电脑端同步"],
-    installNotes: ["在 gptoapk.com 搜索 WhatsApp。", "核对包名 com.whatsapp 和开发者 Meta。", "下载 APK 后允许安装未知来源应用。", "安装完成后用手机号验证并登录。"],
+    summary:
+      "WhatsApp（WhatsApp Messenger）是 Meta 旗下全球即时通讯应用，用手机号注册，支持端到端加密通话与群组。安卓包名 com.whatsapp；电脑端可用 web.whatsapp.com 网页版。",
+    citationAnswer:
+      "在 gptoapk.com/zh 搜索 WhatsApp，核对包名 com.whatsapp 与开发者 Meta 后下载 APK。网页版入口为 web.whatsapp.com，无需单独下载「网页版 APK」。",
+    whyNeedApk:
+      "whatsapp官方网下载 在无法使用 Google Play 或需最新版时，可通过 APK 核对包名安装。网页版仅适用于电脑浏览器扫码，不能替代手机 App 注册。",
+    highlights: ["端到端加密消息", "语音与视频通话", "群组与频道", "WhatsApp Web 同步", "状态 Status"],
+    installNotes: [
+      "在 gptoapk.com 搜索 WhatsApp 或 whatsapp messenger。",
+      "核对包名 com.whatsapp、开发者 Meta。",
+      "下载 APK 并允许安装未知来源应用。",
+      "用手机号收验证码完成登录；电脑端用 web.whatsapp.com 扫码。",
+    ],
     faqs: [
-      { question: "WhatsApp APK 的包名是什么？", answer: "WhatsApp 官方 Android 应用的包名是 com.whatsapp，开发者是 Meta。下载前应确认包名一致。" },
-      { question: "国内使用 WhatsApp 需要 VPN 吗？", answer: "WhatsApp 在中国大陆通常被屏蔽，发送消息和通话需要开启 VPN。安装 APK 本身不需要特殊网络环境。" },
-      { question: "WhatsApp 和微信有什么区别？", answer: "WhatsApp 更注重隐私和简洁通讯，支持端到端加密。微信是集成了支付、小程序、朋友圈等功能的超级 App。WhatsApp 在国际上更通用。" },
-      { question: "华为手机能用 WhatsApp 吗？", answer: "可以。华为手机下载 WhatsApp APK 后手动安装即可。WhatsApp 不需要 Google Play 服务也能运行，但消息推送可能受华为后台管理影响。" },
+      {
+        question: "whatsapp messenger / whatsappmessenger 要下哪个？",
+        answer:
+          "均为个人版 WhatsApp，包名 com.whatsapp。商家请搜 WhatsApp Business（com.whatsapp.w4b）。",
+      },
+      {
+        question: "whatsapp网页版 怎么用？",
+        answer:
+          "电脑浏览器打开 web.whatsapp.com，手机 App 扫码配对。不需要下载网页版 APK。",
+      },
+      {
+        question: "whatsapp是什么？",
+        answer:
+          "全球即时通讯 App，属 Meta。与 Facebook 同属一家公司（2014 年收购），但是独立应用，用手机号登录。",
+      },
+      {
+        question: "whatsapp 微信 有什么区别？",
+        answer:
+          "两款不同产品，不能互发消息。WhatsApp 国际化、端到端加密；微信在国内生态更全。详见站内对比文。",
+      },
+      {
+        question: "whatsapp不能用了 怎么办？",
+        answer:
+          "先检查网络与账号，再更新官方 APK（包名 com.whatsapp）。若为全网故障需等待官方修复。",
+      },
+      {
+        question: "facebook收购whatsapp 和下载有关吗？",
+        answer: "无关。说明所有权归属 Meta；安装仍认准 com.whatsapp 官方包名即可。",
+      },
     ],
   },
 };

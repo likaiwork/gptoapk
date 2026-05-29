@@ -22,6 +22,7 @@ const problemGuides = [
   { title: "ChatGPT APK 无法从 Google Play 下载怎么办", href: "/zh/chatgpt-apk-without-google-play" },
   { title: "ChatGPT下载完整指南（是什么/怎么下载/注册）", href: "/zh/blog/chatgpt-download-seo-geo-2026" },
   { title: "APK软件与游戏下载、电视猫/电视家3.0", href: "/zh/blog/apk-software-game-tv-download-2026" },
+  { title: "WhatsApp下载完整指南（Messenger/网页版/与微信对比）", href: "/zh/blog/whatsapp-download-seo-geo-2026" },
   { title: "Twitter下载完整指南（推特官网/APK/注册与访问说明）", href: "/zh/blog/twitter-download-seo-geo-2026" },
   { title: "YouTube下载完整指南（官网/油管/APK与视频下载区别）", href: "/zh/blog/youtube-download-seo-geo-2026" },
   { title: "TikTok下载完整指南（国际版/官网/与抖音区别）", href: "/zh/blog/tiktok-download-seo-geo-2026" },

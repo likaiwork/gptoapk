@@ -98,6 +98,9 @@ function normalizeUserSearchQuery(query: string): string {
   if (/^https?:\/\/((www|m)\.)?youtube\.com\/?/i.test(trimmed)) return 'youtube';
   if (/^https?:\/\/youtu\.be\//i.test(trimmed)) return 'youtube';
   if (/^https?:\/\/(www\.)?(twitter|x)\.com\/?/i.test(trimmed)) return 'twitter';
+  if (/^https?:\/\/(www\.)?whatsapp\.com\/?/i.test(trimmed)) return 'whatsapp';
+  if (/^https?:\/\/(www\.)?web\.whatsapp\.com\/?/i.test(trimmed)) return 'whatsapp';
+  if (/^https?:\/\/wa\.me\//i.test(trimmed)) return 'whatsapp';
   return trimmed;
 }
 
