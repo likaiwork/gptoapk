@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-05-29T08:24:19.207Z",
+  "updatedAt": "2026-05-29T08:34:47.643Z",
   "today": {
     "date": "2026-05-26",
     "locale": "zh",
@@ -39,10 +39,10 @@
       "at": "2026-05-28T05:41:00.631Z"
     },
     "2026-05-29": {
-      "status": "drafted",
-      "note": "",
-      "publishedUrl": "https://www.gptoapk.com/zh/blog/social-apk-safe-install-2026",
-      "at": "2026-05-29T08:24:19.207Z"
+      "status": "published",
+      "note": "Facebook SEO/GEO + social-apk live",
+      "publishedUrl": "https://www.gptoapk.com/zh/blog/facebook-download-seo-geo-2026",
+      "at": "2026-05-29T08:34:47.643Z"
     },
     "2026-05-30": {
       "status": "published",
