@@ -72,6 +72,34 @@ export interface ManualDownloadSource {
   updated_at: string;
 }
 
+export interface SearchFailureQuery {
+  query_key: string;
+  query: string;
+  normalized_query: string;
+  query_type: string;
+  failure_kind: string;
+  last_lang: string;
+  last_country: string;
+  failure_count: number;
+  last_error: string;
+  first_failed_at: string;
+  last_failed_at: string;
+  resolved: boolean;
+  resolved_at: string | null;
+  updated_at: string;
+}
+
+export interface SearchFailureLogParams {
+  query: string;
+  queryType: string;
+  failureKind: string;
+  queryKey: string;
+  normalizedQuery: string;
+  lastError?: string;
+  lang?: string;
+  country?: string;
+}
+
 export interface SearchLogParams {
   visitorId: string;
   query: string;
@@ -278,6 +306,25 @@ export async function initDatabase(): Promise<void> {
     )
   `;
 
+  await sql`
+    CREATE TABLE IF NOT EXISTS search_failure_queries (
+      query_key TEXT PRIMARY KEY,
+      query TEXT NOT NULL DEFAULT '',
+      normalized_query TEXT NOT NULL DEFAULT '',
+      query_type TEXT DEFAULT '',
+      failure_kind TEXT NOT NULL DEFAULT 'no_results',
+      last_lang TEXT DEFAULT '',
+      last_country TEXT DEFAULT '',
+      failure_count INTEGER NOT NULL DEFAULT 0,
+      last_error TEXT DEFAULT '',
+      first_failed_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      last_failed_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      resolved BOOLEAN NOT NULL DEFAULT FALSE,
+      resolved_at TIMESTAMPTZ,
+      updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `;
+
   try { await sql`CREATE INDEX IF NOT EXISTS idx_search_visitor ON search_logs(visitor_id)`; } catch {}
   try { await sql`CREATE INDEX IF NOT EXISTS idx_search_app ON search_logs(app_id)`; } catch {}
   try { await sql`CREATE INDEX IF NOT EXISTS idx_search_timestamp ON search_logs(timestamp)`; } catch {}
@@ -286,6 +333,8 @@ export async function initDatabase(): Promise<void> {
   try { await sql`CREATE INDEX IF NOT EXISTS idx_download_timestamp ON download_logs(timestamp)`; } catch {}
   try { await sql`CREATE INDEX IF NOT EXISTS idx_failure_resolved ON download_failure_apps(resolved, last_failed_at DESC)`; } catch {}
   try { await sql`CREATE INDEX IF NOT EXISTS idx_manual_download_active ON manual_download_sources(active, updated_at DESC)`; } catch {}
+  try { await sql`CREATE INDEX IF NOT EXISTS idx_search_failure_resolved ON search_failure_queries(resolved, last_failed_at DESC)`; } catch {}
+  try { await sql`CREATE INDEX IF NOT EXISTS idx_search_failure_normalized ON search_failure_queries(normalized_query, query_type)`; } catch {}
 
   // 迁移: 旧表没有的列
   const migrationQueries = [
@@ -759,6 +808,122 @@ export async function updateDownloadFailureMetadata(params: {
      WHERE app_id = $1
      RETURNING app_id`,
     [params.appId, params.lastError || "", params.lastSource || ""]
+  );
+  return rows.length > 0;
+}
+
+export async function logSearchFailure(params: SearchFailureLogParams): Promise<void> {
+  const query = params.query.slice(0, 500);
+  const lastError = (params.lastError || "").slice(0, 1000);
+
+  await sql`
+    INSERT INTO search_failure_queries (
+      query_key,
+      query,
+      normalized_query,
+      query_type,
+      failure_kind,
+      last_lang,
+      last_country,
+      failure_count,
+      last_error,
+      first_failed_at,
+      last_failed_at,
+      resolved,
+      updated_at
+    )
+    VALUES (
+      ${params.queryKey},
+      ${query},
+      ${params.normalizedQuery},
+      ${params.queryType},
+      ${params.failureKind},
+      ${params.lang || ""},
+      ${params.country || ""},
+      1,
+      ${lastError},
+      NOW(),
+      NOW(),
+      FALSE,
+      NOW()
+    )
+    ON CONFLICT (query_key) DO UPDATE SET
+      query = EXCLUDED.query,
+      normalized_query = EXCLUDED.normalized_query,
+      query_type = EXCLUDED.query_type,
+      failure_kind = EXCLUDED.failure_kind,
+      last_lang = COALESCE(NULLIF(EXCLUDED.last_lang, ''), search_failure_queries.last_lang),
+      last_country = COALESCE(NULLIF(EXCLUDED.last_country, ''), search_failure_queries.last_country),
+      failure_count = search_failure_queries.failure_count + 1,
+      last_error = EXCLUDED.last_error,
+      last_failed_at = NOW(),
+      resolved = FALSE,
+      resolved_at = NULL,
+      updated_at = NOW()
+  `;
+}
+
+export async function resolveSearchFailuresForQuery(query: string, queryType: string): Promise<void> {
+  const normalized = query.trim().toLowerCase().replace(/\s+/g, " ");
+  if (!normalized) return;
+
+  await sql`
+    UPDATE search_failure_queries
+    SET resolved = TRUE,
+        resolved_at = NOW(),
+        updated_at = NOW()
+    WHERE normalized_query = ${normalized}
+      AND query_type = ${queryType}
+      AND resolved = FALSE
+  `;
+}
+
+export async function getSearchFailureQueries(
+  limit = 20,
+  offset = 0,
+): Promise<{ rows: SearchFailureQuery[]; total: number; unresolved: number }> {
+  const [totalResult, unresolvedResult, rows] = await Promise.all([
+    sqlRaw<{ total: number }>(`SELECT COUNT(*)::int as total FROM search_failure_queries`),
+    sqlRaw<{ total: number }>(`SELECT COUNT(*)::int as total FROM search_failure_queries WHERE resolved = FALSE`),
+    sqlRaw<SearchFailureQuery>(
+      `SELECT
+         query_key,
+         query,
+         normalized_query,
+         query_type,
+         failure_kind,
+         COALESCE(last_lang, '') as last_lang,
+         COALESCE(last_country, '') as last_country,
+         failure_count,
+         COALESCE(last_error, '') as last_error,
+         first_failed_at::text,
+         last_failed_at::text,
+         resolved,
+         resolved_at::text,
+         updated_at::text
+       FROM search_failure_queries
+       ORDER BY resolved ASC, last_failed_at DESC, failure_count DESC, query_key ASC
+       LIMIT $1 OFFSET $2`,
+      [limit, offset],
+    ),
+  ]);
+
+  return {
+    rows,
+    total: totalResult[0]?.total ?? 0,
+    unresolved: unresolvedResult[0]?.total ?? 0,
+  };
+}
+
+export async function updateSearchFailureResolved(queryKey: string, resolved: boolean): Promise<boolean> {
+  const rows = await sqlRaw<{ query_key: string }>(
+    `UPDATE search_failure_queries
+     SET resolved = $2,
+         resolved_at = CASE WHEN $2 THEN NOW() ELSE NULL END,
+         updated_at = NOW()
+     WHERE query_key = $1
+     RETURNING query_key`,
+    [queryKey, resolved],
   );
   return rows.length > 0;
 }

@@ -5,6 +5,8 @@ import { proxyImageUrl } from '@/lib/image-proxy';
 import { isUnsupportedNoMirrorApp } from '@/lib/unsupported-no-mirror-apps';
 import { VPN_DOWNLOADABLE_APP_IDS } from '@/lib/vpn-downloadable-apps';
 import { resolveSearchAliasAppIds } from '@/lib/search-aliases';
+import { recordSearchFailure, recordSearchSuccess } from '@/lib/record-search-failure';
+import type { SearchFailureKind } from '@/lib/search-failure-key';
 
 export const runtime = 'nodejs';
 export const maxDuration = 60;
@@ -318,62 +320,83 @@ async function searchApps(term: string, lang: string, country: string): Promise<
   return [];
 }
 
+function searchSuccessResponse(
+  query: string,
+  queryType: QueryType,
+  lang: string,
+  country: string,
+  results: SearchAppResult[],
+) {
+  void recordSearchSuccess(query, queryType);
+  return NextResponse.json(
+    {
+      query,
+      queryType,
+      lang,
+      country,
+      results,
+    },
+    { headers: SUCCESS_CACHE_HEADERS },
+  );
+}
+
+function searchFailureResponse(
+  query: string,
+  queryType: QueryType,
+  failureKind: SearchFailureKind,
+  error: string,
+  status: number,
+  lang?: string,
+  country?: string,
+) {
+  void recordSearchFailure({
+    query,
+    queryType,
+    failureKind,
+    lastError: error,
+    lang,
+    country,
+  });
+  return NextResponse.json({ error }, { status });
+}
+
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const query = searchParams.get('q')?.trim() ?? '';
-
-  if (!query) {
-    return NextResponse.json({ error: 'Missing search query' }, { status: 400 });
-  }
-
-  if (query.length > MAX_QUERY_LENGTH) {
-    return NextResponse.json({ error: 'Search query is too long' }, { status: 400 });
-  }
-
   const requestedLang = normalizeLocale(searchParams.get('hl'), 'en');
   const requestedCountry = normalizeCountry(searchParams.get('gl'), 'us');
   const queryType = getQueryType(query);
+
+  if (!query) {
+    return searchFailureResponse('', 'keyword', 'search_error', 'Missing search query', 400, requestedLang, requestedCountry);
+  }
+
+  if (query.length > MAX_QUERY_LENGTH) {
+    return searchFailureResponse(query, queryType, 'query_too_long', 'Search query is too long', 400, requestedLang, requestedCountry);
+  }
 
   try {
     if (queryType === 'keyword' && isVpnKeyword(query)) {
       const results = await searchDownloadableVpnApps(requestedLang, requestedCountry);
       if (results.length === 0) {
-        return NextResponse.json({ error: 'No apps found' }, { status: 404 });
+        return searchFailureResponse(query, queryType, 'no_results', 'No apps found', 404, requestedLang, requestedCountry);
       }
-      return NextResponse.json({
-        query,
-        queryType,
-        lang: requestedLang,
-        country: requestedCountry,
-        results,
-      }, { headers: SUCCESS_CACHE_HEADERS });
+      return searchSuccessResponse(query, queryType, requestedLang, requestedCountry, results);
     }
 
     if (queryType === 'url') {
       const parsed = parseGooglePlayUrl(query);
       if (!parsed) {
-        return NextResponse.json({ error: 'Invalid Google Play URL' }, { status: 400 });
+        return searchFailureResponse(query, queryType, 'invalid_url', 'Invalid Google Play URL', 400, requestedLang, requestedCountry);
       }
 
       const result = await fetchExactApp(parsed.appId, parsed.lang, parsed.country);
-      return NextResponse.json({
-        query,
-        queryType,
-        lang: parsed.lang,
-        country: parsed.country,
-        results: [result],
-      }, { headers: SUCCESS_CACHE_HEADERS });
+      return searchSuccessResponse(query, queryType, parsed.lang, parsed.country, [result]);
     }
 
     if (queryType === 'package') {
       const result = await fetchExactApp(query, requestedLang, requestedCountry);
-      return NextResponse.json({
-        query,
-        queryType,
-        lang: requestedLang,
-        country: requestedCountry,
-        results: [result],
-      }, { headers: SUCCESS_CACHE_HEADERS });
+      return searchSuccessResponse(query, queryType, requestedLang, requestedCountry, [result]);
     }
 
     let results = await searchByAliasApps(query, requestedLang, requestedCountry);
@@ -382,22 +405,15 @@ export async function GET(request: Request) {
     }
     results = results.filter((app) => !isUnsupportedNoMirrorApp(app.appId));
     if (results.length === 0) {
-      return NextResponse.json({ error: 'No apps found' }, { status: 404 });
+      return searchFailureResponse(query, queryType, 'no_results', 'No apps found', 404, requestedLang, requestedCountry);
     }
 
-    return NextResponse.json({
-      query,
-      queryType,
-      lang: requestedLang,
-      country: requestedCountry,
-      results,
-    }, { headers: SUCCESS_CACHE_HEADERS });
+    return searchSuccessResponse(query, queryType, requestedLang, requestedCountry, results);
   } catch (error) {
     console.error('[API search-apps] ERROR:', error instanceof Error ? error.message : error);
     const errorMsg = error instanceof Error ? error.message : 'Unknown error';
-    return NextResponse.json(
-      { error: queryType === 'keyword' ? `No apps found: ${errorMsg}` : 'App not found or invalid Google Play URL' },
-      { status: 404 }
-    );
+    const failureKind: SearchFailureKind = queryType === 'url' ? 'invalid_url' : 'search_error';
+    const clientError = queryType === 'keyword' ? `No apps found: ${errorMsg}` : 'App not found or invalid Google Play URL';
+    return searchFailureResponse(query, queryType, failureKind, clientError, 404, requestedLang, requestedCountry);
   }
 }

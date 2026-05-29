@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { getManualDownloadSource, initDatabase } from '@/lib/db';
+import { getManualDownloadSource, initDatabase, logDownload } from '@/lib/db';
 import {
   getMirrorUnavailableMessage,
   getPaidAppUnsupportedMessage,
@@ -164,6 +164,39 @@ function getRequestLocale(request: Request, explicitLocale?: unknown) {
   return normalizeDownloadLocale(explicitLocale)
     ?? normalizeDownloadLocale(new URL(request.url).searchParams.get('locale'))
     ?? localeFromAcceptLanguage(request.headers.get('accept-language'));
+}
+
+function getVisitorIdFromRequest(request: Request): string {
+  const cookies = request.headers.get('cookie') || '';
+  const match = cookies.match(/(?:^|;\s*)visitor_id=([^;]*)/);
+  return match ? decodeURIComponent(match[1]) : 'unknown';
+}
+
+async function recordDownloadPrepareFailure(
+  request: Request,
+  appId: string,
+  error: string,
+  source = '',
+) {
+  try {
+    await initDatabase();
+    await logDownload({
+      visitorId: getVisitorIdFromRequest(request),
+      appId,
+      appTitle: appId,
+      source,
+      downloadUrl: '',
+      version: '',
+      fileSize: '',
+      success: false,
+      error,
+    });
+  } catch (logError) {
+    console.warn(
+      '[download-apk] recordDownloadPrepareFailure:',
+      logError instanceof Error ? logError.message : logError,
+    );
+  }
 }
 
 function createPaidAppUnsupportedResponse(request: Request, appId: string, startedAt: number, explicitLocale?: unknown) {
@@ -713,6 +746,12 @@ export async function POST(request: Request) {
     const result = await resolveDownloadSource(cleanId);
 
     if (!result) {
+      void recordDownloadPrepareFailure(
+        request,
+        cleanId,
+        'This APK is not available from our sources.',
+        'prepare',
+      );
       return NextResponse.json({
         success: false,
         error: 'This APK is not available from our sources.',

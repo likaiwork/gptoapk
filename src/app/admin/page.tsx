@@ -2,6 +2,7 @@
 
 import { Fragment, useEffect, useState, useCallback, useRef } from "react";
 import { PAID_APP_UNSUPPORTED_CODE } from "@/lib/download-errors";
+import { formatSearchFailureKind } from "@/lib/search-failure-key";
 
 // 国家代码 → 中文/英文 映射
 const COUNTRY_NAMES: Record<string, [string, string]> = {
@@ -287,6 +288,23 @@ interface DownloadFailureApp {
   manual_source_label: string;
   manual_source_active: boolean;
 }
+
+interface SearchFailureQuery {
+  query_key: string;
+  query: string;
+  normalized_query: string;
+  query_type: string;
+  failure_kind: string;
+  last_lang: string;
+  last_country: string;
+  failure_count: number;
+  last_error: string;
+  first_failed_at: string;
+  last_failed_at: string;
+  resolved: boolean;
+  resolved_at: string | null;
+  updated_at: string;
+}
 interface ActivityItem {
   type: "search" | "download";
   visitor_id: string;
@@ -355,6 +373,9 @@ interface AdminData {
   download_failures: DownloadFailureApp[];
   download_failures_total: number;
   unresolved_download_failures: number;
+  search_failures: SearchFailureQuery[];
+  search_failures_total: number;
+  unresolved_search_failures: number;
 }
 
 interface ManualSourceDraft {
@@ -761,10 +782,12 @@ function Dashboard({
   data,
   onViewVisitor,
   onToggleFailureResolved,
+  onToggleSearchFailureResolved,
   onManualSourceDraftChange,
   onSaveManualSource,
   onDeleteManualSource,
   pendingFailureIds,
+  pendingSearchFailureKeys,
   pendingManualSourceIds,
   manualSourceDrafts,
   lang,
@@ -774,23 +797,28 @@ function Dashboard({
   data: AdminData;
   onViewVisitor: (v: VisitorInfo) => void;
   onToggleFailureResolved: (appId: string, resolved: boolean) => Promise<void>;
+  onToggleSearchFailureResolved: (queryKey: string, resolved: boolean) => Promise<void>;
   onManualSourceDraftChange: (appId: string, draft: Partial<ManualSourceDraft>) => void;
   onSaveManualSource: (item: DownloadFailureApp) => Promise<void>;
   onDeleteManualSource: (appId: string) => Promise<void>;
   pendingFailureIds: Set<string>;
+  pendingSearchFailureKeys: Set<string>;
   pendingManualSourceIds: Set<string>;
   manualSourceDrafts: Record<string, ManualSourceDraft>;
   lang: "zh" | "en";
   onLangChange: (l: "zh" | "en") => void;
   pagination: {
-    searchPage: number; downloadPage: number; activityPage: number; visitorPage: number; failurePage: number;
+    searchPage: number; downloadPage: number; activityPage: number; visitorPage: number; failurePage: number; searchFailurePage: number;
     onSearchPageChange: (p: number) => void; onDownloadPageChange: (p: number) => void;
     onActivityPageChange: (p: number) => void; onVisitorPageChange: (p: number) => void;
-    onFailurePageChange: (p: number) => void;
+    onFailurePageChange: (p: number) => void; onSearchFailurePageChange: (p: number) => void;
   };
 }) {
-  const { searchPage, downloadPage, activityPage, visitorPage, failurePage,
-    onSearchPageChange, onDownloadPageChange, onActivityPageChange, onVisitorPageChange, onFailurePageChange } = pagination;
+  const {
+    searchPage, downloadPage, activityPage, visitorPage, failurePage, searchFailurePage,
+    onSearchPageChange, onDownloadPageChange, onActivityPageChange, onVisitorPageChange,
+    onFailurePageChange, onSearchFailurePageChange,
+  } = pagination;
 
   return (
     <div className="mx-auto max-w-6xl space-y-8">
@@ -799,6 +827,80 @@ function Dashboard({
         <StatCard label="总访客" value={data.visitors} color="bg-white border-gray-200" />
         <StatCard label="总搜索次数" value={data.total_searches} color="bg-white border-gray-200" />
         <StatCard label="总下载次数" value={data.total_downloads} color="bg-white border-gray-200" />
+      </div>
+
+      {/* Search Failures */}
+      <div>
+        <div className="mb-3 flex flex-wrap items-center gap-2">
+          <h2 className="text-lg font-semibold text-gray-900">搜索失败关键词</h2>
+          <MetricPill label="未解决" value={data.unresolved_search_failures} />
+          <MetricPill label="全部记录" value={data.search_failures_total} />
+        </div>
+        <div className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
+          <table className="min-w-full divide-y divide-gray-200 text-sm">
+            <thead className="bg-gray-50">
+              <tr>
+                <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">搜索词</th>
+                <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">类型</th>
+                <th className="hidden px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 md:table-cell">失败类型</th>
+                <th className="px-4 py-3 text-right text-xs font-medium uppercase tracking-wider text-gray-500">次数</th>
+                <th className="hidden px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 lg:table-cell">最后失败</th>
+                <th className="hidden px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 xl:table-cell">原因</th>
+                <th className="px-4 py-3 text-right text-xs font-medium uppercase tracking-wider text-gray-500">状态</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-gray-100">
+              {data.search_failures.length === 0 && (
+                <tr><td colSpan={7} className="px-4 py-8 text-center text-sm text-gray-400">暂无搜索失败记录</td></tr>
+              )}
+              {data.search_failures.map((item) => {
+                const isPending = pendingSearchFailureKeys.has(item.query_key);
+                return (
+                  <tr key={item.query_key} className={item.resolved ? "bg-gray-50/60" : "hover:bg-amber-50/40"}>
+                    <td className="px-4 py-3">
+                      <div className="max-w-xs font-medium text-gray-900 break-all">{item.query}</div>
+                      {(item.last_lang || item.last_country) && (
+                        <div className="mt-0.5 text-xs text-gray-400">
+                          {item.last_lang || "—"}/{item.last_country || "—"}
+                        </div>
+                      )}
+                    </td>
+                    <td className="px-4 py-3 text-xs text-gray-500">{item.query_type || "keyword"}</td>
+                    <td className="hidden px-4 py-3 text-xs text-gray-500 md:table-cell">
+                      {formatSearchFailureKind(item.failure_kind)}
+                    </td>
+                    <td className="px-4 py-3 text-right text-sm font-semibold text-amber-700">{item.failure_count}</td>
+                    <td className="hidden px-4 py-3 text-xs text-gray-500 lg:table-cell">{formatTime(item.last_failed_at)}</td>
+                    <td className="hidden max-w-xs px-4 py-3 text-xs text-gray-500 xl:table-cell">
+                      <span className="line-clamp-2" title={item.last_error}>{item.last_error || "—"}</span>
+                    </td>
+                    <td className="px-4 py-3 text-right">
+                      <button
+                        type="button"
+                        disabled={isPending}
+                        onClick={() => { void onToggleSearchFailureResolved(item.query_key, !item.resolved); }}
+                        className={`cursor-pointer rounded-lg px-3 py-1.5 text-xs font-medium transition disabled:cursor-not-allowed disabled:opacity-60 ${
+                          item.resolved
+                            ? "border border-gray-200 bg-white text-gray-500 hover:bg-gray-100"
+                            : "bg-emerald-600 text-white hover:bg-emerald-700"
+                        }`}
+                      >
+                        {isPending ? "处理中..." : item.resolved ? "改为未解决" : "标记已解决"}
+                      </button>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+          <div className="flex items-center justify-between border-t border-gray-100 px-4 py-2">
+            <span className="text-xs text-gray-400">共 {data.search_failures_total} 条搜索失败</span>
+            <PageControl page={searchFailurePage} total={data.search_failures_total} onPageChange={onSearchFailurePageChange} />
+          </div>
+        </div>
+        <p className="mt-2 text-xs text-gray-500">
+          含 No apps found、无效 Play 链接、搜索异常等；成功搜到结果后会自动标记为已解决。可据此补充 search-aliases 映射。
+        </p>
       </div>
 
       {/* Download Failures */}
@@ -1166,9 +1268,11 @@ export default function AdminPage() {
   const [activityPage, setActivityPage] = useState(0);
   const [visitorPage, setVisitorPage] = useState(0);
   const [failurePage, setFailurePage] = useState(0);
+  const [searchFailurePage, setSearchFailurePage] = useState(0);
+  const [pendingSearchFailureKeys, setPendingSearchFailureKeys] = useState<Set<string>>(() => new Set());
 
   const fetchData = useCallback(async (authToken: string, start?: string, end?: string, pages?: {
-    searchPage?: number; downloadPage?: number; activityPage?: number; visitorPage?: number; failurePage?: number;
+    searchPage?: number; downloadPage?: number; activityPage?: number; visitorPage?: number; failurePage?: number; searchFailurePage?: number;
   }) => {
     try {
       const params = new URLSearchParams();
@@ -1181,6 +1285,7 @@ export default function AdminPage() {
         params.set("activityPage", String(pages.activityPage ?? 0));
         params.set("visitorPage", String(pages.visitorPage ?? 0));
         params.set("failurePage", String(pages.failurePage ?? 0));
+        params.set("searchFailurePage", String(pages.searchFailurePage ?? 0));
         params.set("pageSize", String(PAGE_SIZE));
       }
       const res = await fetch(`/api/admin?${params}`, { cache: "no-store" });
@@ -1212,8 +1317,8 @@ export default function AdminPage() {
   }, []);
 
   const getCurrentPages = useCallback(() => ({
-    searchPage, downloadPage, activityPage, visitorPage, failurePage,
-  }), [searchPage, downloadPage, activityPage, visitorPage, failurePage]);
+    searchPage, downloadPage, activityPage, visitorPage, failurePage, searchFailurePage,
+  }), [searchPage, downloadPage, activityPage, visitorPage, failurePage, searchFailurePage]);
 
   const handleLogin = useCallback((password: string) => {
     document.cookie = `admin_token=${encodeURIComponent(password)}; path=/; max-age=${60 * 60 * 24}; SameSite=Lax`;
@@ -1238,6 +1343,7 @@ export default function AdminPage() {
     setActivityPage(0);
     setVisitorPage(0);
     setFailurePage(0);
+    setSearchFailurePage(0);
     if (token) {
       setLoading(true);
       fetchData(token, start, end).finally(() => setLoading(false));
@@ -1255,11 +1361,68 @@ export default function AdminPage() {
         activityPage: pageKey === "activity" ? page : activityPage,
         visitorPage: pageKey === "visitor" ? page : visitorPage,
         failurePage: pageKey === "failure" ? page : failurePage,
+        searchFailurePage: pageKey === "searchFailure" ? page : searchFailurePage,
       };
       setLoading(true);
       fetchData(token, appliedDateStart, appliedDateEnd, pages).finally(() => setLoading(false));
     };
-  }, [token, fetchData, appliedDateStart, appliedDateEnd, searchPage, downloadPage, activityPage, visitorPage, failurePage]);
+  }, [token, fetchData, appliedDateStart, appliedDateEnd, searchPage, downloadPage, activityPage, visitorPage, failurePage, searchFailurePage]);
+
+  const handleToggleSearchFailureResolved = useCallback(async (queryKey: string, resolved: boolean) => {
+    if (!token) return;
+    const resolvedAt = resolved ? new Date().toISOString() : null;
+    const previousData = data;
+
+    setError("");
+    setPendingSearchFailureKeys((current) => {
+      const next = new Set(current);
+      next.add(queryKey);
+      return next;
+    });
+    setData((current) => {
+      if (!current) return current;
+
+      const currentItem = current.search_failures.find((item) => item.query_key === queryKey);
+      const unresolvedDelta = currentItem && currentItem.resolved !== resolved
+        ? resolved ? -1 : 1
+        : 0;
+
+      return {
+        ...current,
+        unresolved_search_failures: Math.max(0, current.unresolved_search_failures + unresolvedDelta),
+        search_failures: current.search_failures.map((item) => (
+          item.query_key === queryKey
+            ? { ...item, resolved, resolved_at: resolvedAt, updated_at: resolvedAt ?? new Date().toISOString() }
+            : item
+        )),
+      };
+    });
+
+    try {
+      const res = await fetch(`/api/admin/search-failures?key=${encodeURIComponent(token)}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        cache: "no-store",
+        body: JSON.stringify({ queryKey, resolved }),
+      });
+      if (!res.ok) {
+        const body = await res.json().catch(() => null) as { error?: string } | null;
+        setData(previousData);
+        setError(body?.error ? `搜索失败状态更新失败：${body.error}` : "搜索失败状态更新失败");
+        return;
+      }
+      await fetchData(token, appliedDateStart, appliedDateEnd, getCurrentPages());
+    } catch {
+      setData(previousData);
+      setError("搜索失败状态更新网络错误");
+    } finally {
+      setPendingSearchFailureKeys((current) => {
+        const next = new Set(current);
+        next.delete(queryKey);
+        return next;
+      });
+    }
+  }, [token, data, fetchData, appliedDateStart, appliedDateEnd, getCurrentPages]);
 
   const handleToggleFailureResolved = useCallback(async (appId: string, resolved: boolean) => {
     if (!token) return;
@@ -1473,21 +1636,24 @@ export default function AdminPage() {
           data={data}
           onViewVisitor={setSelectedVisitor}
           onToggleFailureResolved={handleToggleFailureResolved}
+          onToggleSearchFailureResolved={handleToggleSearchFailureResolved}
           onManualSourceDraftChange={handleManualSourceDraftChange}
           onSaveManualSource={handleSaveManualSource}
           onDeleteManualSource={handleDeleteManualSource}
           pendingFailureIds={pendingFailureIds}
+          pendingSearchFailureKeys={pendingSearchFailureKeys}
           pendingManualSourceIds={pendingManualSourceIds}
           manualSourceDrafts={manualSourceDrafts}
           lang={lang}
           onLangChange={setLang}
           pagination={{
-            searchPage, downloadPage, activityPage, visitorPage, failurePage,
+            searchPage, downloadPage, activityPage, visitorPage, failurePage, searchFailurePage,
             onSearchPageChange: makePageFetcher("search", setSearchPage),
             onDownloadPageChange: makePageFetcher("download", setDownloadPage),
             onActivityPageChange: makePageFetcher("activity", setActivityPage),
             onVisitorPageChange: makePageFetcher("visitor", setVisitorPage),
             onFailurePageChange: makePageFetcher("failure", setFailurePage),
+            onSearchFailurePageChange: makePageFetcher("searchFailure", setSearchFailurePage),
           }} /> : <LoadingSpinner />}
       </main>
 

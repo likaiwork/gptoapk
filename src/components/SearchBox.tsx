@@ -365,6 +365,25 @@ export default function SearchBox() {
         input_type: inputType,
         reason: message,
       });
+      const queryTypeForLog =
+        inputType === "google_play_url" ? "url" : inputType === "package_name" ? "package" : "keyword";
+      const isLikelyNetwork =
+        err instanceof TypeError ||
+        /failed to fetch|networkerror|load failed/i.test(message);
+      if (isLikelyNetwork) {
+        fetch("/api/track-search-failure", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            query,
+            queryType: queryTypeForLog,
+            failureKind: "client_error",
+            error: message,
+            lang: locale,
+            country: "us",
+          }),
+        }).catch(() => {});
+      }
       setError(message);
       setFallback(getSearchFallback(query, locale));
       clearSearchCache(cacheKey);

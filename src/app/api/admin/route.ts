@@ -13,6 +13,7 @@ import {
   getTodayNewVisitors,
   getTodayDownloads,
   getDownloadFailureApps,
+  getSearchFailureQueries,
 } from "@/lib/db";
 
 export interface AdminResponse {
@@ -34,6 +35,9 @@ export interface AdminResponse {
   download_failures: DownloadFailureApp[];
   download_failures_total: number;
   unresolved_download_failures: number;
+  search_failures: SearchFailureQuery[];
+  search_failures_total: number;
+  unresolved_search_failures: number;
 }
 
 interface SearchStat {
@@ -77,6 +81,23 @@ interface DownloadFailureApp {
   last_failed_at: string;
   last_error: string;
   last_source: string;
+  resolved: boolean;
+  resolved_at: string | null;
+  updated_at: string;
+}
+
+interface SearchFailureQuery {
+  query_key: string;
+  query: string;
+  normalized_query: string;
+  query_type: string;
+  failure_kind: string;
+  last_lang: string;
+  last_country: string;
+  failure_count: number;
+  last_error: string;
+  first_failed_at: string;
+  last_failed_at: string;
   resolved: boolean;
   resolved_at: string | null;
   updated_at: string;
@@ -128,6 +149,7 @@ export async function GET(
     const activityPage = Math.max(parseInt(searchParams.get("activityPage") || "0") || 0, 0);
     const visitorPage = Math.max(parseInt(searchParams.get("visitorPage") || "0") || 0, 0);
     const failurePage = Math.max(parseInt(searchParams.get("failurePage") || "0") || 0, 0);
+    const searchFailurePage = Math.max(parseInt(searchParams.get("searchFailurePage") || "0") || 0, 0);
 
     await initDatabase();
 
@@ -144,6 +166,7 @@ export async function GET(
       recentActivity,
       visitorList,
       downloadFailures,
+      searchFailures,
     ] =
       await Promise.all([
         getVisitorStats(startDate, endDate),
@@ -158,6 +181,7 @@ export async function GET(
         getRecentActivity(pageSize, activityPage * pageSize, startDate, endDate),
         getVisitorList(pageSize, visitorPage * pageSize, startDate, endDate),
         getDownloadFailureApps(pageSize, failurePage * pageSize),
+        getSearchFailureQueries(pageSize, searchFailurePage * pageSize),
       ]);
 
     return NextResponse.json(
@@ -180,6 +204,9 @@ export async function GET(
         download_failures: downloadFailures.rows,
         download_failures_total: downloadFailures.total,
         unresolved_download_failures: downloadFailures.unresolved,
+        search_failures: searchFailures.rows,
+        search_failures_total: searchFailures.total,
+        unresolved_search_failures: searchFailures.unresolved,
       },
       { headers: { "Cache-Control": "no-store" } }
     );
