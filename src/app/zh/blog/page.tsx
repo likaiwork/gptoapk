@@ -18,6 +18,23 @@ export const metadata: Metadata = {
 const posts = [
   ...zhSeoGeoPostList,
   {
+    slug: "longbridge-securities-advanced",
+    title: "长桥证券攻略：2026最新入金出金与使用技巧",
+    description: "长桥证券入金怎么操作？出金多久到账？本文深入讲解长桥证券的入金出金流程、交易技巧和常见问题解决。",
+    date: "2026-05-29",
+    readTime: "8 分钟阅读",
+    tags: ["长桥证券", "Longbridge", "长桥入金", "长桥出金", "长桥技巧", "gptoapk"],
+  },
+  {
+    slug: "longbridge-securities-guide",
+    title: "长桥证券完整指南：2026最新介绍与APP下载教程",
+    description: "长桥证券是哪个国家的？APP怎么下载？本文从长桥证券是什么开始，全面介绍其背景、APP下载、开户流程和常见问题。",
+    date: "2026-05-29",
+    readTime: "10 分钟阅读",
+    tags: ["长桥证券", "Longbridge", "长桥APP", "长桥下载", "长桥开户", "gptoapk"],
+  },
+  ...zhSeoGeoPostList,
+  {
     slug: "tiger-futu-longbridge-comparison",
     title: "富途老虎长桥证券对比与监管动态：2026最新解读",
     description: "富途证券、老虎证券、长桥证券三家互联网券商的全面对比。背景股东、监管动态、清退传闻、硬刚证监会真相，一文读懂。",
