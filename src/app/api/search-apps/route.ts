@@ -4,7 +4,7 @@ import { gplayRequestOptions as requestOptions } from '@/lib/proxy';
 import { proxyImageUrl } from '@/lib/image-proxy';
 import { isUnsupportedNoMirrorApp } from '@/lib/unsupported-no-mirror-apps';
 import { VPN_DOWNLOADABLE_APP_IDS } from '@/lib/vpn-downloadable-apps';
-import { resolveSearchAliasAppIds } from '@/lib/search-aliases';
+import { resolvePlayPackageIdAlias, resolveSearchAliasAppIds } from '@/lib/search-aliases';
 import { recordSearchFailure, recordSearchSuccess } from '@/lib/record-search-failure';
 import type { SearchFailureKind } from '@/lib/search-failure-key';
 
@@ -124,8 +124,9 @@ function toSearchResult(app: IAppItem | IAppItemFullDetail): SearchAppResult {
 }
 
 async function fetchExactApp(appId: string, lang: string, country: string) {
+  const resolvedAppId = resolvePlayPackageIdAlias(appId);
   const appInfo = await withTimeout(
-    gplay.app({ appId, lang, country, requestOptions } as Parameters<typeof gplay.app>[0]),
+    gplay.app({ appId: resolvedAppId, lang, country, requestOptions } as Parameters<typeof gplay.app>[0]),
     EXACT_TIMEOUT_MS,
     'Network timeout: Cannot connect to Google Play'
   );

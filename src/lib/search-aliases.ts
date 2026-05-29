@@ -96,7 +96,41 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
     appIds: ["com.htsec.android"],
     aliases: ["海通", "海通证券", "haitong"],
   },
+  {
+    appIds: ["ai.x.grok"],
+    aliases: ["grok", "x grok", "grok ai"],
+  },
+  {
+    appIds: ["com.tinder"],
+    aliases: ["tinder"],
+  },
+  {
+    appIds: ["com.noyesrun.meeff.kr"],
+    aliases: ["meeff", "me eff"],
+  },
+  {
+    appIds: ["com.solomonj.ipynbviewer"],
+    aliases: ["ipynb viewer", "ipynb", "jupyter notebook viewer", "notebook viewer"],
+  },
+  {
+    appIds: ["com.google.android.play.games"],
+    aliases: ["goodplay", "google play games", "play games"],
+  },
+  {
+    appIds: ["com.spisoft.quicknote"],
+    aliases: ["carnet", "carnets"],
+  },
+  {
+    appIds: ["com.fau.jupyternotebook"],
+    aliases: ["junote", "jupyternotebook", "jupyter notebook"],
+  },
 ];
+
+/** Wrong or truncated Play package ids from pasted URLs → canonical id */
+const PLAY_PACKAGE_ID_ALIASES: Readonly<Record<string, string>> = {
+  "org.carnets": "com.spisoft.quicknote",
+  "com.junote.junote": "com.fau.jupyternotebook",
+};
 
 const SEARCH_ALIAS_APP_IDS = buildAliasMap();
 
@@ -114,6 +148,12 @@ function buildAliasMap(): Readonly<Record<string, readonly string[]>> {
   }
 
   return map;
+}
+
+export function resolvePlayPackageIdAlias(appId: string): string {
+  const trimmed = appId.trim();
+  if (!trimmed) return appId;
+  return PLAY_PACKAGE_ID_ALIASES[trimmed.toLowerCase()] ?? trimmed;
 }
 
 export function resolveSearchAliasAppIds(query: string): readonly string[] | null {
