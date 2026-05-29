@@ -81,6 +81,17 @@
 - YouTube APK guide: https://www.gptoapk.com/zh/youtube-apk (com.google.android.youtube)
 - YouTube download SEO/GEO guide (2026): https://www.gptoapk.com/zh/blog/youtube-download-seo-geo-2026
 
+## Chinese Broker / Securities Apps (APK install guides)
+
+- IBKR / 盈透证券 SEO/GEO (2026): https://www.gptoapk.com/zh/blog/ibkr-broker-seo-geo-2026 (package often atws.app — verify on Play)
+- Tiger / Futu / Longbridge SEO/GEO (2026): https://www.gptoapk.com/zh/blog/tiger-futu-longbridge-broker-seo-geo-2026
+  - Tiger 老虎证券: com.tigerbrokers.stock
+  - Futu 富途牛牛: cn.futu.trader
+  - Longbridge 长桥: global.longbridge.app.android
+- IBKR account & download (zh blog): https://www.gptoapk.com/zh/blog/ibkr-account-download-guide
+- IBKR withdrawal & China policy (zh blog): https://www.gptoapk.com/zh/blog/ibkr-withdrawal-china-issues
+- Tiger/Futu/Longbridge comparison (zh blog): https://www.gptoapk.com/zh/blog/tiger-futu-longbridge-comparison
+
 ## Chinese GEO Problem Guides
 
 - ChatGPT APK without Google Play: https://www.gptoapk.com/zh/chatgpt-apk-without-google-play

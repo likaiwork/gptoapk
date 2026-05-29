@@ -103,6 +103,10 @@ function normalizeUserSearchQuery(query: string): string {
   if (/^https?:\/\/wa\.me\//i.test(trimmed)) return 'whatsapp';
   if (/^https?:\/\/([\w-]+\.)?zoom\.us\//i.test(trimmed)) return 'zoom';
   if (/^zoommtg:/i.test(trimmed)) return 'zoom';
+  if (/^https?:\/\/(www\.)?(ibkr|interactivebrokers)\.com\/?/i.test(trimmed)) return 'ibkr';
+  if (/^https?:\/\/(www\.)?tigerbrokers\.com\/?/i.test(trimmed)) return 'tiger';
+  if (/^https?:\/\/(www\.)?futu\.com\/?/i.test(trimmed)) return 'futu';
+  if (/^https?:\/\/(www\.)?longbridge\.com\/?/i.test(trimmed)) return 'longbridge';
   return trimmed;
 }
 

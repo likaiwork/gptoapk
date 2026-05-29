@@ -22,6 +22,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ];
 
   const zhBlogSlugs = [
+    "ibkr-broker-seo-geo-2026",
+    "tiger-futu-longbridge-broker-seo-geo-2026",
     "zoom-download-seo-geo-2026",
     "whatsapp-download-seo-geo-2026",
     "twitter-download-seo-geo-2026",
