@@ -10,6 +10,7 @@ const appGroups = {
   social: {
     title: "社交应用",
     apps: [
+      { name: "Facebook", href: "/zh/facebook-apk", packageName: "com.facebook.katana", desc: "全球最大社交网络，月活 30 亿+", developer: "Meta" },
       { name: "Instagram", href: "/zh/instagram-apk", packageName: "com.instagram.android", desc: "图片和短视频社交平台，月活 20 亿+", developer: "Meta" },
       { name: "TikTok", href: "/zh/tiktok-apk", packageName: "com.zhiliaoapp.musically", desc: "全球短视频平台，覆盖 150+ 国家", developer: "字节跳动" },
     ],

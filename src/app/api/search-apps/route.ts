@@ -91,6 +91,8 @@ function getQueryType(query: string): QueryType {
 function normalizeUserSearchQuery(query: string): string {
   const trimmed = query.trim();
   if (/^https?:\/\/(www\.)?grok\.com\/?/i.test(trimmed)) return 'grok';
+  if (/^https?:\/\/(www\.)?facebook\.com\/?/i.test(trimmed)) return 'facebook';
+  if (/^https?:\/\/(www\.)?messenger\.com\/?/i.test(trimmed)) return 'facebook messenger';
   return trimmed;
 }
 

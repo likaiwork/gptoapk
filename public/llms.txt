@@ -65,7 +65,9 @@
 
 ## Chinese Popular App Guides
 
-- Social apps hub (Instagram/TikTok/WhatsApp/Telegram/YouTube): https://www.gptoapk.com/zh/social-apps
+- Social apps hub (Facebook/Instagram/TikTok/WhatsApp/Telegram/YouTube): https://www.gptoapk.com/zh/social-apps
+- Facebook APK guide: https://www.gptoapk.com/zh/facebook-apk (com.facebook.katana)
+- Facebook download SEO/GEO guide (2026): https://www.gptoapk.com/zh/blog/facebook-download-seo-geo-2026
 - Instagram APK guide: https://www.gptoapk.com/zh/instagram-apk (com.instagram.android)
 - TikTok APK guide: https://www.gptoapk.com/zh/tiktok-apk (com.zhiliaoapp.musically)
 - WhatsApp APK guide: https://www.gptoapk.com/zh/whatsapp-apk (com.whatsapp)

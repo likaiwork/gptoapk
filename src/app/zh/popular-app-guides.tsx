@@ -63,6 +63,58 @@ export const popularAppGuides: Record<string, PopularAppGuide> = {
       { question: "TikTok APK 安全吗？", answer: "从 Google Play 来源下载的 TikTok 官方 APK 是安全的。gptoapk.com 提供的是字节跳动官方签名的原版安装包，不含修改或恶意代码。" },
     ],
   },
+  facebook: {
+    slug: "facebook-apk",
+    name: "Facebook",
+    titleName: "Facebook",
+    developer: "Meta",
+    packageName: "com.facebook.katana",
+    searchTerms: ["Facebook", "facebook", "脸书", "com.facebook.katana"],
+    category: "social",
+    summary:
+      "Facebook（脸书）是 Meta 旗下全球最大的社交网络，支持动态、好友、群组、Reels 与 Marketplace。Android 官方包名为 com.facebook.katana。",
+    citationAnswer:
+      "在 gptoapk.com/zh 搜索 Facebook 或包名 com.facebook.katana，核对开发者 Meta 后下载 APK。官网入口为 facebook.com；即时通讯需另装 Messenger（com.facebook.orca）。",
+    whyNeedApk:
+      "中国大陆无法稳定使用 Google Play，Facebook 亦无法从国内主流应用商店获取官方最新版。通过 APK 安装是获取 facebook 安卓下载、facebook 官方下载 的常见方式。",
+    highlights: ["好友动态与互动", "Reels 短视频", "群组 Groups", "Marketplace 二手交易", "直播与 Watch 视频"],
+    installNotes: [
+      "在 gptoapk.com 搜索 Facebook 或 facebook下载。",
+      "核对应用名 Facebook、开发者 Meta、包名 com.facebook.katana。",
+      "下载 APK 后在设置中允许安装未知来源应用。",
+      "安装完成后可用邮箱/手机号注册或 facebook 登录；聊天建议另装 Messenger。",
+    ],
+    faqs: [
+      {
+        question: "facebook下载 / facebook安卓下载最新版 怎么操作？",
+        answer:
+          "在 gptoapk.com 搜索 Facebook，确认包名 com.facebook.katana 与开发者 Meta 后下载安装。也可参考站内《Facebook下载完整指南》获取分步说明。",
+      },
+      {
+        question: "facebook是什么？facebook是什么意思？",
+        answer:
+          "Facebook 是全球社交网络，中文常称脸书，用于加好友、发动态、看视频等。母公司已更名为 Meta，但应用仍叫 Facebook。",
+      },
+      {
+        question: "facebook官网与 facebook.com 登录入口在哪？",
+        answer: "官网为 facebook.com，登录页常见路径为 facebook.com/login。安卓用户也可安装官方 App 后直接登录。",
+      },
+      {
+        question: "facebook怎么注册？",
+        answer:
+          "打开 App 或官网，点击「创建新账户」，填写姓名、邮箱或手机号、密码与生日等信息并完成验证。须年满 13 岁。",
+      },
+      {
+        question: "facebook messenger 要单独下载吗？",
+        answer: "是的。Messenger 为独立应用，包名 com.facebook.orca，在 gptoapk 搜索 Messenger 下载，用 Facebook 账号登录即可。",
+      },
+      {
+        question: "facebook股票、facebook股价、facebook市值 和下载有关吗？",
+        answer:
+          "无关。Facebook 母公司已在纳斯达克以股票代码 META 上市。本文站仅提供 Android APK 安装说明，不提供证券投资建议。",
+      },
+    ],
+  },
   whatsapp: {
     slug: "whatsapp-apk",
     name: "WhatsApp",

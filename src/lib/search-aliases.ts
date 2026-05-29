@@ -180,6 +180,32 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
     appIds: ["com.dianshijia.tvlive"],
     aliases: ["电视家", "电视家3.0", "电视家3.0 apk", "电视家3.0 apk下载", "电视家apk", "dianshijia"],
   },
+  {
+    appIds: ["com.facebook.katana"],
+    aliases: [
+      "facebook",
+      "facebook下载",
+      "facebook安卓下载",
+      "facebook安卓下载最新版",
+      "facebook官方下载",
+      "facebook官网",
+      "facebook.com",
+      "facebook注册",
+      "facebook怎么注册",
+      "facebook登录",
+      "facebook官网登录入口",
+      "facebook是什么",
+      "facebook是什么意思",
+      "facebook怎么用",
+      "facebook官方",
+      "脸书",
+      "fb",
+    ],
+  },
+  {
+    appIds: ["com.facebook.orca"],
+    aliases: ["facebook messenger", "messenger", "messenger下载", "facebook messenger下载"],
+  },
 ];
 
 /** Wrong or truncated Play package ids from pasted URLs → canonical id */
