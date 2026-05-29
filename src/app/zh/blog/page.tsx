@@ -16,6 +16,22 @@ export const metadata: Metadata = {
 
 const posts = [
   {
+    slug: "whatsapp-vs-wechat-guide",
+    title: "WhatsApp不能用了？与微信全面对比及常见问题解决指南",
+    description: "WhatsApp不能用了怎么办？WhatsApp和微信有什么区别？本文整理了WhatsApp常见故障解决方案，以及WhatsApp与微信的全面对比分析。",
+    date: "2026-05-29",
+    readTime: "10 分钟阅读",
+    tags: ["WhatsApp", "微信", "对比", "WhatsApp不能用", "Facebook收购WhatsApp", "WhatsApp Messenger", "gptoapk"],
+  },
+  {
+    slug: "whatsapp-download-guide",
+    title: "WhatsApp是什么？2026最新下载安装与使用指南",
+    description: "WhatsApp是什么？WhatsApp Messenger怎么下载？本文从WhatsApp是什么开始，教你安装使用WhatsApp安卓版和网页版。",
+    date: "2026-05-29",
+    readTime: "12 分钟阅读",
+    tags: ["WhatsApp", "WhatsApp Messenger", "WhatsApp是什么", "WhatsApp下载", "WhatsApp网页版", "WhatsApp安卓下载", "gptoapk"],
+  },
+  {
     slug: "social-apk-safe-install-2026",
     title: "Instagram/TikTok/WhatsApp/Telegram APK 安全安装清单",
     description:
