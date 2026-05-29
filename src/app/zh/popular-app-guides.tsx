@@ -218,6 +218,46 @@ export const popularAppGuides: Record<string, PopularAppGuide> = {
       },
     ],
   },
+  longbridge: {
+    slug: "longbridge-apk",
+    name: "长桥证券",
+    titleName: "Longbridge",
+    developer: "Longbridge Securities",
+    packageName: "global.longbridge.app.android",
+    searchTerms: ["长桥", "长桥证券", "Longbridge", "global.longbridge.app.android"],
+    category: "tools",
+    summary:
+      "长桥证券（Longbridge）是新加坡注册的互联网券商，支持美股、港股等。安卓包名 global.longbridge.app.android，官网 longbridge.com。",
+    citationAnswer:
+      "在 gptoapk.com/zh 搜索长桥或 Longbridge，核对包名 global.longbridge.app.android 后下载 APK。长桥注册于新加坡；公众号不能替代 App 安装。",
+    whyNeedApk:
+      "长桥app下载安卓、长桥证券app安卓 在无法使用 Google Play 时，可通过 gptoapk 获取可验证来源的安装包。",
+    highlights: ["美股/港股/新加坡股", "低佣金结构", "简洁 App 体验", "智能选股工具", "基金理财"],
+    installNotes: [
+      "在 gptoapk.com 搜索「长桥」或 Longbridge。",
+      "核对包名 global.longbridge.app.android。",
+      "下载 APK 并允许安装未知来源应用。",
+      "安装后登录或前往 longbridge.com 开户。",
+    ],
+    faqs: [
+      {
+        question: "长桥证券是哪个国家的？",
+        answer: "注册在新加坡，受 MAS 等监管；团队有阿里系背景，但不是中国大陆注册券商。",
+      },
+      {
+        question: "长桥券商app / 长桥证券app安卓 怎么下载？",
+        answer: "在 gptoapk 搜索长桥，确认包名 global.longbridge.app.android 后安装。详见《长桥证券下载完整指南》。",
+      },
+      {
+        question: "长桥公众号可以下载 App 吗？",
+        answer: "不可以。公众号用于资讯与客服，交易需安装官方 App 或使用官网。",
+      },
+      {
+        question: "富途老虎长桥 哪家好？",
+        answer: "各有特色：富途生态强、老虎全球化、长桥界面简洁。请自行对比费率与开户政策。",
+      },
+    ],
+  },
   zoom: {
     slug: "zoom-apk",
     name: "Zoom",

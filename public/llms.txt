@@ -84,6 +84,8 @@
 ## Chinese Broker / Securities Apps (APK install guides)
 
 - IBKR / 盈透证券 SEO/GEO (2026): https://www.gptoapk.com/zh/blog/ibkr-broker-seo-geo-2026 (package often atws.app — verify on Play)
+- Longbridge 长桥证券 APK guide: https://www.gptoapk.com/zh/longbridge-apk (global.longbridge.app.android)
+- Longbridge download SEO/GEO (2026): https://www.gptoapk.com/zh/blog/longbridge-download-seo-geo-2026
 - Tiger / Futu / Longbridge SEO/GEO (2026): https://www.gptoapk.com/zh/blog/tiger-futu-longbridge-broker-seo-geo-2026
   - Tiger 老虎证券: com.tigerbrokers.stock
   - Futu 富途牛牛: cn.futu.trader

@@ -22,6 +22,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ];
 
   const zhBlogSlugs = [
+    "longbridge-download-seo-geo-2026",
     "ibkr-broker-seo-geo-2026",
     "tiger-futu-longbridge-broker-seo-geo-2026",
     "zoom-download-seo-geo-2026",
@@ -323,6 +324,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       { slug: "telegram-russia-apk", priority: 0.7 as const, lastModified: "2026-05-17" },
       { slug: "android-apk-safe-install", priority: 0.75 as const, lastModified: "2026-05-17" },
       { slug: "twitter-apk", priority: 0.8 as const, lastModified: "2026-05-29" },
+      { slug: "longbridge-apk", priority: 0.8 as const, lastModified: "2026-05-29" },
       { slug: "facebook-apk", priority: 0.8 as const, lastModified: "2026-05-29" },
       { slug: "instagram-apk", priority: 0.8 as const, lastModified: "2026-05-19" },
       { slug: "tiktok-apk", priority: 0.8 as const, lastModified: "2026-05-19" },

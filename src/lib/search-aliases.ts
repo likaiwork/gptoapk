@@ -68,7 +68,21 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
   },
   {
     appIds: ["global.longbridge.app.android"],
-    aliases: ["长桥", "长桥证券", "longbridge", "long bridge", "长桥证券app", "长桥app下载"],
+    aliases: [
+      "长桥",
+      "长桥证券",
+      "长桥券商",
+      "长桥券商app",
+      "长桥证券app",
+      "长桥证券app安卓",
+      "长桥app下载",
+      "长桥app下载安卓",
+      "长桥下载",
+      "longbridge",
+      "long bridge",
+      "longbridge securities",
+      "富途老虎长桥",
+    ],
   },
   {
     appIds: ["org.dayup.stocks.hk", "org.dayup.stocks"],
