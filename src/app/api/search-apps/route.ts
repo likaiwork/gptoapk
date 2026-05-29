@@ -4,6 +4,7 @@ import { gplayRequestOptions as requestOptions } from '@/lib/proxy';
 import { proxyImageUrl } from '@/lib/image-proxy';
 import { isUnsupportedNoMirrorApp } from '@/lib/unsupported-no-mirror-apps';
 import { VPN_DOWNLOADABLE_APP_IDS } from '@/lib/vpn-downloadable-apps';
+import { resolveSearchAliasAppIds } from '@/lib/search-aliases';
 
 export const runtime = 'nodejs';
 export const maxDuration = 60;
@@ -152,6 +153,34 @@ async function searchDownloadableVpnApps(
 
   const curated = await Promise.allSettled(
     VPN_DOWNLOADABLE_APP_IDS.map((appId) => fetchExactApp(appId, lang, country)),
+  );
+
+  for (const result of curated) {
+    if (result.status === 'fulfilled') push(result.value);
+  }
+
+  return merged.slice(0, SEARCH_RESULT_LIMIT);
+}
+
+async function searchByAliasApps(
+  query: string,
+  lang: string,
+  country: string,
+): Promise<SearchAppResult[]> {
+  const appIds = resolveSearchAliasAppIds(query);
+  if (!appIds?.length) return [];
+
+  const blocked = new Set<string>();
+  const merged: SearchAppResult[] = [];
+
+  const push = (item: SearchAppResult) => {
+    if (!item.appId || blocked.has(item.appId) || isUnsupportedNoMirrorApp(item.appId)) return;
+    blocked.add(item.appId);
+    merged.push(item);
+  };
+
+  const curated = await Promise.allSettled(
+    appIds.map((appId) => fetchExactApp(appId, lang, country)),
   );
 
   for (const result of curated) {
@@ -347,7 +376,10 @@ export async function GET(request: Request) {
       }, { headers: SUCCESS_CACHE_HEADERS });
     }
 
-    let results = await searchApps(query, requestedLang, requestedCountry);
+    let results = await searchByAliasApps(query, requestedLang, requestedCountry);
+    if (results.length === 0) {
+      results = await searchApps(query, requestedLang, requestedCountry);
+    }
     results = results.filter((app) => !isUnsupportedNoMirrorApp(app.appId));
     if (results.length === 0) {
       return NextResponse.json({ error: 'No apps found' }, { status: 404 });
