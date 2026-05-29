@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Script from "next/script";
+import { zhSeoGeoPostList } from "@/lib/blog/zh-seo-geo-posts";
 
 export const metadata: Metadata = {
   title: "博客 - APK 下载指南 | gptoapk.com",
@@ -15,6 +16,7 @@ export const metadata: Metadata = {
 };
 
 const posts = [
+  ...zhSeoGeoPostList,
   {
     slug: "ibkr-withdrawal-china-issues",
     title: "盈透证券出金与大陆清退：2026最新情况解读",

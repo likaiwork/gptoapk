@@ -5,7 +5,21 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "ChatGPT APK 下载安装教程（中国大陆可用）2026最新",
   description:
-    "中国大陆用户如何下载ChatGPT APK？完整教程教你搜索、下载、安装ChatGPT安卓版，无需科学上网环境下使用。",
+    "chatgpt下载、chatgpt怎么下载、下载chatgpt中文版？中国大陆用户如何通过APK安装官方ChatGPT（com.openai.chatgpt），含注册与国内使用说明。",
+  keywords: [
+    "chatgpt下载",
+    "chatgpt怎么下载",
+    "下载chatgpt中文版",
+    "chatgpt是什么",
+    "chatgpt注册",
+    "chatgpt国内能用吗",
+    "chatgpt APK",
+    "gpt相关",
+    "com.openai.chatgpt",
+  ],
+  alternates: {
+    canonical: "https://www.gptoapk.com/zh/chatgpt-apk",
+  },
 };
 
 export default function ChatGPTApkPage() {

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import Script from "next/script";
+import { zhSeoGeoPosts } from "@/lib/blog/zh-seo-geo-posts";
 
 interface BlogPost {
   slug: string;
@@ -14,6 +15,7 @@ interface BlogPost {
 }
 
 const zhPosts: BlogPost[] = [
+  ...zhSeoGeoPosts,
   {
     slug: "ibkr-withdrawal-china-issues",
     title: "盈透证券出金与大陆清退：2026最新情况解读",

@@ -124,6 +124,38 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
     appIds: ["com.fau.jupyternotebook"],
     aliases: ["junote", "jupyternotebook", "jupyter notebook"],
   },
+  {
+    appIds: ["com.openai.chatgpt"],
+    aliases: [
+      "chatgpt",
+      "chatgpt下载",
+      "chatgpt怎么下载",
+      "下载chatgpt中文版",
+      "chatgpt中文版",
+      "chatgpt中文",
+      "chatgpt中文在线",
+      "chatgpt官网",
+      "chatgpt入口",
+      "chatgpt注册",
+      "chatgpt 注册",
+      "chatgpt试用",
+      "chatgpt账号",
+      "chatgpt是啥",
+      "chatgpt是什么",
+      "chatgpt是什么意思",
+      "chatgpt怎么用",
+      "chatgpt国内能用吗",
+      "国内怎么玩chatgpt",
+    ],
+  },
+  {
+    appIds: ["com.moretv.android"],
+    aliases: ["电视猫", "电视猫apk", "电视猫tv", "电视猫官方", "电视猫apk官方下载"],
+  },
+  {
+    appIds: ["com.dianshijia.tvlive"],
+    aliases: ["电视家", "电视家3.0", "电视家3.0 apk", "电视家3.0 apk下载", "电视家apk", "dianshijia"],
+  },
 ];
 
 /** Wrong or truncated Play package ids from pasted URLs → canonical id */
