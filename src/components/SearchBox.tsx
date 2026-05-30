@@ -73,6 +73,7 @@ function getLocalizedCopy(locale: SiteLocale) {
   if (locale === "zh") {
     return {
       emptyError: "请输入应用名称、Google Play 链接或包名。",
+      noResultsError: "未找到相关应用，请换关键词或粘贴 Google Play 链接。",
       placeholder: "输入应用名称、Google Play 链接或包名",
       results: "搜索结果",
       singleResult: "找到 1 个应用",
@@ -88,6 +89,7 @@ function getLocalizedCopy(locale: SiteLocale) {
 
   return {
     emptyError: "Please enter an app name, Google Play link, or package name.",
+    noResultsError: "No apps found. Try another keyword or paste a Google Play link.",
     placeholder: "Enter app name, Google Play URL, or package name",
     results: "Search results",
     singleResult: "Found 1 app",
@@ -115,27 +117,30 @@ function isVpnKeywordQuery(query: string) {
 
 function getSearchFallback(query: string, locale: SiteLocale): SearchFallback | null {
   const q = query.trim().toLowerCase();
+  const stripped = q
+    .replace(/(?:官方|官网)?(?:apk|app)?(?:下载|安装|更新).*$/iu, "")
+    .replace(/\s+(?:apk|app)$/i, "")
+    .trim();
 
-  const vpnKeywords = [
-    "vpn",
-    "vpn apk",
-    "virtual private network",
-    "加速器",
-    "翻墙",
-    "代理",
+  const pageFallbacks: Array<{ match: (s: string) => boolean; slug: string; label: string }> = [
+    { match: (s) => s.includes("vpn") || s.includes("加速器") || s.includes("代理"), slug: "vpn-apk", label: "VPN APK" },
+    { match: (s) => s.includes("chatgpt"), slug: "chatgpt-apk", label: "ChatGPT APK" },
+    { match: (s) => s.includes("telegram") || s.includes("电报"), slug: "telegram-apk", label: "Telegram APK" },
+    { match: (s) => s.includes("instagram") || s === "ins", slug: "instagram-apk", label: "Instagram APK" },
+    { match: (s) => s.includes("whatsapp"), slug: "whatsapp-apk", label: "WhatsApp APK" },
+    { match: (s) => s.includes("tiktok") || s.includes("抖音国际"), slug: "tiktok-apk", label: "TikTok APK" },
+    { match: (s) => s.includes("twitter") || s.includes("推特") || s === "x", slug: "twitter-apk", label: "Twitter / X APK" },
+    { match: (s) => s.includes("gemini"), slug: "gemini-apk", label: "Gemini APK" },
+    { match: (s) => s.includes("claude"), slug: "claude-apk", label: "Claude APK" },
+    { match: (s) => s.includes("deepseek"), slug: "deepseek-apk", label: "DeepSeek APK" },
+    { match: (s) => s.includes("豆包") || s.includes("doubao"), slug: "doubao-apk", label: "豆包 APK" },
+    { match: (s) => s.includes("zoom"), slug: "zoom-apk", label: "Zoom APK" },
   ];
-  if (vpnKeywords.some((k) => q.includes(k))) {
-    return {
-      href: `/${locale}/vpn-apk`,
-      label: "VPN APK",
-    };
-  }
 
-  if (q.includes("chatgpt")) {
-    return {
-      href: `/${locale}/chatgpt-apk`,
-      label: "ChatGPT APK",
-    };
+  for (const { match, slug, label } of pageFallbacks) {
+    if (match(q) || match(stripped)) {
+      return { href: `/${locale}/${slug}`, label };
+    }
   }
 
   return null;
@@ -359,7 +364,9 @@ export default function SearchBox() {
         }).catch(() => {});
       }
     } catch (err: unknown) {
-      const message = err instanceof Error ? err.message : "No apps found";
+      const rawMessage = err instanceof Error ? err.message : "No apps found";
+      const message =
+        /^no apps found/i.test(rawMessage) ? copy.noResultsError : rawMessage;
       trackEvent(analyticsEvents.parseFailed, {
         locale,
         input_type: inputType,

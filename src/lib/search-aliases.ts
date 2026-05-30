@@ -1,3 +1,9 @@
+import {
+  getAliasLookupKeys,
+  normalizeAliasKey,
+  stripSearchQueryNoise,
+} from "@/lib/search-query-normalize";
+
 /**
  * Brand nicknames and abbreviations that Google Play search often misses.
  * Maps normalized query → Google Play package id(s).
@@ -386,6 +392,129 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
     appIds: ["com.facebook.orca"],
     aliases: ["facebook messenger", "messenger", "messenger下载", "facebook messenger下载"],
   },
+  {
+    appIds: ["org.telegram.messenger"],
+    aliases: [
+      "telegram",
+      "tg",
+      "电报",
+      "telegram下载",
+      "telegram apk",
+      "telegram安卓下载",
+      "telegram官方下载",
+      "telegram官网",
+      "telegram.com",
+      "t.me",
+      "org.telegram.messenger",
+    ],
+  },
+  {
+    appIds: ["com.instagram.android"],
+    aliases: [
+      "instagram",
+      "ins",
+      "ig",
+      "instagram下载",
+      "instagram apk",
+      "instagram安卓下载",
+      "instagram官方下载",
+      "instagram官网",
+      "com.instagram.android",
+    ],
+  },
+  {
+    appIds: ["com.google.android.apps.bard"],
+    aliases: [
+      "gemini",
+      "google gemini",
+      "gemini ai",
+      "gemini下载",
+      "gemini apk",
+      "gemini安卓下载",
+      "谷歌gemini",
+      "com.google.android.apps.bard",
+    ],
+  },
+  {
+    appIds: ["com.anthropic.claude"],
+    aliases: [
+      "claude",
+      "claude ai",
+      "anthropic claude",
+      "claude下载",
+      "claude apk",
+      "claude安卓下载",
+      "com.anthropic.claude",
+    ],
+  },
+  {
+    appIds: ["com.larus.nova"],
+    aliases: ["豆包", "doubao", "字节豆包", "com.larus.nova", "豆包下载", "豆包apk"],
+  },
+  {
+    appIds: ["com.deepseek.chat"],
+    aliases: ["deepseek", "deep seek", "deepseek ai", "com.deepseek.chat", "deepseek下载", "deepseek apk"],
+  },
+  {
+    appIds: ["com.moonshot.kimichat"],
+    aliases: ["kimi", "kimi智能助手", "kimi 智能助手", "月之暗面", "com.moonshot.kimichat", "kimi下载"],
+  },
+  {
+    appIds: ["ai.qwenlm.chat.android"],
+    aliases: ["通义千问", "千问", "qwen", "通义", "com.qwen", "ai.qwenlm.chat.android", "通义千问下载"],
+  },
+  {
+    appIds: ["com.tencent.hunyuan.app.chat"],
+    aliases: ["腾讯元宝", "元宝", "yuanbao", "混元", "com.tencent.hunyuan.app.chat", "元宝下载"],
+  },
+  {
+    appIds: ["com.discord"],
+    aliases: ["discord", "discord下载", "discord apk", "discord安卓下载", "com.discord"],
+  },
+  {
+    appIds: ["com.netflix.mediaclient"],
+    aliases: ["netflix", "netflix下载", "netflix apk", "奈飞", "网飞", "com.netflix.mediaclient"],
+  },
+  {
+    appIds: ["com.spotify.music"],
+    aliases: ["spotify", "spotify下载", "spotify apk", "声破天", "com.spotify.music"],
+  },
+  {
+    appIds: ["jp.naver.line.android"],
+    aliases: ["line", "line下载", "line apk", "jp.naver.line.android"],
+  },
+  {
+    appIds: ["com.kakao.talk"],
+    aliases: ["kakao", "kakaotalk", "kakao talk", "카카오톡", "com.kakao.talk"],
+  },
+  {
+    appIds: ["com.snapchat.android"],
+    aliases: ["snapchat", "snap", "snapchat下载", "com.snapchat.android"],
+  },
+  {
+    appIds: ["com.pinterest"],
+    aliases: ["pinterest", "pinterest下载", "com.pinterest"],
+  },
+  {
+    appIds: ["com.reddit.frontpage"],
+    aliases: ["reddit", "reddit下载", "com.reddit.frontpage"],
+  },
+  {
+    appIds: ["com.linkedin.android"],
+    aliases: ["linkedin", "领英", "linkedin下载", "com.linkedin.android"],
+  },
+  {
+    appIds: ["com.shieldmeta.dash.s"],
+    aliases: ["shield vpn", "shield", "dash vpn", "com.shieldmeta.dash.s"],
+  },
+  {
+    appIds: ["ch.protonvpn.android"],
+    aliases: ["protonvpn", "proton vpn", "proton"],
+  },
+  {
+    appIds: ["com.windscribe.vpn"],
+    aliases: ["windscribe", "windscribe vpn"],
+  },
 ];
 
 /** Wrong or truncated Play package ids from pasted URLs → canonical id */
@@ -395,10 +524,9 @@ const PLAY_PACKAGE_ID_ALIASES: Readonly<Record<string, string>> = {
 };
 
 const SEARCH_ALIAS_APP_IDS = buildAliasMap();
-
-function normalizeAliasKey(query: string): string {
-  return query.trim().toLowerCase().replace(/\s+/g, " ");
-}
+const SORTED_ALIAS_KEYS = Object.keys(SEARCH_ALIAS_APP_IDS).sort(
+  (a, b) => b.length - a.length,
+);
 
 function buildAliasMap(): Readonly<Record<string, readonly string[]>> {
   const map: Record<string, readonly string[]> = {};
@@ -418,19 +546,58 @@ export function resolvePlayPackageIdAlias(appId: string): string {
   return PLAY_PACKAGE_ID_ALIASES[trimmed.toLowerCase()] ?? trimmed;
 }
 
+function escapeRegExp(value: string): string {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function isCjkAlias(alias: string): boolean {
+  return /[\u4e00-\u9fff]/.test(alias);
+}
+
+function resolveByLongestContainedAlias(stripped: string): readonly string[] | null {
+  if (stripped.length < 2) return null;
+
+  for (const alias of SORTED_ALIAS_KEYS) {
+    if (alias.length < 2) continue;
+
+    if (stripped === alias) {
+      return SEARCH_ALIAS_APP_IDS[alias];
+    }
+
+    // Short aliases (x, fb, wa) only match exactly — avoid false positives.
+    if (alias.length <= 2) continue;
+
+    if (stripped.startsWith(alias)) {
+      const rest = stripped.slice(alias.length).trim();
+      if (!rest || stripSearchQueryNoise(rest) === "") {
+        return SEARCH_ALIAS_APP_IDS[alias];
+      }
+    }
+
+    if (isCjkAlias(alias) && stripped.includes(alias)) {
+      return SEARCH_ALIAS_APP_IDS[alias];
+    }
+
+    if (!isCjkAlias(alias) && alias.length >= 3) {
+      const tokenPattern = new RegExp(`(?:^|\\s)${escapeRegExp(alias)}(?:\\s|$)`);
+      if (tokenPattern.test(stripped)) {
+        return SEARCH_ALIAS_APP_IDS[alias];
+      }
+    }
+  }
+
+  return null;
+}
+
 export function resolveSearchAliasAppIds(query: string): readonly string[] | null {
   const trimmed = query.trim();
   if (!trimmed) return null;
 
-  const normalized = normalizeAliasKey(trimmed);
-  const appIds = SEARCH_ALIAS_APP_IDS[normalized];
-  if (appIds?.length) return appIds;
-
-  // Chinese aliases are unchanged by toLowerCase; keep a direct trimmed lookup too.
-  if (trimmed !== normalized) {
-    const direct = SEARCH_ALIAS_APP_IDS[trimmed];
-    if (direct?.length) return direct;
+  for (const key of getAliasLookupKeys(trimmed)) {
+    const appIds = SEARCH_ALIAS_APP_IDS[key];
+    if (appIds?.length) return appIds;
   }
 
-  return null;
+  const stripped = stripSearchQueryNoise(trimmed);
+  return resolveByLongestContainedAlias(stripped);
 }

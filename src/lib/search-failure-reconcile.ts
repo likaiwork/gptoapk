@@ -3,21 +3,18 @@ import {
   resolvePlayPackageIdAlias,
   resolveSearchAliasAppIds,
 } from "@/lib/search-aliases";
-import { normalizeSearchQuery } from "@/lib/search-failure-key";
+import { isVpnSearchKeyword } from "@/lib/search-query-normalize";
 
 const PACKAGE_NAME_REGEX = /^[a-zA-Z][a-zA-Z0-9_]*(?:\.[a-zA-Z][a-zA-Z0-9_]*)+$/;
 
-/** Whether search would now return results via alias map or curated fallback. */
+/** Whether search would now return results via alias map, curated fallback, or VPN list. */
 export function canResolveSearchQueryNow(rawQuery: string): boolean {
   const trimmed = rawQuery.trim();
   if (!trimmed) return false;
 
-  if (resolveSearchAliasAppIds(trimmed)?.length) return true;
+  if (isVpnSearchKeyword(trimmed)) return true;
 
-  const normalized = normalizeSearchQuery(trimmed);
-  if (normalized !== trimmed && resolveSearchAliasAppIds(normalized)?.length) {
-    return true;
-  }
+  if (resolveSearchAliasAppIds(trimmed)?.length) return true;
 
   if (PACKAGE_NAME_REGEX.test(trimmed)) {
     const resolvedId = resolvePlayPackageIdAlias(trimmed);

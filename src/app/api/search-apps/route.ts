@@ -6,6 +6,7 @@ import { isUnsupportedNoMirrorApp } from '@/lib/unsupported-no-mirror-apps';
 import { VPN_DOWNLOADABLE_APP_IDS } from '@/lib/vpn-downloadable-apps';
 import { buildCuratedSearchResult, getCuratedSearchAppMeta } from '@/lib/curated-search-apps';
 import { resolvePlayPackageIdAlias, resolveSearchAliasAppIds } from '@/lib/search-aliases';
+import { isVpnSearchKeyword } from '@/lib/search-query-normalize';
 import { recordSearchFailure, recordSearchSuccess } from '@/lib/record-search-failure';
 import type { SearchFailureKind } from '@/lib/search-failure-key';
 import { shouldPersistSearchFailure } from '@/lib/search-failure-reconcile';
@@ -108,19 +109,19 @@ function normalizeUserSearchQuery(query: string): string {
   if (/^https?:\/\/(www\.)?tigerbrokers\.com\/?/i.test(trimmed)) return 'tiger';
   if (/^https?:\/\/(www\.)?futu\.com\/?/i.test(trimmed)) return 'futu';
   if (/^https?:\/\/(www\.)?longbridge\.com\/?/i.test(trimmed)) return 'longbridge';
+  if (/^https?:\/\/(www\.)?(telegram|t)\.(org|me)\/?/i.test(trimmed)) return 'telegram';
+  if (/^https?:\/\/(www\.)?instagram\.com\/?/i.test(trimmed)) return 'instagram';
+  if (/^https?:\/\/(www\.)?discord(?:app)?\.com\/?/i.test(trimmed)) return 'discord';
+  if (/^https?:\/\/(www\.)?netflix\.com\/?/i.test(trimmed)) return 'netflix';
+  if (/^https?:\/\/(open\.)?spotify\.com\/?/i.test(trimmed)) return 'spotify';
+  if (/^https?:\/\/(www\.)?gemini\.google\.com\/?/i.test(trimmed)) return 'gemini';
+  if (/^https?:\/\/(www\.)?claude\.ai\/?/i.test(trimmed)) return 'claude';
+  if (/^https?:\/\/(www\.)?deepseek\.com\/?/i.test(trimmed)) return 'deepseek';
   return trimmed;
 }
 
 function isVpnKeyword(term: string): boolean {
-  const q = term.toLowerCase();
-  return (
-    q === 'vpn' ||
-    q.includes('vpn') ||
-    q.includes('virtual private network') ||
-    q.includes('加速器') ||
-    q.includes('翻墙') ||
-    q.includes('代理')
-  );
+  return isVpnSearchKeyword(term);
 }
 
 function getUpdatedDate(value: unknown) {
