@@ -114,6 +114,15 @@ const posts = [
     tags: ["WhatsApp", "WhatsApp Messenger", "WhatsApp是什么", "WhatsApp下载", "WhatsApp网页版", "WhatsApp安卓下载", "gptoapk"],
   },
   {
+    slug: "install-telegram-without-gms",
+    title: "无 GMS 安卓手机安装 Telegram 完整步骤（2026）",
+    description:
+      "华为、荣耀等无 Google 服务手机如何安装 Telegram？核对 org.telegram.messenger 包名，通过 APK 直装、开启未知来源权限，并完成手机号注册。",
+    date: "2026-05-30",
+    readTime: "11 分钟阅读",
+    tags: ["Telegram APK", "无 GMS", "华为", "电报", "gptoapk"],
+  },
+  {
     slug: "social-apk-safe-install-2026",
     title: "Instagram/TikTok/WhatsApp/Telegram APK 安全安装清单",
     description:

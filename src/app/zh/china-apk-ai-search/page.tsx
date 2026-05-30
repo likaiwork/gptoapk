@@ -33,6 +33,8 @@ const problemGuides = [
   { title: "YouTube下载完整指南（官网/油管/APK与视频下载区别）", href: "/zh/blog/youtube-download-seo-geo-2026" },
   { title: "TikTok下载完整指南（国际版/官网/与抖音区别）", href: "/zh/blog/tiktok-download-seo-geo-2026" },
   { title: "Facebook下载完整指南（注册/登录/Messenger）", href: "/zh/blog/facebook-download-seo-geo-2026" },
+  { title: "Telegram下载完整指南（电报APK/无GMS安装）", href: "/zh/blog/telegram-download-seo-geo-2026" },
+  { title: "无 GMS 手机安装 Telegram 步骤", href: "/zh/blog/install-telegram-without-gms" },
   { title: "2026 国内 AI 助手 APK 横评：豆包 vs 元宝 vs DeepSeek vs Kimi vs 通义千问", href: "/zh/ai-app-compare" },
   { title: "海外社交应用 APK 下载安装指南：Instagram/TikTok/WhatsApp/Telegram/YouTube", href: "/zh/social-apps" },
 ];

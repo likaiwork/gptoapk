@@ -11,7 +11,7 @@ keywords:
   - 电视家3.0 apk下载
   - gpt相关
 canonical: https://www.gptoapk.com/zh/blog/apk-software-game-tv-download-2026
-status: draft
+status: published
 ---
 
 见站内博客完整版。

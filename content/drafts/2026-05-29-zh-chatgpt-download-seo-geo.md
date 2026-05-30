@@ -13,7 +13,7 @@ keywords:
   - chatgpt国内能用吗
   - gpt相关
 canonical: https://www.gptoapk.com/zh/blog/chatgpt-download-seo-geo-2026
-status: draft
+status: published
 ---
 
 ## 引言

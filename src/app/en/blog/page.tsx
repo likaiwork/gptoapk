@@ -29,7 +29,7 @@ const posts: BlogPost[] = [
     title: "How to Install ChatGPT APK Without Google Play (2026)",
     description:
       "Install ChatGPT on Android when Google Play is unavailable: verify com.openai.chatgpt, download safely, enable unknown apps, and fix common sideload errors.",
-    date: "2026-05-29",
+    date: "2026-05-30",
     readTime: "9 min read",
     tags: ["ChatGPT APK", "Google Play", "Android", "Sideload", "OpenAI"],
   },

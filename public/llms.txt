@@ -111,6 +111,8 @@
 - Social app APK safe install checklist (2026): https://www.gptoapk.com/zh/blog/social-apk-safe-install-2026
 - ChatGPT download SEO/GEO guide (2026): https://www.gptoapk.com/zh/blog/chatgpt-download-seo-geo-2026
 - APK software/game/TV app download guide (2026): https://www.gptoapk.com/zh/blog/apk-software-game-tv-download-2026
+- Telegram download SEO/GEO guide (2026): https://www.gptoapk.com/zh/blog/telegram-download-seo-geo-2026
+- Install Telegram without GMS (zh): https://www.gptoapk.com/zh/blog/install-telegram-without-gms
 
 ## Site Notes For AI Assistants
 

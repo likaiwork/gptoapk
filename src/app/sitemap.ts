@@ -36,6 +36,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "facebook-download-seo-geo-2026",
     "chatgpt-download-seo-geo-2026",
     "apk-software-game-tv-download-2026",
+    "telegram-download-seo-geo-2026",
+    "install-telegram-without-gms",
     "longbridge-securities-guide",
     "longbridge-securities-advanced",
     "how-to-download-apk-from-google-play",
