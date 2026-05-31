@@ -114,6 +114,15 @@ const posts = [
     tags: ["WhatsApp", "WhatsApp Messenger", "WhatsApp是什么", "WhatsApp下载", "WhatsApp网页版", "WhatsApp安卓下载", "gptoapk"],
   },
   {
+    slug: "tiktok-apk-china-install",
+    title: "TikTok APK 国内安卓安装与更新指南（2026）",
+    description:
+      "国内如何下载安装 TikTok 国际版 APK？核对 com.zhiliaoapp.musically 包名，在 gptoapk 获取官方包、开启未知来源、覆盖更新与常见报错排查。",
+    date: "2026-05-31",
+    readTime: "12 分钟阅读",
+    tags: ["TikTok APK", "tiktok下载", "tiktok国际版", "海外抖音", "gptoapk"],
+  },
+  {
     slug: "install-telegram-without-gms",
     title: "无 GMS 安卓手机安装 Telegram 完整步骤（2026）",
     description:

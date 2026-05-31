@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-05-30T02:45:14.998Z",
+  "updatedAt": "2026-05-31T14:23:07.632Z",
   "today": {
     "date": "2026-05-26",
     "locale": "zh",
@@ -49,6 +49,12 @@
       "note": "zh SEO+GEO Telegram + en ChatGPT + pending GEO hubs",
       "publishedUrl": "https://www.gptoapk.com/en/blog/chatgpt-apk-without-google-play",
       "at": "2026-05-30T02:45:14.998Z"
+    },
+    "2026-05-31": {
+      "status": "published",
+      "note": "zh TikTok SEO + Instagram GEO + en parse error",
+      "publishedUrl": "https://www.gptoapk.com/en/blog/apk-parse-error-fix-2026",
+      "at": "2026-05-31T14:23:07.632Z"
     }
   }
 }

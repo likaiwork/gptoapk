@@ -38,6 +38,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "apk-software-game-tv-download-2026",
     "telegram-download-seo-geo-2026",
     "install-telegram-without-gms",
+    "tiktok-apk-china-install",
+    "instagram-download-seo-geo-2026",
     "longbridge-securities-guide",
     "longbridge-securities-advanced",
     "how-to-download-apk-from-google-play",
