@@ -13,5 +13,10 @@
     "title": "Minecraft",
     "sourceUrl": "https://play.google.com/store/apps/details?id=com.mojang.minecraftpe",
     "note": "Paid game; public mirrors only expose version listing pages, not installable APKs."
+  },
+  "com.gombosdev.displaytesterprounlocker": {
+    "title": "Display Tester Pro Unlocker",
+    "sourceUrl": "https://play.google.com/store/apps/details?id=com.gombosdev.displaytesterprounlocker",
+    "note": "Google Play lists this as a paid app."
   }
 }
