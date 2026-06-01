@@ -4,9 +4,13 @@ import { gplayRequestOptions as requestOptions } from '@/lib/proxy';
 import { proxyImageUrl } from '@/lib/image-proxy';
 import { isUnsupportedNoMirrorApp } from '@/lib/unsupported-no-mirror-apps';
 import { VPN_DOWNLOADABLE_APP_IDS } from '@/lib/vpn-downloadable-apps';
-import { buildCuratedSearchResult, getCuratedSearchAppMeta } from '@/lib/curated-search-apps';
+import {
+  buildCuratedSearchResult,
+  buildMinimalFallbackSearchResult,
+  getKnownAppSearchMeta,
+} from '@/lib/curated-search-apps';
 import { resolvePlayPackageIdAlias, resolveSearchAliasAppIds } from '@/lib/search-aliases';
-import { isVpnSearchKeyword } from '@/lib/search-query-normalize';
+import { isVpnSearchKeyword, stripSearchQueryNoise } from '@/lib/search-query-normalize';
 import { recordSearchFailure, recordSearchSuccess } from '@/lib/record-search-failure';
 import type { SearchFailureKind } from '@/lib/search-failure-key';
 import { shouldPersistSearchFailure } from '@/lib/search-failure-reconcile';
@@ -121,7 +125,7 @@ function toSearchResult(app: IAppItem | IAppItemFullDetail): SearchAppResult {
 
 async function fetchExactApp(appId: string, lang: string, country: string) {
   const resolvedAppId = resolvePlayPackageIdAlias(appId);
-  const curated = getCuratedSearchAppMeta(resolvedAppId);
+  const knownMeta = getKnownAppSearchMeta(resolvedAppId);
 
   try {
     const appInfo = await withTimeout(
@@ -132,8 +136,13 @@ async function fetchExactApp(appId: string, lang: string, country: string) {
 
     return toSearchResult(appInfo);
   } catch (error) {
-    if (curated) return buildCuratedSearchResult(curated);
-    throw error;
+    if (knownMeta) return buildCuratedSearchResult(knownMeta);
+    console.warn(
+      '[API search-apps] gplay.app failed, using package fallback:',
+      resolvedAppId,
+      error instanceof Error ? error.message : error,
+    );
+    return buildMinimalFallbackSearchResult(resolvedAppId);
   }
 }
 
@@ -422,6 +431,15 @@ export async function GET(request: Request) {
     let results = await searchByAliasApps(query, requestedLang, requestedCountry);
     if (results.length === 0) {
       results = await searchApps(query, requestedLang, requestedCountry);
+    }
+    if (results.length === 0) {
+      const stripped = stripSearchQueryNoise(query);
+      if (stripped && stripped !== query.trim().toLowerCase()) {
+        results = await searchByAliasApps(stripped, requestedLang, requestedCountry);
+        if (results.length === 0) {
+          results = await searchApps(stripped, requestedLang, requestedCountry);
+        }
+      }
     }
     results = results.filter((app) => !isUnsupportedNoMirrorApp(app.appId));
     if (results.length === 0) {

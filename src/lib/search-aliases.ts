@@ -515,6 +515,30 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
     appIds: ["com.windscribe.vpn"],
     aliases: ["windscribe", "windscribe vpn"],
   },
+  {
+    appIds: ["com.google.android.gm"],
+    aliases: ["gmail", "google mail", "谷歌邮箱", "gmail下载", "com.google.android.gm"],
+  },
+  {
+    appIds: ["com.xunmeng.pinduoduo"],
+    aliases: ["拼多多", "pinduoduo", "pdd", "com.xunmeng.pinduoduo"],
+  },
+  {
+    appIds: ["com.taobao.taobao"],
+    aliases: ["淘宝", "taobao", "手机淘宝", "com.taobao.taobao"],
+  },
+  {
+    appIds: ["com.eg.android.AlipayGphone"],
+    aliases: ["支付宝", "alipay", "com.eg.android.AlipayGphone"],
+  },
+  {
+    appIds: ["jp.naver.line.android"],
+    aliases: ["line", "line下载", "line apk", "com.line", "jp.naver.line.android"],
+  },
+  {
+    appIds: ["com.discord"],
+    aliases: ["discord", "discord下载", "discord apk", "com.discord"],
+  },
 ];
 
 /** Wrong or truncated Play package ids from pasted URLs → canonical id */
@@ -527,6 +551,36 @@ const SEARCH_ALIAS_APP_IDS = buildAliasMap();
 const SORTED_ALIAS_KEYS = Object.keys(SEARCH_ALIAS_APP_IDS).sort(
   (a, b) => b.length - a.length,
 );
+
+const PACKAGE_LIKE_ALIAS = /^[a-z][a-z0-9_]*(?:\.[a-z][a-z0-9_]*)+$/i;
+
+function pickAliasDisplayLabel(aliases: readonly string[]): string {
+  const human = aliases.find(
+    (alias) => alias.length >= 2 && !PACKAGE_LIKE_ALIAS.test(alias.trim()),
+  );
+  if (!human) return aliases[0] ?? "";
+  const trimmed = human.trim();
+  if (/^[\u4e00-\u9fff]/.test(trimmed)) return trimmed;
+  return trimmed
+    .split(/\s+/)
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join(" ");
+}
+
+function buildAliasDisplayNameMap(): Readonly<Record<string, string>> {
+  const map: Record<string, string> = {};
+  for (const entry of SEARCH_ALIAS_ENTRIES) {
+    const label = pickAliasDisplayLabel(entry.aliases);
+    if (!label) continue;
+    for (const appId of entry.appIds) {
+      const key = appId.trim().toLowerCase();
+      if (!map[key]) map[key] = label;
+    }
+  }
+  return map;
+}
+
+const ALIAS_PACKAGE_DISPLAY_NAMES = buildAliasDisplayNameMap();
 
 function buildAliasMap(): Readonly<Record<string, readonly string[]>> {
   const map: Record<string, readonly string[]> = {};
@@ -544,6 +598,12 @@ export function resolvePlayPackageIdAlias(appId: string): string {
   const trimmed = appId.trim();
   if (!trimmed) return appId;
   return PLAY_PACKAGE_ID_ALIASES[trimmed.toLowerCase()] ?? trimmed;
+}
+
+/** Human-readable title when Google Play metadata is unavailable. */
+export function getAliasPackageDisplayName(appId: string): string | null {
+  const resolved = resolvePlayPackageIdAlias(appId).trim().toLowerCase();
+  return ALIAS_PACKAGE_DISPLAY_NAMES[resolved] ?? null;
 }
 
 function escapeRegExp(value: string): string {

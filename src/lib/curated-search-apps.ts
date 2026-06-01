@@ -1,4 +1,8 @@
 import { proxyImageUrl } from "@/lib/image-proxy";
+import {
+  getAliasPackageDisplayName,
+  resolvePlayPackageIdAlias,
+} from "@/lib/search-aliases";
 
 /** Apps that gplay.app() often cannot fetch; search still returns a verifiable package id. */
 export type CuratedSearchAppMeta = {
@@ -71,6 +75,46 @@ const CURATED_BY_APP_ID: Readonly<Record<string, CuratedSearchAppMeta>> = {
 
 export function getCuratedSearchAppMeta(appId: string): CuratedSearchAppMeta | null {
   return CURATED_BY_APP_ID[appId.trim().toLowerCase()] ?? null;
+}
+
+export function getKnownAppSearchMeta(appId: string): CuratedSearchAppMeta | null {
+  const resolved = resolvePlayPackageIdAlias(appId).trim().toLowerCase();
+  const curated = getCuratedSearchAppMeta(resolved);
+  if (curated) return curated;
+
+  const displayName = getAliasPackageDisplayName(resolved);
+  if (!displayName) return null;
+
+  return {
+    appId: resolved,
+    title: displayName,
+    summary: `Android app (${resolved})`,
+    developer: "",
+    developerId: "",
+    iconUrl: "",
+    playUrl: `https://play.google.com/store/apps/details?id=${resolved}`,
+  };
+}
+
+export function buildMinimalFallbackSearchResult(appId: string) {
+  const resolved = resolvePlayPackageIdAlias(appId).trim();
+  const playUrl = `https://play.google.com/store/apps/details?id=${resolved}`;
+  return {
+    appId: resolved,
+    title: getAliasPackageDisplayName(resolved) ?? resolved,
+    summary: null,
+    developer: null,
+    developerId: null,
+    icon: null,
+    score: null,
+    scoreText: null,
+    priceText: null,
+    free: true,
+    version: null,
+    size: null,
+    updated: null,
+    url: playUrl,
+  };
 }
 
 export function buildCuratedSearchResult(meta: CuratedSearchAppMeta) {

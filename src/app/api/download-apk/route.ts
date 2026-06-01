@@ -34,6 +34,31 @@ const APKCOMBO_SOURCE_PAGES: Record<string, { pageUrl: string; fileName: string;
     fileName: 'Claude by Anthropic.xapk',
     type: 'XAPK',
   },
+  'com.openai.chatgpt': {
+    pageUrl: 'https://apkcombo.com/chatgpt/com.openai.chatgpt/download/apk',
+    fileName: 'ChatGPT.apk',
+    type: 'APK',
+  },
+  'org.telegram.messenger': {
+    pageUrl: 'https://apkcombo.com/telegram/org.telegram.messenger/download/apk',
+    fileName: 'Telegram.apk',
+    type: 'APK',
+  },
+  'com.instagram.android': {
+    pageUrl: 'https://apkcombo.com/instagram/com.instagram.android/download/apk',
+    fileName: 'Instagram.apk',
+    type: 'APK',
+  },
+  'com.google.android.youtube': {
+    pageUrl: 'https://apkcombo.com/youtube/com.google.android.youtube/download/apk',
+    fileName: 'YouTube.apk',
+    type: 'APK',
+  },
+  'com.whatsapp': {
+    pageUrl: 'https://apkcombo.com/whatsapp/com.whatsapp/download/apk',
+    fileName: 'WhatsApp.apk',
+    type: 'APK',
+  },
 };
 const ONLINE_APK_DOWNLOADER_PACKAGE_OVERRIDES: Record<string, { fileName: string; type: string }> = {
   'com.anthropic.claude': {
@@ -467,6 +492,39 @@ async function tryApkPure(appId: string): Promise<SourceResult | null> {
   }
 }
 
+async function fetchApkComboPage(
+  pageUrl: string,
+  signal: AbortSignal,
+  fileName: string,
+  type: string,
+): Promise<SourceResult | null> {
+  const res = await fetchWithProxy(pageUrl, {
+    headers: {
+      'User-Agent': USER_AGENT,
+      Accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,text/plain;q=0.8,*/*;q=0.7',
+      Referer: 'https://apkcombo.com/',
+    },
+    cache: 'no-store',
+    signal,
+  });
+  if (!res.ok) return null;
+
+  const content = await res.text();
+  const directUrl = extractApkComboDownloadUrl(content);
+  if (!directUrl) return null;
+
+  return {
+    downloadUrl: directUrl,
+    fileName: fileNameFromDownloadUrl(directUrl, fileName),
+    version: null,
+    size: null,
+    md5: null,
+    source: 'apkcombo-r2',
+    type,
+    preferredDelivery: 'proxy',
+  };
+}
+
 async function tryApkCombo(appId: string): Promise<SourceResult | null> {
   const knownSource = APKCOMBO_SOURCE_PAGES[appId.toLowerCase()];
   if (!knownSource) return null;
@@ -479,31 +537,33 @@ async function tryApkCombo(appId: string): Promise<SourceResult | null> {
     ];
 
     for (const pageUrl of pageUrls) {
-      const res = await fetchWithProxy(pageUrl, {
-        headers: {
-          'User-Agent': USER_AGENT,
-          Accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,text/plain;q=0.8,*/*;q=0.7',
-          Referer: 'https://apkcombo.com/',
-        },
-        cache: 'no-store',
-        signal: timeout.signal,
-      });
-      if (!res.ok) continue;
+      const result = await fetchApkComboPage(
+        pageUrl,
+        timeout.signal,
+        knownSource.fileName,
+        knownSource.type,
+      );
+      if (result) return result;
+    }
 
-      const content = await res.text();
-      const directUrl = extractApkComboDownloadUrl(content);
-      if (directUrl) {
-        return {
-          downloadUrl: directUrl,
-          fileName: fileNameFromDownloadUrl(directUrl, knownSource.fileName),
-          version: null,
-          size: null,
-          md5: null,
-          source: 'apkcombo-r2',
-          type: knownSource.type,
-          preferredDelivery: 'proxy',
-        };
-      }
+    return null;
+  } catch {
+    return null;
+  } finally {
+    timeout.clear();
+  }
+}
+
+async function tryApkComboDownloader(appId: string): Promise<SourceResult | null> {
+  const timeout = createAbortSignal(APKCOMBO_TIMEOUT_MS);
+  const fileName = `${appId}.apk`;
+  try {
+    const downloaderUrl = `https://apkcombo.com/downloader/?package=${encodeURIComponent(appId)}&lang=en`;
+    const pageUrls = [downloaderUrl, `https://r.jina.ai/${downloaderUrl}`];
+
+    for (const pageUrl of pageUrls) {
+      const result = await fetchApkComboPage(pageUrl, timeout.signal, fileName, 'APK');
+      if (result) return result;
     }
 
     return null;
@@ -557,7 +617,18 @@ async function tryOnlineApkDownloader(appId: string): Promise<SourceResult | nul
 }
 
 async function resolveDownloadSource(appId: string) {
-  return (await tryManualDownloadSource(appId)) ?? (await tryAptoide(appId)) ?? (await tryApkPure(appId)) ?? (await tryApkCombo(appId)) ?? (await tryOnlineApkDownloader(appId));
+  const manual = await tryManualDownloadSource(appId);
+  if (manual) return manual;
+
+  const candidates = await Promise.all([
+    tryAptoide(appId),
+    tryApkPure(appId),
+    tryApkCombo(appId),
+    tryApkComboDownloader(appId),
+    tryOnlineApkDownloader(appId),
+  ]);
+
+  return candidates.find((result) => result !== null) ?? null;
 }
 
 export async function GET(request: Request) {

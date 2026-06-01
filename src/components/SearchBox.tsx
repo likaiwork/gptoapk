@@ -17,6 +17,7 @@ import {
   SEARCH_RESET_EVENT,
   shouldRestoreSearchFromCache,
 } from "@/lib/search-cache";
+import { stripSearchQueryNoise } from "@/lib/search-query-normalize";
 
 type QueryType = "url" | "package" | "keyword";
 
@@ -144,6 +145,23 @@ function getSearchFallback(query: string, locale: SiteLocale): SearchFallback | 
   }
 
   return null;
+}
+
+function getDefaultSearchCountry(locale: SiteLocale): string {
+  if (locale === "zh") return "cn";
+  return "us";
+}
+
+async function fetchSearchApps(query: string, locale: SiteLocale) {
+  const country = getDefaultSearchCountry(locale);
+  const params = new URLSearchParams({
+    q: query,
+    hl: locale,
+    gl: country,
+  });
+  const res = await fetch(`/api/search-apps?${params.toString()}`);
+  const data = (await res.json().catch(() => ({}))) as SearchAppsResponse;
+  return { res, data, country };
 }
 
 function buildAppHref(appId: string, lang?: string, country?: string) {
@@ -311,13 +329,19 @@ export default function SearchBox() {
     setFallback(null);
 
     try {
-      const params = new URLSearchParams({
-        q: query,
-        hl: locale,
-        gl: "us",
-      });
-      const res = await fetch(`/api/search-apps?${params.toString()}`);
-      const data = (await res.json().catch(() => ({}))) as SearchAppsResponse;
+      let { res, data, country: searchCountry } = await fetchSearchApps(query, locale);
+
+      if ((!res.ok || !data.results?.length) && inputType === "app_name") {
+        const stripped = stripSearchQueryNoise(query);
+        if (stripped.length >= 2 && stripped !== query.trim().toLowerCase()) {
+          const retry = await fetchSearchApps(stripped, locale);
+          if (retry.res.ok && retry.data.results?.length) {
+            res = retry.res;
+            data = retry.data;
+            searchCountry = retry.country;
+          }
+        }
+      }
 
       if (!res.ok || !data.results?.length) {
         throw new Error(data.error || "No apps found");
@@ -325,7 +349,7 @@ export default function SearchBox() {
 
       const nextQueryType = data.queryType ?? "keyword";
       const nextLang = data.lang ?? locale;
-      const nextCountry = data.country ?? "us";
+      const nextCountry = data.country ?? searchCountry;
 
       setResults(data.results);
       setQueryType(nextQueryType);
@@ -387,7 +411,7 @@ export default function SearchBox() {
             failureKind: "client_error",
             error: message,
             lang: locale,
-            country: "us",
+            country: getDefaultSearchCountry(locale),
           }),
         }).catch(() => {});
       }

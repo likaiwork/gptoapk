@@ -1,4 +1,4 @@
-import { getCuratedSearchAppMeta } from "@/lib/curated-search-apps";
+import { getKnownAppSearchMeta } from "@/lib/curated-search-apps";
 import { normalizeUserSearchQuery } from "@/lib/normalize-user-search-query";
 import {
   resolvePlayPackageIdAlias,
@@ -33,7 +33,6 @@ function getQueryType(query: string): "url" | "package" | "keyword" {
 
 function packageWouldReturnResults(appId: string): boolean {
   const resolvedId = resolvePlayPackageIdAlias(appId);
-  if (getCuratedSearchAppMeta(resolvedId)) return true;
   if (isUnsupportedNoMirrorApp(resolvedId)) return false;
   return true;
 }
@@ -43,13 +42,13 @@ function aliasWouldReturnResults(query: string): boolean {
   if (!appIds?.length) return false;
   return appIds.some((id) => {
     const resolved = resolvePlayPackageIdAlias(id);
-    if (getCuratedSearchAppMeta(resolved)) return true;
+    if (getKnownAppSearchMeta(resolved)) return true;
     return !isUnsupportedNoMirrorApp(resolved);
   });
 }
 
 /**
- * Mirrors /api/search-apps success paths (alias, VPN list, package/URL, curated fallback).
+ * Mirrors /api/search-apps success paths (alias, VPN list, package/URL, known-app fallback).
  * Does not call Google Play — keyword-only misses without an alias are left unresolved.
  */
 export function canResolveSearchQueryNow(rawQuery: string): boolean {
