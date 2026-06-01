@@ -354,6 +354,18 @@ interface VisitorDetailLog {
   timestamp: string;
 }
 
+interface VisitorDeviceBreakdown {
+  total: number;
+  mobile: number;
+  desktop: number;
+  mobile_pct: number;
+  desktop_pct: number;
+}
+
+interface DailyVisitorDeviceStat extends VisitorDeviceBreakdown {
+  date: string;
+}
+
 interface AdminData {
   visitors: number;
   total_users: number;
@@ -362,6 +374,9 @@ interface AdminData {
   total_downloads: number;
   all_downloads: number;
   today_downloads: number;
+  device_breakdown: VisitorDeviceBreakdown;
+  device_daily: DailyVisitorDeviceStat[];
+  device_range_label: string;
   top_searches: SearchStat[];
   top_searches_total: number;
   top_downloads: DownloadStat[];
@@ -427,6 +442,121 @@ function MetricPill({ label, value }: { label: string; value: number }) {
       <span>{label}</span>
       <span className="font-semibold text-gray-900">{value.toLocaleString()}</span>
     </span>
+  );
+}
+
+function formatPct(value: number): string {
+  return `${value.toFixed(1)}%`;
+}
+
+function DeviceShareBar({ mobilePct, desktopPct }: { mobilePct: number; desktopPct: number }) {
+  const mobileWidth = Math.max(0, Math.min(100, mobilePct));
+  const desktopWidth = Math.max(0, Math.min(100, desktopPct));
+  return (
+    <div className="flex h-2.5 w-full overflow-hidden rounded-full bg-gray-100">
+      <div className="bg-sky-500 transition-all" style={{ width: `${mobileWidth}%` }} title={`移动端 ${formatPct(mobilePct)}`} />
+      <div className="bg-violet-500 transition-all" style={{ width: `${desktopWidth}%` }} title={`PC 端 ${formatPct(desktopPct)}`} />
+    </div>
+  );
+}
+
+function DeviceStatsPanel({
+  summary,
+  daily,
+  rangeLabel,
+}: {
+  summary: VisitorDeviceBreakdown;
+  daily: DailyVisitorDeviceStat[];
+  rangeLabel: string;
+}) {
+  const isSingleDay = daily.length === 1;
+
+  return (
+    <div className="rounded-xl border border-gray-200 bg-white p-5 shadow-sm">
+      <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
+        <div>
+          <h2 className="text-lg font-semibold text-gray-900">访客设备分布</h2>
+          <p className="mt-0.5 text-xs text-gray-500">
+            统计区间：{rangeLabel} · 按访客去重（Asia/Shanghai 自然日）
+          </p>
+        </div>
+        <div className="flex flex-wrap gap-2 text-xs text-gray-500">
+          <span className="inline-flex items-center gap-1.5">
+            <span className="h-2.5 w-2.5 rounded-full bg-sky-500" />
+            移动端
+          </span>
+          <span className="inline-flex items-center gap-1.5">
+            <span className="h-2.5 w-2.5 rounded-full bg-violet-500" />
+            PC 端
+          </span>
+        </div>
+      </div>
+
+      <div className="mb-5 grid grid-cols-1 gap-4 sm:grid-cols-3">
+        <div className="rounded-lg border border-gray-100 bg-gray-50/80 p-4">
+          <p className="text-sm text-gray-500">区间活跃访客</p>
+          <p className="mt-1 text-2xl font-bold text-gray-900">{summary.total.toLocaleString()}</p>
+        </div>
+        <div className="rounded-lg border border-sky-100 bg-sky-50/50 p-4">
+          <p className="text-sm text-sky-700">📱 移动端</p>
+          <p className="mt-1 text-2xl font-bold text-sky-900">
+            {summary.mobile.toLocaleString()}
+            <span className="ml-2 text-base font-semibold text-sky-600">{formatPct(summary.mobile_pct)}</span>
+          </p>
+        </div>
+        <div className="rounded-lg border border-violet-100 bg-violet-50/50 p-4">
+          <p className="text-sm text-violet-700">💻 PC 端</p>
+          <p className="mt-1 text-2xl font-bold text-violet-900">
+            {summary.desktop.toLocaleString()}
+            <span className="ml-2 text-base font-semibold text-violet-600">{formatPct(summary.desktop_pct)}</span>
+          </p>
+        </div>
+      </div>
+
+      <div className="mb-5">
+        <p className="mb-2 text-xs font-medium text-gray-500">区间占比</p>
+        <DeviceShareBar mobilePct={summary.mobile_pct} desktopPct={summary.desktop_pct} />
+      </div>
+
+      {!isSingleDay && daily.length > 0 && (
+        <div className="overflow-hidden rounded-lg border border-gray-100">
+          <table className="min-w-full divide-y divide-gray-200 text-sm">
+            <thead className="bg-gray-50">
+              <tr>
+                <th className="px-4 py-2.5 text-left text-xs font-medium uppercase tracking-wider text-gray-500">日期</th>
+                <th className="px-4 py-2.5 text-right text-xs font-medium uppercase tracking-wider text-gray-500">活跃访客</th>
+                <th className="px-4 py-2.5 text-right text-xs font-medium uppercase tracking-wider text-gray-500">移动端</th>
+                <th className="px-4 py-2.5 text-right text-xs font-medium uppercase tracking-wider text-gray-500">PC 端</th>
+                <th className="hidden px-4 py-2.5 text-left text-xs font-medium uppercase tracking-wider text-gray-500 md:table-cell">占比</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-gray-100">
+              {daily.map((row) => (
+                <tr key={row.date} className="hover:bg-gray-50/60">
+                  <td className="px-4 py-2.5 font-medium text-gray-900">{row.date}</td>
+                  <td className="px-4 py-2.5 text-right text-gray-700">{row.total.toLocaleString()}</td>
+                  <td className="px-4 py-2.5 text-right text-sky-700">
+                    {row.mobile.toLocaleString()}
+                    <span className="ml-1 text-xs text-sky-500">({formatPct(row.mobile_pct)})</span>
+                  </td>
+                  <td className="px-4 py-2.5 text-right text-violet-700">
+                    {row.desktop.toLocaleString()}
+                    <span className="ml-1 text-xs text-violet-500">({formatPct(row.desktop_pct)})</span>
+                  </td>
+                  <td className="hidden px-4 py-2.5 md:table-cell">
+                    <DeviceShareBar mobilePct={row.mobile_pct} desktopPct={row.desktop_pct} />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+
+      {daily.length === 0 && (
+        <p className="text-center text-sm text-gray-400 py-6">该时间范围内暂无访客设备数据</p>
+      )}
+    </div>
   );
 }
 
@@ -832,6 +962,12 @@ function Dashboard({
         <StatCard label="总搜索次数" value={data.total_searches} color="bg-white border-gray-200" />
         <StatCard label="总下载次数" value={data.total_downloads} color="bg-white border-gray-200" />
       </div>
+
+      <DeviceStatsPanel
+        summary={data.device_breakdown}
+        daily={data.device_daily}
+        rangeLabel={data.device_range_label}
+      />
 
       {/* Search Failures */}
       <div>

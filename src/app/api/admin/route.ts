@@ -14,7 +14,10 @@ import {
   getTodayDownloads,
   getDownloadFailureApps,
   getSearchFailureQueries,
+  getVisitorDeviceBreakdown,
+  getDailyVisitorDeviceStats,
 } from "@/lib/db";
+import type { DailyVisitorDeviceStat, VisitorDeviceBreakdown } from "@/lib/db";
 
 export interface AdminResponse {
   visitors: number;
@@ -38,6 +41,9 @@ export interface AdminResponse {
   search_failures: SearchFailureQuery[];
   search_failures_total: number;
   unresolved_search_failures: number;
+  device_breakdown: VisitorDeviceBreakdown;
+  device_daily: DailyVisitorDeviceStat[];
+  device_range_label: string;
 }
 
 interface SearchStat {
@@ -124,6 +130,15 @@ function getDateRange(searchParams: URLSearchParams): DateRangeResult {
   return { startDate: start, endDate: end };
 }
 
+function formatDeviceRangeLabel(startDate: string, endDate: string): string {
+  if (!startDate && !endDate) return "最近 30 天（Asia/Shanghai）";
+  if (startDate && endDate && startDate === endDate) return startDate;
+  if (startDate && endDate) return `${startDate} ~ ${endDate}`;
+  if (startDate) return `${startDate} 起`;
+  if (endDate) return `至 ${endDate}`;
+  return "最近 30 天（Asia/Shanghai）";
+}
+
 export async function GET(
   request: NextRequest
 ): Promise<NextResponse<AdminResponse | { error: string }>> {
@@ -167,6 +182,8 @@ export async function GET(
       visitorList,
       downloadFailures,
       searchFailures,
+      deviceBreakdown,
+      deviceDaily,
     ] =
       await Promise.all([
         getVisitorStats(startDate, endDate),
@@ -182,6 +199,8 @@ export async function GET(
         getVisitorList(pageSize, visitorPage * pageSize, startDate, endDate),
         getDownloadFailureApps(pageSize, failurePage * pageSize),
         getSearchFailureQueries(pageSize, searchFailurePage * pageSize),
+        getVisitorDeviceBreakdown(startDate, endDate),
+        getDailyVisitorDeviceStats(startDate, endDate),
       ]);
 
     return NextResponse.json(
@@ -207,6 +226,9 @@ export async function GET(
         search_failures: searchFailures.rows,
         search_failures_total: searchFailures.total,
         unresolved_search_failures: searchFailures.unresolved,
+        device_breakdown: deviceBreakdown,
+        device_daily: deviceDaily,
+        device_range_label: formatDeviceRangeLabel(startDate, endDate),
       },
       { headers: { "Cache-Control": "no-store" } }
     );

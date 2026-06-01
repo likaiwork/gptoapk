@@ -154,6 +154,18 @@ export interface ActivityItem {
   is_mobile: boolean;
 }
 
+export interface VisitorDeviceBreakdown {
+  total: number;
+  mobile: number;
+  desktop: number;
+  mobile_pct: number;
+  desktop_pct: number;
+}
+
+export interface DailyVisitorDeviceStat extends VisitorDeviceBreakdown {
+  date: string;
+}
+
 export interface VisitorInfo {
   visitor_id: string;
   first_visit: string;
@@ -654,6 +666,105 @@ function dateRangeParams(startDate?: string, endDate?: string): [string, string]
 const REPORT_TIME_ZONE = "Asia/Shanghai";
 const dateRangeSql = (column: string) =>
   `(${column} AT TIME ZONE '${REPORT_TIME_ZONE}')::date >= $1::date AND (${column} AT TIME ZONE '${REPORT_TIME_ZONE}')::date <= $2::date`;
+
+function withDevicePercents(row: { total: number; mobile: number; desktop: number }): VisitorDeviceBreakdown {
+  const total = row.total ?? 0;
+  const mobile = row.mobile ?? 0;
+  const desktop = row.desktop ?? 0;
+  return {
+    total,
+    mobile,
+    desktop,
+    mobile_pct: total > 0 ? Math.round((mobile / total) * 1000) / 10 : 0,
+    desktop_pct: total > 0 ? Math.round((desktop / total) * 1000) / 10 : 0,
+  };
+}
+
+function shanghaiTodayDate(): string {
+  return new Date().toLocaleDateString("en-CA", { timeZone: REPORT_TIME_ZONE });
+}
+
+function defaultDeviceStatsRange(startDate?: string, endDate?: string): [string, string] {
+  if (startDate && endDate) return [startDate, endDate];
+  if (startDate && !endDate) return [startDate, startDate];
+  if (!startDate && endDate) return [endDate, endDate];
+  const end = shanghaiTodayDate();
+  const endMs = new Date(`${end}T12:00:00+08:00`).getTime();
+  const start = new Date(endMs - 29 * 86400000).toLocaleDateString("en-CA", { timeZone: REPORT_TIME_ZONE });
+  return [start, end];
+}
+
+const visitorActivityUnionSql = `
+  SELECT s.visitor_id, s.timestamp AS activity_at
+  FROM search_logs s
+  UNION ALL
+  SELECT d.visitor_id, d.timestamp AS activity_at
+  FROM download_logs d
+  UNION ALL
+  SELECT v.visitor_id, v.first_visit AS activity_at
+  FROM visitors v
+  UNION ALL
+  SELECT v.visitor_id, v.last_visit AS activity_at
+  FROM visitors v
+`;
+
+export async function getVisitorDeviceBreakdown(
+  startDate?: string,
+  endDate?: string,
+): Promise<VisitorDeviceBreakdown> {
+  const [start, end] = defaultDeviceStatsRange(startDate, endDate);
+  const rows = await sqlRaw<{ total: number; mobile: number; desktop: number }>(
+    `WITH activity AS (
+       SELECT DISTINCT
+         u.visitor_id,
+         COALESCE(v.is_mobile, false) AS is_mobile
+       FROM (${visitorActivityUnionSql}) u
+       INNER JOIN visitors v ON v.visitor_id = u.visitor_id
+       WHERE (u.activity_at AT TIME ZONE '${REPORT_TIME_ZONE}')::date >= $1::date
+         AND (u.activity_at AT TIME ZONE '${REPORT_TIME_ZONE}')::date <= $2::date
+     )
+     SELECT
+       COUNT(DISTINCT visitor_id)::int AS total,
+       COUNT(DISTINCT visitor_id) FILTER (WHERE is_mobile)::int AS mobile,
+       COUNT(DISTINCT visitor_id) FILTER (WHERE NOT is_mobile)::int AS desktop
+     FROM activity`,
+    [start, end],
+  );
+  return withDevicePercents(rows[0] ?? { total: 0, mobile: 0, desktop: 0 });
+}
+
+export async function getDailyVisitorDeviceStats(
+  startDate?: string,
+  endDate?: string,
+): Promise<DailyVisitorDeviceStat[]> {
+  const [start, end] = defaultDeviceStatsRange(startDate, endDate);
+  const rows = await sqlRaw<{ date: string; total: number; mobile: number; desktop: number }>(
+    `WITH activity AS (
+       SELECT DISTINCT
+         (u.activity_at AT TIME ZONE '${REPORT_TIME_ZONE}')::date AS day,
+         u.visitor_id,
+         COALESCE(v.is_mobile, false) AS is_mobile
+       FROM (${visitorActivityUnionSql}) u
+       INNER JOIN visitors v ON v.visitor_id = u.visitor_id
+       WHERE (u.activity_at AT TIME ZONE '${REPORT_TIME_ZONE}')::date >= $1::date
+         AND (u.activity_at AT TIME ZONE '${REPORT_TIME_ZONE}')::date <= $2::date
+     )
+     SELECT
+       day::text AS date,
+       COUNT(DISTINCT visitor_id)::int AS total,
+       COUNT(DISTINCT visitor_id) FILTER (WHERE is_mobile)::int AS mobile,
+       COUNT(DISTINCT visitor_id) FILTER (WHERE NOT is_mobile)::int AS desktop
+     FROM activity
+     GROUP BY day
+     ORDER BY day DESC`,
+    [start, end],
+  );
+
+  return rows.map((row) => ({
+    date: row.date,
+    ...withDevicePercents(row),
+  }));
+}
 
 export async function getVisitorStats(startDate?: string, endDate?: string): Promise<{ total: number }> {
   if (!startDate && !endDate) {
