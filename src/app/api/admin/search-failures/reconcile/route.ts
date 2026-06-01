@@ -11,11 +11,17 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     }
 
     const body = await request.json().catch(() => ({}));
-    const limitRaw = typeof body.limit === "number" ? body.limit : 500;
-    const limit = Math.min(Math.max(limitRaw, 1), 2000);
+    const maxChecksRaw = typeof body.maxChecks === "number"
+      ? body.maxChecks
+      : typeof body.limit === "number"
+        ? body.limit
+        : 5000;
+    const batchSizeRaw = typeof body.batchSize === "number" ? body.batchSize : 500;
+    const maxChecks = Math.min(Math.max(maxChecksRaw, 1), 20000);
+    const batchSize = Math.min(Math.max(batchSizeRaw, 50), 1000);
 
     await initDatabase();
-    const result = await reconcileResolvableSearchFailures(limit);
+    const result = await reconcileResolvableSearchFailures({ batchSize, maxChecks });
 
     return NextResponse.json(
       { success: true, ...result },

@@ -1450,7 +1450,7 @@ export default function AdminPage() {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           cache: "no-store",
-          body: JSON.stringify({ limit: 500 }),
+          body: JSON.stringify({ maxChecks: 5000, batchSize: 500 }),
         },
       );
       const body = await res.json().catch(() => null) as {

@@ -30,9 +30,18 @@ async function updateDownloadFailureStatus(request: NextRequest): Promise<NextRe
     }
 
     await initDatabase();
+
+    const autoResolveBlocked =
+      lastError.includes("PAID_APP_UNSUPPORTED") ||
+      lastError.includes("MIRROR_UNAVAILABLE") ||
+      lastSource === "paid-app" ||
+      lastSource === "no-mirror";
+
     const resolvedUpdated = hasResolved
       ? await updateDownloadFailureResolved(appId, resolved)
-      : false;
+      : autoResolveBlocked
+        ? await updateDownloadFailureResolved(appId, true)
+        : false;
     const metadataUpdated = lastError || lastSource
       ? await updateDownloadFailureMetadata({ appId, lastError, lastSource })
       : false;

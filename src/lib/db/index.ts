@@ -1,6 +1,7 @@
 import { createPool } from "@vercel/postgres";
 import type { QueryResultRow } from "@vercel/postgres";
 import { canResolveSearchQueryNow } from "@/lib/search-failure-reconcile";
+import { normalizeUserSearchQuery } from "@/lib/normalize-user-search-query";
 
 type Primitive = string | number | boolean | undefined | null;
 
@@ -558,7 +559,53 @@ export async function logDownload(params: DownloadLogParams): Promise<boolean> {
     errorText.includes("付费应用") ||
     errorText.includes("public APK mirrors");
 
-  if (!params.success && params.appId && !isExpectedBlockedFailure) {
+  if (params.success && params.appId) {
+    await sql`
+      UPDATE download_failure_apps
+      SET resolved = TRUE,
+          resolved_at = NOW(),
+          updated_at = NOW()
+      WHERE app_id = ${params.appId}
+        AND resolved = FALSE
+    `;
+  } else if (params.appId && (isExpectedBlockedFailure || params.error || params.source)) {
+    await sql`
+      INSERT INTO download_failure_apps (
+        app_id,
+        app_title,
+        failure_count,
+        first_failed_at,
+        last_failed_at,
+        last_error,
+        last_source,
+        resolved,
+        updated_at
+      )
+      VALUES (
+        ${params.appId},
+        ${params.appTitle || params.appId},
+        1,
+        NOW(),
+        NOW(),
+        ${params.error || ""},
+        ${params.source || ""},
+        ${isExpectedBlockedFailure},
+        NOW()
+      )
+      ON CONFLICT (app_id) DO UPDATE SET
+        app_title = COALESCE(NULLIF(EXCLUDED.app_title, ''), download_failure_apps.app_title),
+        failure_count = CASE
+          WHEN ${isExpectedBlockedFailure} THEN download_failure_apps.failure_count
+          ELSE download_failure_apps.failure_count + 1
+        END,
+        last_failed_at = NOW(),
+        last_error = EXCLUDED.last_error,
+        last_source = COALESCE(NULLIF(EXCLUDED.last_source, ''), download_failure_apps.last_source),
+        resolved = ${isExpectedBlockedFailure},
+        resolved_at = CASE WHEN ${isExpectedBlockedFailure} THEN NOW() ELSE NULL END,
+        updated_at = NOW()
+    `;
+  } else if (!params.success && params.appId) {
     await sql`
       INSERT INTO download_failure_apps (
         app_id,
@@ -878,26 +925,50 @@ export async function resolveSearchFailuresForQuery(query: string, _queryType?: 
   `;
 }
 
-export async function reconcileResolvableSearchFailures(
-  limit = 500,
-): Promise<{ checked: number; resolved: number }> {
-  const rows = await sqlRaw<{ query_key: string; query: string }>(
-    `SELECT query_key, query
-     FROM search_failure_queries
-     WHERE resolved = FALSE
-     ORDER BY last_failed_at DESC
-     LIMIT $1`,
-    [limit],
-  );
+export async function reconcileResolvableSearchFailures(options?: {
+  batchSize?: number;
+  maxChecks?: number;
+}): Promise<{ checked: number; resolved: number }> {
+  const batchSize = Math.min(Math.max(options?.batchSize ?? 500, 50), 1000);
+  const maxChecks = Math.min(Math.max(options?.maxChecks ?? 5000, batchSize), 20000);
 
+  let checked = 0;
   let resolved = 0;
-  for (const row of rows) {
-    if (!canResolveSearchQueryNow(row.query)) continue;
-    const ok = await updateSearchFailureResolved(row.query_key, true);
-    if (ok) resolved += 1;
+  let offset = 0;
+
+  while (checked < maxChecks) {
+    const rows = await sqlRaw<{ query_key: string; query: string }>(
+      `SELECT query_key, query
+       FROM search_failure_queries
+       WHERE resolved = FALSE
+       ORDER BY last_failed_at DESC
+       LIMIT $1 OFFSET $2`,
+      [batchSize, offset],
+    );
+
+    if (!rows.length) break;
+
+    let resolvedInBatch = 0;
+    for (const row of rows) {
+      checked += 1;
+      const normalizedQuery = normalizeUserSearchQuery(row.query);
+      if (!canResolveSearchQueryNow(normalizedQuery)) continue;
+      const ok = await updateSearchFailureResolved(row.query_key, true);
+      if (ok) {
+        resolved += 1;
+        resolvedInBatch += 1;
+      }
+    }
+
+    if (resolvedInBatch > 0) {
+      continue;
+    }
+
+    offset += rows.length;
+    if (rows.length < batchSize) break;
   }
 
-  return { checked: rows.length, resolved };
+  return { checked, resolved };
 }
 
 export async function getSearchFailureQueries(

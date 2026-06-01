@@ -43,5 +43,5 @@ jobs:
           KEY="${ADMIN_API_KEY:-gptoapk-admin-key-2026}"
           curl -sS -X POST "${SITE_HOST}/api/admin/search-failures/reconcile?key=${KEY}" \
             -H "Content-Type: application/json" \
-            -d '{}'
+            -d '{"maxChecks":5000,"batchSize":500}'
 

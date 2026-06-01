@@ -2,8 +2,8 @@ import fs from "node:fs";
 
 const SITE_HOST = process.env.REPAIR_SITE_HOST || "https://gptoapk.com";
 const ADMIN_KEY = process.env.ADMIN_API_KEY || process.env.REPAIR_ADMIN_KEY || "gptoapk-admin-key-2026";
-// Default 3 = apps with more than 3 failures (failure_count > 3). Set REPAIR_FAILURE_THRESHOLD=2 to include count === 3.
-const FAILURE_THRESHOLD = Number(process.env.REPAIR_FAILURE_THRESHOLD || 3);
+// Default 2 = failure_count > 2 (i.e. 3+ failures). Matches hourly-repair-admin.yml.
+const FAILURE_THRESHOLD = Number(process.env.REPAIR_FAILURE_THRESHOLD || 2);
 const PAGE_SIZE = Number(process.env.REPAIR_PAGE_SIZE || 100);
 const REQUEST_TIMEOUT_MS = Number(process.env.REPAIR_REQUEST_TIMEOUT_MS || 45000);
 const SOURCE_TIMEOUT_MS = Number(process.env.REPAIR_SOURCE_TIMEOUT_MS || 30000);
@@ -197,6 +197,7 @@ async function markMirrorUnavailable(item) {
       appId: item.app_id,
       error: MIRROR_UNAVAILABLE_ADMIN_ERROR,
       source: "no-mirror",
+      resolved: true,
     }),
   });
 }
@@ -215,6 +216,7 @@ async function markPaidUnsupported(item) {
       appId: item.app_id,
       error: PAID_APP_UNSUPPORTED_ADMIN_ERROR,
       source: "paid-app",
+      resolved: true,
     }),
   });
 }

@@ -1,27 +1,76 @@
 import { getCuratedSearchAppMeta } from "@/lib/curated-search-apps";
+import { normalizeUserSearchQuery } from "@/lib/normalize-user-search-query";
 import {
   resolvePlayPackageIdAlias,
   resolveSearchAliasAppIds,
 } from "@/lib/search-aliases";
 import { isVpnSearchKeyword } from "@/lib/search-query-normalize";
+import { isUnsupportedNoMirrorApp } from "@/lib/unsupported-no-mirror-apps";
 
 const PACKAGE_NAME_REGEX = /^[a-zA-Z][a-zA-Z0-9_]*(?:\.[a-zA-Z][a-zA-Z0-9_]*)+$/;
 
-/** Whether search would now return results via alias map, curated fallback, or VPN list. */
+function parseGooglePlayUrl(query: string) {
+  const candidate = /^https?:\/\//i.test(query) ? query : `https://${query}`;
+
+  try {
+    const url = new URL(candidate);
+    if (!url.hostname.endsWith("play.google.com")) return null;
+
+    const appId = url.searchParams.get("id")?.trim();
+    if (!appId) return null;
+
+    return { appId: resolvePlayPackageIdAlias(appId) };
+  } catch {
+    return null;
+  }
+}
+
+function getQueryType(query: string): "url" | "package" | "keyword" {
+  if (query.includes("play.google.com")) return "url";
+  if (PACKAGE_NAME_REGEX.test(query)) return "package";
+  return "keyword";
+}
+
+function packageWouldReturnResults(appId: string): boolean {
+  const resolvedId = resolvePlayPackageIdAlias(appId);
+  if (getCuratedSearchAppMeta(resolvedId)) return true;
+  if (isUnsupportedNoMirrorApp(resolvedId)) return false;
+  return true;
+}
+
+function aliasWouldReturnResults(query: string): boolean {
+  const appIds = resolveSearchAliasAppIds(query);
+  if (!appIds?.length) return false;
+  return appIds.some((id) => {
+    const resolved = resolvePlayPackageIdAlias(id);
+    if (getCuratedSearchAppMeta(resolved)) return true;
+    return !isUnsupportedNoMirrorApp(resolved);
+  });
+}
+
+/**
+ * Mirrors /api/search-apps success paths (alias, VPN list, package/URL, curated fallback).
+ * Does not call Google Play — keyword-only misses without an alias are left unresolved.
+ */
 export function canResolveSearchQueryNow(rawQuery: string): boolean {
-  const trimmed = rawQuery.trim();
-  if (!trimmed) return false;
+  const query = normalizeUserSearchQuery(rawQuery.trim());
+  if (!query) return false;
 
-  if (isVpnSearchKeyword(trimmed)) return true;
+  if (isVpnSearchKeyword(query)) return true;
 
-  if (resolveSearchAliasAppIds(trimmed)?.length) return true;
+  const queryType = getQueryType(query);
 
-  if (PACKAGE_NAME_REGEX.test(trimmed)) {
-    const resolvedId = resolvePlayPackageIdAlias(trimmed);
-    if (getCuratedSearchAppMeta(resolvedId)) return true;
+  if (queryType === "url") {
+    const parsed = parseGooglePlayUrl(query);
+    if (!parsed) return false;
+    return packageWouldReturnResults(parsed.appId);
   }
 
-  return false;
+  if (queryType === "package") {
+    return packageWouldReturnResults(query);
+  }
+
+  return aliasWouldReturnResults(query);
 }
 
 export function shouldPersistSearchFailure(
