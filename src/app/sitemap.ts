@@ -40,6 +40,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "install-telegram-without-gms",
     "tiktok-apk-china-install",
     "instagram-download-seo-geo-2026",
+    "google-play-compatibility-seo-geo-2026",
+    "apk-install-errors-seo-geo-2026",
+    "android-google-play-compatibility-check-guide",
+    "apk-signature-verification-failed-fix",
+    "google-play-not-opening-fix",
+    "apk-install-failed-error-codes",
     "longbridge-securities-guide",
     "longbridge-securities-advanced",
     "how-to-download-apk-from-google-play",
@@ -51,6 +57,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "google-play-link-to-apk-step-by-step",
     "google-play-cannot-open-fixes-2026",
     "apk-install-failed-error-codes-guide",
+    "fix-device-not-compatible-google-play",
+    "fix-apk-signature-verification-failed",
+    "fix-google-play-not-opening",
   ];
 
   // 检查：除 en/zh 外，其他语言只暴露首页 / FAQ / Blog 列表，blog 详情统一指向 en
