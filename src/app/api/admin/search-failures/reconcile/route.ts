@@ -24,7 +24,11 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     const result = await reconcileResolvableSearchFailures({ batchSize, maxChecks });
 
     return NextResponse.json(
-      { success: true, ...result },
+      {
+        success: true,
+        ...result,
+        totalResolved: result.resolved + result.dismissed,
+      },
       { headers: { "Cache-Control": "no-store" } },
     );
   } catch (error) {

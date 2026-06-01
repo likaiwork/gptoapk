@@ -2,6 +2,8 @@ import { createPool } from "@vercel/postgres";
 import type { QueryResultRow } from "@vercel/postgres";
 import { canResolveSearchQueryNow } from "@/lib/search-failure-reconcile";
 import { normalizeUserSearchQuery } from "@/lib/normalize-user-search-query";
+import { getAliasLookupKeys, stripSearchQueryNoise } from "@/lib/search-query-normalize";
+import { normalizeSearchQuery } from "@/lib/search-failure-key";
 
 type Primitive = string | number | boolean | undefined | null;
 
@@ -1022,26 +1024,70 @@ export async function logSearchFailure(params: SearchFailureLogParams): Promise<
   `;
 }
 
-export async function resolveSearchFailuresForQuery(query: string, _queryType?: string): Promise<void> {
-  const normalized = query.trim().toLowerCase().replace(/\s+/g, " ");
-  if (!normalized) return;
+function normalizedQueriesForSearchIntent(query: string): string[] {
+  const canonical = normalizeUserSearchQuery(query.trim());
+  if (!canonical) return [];
 
-  await sql`
-    UPDATE search_failure_queries
-    SET resolved = TRUE,
-        resolved_at = NOW(),
-        updated_at = NOW()
-    WHERE normalized_query = ${normalized}
-      AND resolved = FALSE
-  `;
+  const out = new Set<string>();
+  const add = (value: string) => {
+    const key = normalizeSearchQuery(value);
+    if (key) out.add(key);
+  };
+
+  add(canonical);
+  for (const aliasKey of getAliasLookupKeys(canonical)) add(aliasKey);
+  const stripped = stripSearchQueryNoise(canonical);
+  if (stripped) add(stripped);
+
+  return [...out];
+}
+
+export async function resolveSearchFailuresForQuery(query: string, _queryType?: string): Promise<number> {
+  const normalizedQueries = normalizedQueriesForSearchIntent(query);
+  if (!normalizedQueries.length) return 0;
+
+  let resolved = 0;
+  for (const normalized of normalizedQueries) {
+    const rows = await sqlRaw<{ query_key: string }>(
+      `UPDATE search_failure_queries
+       SET resolved = TRUE,
+           resolved_at = NOW(),
+           updated_at = NOW()
+       WHERE resolved = FALSE
+         AND normalized_query = $1
+       RETURNING query_key`,
+      [normalized],
+    );
+    resolved += rows.length;
+  }
+  return resolved;
+}
+
+export async function autoResolveDismissibleSearchFailures(): Promise<number> {
+  const rows = await sqlRaw<{ query_key: string }>(
+    `UPDATE search_failure_queries
+     SET resolved = TRUE,
+         resolved_at = NOW(),
+         updated_at = NOW()
+     WHERE resolved = FALSE
+       AND (
+         failure_kind = 'query_too_long'
+         OR (failure_kind = 'invalid_url' AND query ILIKE 'file:%')
+       )
+     RETURNING query_key`,
+  );
+  return rows.length;
 }
 
 export async function reconcileResolvableSearchFailures(options?: {
   batchSize?: number;
   maxChecks?: number;
-}): Promise<{ checked: number; resolved: number }> {
+}): Promise<{ checked: number; resolved: number; dismissed: number }> {
   const batchSize = Math.min(Math.max(options?.batchSize ?? 500, 50), 1000);
   const maxChecks = Math.min(Math.max(options?.maxChecks ?? 5000, batchSize), 20000);
+
+  await initDatabase();
+  const dismissed = await autoResolveDismissibleSearchFailures();
 
   let checked = 0;
   let resolved = 0;
@@ -1064,9 +1110,9 @@ export async function reconcileResolvableSearchFailures(options?: {
       checked += 1;
       const normalizedQuery = normalizeUserSearchQuery(row.query);
       if (!canResolveSearchQueryNow(normalizedQuery)) continue;
-      const ok = await updateSearchFailureResolved(row.query_key, true);
-      if (ok) {
-        resolved += 1;
+      const count = await resolveSearchFailuresForQuery(normalizedQuery);
+      if (count > 0) {
+        resolved += count;
         resolvedInBatch += 1;
       }
     }
@@ -1079,7 +1125,7 @@ export async function reconcileResolvableSearchFailures(options?: {
     if (rows.length < batchSize) break;
   }
 
-  return { checked, resolved };
+  return { checked, resolved, dismissed };
 }
 
 export async function getSearchFailureQueries(

@@ -915,6 +915,8 @@ function Dashboard({
   onToggleSearchFailureResolved,
   onReconcileSearchFailures,
   reconcilingSearchFailures,
+  onRepairDownloadFailures,
+  repairingDownloadFailures,
   onManualSourceDraftChange,
   onSaveManualSource,
   onDeleteManualSource,
@@ -932,6 +934,8 @@ function Dashboard({
   onToggleSearchFailureResolved: (queryKey: string, resolved: boolean) => Promise<void>;
   onReconcileSearchFailures: () => Promise<void>;
   reconcilingSearchFailures: boolean;
+  onRepairDownloadFailures: () => Promise<void>;
+  repairingDownloadFailures: boolean;
   onManualSourceDraftChange: (appId: string, draft: Partial<ManualSourceDraft>) => void;
   onSaveManualSource: (item: DownloadFailureApp) => Promise<void>;
   onDeleteManualSource: (appId: string) => Promise<void>;
@@ -953,6 +957,7 @@ function Dashboard({
     onSearchPageChange, onDownloadPageChange, onActivityPageChange, onVisitorPageChange,
     onFailurePageChange, onSearchFailurePageChange,
   } = pagination;
+  const busyTriage = reconcilingSearchFailures || repairingDownloadFailures;
 
   return (
     <div className="mx-auto max-w-6xl space-y-8">
@@ -975,14 +980,29 @@ function Dashboard({
           <h2 className="text-lg font-semibold text-gray-900">搜索失败关键词</h2>
           <MetricPill label="未解决" value={data.unresolved_search_failures} />
           <MetricPill label="全部记录" value={data.search_failures_total} />
-          <button
-            type="button"
-            disabled={reconcilingSearchFailures || data.unresolved_search_failures === 0}
-            onClick={() => { void onReconcileSearchFailures(); }}
-            className="ml-auto cursor-pointer rounded-lg border border-amber-200 bg-amber-50 px-3 py-1.5 text-xs font-medium text-amber-900 hover:bg-amber-100 disabled:cursor-not-allowed disabled:opacity-50"
-          >
-            {reconcilingSearchFailures ? "校验中..." : "批量校验（已有别名/兜底则标记已解决）"}
-          </button>
+          <div className="ml-auto flex flex-wrap gap-2">
+            <button
+              type="button"
+              disabled={busyTriage || (data.unresolved_search_failures === 0 && data.unresolved_download_failures === 0)}
+              onClick={() => {
+                void (async () => {
+                  await onRepairDownloadFailures();
+                  await onReconcileSearchFailures();
+                })();
+              }}
+              className="cursor-pointer rounded-lg border border-emerald-200 bg-emerald-50 px-3 py-1.5 text-xs font-medium text-emerald-900 hover:bg-emerald-100 disabled:cursor-not-allowed disabled:opacity-50"
+            >
+              {busyTriage ? "处理中..." : "一键处理全部"}
+            </button>
+            <button
+              type="button"
+              disabled={busyTriage || data.unresolved_search_failures === 0}
+              onClick={() => { void onReconcileSearchFailures(); }}
+              className="cursor-pointer rounded-lg border border-amber-200 bg-amber-50 px-3 py-1.5 text-xs font-medium text-amber-900 hover:bg-amber-100 disabled:cursor-not-allowed disabled:opacity-50"
+            >
+              {reconcilingSearchFailures ? "校验中..." : "仅校验搜索"}
+            </button>
+          </div>
         </div>
         <div className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
           <table className="min-w-full divide-y divide-gray-200 text-sm">
@@ -1057,6 +1077,14 @@ function Dashboard({
           <h2 className="text-lg font-semibold text-gray-900">下载失败应用</h2>
           <MetricPill label="未解决" value={data.unresolved_download_failures} />
           <MetricPill label="全部失败应用" value={data.download_failures_total} />
+          <button
+            type="button"
+            disabled={busyTriage || data.unresolved_download_failures === 0}
+            onClick={() => { void onRepairDownloadFailures(); }}
+            className="ml-auto cursor-pointer rounded-lg border border-red-200 bg-red-50 px-3 py-1.5 text-xs font-medium text-red-900 hover:bg-red-100 disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            {repairingDownloadFailures ? "修复中..." : "一键修复下载失败"}
+          </button>
         </div>
         <div className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
           <table className="min-w-full divide-y divide-gray-200 text-sm">
@@ -1420,6 +1448,7 @@ export default function AdminPage() {
   const [searchFailurePage, setSearchFailurePage] = useState(0);
   const [pendingSearchFailureKeys, setPendingSearchFailureKeys] = useState<Set<string>>(() => new Set());
   const [reconcilingSearchFailures, setReconcilingSearchFailures] = useState(false);
+  const [repairingDownloadFailures, setRepairingDownloadFailures] = useState(false);
 
   const fetchData = useCallback(async (authToken: string, start?: string, end?: string, pages?: {
     searchPage?: number; downloadPage?: number; activityPage?: number; visitorPage?: number; failurePage?: number; searchFailurePage?: number;
@@ -1593,23 +1622,63 @@ export default function AdminPage() {
         error?: string;
         checked?: number;
         resolved?: number;
+        dismissed?: number;
+        totalResolved?: number;
       } | null;
       if (!res.ok) {
         setError(body?.error ? `批量校验失败：${body.error}` : "批量校验失败");
         return;
       }
       await fetchData(token, appliedDateStart, appliedDateEnd, getCurrentPages());
-      if (typeof body?.resolved === "number" && typeof body?.checked === "number") {
+      if (typeof body?.checked === "number") {
+        const total = body.totalResolved ?? body.resolved ?? 0;
         setNotice(
-          body.resolved > 0
-            ? `已校验 ${body.checked} 条，标记已解决 ${body.resolved} 条（当前搜索已能命中别名/兜底）。`
-            : `已校验 ${body.checked} 条，暂无新增可自动解决的记录。`,
+          total > 0
+            ? `搜索失败：已校验 ${body.checked} 条，结案 ${total} 条（含别名/兜底 ${body.resolved ?? 0}，无效请求 ${body.dismissed ?? 0}）。`
+            : `搜索失败：已校验 ${body.checked} 条，暂无新增可自动结案记录。`,
         );
       }
     } catch {
       setError("批量校验网络错误");
     } finally {
       setReconcilingSearchFailures(false);
+    }
+  }, [token, fetchData, appliedDateStart, appliedDateEnd, getCurrentPages]);
+
+  const handleRepairDownloadFailures = useCallback(async () => {
+    if (!token) return;
+    setError("");
+    setNotice("");
+    setRepairingDownloadFailures(true);
+    try {
+      const res = await fetch(
+        `/api/admin/download-failures/repair?key=${encodeURIComponent(token)}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          cache: "no-store",
+          body: JSON.stringify({ failureThreshold: 2, maxApps: 80 }),
+        },
+      );
+      const body = await res.json().catch(() => null) as {
+        error?: string;
+        blockedResolved?: number;
+        downloadRechecked?: number;
+        downloadMarkedResolved?: number;
+        stillUnresolved?: number;
+      } | null;
+      if (!res.ok) {
+        setError(body?.error ? `下载失败修复失败：${body.error}` : "下载失败修复失败");
+        return;
+      }
+      await fetchData(token, appliedDateStart, appliedDateEnd, getCurrentPages());
+      setNotice(
+        `下载失败：付费/无镜像结案 ${body?.blockedResolved ?? 0} 个；复测 ${body?.downloadRechecked ?? 0} 个，恢复可下载 ${body?.downloadMarkedResolved ?? 0} 个；仍待处理 ${body?.stillUnresolved ?? 0} 个。`,
+      );
+    } catch {
+      setError("下载失败修复网络错误");
+    } finally {
+      setRepairingDownloadFailures(false);
     }
   }, [token, fetchData, appliedDateStart, appliedDateEnd, getCurrentPages]);
 
@@ -1829,6 +1898,8 @@ export default function AdminPage() {
           onToggleSearchFailureResolved={handleToggleSearchFailureResolved}
           onReconcileSearchFailures={handleReconcileSearchFailures}
           reconcilingSearchFailures={reconcilingSearchFailures}
+          onRepairDownloadFailures={handleRepairDownloadFailures}
+          repairingDownloadFailures={repairingDownloadFailures}
           onManualSourceDraftChange={handleManualSourceDraftChange}
           onSaveManualSource={handleSaveManualSource}
           onDeleteManualSource={handleDeleteManualSource}
