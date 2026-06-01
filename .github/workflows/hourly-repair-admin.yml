@@ -29,9 +29,12 @@ jobs:
           REPAIR_PAGE_SIZE: "100"
         run: |
           set -euo pipefail
-          node scripts/repair-download-failures.mjs --json
+          # The script may exit with code 2 when some apps still cannot be downloaded.
+          # We still want to run the search reconciliation step afterwards.
+          node scripts/repair-download-failures.mjs --json || true
 
       - name: Reconcile resolvable search failure keywords
+        if: ${{ always() }}
         env:
           ADMIN_API_KEY: ${{ secrets.ADMIN_API_KEY }}
           SITE_HOST: "https://www.gptoapk.com"
