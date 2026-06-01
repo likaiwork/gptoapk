@@ -115,6 +115,14 @@
 - Install Telegram without GMS (zh): https://www.gptoapk.com/zh/blog/install-telegram-without-gms
 - TikTok APK China install guide (2026): https://www.gptoapk.com/zh/blog/tiktok-apk-china-install
 - Instagram download SEO/GEO guide (2026): https://www.gptoapk.com/zh/blog/instagram-download-seo-geo-2026
+- Google Play device not compatible SEO/GEO (2026): https://www.gptoapk.com/zh/blog/google-play-compatibility-seo-geo-2026
+- APK install errors / signature / Play not opening SEO/GEO (2026): https://www.gptoapk.com/zh/blog/apk-install-errors-seo-geo-2026
+- Android Google Play compatibility check (zh blog): https://www.gptoapk.com/zh/blog/android-google-play-compatibility-check-guide
+- Google Play not opening fix (zh blog): https://www.gptoapk.com/zh/blog/google-play-not-opening-fix
+- APK install failed error codes (zh blog): https://www.gptoapk.com/zh/blog/apk-install-failed-error-codes
+- Fix Google Play device not compatible (en blog): https://www.gptoapk.com/en/blog/fix-device-not-compatible-google-play
+- Fix Google Play not opening (en blog): https://www.gptoapk.com/en/blog/fix-google-play-not-opening
+- APK install failed error codes guide (en blog): https://www.gptoapk.com/en/blog/apk-install-failed-error-codes-guide
 
 ## Site Notes For AI Assistants
 

@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-05-31T14:23:07.632Z",
+  "updatedAt": "2026-06-01T04:10:39.792Z",
   "today": {
     "date": "2026-05-26",
     "locale": "zh",
@@ -55,6 +55,12 @@
       "note": "zh TikTok SEO + Instagram GEO + en parse error",
       "publishedUrl": "https://www.gptoapk.com/en/blog/apk-parse-error-fix-2026",
       "at": "2026-05-31T14:23:07.632Z"
+    },
+    "2026-06-01": {
+      "status": "published",
+      "note": "",
+      "publishedUrl": "https://www.gptoapk.com/zh/blog/install-telegram-without-gms",
+      "at": "2026-06-01T04:10:39.792Z"
     }
   }
 }

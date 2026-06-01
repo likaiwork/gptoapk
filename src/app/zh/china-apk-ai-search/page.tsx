@@ -37,6 +37,11 @@ const problemGuides = [
   { title: "Facebook下载完整指南（注册/登录/Messenger）", href: "/zh/blog/facebook-download-seo-geo-2026" },
   { title: "Telegram下载完整指南（电报APK/无GMS安装）", href: "/zh/blog/telegram-download-seo-geo-2026" },
   { title: "无 GMS 手机安装 Telegram 步骤", href: "/zh/blog/install-telegram-without-gms" },
+  { title: "Google Play 设备不兼容 / 兼容性 GEO（2026）", href: "/zh/blog/google-play-compatibility-seo-geo-2026" },
+  { title: "APK 安装失败 / 签名 / Play 打不开 GEO（2026）", href: "/zh/blog/apk-install-errors-seo-geo-2026" },
+  { title: "Android 兼容性检查与设备不兼容解决", href: "/zh/blog/android-google-play-compatibility-check-guide" },
+  { title: "Google Play 打不开 11 种解决方法", href: "/zh/blog/google-play-not-opening-fix" },
+  { title: "APK 安装失败错误代码大全（INSTALL_FAILED）", href: "/zh/blog/apk-install-failed-error-codes" },
   { title: "2026 国内 AI 助手 APK 横评：豆包 vs 元宝 vs DeepSeek vs Kimi vs 通义千问", href: "/zh/ai-app-compare" },
   { title: "海外社交应用 APK 下载安装指南：Instagram/TikTok/WhatsApp/Telegram/YouTube", href: "/zh/social-apps" },
 ];
