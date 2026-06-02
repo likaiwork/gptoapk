@@ -3,7 +3,6 @@ import Link from "next/link";
 import Script from "next/script";
 import { zhSeoGeoPostList } from "@/lib/blog/zh-seo-geo-posts";
 import { zhPosts20260601List } from "@/lib/blog/posts-2026-06-01";
-import { zhPosts20260602PolList } from "@/lib/blog/posts-2026-06-02-police";
 
 export const metadata: Metadata = {
   title: "博客 - APK 下载指南 | gptoapk.com",
@@ -20,7 +19,6 @@ export const metadata: Metadata = {
 const posts = [
   ...zhSeoGeoPostList,
   ...zhPosts20260601List,
-  ...zhPosts20260602PolList,
   {
     slug: "china-broker-app-list",
     title: "国内券商APP下载指南：同花顺东财华泰国信中信招商等主流券商APP包名大全",
