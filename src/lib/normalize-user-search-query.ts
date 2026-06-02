@@ -1,6 +1,26 @@
+/** Google Play search page URL → search term (e.g. store/search?q=schwab+mobile). */
+export function extractPlayStoreSearchTerm(query: string): string | null {
+  const candidate = /^https?:\/\//i.test(query) ? query : `https://${query}`;
+
+  try {
+    const url = new URL(candidate);
+    if (!url.hostname.endsWith("play.google.com")) return null;
+    if (!url.pathname.includes("/store/search")) return null;
+
+    const term = url.searchParams.get("q")?.trim();
+    if (!term) return null;
+
+    return decodeURIComponent(term.replace(/\+/g, " ")).trim();
+  } catch {
+    return null;
+  }
+}
+
 /** Same URL / brand shortcuts as /api/search-apps before query-type detection. */
 export function normalizeUserSearchQuery(query: string): string {
   const trimmed = query.trim();
+  const playSearchTerm = extractPlayStoreSearchTerm(trimmed);
+  if (playSearchTerm) return playSearchTerm;
   if (/^https?:\/\/(www\.)?grok\.com\/?/i.test(trimmed)) return "grok";
   if (/^https?:\/\/(www\.)?facebook\.com\/?/i.test(trimmed)) return "facebook";
   if (/^https?:\/\/(www\.)?messenger\.com\/?/i.test(trimmed)) return "facebook messenger";

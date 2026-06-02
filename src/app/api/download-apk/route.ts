@@ -14,6 +14,7 @@ import { fetchDispatcher } from '@/lib/proxy';
 import { analyticsEvents, trackServerEvent } from '@/lib/server-analytics';
 import { getUnsupportedNoMirrorApp } from '@/lib/unsupported-no-mirror-apps';
 import { getUnsupportedPaidApp } from '@/lib/unsupported-paid-apps';
+import { sanitizeAppId } from '@/lib/sanitize-app-id';
 
 export const runtime = 'nodejs';
 export const maxDuration = 300;
@@ -57,6 +58,16 @@ const APKCOMBO_SOURCE_PAGES: Record<string, { pageUrl: string; fileName: string;
   'com.whatsapp': {
     pageUrl: 'https://apkcombo.com/whatsapp/com.whatsapp/download/apk',
     fileName: 'WhatsApp.apk',
+    type: 'APK',
+  },
+  'com.adobe.lrmobile': {
+    pageUrl: 'https://apkcombo.com/adobe-lightroom/com.adobe.lrmobile/download/apk',
+    fileName: 'Adobe Lightroom.apk',
+    type: 'APK',
+  },
+  'com.schwab.mobile': {
+    pageUrl: 'https://apkcombo.com/schwab-mobile/com.schwab.mobile/download/apk',
+    fileName: 'Schwab Mobile.apk',
     type: 'APK',
   },
 };
@@ -633,7 +644,7 @@ async function resolveDownloadSource(appId: string) {
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
-  const appId = searchParams.get('appId')?.trim();
+  const appId = sanitizeAppId(searchParams.get('appId') ?? '');
   const delivery = searchParams.get('delivery');
   const upstreamToken = searchParams.get('upstream');
   const startedAt = Date.now();
@@ -802,7 +813,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ success: false, error: 'Missing appId' });
     }
 
-    const cleanId = appId.trim();
+    const cleanId = sanitizeAppId(appId);
 
     if (getUnsupportedPaidApp(cleanId)) {
       return createPaidAppUnsupportedResponse(request, cleanId, startedAt, locale);

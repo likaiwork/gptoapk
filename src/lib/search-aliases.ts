@@ -191,6 +191,9 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
       "googleplay下载",
       "谷歌商店",
       "google play下载",
+      "play商店",
+      "play 商店",
+      "play商店下载",
     ],
   },
   {
@@ -287,9 +290,16 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
     aliases: ["whatsapp business", "whatsapp商业版", "whatsapp商家版"],
   },
   {
+    appIds: ["com.tencent.mm"],
+    aliases: ["微信", "wechat", "we chat", "com.tencent.mm"],
+  },
+  {
     appIds: ["com.twitter.android"],
     aliases: [
       "twitter",
+      "x app",
+      "x 11.90",
+      "x version 11.90",
       "twitter下载",
       "twitter官网",
       "twitter官网入口",
@@ -393,9 +403,42 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
     aliases: ["facebook messenger", "messenger", "messenger下载", "facebook messenger下载"],
   },
   {
+    appIds: ["com.adobe.lrmobile"],
+    aliases: [
+      "lightroom",
+      "adobe lightroom",
+      "lr mobile",
+      "lightroom mobile",
+      "lightroom下载",
+      "com.adobe.lrmobile",
+    ],
+  },
+  {
+    appIds: ["com.schwab.mobile"],
+    aliases: [
+      "schwab",
+      "schwab mobile",
+      "charles schwab",
+      "嘉信",
+      "嘉信理财",
+      "com.schwab.mobile",
+    ],
+  },
+  {
+    appIds: ["com.google.android.googlequicksearchbox"],
+    aliases: ["谷歌", "google", "google app", "谷歌搜索"],
+  },
+  {
+    appIds: ["com.apkpure.aegon"],
+    aliases: ["apkpure", "apk pure", "com.apkpure.aegon"],
+  },
+  {
     appIds: ["org.telegram.messenger"],
     aliases: [
       "telegram",
+      "飞机",
+      "纸飞机",
+      "小飞机",
       "tg",
       "电报",
       "telegram下载",

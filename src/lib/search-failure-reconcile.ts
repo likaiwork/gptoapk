@@ -1,10 +1,13 @@
 import { getKnownAppSearchMeta } from "@/lib/curated-search-apps";
-import { normalizeUserSearchQuery } from "@/lib/normalize-user-search-query";
+import {
+  extractPlayStoreSearchTerm,
+  normalizeUserSearchQuery,
+} from "@/lib/normalize-user-search-query";
 import {
   resolvePlayPackageIdAlias,
   resolveSearchAliasAppIds,
 } from "@/lib/search-aliases";
-import { isVpnSearchKeyword } from "@/lib/search-query-normalize";
+import { isVpnSearchKeyword, stripSearchQueryNoise } from "@/lib/search-query-normalize";
 import { isUnsupportedNoMirrorApp } from "@/lib/unsupported-no-mirror-apps";
 
 const PACKAGE_NAME_REGEX = /^[a-zA-Z][a-zA-Z0-9_]*(?:\.[a-zA-Z][a-zA-Z0-9_]*)+$/;
@@ -47,12 +50,29 @@ function aliasWouldReturnResults(query: string): boolean {
   });
 }
 
+function keywordWouldReturnResults(query: string): boolean {
+  if (aliasWouldReturnResults(query)) return true;
+  const stripped = stripSearchQueryNoise(query);
+  if (stripped.length >= 2 && stripped !== query.trim().toLowerCase()) {
+    return aliasWouldReturnResults(stripped);
+  }
+  return false;
+}
+
 /**
  * Mirrors /api/search-apps success paths (alias, VPN list, package/URL, known-app fallback).
  * Does not call Google Play — keyword-only misses without an alias are left unresolved.
  */
 export function canResolveSearchQueryNow(rawQuery: string): boolean {
-  const query = normalizeUserSearchQuery(rawQuery.trim());
+  const trimmed = rawQuery.trim();
+  if (!trimmed) return false;
+
+  if (extractPlayStoreSearchTerm(trimmed)) {
+    const term = normalizeUserSearchQuery(trimmed);
+    return keywordWouldReturnResults(term) || isVpnSearchKeyword(term);
+  }
+
+  const query = normalizeUserSearchQuery(trimmed);
   if (!query) return false;
 
   if (isVpnSearchKeyword(query)) return true;
@@ -69,7 +89,7 @@ export function canResolveSearchQueryNow(rawQuery: string): boolean {
     return packageWouldReturnResults(query);
   }
 
-  return aliasWouldReturnResults(query);
+  return keywordWouldReturnResults(query);
 }
 
 export function shouldPersistSearchFailure(

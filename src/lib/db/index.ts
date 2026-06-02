@@ -1108,9 +1108,11 @@ export async function reconcileResolvableSearchFailures(options?: {
     let resolvedInBatch = 0;
     for (const row of rows) {
       checked += 1;
-      const normalizedQuery = normalizeUserSearchQuery(row.query);
-      if (!canResolveSearchQueryNow(normalizedQuery)) continue;
-      const count = await resolveSearchFailuresForQuery(normalizedQuery);
+      const candidates = [row.query, normalizeUserSearchQuery(row.query)];
+      const unique = [...new Set(candidates.map((q) => q.trim()).filter(Boolean))];
+      const resolvable = unique.some((q) => canResolveSearchQueryNow(q));
+      if (!resolvable) continue;
+      const count = await resolveSearchFailuresForQuery(unique[0]!);
       if (count > 0) {
         resolved += count;
         resolvedInBatch += 1;
