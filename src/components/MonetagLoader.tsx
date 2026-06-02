@@ -10,41 +10,13 @@ import { injectMonetagTagScript } from "@/lib/monetag-inpage";
 import { isMonetagExcludedPath } from "@/lib/monetag";
 
 /**
- * Loads Monetag tag.min.js after cookie consent (site-wide except download pages).
- * Disable Onclick/Popunder in the Monetag dashboard if you only want in-page banners.
+ * Loads Monetag tag.min.js after cookie consent (desktop + mobile, except download pages).
+ * Tune popunder / onclick formats in the Monetag dashboard if needed.
  */
 export default function MonetagLoader() {
   const pathname = usePathname();
 
   useEffect(() => {
-    const isMobile =
-      typeof window !== "undefined" &&
-      window.matchMedia("(max-width: 768px)").matches;
-
-    // Quick mitigation: remove intrusive popups/push prompts on mobile by not
-    // loading Monetag tag script and best-effort unregistering SWs.
-    if (isMobile) {
-      (async () => {
-        try {
-          if ("serviceWorker" in navigator && navigator.serviceWorker) {
-            const regs = await navigator.serviceWorker.getRegistrations();
-            await Promise.all(
-              regs.map(async (r) => {
-                try {
-                  await r.unregister();
-                } catch {
-                  // ignore
-                }
-              }),
-            );
-          }
-        } catch {
-          // ignore
-        }
-      })();
-      return;
-    }
-
     if (isMonetagExcludedPath(pathname)) return;
 
     const maybeLoad = () => {

@@ -85,6 +85,8 @@ function getLocalizedCopy(locale: SiteLocale) {
       fallbackLabel: "试试这个入口",
       playStoreInstall: "前往 Google Play 安装",
       vpnResultsNote: "以下为镜像站可下载的 VPN 应用（NordVPN 等大厂客户端通常不提供公开 APK）。",
+      feedbackPrompt: "找不到该 App？",
+      feedbackCta: "立即反馈给我们，我们马上处理",
     };
   }
 
@@ -101,7 +103,19 @@ function getLocalizedCopy(locale: SiteLocale) {
     fallbackLabel: "Try this page",
     playStoreInstall: "Install from Google Play",
     vpnResultsNote: "Showing VPN apps available from our download sources. Major brands like NordVPN are not on public mirrors.",
+    feedbackPrompt: "Can't find this app?",
+    feedbackCta: "Send feedback — we'll add it ASAP",
   };
+}
+
+function buildSearchFeedbackMailto(query: string, locale: SiteLocale) {
+  const trimmed = query.trim();
+  const subject = locale === "zh" ? "App 搜索反馈" : "App search feedback";
+  const body =
+    locale === "zh"
+      ? `搜索关键词：${trimmed || "（未填写）"}\n\n我想找的应用：\n\n补充说明：\n`
+      : `Search query: ${trimmed || "(empty)"}\n\nApp I was looking for:\n\nDetails:\n`;
+  return `mailto:likaiwork12@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 }
 
 function buildPlayStoreHref(appId: string, lang?: string, country?: string) {
@@ -403,20 +417,23 @@ export default function SearchBox() {
       const isLikelyNetwork =
         err instanceof TypeError ||
         /failed to fetch|networkerror|load failed/i.test(message);
-      if (isLikelyNetwork) {
-        fetch("/api/track-search-failure", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            query,
-            queryType: queryTypeForLog,
-            failureKind: "client_error",
-            error: message,
-            lang: locale,
-            country: getDefaultSearchCountry(locale),
-          }),
-        }).catch(() => {});
-      }
+      const failureKind = isLikelyNetwork
+        ? "client_error"
+        : /^no apps found/i.test(rawMessage) || message === copy.noResultsError
+          ? "no_results"
+          : "search_error";
+      fetch("/api/track-search-failure", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          query,
+          queryType: queryTypeForLog,
+          failureKind,
+          error: message,
+          lang: locale,
+          country: getDefaultSearchCountry(locale),
+        }),
+      }).catch(() => {});
       setError(message);
       setFallback(getSearchFallback(query, locale));
       clearSearchCache(cacheKey);
@@ -489,8 +506,20 @@ export default function SearchBox() {
       </div>
 
       {error && (
-        <div className="mt-4 p-3 bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 rounded-lg text-sm text-center">
-          {error}
+        <div className="mt-4 rounded-lg bg-red-100 p-3 text-center text-sm text-red-600 dark:bg-red-900/30 dark:text-red-400">
+          <p>{error}</p>
+          {error !== copy.emptyError && (
+            <p className="mt-2 text-red-700 dark:text-red-300">
+              {copy.feedbackPrompt}{" "}
+              <a
+                href={buildSearchFeedbackMailto(url, locale)}
+                className="font-semibold underline hover:no-underline"
+              >
+                {copy.feedbackCta}
+              </a>
+              {locale === "zh" ? "。" : "."}
+            </p>
+          )}
           {fallback && (
             <div className="mt-2">
               <Link
