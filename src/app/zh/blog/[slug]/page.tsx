@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import Script from "next/script";
 import { zhSeoGeoPosts } from "@/lib/blog/zh-seo-geo-posts";
 import { zhPosts20260601 } from "@/lib/blog/posts-2026-06-01";
+import { zhPosts20260602Pol } from "@/lib/blog/posts-2026-06-02-police";
 
 interface BlogPost {
   slug: string;
@@ -18,6 +19,7 @@ interface BlogPost {
 const zhPosts: BlogPost[] = [
   ...zhSeoGeoPosts,
   ...zhPosts20260601,
+  ...zhPosts20260602Pol,
   {
     slug: "china-broker-app-list",
     title: "国内券商APP下载指南：同花顺东财华泰国信中信招商等主流券商APP包名大全",
