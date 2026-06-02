@@ -3,6 +3,8 @@
  * Order: more recognizable / stable mirrors first.
  */
 export const VPN_DOWNLOADABLE_APP_IDS = [
+  "cloud.centaur.gojgp",
+  "com.sticktoit",
   "com.shieldmeta.dash.s",
   "ch.protonvpn.android",
   "com.windscribe.vpn",

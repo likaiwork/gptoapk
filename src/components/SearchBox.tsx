@@ -136,6 +136,8 @@ function getSearchFallback(query: string, locale: SiteLocale): SearchFallback | 
     { match: (s) => s.includes("deepseek"), slug: "deepseek-apk", label: "DeepSeek APK" },
     { match: (s) => s.includes("豆包") || s.includes("doubao"), slug: "doubao-apk", label: "豆包 APK" },
     { match: (s) => s.includes("zoom"), slug: "zoom-apk", label: "Zoom APK" },
+    { match: (s) => s.includes("狗急") || s.includes("gouji"), slug: "vpn-apk", label: "狗急 VPN" },
+    { match: (s) => s === "老王" || s.includes("老王") || s.includes("laowang"), slug: "vpn-apk", label: "老王 VPN" },
   ];
 
   for (const { match, slug, label } of pageFallbacks) {

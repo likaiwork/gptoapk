@@ -605,6 +605,34 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
     aliases: ["windscribe", "windscribe vpn"],
   },
   {
+    appIds: ["cloud.centaur.gojgp"],
+    aliases: [
+      "狗急",
+      "狗急加速",
+      "狗急vpn",
+      "狗急加速器",
+      "gouji",
+      "gouji vpn",
+      "goujivpn",
+      "fastgouji",
+      "cloud.centaur.gojgp",
+      "cloud.centaur.goj",
+    ],
+  },
+  {
+    appIds: ["com.sticktoit"],
+    aliases: [
+      "老王",
+      "老王vpn",
+      "老王加速器",
+      "laowang",
+      "laowang vpn",
+      "laowangvpn",
+      "wang vpn",
+      "com.sticktoit",
+    ],
+  },
+  {
     appIds: ["com.google.android.gm"],
     aliases: ["gmail", "google mail", "谷歌邮箱", "gmail下载", "com.google.android.gm"],
   },
@@ -634,6 +662,7 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
 const PLAY_PACKAGE_ID_ALIASES: Readonly<Record<string, string>> = {
   "org.carnets": "com.spisoft.quicknote",
   "com.junote.junote": "com.fau.jupyternotebook",
+  "cloud.centaur.goj": "cloud.centaur.gojgp",
 };
 
 const SEARCH_ALIAS_APP_IDS = buildAliasMap();

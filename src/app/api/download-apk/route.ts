@@ -70,6 +70,16 @@ const APKCOMBO_SOURCE_PAGES: Record<string, { pageUrl: string; fileName: string;
     fileName: 'Schwab Mobile.apk',
     type: 'APK',
   },
+  'cloud.centaur.gojgp': {
+    pageUrl: 'https://apkcombo.com/gojgp/cloud.centaur.gojgp/download/apk',
+    fileName: '狗急加速VPN.apk',
+    type: 'APK',
+  },
+  'com.sticktoit': {
+    pageUrl: 'https://apkcombo.com/wang-vpn-fast-secure-vpn/com.sticktoit/download/apk',
+    fileName: '老王VPN.apk',
+    type: 'APK',
+  },
 };
 const ONLINE_APK_DOWNLOADER_PACKAGE_OVERRIDES: Record<string, { fileName: string; type: string }> = {
   'com.anthropic.claude': {

@@ -406,6 +406,18 @@ export async function GET(request: Request) {
 
   try {
     if (queryType === 'keyword' && isVpnKeyword(query)) {
+      let brandedVpn = await searchByAliasApps(query, requestedLang, requestedCountry);
+      if (brandedVpn.length === 0) {
+        const strippedVpn = stripSearchQueryNoise(query);
+        if (strippedVpn && strippedVpn !== query.trim().toLowerCase()) {
+          brandedVpn = await searchByAliasApps(strippedVpn, requestedLang, requestedCountry);
+        }
+      }
+      brandedVpn = brandedVpn.filter((app) => !isUnsupportedNoMirrorApp(app.appId));
+      if (brandedVpn.length > 0) {
+        return searchSuccessResponse(query, queryType, requestedLang, requestedCountry, brandedVpn);
+      }
+
       const results = await searchDownloadableVpnApps(requestedLang, requestedCountry);
       if (results.length === 0) {
         return searchFailureResponse(query, queryType, 'no_results', 'No apps found', 404, requestedLang, requestedCountry);
