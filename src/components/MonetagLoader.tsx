@@ -7,19 +7,32 @@ import {
   hasAdvertisingConsent,
 } from "@/lib/cookie-consent";
 import { injectMonetagTagScript } from "@/lib/monetag-inpage";
-import { isMonetagExcludedPath } from "@/lib/monetag";
+import {
+  isMobileAdViewport,
+  isMonetagExcludedPath,
+  unregisterMonetagServiceWorkers,
+} from "@/lib/monetag";
 
 /**
- * Loads Monetag tag.min.js after cookie consent (desktop + mobile, except download pages).
- * Tune popunder / onclick formats in the Monetag dashboard if needed.
+ * Loads Monetag tag.min.js after cookie consent (desktop only on most pages).
+ * Mobile skips MultiTag to avoid floating in-page / vignette ads over the search UI.
  */
 export default function MonetagLoader() {
   const pathname = usePathname();
 
   useEffect(() => {
+    if (isMobileAdViewport()) {
+      void unregisterMonetagServiceWorkers();
+      return;
+    }
+
     if (isMonetagExcludedPath(pathname)) return;
 
     const maybeLoad = () => {
+      if (isMobileAdViewport()) {
+        void unregisterMonetagServiceWorkers();
+        return;
+      }
       if (!hasAdvertisingConsent()) return;
       // Let React paint ad slots (SiteAdStrip) before the tag scans the DOM.
       requestAnimationFrame(() => {

@@ -5,11 +5,20 @@ import { usePathname } from "next/navigation";
 import AdPlacement from "@/components/AdPlacement";
 import { hasAdvertisingConsent } from "@/lib/cookie-consent";
 import { COOKIE_CONSENT_STORAGE_KEY } from "@/lib/cookie-consent";
-import { isMonetagExcludedPath } from "@/lib/monetag";
+import { isMonetagExcludedPath, MOBILE_AD_BREAKPOINT_PX } from "@/lib/monetag";
 
 export default function SiteAdStrip() {
   const pathname = usePathname();
   const [hasConsent, setHasConsent] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia(`(max-width: ${MOBILE_AD_BREAKPOINT_PX}px)`);
+    const syncViewport = () => setIsMobile(mq.matches);
+    syncViewport();
+    mq.addEventListener("change", syncViewport);
+    return () => mq.removeEventListener("change", syncViewport);
+  }, []);
 
   useEffect(() => {
     const sync = () => setHasConsent(hasAdvertisingConsent());
@@ -25,7 +34,7 @@ export default function SiteAdStrip() {
     };
   }, []);
 
-  if (isMonetagExcludedPath(pathname) || !hasConsent) return null;
+  if (isMonetagExcludedPath(pathname) || !hasConsent || isMobile) return null;
 
   return (
     <div className="border-t border-slate-200 bg-slate-50/50 dark:border-slate-800 dark:bg-slate-900/50">
