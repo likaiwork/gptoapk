@@ -11,6 +11,7 @@
     "content:reminder": "node scripts/content-queue.mjs reminder",
     "content:syndication": "node scripts/generate-syndication-pack.mjs",
     "repair-download-failures": "node scripts/repair-download-failures.mjs",
+    "repair-admin": "node scripts/run-admin-repair.mjs",
     "start": "next start",
     "lint": "eslint"
   },

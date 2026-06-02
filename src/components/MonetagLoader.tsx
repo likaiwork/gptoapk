@@ -7,11 +7,8 @@ import {
   hasAdvertisingConsent,
 } from "@/lib/cookie-consent";
 import { injectMonetagTagScript } from "@/lib/monetag-inpage";
-import {
-  isMobileAdViewport,
-  isMonetagExcludedPath,
-  unregisterMonetagServiceWorkers,
-} from "@/lib/monetag";
+import { teardownMonetagOnMobile } from "@/lib/monetag-cleanup";
+import { isMobileAdViewport, isMonetagExcludedPath } from "@/lib/monetag";
 
 /**
  * Loads Monetag tag.min.js after cookie consent (desktop only on most pages).
@@ -22,7 +19,7 @@ export default function MonetagLoader() {
 
   useEffect(() => {
     if (isMobileAdViewport()) {
-      void unregisterMonetagServiceWorkers();
+      void teardownMonetagOnMobile();
       return;
     }
 
@@ -30,7 +27,7 @@ export default function MonetagLoader() {
 
     const maybeLoad = () => {
       if (isMobileAdViewport()) {
-        void unregisterMonetagServiceWorkers();
+        void teardownMonetagOnMobile();
         return;
       }
       if (!hasAdvertisingConsent()) return;

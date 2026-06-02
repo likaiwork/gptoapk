@@ -1,4 +1,5 @@
 import {
+  isMobileAdViewport,
   MONETAG_MAIN_ZONE,
   MONETAG_TAG_SCRIPT_SRC,
 } from "@/lib/monetag";
@@ -11,6 +12,7 @@ export const MONETAG_TAG_SCRIPT_ID = `monetag-tag-${MONETAG_MAIN_ZONE}`;
  */
 export function injectMonetagTagScript(): void {
   if (typeof document === "undefined") return;
+  if (isMobileAdViewport()) return;
   if (document.getElementById(MONETAG_TAG_SCRIPT_ID)) return;
 
   const script = document.createElement("script");

@@ -10,9 +10,17 @@ export const MONETAG_TAG_SCRIPT_SRC = "https://quge5.com/88/tag.min.js";
 /** Viewports at or below this width skip MultiTag (in-page push / vignette / onclick). */
 export const MOBILE_AD_BREAKPOINT_PX = 768;
 
+export function isMobileUserAgent(userAgent: string): boolean {
+  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile/i.test(userAgent);
+}
+
 export function isMobileAdViewport(): boolean {
   if (typeof window === "undefined") return false;
-  return window.matchMedia(`(max-width: ${MOBILE_AD_BREAKPOINT_PX}px)`).matches;
+  if (window.matchMedia(`(max-width: ${MOBILE_AD_BREAKPOINT_PX}px)`).matches) return true;
+  if (isMobileUserAgent(navigator.userAgent)) return true;
+  const coarse = window.matchMedia("(pointer: coarse)").matches;
+  const noHover = window.matchMedia("(hover: none)").matches;
+  return coarse && noHover && window.matchMedia("(max-width: 1024px)").matches;
 }
 
 /** Best-effort cleanup when blocking Monetag on mobile (push SW). */

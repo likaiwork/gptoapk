@@ -17,11 +17,13 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
         ? body.limit
         : 5000;
     const batchSizeRaw = typeof body.batchSize === "number" ? body.batchSize : 500;
+    const liveProbeLimitRaw = typeof body.liveProbeLimit === "number" ? body.liveProbeLimit : 40;
     const maxChecks = Math.min(Math.max(maxChecksRaw, 1), 20000);
     const batchSize = Math.min(Math.max(batchSizeRaw, 50), 1000);
+    const liveProbeLimit = Math.min(Math.max(liveProbeLimitRaw, 0), 200);
 
     await initDatabase();
-    const result = await reconcileResolvableSearchFailures({ batchSize, maxChecks });
+    const result = await reconcileResolvableSearchFailures({ batchSize, maxChecks, liveProbeLimit });
 
     return NextResponse.json(
       {

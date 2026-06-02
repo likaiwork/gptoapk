@@ -2,8 +2,9 @@ import fs from "node:fs";
 
 const SITE_HOST = process.env.REPAIR_SITE_HOST || "https://gptoapk.com";
 const ADMIN_KEY = process.env.ADMIN_API_KEY || process.env.REPAIR_ADMIN_KEY || "gptoapk-admin-key-2026";
-// Default 2 = failure_count > 2 (i.e. 3+ failures). Matches hourly-repair-admin.yml.
-const FAILURE_THRESHOLD = Number(process.env.REPAIR_FAILURE_THRESHOLD || 2);
+// Default 0 = any failure_count >= 1. Matches scheduled-repair workflow.
+const FAILURE_THRESHOLD = Number(process.env.REPAIR_FAILURE_THRESHOLD ?? 0);
+const MAX_CANDIDATES = Number(process.env.REPAIR_MAX_CANDIDATES || 80);
 const PAGE_SIZE = Number(process.env.REPAIR_PAGE_SIZE || 100);
 const REQUEST_TIMEOUT_MS = Number(process.env.REPAIR_REQUEST_TIMEOUT_MS || 45000);
 const SOURCE_TIMEOUT_MS = Number(process.env.REPAIR_SOURCE_TIMEOUT_MS || 30000);
@@ -350,7 +351,8 @@ async function main() {
   const rows = await loadFailureRows();
   const candidates = rows
     .filter((item) => !item.resolved && Number(item.failure_count || 0) > FAILURE_THRESHOLD)
-    .sort((a, b) => Number(b.failure_count || 0) - Number(a.failure_count || 0));
+    .sort((a, b) => Number(b.failure_count || 0) - Number(a.failure_count || 0))
+    .slice(0, MAX_CANDIDATES);
 
   const inspected = [];
   for (const item of candidates) {

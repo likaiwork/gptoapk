@@ -1,12 +1,12 @@
-name: "🛠️ Hourly repair: download/search failures"
+name: "🛠️ Scheduled repair: download/search failures (every 30m)"
 
 on:
   schedule:
-    - cron: "0 * * * *" # every hour
+    - cron: "*/30 * * * *"
   workflow_dispatch:
 
 jobs:
-  hourly-repair:
+  scheduled-repair:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -19,29 +19,16 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Repair download failures (>2) and mark resolved
+      - name: Repair download + search failures on production
         env:
-          # Optional: if not set, scripts fall back to gptoapk-admin-key-2026
           ADMIN_API_KEY: ${{ secrets.ADMIN_API_KEY }}
           REPAIR_SITE_HOST: "https://www.gptoapk.com"
-          REPAIR_FAILURE_THRESHOLD: "2" # "超过2次" => failure_count > 2 (>= 3)
-          REPAIR_MARK_RESOLVED: "1"
-          REPAIR_PAGE_SIZE: "100"
+          REPAIR_FAILURE_THRESHOLD: "0"
+          REPAIR_MAX_APPS: "150"
+          REPAIR_SEARCH_MAX_CHECKS: "5000"
+          REPAIR_SEARCH_BATCH_SIZE: "500"
+          REPAIR_SEARCH_LIVE_PROBE_LIMIT: "40"
+          REPAIR_RUN_DEEP_SCRIPT: "1"
         run: |
           set -euo pipefail
-          # The script may exit with code 2 when some apps still cannot be downloaded.
-          # We still want to run the search reconciliation step afterwards.
-          node scripts/repair-download-failures.mjs --json || true
-
-      - name: Reconcile resolvable search failure keywords
-        if: ${{ always() }}
-        env:
-          ADMIN_API_KEY: ${{ secrets.ADMIN_API_KEY }}
-          SITE_HOST: "https://www.gptoapk.com"
-        run: |
-          set -euo pipefail
-          KEY="${ADMIN_API_KEY:-gptoapk-admin-key-2026}"
-          curl -sS -X POST "${SITE_HOST}/api/admin/search-failures/reconcile?key=${KEY}" \
-            -H "Content-Type: application/json" \
-            -d '{"maxChecks":5000,"batchSize":500}'
-
+          node scripts/run-admin-repair.mjs

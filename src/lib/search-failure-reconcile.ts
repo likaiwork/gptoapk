@@ -102,3 +102,41 @@ export function shouldPersistSearchFailure(
   if (failureKind === "query_too_long") return false;
   return true;
 }
+
+function repairSiteOrigin(): string {
+  const host =
+    process.env.REPAIR_SITE_HOST ||
+    process.env.NEXT_PUBLIC_SITE_URL ||
+    (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "") ||
+    "https://www.gptoapk.com";
+  return host.replace(/\/$/, "");
+}
+
+/** Calls production search-apps to verify a keyword now returns results (for cron reconcile). */
+export async function probeLiveSearchHasResults(
+  query: string,
+  options?: { lang?: string; country?: string; timeoutMs?: number },
+): Promise<boolean> {
+  const trimmed = query.trim();
+  if (!trimmed || trimmed.length > 200) return false;
+
+  const lang = (options?.lang || "en").slice(0, 8);
+  const country = (options?.country || (lang === "zh" ? "cn" : "us")).slice(0, 8);
+  const params = new URLSearchParams({ q: trimmed, hl: lang, gl: country });
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), options?.timeoutMs ?? 22_000);
+
+  try {
+    const res = await fetch(`${repairSiteOrigin()}/api/search-apps?${params}`, {
+      signal: controller.signal,
+      cache: "no-store",
+      headers: { "User-Agent": "gptoapk-search-reconcile/1.0" },
+    });
+    const data = (await res.json().catch(() => ({}))) as { results?: unknown[] };
+    return res.ok && Array.isArray(data.results) && data.results.length > 0;
+  } catch {
+    return false;
+  } finally {
+    clearTimeout(timer);
+  }
+}

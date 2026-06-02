@@ -35,3 +35,16 @@ body {
   contain: layout paint;
   max-width: 100%;
 }
+
+/* Mobile: hide Monetag push / in-page iframes if script slips through */
+@media (max-width: 768px) {
+  iframe[src*="3nbf4.com"],
+  iframe[src*="quge5.com"],
+  iframe[src*="saptag.com"] {
+    display: none !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    height: 0 !important;
+    width: 0 !important;
+  }
+}

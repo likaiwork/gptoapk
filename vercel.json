@@ -1,6 +1,12 @@
 {
   "buildCommand": "npx next build",
   "installCommand": "npm install --include=optional --force",
+  "crons": [
+    {
+      "path": "/api/cron/repair-failures",
+      "schedule": "*/30 * * * *"
+    }
+  ],
   "rewrites": [
     {
       "source": "/sw.js",

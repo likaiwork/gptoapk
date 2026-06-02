@@ -84,8 +84,8 @@ export async function runAdminDownloadFailureRepair(options?: {
   failureThreshold?: number;
   maxApps?: number;
 }): Promise<DownloadRepairReport> {
-  const failureThreshold = options?.failureThreshold ?? 2;
-  const maxApps = Math.min(Math.max(options?.maxApps ?? 80, 1), 200);
+  const failureThreshold = options?.failureThreshold ?? 0;
+  const maxApps = Math.min(Math.max(options?.maxApps ?? 150, 1), 200);
   const errors: string[] = [];
 
   await initDatabase();

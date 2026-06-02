@@ -12,8 +12,8 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     }
 
     const body = await request.json().catch(() => ({}));
-    const failureThreshold = typeof body.failureThreshold === "number" ? body.failureThreshold : 2;
-    const maxApps = typeof body.maxApps === "number" ? body.maxApps : 80;
+    const failureThreshold = typeof body.failureThreshold === "number" ? body.failureThreshold : 0;
+    const maxApps = typeof body.maxApps === "number" ? body.maxApps : 150;
 
     await initDatabase();
     const report = await runAdminDownloadFailureRepair({ failureThreshold, maxApps });

@@ -1,6 +1,6 @@
 import { createPool } from "@vercel/postgres";
 import type { QueryResultRow } from "@vercel/postgres";
-import { canResolveSearchQueryNow } from "@/lib/search-failure-reconcile";
+import { canResolveSearchQueryNow, probeLiveSearchHasResults } from "@/lib/search-failure-reconcile";
 import { normalizeUserSearchQuery } from "@/lib/normalize-user-search-query";
 import { getAliasLookupKeys, stripSearchQueryNoise } from "@/lib/search-query-normalize";
 import { normalizeSearchQuery } from "@/lib/search-failure-key";
@@ -1129,20 +1129,32 @@ export async function autoResolveDismissibleSearchFailures(): Promise<number> {
 export async function reconcileResolvableSearchFailures(options?: {
   batchSize?: number;
   maxChecks?: number;
-}): Promise<{ checked: number; resolved: number; dismissed: number }> {
+  liveProbeLimit?: number;
+}): Promise<{ checked: number; resolved: number; dismissed: number; liveResolved: number }> {
   const batchSize = Math.min(Math.max(options?.batchSize ?? 500, 50), 1000);
   const maxChecks = Math.min(Math.max(options?.maxChecks ?? 5000, batchSize), 20000);
+  const liveProbeLimit = Math.min(Math.max(options?.liveProbeLimit ?? 40, 0), 200);
 
   await initDatabase();
   const dismissed = await autoResolveDismissibleSearchFailures();
 
   let checked = 0;
   let resolved = 0;
+  let liveResolved = 0;
+  let liveProbes = 0;
   let offset = 0;
 
   while (checked < maxChecks) {
-    const rows = await sqlRaw<{ query_key: string; query: string }>(
-      `SELECT query_key, query
+    const rows = await sqlRaw<{
+      query_key: string;
+      query: string;
+      failure_kind: string;
+      last_lang: string;
+      last_country: string;
+    }>(
+      `SELECT query_key, query, failure_kind,
+              COALESCE(last_lang, '') as last_lang,
+              COALESCE(last_country, '') as last_country
        FROM search_failure_queries
        WHERE resolved = FALSE
        ORDER BY last_failed_at DESC
@@ -1157,12 +1169,34 @@ export async function reconcileResolvableSearchFailures(options?: {
       checked += 1;
       const candidates = [row.query, normalizeUserSearchQuery(row.query)];
       const unique = [...new Set(candidates.map((q) => q.trim()).filter(Boolean))];
-      const resolvable = unique.some((q) => canResolveSearchQueryNow(q));
-      if (!resolvable) continue;
-      const count = await resolveSearchFailuresForQuery(unique[0]!);
-      if (count > 0) {
-        resolved += count;
-        resolvedInBatch += 1;
+      let didResolve = false;
+
+      if (unique.some((q) => canResolveSearchQueryNow(q))) {
+        const count = await resolveSearchFailuresForQuery(unique[0]!);
+        if (count > 0) {
+          resolved += count;
+          resolvedInBatch += 1;
+          didResolve = true;
+        }
+      }
+
+      if (
+        !didResolve &&
+        liveProbes < liveProbeLimit &&
+        (row.failure_kind === "no_results" || row.failure_kind === "search_error")
+      ) {
+        liveProbes += 1;
+        const lang = row.last_lang || "en";
+        const country = row.last_country || (lang === "zh" ? "cn" : "us");
+        const liveOk = await probeLiveSearchHasResults(unique[0]!, { lang, country });
+        if (liveOk) {
+          const count = await resolveSearchFailuresForQuery(unique[0]!);
+          if (count > 0) {
+            resolved += count;
+            liveResolved += count;
+            resolvedInBatch += 1;
+          }
+        }
       }
     }
 
@@ -1174,7 +1208,7 @@ export async function reconcileResolvableSearchFailures(options?: {
     if (rows.length < batchSize) break;
   }
 
-  return { checked, resolved, dismissed };
+  return { checked, resolved, dismissed, liveResolved };
 }
 
 export async function getSearchFailureQueries(

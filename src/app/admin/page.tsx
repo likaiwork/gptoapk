@@ -1093,6 +1093,7 @@ function Dashboard({
         </div>
         <p className="mt-2 text-xs text-gray-500">
           含 No apps found、无效 Play 链接、搜索异常等；成功搜到结果后会自动标记为已解决。可据此补充 search-aliases 映射。
+          系统每 30 分钟自动校验并线上复测未解决关键词。
         </p>
       </div>
 
@@ -1314,6 +1315,9 @@ function Dashboard({
             <PageControl page={failurePage} total={data.download_failures_total} onPageChange={onFailurePageChange} />
           </div>
         </div>
+        <p className="mt-2 text-xs text-gray-500">
+          系统每 30 分钟自动复测下载接口；已恢复可下载的会标记为已解决，付费/无镜像会结案。
+        </p>
       </div>
 
       {/* Visitor List */}
@@ -1784,7 +1788,7 @@ export default function AdminPage() {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           cache: "no-store",
-          body: JSON.stringify({ maxChecks: 5000, batchSize: 500 }),
+          body: JSON.stringify({ maxChecks: 5000, batchSize: 500, liveProbeLimit: 40 }),
         },
       );
       const body = await res.json().catch(() => null) as {
@@ -1792,6 +1796,7 @@ export default function AdminPage() {
         checked?: number;
         resolved?: number;
         dismissed?: number;
+        liveResolved?: number;
         totalResolved?: number;
       } | null;
       if (!res.ok) {
@@ -1803,7 +1808,7 @@ export default function AdminPage() {
         const total = body.totalResolved ?? body.resolved ?? 0;
         setNotice(
           total > 0
-            ? `搜索失败：已校验 ${body.checked} 条，结案 ${total} 条（含别名/兜底 ${body.resolved ?? 0}，无效请求 ${body.dismissed ?? 0}）。`
+            ? `搜索失败：已校验 ${body.checked} 条，结案 ${total} 条（别名/兜底 ${body.resolved ?? 0}，线上复测 ${body.liveResolved ?? 0}，无效请求 ${body.dismissed ?? 0}）。`
             : `搜索失败：已校验 ${body.checked} 条，暂无新增可自动结案记录。`,
         );
       }
@@ -1826,7 +1831,7 @@ export default function AdminPage() {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           cache: "no-store",
-          body: JSON.stringify({ failureThreshold: 2, maxApps: 80 }),
+          body: JSON.stringify({ failureThreshold: 0, maxApps: 150 }),
         },
       );
       const body = await res.json().catch(() => null) as {
