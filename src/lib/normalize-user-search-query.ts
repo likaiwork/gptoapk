@@ -41,6 +41,8 @@ export function normalizeUserSearchQuery(query: string): string {
   if (/^https?:\/\/(www\.)?(telegram|t)\.(org|me)\/?/i.test(trimmed)) return "telegram";
   if (/^https?:\/\/(www\.)?instagram\.com\/?/i.test(trimmed)) return "instagram";
   if (/^https?:\/\/(www\.)?discord(?:app)?\.com\/?/i.test(trimmed)) return "discord";
+  if (/^https?:\/\/(www\.)?(qq|im)\.qq\.com\/?/i.test(trimmed)) return "qq";
+  if (/^https?:\/\/(www\.)?weixin\.qq\.com\/?/i.test(trimmed)) return "微信";
   if (/^https?:\/\/(www\.)?netflix\.com\/?/i.test(trimmed)) return "netflix";
   if (/^https?:\/\/(open\.)?spotify\.com\/?/i.test(trimmed)) return "spotify";
   if (/^https?:\/\/(www\.)?gemini\.google\.com\/?/i.test(trimmed)) return "gemini";

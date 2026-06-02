@@ -294,6 +294,52 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
     aliases: ["微信", "wechat", "we chat", "com.tencent.mm"],
   },
   {
+    appIds: ["com.tencent.mobileqq"],
+    aliases: [
+      "qq",
+      "qq下载",
+      "qq apk",
+      "qq官方",
+      "手机qq",
+      "手机QQ",
+      "腾讯qq",
+      "腾讯QQ",
+      "com.tencent.mobileqq",
+    ],
+  },
+  {
+    appIds: ["com.ss.android.ugc.aweme"],
+    aliases: ["抖音", "douyin", "抖音下载", "com.ss.android.ugc.aweme"],
+  },
+  {
+    appIds: ["com.smile.gifmaker"],
+    aliases: ["快手", "kuaishou", "快手下载", "com.smile.gifmaker"],
+  },
+  {
+    appIds: ["com.baidu.searchbox"],
+    aliases: ["百度", "baidu", "手机百度", "com.baidu.searchbox"],
+  },
+  {
+    appIds: ["com.jingdong.app.mall"],
+    aliases: ["京东", "jd", "京东商城", "com.jingdong.app.mall"],
+  },
+  {
+    appIds: ["com.sankuai.meituan"],
+    aliases: ["美团", "meituan", "美团外卖", "com.sankuai.meituan"],
+  },
+  {
+    appIds: ["tv.danmaku.bili"],
+    aliases: ["bilibili", "哔哩哔哩", "b站", "B站", "com.bilibili", "tv.danmaku.bili"],
+  },
+  {
+    appIds: ["com.xingin.xhs"],
+    aliases: ["小红书", "xiaohongshu", "红书", "com.xingin.xhs"],
+  },
+  {
+    appIds: ["com.tencent.qqmusic"],
+    aliases: ["qq音乐", "qqmusic", "QQ音乐", "com.tencent.qqmusic"],
+  },
+  {
     appIds: ["com.twitter.android"],
     aliases: [
       "twitter",
