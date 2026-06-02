@@ -52,6 +52,16 @@ export function normalizeUserSearchQuery(query: string): string {
   if (/^https?:\/\/(www\.)?gemini\.google\.com\/?/i.test(trimmed)) return "gemini";
   if (/^https?:\/\/(www\.)?claude\.ai\/?/i.test(trimmed)) return "claude";
   if (/^https?:\/\/(www\.)?vietcombank\.com\.vn\/?/i.test(trimmed)) return "vietcombank";
+  if (/^https?:\/\/(www\.)?techcombank\.com\.vn\/?/i.test(trimmed)) return "techcombank";
+  if (/^https?:\/\/(www\.)?bidv\.com\.vn\/?/i.test(trimmed)) return "bidv";
+  if (/^https?:\/\/(www\.)?mbbank\.com\.vn\/?/i.test(trimmed)) return "mb bank";
+  if (/^https?:\/\/(www\.)?momo\.vn\/?/i.test(trimmed)) return "momo";
+  if (/^https?:\/\/(www\.)?zalopay\.vn\/?/i.test(trimmed)) return "zalopay";
+  if (/^https?:\/\/(www\.)?grab\.com\/?/i.test(trimmed)) return "grab";
+  if (/^https?:\/\/(www\.)?gojek\.com\/?/i.test(trimmed)) return "gojek";
+  if (/^https?:\/\/(www\.)?shopee\.(vn|com)\/?/i.test(trimmed)) return "shopee";
+  if (/^https?:\/\/(www\.)?copilot\.microsoft\.com\/?/i.test(trimmed)) return "copilot";
+  if (/^https?:\/\/(www\.)?perplexity\.ai\/?/i.test(trimmed)) return "perplexity";
   if (/^https?:\/\/(www\.)?deepseek\.com\/?/i.test(trimmed)) return "deepseek";
   return trimmed;
 }

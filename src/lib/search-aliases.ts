@@ -160,7 +160,15 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
   },
   {
     appIds: ["ai.x.grok"],
-    aliases: ["grok", "x grok", "grok ai"],
+    aliases: ["grok", "x grok", "grok ai", "xai", "x ai"],
+  },
+  {
+    appIds: ["com.microsoft.copilot"],
+    aliases: ["copilot", "microsoft copilot", "ms copilot", "com.microsoft.copilot"],
+  },
+  {
+    appIds: ["ai.perplexity.app.android"],
+    aliases: ["perplexity", "perplexity ai", "pplx", "ai.perplexity.app.android"],
   },
   {
     appIds: ["com.tinder"],
@@ -358,6 +366,125 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
       "com.VCB",
     ],
   },
+  // —— Vietnam & SEA: banks / e-wallets ——
+  {
+    appIds: ["vn.com.techcombank.bb.app"],
+    aliases: [
+      "techcombank",
+      "techcom",
+      "tcb",
+      "techcombank mobile",
+      "vn.com.techcombank.bb.app",
+    ],
+  },
+  {
+    appIds: ["com.vnpay.bidv"],
+    aliases: ["bidv", "bidv smartbanking", "smartbanking bidv", "com.vnpay.bidv"],
+  },
+  {
+    appIds: ["com.mbmobile"],
+    aliases: ["mb bank", "mbbank", "mbbank app", "military bank", "com.mbmobile"],
+  },
+  {
+    appIds: ["com.vietinbank.ipay"],
+    aliases: ["vietinbank", "vietin bank", "vietin", "ipay", "com.vietinbank.ipay"],
+  },
+  {
+    appIds: ["com.vnpay.vpbankonline"],
+    aliases: ["vpbank", "vp bank", "vpbank neo", "com.vnpay.vpbankonline"],
+  },
+  {
+    appIds: ["com.tpb.mb.gprsandroid"],
+    aliases: ["tpbank", "tp bank", "tiên phong", "com.tpb.mb.gprsandroid"],
+  },
+  {
+    appIds: ["mobile.acb.com.vn"],
+    aliases: ["acb", "acb one", "acb bank", "mobile.acb.com.vn"],
+  },
+  {
+    appIds: ["com.vnpay.Agribank3g"],
+    aliases: ["agribank", "agri bank", "com.vnpay.agribank3g", "com.vnpay.Agribank3g"],
+  },
+  {
+    appIds: ["vn.shb.mbanking"],
+    aliases: ["shb", "shb bank", "shb mobile", "vn.shb.mbanking"],
+  },
+  {
+    appIds: ["vn.com.msb.smartBanking"],
+    aliases: ["msb", "msb bank", "maritime bank", "vn.com.msb.smartbanking"],
+  },
+  {
+    appIds: ["com.sacombank.ewallet"],
+    aliases: ["sacombank", "saco bank", "com.sacombank.ewallet"],
+  },
+  {
+    appIds: ["com.ocb.omniextra"],
+    aliases: ["ocb", "ocb bank", "phuong dong", "com.ocb.omniextra"],
+  },
+  {
+    appIds: ["com.vib.myvib2"],
+    aliases: ["vib", "vib bank", "myvib", "com.vib.myvib2"],
+  },
+  {
+    appIds: ["com.mservice.momotransfer"],
+    aliases: ["momo", "vi momo", "momo wallet", "com.mservice.momotransfer"],
+  },
+  {
+    appIds: ["vn.com.vng.zalopay"],
+    aliases: ["zalopay", "zalo pay", "zalo pay vietnam", "vn.com.vng.zalopay"],
+  },
+  {
+    appIds: ["com.grabtaxi.passenger"],
+    aliases: ["grab", "grab app", "com.grabtaxi.passenger"],
+  },
+  {
+    appIds: ["com.gojek.app"],
+    aliases: ["gojek", "go-jek", "com.gojek.app"],
+  },
+  {
+    appIds: ["com.shopee.vn"],
+    aliases: ["shopee", "shopee vn", "shopee vietnam", "com.shopee.vn"],
+  },
+  {
+    appIds: ["com.shopee.th"],
+    aliases: ["shopee th", "shopee thailand", "com.shopee.th"],
+  },
+  {
+    appIds: ["com.shopee.id"],
+    aliases: ["shopee id", "shopee indonesia", "com.shopee.id"],
+  },
+  {
+    appIds: ["com.scb.phone"],
+    aliases: ["scb", "scb easy", "scb thailand", "ไทยพาณิชย์", "com.scb.phone"],
+  },
+  {
+    appIds: ["com.kasikornbank.kplus"],
+    aliases: ["kbank", "k plus", "kasikorn", "kasikornbank", "com.kasikornbank.kplus"],
+  },
+  {
+    appIds: ["com.bbl.mobilebanking"],
+    aliases: ["bbl", "bangkok bank", "com.bbl.mobilebanking"],
+  },
+  {
+    appIds: ["com.dbs.sg.dbsmbapp"],
+    aliases: ["dbs", "dbs bank", "dbs singapore", "com.dbs.sg.dbsmbapp"],
+  },
+  {
+    appIds: ["com.ocbc.mobile"],
+    aliases: ["ocbc", "ocbc bank", "com.ocbc.mobile"],
+  },
+  {
+    appIds: ["com.maybank2u.life"],
+    aliases: ["maybank", "maybank2u", "maybank malaysia", "com.maybank2u.life"],
+  },
+  {
+    appIds: ["com.bca"],
+    aliases: ["bca", "bca mobile", "bank central asia", "com.bca"],
+  },
+  {
+    appIds: ["com.globe.gcash.android"],
+    aliases: ["gcash", "g cash", "com.globe.gcash.android"],
+  },
   {
     appIds: ["com.twitter.android"],
     aliases: [
@@ -534,6 +661,8 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
     appIds: ["com.google.android.apps.bard"],
     aliases: [
       "gemini",
+      "bard",
+      "google bard",
       "google gemini",
       "gemini ai",
       "gemini下载",
@@ -548,6 +677,7 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
     aliases: [
       "claude",
       "claude ai",
+      "anthropic",
       "anthropic claude",
       "claude下载",
       "claude apk",
@@ -561,7 +691,7 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
   },
   {
     appIds: ["com.deepseek.chat"],
-    aliases: ["deepseek", "deep seek", "deepseek ai", "com.deepseek.chat", "deepseek下载", "deepseek apk"],
+    aliases: ["deepseek", "deep seek", "ds", "deepseek ai", "com.deepseek.chat", "deepseek下载", "deepseek apk"],
   },
   {
     appIds: ["com.moonshot.kimichat"],
