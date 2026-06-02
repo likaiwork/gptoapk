@@ -16,6 +16,12 @@ import type { SearchFailureKind } from '@/lib/search-failure-key';
 import { shouldPersistSearchFailure } from '@/lib/search-failure-reconcile';
 import { normalizeUserSearchQuery } from '@/lib/normalize-user-search-query';
 
+/**
+ * Search pipeline (keyword):
+ * 1) Brand alias table (search-aliases.ts) — works when Google Play is blocked
+ * 2) google-play-scraper search/suggest/list + HTML scrape fallbacks
+ * 3) Per-app detail via gplay.app(), else curated / package-id fallback
+ */
 export const runtime = 'nodejs';
 export const maxDuration = 60;
 

@@ -47,8 +47,11 @@ export function normalizeUserSearchQuery(query: string): string {
   if (/^https?:\/\/([\w-]+\.)?acelaowang\.net\/?/i.test(trimmed)) return "老王";
   if (/^https?:\/\/(www\.)?netflix\.com\/?/i.test(trimmed)) return "netflix";
   if (/^https?:\/\/(open\.)?spotify\.com\/?/i.test(trimmed)) return "spotify";
+  if (/^https?:\/\/(www\.)?openai\.com\/?/i.test(trimmed)) return "chatgpt";
+  if (/^https?:\/\/(www\.)?chat\.openai\.com\/?/i.test(trimmed)) return "chatgpt";
   if (/^https?:\/\/(www\.)?gemini\.google\.com\/?/i.test(trimmed)) return "gemini";
   if (/^https?:\/\/(www\.)?claude\.ai\/?/i.test(trimmed)) return "claude";
+  if (/^https?:\/\/(www\.)?vietcombank\.com\.vn\/?/i.test(trimmed)) return "vietcombank";
   if (/^https?:\/\/(www\.)?deepseek\.com\/?/i.test(trimmed)) return "deepseek";
   return trimmed;
 }

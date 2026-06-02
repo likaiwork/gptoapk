@@ -70,6 +70,11 @@ const APKCOMBO_SOURCE_PAGES: Record<string, { pageUrl: string; fileName: string;
     fileName: 'Schwab Mobile.apk',
     type: 'APK',
   },
+  'com.VCB': {
+    pageUrl: 'https://apkcombo.com/vcb-digibank/com.VCB/download/apk',
+    fileName: 'VCB Digibank.apk',
+    type: 'APK',
+  },
   'cloud.centaur.gojgp': {
     pageUrl: 'https://apkcombo.com/gojgp/cloud.centaur.gojgp/download/apk',
     fileName: '狗急加速VPN.apk',

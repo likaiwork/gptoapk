@@ -219,6 +219,10 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
   {
     appIds: ["com.openai.chatgpt"],
     aliases: [
+      "gpt",
+      "openai",
+      "openai gpt",
+      "chat gpt",
       "chatgpt",
       "chatgpt下载",
       "chatgpt怎么下载",
@@ -338,6 +342,21 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
   {
     appIds: ["com.tencent.qqmusic"],
     aliases: ["qq音乐", "qqmusic", "QQ音乐", "com.tencent.qqmusic"],
+  },
+  {
+    appIds: ["com.VCB"],
+    aliases: [
+      "vietcombank",
+      "vietcom bank",
+      "vietcom",
+      "vcb",
+      "vcb digibank",
+      "vcb digi",
+      "digibank",
+      "越南外贸银行",
+      "com.vcb",
+      "com.VCB",
+    ],
   },
   {
     appIds: ["com.twitter.android"],
@@ -767,6 +786,25 @@ function resolveByLongestContainedAlias(stripped: string): readonly string[] | n
   return null;
 }
 
+/** e.g. "vietcom" → vietcombank when only one appId matches prefix aliases. */
+function resolveByUniquePrefixAlias(stripped: string): readonly string[] | null {
+  if (stripped.length < 3 || isCjkAlias(stripped)) return null;
+
+  const byAppIds = new Map<string, readonly string[]>();
+
+  for (const alias of SORTED_ALIAS_KEYS) {
+    if (alias.length < stripped.length) continue;
+    if (!alias.startsWith(stripped)) continue;
+
+    const appIds = SEARCH_ALIAS_APP_IDS[alias];
+    if (!appIds?.length) continue;
+    byAppIds.set(appIds.join("\0"), appIds);
+  }
+
+  if (byAppIds.size === 1) return [...byAppIds.values()][0]!;
+  return null;
+}
+
 export function resolveSearchAliasAppIds(query: string): readonly string[] | null {
   const trimmed = query.trim();
   if (!trimmed) return null;
@@ -777,5 +815,8 @@ export function resolveSearchAliasAppIds(query: string): readonly string[] | nul
   }
 
   const stripped = stripSearchQueryNoise(trimmed);
-  return resolveByLongestContainedAlias(stripped);
+  const contained = resolveByLongestContainedAlias(stripped);
+  if (contained?.length) return contained;
+
+  return resolveByUniquePrefixAlias(stripped);
 }
