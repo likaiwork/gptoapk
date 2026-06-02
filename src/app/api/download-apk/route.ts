@@ -60,6 +60,16 @@ const APKCOMBO_SOURCE_PAGES: Record<string, { pageUrl: string; fileName: string;
     fileName: 'WhatsApp.apk',
     type: 'APK',
   },
+  'com.kwai.video': {
+    pageUrl: 'https://apkcombo.com/kwai/com.kwai.video/download/apk',
+    fileName: 'Kwai.apk',
+    type: 'APK',
+  },
+  'com.smile.gifmaker': {
+    pageUrl: 'https://apkcombo.com/kuaishou/com.smile.gifmaker/download/apk',
+    fileName: 'Kuaishou.apk',
+    type: 'APK',
+  },
   'com.adobe.lrmobile': {
     pageUrl: 'https://apkcombo.com/adobe-lightroom/com.adobe.lrmobile/download/apk',
     fileName: 'Adobe Lightroom.apk',

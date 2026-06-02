@@ -324,8 +324,19 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
     aliases: ["抖音", "douyin", "抖音下载", "com.ss.android.ugc.aweme"],
   },
   {
-    appIds: ["com.smile.gifmaker"],
-    aliases: ["快手", "kuaishou", "快手下载", "com.smile.gifmaker"],
+    appIds: ["com.kwai.video", "com.smile.gifmaker"],
+    aliases: [
+      "kwai",
+      "kwai app",
+      "kwai下载",
+      "kwai apk",
+      "kwai官方",
+      "com.kwai.video",
+      "快手",
+      "kuaishou",
+      "快手下载",
+      "com.smile.gifmaker",
+    ],
   },
   {
     appIds: ["com.baidu.searchbox"],
