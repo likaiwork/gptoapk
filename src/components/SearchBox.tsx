@@ -87,6 +87,9 @@ function getLocalizedCopy(locale: SiteLocale) {
       vpnResultsNote: "以下为镜像站可下载的 VPN 应用（NordVPN 等大厂客户端通常不提供公开 APK）。",
       feedbackPrompt: "找不到该 App？",
       feedbackCta: "立即反馈给我们，我们马上处理",
+      feedbackSent: "反馈已提交，我们会尽快处理。",
+      feedbackSubmitting: "提交中…",
+      feedbackError: "提交失败，请稍后再试。",
     };
   }
 
@@ -105,17 +108,17 @@ function getLocalizedCopy(locale: SiteLocale) {
     vpnResultsNote: "Showing VPN apps available from our download sources. Major brands like NordVPN are not on public mirrors.",
     feedbackPrompt: "Can't find this app?",
     feedbackCta: "Send feedback — we'll add it ASAP",
+    feedbackSent: "Feedback received — we'll handle it soon.",
+    feedbackSubmitting: "Sending…",
+    feedbackError: "Could not send feedback. Please try again.",
   };
 }
 
-function buildSearchFeedbackMailto(query: string, locale: SiteLocale) {
-  const trimmed = query.trim();
-  const subject = locale === "zh" ? "App 搜索反馈" : "App search feedback";
-  const body =
-    locale === "zh"
-      ? `搜索关键词：${trimmed || "（未填写）"}\n\n我想找的应用：\n\n补充说明：\n`
-      : `Search query: ${trimmed || "(empty)"}\n\nApp I was looking for:\n\nDetails:\n`;
-  return `mailto:likaiwork12@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+function getQueryTypeForFeedback(query: string): QueryType {
+  const inputType = getInputType(query);
+  if (inputType === "google_play_url") return "url";
+  if (inputType === "package_name") return "package";
+  return "keyword";
 }
 
 function buildPlayStoreHref(appId: string, lang?: string, country?: string) {
@@ -257,6 +260,7 @@ export default function SearchBox() {
   const [resultLang, setResultLang] = useState("en");
   const [resultCountry, setResultCountry] = useState("us");
   const [fallback, setFallback] = useState<SearchFallback | null>(null);
+  const [feedbackStatus, setFeedbackStatus] = useState<"idle" | "submitting" | "sent" | "error">("idle");
   const pathname = usePathname();
   const localeMatch = pathname.match(localePathRegex);
   const locale = (localeMatch?.[1] as SiteLocale | undefined) ?? "en";
@@ -273,6 +277,7 @@ export default function SearchBox() {
     setError("");
     setIsFetching(false);
     setFallback(null);
+    setFeedbackStatus("idle");
     clearSearchCache(cacheKey);
   };
 
@@ -343,6 +348,7 @@ export default function SearchBox() {
     setError("");
     setResults([]);
     setFallback(null);
+    setFeedbackStatus("idle");
 
     try {
       let { res, data, country: searchCountry } = await fetchSearchApps(query, locale);
@@ -442,6 +448,35 @@ export default function SearchBox() {
     }
   };
 
+  const handleMissingAppFeedback = async () => {
+    const query = url.trim();
+    if (!query || feedbackStatus === "submitting" || feedbackStatus === "sent") return;
+
+    setFeedbackStatus("submitting");
+    try {
+      const res = await fetch("/api/feedback-missing-app", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          query,
+          queryType: getQueryTypeForFeedback(query),
+          error: error || copy.noResultsError,
+          locale,
+          country: getDefaultSearchCountry(locale),
+          pagePath: pathname,
+        }),
+      });
+      const body = (await res.json().catch(() => ({}))) as { success?: boolean };
+      if (!res.ok || !body.success) {
+        setFeedbackStatus("error");
+        return;
+      }
+      setFeedbackStatus("sent");
+    } catch {
+      setFeedbackStatus("error");
+    }
+  };
+
   const saveCurrentSearchPosition = () => {
     if (!results.length) return;
 
@@ -510,14 +545,25 @@ export default function SearchBox() {
           <p>{error}</p>
           {error !== copy.emptyError && (
             <p className="mt-2 text-red-700 dark:text-red-300">
-              {copy.feedbackPrompt}{" "}
-              <a
-                href={buildSearchFeedbackMailto(url, locale)}
-                className="font-semibold underline hover:no-underline"
-              >
-                {copy.feedbackCta}
-              </a>
-              {locale === "zh" ? "。" : "."}
+              {feedbackStatus === "sent" ? (
+                <span className="font-medium text-emerald-700 dark:text-emerald-400">{copy.feedbackSent}</span>
+              ) : (
+                <>
+                  {copy.feedbackPrompt}{" "}
+                  <button
+                    type="button"
+                    onClick={() => { void handleMissingAppFeedback(); }}
+                    disabled={feedbackStatus === "submitting"}
+                    className="font-semibold underline hover:no-underline disabled:opacity-60"
+                  >
+                    {feedbackStatus === "submitting" ? copy.feedbackSubmitting : copy.feedbackCta}
+                  </button>
+                  {feedbackStatus === "error" && (
+                    <span className="ml-1 text-red-600 dark:text-red-400">({copy.feedbackError})</span>
+                  )}
+                  {feedbackStatus === "idle" && (locale === "zh" ? "。" : ".")}
+                </>
+              )}
             </p>
           )}
           {fallback && (

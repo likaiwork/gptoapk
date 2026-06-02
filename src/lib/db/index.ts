@@ -93,6 +93,33 @@ export interface SearchFailureQuery {
   updated_at: string;
 }
 
+export interface MissingAppFeedback {
+  id: number;
+  query: string;
+  normalized_query: string;
+  query_type: string;
+  error_message: string;
+  locale: string;
+  country: string;
+  page_path: string;
+  visitor_id: string;
+  ip_country: string;
+  is_mobile: boolean;
+  status: "pending" | "done";
+  created_at: string;
+  handled_at: string | null;
+}
+
+export interface MissingAppFeedbackParams {
+  query: string;
+  queryType?: string;
+  errorMessage?: string;
+  locale?: string;
+  country?: string;
+  pagePath?: string;
+  visitorId?: string;
+}
+
 export interface SearchFailureLogParams {
   query: string;
   queryType: string;
@@ -341,6 +368,25 @@ export async function initDatabase(): Promise<void> {
     )
   `;
 
+  await sql`
+    CREATE TABLE IF NOT EXISTS missing_app_feedback (
+      id BIGSERIAL PRIMARY KEY,
+      query TEXT NOT NULL,
+      normalized_query TEXT NOT NULL DEFAULT '',
+      query_type TEXT DEFAULT 'keyword',
+      error_message TEXT DEFAULT '',
+      locale TEXT DEFAULT '',
+      country TEXT DEFAULT '',
+      page_path TEXT DEFAULT '',
+      visitor_id TEXT DEFAULT '',
+      ip_country TEXT DEFAULT '',
+      is_mobile BOOLEAN DEFAULT FALSE,
+      status TEXT NOT NULL DEFAULT 'pending',
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      handled_at TIMESTAMPTZ
+    )
+  `;
+
   try { await sql`CREATE INDEX IF NOT EXISTS idx_search_visitor ON search_logs(visitor_id)`; } catch {}
   try { await sql`CREATE INDEX IF NOT EXISTS idx_search_app ON search_logs(app_id)`; } catch {}
   try { await sql`CREATE INDEX IF NOT EXISTS idx_search_timestamp ON search_logs(timestamp)`; } catch {}
@@ -351,6 +397,7 @@ export async function initDatabase(): Promise<void> {
   try { await sql`CREATE INDEX IF NOT EXISTS idx_manual_download_active ON manual_download_sources(active, updated_at DESC)`; } catch {}
   try { await sql`CREATE INDEX IF NOT EXISTS idx_search_failure_resolved ON search_failure_queries(resolved, last_failed_at DESC)`; } catch {}
   try { await sql`CREATE INDEX IF NOT EXISTS idx_search_failure_normalized ON search_failure_queries(normalized_query, query_type)`; } catch {}
+  try { await sql`CREATE INDEX IF NOT EXISTS idx_missing_app_feedback_status ON missing_app_feedback(status, created_at DESC)`; } catch {}
 
   // 迁移: 旧表没有的列
   const migrationQueries = [
@@ -1176,6 +1223,104 @@ export async function updateSearchFailureResolved(queryKey: string, resolved: bo
      WHERE query_key = $1
      RETURNING query_key`,
     [queryKey, resolved],
+  );
+  return rows.length > 0;
+}
+
+export async function logMissingAppFeedback(params: MissingAppFeedbackParams): Promise<number> {
+  const query = params.query.trim().slice(0, 500);
+  if (!query) return 0;
+
+  const normalized = query.toLowerCase().replace(/\s+/g, " ");
+  const visitorId = params.visitorId?.trim() || "unknown";
+
+  let ipCountry = "";
+  let isMobile = false;
+  if (visitorId && visitorId !== "unknown") {
+    const visitorRows = await sqlRaw<{ ip_country: string; is_mobile: boolean }>(
+      `SELECT COALESCE(ip_country, '') as ip_country, COALESCE(is_mobile, false) as is_mobile
+       FROM visitors WHERE visitor_id = $1 LIMIT 1`,
+      [visitorId],
+    );
+    if (visitorRows[0]) {
+      ipCountry = visitorRows[0].ip_country;
+      isMobile = visitorRows[0].is_mobile;
+    }
+  }
+
+  const rows = await sqlRaw<{ id: number }>(
+    `INSERT INTO missing_app_feedback (
+       query, normalized_query, query_type, error_message, locale, country,
+       page_path, visitor_id, ip_country, is_mobile, status
+     ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, 'pending')
+     RETURNING id`,
+    [
+      query,
+      normalized,
+      (params.queryType || "keyword").slice(0, 40),
+      (params.errorMessage || "").slice(0, 500),
+      (params.locale || "").slice(0, 16),
+      (params.country || "").slice(0, 8),
+      (params.pagePath || "").slice(0, 300),
+      visitorId.slice(0, 80),
+      ipCountry.slice(0, 8),
+      isMobile,
+    ],
+  );
+
+  return rows[0]?.id ?? 0;
+}
+
+export async function getMissingAppFeedbacks(
+  limit = 20,
+  offset = 0,
+): Promise<{ rows: MissingAppFeedback[]; total: number; pending: number }> {
+  const [totalResult, pendingResult, rows] = await Promise.all([
+    sqlRaw<{ total: number }>(`SELECT COUNT(*)::int as total FROM missing_app_feedback`),
+    sqlRaw<{ total: number }>(
+      `SELECT COUNT(*)::int as total FROM missing_app_feedback WHERE status = 'pending'`,
+    ),
+    sqlRaw<MissingAppFeedback>(
+      `SELECT
+         id,
+         query,
+         normalized_query,
+         query_type,
+         COALESCE(error_message, '') as error_message,
+         COALESCE(locale, '') as locale,
+         COALESCE(country, '') as country,
+         COALESCE(page_path, '') as page_path,
+         COALESCE(visitor_id, '') as visitor_id,
+         COALESCE(ip_country, '') as ip_country,
+         COALESCE(is_mobile, false) as is_mobile,
+         status,
+         created_at::text,
+         handled_at::text
+       FROM missing_app_feedback
+       ORDER BY (status = 'pending') DESC, created_at DESC, id DESC
+       LIMIT $1 OFFSET $2`,
+      [limit, offset],
+    ),
+  ]);
+
+  return {
+    rows,
+    total: totalResult[0]?.total ?? 0,
+    pending: pendingResult[0]?.total ?? 0,
+  };
+}
+
+export async function updateMissingAppFeedbackStatus(
+  id: number,
+  status: "pending" | "done",
+): Promise<boolean> {
+  const rows = await sqlRaw<{ id: number }>(
+    `UPDATE missing_app_feedback
+     SET status = $2,
+         handled_at = CASE WHEN $2 = 'done' THEN NOW() ELSE NULL END
+     WHERE id = $1
+     RETURNING id`,
+    [id, status],
   );
   return rows.length > 0;
 }

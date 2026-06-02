@@ -305,6 +305,23 @@ interface SearchFailureQuery {
   resolved_at: string | null;
   updated_at: string;
 }
+
+interface MissingAppFeedback {
+  id: number;
+  query: string;
+  normalized_query: string;
+  query_type: string;
+  error_message: string;
+  locale: string;
+  country: string;
+  page_path: string;
+  visitor_id: string;
+  ip_country: string;
+  is_mobile: boolean;
+  status: "pending" | "done";
+  created_at: string;
+  handled_at: string | null;
+}
 interface ActivityItem {
   type: "search" | "download";
   visitor_id: string;
@@ -391,6 +408,9 @@ interface AdminData {
   search_failures: SearchFailureQuery[];
   search_failures_total: number;
   unresolved_search_failures: number;
+  missing_app_feedback: MissingAppFeedback[];
+  missing_app_feedback_total: number;
+  pending_missing_app_feedback: number;
 }
 
 interface ManualSourceDraft {
@@ -913,6 +933,7 @@ function Dashboard({
   onViewVisitor,
   onToggleFailureResolved,
   onToggleSearchFailureResolved,
+  onToggleMissingAppFeedbackStatus,
   onReconcileSearchFailures,
   reconcilingSearchFailures,
   onRepairDownloadFailures,
@@ -922,6 +943,7 @@ function Dashboard({
   onDeleteManualSource,
   pendingFailureIds,
   pendingSearchFailureKeys,
+  pendingMissingAppFeedbackIds,
   pendingManualSourceIds,
   manualSourceDrafts,
   lang,
@@ -932,6 +954,7 @@ function Dashboard({
   onViewVisitor: (v: VisitorInfo) => void;
   onToggleFailureResolved: (appId: string, resolved: boolean) => Promise<void>;
   onToggleSearchFailureResolved: (queryKey: string, resolved: boolean) => Promise<void>;
+  onToggleMissingAppFeedbackStatus: (id: number, status: "pending" | "done") => Promise<void>;
   onReconcileSearchFailures: () => Promise<void>;
   reconcilingSearchFailures: boolean;
   onRepairDownloadFailures: () => Promise<void>;
@@ -941,21 +964,23 @@ function Dashboard({
   onDeleteManualSource: (appId: string) => Promise<void>;
   pendingFailureIds: Set<string>;
   pendingSearchFailureKeys: Set<string>;
+  pendingMissingAppFeedbackIds: Set<number>;
   pendingManualSourceIds: Set<string>;
   manualSourceDrafts: Record<string, ManualSourceDraft>;
   lang: "zh" | "en";
   onLangChange: (l: "zh" | "en") => void;
   pagination: {
-    searchPage: number; downloadPage: number; activityPage: number; visitorPage: number; failurePage: number; searchFailurePage: number;
+    searchPage: number; downloadPage: number; activityPage: number; visitorPage: number; failurePage: number; searchFailurePage: number; missingAppFeedbackPage: number;
     onSearchPageChange: (p: number) => void; onDownloadPageChange: (p: number) => void;
     onActivityPageChange: (p: number) => void; onVisitorPageChange: (p: number) => void;
     onFailurePageChange: (p: number) => void; onSearchFailurePageChange: (p: number) => void;
+    onMissingAppFeedbackPageChange: (p: number) => void;
   };
 }) {
   const {
-    searchPage, downloadPage, activityPage, visitorPage, failurePage, searchFailurePage,
+    searchPage, downloadPage, activityPage, visitorPage, failurePage, searchFailurePage, missingAppFeedbackPage,
     onSearchPageChange, onDownloadPageChange, onActivityPageChange, onVisitorPageChange,
-    onFailurePageChange, onSearchFailurePageChange,
+    onFailurePageChange, onSearchFailurePageChange, onMissingAppFeedbackPageChange,
   } = pagination;
   const busyTriage = reconcilingSearchFailures || repairingDownloadFailures;
 
@@ -1068,6 +1093,89 @@ function Dashboard({
         </div>
         <p className="mt-2 text-xs text-gray-500">
           含 No apps found、无效 Play 链接、搜索异常等；成功搜到结果后会自动标记为已解决。可据此补充 search-aliases 映射。
+        </p>
+      </div>
+
+      {/* User missing-app feedback */}
+      <div>
+        <div className="mb-3 flex flex-wrap items-center gap-2">
+          <h2 className="text-lg font-semibold text-gray-900">用户找不到 App 反馈</h2>
+          <MetricPill label="待处理" value={data.pending_missing_app_feedback} />
+          <MetricPill label="全部反馈" value={data.missing_app_feedback_total} />
+        </div>
+        <div className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
+          <table className="min-w-full divide-y divide-gray-200 text-sm">
+            <thead className="bg-gray-50">
+              <tr>
+                <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">搜索词</th>
+                <th className="hidden px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 md:table-cell">类型</th>
+                <th className="hidden px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 lg:table-cell">错误提示</th>
+                <th className="hidden px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 lg:table-cell">语言/地区</th>
+                <th className="hidden px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 xl:table-cell">页面</th>
+                <th className="hidden px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 xl:table-cell">访客</th>
+                <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">时间</th>
+                <th className="px-4 py-3 text-right text-xs font-medium uppercase tracking-wider text-gray-500">状态</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-gray-100">
+              {data.missing_app_feedback.length === 0 && (
+                <tr><td colSpan={8} className="px-4 py-8 text-center text-sm text-gray-400">暂无用户反馈</td></tr>
+              )}
+              {data.missing_app_feedback.map((item) => {
+                const isPending = pendingMissingAppFeedbackIds.has(item.id);
+                return (
+                  <tr key={item.id} className={item.status === "done" ? "bg-gray-50/60" : "hover:bg-sky-50/40"}>
+                    <td className="px-4 py-3">
+                      <div className="max-w-xs font-medium text-gray-900 break-all">{item.query}</div>
+                      <div className="mt-0.5 text-xs text-gray-400">{item.normalized_query}</div>
+                    </td>
+                    <td className="hidden px-4 py-3 text-xs text-gray-500 md:table-cell">{item.query_type || "keyword"}</td>
+                    <td className="hidden max-w-xs px-4 py-3 text-xs text-gray-500 lg:table-cell">
+                      <span className="line-clamp-2" title={item.error_message}>{item.error_message || "—"}</span>
+                    </td>
+                    <td className="hidden px-4 py-3 text-xs text-gray-500 lg:table-cell">
+                      {item.locale || "—"}/{item.country || "—"}
+                      {item.ip_country ? ` · ${item.ip_country}` : ""}
+                      {item.is_mobile ? " · 移动" : " · 桌面"}
+                    </td>
+                    <td className="hidden max-w-[12rem] truncate px-4 py-3 text-xs text-gray-500 xl:table-cell" title={item.page_path}>
+                      {item.page_path || "—"}
+                    </td>
+                    <td className="hidden px-4 py-3 font-mono text-xs text-gray-400 xl:table-cell">
+                      {item.visitor_id ? item.visitor_id.slice(0, 8) : "—"}
+                    </td>
+                    <td className="px-4 py-3 text-xs text-gray-500">{formatTime(item.created_at)}</td>
+                    <td className="px-4 py-3 text-right">
+                      <button
+                        type="button"
+                        disabled={isPending}
+                        onClick={() => {
+                          void onToggleMissingAppFeedbackStatus(
+                            item.id,
+                            item.status === "done" ? "pending" : "done",
+                          );
+                        }}
+                        className={`cursor-pointer rounded-lg px-3 py-1.5 text-xs font-medium transition disabled:cursor-not-allowed disabled:opacity-60 ${
+                          item.status === "done"
+                            ? "border border-gray-200 bg-white text-gray-500 hover:bg-gray-100"
+                            : "bg-sky-600 text-white hover:bg-sky-700"
+                        }`}
+                      >
+                        {isPending ? "处理中..." : item.status === "done" ? "标为待处理" : "标记已处理"}
+                      </button>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+          <div className="flex items-center justify-between border-t border-gray-100 px-4 py-2">
+            <span className="text-xs text-gray-400">共 {data.missing_app_feedback_total} 条反馈</span>
+            <PageControl page={missingAppFeedbackPage} total={data.missing_app_feedback_total} onPageChange={onMissingAppFeedbackPageChange} />
+          </div>
+        </div>
+        <p className="mt-2 text-xs text-gray-500">
+          用户在前台点击「立即反馈」后写入；请根据搜索词补充 search-aliases 或手动下载源。
         </p>
       </div>
 
@@ -1446,12 +1554,14 @@ export default function AdminPage() {
   const [visitorPage, setVisitorPage] = useState(0);
   const [failurePage, setFailurePage] = useState(0);
   const [searchFailurePage, setSearchFailurePage] = useState(0);
+  const [missingAppFeedbackPage, setMissingAppFeedbackPage] = useState(0);
   const [pendingSearchFailureKeys, setPendingSearchFailureKeys] = useState<Set<string>>(() => new Set());
+  const [pendingMissingAppFeedbackIds, setPendingMissingAppFeedbackIds] = useState<Set<number>>(() => new Set());
   const [reconcilingSearchFailures, setReconcilingSearchFailures] = useState(false);
   const [repairingDownloadFailures, setRepairingDownloadFailures] = useState(false);
 
   const fetchData = useCallback(async (authToken: string, start?: string, end?: string, pages?: {
-    searchPage?: number; downloadPage?: number; activityPage?: number; visitorPage?: number; failurePage?: number; searchFailurePage?: number;
+    searchPage?: number; downloadPage?: number; activityPage?: number; visitorPage?: number; failurePage?: number; searchFailurePage?: number; missingAppFeedbackPage?: number;
   }) => {
     try {
       const params = new URLSearchParams();
@@ -1465,6 +1575,7 @@ export default function AdminPage() {
         params.set("visitorPage", String(pages.visitorPage ?? 0));
         params.set("failurePage", String(pages.failurePage ?? 0));
         params.set("searchFailurePage", String(pages.searchFailurePage ?? 0));
+        params.set("missingAppFeedbackPage", String(pages.missingAppFeedbackPage ?? 0));
         params.set("pageSize", String(PAGE_SIZE));
       }
       const res = await fetch(`/api/admin?${params}`, { cache: "no-store" });
@@ -1496,8 +1607,8 @@ export default function AdminPage() {
   }, []);
 
   const getCurrentPages = useCallback(() => ({
-    searchPage, downloadPage, activityPage, visitorPage, failurePage, searchFailurePage,
-  }), [searchPage, downloadPage, activityPage, visitorPage, failurePage, searchFailurePage]);
+    searchPage, downloadPage, activityPage, visitorPage, failurePage, searchFailurePage, missingAppFeedbackPage,
+  }), [searchPage, downloadPage, activityPage, visitorPage, failurePage, searchFailurePage, missingAppFeedbackPage]);
 
   const handleLogin = useCallback((password: string) => {
     document.cookie = `admin_token=${encodeURIComponent(password)}; path=/; max-age=${60 * 60 * 24}; SameSite=Lax`;
@@ -1523,6 +1634,7 @@ export default function AdminPage() {
     setVisitorPage(0);
     setFailurePage(0);
     setSearchFailurePage(0);
+    setMissingAppFeedbackPage(0);
     if (token) {
       setLoading(true);
       fetchData(token, start, end).finally(() => setLoading(false));
@@ -1541,11 +1653,68 @@ export default function AdminPage() {
         visitorPage: pageKey === "visitor" ? page : visitorPage,
         failurePage: pageKey === "failure" ? page : failurePage,
         searchFailurePage: pageKey === "searchFailure" ? page : searchFailurePage,
+        missingAppFeedbackPage: pageKey === "missingAppFeedback" ? page : missingAppFeedbackPage,
       };
       setLoading(true);
       fetchData(token, appliedDateStart, appliedDateEnd, pages).finally(() => setLoading(false));
     };
-  }, [token, fetchData, appliedDateStart, appliedDateEnd, searchPage, downloadPage, activityPage, visitorPage, failurePage, searchFailurePage]);
+  }, [token, fetchData, appliedDateStart, appliedDateEnd, searchPage, downloadPage, activityPage, visitorPage, failurePage, searchFailurePage, missingAppFeedbackPage]);
+
+  const handleToggleMissingAppFeedbackStatus = useCallback(async (id: number, status: "pending" | "done") => {
+    if (!token) return;
+    const handledAt = status === "done" ? new Date().toISOString() : null;
+    const previousData = data;
+
+    setError("");
+    setPendingMissingAppFeedbackIds((current) => {
+      const next = new Set(current);
+      next.add(id);
+      return next;
+    });
+    setData((current) => {
+      if (!current) return current;
+
+      const currentItem = current.missing_app_feedback.find((item) => item.id === id);
+      const pendingDelta = currentItem && currentItem.status !== status
+        ? status === "done" ? -1 : 1
+        : 0;
+
+      return {
+        ...current,
+        pending_missing_app_feedback: Math.max(0, current.pending_missing_app_feedback + pendingDelta),
+        missing_app_feedback: current.missing_app_feedback.map((item) => (
+          item.id === id
+            ? { ...item, status, handled_at: handledAt }
+            : item
+        )),
+      };
+    });
+
+    try {
+      const res = await fetch(`/api/admin/missing-app-feedback?key=${encodeURIComponent(token)}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        cache: "no-store",
+        body: JSON.stringify({ id, status }),
+      });
+      if (!res.ok) {
+        const body = await res.json().catch(() => null) as { error?: string } | null;
+        setData(previousData);
+        setError(body?.error ? `反馈状态更新失败：${body.error}` : "反馈状态更新失败");
+        return;
+      }
+      await fetchData(token, appliedDateStart, appliedDateEnd, getCurrentPages());
+    } catch {
+      setData(previousData);
+      setError("反馈状态更新网络错误");
+    } finally {
+      setPendingMissingAppFeedbackIds((current) => {
+        const next = new Set(current);
+        next.delete(id);
+        return next;
+      });
+    }
+  }, [token, data, fetchData, appliedDateStart, appliedDateEnd, getCurrentPages]);
 
   const handleToggleSearchFailureResolved = useCallback(async (queryKey: string, resolved: boolean) => {
     if (!token) return;
@@ -1896,6 +2065,7 @@ export default function AdminPage() {
           onViewVisitor={setSelectedVisitor}
           onToggleFailureResolved={handleToggleFailureResolved}
           onToggleSearchFailureResolved={handleToggleSearchFailureResolved}
+          onToggleMissingAppFeedbackStatus={handleToggleMissingAppFeedbackStatus}
           onReconcileSearchFailures={handleReconcileSearchFailures}
           reconcilingSearchFailures={reconcilingSearchFailures}
           onRepairDownloadFailures={handleRepairDownloadFailures}
@@ -1905,18 +2075,20 @@ export default function AdminPage() {
           onDeleteManualSource={handleDeleteManualSource}
           pendingFailureIds={pendingFailureIds}
           pendingSearchFailureKeys={pendingSearchFailureKeys}
+          pendingMissingAppFeedbackIds={pendingMissingAppFeedbackIds}
           pendingManualSourceIds={pendingManualSourceIds}
           manualSourceDrafts={manualSourceDrafts}
           lang={lang}
           onLangChange={setLang}
           pagination={{
-            searchPage, downloadPage, activityPage, visitorPage, failurePage, searchFailurePage,
+            searchPage, downloadPage, activityPage, visitorPage, failurePage, searchFailurePage, missingAppFeedbackPage,
             onSearchPageChange: makePageFetcher("search", setSearchPage),
             onDownloadPageChange: makePageFetcher("download", setDownloadPage),
             onActivityPageChange: makePageFetcher("activity", setActivityPage),
             onVisitorPageChange: makePageFetcher("visitor", setVisitorPage),
             onFailurePageChange: makePageFetcher("failure", setFailurePage),
             onSearchFailurePageChange: makePageFetcher("searchFailure", setSearchFailurePage),
+            onMissingAppFeedbackPageChange: makePageFetcher("missingAppFeedback", setMissingAppFeedbackPage),
           }} /> : <LoadingSpinner />}
       </main>
 

@@ -14,6 +14,7 @@ import {
   getTodayDownloads,
   getDownloadFailureApps,
   getSearchFailureQueries,
+  getMissingAppFeedbacks,
   getVisitorDeviceBreakdown,
   getDailyVisitorDeviceStats,
 } from "@/lib/db";
@@ -41,6 +42,9 @@ export interface AdminResponse {
   search_failures: SearchFailureQuery[];
   search_failures_total: number;
   unresolved_search_failures: number;
+  missing_app_feedback: import("@/lib/db").MissingAppFeedback[];
+  missing_app_feedback_total: number;
+  pending_missing_app_feedback: number;
   device_breakdown: VisitorDeviceBreakdown;
   device_daily: DailyVisitorDeviceStat[];
   device_range_label: string;
@@ -165,6 +169,10 @@ export async function GET(
     const visitorPage = Math.max(parseInt(searchParams.get("visitorPage") || "0") || 0, 0);
     const failurePage = Math.max(parseInt(searchParams.get("failurePage") || "0") || 0, 0);
     const searchFailurePage = Math.max(parseInt(searchParams.get("searchFailurePage") || "0") || 0, 0);
+    const missingAppFeedbackPage = Math.max(
+      parseInt(searchParams.get("missingAppFeedbackPage") || "0") || 0,
+      0,
+    );
 
     await initDatabase();
 
@@ -182,6 +190,7 @@ export async function GET(
       visitorList,
       downloadFailures,
       searchFailures,
+      missingAppFeedback,
       deviceBreakdown,
       deviceDaily,
     ] =
@@ -199,6 +208,7 @@ export async function GET(
         getVisitorList(pageSize, visitorPage * pageSize, startDate, endDate),
         getDownloadFailureApps(pageSize, failurePage * pageSize),
         getSearchFailureQueries(pageSize, searchFailurePage * pageSize),
+        getMissingAppFeedbacks(pageSize, missingAppFeedbackPage * pageSize),
         getVisitorDeviceBreakdown(startDate, endDate),
         getDailyVisitorDeviceStats(startDate, endDate),
       ]);
@@ -226,6 +236,9 @@ export async function GET(
         search_failures: searchFailures.rows,
         search_failures_total: searchFailures.total,
         unresolved_search_failures: searchFailures.unresolved,
+        missing_app_feedback: missingAppFeedback.rows,
+        missing_app_feedback_total: missingAppFeedback.total,
+        pending_missing_app_feedback: missingAppFeedback.pending,
         device_breakdown: deviceBreakdown,
         device_daily: deviceDaily,
         device_range_label: formatDeviceRangeLabel(startDate, endDate),
