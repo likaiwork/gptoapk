@@ -8,6 +8,7 @@ import {
   MIRROR_UNAVAILABLE_ADMIN_ERROR,
   PAID_APP_UNSUPPORTED_ADMIN_ERROR,
 } from "@/lib/download-errors";
+import { sanitizeAppId } from "@/lib/sanitize-app-id";
 import { getUnsupportedNoMirrorApp } from "@/lib/unsupported-no-mirror-apps";
 import { getUnsupportedPaidApp } from "@/lib/unsupported-paid-apps";
 
@@ -62,14 +63,15 @@ export async function autoResolveBlockedDownloadFailures(): Promise<number> {
     if (!unresolved.length) break;
 
     for (const item of unresolved) {
-      const paid = getUnsupportedPaidApp(item.app_id);
-      const noMirror = getUnsupportedNoMirrorApp(item.app_id);
+      const appId = sanitizeAppId(item.app_id);
+      const paid = getUnsupportedPaidApp(appId);
+      const noMirror = getUnsupportedNoMirrorApp(appId);
       if (!paid && !noMirror) continue;
 
       const error = paid ? PAID_APP_UNSUPPORTED_ADMIN_ERROR : MIRROR_UNAVAILABLE_ADMIN_ERROR;
       const source = paid ? "paid-app" : "no-mirror";
-      await updateDownloadFailureMetadata({ appId: item.app_id, lastError: error, lastSource: source });
-      const ok = await updateDownloadFailureResolved(item.app_id, true);
+      await updateDownloadFailureMetadata({ appId, lastError: error, lastSource: source });
+      const ok = await updateDownloadFailureResolved(appId, true);
       if (ok) resolved += 1;
     }
 
@@ -100,18 +102,29 @@ export async function runAdminDownloadFailureRepair(options?: {
     for (const row of rows) {
       if (row.resolved) continue;
       if (Number(row.failure_count) <= failureThreshold) continue;
-      candidates.push({ app_id: row.app_id, failure_count: row.failure_count });
+      const appId = sanitizeAppId(row.app_id);
+      if (!appId || getUnsupportedPaidApp(appId) || getUnsupportedNoMirrorApp(appId)) continue;
+      candidates.push({ app_id: appId, failure_count: row.failure_count });
       if (candidates.length >= maxApps) break;
     }
     if (rows.length < pageSize) break;
     page += 1;
   }
 
+  const markResolved = async (rawAppId: string) => {
+    const cleanId = sanitizeAppId(rawAppId);
+    let ok = await updateDownloadFailureResolved(cleanId, true);
+    if (!ok && cleanId !== rawAppId.trim()) {
+      ok = await updateDownloadFailureResolved(rawAppId.trim(), true);
+    }
+    return ok;
+  };
+
   let downloadMarkedResolved = 0;
   for (const item of candidates) {
     const result = await prepareDownload(item.app_id);
     if (result.success) {
-      const ok = await updateDownloadFailureResolved(item.app_id, true);
+      const ok = await markResolved(item.app_id);
       if (ok) downloadMarkedResolved += 1;
       else errors.push(`mark resolved failed: ${item.app_id}`);
     }

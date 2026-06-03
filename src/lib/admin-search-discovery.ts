@@ -16,7 +16,7 @@ import {
   resolveSearchAliasOverrideAppIds,
   saveSearchAliasOverrideForQuery,
 } from "@/lib/search-alias-overrides";
-import { canResolveSearchQueryNow } from "@/lib/search-failure-reconcile";
+import { canResolveSearchQueryNow, canResolveSearchQueryNowAsync } from "@/lib/search-failure-reconcile";
 
 const PACKAGE_NAME_REGEX = /^[a-zA-Z][a-zA-Z0-9_]*(?:\.[a-zA-Z][a-zA-Z0-9_]*)+$/;
 const SEARCH_TIMEOUT_MS = 22_000;
@@ -222,6 +222,18 @@ async function applyDiscoveryForQuery(params: {
   country: string;
   sourceLabel: string;
 }): Promise<{ resolved: boolean; aliasesCreated: number; searchFailuresResolved: number }> {
+  const staticIds = resolveSearchAliasAppIds(params.query);
+  if (staticIds?.length) {
+    const aliasesCreated = await saveSearchAliasOverrideForQuery({
+      query: params.query,
+      appIds: [...staticIds],
+      sourceQuery: params.query,
+      sourceLabel: `${params.sourceLabel}-static`,
+    });
+    const searchFailuresResolved = await resolveSearchFailuresForQuery(params.query);
+    return { resolved: true, aliasesCreated, searchFailuresResolved };
+  }
+
   const appIds = await discoverAppIdsForQuery(params.query, params.lang, params.country);
   if (!appIds?.length) {
     return { resolved: false, aliasesCreated: 0, searchFailuresResolved: 0 };
@@ -295,7 +307,7 @@ export async function repairSearchFailuresViaDiscovery(options?: {
   let discoveryMisses = 0;
 
   for (const row of rows) {
-    if (canResolveSearchQueryNow(row.query)) {
+    if (canResolveSearchQueryNow(row.query) || (await canResolveSearchQueryNowAsync(row.query))) {
       const count = await resolveSearchFailuresForQuery(row.query);
       if (count > 0) searchFailuresResolved += count;
       continue;
@@ -329,12 +341,34 @@ export async function repairSearchFailuresViaDiscovery(options?: {
   return { aliasesCreated, searchFailuresResolved, discoveryAttempts, discoveryMisses };
 }
 
+export async function reconcileStaticAliasSearchFailures(limit = 400): Promise<number> {
+  await initDatabase();
+  const rows = await getUnresolvedSearchFailuresForDiscovery(limit);
+  let resolved = 0;
+
+  for (const row of rows) {
+    const staticIds = resolveSearchAliasAppIds(row.query);
+    if (!staticIds?.length) continue;
+
+    await saveSearchAliasOverrideForQuery({
+      query: row.query,
+      appIds: [...staticIds],
+      sourceQuery: row.query,
+      sourceLabel: "static-alias-reconcile",
+    });
+    resolved += await resolveSearchFailuresForQuery(row.query);
+  }
+
+  return resolved;
+}
+
 export async function runSearchDiscoveryRepair(options?: {
   feedbackLimit?: number;
   searchFailureLimit?: number;
   reconcileMaxChecks?: number;
   reconcileLiveProbeLimit?: number;
 }): Promise<SearchDiscoveryReport & { reconcile: Awaited<ReturnType<typeof reconcileResolvableSearchFailures>> }> {
+  const staticResolved = await reconcileStaticAliasSearchFailures(500);
   const feedback = await repairMissingAppFeedback({ limit: options?.feedbackLimit });
   const discovery = await repairSearchFailuresViaDiscovery({ limit: options?.searchFailureLimit });
   const reconcile = await reconcileResolvableSearchFailures({
@@ -348,7 +382,11 @@ export async function runSearchDiscoveryRepair(options?: {
     feedbackResolved: feedback.feedbackResolved,
     aliasesCreated: feedback.aliasesCreated + discovery.aliasesCreated,
     searchFailuresResolved:
-      feedback.searchFailuresResolved + discovery.searchFailuresResolved + reconcile.resolved + reconcile.liveResolved,
+      staticResolved +
+      feedback.searchFailuresResolved +
+      discovery.searchFailuresResolved +
+      reconcile.resolved +
+      reconcile.liveResolved,
     discoveryAttempts: feedback.discoveryAttempts + discovery.discoveryAttempts,
     discoveryMisses: feedback.discoveryMisses + discovery.discoveryMisses,
     reconcile,

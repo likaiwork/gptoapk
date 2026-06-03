@@ -1,6 +1,10 @@
 import { createPool } from "@vercel/postgres";
 import type { QueryResultRow } from "@vercel/postgres";
-import { canResolveSearchQueryNow, probeLiveSearchHasResults } from "@/lib/search-failure-reconcile";
+import {
+  canResolveSearchQueryNow,
+  canResolveSearchQueryNowAsync,
+  probeLiveSearchHasResults,
+} from "@/lib/search-failure-reconcile";
 import { normalizeUserSearchQuery } from "@/lib/normalize-user-search-query";
 import { getAliasLookupKeys, stripSearchQueryNoise } from "@/lib/search-query-normalize";
 import { normalizeSearchQuery } from "@/lib/search-failure-key";
@@ -1201,12 +1205,17 @@ export async function reconcileResolvableSearchFailures(options?: {
         }
       }
 
-      if (!didResolve && unique.some((q) => canResolveSearchQueryNow(q))) {
-        const count = await resolveSearchFailuresForQuery(unique[0]!);
-        if (count > 0) {
-          resolved += count;
-          resolvedInBatch += 1;
-          didResolve = true;
+      if (!didResolve) {
+        for (const q of unique) {
+          if (canResolveSearchQueryNow(q) || (await canResolveSearchQueryNowAsync(q))) {
+            const count = await resolveSearchFailuresForQuery(unique[0]!);
+            if (count > 0) {
+              resolved += count;
+              resolvedInBatch += 1;
+              didResolve = true;
+            }
+            break;
+          }
         }
       }
 

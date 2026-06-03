@@ -7,6 +7,7 @@ import {
   resolvePlayPackageIdAlias,
   resolveSearchAliasAppIds,
 } from "@/lib/search-aliases";
+import { resolveSearchAliasOverrideAppIds } from "@/lib/search-alias-overrides";
 import { isVpnSearchKeyword, stripSearchQueryNoise } from "@/lib/search-query-normalize";
 import { isUnsupportedNoMirrorApp } from "@/lib/unsupported-no-mirror-apps";
 
@@ -57,6 +58,16 @@ function keywordWouldReturnResults(query: string): boolean {
     return aliasWouldReturnResults(stripped);
   }
   return false;
+}
+
+/**
+ * Mirrors /api/search-apps success paths (alias, VPN list, package/URL, known-app fallback).
+ * Does not call Google Play — keyword-only misses without an alias are left unresolved.
+ */
+export async function canResolveSearchQueryNowAsync(rawQuery: string): Promise<boolean> {
+  if (canResolveSearchQueryNow(rawQuery)) return true;
+  const override = await resolveSearchAliasOverrideAppIds(rawQuery);
+  return Boolean(override?.length);
 }
 
 /**

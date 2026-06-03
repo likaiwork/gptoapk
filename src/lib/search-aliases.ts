@@ -850,6 +850,806 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
       "com.mi.android.globalfileexplorer",
     ],
   },
+  {
+    appIds: ["com.ss.android.article.news"],
+    aliases: ["今日头条", "头条", "toutiao", "jinritoutiao", "今日頭條"],
+  },
+  {
+    appIds: ["com.tencent.qqlive"],
+    aliases: ["腾讯视频", "tencent video", "qqlive", "com.tencent.qqlive"],
+  },
+  {
+    appIds: ["com.ea.game.pvzfree"],
+    aliases: [
+      "植物大战僵尸",
+      "植物大战僵尸1",
+      "pvz",
+      "plants vs zombies",
+      "plants vs. zombies",
+    ],
+  },
+  {
+    appIds: ["com.niksoftware.snapseed"],
+    aliases: [
+      "snapseed",
+      "snapseed 4.0",
+      "snapseed 4",
+      "com.niksoftware.snapseed",
+      "com.snapseedapp",
+    ],
+  },
+  {
+    appIds: ["com.microsoft.teams"],
+    aliases: ["teams", "microsoft teams", "ms teams", "com.microsoft.teams"],
+  },
+  {
+    appIds: ["com.zhiliaoapp.musically"],
+    aliases: ["titok", "titkok", "tiktok", "抖音国际版", "com.zhiliaoapp.musically"],
+  },
+  {
+    appIds: ["com.flar2.devcheck"],
+    aliases: ["devcheck", "dev check", "devcheck device", "com.flar2.devcheck"],
+  },
+  {
+    appIds: ["com.tencent.map"],
+    aliases: ["腾讯地图", "腾讯地图车机版", "tencent map", "com.tencent.map"],
+  },
+  {
+    appIds: ["com.sec.android.app.music"],
+    aliases: [
+      "samsung music",
+      "三星音乐",
+      "samsung music player",
+      "com.sec.android.app.music",
+    ],
+  },
+  {
+    appIds: ["com.samsung.android.app.notes"],
+    aliases: ["samsung notes", "三星笔记", "s notes", "s notes samsung", "com.samsung.android.app.notes"],
+  },
+  {
+    appIds: ["com.apple.android.music"],
+    aliases: ["apple music", "苹果音乐", "com.apple.android.music"],
+  },
+  {
+    appIds: ["bin.mt.plus"],
+    aliases: ["mt管理器", "mt manager", "mt管理器2", "mt", "bin.mt.plus"],
+  },
+  {
+    appIds: ["com.chaozh.iReaderFree", "com.zhangyue.iReader"],
+    aliases: [
+      "ireader",
+      "掌阅",
+      "ireader eink",
+      "com.chaozh.ireaderfree",
+      "com.zhangyue.ireader",
+      "zhangyue ireader",
+    ],
+  },
+  {
+    appIds: ["com.xiaomi.mipicks"],
+    aliases: ["小米", "小米应用商店", "xiaomi", "mi store", "com.xiaomi.mipicks"],
+  },
+  {
+    appIds: ["com.alibaba.intl.android.apps.poseidon"],
+    aliases: ["accio", "accio app", "com.alibaba.intl.android.apps.poseidon"],
+  },
+  {
+    appIds: ["com.cmcc.cmvideo"],
+    aliases: ["移动会议", "中国移动会议", "cmcc meeting"],
+  },
+  {
+    appIds: ["com.google.android.youtube"],
+    aliases: ["youtube", "油管", "youtube下载", "com.google.android.youtube"],
+  },
+  {
+    appIds: ["com.google.android.apps.maps"],
+    aliases: ["google maps", "谷歌地图", "com.google.android.apps.maps"],
+  },
+  {
+    appIds: ["com.google.android.gm"],
+    aliases: ["gmail", "google mail", "谷歌邮箱"],
+  },
+  {
+    appIds: ["com.spotify.music"],
+    aliases: ["spotify", "spotify下载"],
+  },
+  {
+    appIds: ["com.netflix.mediaclient"],
+    aliases: ["netflix", "奈飞"],
+  },
+  {
+    appIds: ["com.amazon.avod.thirdpartyclient"],
+    aliases: ["prime video", "amazon prime video"],
+  },
+  {
+    appIds: ["com.facebook.katana"],
+    aliases: ["facebook", "fb", "脸书"],
+  },
+  {
+    appIds: ["com.instagram.android"],
+    aliases: ["instagram", "ins", "ig"],
+  },
+  {
+    appIds: ["com.twitter.android"],
+    aliases: ["twitter", "x", "推特"],
+  },
+  {
+    appIds: ["com.linkedin.android"],
+    aliases: ["linkedin", "领英"],
+  },
+  {
+    appIds: ["com.snapchat.android"],
+    aliases: ["snapchat"],
+  },
+  {
+    appIds: ["com.pinterest"],
+    aliases: ["pinterest"],
+  },
+  {
+    appIds: ["com.reddit.frontpage"],
+    aliases: ["reddit"],
+  },
+  {
+    appIds: ["com.whatsapp"],
+    aliases: ["whatsapp", "wa"],
+  },
+  {
+    appIds: ["org.telegram.messenger"],
+    aliases: ["telegram", "电报", "tg"],
+  },
+  {
+    appIds: ["com.tencent.mm"],
+    aliases: ["微信", "wechat"],
+  },
+  {
+    appIds: ["com.tencent.mobileqq"],
+    aliases: ["qq"],
+  },
+  {
+    appIds: ["com.sina.weibo"],
+    aliases: ["微博", "weibo"],
+  },
+  {
+    appIds: ["com.baidu.BaiduMap"],
+    aliases: ["百度地图", "baidu map"],
+  },
+  {
+    appIds: ["com.autonavi.minimap"],
+    aliases: ["高德地图", "amap", "gaode"],
+  },
+  {
+    appIds: ["com.dianping.v1"],
+    aliases: ["大众点评", "dianping"],
+  },
+  {
+    appIds: ["com.sankuai.meituan"],
+    aliases: ["美团", "meituan"],
+  },
+  {
+    appIds: ["com.jingdong.app.mall"],
+    aliases: ["京东", "jd", "jingdong"],
+  },
+  {
+    appIds: ["com.ss.android.ugc.aweme"],
+    aliases: ["抖音", "douyin"],
+  },
+  {
+    appIds: ["com.kuaishou.nebula"],
+    aliases: ["快手", "kuaishou"],
+  },
+  {
+    appIds: ["com.bilibili.app.in"],
+    aliases: ["bilibili", "哔哩哔哩", "b站"],
+  },
+  {
+    appIds: ["tv.danmaku.bili"],
+    aliases: ["bilibili hd", "哔哩哔哩hd"],
+  },
+  {
+    appIds: ["com.netease.cloudmusic"],
+    aliases: ["网易云音乐", "netease music", "cloudmusic"],
+  },
+  {
+    appIds: ["com.tencent.qqmusic"],
+    aliases: ["qq音乐", "qq music"],
+  },
+  {
+    appIds: ["com.kugou.android"],
+    aliases: ["酷狗", "kugou"],
+  },
+  {
+    appIds: ["com.kuwo.kwmusiccar"],
+    aliases: ["酷我音乐", "kuwo"],
+  },
+  {
+    appIds: ["com.UCMobile"],
+    aliases: ["uc浏览器", "uc browser"],
+  },
+  {
+    appIds: ["com.qiyi.video"],
+    aliases: ["爱奇艺", "iqiyi"],
+  },
+  {
+    appIds: ["com.youku.phone"],
+    aliases: ["优酷", "youku"],
+  },
+  {
+    appIds: ["com.hunantv.imgo.activity"],
+    aliases: ["芒果tv", "mgtv"],
+  },
+  {
+    appIds: ["com.ss.android.article.video"],
+    aliases: ["西瓜视频", "xigua"],
+  },
+  {
+    appIds: ["com.lemon.lvoverseas"],
+    aliases: ["capcut", "剪映国际版", "jianying"],
+  },
+  {
+    appIds: ["com.lemon.lv"],
+    aliases: ["剪映", "capcut cn"],
+  },
+  {
+    appIds: ["com.adobe.lrmobile"],
+    aliases: ["lightroom", "lr mobile"],
+  },
+  {
+    appIds: ["com.adobe.psmobile"],
+    aliases: ["photoshop express", "ps express"],
+  },
+  {
+    appIds: ["com.microsoft.office.outlook"],
+    aliases: ["outlook", "微软邮箱"],
+  },
+  {
+    appIds: ["com.microsoft.office.word"],
+    aliases: ["word", "microsoft word"],
+  },
+  {
+    appIds: ["com.microsoft.office.excel"],
+    aliases: ["excel", "microsoft excel"],
+  },
+  {
+    appIds: ["com.microsoft.office.powerpoint"],
+    aliases: ["powerpoint", "ppt", "microsoft powerpoint"],
+  },
+  {
+    appIds: ["com.google.android.apps.docs"],
+    aliases: ["google docs", "谷歌文档"],
+  },
+  {
+    appIds: ["com.google.android.apps.photos"],
+    aliases: ["google photos", "谷歌相册"],
+  },
+  {
+    appIds: ["com.google.android.apps.translate"],
+    aliases: ["google translate", "谷歌翻译"],
+  },
+  {
+    appIds: ["com.google.android.apps.meetings"],
+    aliases: ["google meet", "meet"],
+  },
+  {
+    appIds: ["us.zoom.videomeetings"],
+    aliases: ["zoom", "zoom meeting"],
+  },
+  {
+    appIds: ["com.skype.raider"],
+    aliases: ["skype"],
+  },
+  {
+    appIds: ["com.paypal.android.p2pmobile"],
+    aliases: ["paypal"],
+  },
+  {
+    appIds: ["com.venmo"],
+    aliases: ["venmo"],
+  },
+  {
+    appIds: ["com.cash.app"],
+    aliases: ["cash app"],
+  },
+  {
+    appIds: ["com.chase.sig.android"],
+    aliases: ["chase", "chase bank"],
+  },
+  {
+    appIds: ["com.bankofamerica.prepaid"],
+    aliases: ["bank of america", "bofa"],
+  },
+  {
+    appIds: ["com.wellsfargo.mobile"],
+    aliases: ["wells fargo"],
+  },
+  {
+    appIds: ["com.coinbase.android"],
+    aliases: ["coinbase"],
+  },
+  {
+    appIds: ["com.binance.dev"],
+    aliases: ["binance", "币安"],
+  },
+  {
+    appIds: ["com.roblox.client"],
+    aliases: ["roblox"],
+  },
+  {
+    appIds: ["com.mojang.minecraftpe"],
+    aliases: ["minecraft", "我的世界"],
+  },
+  {
+    appIds: ["com.supercell.clashofclans"],
+    aliases: ["clash of clans", "部落冲突"],
+  },
+  {
+    appIds: ["com.supercell.clashroyale"],
+    aliases: ["clash royale", "皇室战争"],
+  },
+  {
+    appIds: ["com.tencent.ig"],
+    aliases: ["pubg", "和平精英", "pubg mobile"],
+  },
+  {
+    appIds: ["com.garena.game.codm"],
+    aliases: ["cod mobile", "使命召唤手游"],
+  },
+  {
+    appIds: ["com.mobile.legends"],
+    aliases: ["mobile legends", "mlbb"],
+  },
+  {
+    appIds: ["com.activision.callofduty.shooter"],
+    aliases: ["call of duty", "cod warzone mobile"],
+  },
+  {
+    appIds: ["com.ea.gp.fifamobile"],
+    aliases: ["fifa mobile", "fc mobile"],
+  },
+  {
+    appIds: ["com.nianticlabs.pokemongo"],
+    aliases: ["pokemon go"],
+  },
+  {
+    appIds: ["com.nintendo.zara"],
+    aliases: ["nintendo switch app"],
+  },
+  {
+    appIds: ["com.duolingo"],
+    aliases: ["duolingo", "多邻国"],
+  },
+  {
+    appIds: ["com.google.android.apps.classroom"],
+    aliases: ["google classroom", "课堂"],
+  },
+  {
+    appIds: ["com.coursera.android"],
+    aliases: ["coursera"],
+  },
+  {
+    appIds: ["com.udemy.android"],
+    aliases: ["udemy"],
+  },
+  {
+    appIds: ["com.amazon.kindle"],
+    aliases: ["kindle"],
+  },
+  {
+    appIds: ["com.audible.application"],
+    aliases: ["audible"],
+  },
+  {
+    appIds: ["com.waze"],
+    aliases: ["waze"],
+  },
+  {
+    appIds: ["com.ubercab"],
+    aliases: ["uber"],
+  },
+  {
+    appIds: ["com.lyft.android"],
+    aliases: ["lyft"],
+  },
+  {
+    appIds: ["com.dd.doordash"],
+    aliases: ["doordash"],
+  },
+  {
+    appIds: ["com.ubercab.eats"],
+    aliases: ["uber eats"],
+  },
+  {
+    appIds: ["com.grubhub.android"],
+    aliases: ["grubhub"],
+  },
+  {
+    appIds: ["com.airbnb.android"],
+    aliases: ["airbnb", "爱彼迎"],
+  },
+  {
+    appIds: ["com.booking"],
+    aliases: ["booking", "booking.com"],
+  },
+  {
+    appIds: ["com.tripadvisor.tripadvisor"],
+    aliases: ["tripadvisor"],
+  },
+  {
+    appIds: ["com.expedia.bookings"],
+    aliases: ["expedia"],
+  },
+  {
+    appIds: ["com.ubercab.uberlite"],
+    aliases: ["uber lite"],
+  },
+  {
+    appIds: ["com.google.android.apps.walletnfcrel"],
+    aliases: ["google wallet", "google pay"],
+  },
+  {
+    appIds: ["com.samsung.android.spay"],
+    aliases: ["samsung pay"],
+  },
+  {
+    appIds: ["com.huawei.wallet"],
+    aliases: ["huawei wallet"],
+  },
+  {
+    appIds: ["com.miui.securitycenter"],
+    aliases: ["小米手机管家", "miui security"],
+  },
+  {
+    appIds: ["com.google.android.apps.nbu.files"],
+    aliases: ["files by google", "谷歌文件"],
+  },
+  {
+    appIds: ["com.google.android.calculator"],
+    aliases: ["google calculator", "计算器"],
+  },
+  {
+    appIds: ["com.google.android.deskclock"],
+    aliases: ["google clock", "时钟"],
+  },
+  {
+    appIds: ["com.google.android.contacts"],
+    aliases: ["google contacts", "通讯录"],
+  },
+  {
+    appIds: ["com.android.chrome"],
+    aliases: ["chrome", "谷歌浏览器"],
+  },
+  {
+    appIds: ["org.mozilla.firefox"],
+    aliases: ["firefox", "火狐"],
+  },
+  {
+    appIds: ["com.brave.browser"],
+    aliases: ["brave browser"],
+  },
+  {
+    appIds: ["com.opera.browser"],
+    aliases: ["opera"],
+  },
+  {
+    appIds: ["com.microsoft.emmx"],
+    aliases: ["edge", "microsoft edge"],
+  },
+  {
+    appIds: ["com.duckduckgo.mobile.android"],
+    aliases: ["duckduckgo", "ddg"],
+  },
+  {
+    appIds: ["com.termux"],
+    aliases: ["termux"],
+  },
+  {
+    appIds: ["com.github.android"],
+    aliases: ["github", "github mobile"],
+  },
+  {
+    appIds: ["com.slack"],
+    aliases: ["slack"],
+  },
+  {
+    appIds: ["com.todoist"],
+    aliases: ["todoist"],
+  },
+  {
+    appIds: ["com.notion.id"],
+    aliases: ["notion"],
+  },
+  {
+    appIds: ["com.evernote"],
+    aliases: ["evernote", "印象笔记"],
+  },
+  {
+    appIds: ["com.trello"],
+    aliases: ["trello"],
+  },
+  {
+    appIds: ["com.asana.app"],
+    aliases: ["asana"],
+  },
+  {
+    appIds: ["com.dropbox.android"],
+    aliases: ["dropbox"],
+  },
+  {
+    appIds: ["com.box.android"],
+    aliases: ["box"],
+  },
+  {
+    appIds: ["com.microsoft.skydrive"],
+    aliases: ["onedrive"],
+  },
+  {
+    appIds: ["com.google.android.apps.docs.editors.sheets"],
+    aliases: ["google sheets", "谷歌表格"],
+  },
+  {
+    appIds: ["com.google.android.apps.docs.editors.slides"],
+    aliases: ["google slides", "谷歌幻灯片"],
+  },
+  {
+    appIds: ["com.adobe.reader"],
+    aliases: ["adobe acrobat", "pdf reader"],
+  },
+  {
+    appIds: ["com.camscanner.documentscanner"],
+    aliases: ["camscanner", "扫描全能王"],
+  },
+  {
+    appIds: ["com.intsig.camscanner"],
+    aliases: ["camscanner intsig"],
+  },
+  {
+    appIds: ["com.wondershare.filmorago"],
+    aliases: ["filmora", "filmorago"],
+  },
+  {
+    appIds: ["com.vsco.cam"],
+    aliases: ["vsco"],
+  },
+  {
+    appIds: ["com.picsart.studio"],
+    aliases: ["picsart"],
+  },
+  {
+    appIds: ["com.canva.editor"],
+    aliases: ["canva"],
+  },
+  {
+    appIds: ["com.shazam.android"],
+    aliases: ["shazam"],
+  },
+  {
+    appIds: ["com.soundcloud.android"],
+    aliases: ["soundcloud"],
+  },
+  {
+    appIds: ["com.deezer"],
+    aliases: ["deezer"],
+  },
+  {
+    appIds: ["com.pandora.android"],
+    aliases: ["pandora"],
+  },
+  {
+    appIds: ["com.tidal"],
+    aliases: ["tidal"],
+  },
+  {
+    appIds: ["com.amazon.mp3"],
+    aliases: ["amazon music"],
+  },
+  {
+    appIds: ["com.google.android.apps.youtube.music"],
+    aliases: ["youtube music", "yt music"],
+  },
+  {
+    appIds: ["com.google.android.youtube.tv"],
+    aliases: ["youtube tv"],
+  },
+  {
+    appIds: ["com.google.android.apps.youtube.kids"],
+    aliases: ["youtube kids"],
+  },
+  {
+    appIds: ["com.google.android.apps.youtube.creator"],
+    aliases: ["youtube studio"],
+  },
+  {
+    appIds: ["com.google.android.apps.adm"],
+    aliases: ["find my device", "查找我的设备"],
+  },
+  {
+    appIds: ["com.google.android.apps.authenticator2"],
+    aliases: ["google authenticator", "谷歌验证器"],
+  },
+  {
+    appIds: ["com.authy.authy"],
+    aliases: ["authy"],
+  },
+  {
+    appIds: ["com.lastpass.lpandroid"],
+    aliases: ["lastpass"],
+  },
+  {
+    appIds: ["com.onepassword.android"],
+    aliases: ["1password", "onepassword"],
+  },
+  {
+    appIds: ["com.bitwarden.app"],
+    aliases: ["bitwarden"],
+  },
+  {
+    appIds: ["com.openai.chatgpt"],
+    aliases: ["chatgpt", "gpt", "openai"],
+  },
+  {
+    appIds: ["com.anthropic.claude"],
+    aliases: ["claude", "anthropic"],
+  },
+  {
+    appIds: ["com.google.android.apps.bard"],
+    aliases: ["gemini", "google gemini", "bard"],
+  },
+  {
+    appIds: ["com.microsoft.copilot"],
+    aliases: ["copilot", "microsoft copilot", "bing chat"],
+  },
+  {
+    appIds: ["com.deepseek.chat"],
+    aliases: ["deepseek", "深度求索"],
+  },
+  {
+    appIds: ["com.larus.nova"],
+    aliases: ["豆包", "doubao"],
+  },
+  {
+    appIds: ["com.moonshot.kimichat"],
+    aliases: ["kimi", "月之暗面"],
+  },
+  {
+    appIds: ["com.alibaba.aliyun"],
+    aliases: ["通义", "qwen", "千问"],
+  },
+  {
+    appIds: ["com.tencent.hunyuan.app.chat"],
+    aliases: ["腾讯元宝", "元宝", "hunyuan"],
+  },
+  {
+    appIds: ["com.baidu.newapp"],
+    aliases: ["文心一言", "ernie bot"],
+  },
+  {
+    appIds: ["com.iflytek.spark"],
+    aliases: ["讯飞星火", "spark"],
+  },
+  {
+    appIds: ["com.zhipuai.qingyan"],
+    aliases: ["智谱清言", "chatglm"],
+  },
+  {
+    appIds: ["com.miniclip.eightballpool"],
+    aliases: ["8 ball pool", "台球"],
+  },
+  {
+    appIds: ["com.king.candycrushsaga"],
+    aliases: ["candy crush", "糖果传奇"],
+  },
+  {
+    appIds: ["com.king.candycrushsodasaga"],
+    aliases: ["candy crush soda"],
+  },
+  {
+    appIds: ["com.outfit7.mytalkingtom2"],
+    aliases: ["talking tom", "会说话的汤姆猫"],
+  },
+  {
+    appIds: ["com.rovio.baba"],
+    aliases: ["angry birds", "愤怒的小鸟"],
+  },
+  {
+    appIds: ["com.gameloft.android.ANMP.GloftA8HM"],
+    aliases: ["asphalt", "狂野飙车"],
+  },
+  {
+    appIds: ["com.ea.game.simcitymobile_row"],
+    aliases: ["simcity", "模拟城市"],
+  },
+  {
+    appIds: ["com.supercell.brawlstars"],
+    aliases: ["brawl stars", "荒野乱斗"],
+  },
+  {
+    appIds: ["com.miHoYo.GenshinImpact"],
+    aliases: ["genshin", "原神", "genshin impact"],
+  },
+  {
+    appIds: ["com.HoYoverse.hkrpgoversea"],
+    aliases: ["honkai star rail", "星穹铁道"],
+  },
+  {
+    appIds: ["com.HoYoverse.Nap"],
+    aliases: ["zenless zone zero", "绝区零"],
+  },
+  {
+    appIds: ["com.lilithgames.roc.gp"],
+    aliases: ["rise of kingdoms", "万国觉醒"],
+  },
+  {
+    appIds: ["com.igg.android.lordsmobile"],
+    aliases: ["lords mobile", "王国纪元"],
+  },
+  {
+    appIds: ["com.kingsgroup.sos"],
+    aliases: ["state of survival"],
+  },
+  {
+    appIds: ["com.plarium.raidlegends"],
+    aliases: ["raid shadow legends"],
+  },
+  {
+    appIds: ["com.playrix.township"],
+    aliases: ["township", "梦想城镇"],
+  },
+  {
+    appIds: ["com.playrix.gardenscapes"],
+    aliases: ["gardenscapes", "梦幻花园"],
+  },
+  {
+    appIds: ["com.playrix.homescapes"],
+    aliases: ["homescapes", "梦幻家园"],
+  },
+  {
+    appIds: ["com.vitastudio.solitaire"],
+    aliases: ["solitaire", "纸牌"],
+  },
+  {
+    appIds: ["com.kiloo.subwaysurf"],
+    aliases: ["subway surfers", "地铁跑酷"],
+  },
+  {
+    appIds: ["com.imangi.templerun2"],
+    aliases: ["temple run", "神庙逃亡"],
+  },
+  {
+    appIds: ["com.halfbrick.fruitninjafree"],
+    aliases: ["fruit ninja", "水果忍者"],
+  },
+  {
+    appIds: ["com.robtopx.geometryjumplite"],
+    aliases: ["geometry dash", "几何冲刺"],
+  },
+  {
+    appIds: ["com.fingersoft.hillclimb"],
+    aliases: ["hill climb racing", "登山赛车"],
+  },
+  {
+    appIds: ["com.outfit7.mytalkingangela2"],
+    aliases: ["talking angela", "会说话的安吉拉"],
+  },
+  {
+    appIds: ["com.outfit7.mytalkingtomfriends"],
+    aliases: ["talking tom friends"],
+  },
+  {
+    appIds: ["com.ea.game.pvz2_row"],
+    aliases: ["植物大战僵尸2", "pvz2"],
+  },
+  {
+    appIds: ["com.popcap.pvz2cthd360"],
+    aliases: ["植物大战僵尸融合版", "pvz fusion"],
+  },
+  {
+    appIds: ["org.freekiosk.kioskbrowser"],
+    aliases: ["freekiosk", "free kiosk", "freekiosk kiosk browser"],
+  },
+  {
+    appIds: ["com.samsung.android.oneconnect"],
+    aliases: ["samsung", "smartthings", "三星"],
+  },
 ];
 
 /** Wrong or truncated Play package ids from pasted URLs → canonical id */
@@ -857,6 +1657,13 @@ const PLAY_PACKAGE_ID_ALIASES: Readonly<Record<string, string>> = {
   "org.carnets": "com.spisoft.quicknote",
   "com.junote.junote": "com.fau.jupyternotebook",
   "cloud.centaur.goj": "cloud.centaur.gojgp",
+  "com.snapseedapp": "com.niksoftware.snapseed",
+  "com.snpaseedapp": "com.niksoftware.snapseed",
+  "ireader_smart6pro_eink.apk": "com.chaozh.iReaderFree",
+  "ireader_smart6pro_eink": "com.chaozh.iReaderFree",
+  "com.chaozh.ireaderfree": "com.chaozh.iReaderFree",
+  "com.zhangyue.ireader": "com.zhangyue.iReader",
+  "com.apple.android.music_5.2.1": "com.apple.android.music",
 };
 
 const SEARCH_ALIAS_APP_IDS = buildAliasMap();

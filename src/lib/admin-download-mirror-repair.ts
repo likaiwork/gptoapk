@@ -6,13 +6,23 @@ import {
   upsertManualDownloadSource,
   deleteManualDownloadSource,
 } from "@/lib/db";
+import { extractApkComboDownloadUrl } from "@/lib/apkcombo-download-url";
 import { isAllowedDownloadUrl } from "@/lib/download-url-allowlist";
+import { fetchDispatcher } from "@/lib/proxy";
+import { sanitizeAppId } from "@/lib/sanitize-app-id";
 import { getUnsupportedNoMirrorApp } from "@/lib/unsupported-no-mirror-apps";
 import { getUnsupportedPaidApp } from "@/lib/unsupported-paid-apps";
 import { autoResolveBlockedDownloadFailures } from "@/lib/admin-download-repair";
 
 const SOURCE_TIMEOUT_MS = 30_000;
+const APKCOMBO_TIMEOUT_MS = 25_000;
 const USER_AGENT = "gptoapk-mirror-repair/1.0";
+
+function fetchWithProxy(input: string, init: RequestInit = {}): Promise<Response> {
+  if (!fetchDispatcher) return fetch(input, init);
+  return fetch(input, { ...init, // @ts-expect-error undici dispatcher
+    dispatcher: fetchDispatcher });
+}
 
 export type MirrorRepairReport = {
   probed: number;
@@ -38,7 +48,7 @@ async function probeAptoide(appId: string): Promise<string | null> {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), SOURCE_TIMEOUT_MS);
   try {
-    const res = await fetch(
+    const res = await fetchWithProxy(
       `https://ws75.aptoide.com/api/7/app/getMeta?package_name=${encodeURIComponent(appId)}`,
       { headers: { "User-Agent": USER_AGENT }, signal: controller.signal, cache: "no-store" },
     );
@@ -57,7 +67,7 @@ async function probeApkPure(appId: string): Promise<string | null> {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), SOURCE_TIMEOUT_MS);
   try {
-    const res = await fetch(
+    const res = await fetchWithProxy(
       `https://d.apkpure.net/b/APK/${encodeURIComponent(appId)}?version=latest`,
       { method: "GET", redirect: "manual", headers: { "User-Agent": USER_AGENT }, signal: controller.signal },
     );
@@ -74,7 +84,7 @@ async function probeOnlineApkDownloader(appId: string): Promise<string | null> {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), SOURCE_TIMEOUT_MS);
   try {
-    const res = await fetch(
+    const res = await fetchWithProxy(
       `https://online-apk-downloader.com/apk-ajax&packageDownload&id=${encodeURIComponent(appId)}`,
       {
         headers: {
@@ -96,12 +106,45 @@ async function probeOnlineApkDownloader(appId: string): Promise<string | null> {
   }
 }
 
+async function probeApkComboDownloader(appId: string): Promise<string | null> {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), APKCOMBO_TIMEOUT_MS);
+  const downloaderUrl = `https://apkcombo.com/downloader/?package=${encodeURIComponent(appId)}&lang=en`;
+  const pageUrls = [downloaderUrl, `https://r.jina.ai/${downloaderUrl}`];
+
+  try {
+    for (const pageUrl of pageUrls) {
+      const res = await fetchWithProxy(pageUrl, {
+        headers: {
+          "User-Agent": USER_AGENT,
+          Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+          Referer: "https://apkcombo.com/",
+        },
+        cache: "no-store",
+        signal: controller.signal,
+      });
+      if (!res.ok) continue;
+      const content = await res.text();
+      const directUrl = extractApkComboDownloadUrl(content);
+      if (directUrl) return directUrl;
+    }
+    return null;
+  } catch {
+    return null;
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
 async function findMirrorDownloadUrl(appId: string): Promise<{ url: string; source: string } | null> {
   const aptoide = await probeAptoide(appId);
   if (aptoide) return { url: aptoide, source: "aptoide" };
 
   const apkpure = await probeApkPure(appId);
   if (apkpure) return { url: apkpure, source: "apkpure" };
+
+  const apkcombo = await probeApkComboDownloader(appId);
+  if (apkcombo) return { url: apkcombo, source: "apkcombo-r2" };
 
   const online = await probeOnlineApkDownloader(appId);
   if (online) return { url: online, source: "online-apk-downloader" };
@@ -144,8 +187,9 @@ export async function runDownloadMirrorRepair(options?: {
     const { rows } = await getDownloadFailureApps(pageSize, page * pageSize);
     for (const row of rows) {
       if (row.resolved) continue;
-      if (getUnsupportedPaidApp(row.app_id) || getUnsupportedNoMirrorApp(row.app_id)) continue;
-      candidates.push({ app_id: row.app_id, app_title: row.app_title });
+      const appId = sanitizeAppId(row.app_id);
+      if (!appId || getUnsupportedPaidApp(appId) || getUnsupportedNoMirrorApp(appId)) continue;
+      candidates.push({ app_id: appId, app_title: row.app_title || appId });
       if (candidates.length >= maxApps) break;
     }
     if (rows.length < pageSize) break;
@@ -155,34 +199,42 @@ export async function runDownloadMirrorRepair(options?: {
   let mirrorsFound = 0;
   let downloadMarkedResolved = 0;
 
+  const markResolved = async (rawAppId: string) => {
+    const cleanId = sanitizeAppId(rawAppId);
+    let ok = await updateDownloadFailureResolved(cleanId, true);
+    if (!ok && cleanId !== rawAppId.trim()) {
+      ok = await updateDownloadFailureResolved(rawAppId.trim(), true);
+    }
+    return ok;
+  };
+
   for (const item of candidates) {
-    const existingManual = await getManualDownloadSource(item.app_id);
+    const appId = item.app_id;
+    const existingManual = await getManualDownloadSource(appId);
     if (existingManual && !isAllowedDownloadUrl(existingManual.download_url)) {
-      await deleteManualDownloadSource(item.app_id);
+      await deleteManualDownloadSource(appId);
     }
 
-    if (await prepareDownload(item.app_id)) {
-      const ok = await updateDownloadFailureResolved(item.app_id, true);
-      if (ok) downloadMarkedResolved += 1;
+    if (await prepareDownload(appId)) {
+      if (await markResolved(appId)) downloadMarkedResolved += 1;
       continue;
     }
 
-    const mirror = await findMirrorDownloadUrl(item.app_id);
+    const mirror = await findMirrorDownloadUrl(appId);
     if (!mirror) continue;
 
     mirrorsFound += 1;
     await upsertManualDownloadSource({
-      appId: item.app_id,
+      appId,
       appTitle: item.app_title,
       downloadUrl: mirror.url,
-      fileName: `${item.app_id}.apk`,
+      fileName: `${appId}.apk`,
       sourceLabel: mirror.source,
       active: true,
     });
 
-    if (await prepareDownload(item.app_id)) {
-      const ok = await updateDownloadFailureResolved(item.app_id, true);
-      if (ok) downloadMarkedResolved += 1;
+    if (await prepareDownload(appId)) {
+      if (await markResolved(appId)) downloadMarkedResolved += 1;
     }
   }
 
