@@ -7,6 +7,7 @@ import {
   deleteManualDownloadSource,
 } from "@/lib/db";
 import { resolveApkComboAppDownloadUrl } from "@/lib/apkcombo-app-download";
+import { resolveUptodownDownloadUrl } from "@/lib/uptodown-download";
 import { fetchApkPureCmsDownloadUrl } from "@/lib/apkpure-cms-download";
 import { extractApkComboDownloadUrl } from "@/lib/apkcombo-download-url";
 import { isAllowedDownloadUrl } from "@/lib/download-url-allowlist";
@@ -159,7 +160,27 @@ async function probeApkComboDownloader(appId: string): Promise<string | null> {
   }
 }
 
+async function probeUptodown(appId: string): Promise<string | null> {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), APKCOMBO_TIMEOUT_MS);
+  try {
+    const url = await resolveUptodownDownloadUrl(
+      appId,
+      (input, init) => fetchWithProxy(String(input), init),
+      controller.signal,
+    );
+    return url && isPublicHttpsUrl(url) ? url : null;
+  } catch {
+    return null;
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
 async function findMirrorDownloadUrl(appId: string): Promise<{ url: string; source: string } | null> {
+  const uptodown = await probeUptodown(appId);
+  if (uptodown) return { url: uptodown, source: "uptodown" };
+
   const aptoide = await probeAptoide(appId);
   if (aptoide) return { url: aptoide, source: "aptoide" };
 

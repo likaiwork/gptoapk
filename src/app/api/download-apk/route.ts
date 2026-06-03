@@ -16,6 +16,7 @@ import { getUnsupportedNoMirrorApp } from '@/lib/unsupported-no-mirror-apps';
 import { getUnsupportedPaidApp } from '@/lib/unsupported-paid-apps';
 import { resolveApkComboAppDownloadUrl } from '@/lib/apkcombo-app-download';
 import { fetchApkPureCmsDownloadUrl } from '@/lib/apkpure-cms-download';
+import { resolveUptodownDownloadUrl } from '@/lib/uptodown-download';
 import { isAllowedDownloadUrl as isAllowedDownloadUrlShared } from '@/lib/download-url-allowlist';
 import { sanitizeAppId } from '@/lib/sanitize-app-id';
 
@@ -40,6 +41,7 @@ const ALLOWED_DOWNLOAD_HOST_SUFFIXES = [
   '.online-apk-downloader.com',
   '.amazonaws.com',
   '.r2.cloudflarestorage.com',
+  '.uptodown.com',
 ];
 const APKCOMBO_SOURCE_PAGES: Record<string, { pageUrl: string; fileName: string; type: string }> = {
   'com.anthropic.claude': {
@@ -738,7 +740,52 @@ async function tryApkComboApp(appId: string): Promise<SourceResult | null> {
   }
 }
 
-const APKCOMBO_APP_PRIORITY_IDS = new Set([
+async function tryUptodown(appId: string): Promise<SourceResult | null> {
+  const timeout = createAbortSignal(APKCOMBO_TIMEOUT_MS);
+  try {
+    const directUrl = await resolveUptodownDownloadUrl(
+      appId,
+      (input, init) => fetchWithProxy(String(input), init),
+      timeout.signal,
+    );
+    if (!directUrl || !isAllowedDownloadUrl(directUrl)) return null;
+    const knownSource = APKCOMBO_SOURCE_PAGES[appId.toLowerCase()];
+    return {
+      downloadUrl: directUrl,
+      fileName: fileNameFromDownloadUrl(
+        directUrl,
+        knownSource?.fileName ?? `${appId}.apk`,
+      ),
+      version: null,
+      size: null,
+      md5: null,
+      source: 'uptodown',
+      type: knownSource?.type ?? 'APK',
+      preferredDelivery: 'proxy',
+    };
+  } catch {
+    return null;
+  } finally {
+    timeout.clear();
+  }
+}
+
+function tryApkComboExternalPage(appId: string): SourceResult | null {
+  const knownSource = APKCOMBO_SOURCE_PAGES[appId.toLowerCase()];
+  if (!knownSource) return null;
+  return {
+    downloadUrl: knownSource.pageUrl,
+    fileName: knownSource.fileName,
+    version: null,
+    size: null,
+    md5: null,
+    source: 'apkcombo-page',
+    type: knownSource.type,
+    externalPage: true,
+  };
+}
+
+const CHINESE_RETAIL_PRIORITY_IDS = new Set([
   "com.taobao.taobao",
   "com.xunmeng.pinduoduo",
   "com.jingdong.app.mall",
@@ -750,9 +797,15 @@ async function resolveDownloadSource(appId: string) {
   if (manual) return manual;
 
   const id = appId.toLowerCase();
-  if (APKCOMBO_APP_PRIORITY_IDS.has(id)) {
+  if (CHINESE_RETAIL_PRIORITY_IDS.has(id)) {
+    const uptodown = await tryUptodown(appId);
+    if (uptodown) return uptodown;
+
     const comboApp = await tryApkComboApp(appId);
     if (comboApp) return comboApp;
+
+    const apkComboPage = await tryApkCombo(appId);
+    if (apkComboPage) return apkComboPage;
   }
 
   const candidates = await Promise.all([
@@ -761,10 +814,14 @@ async function resolveDownloadSource(appId: string) {
     tryApkCombo(appId),
     tryApkComboDownloader(appId),
     tryApkComboApp(appId),
+    tryUptodown(appId),
     tryOnlineApkDownloader(appId),
   ]);
 
-  return candidates.find((result) => result !== null) ?? null;
+  const resolved = candidates.find((result) => result !== null);
+  if (resolved) return resolved;
+
+  return tryApkComboExternalPage(appId);
 }
 
 export async function GET(request: Request) {

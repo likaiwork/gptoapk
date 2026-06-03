@@ -8,6 +8,7 @@ export const ALLOWED_DOWNLOAD_HOST_SUFFIXES = [
   ".online-apk-downloader.com",
   ".amazonaws.com",
   ".r2.cloudflarestorage.com",
+  ".uptodown.com",
 ] as const;
 
 export function isAllowedDownloadUrl(downloadUrl: string): boolean {
