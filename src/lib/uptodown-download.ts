@@ -30,6 +30,12 @@ function extractDataFileId(html: string): string | null {
 }
 
 function extractPostDownloadPath(html: string): string | null {
+  const directDw = html.match(/https:\/\/dw\.uptodown\.com\/dwn\/[^\s"'<>)\]]+/i);
+  if (directDw?.[0]) {
+    const url = directDw[0].replace(/[),.;]+$/, "");
+    if (isAllowedDownloadUrl(url)) return url;
+  }
+
   const patterns = [
     /class="post-download"[^>]*\sdata-url="([^"]+)"/i,
     /data-url="([^"]+)"[^>]*class="post-download"/i,
@@ -45,10 +51,38 @@ function extractPostDownloadPath(html: string): string | null {
 function uptodownDownloadUrl(path: string): string | null {
   const clean = path.replace(/^\//, "").trim();
   if (!clean) return null;
-  const url = clean.startsWith("http")
-    ? clean
-    : `https://dw.uptodown.com/dwn/${clean}`;
+  if (clean.startsWith("http")) {
+    return isAllowedDownloadUrl(clean) ? clean : null;
+  }
+  const url = `https://dw.uptodown.com/dwn/${clean}`;
   return isAllowedDownloadUrl(url) ? url : null;
+}
+
+async function fetchUptodownHtml(
+  pageUrl: string,
+  fetchImpl: FetchLike,
+  signal?: AbortSignal,
+): Promise<string | null> {
+  const urls = [pageUrl, `https://r.jina.ai/${pageUrl}`];
+  for (const url of urls) {
+    try {
+      const res = await fetchImpl(url, {
+        method: "GET",
+        headers: {
+          "User-Agent": UPTODOWN_USER_AGENT,
+          Accept: "text/html,text/plain,*/*",
+        },
+        cache: "no-store",
+        signal,
+      });
+      if (!res.ok) continue;
+      const html = await res.text();
+      if (html.length > 200) return html;
+    } catch {
+      // try next mirror
+    }
+  }
+  return null;
 }
 
 async function pageExists(
@@ -56,19 +90,9 @@ async function pageExists(
   fetchImpl: FetchLike,
   signal?: AbortSignal,
 ): Promise<boolean> {
-  try {
-    const res = await fetchImpl(baseUrl, {
-      method: "GET",
-      headers: { "User-Agent": UPTODOWN_USER_AGENT, Accept: "text/html" },
-      cache: "no-store",
-      signal,
-    });
-    if (!res.ok) return false;
-    const html = await res.text();
-    return /data-file-id=|detail-app-name|packageName/i.test(html);
-  } catch {
-    return false;
-  }
+  const html = await fetchUptodownHtml(baseUrl, fetchImpl, signal);
+  if (!html) return false;
+  return /data-file-id=|detail-app-name|packageName/i.test(html);
 }
 
 async function discoverUptodownBaseUrl(
@@ -95,16 +119,8 @@ async function discoverUptodownBaseUrl(
 
   try {
     const searchUrl = `https://en.uptodown.com/android/search?q=${encodeURIComponent(appId)}`;
-    const res = await fetchImpl(searchUrl, {
-      headers: {
-        "User-Agent": UPTODOWN_USER_AGENT,
-        Accept: "text/html",
-      },
-      cache: "no-store",
-      signal,
-    });
-    if (!res.ok) return null;
-    const html = await res.text();
+    const html = await fetchUptodownHtml(searchUrl, fetchImpl, signal);
+    if (!html) return null;
     const linkPattern = /href="(https:\/\/[a-z0-9-]+\.en\.uptodown\.com\/android)"/gi;
     for (const match of html.matchAll(linkPattern)) {
       const base = match[1];
@@ -132,18 +148,8 @@ export async function resolveUptodownDownloadUrl(
   const baseUrl = await discoverUptodownBaseUrl(appId, fetchImpl, signal);
   if (!baseUrl) return null;
 
-  let downloadPageHtml: string;
-  try {
-    const res = await fetchImpl(`${baseUrl}/download`, {
-      headers: { "User-Agent": UPTODOWN_USER_AGENT, Accept: "text/html" },
-      cache: "no-store",
-      signal,
-    });
-    if (!res.ok) return null;
-    downloadPageHtml = await res.text();
-  } catch {
-    return null;
-  }
+  const downloadPageHtml = await fetchUptodownHtml(`${baseUrl}/download`, fetchImpl, signal);
+  if (!downloadPageHtml) return null;
 
   const fileId = extractDataFileId(downloadPageHtml);
   if (!fileId) {
@@ -152,18 +158,13 @@ export async function resolveUptodownDownloadUrl(
     return null;
   }
 
-  try {
-    const postRes = await fetchImpl(`${baseUrl}/post-download/${fileId}`, {
-      headers: { "User-Agent": UPTODOWN_USER_AGENT, Accept: "text/html" },
-      cache: "no-store",
-      signal,
-    });
-    if (!postRes.ok) return null;
-    const postHtml = await postRes.text();
-    const path = extractPostDownloadPath(postHtml);
-    if (!path) return null;
-    return uptodownDownloadUrl(path);
-  } catch {
-    return null;
-  }
+  const postHtml = await fetchUptodownHtml(
+    `${baseUrl}/post-download/${fileId}`,
+    fetchImpl,
+    signal,
+  );
+  if (!postHtml) return null;
+  const path = extractPostDownloadPath(postHtml);
+  if (!path) return null;
+  return uptodownDownloadUrl(path);
 }
