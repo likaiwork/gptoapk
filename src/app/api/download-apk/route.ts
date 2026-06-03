@@ -14,6 +14,7 @@ import { fetchDispatcher } from '@/lib/proxy';
 import { analyticsEvents, trackServerEvent } from '@/lib/server-analytics';
 import { getUnsupportedNoMirrorApp } from '@/lib/unsupported-no-mirror-apps';
 import { getUnsupportedPaidApp } from '@/lib/unsupported-paid-apps';
+import { resolveApkComboAppDownloadUrl } from '@/lib/apkcombo-app-download';
 import { fetchApkPureCmsDownloadUrl } from '@/lib/apkpure-cms-download';
 import { isAllowedDownloadUrl as isAllowedDownloadUrlShared } from '@/lib/download-url-allowlist';
 import { sanitizeAppId } from '@/lib/sanitize-app-id';
@@ -712,6 +713,31 @@ async function tryOnlineApkDownloader(appId: string): Promise<SourceResult | nul
   }
 }
 
+async function tryApkComboApp(appId: string): Promise<SourceResult | null> {
+  const timeout = createAbortSignal(APKCOMBO_TIMEOUT_MS);
+  try {
+    const directUrl = await resolveApkComboAppDownloadUrl(
+      appId,
+      (input, init) => fetchWithProxy(String(input), init),
+      timeout.signal,
+    );
+    if (!directUrl || !isAllowedDownloadUrl(directUrl)) return null;
+    return {
+      downloadUrl: directUrl,
+      fileName: fileNameFromDownloadUrl(directUrl, `${appId}.apk`),
+      version: null,
+      size: null,
+      md5: null,
+      source: 'apkcombo-app',
+      preferredDelivery: 'proxy',
+    };
+  } catch {
+    return null;
+  } finally {
+    timeout.clear();
+  }
+}
+
 async function resolveDownloadSource(appId: string) {
   const manual = await tryManualDownloadSource(appId);
   if (manual) return manual;
@@ -721,6 +747,7 @@ async function resolveDownloadSource(appId: string) {
     tryApkPure(appId),
     tryApkCombo(appId),
     tryApkComboDownloader(appId),
+    tryApkComboApp(appId),
     tryOnlineApkDownloader(appId),
   ]);
 

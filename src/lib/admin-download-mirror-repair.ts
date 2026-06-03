@@ -6,6 +6,7 @@ import {
   upsertManualDownloadSource,
   deleteManualDownloadSource,
 } from "@/lib/db";
+import { resolveApkComboAppDownloadUrl } from "@/lib/apkcombo-app-download";
 import { fetchApkPureCmsDownloadUrl } from "@/lib/apkpure-cms-download";
 import { extractApkComboDownloadUrl } from "@/lib/apkcombo-download-url";
 import { isAllowedDownloadUrl } from "@/lib/download-url-allowlist";
@@ -167,6 +168,14 @@ async function findMirrorDownloadUrl(appId: string): Promise<{ url: string; sour
 
   const apkcombo = await probeApkComboDownloader(appId);
   if (apkcombo) return { url: apkcombo, source: "apkcombo-r2" };
+
+  const apkcomboApp = await resolveApkComboAppDownloadUrl(
+    appId,
+    (input, init) => fetchWithProxy(String(input), init),
+  );
+  if (apkcomboApp && isPublicHttpsUrl(apkcomboApp)) {
+    return { url: apkcomboApp, source: "apkcombo-app" };
+  }
 
   const online = await probeOnlineApkDownloader(appId);
   if (online) return { url: online, source: "online-apk-downloader" };
