@@ -56,6 +56,37 @@ function pickVariantDownloadPath(oldVersionsHtml: string, appId: string): string
 /**
  * Resolves a direct APK URL via apkcombo.app (checkin + variant page), used when apkpure/aptoid fail.
  */
+async function followDownloadRedirect(
+  url: string,
+  fetchImpl: FetchLike,
+  signal?: AbortSignal,
+): Promise<string | null> {
+  try {
+    const res = await fetchImpl(url, {
+      headers: { "User-Agent": "Mozilla/5.0 (compatible; gptoapk/1.0)" },
+      redirect: "manual",
+      cache: "no-store",
+      signal,
+    });
+    const location = res.headers.get("location");
+    if (location && isAllowedDownloadUrl(location)) return location;
+    if (res.ok) {
+      const html = await res.text();
+      return extractApkComboDownloadUrl(html);
+    }
+    const followed = await fetchImpl(url, {
+      headers: { "User-Agent": "Mozilla/5.0 (compatible; gptoapk/1.0)" },
+      redirect: "follow",
+      cache: "no-store",
+      signal,
+    });
+    if (followed.redirected && isAllowedDownloadUrl(followed.url)) return followed.url;
+  } catch {
+    return null;
+  }
+  return null;
+}
+
 export async function resolveApkComboAppDownloadUrl(
   appId: string,
   fetchImpl: FetchLike,
@@ -66,6 +97,28 @@ export async function resolveApkComboAppDownloadUrl(
 
   const org = apkComboOrgForAppId(repo);
   const checkin = await apkComboCheckinToken(fetchImpl, signal);
+
+  const directPaths = [
+    `/download/apk`,
+    `/download/phone-latest-apk`,
+    `/download/phone-stable-apk`,
+  ];
+  for (const path of directPaths) {
+    const url = withCheckinQuery(`https://apkcombo.app/${org}/${repo}${path}`, checkin);
+    const found = await followDownloadRedirect(url, fetchImpl, signal);
+    if (found) return found;
+  }
+
+  const jinaPage = `https://r.jina.ai/https://apkcombo.com/${org}/${repo}/download/apk`;
+  try {
+    const jinaRes = await fetchImpl(jinaPage, { cache: "no-store", signal });
+    if (jinaRes.ok) {
+      const fromJina = extractApkComboDownloadUrl(await jinaRes.text());
+      if (fromJina) return fromJina;
+    }
+  } catch {
+    // ignore
+  }
 
   const oldVersionsUrl = withCheckinQuery(
     `https://apkcombo.app/${org}/${repo}/old-versions`,

@@ -738,9 +738,22 @@ async function tryApkComboApp(appId: string): Promise<SourceResult | null> {
   }
 }
 
+const APKCOMBO_APP_PRIORITY_IDS = new Set([
+  "com.taobao.taobao",
+  "com.xunmeng.pinduoduo",
+  "com.jingdong.app.mall",
+  "com.eg.android.alipaygphone",
+]);
+
 async function resolveDownloadSource(appId: string) {
   const manual = await tryManualDownloadSource(appId);
   if (manual) return manual;
+
+  const id = appId.toLowerCase();
+  if (APKCOMBO_APP_PRIORITY_IDS.has(id)) {
+    const comboApp = await tryApkComboApp(appId);
+    if (comboApp) return comboApp;
+  }
 
   const candidates = await Promise.all([
     tryAptoide(appId),

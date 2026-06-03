@@ -23,11 +23,21 @@ export function extractApkComboDownloadUrl(content: string): string | null {
   }
 
   const directMatches = Array.from(
-    content.matchAll(/https:\/\/[^\s"'<>)]*cloudflarestorage\.com[^\s"'<>)]*/g),
+    content.matchAll(/https:\/\/[^\s"'<>)\]]*cloudflarestorage\.com[^\s"'<>)\]]*/gi),
   );
   for (const match of directMatches) {
-    const directUrl = decodeHtmlAttribute(match[0]);
+    const directUrl = decodeHtmlAttribute(match[0].replace(/[),.;]+$/, ""));
     if (isAllowedDownloadUrl(directUrl)) return directUrl;
+  }
+
+  const r2Href = content.match(/apkcombo\.com\/r2\?u=([^"'\\s<>)\]]+)/i);
+  if (r2Href?.[1]) {
+    try {
+      const decoded = decodeURIComponent(r2Href[1]);
+      if (isAllowedDownloadUrl(decoded)) return decoded;
+    } catch {
+      // ignore
+    }
   }
 
   return null;
