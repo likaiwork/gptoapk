@@ -14,6 +14,8 @@ import { fetchDispatcher } from '@/lib/proxy';
 import { analyticsEvents, trackServerEvent } from '@/lib/server-analytics';
 import { getUnsupportedNoMirrorApp } from '@/lib/unsupported-no-mirror-apps';
 import { getUnsupportedPaidApp } from '@/lib/unsupported-paid-apps';
+import { fetchApkPureCmsDownloadUrl } from '@/lib/apkpure-cms-download';
+import { isAllowedDownloadUrl as isAllowedDownloadUrlShared } from '@/lib/download-url-allowlist';
 import { sanitizeAppId } from '@/lib/sanitize-app-id';
 
 export const runtime = 'nodejs';
@@ -28,7 +30,16 @@ const USER_AGENT = 'Mozilla/5.0 (compatible; gptoapk/1.0; +https://www.gptoapk.c
 const APK_CONTENT_TYPE = 'application/vnd.android.package-archive';
 const DOWNLOAD_CACHE_CONTROL = 'no-store';
 
-const ALLOWED_DOWNLOAD_HOST_SUFFIXES = ['.aptoide.com', '.winudf.com', '.apppure.net', '.cloudflarestorage.com', '.online-apk-downloader.com'];
+const ALLOWED_DOWNLOAD_HOST_SUFFIXES = [
+  '.aptoide.com',
+  '.winudf.com',
+  '.apkpure.com',
+  '.apppure.net',
+  '.cloudflarestorage.com',
+  '.online-apk-downloader.com',
+  '.amazonaws.com',
+  '.r2.cloudflarestorage.com',
+];
 const APKCOMBO_SOURCE_PAGES: Record<string, { pageUrl: string; fileName: string; type: string }> = {
   'com.anthropic.claude': {
     pageUrl: 'https://apkcombo.com/claude-by-anthropic/com.anthropic.claude/download/apk',
@@ -95,6 +106,21 @@ const APKCOMBO_SOURCE_PAGES: Record<string, { pageUrl: string; fileName: string;
     fileName: '老王VPN.apk',
     type: 'APK',
   },
+  'com.taobao.taobao': {
+    pageUrl: 'https://apkcombo.com/taobao/com.taobao.taobao/download/apk',
+    fileName: 'Taobao.apk',
+    type: 'APK',
+  },
+  'com.xunmeng.pinduoduo': {
+    pageUrl: 'https://apkcombo.com/pinduoduo/com.xunmeng.pinduoduo/download/apk',
+    fileName: 'Pinduoduo.apk',
+    type: 'APK',
+  },
+  'com.jingdong.app.mall': {
+    pageUrl: 'https://apkcombo.com/jd-com-jingdong/com.jingdong.app.mall/download/apk',
+    fileName: 'JD.apk',
+    type: 'APK',
+  },
 };
 const ONLINE_APK_DOWNLOADER_PACKAGE_OVERRIDES: Record<string, { fileName: string; type: string }> = {
   'com.anthropic.claude': {
@@ -153,6 +179,7 @@ function createAbortSignal(timeoutMs: number) {
 }
 
 function isAllowedDownloadUrl(downloadUrl: string) {
+  if (isAllowedDownloadUrlShared(downloadUrl)) return true;
   try {
     const parsed = new URL(downloadUrl);
     if (parsed.protocol !== 'https:') return false;
@@ -489,37 +516,70 @@ async function tryManualDownloadSource(appId: string): Promise<SourceResult | nu
   }
 }
 
+async function followApkPureRedirect(
+  startUrl: string,
+  signal: AbortSignal,
+): Promise<SourceResult | null> {
+  const res = await fetchWithProxy(startUrl, {
+    method: 'GET',
+    headers: { 'User-Agent': USER_AGENT },
+    redirect: 'manual',
+    cache: 'no-store',
+    signal,
+  });
+  if (![301, 302, 303, 307, 308].includes(res.status)) return null;
+  const location = res.headers.get('location');
+  if (!location || !isAllowedDownloadUrl(location)) return null;
+  let fileName: string | null = null;
+  try {
+    const fn = new URL(location).searchParams.get('_fn');
+    if (fn) fileName = Buffer.from(fn, 'base64').toString('utf-8');
+  } catch {
+    // ignore parse error
+  }
+  return {
+    downloadUrl: location,
+    fileName,
+    version: null,
+    size: null,
+    md5: null,
+    source: 'apkpure',
+    preferredDelivery: shouldProxyApkPureDownload(location) ? 'proxy' : undefined,
+  };
+}
+
 async function tryApkPure(appId: string): Promise<SourceResult | null> {
   const timeout = createAbortSignal(SOURCE_TIMEOUT_MS);
   try {
-    // d.apkpure.net 302-redirects to a winudf CDN URL with a signed `k` token.
-    // We capture the Location header and proxy it through this API route.
-    const url = `https://d.apkpure.net/b/APK/${encodeURIComponent(appId)}?version=latest`;
-    const res = await fetchWithProxy(url, {
-      method: 'GET',
-      headers: { 'User-Agent': USER_AGENT },
-      redirect: 'manual',
-      cache: 'no-store',
-      signal: timeout.signal,
-    });
-    if (![301, 302, 303, 307, 308].includes(res.status)) return null;
-    const location = res.headers.get('location');
-    if (!location || !isAllowedDownloadUrl(location)) return null;
-    let fileName: string | null = null;
-    try {
-      const fn = new URL(location).searchParams.get('_fn');
-      if (fn) fileName = Buffer.from(fn, 'base64').toString('utf-8');
-    } catch {
-      // ignore parse error
+    const redirectUrls = [
+      `https://d.apkpure.net/b/APK/${encodeURIComponent(appId)}?version=latest`,
+      `https://d.apkpure.com/b/APK/${encodeURIComponent(appId)}?version=latest`,
+    ];
+    for (const url of redirectUrls) {
+      const result = await followApkPureRedirect(url, timeout.signal);
+      if (result) return result;
     }
+
+    const cmsUrl = await fetchApkPureCmsDownloadUrl(
+      appId,
+      (input, init) => fetchWithProxy(String(input), init),
+      timeout.signal,
+    );
+    if (!cmsUrl) return null;
+
+    if (cmsUrl.includes('/b/APK/')) {
+      return followApkPureRedirect(cmsUrl, timeout.signal);
+    }
+
+    if (!isAllowedDownloadUrl(cmsUrl)) return null;
     return {
-      downloadUrl: location,
-      fileName,
+      downloadUrl: cmsUrl,
+      fileName: fileNameFromDownloadUrl(cmsUrl, `${appId}.apk`),
       version: null,
       size: null,
       md5: null,
-      source: 'apkpure',
-      preferredDelivery: shouldProxyApkPureDownload(location) ? 'proxy' : undefined,
+      source: 'apkpure-cms',
+      preferredDelivery: shouldProxyApkPureDownload(cmsUrl) ? 'proxy' : undefined,
     };
   } catch {
     return null;

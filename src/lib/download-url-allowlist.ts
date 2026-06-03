@@ -3,6 +3,7 @@ export const ALLOWED_DOWNLOAD_HOST_SUFFIXES = [
   ".winudf.com",
   ".apkpure.com",
   ".apppure.net",
+  ".pureapk.com",
   ".cloudflarestorage.com",
   ".online-apk-downloader.com",
   ".amazonaws.com",

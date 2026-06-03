@@ -6,6 +6,7 @@ import {
   upsertManualDownloadSource,
   deleteManualDownloadSource,
 } from "@/lib/db";
+import { fetchApkPureCmsDownloadUrl } from "@/lib/apkpure-cms-download";
 import { extractApkComboDownloadUrl } from "@/lib/apkcombo-download-url";
 import { isAllowedDownloadUrl } from "@/lib/download-url-allowlist";
 import { fetchDispatcher } from "@/lib/proxy";
@@ -67,12 +68,33 @@ async function probeApkPure(appId: string): Promise<string | null> {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), SOURCE_TIMEOUT_MS);
   try {
-    const res = await fetchWithProxy(
-      `https://d.apkpure.net/b/APK/${encodeURIComponent(appId)}?version=latest`,
-      { method: "GET", redirect: "manual", headers: { "User-Agent": USER_AGENT }, signal: controller.signal },
+    for (const host of ["https://d.apkpure.net", "https://d.apkpure.com"]) {
+      const res = await fetchWithProxy(
+        `${host}/b/APK/${encodeURIComponent(appId)}?version=latest`,
+        { method: "GET", redirect: "manual", headers: { "User-Agent": USER_AGENT }, signal: controller.signal },
+      );
+      const location = res.headers.get("location") || "";
+      if (isPublicHttpsUrl(location)) return location;
+    }
+
+    const cmsUrl = await fetchApkPureCmsDownloadUrl(
+      appId,
+      (input, init) => fetchWithProxy(String(input), init),
+      controller.signal,
     );
-    const location = res.headers.get("location") || "";
-    return isPublicHttpsUrl(location) ? location : null;
+    if (!cmsUrl) return null;
+    if (isPublicHttpsUrl(cmsUrl)) return cmsUrl;
+    if (cmsUrl.includes("/b/APK/")) {
+      const res = await fetchWithProxy(cmsUrl, {
+        method: "GET",
+        redirect: "manual",
+        headers: { "User-Agent": USER_AGENT },
+        signal: controller.signal,
+      });
+      const location = res.headers.get("location") || "";
+      return isPublicHttpsUrl(location) ? location : null;
+    }
+    return null;
   } catch {
     return null;
   } finally {
