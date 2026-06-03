@@ -25,6 +25,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "fix-apk-signature-verification-failed",
     "fix-google-play-not-opening",
     "apk-install-failed-error-codes-guide",
+    "how-to-download-apk-safely-2026",
+    "whatsapp-telegram-signal-wechat-comparison-2026",
+    "install-apk-android-tv-fire-tv-china-2026",
+    "install-google-play-huawei-honor-phone-2026",
+    "best-free-vpn-android-apk-2026",
+    "apk-safe-download-seo-geo-2026",
+    "huawei-google-play-seo-geo-2026",
   ];
 
   const zhBlogSlugs = [
@@ -63,6 +70,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "google-play-link-to-apk-step-by-step",
     "google-play-cannot-open-fixes-2026",
     "apk-install-failed-error-codes-guide",
+    "whatsapp-tips-features-guide-2026",
+    "apk-safe-download-security-guide-2026",
+    "android-apk-install-error-fix-2026",
+    "telegram-group-channel-guide-2026",
+    "best-android-apk-2026-recommendation",
+    "apk-download-security-seo-geo-2026",
+    "android-apk-install-fix-seo-geo-2026",
   ];
 
   // 检查：除 en/zh 外，其他语言只暴露首页 / FAQ / Blog 列表，blog 详情统一指向 en

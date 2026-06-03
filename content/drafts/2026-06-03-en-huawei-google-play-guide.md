@@ -6,7 +6,7 @@ date: 2026-06-03
 description: "How to install Google Play Store on Huawei and Honor phones without GMS: microG, GBox, Gspace, and APK sideloading methods compared. Works with HarmonyOS and EMUI 2026."
 keywords: ["install Google Play on Huawei", "Huawei GMS install", "Huawei Google Play 2026", "Huawei no GMS workaround", "Honor Google Play", "microG Huawei"]
 canonical: https://www.gptoapk.com/en/blog/install-google-play-huawei-honor-phone-2026
-status: draft
+status: published
 ---
 
 ## Introduction

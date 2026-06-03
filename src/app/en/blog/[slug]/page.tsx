@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import Script from "next/script";
+import { enSeoGeoPosts } from "@/lib/blog/en-seo-geo-posts";
 import { enPosts20260601 } from "@/lib/blog/posts-2026-06-01";
 import { enPosts20260602 } from "@/lib/blog/posts-2026-06-02";
 import { enPosts20260603 } from "@/lib/blog/posts-2026-06-03";
@@ -17,6 +18,7 @@ interface BlogPost {
 }
 
 const posts: BlogPost[] = [
+  ...enSeoGeoPosts,
   ...enPosts20260601,
   ...enPosts20260602,
   ...enPosts20260603,

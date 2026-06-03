@@ -13,7 +13,7 @@ keywords:
   - 安卓安全
   - gptoapk
 canonical: https://www.gptoapk.com/zh/blog/apk-safe-download-security-guide-2026
-status: draft
+status: published
 ---
 
 ## 引言

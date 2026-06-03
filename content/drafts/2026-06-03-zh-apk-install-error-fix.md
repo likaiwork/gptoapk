@@ -14,7 +14,7 @@ keywords:
   - 安装拦截
   - gptoapk
 canonical: https://www.gptoapk.com/zh/blog/android-apk-install-error-fix-2026
-status: draft
+status: published
 ---
 
 ## 引言
