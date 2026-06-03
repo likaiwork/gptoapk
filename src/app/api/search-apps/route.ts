@@ -188,7 +188,9 @@ async function searchByAliasApps(
   lang: string,
   country: string,
 ): Promise<SearchAppResult[]> {
-  const appIds = resolveSearchAliasAppIds(query);
+  const { resolveSearchAliasOverrideAppIds } = await import("@/lib/search-alias-overrides");
+  const overrideIds = await resolveSearchAliasOverrideAppIds(query);
+  const appIds = overrideIds ?? resolveSearchAliasAppIds(query);
   if (!appIds?.length) return [];
 
   const blocked = new Set<string>();

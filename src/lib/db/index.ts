@@ -369,6 +369,17 @@ export async function initDatabase(): Promise<void> {
   `;
 
   await sql`
+    CREATE TABLE IF NOT EXISTS search_alias_overrides (
+      alias_key TEXT PRIMARY KEY,
+      app_ids TEXT NOT NULL,
+      source_query TEXT DEFAULT '',
+      source_label TEXT DEFAULT 'auto-repair',
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `;
+
+  await sql`
     CREATE TABLE IF NOT EXISTS missing_app_feedback (
       id BIGSERIAL PRIMARY KEY,
       query TEXT NOT NULL,
@@ -398,6 +409,7 @@ export async function initDatabase(): Promise<void> {
   try { await sql`CREATE INDEX IF NOT EXISTS idx_search_failure_resolved ON search_failure_queries(resolved, last_failed_at DESC)`; } catch {}
   try { await sql`CREATE INDEX IF NOT EXISTS idx_search_failure_normalized ON search_failure_queries(normalized_query, query_type)`; } catch {}
   try { await sql`CREATE INDEX IF NOT EXISTS idx_missing_app_feedback_status ON missing_app_feedback(status, created_at DESC)`; } catch {}
+  try { await sql`CREATE INDEX IF NOT EXISTS idx_search_alias_overrides_updated ON search_alias_overrides(updated_at DESC)`; } catch {}
 
   // 迁移: 旧表没有的列
   const migrationQueries = [
@@ -1072,8 +1084,8 @@ export async function logSearchFailure(params: SearchFailureLogParams): Promise<
 }
 
 function normalizedQueriesForSearchIntent(query: string): string[] {
-  const canonical = normalizeUserSearchQuery(query.trim());
-  if (!canonical) return [];
+  const trimmed = query.trim();
+  if (!trimmed) return [];
 
   const out = new Set<string>();
   const add = (value: string) => {
@@ -1081,10 +1093,17 @@ function normalizedQueriesForSearchIntent(query: string): string[] {
     if (key) out.add(key);
   };
 
-  add(canonical);
+  add(trimmed);
+  const canonical = normalizeUserSearchQuery(trimmed);
+  if (canonical !== trimmed) add(canonical);
+
+  for (const aliasKey of getAliasLookupKeys(trimmed)) add(aliasKey);
   for (const aliasKey of getAliasLookupKeys(canonical)) add(aliasKey);
-  const stripped = stripSearchQueryNoise(canonical);
-  if (stripped) add(stripped);
+
+  const strippedCanonical = stripSearchQueryNoise(canonical);
+  if (strippedCanonical) add(strippedCanonical);
+  const strippedRaw = stripSearchQueryNoise(trimmed);
+  if (strippedRaw) add(strippedRaw);
 
   return [...out];
 }
@@ -1171,7 +1190,18 @@ export async function reconcileResolvableSearchFailures(options?: {
       const unique = [...new Set(candidates.map((q) => q.trim()).filter(Boolean))];
       let didResolve = false;
 
-      if (unique.some((q) => canResolveSearchQueryNow(q))) {
+      const lookupKeys = unique.flatMap((q) => getAliasLookupKeys(q));
+      const overrideIds = lookupKeys.length ? await getSearchAliasOverrideAppIds(lookupKeys) : null;
+      if (overrideIds?.length) {
+        const count = await resolveSearchFailuresForQuery(unique[0]!);
+        if (count > 0) {
+          resolved += count;
+          resolvedInBatch += 1;
+          didResolve = true;
+        }
+      }
+
+      if (!didResolve && unique.some((q) => canResolveSearchQueryNow(q))) {
         const count = await resolveSearchFailuresForQuery(unique[0]!);
         if (count > 0) {
           resolved += count;
@@ -1305,6 +1335,44 @@ export async function logMissingAppFeedback(params: MissingAppFeedbackParams): P
   return rows[0]?.id ?? 0;
 }
 
+export async function getPendingMissingAppFeedbacks(
+  limit = 20,
+  offset = 0,
+): Promise<{ rows: MissingAppFeedback[]; total: number }> {
+  const [totalResult, rows] = await Promise.all([
+    sqlRaw<{ total: number }>(
+      `SELECT COUNT(*)::int as total FROM missing_app_feedback WHERE status = 'pending'`,
+    ),
+    sqlRaw<MissingAppFeedback>(
+      `SELECT
+         id,
+         query,
+         normalized_query,
+         query_type,
+         COALESCE(error_message, '') as error_message,
+         COALESCE(locale, '') as locale,
+         COALESCE(country, '') as country,
+         COALESCE(page_path, '') as page_path,
+         COALESCE(visitor_id, '') as visitor_id,
+         COALESCE(ip_country, '') as ip_country,
+         COALESCE(is_mobile, false) as is_mobile,
+         status,
+         created_at::text,
+         handled_at::text
+       FROM missing_app_feedback
+       WHERE status = 'pending'
+       ORDER BY created_at DESC, id DESC
+       LIMIT $1 OFFSET $2`,
+      [limit, offset],
+    ),
+  ]);
+
+  return {
+    rows,
+    total: totalResult[0]?.total ?? 0,
+  };
+}
+
 export async function getMissingAppFeedbacks(
   limit = 20,
   offset = 0,
@@ -1342,6 +1410,75 @@ export async function getMissingAppFeedbacks(
     total: totalResult[0]?.total ?? 0,
     pending: pendingResult[0]?.total ?? 0,
   };
+}
+
+export async function getSearchAliasOverrideAppIds(
+  aliasKeys: string[],
+): Promise<string[] | null> {
+  if (!aliasKeys.length) return null;
+
+  for (const aliasKey of aliasKeys) {
+    const rows = await sqlRaw<{ app_ids: string }>(
+      `SELECT app_ids
+       FROM search_alias_overrides
+       WHERE alias_key = $1
+       LIMIT 1`,
+      [aliasKey],
+    );
+    const raw = rows[0]?.app_ids?.trim();
+    if (!raw) continue;
+    const appIds = raw.split(",").map((id) => id.trim()).filter(Boolean);
+    if (appIds.length) return appIds;
+  }
+
+  return null;
+}
+
+export async function upsertSearchAliasOverrideKeys(params: {
+  aliasKeys: string[];
+  appIds: string[];
+  sourceQuery?: string;
+  sourceLabel?: string;
+}): Promise<number> {
+  const appIds = [...new Set(params.appIds.map((id) => id.trim()).filter(Boolean))];
+  if (!appIds.length) return 0;
+
+  const appIdsValue = appIds.join(",");
+  const sourceQuery = (params.sourceQuery || "").slice(0, 500);
+  const sourceLabel = (params.sourceLabel || "auto-repair").slice(0, 40);
+  let written = 0;
+
+  for (const aliasKey of params.aliasKeys) {
+    if (!aliasKey) continue;
+    await sqlRaw(
+      `INSERT INTO search_alias_overrides (alias_key, app_ids, source_query, source_label, updated_at)
+       VALUES ($1, $2, $3, $4, NOW())
+       ON CONFLICT (alias_key) DO UPDATE SET
+         app_ids = EXCLUDED.app_ids,
+         source_query = COALESCE(NULLIF(EXCLUDED.source_query, ''), search_alias_overrides.source_query),
+         source_label = EXCLUDED.source_label,
+         updated_at = NOW()`,
+      [aliasKey.slice(0, 200), appIdsValue, sourceQuery, sourceLabel],
+    );
+    written += 1;
+  }
+
+  return written;
+}
+
+export async function getUnresolvedSearchFailuresForDiscovery(
+  limit = 60,
+): Promise<Array<{ query: string; last_lang: string; last_country: string }>> {
+  return sqlRaw(
+    `SELECT query,
+            COALESCE(last_lang, '') as last_lang,
+            COALESCE(last_country, '') as last_country
+     FROM search_failure_queries
+     WHERE resolved = FALSE
+     ORDER BY failure_count DESC, last_failed_at DESC
+     LIMIT $1`,
+    [Math.min(Math.max(limit, 1), 200)],
+  );
 }
 
 export async function updateMissingAppFeedbackStatus(

@@ -22,7 +22,24 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
   }
 
   try {
-    const summary = await runAdminRepair();
+    const { searchParams } = new URL(request.url);
+    const num = (key: string, fallback: number) => {
+      const raw = searchParams.get(key);
+      if (!raw) return fallback;
+      const parsed = Number(raw);
+      return Number.isFinite(parsed) ? parsed : fallback;
+    };
+
+    const summary = await runAdminRepair({
+      failureThreshold: num("failureThreshold", 0),
+      maxApps: num("maxApps", 150),
+      searchMaxChecks: num("searchMaxChecks", 5000),
+      searchBatchSize: num("searchBatchSize", 500),
+      searchLiveProbeLimit: num("searchLiveProbeLimit", 120),
+      feedbackLimit: num("feedbackLimit", 40),
+      searchFailureDiscoveryLimit: num("searchFailureDiscoveryLimit", 60),
+      mirrorMaxApps: num("mirrorMaxApps", 80),
+    });
     return NextResponse.json(
       { success: true, ...summary, ranAt: new Date().toISOString() },
       { headers: { "Cache-Control": "no-store" } },

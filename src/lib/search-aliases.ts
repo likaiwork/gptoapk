@@ -816,6 +816,40 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
     appIds: ["com.discord"],
     aliases: ["discord", "discord下载", "discord apk", "com.discord"],
   },
+  {
+    appIds: ["com.mysugr.android.companion"],
+    aliases: ["mysugr", "my sugr", "mySugr", "com.mysugr.android.companion"],
+  },
+  {
+    appIds: ["com.tdameritrade.thinkorswim"],
+    aliases: [
+      "thinkorswim",
+      "think or swim",
+      "td ameritrade",
+      "schwab thinkorswim",
+      "com.tdameritrade.thinkorswim",
+    ],
+  },
+  {
+    appIds: ["com.cvent.mobile.eventapp"],
+    aliases: ["cvent", "cventevent", "cvent event", "com.cvent.mobile.eventapp"],
+  },
+  {
+    appIds: ["com.ewbank.digital"],
+    aliases: ["east west", "eastwest", "east west bank", "华美银行", "com.ewbank.digital"],
+  },
+  {
+    appIds: ["com.mi.android.globalFileexplorer"],
+    aliases: [
+      "小米文件管理器",
+      "小米文件",
+      "文件管理器",
+      "文件浏览器",
+      "mi file manager",
+      "xiaomi file manager",
+      "com.mi.android.globalfileexplorer",
+    ],
+  },
 ];
 
 /** Wrong or truncated Play package ids from pasted URLs → canonical id */
