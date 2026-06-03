@@ -40,7 +40,44 @@ export function stripSearchQueryNoise(query: string): string {
   return normalizeAliasKey(q);
 }
 
+/** Common typos → canonical term (matched against search-aliases). */
+const SEARCH_TYPO_CORRECTIONS: Readonly<Record<string, string>> = {
+  陶宝: "淘宝",
+  拖宝: "淘宝",
+  淘寳: "淘宝",
+  youtobe: "youtube",
+  "you tobe": "youtube",
+  youtub: "youtube",
+  twlegram: "telegram",
+  telegrame: "telegram",
+  telegran: "telegram",
+  "blue s k y": "bluesky",
+  "blue sky": "bluesky",
+  papago: "papago translate",
+  "pocket camp complete": "pocket camp",
+  口袋营地: "pocket camp",
+  王者: "王者荣耀",
+  "微信 输入法": "微信输入法",
+};
+
+export function applySearchTypoCorrection(query: string): string {
+  const trimmed = query.trim();
+  if (!trimmed) return query;
+
+  for (const key of [trimmed, stripSearchQueryNoise(trimmed)]) {
+    const normalized = normalizeAliasKey(key);
+    const canonical = SEARCH_TYPO_CORRECTIONS[normalized];
+    if (canonical) return canonical;
+  }
+
+  return query;
+}
+
 export function getAliasLookupKeys(query: string): string[] {
+  const trimmed = query.trim();
+  if (!trimmed) return [];
+
+  const corrected = applySearchTypoCorrection(trimmed);
   const keys: string[] = [];
   const seen = new Set<string>();
 
@@ -52,11 +89,10 @@ export function getAliasLookupKeys(query: string): string[] {
     }
   };
 
-  const trimmed = query.trim();
-  if (!trimmed) return [];
-
   add(trimmed);
+  add(corrected);
   add(stripSearchQueryNoise(trimmed));
+  add(stripSearchQueryNoise(corrected));
 
   return keys;
 }

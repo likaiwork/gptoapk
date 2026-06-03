@@ -833,7 +833,25 @@ async function resolveDownloadSource(appId: string) {
     tryOnlineApkDownloader(appId),
   ]);
 
-  return candidates.find((result) => result !== null) ?? null;
+  const direct = candidates.find((result) => result !== null);
+  if (direct) return direct;
+
+  const { getExternalMirrorPageForApp } = await import("@/lib/external-mirror-pages");
+  const external = getExternalMirrorPageForApp(appId);
+  if (!external) return null;
+
+  return {
+    downloadUrl: external.url,
+    fileName: `${appId}.apk`,
+    version: null,
+    size: null,
+    md5: null,
+    source: external.source,
+    type: "APK",
+    preferredDelivery: "direct",
+    externalPage: true,
+    trustedManual: false,
+  } satisfies SourceResult;
 }
 
 export async function GET(request: Request) {

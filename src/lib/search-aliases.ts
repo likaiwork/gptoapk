@@ -549,6 +549,8 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
       "油管youtube官网",
       "油管youtube官网入口",
       "优图布",
+      "youtobe",
+      "you tobe",
     ],
   },
   {
@@ -652,6 +654,8 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
       "telegram.com",
       "t.me",
       "org.telegram.messenger",
+      "twlegram",
+      "telegrame",
     ],
   },
   {
@@ -802,11 +806,11 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
   },
   {
     appIds: ["com.taobao.taobao"],
-    aliases: ["淘宝", "taobao", "手机淘宝", "com.taobao.taobao"],
+    aliases: ["淘宝", "陶宝", "taobao", "手机淘宝", "com.taobao.taobao"],
   },
   {
-    appIds: ["com.eg.android.AlipayGphone"],
-    aliases: ["支付宝", "alipay", "com.eg.android.AlipayGphone"],
+    appIds: ["com.eg.android.alipaygphone"],
+    aliases: ["支付宝", "alipay", "com.eg.android.alipaygphone"],
   },
   {
     appIds: ["jp.naver.line.android"],
@@ -1650,6 +1654,55 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
     appIds: ["com.samsung.android.oneconnect"],
     aliases: ["samsung", "smartthings", "三星"],
   },
+  {
+    appIds: ["com.nintendo.zaca"],
+    aliases: [
+      "pocket camp",
+      "animal crossing pocket camp",
+      "口袋营地",
+      "动物森友会口袋营地",
+    ],
+  },
+  {
+    appIds: ["com.nhn.android.nmap"],
+    aliases: ["naver map", "naver maps", "네이버지도", "韩国地图"],
+  },
+  {
+    appIds: ["com.naver.labs.translator"],
+    aliases: ["papago", "papago translate", "파파고"],
+  },
+  {
+    appIds: ["com.tencent.tmgp.sgame"],
+    aliases: ["王者荣耀", "王者", "honor of kings", "aov"],
+  },
+  {
+    appIds: ["com.v2ray.ang"],
+    aliases: ["v2ray", "v2rayng", "v2ray ng"],
+  },
+  {
+    appIds: ["com.tencent.wetype"],
+    aliases: ["微信输入法", "wetype", "wechat keyboard"],
+  },
+  {
+    appIds: ["org.aurora.store"],
+    aliases: ["aurora store", "aurora", "极光商店"],
+  },
+  {
+    appIds: ["com.android.vending"],
+    aliases: ["google play", "play store", "play商店", "谷歌商店"],
+  },
+  {
+    appIds: ["com.newleaf.app.android.victor"],
+    aliases: ["reelshort", "reel short"],
+  },
+  {
+    appIds: ["com.mobilshobe.birbank"],
+    aliases: ["birbank", "bir bank"],
+  },
+  {
+    appIds: ["xyz.bluesky.android"],
+    aliases: ["bluesky", "blue sky", "bsky"],
+  },
 ];
 
 /** Wrong or truncated Play package ids from pasted URLs → canonical id */
@@ -1664,6 +1717,7 @@ const PLAY_PACKAGE_ID_ALIASES: Readonly<Record<string, string>> = {
   "com.chaozh.ireaderfree": "com.chaozh.iReaderFree",
   "com.zhangyue.ireader": "com.zhangyue.iReader",
   "com.apple.android.music_5.2.1": "com.apple.android.music",
+  "com.eg.android.alipaygphone": "com.eg.android.alipaygphone",
 };
 
 const SEARCH_ALIAS_APP_IDS = buildAliasMap();
