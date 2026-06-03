@@ -145,7 +145,11 @@ export async function resolveUptodownDownloadUrl(
   fetchImpl: FetchLike,
   signal?: AbortSignal,
 ): Promise<string | null> {
-  const baseUrl = await discoverUptodownBaseUrl(appId, fetchImpl, signal);
+  const key = appId.trim().toLowerCase();
+  const mappedSlug = UPTODOWN_SLUG_BY_APP_ID[key];
+  const baseUrl = mappedSlug
+    ? uptodownBaseUrl(mappedSlug)
+    : await discoverUptodownBaseUrl(appId, fetchImpl, signal);
   if (!baseUrl) return null;
 
   const downloadPageHtml = await fetchUptodownHtml(`${baseUrl}/download`, fetchImpl, signal);

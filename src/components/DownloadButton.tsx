@@ -126,7 +126,7 @@ export default function DownloadButton({ appId, appName, compact = false }: Down
       };
 
       if (data.externalPage) {
-        window.open(data.downloadUrl, "_blank", "noopener,noreferrer");
+        window.location.assign(data.downloadUrl);
       } else {
         const a = document.createElement("a");
         a.href = data.downloadUrl;

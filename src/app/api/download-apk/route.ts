@@ -25,6 +25,7 @@ export const maxDuration = 300;
 
 const SOURCE_TIMEOUT_MS = Number(process.env.APK_SOURCE_TIMEOUT_MS ?? 12000);
 const APKCOMBO_TIMEOUT_MS = Number(process.env.APKCOMBO_TIMEOUT_MS ?? 25000);
+const CHINESE_RETAIL_TIMEOUT_MS = Number(process.env.CHINESE_APK_TIMEOUT_MS ?? 45000);
 const ONLINE_APK_DOWNLOADER_TIMEOUT_MS = Number(process.env.ONLINE_APK_DOWNLOADER_TIMEOUT_MS ?? 30000);
 const STREAM_TIMEOUT_MS = Number(process.env.APK_STREAM_TIMEOUT_MS ?? 280000);
 const MAX_PROXY_BYTES = Number(process.env.APK_PROXY_MAX_BYTES ?? 1024 * 1024 * 1024);
@@ -468,8 +469,13 @@ function createLimitedStream(
   });
 }
 
-async function tryAptoide(appId: string): Promise<SourceResult | null> {
-  const timeout = createAbortSignal(SOURCE_TIMEOUT_MS);
+function borrowSignal(timeoutMs: number, parent?: AbortSignal) {
+  if (parent) return { signal: parent, clear: () => {} };
+  return createAbortSignal(timeoutMs);
+}
+
+async function tryAptoide(appId: string, parentSignal?: AbortSignal): Promise<SourceResult | null> {
+  const timeout = borrowSignal(SOURCE_TIMEOUT_MS, parentSignal);
   try {
     const apiUrl = `https://ws75.aptoide.com/api/7/app/getMeta?package_name=${encodeURIComponent(appId)}`;
     const res = await fetchWithProxy(apiUrl, {
@@ -551,8 +557,8 @@ async function followApkPureRedirect(
   };
 }
 
-async function tryApkPure(appId: string): Promise<SourceResult | null> {
-  const timeout = createAbortSignal(SOURCE_TIMEOUT_MS);
+async function tryApkPure(appId: string, parentSignal?: AbortSignal): Promise<SourceResult | null> {
+  const timeout = borrowSignal(SOURCE_TIMEOUT_MS, parentSignal);
   try {
     const redirectUrls = [
       `https://d.apkpure.net/b/APK/${encodeURIComponent(appId)}?version=latest`,
@@ -624,11 +630,14 @@ async function fetchApkComboPage(
   };
 }
 
-async function tryApkCombo(appId: string): Promise<SourceResult | null> {
+async function tryApkCombo(appId: string, parentSignal?: AbortSignal): Promise<SourceResult | null> {
   const knownSource = APKCOMBO_SOURCE_PAGES[appId.toLowerCase()];
   if (!knownSource) return null;
 
-  const timeout = createAbortSignal(APKCOMBO_TIMEOUT_MS);
+  const timeout = borrowSignal(
+    parentSignal ? CHINESE_RETAIL_TIMEOUT_MS : APKCOMBO_TIMEOUT_MS,
+    parentSignal,
+  );
   try {
     const pageUrls = [
       knownSource.pageUrl,
@@ -653,8 +662,11 @@ async function tryApkCombo(appId: string): Promise<SourceResult | null> {
   }
 }
 
-async function tryApkComboDownloader(appId: string): Promise<SourceResult | null> {
-  const timeout = createAbortSignal(APKCOMBO_TIMEOUT_MS);
+async function tryApkComboDownloader(appId: string, parentSignal?: AbortSignal): Promise<SourceResult | null> {
+  const timeout = borrowSignal(
+    parentSignal ? CHINESE_RETAIL_TIMEOUT_MS : APKCOMBO_TIMEOUT_MS,
+    parentSignal,
+  );
   const fileName = `${appId}.apk`;
   try {
     const downloaderUrl = `https://apkcombo.com/downloader/?package=${encodeURIComponent(appId)}&lang=en`;
@@ -715,8 +727,12 @@ async function tryOnlineApkDownloader(appId: string): Promise<SourceResult | nul
   }
 }
 
-async function tryApkComboApp(appId: string): Promise<SourceResult | null> {
-  const timeout = createAbortSignal(APKCOMBO_TIMEOUT_MS);
+async function tryApkComboApp(appId: string, parentSignal?: AbortSignal): Promise<SourceResult | null> {
+  const timeout = borrowSignal(
+    parentSignal ? CHINESE_RETAIL_TIMEOUT_MS : APKCOMBO_TIMEOUT_MS,
+    parentSignal,
+  );
+  const knownSource = APKCOMBO_SOURCE_PAGES[appId.toLowerCase()];
   try {
     const directUrl = await resolveApkComboAppDownloadUrl(
       appId,
@@ -726,11 +742,15 @@ async function tryApkComboApp(appId: string): Promise<SourceResult | null> {
     if (!directUrl || !isAllowedDownloadUrl(directUrl)) return null;
     return {
       downloadUrl: directUrl,
-      fileName: fileNameFromDownloadUrl(directUrl, `${appId}.apk`),
+      fileName: fileNameFromDownloadUrl(
+        directUrl,
+        knownSource?.fileName ?? `${appId}.apk`,
+      ),
       version: null,
       size: null,
       md5: null,
       source: 'apkcombo-app',
+      type: knownSource?.type ?? 'APK',
       preferredDelivery: 'proxy',
     };
   } catch {
@@ -740,8 +760,11 @@ async function tryApkComboApp(appId: string): Promise<SourceResult | null> {
   }
 }
 
-async function tryUptodown(appId: string): Promise<SourceResult | null> {
-  const timeout = createAbortSignal(APKCOMBO_TIMEOUT_MS);
+async function tryUptodown(appId: string, parentSignal?: AbortSignal): Promise<SourceResult | null> {
+  const timeout = borrowSignal(
+    parentSignal ? CHINESE_RETAIL_TIMEOUT_MS : APKCOMBO_TIMEOUT_MS,
+    parentSignal,
+  );
   try {
     const directUrl = await resolveUptodownDownloadUrl(
       appId,
@@ -770,21 +793,6 @@ async function tryUptodown(appId: string): Promise<SourceResult | null> {
   }
 }
 
-function tryApkComboExternalPage(appId: string): SourceResult | null {
-  const knownSource = APKCOMBO_SOURCE_PAGES[appId.toLowerCase()];
-  if (!knownSource) return null;
-  return {
-    downloadUrl: knownSource.pageUrl,
-    fileName: knownSource.fileName,
-    version: null,
-    size: null,
-    md5: null,
-    source: 'apkcombo-page',
-    type: knownSource.type,
-    externalPage: true,
-  };
-}
-
 const CHINESE_RETAIL_PRIORITY_IDS = new Set([
   "com.taobao.taobao",
   "com.xunmeng.pinduoduo",
@@ -798,14 +806,21 @@ async function resolveDownloadSource(appId: string) {
 
   const id = appId.toLowerCase();
   if (CHINESE_RETAIL_PRIORITY_IDS.has(id)) {
-    const uptodown = await tryUptodown(appId);
-    if (uptodown) return uptodown;
-
-    const comboApp = await tryApkComboApp(appId);
-    if (comboApp) return comboApp;
-
-    const apkComboPage = await tryApkCombo(appId);
-    if (apkComboPage) return apkComboPage;
+    const retailTimeout = createAbortSignal(CHINESE_RETAIL_TIMEOUT_MS);
+    try {
+      const retailSources = await Promise.all([
+        tryUptodown(appId, retailTimeout.signal),
+        tryApkComboApp(appId, retailTimeout.signal),
+        tryApkCombo(appId, retailTimeout.signal),
+        tryApkComboDownloader(appId, retailTimeout.signal),
+        tryApkPure(appId, retailTimeout.signal),
+        tryAptoide(appId, retailTimeout.signal),
+      ]);
+      const retailHit = retailSources.find((result) => result !== null);
+      if (retailHit) return retailHit;
+    } finally {
+      retailTimeout.clear();
+    }
   }
 
   const candidates = await Promise.all([
@@ -818,10 +833,7 @@ async function resolveDownloadSource(appId: string) {
     tryOnlineApkDownloader(appId),
   ]);
 
-  const resolved = candidates.find((result) => result !== null);
-  if (resolved) return resolved;
-
-  return tryApkComboExternalPage(appId);
+  return candidates.find((result) => result !== null) ?? null;
 }
 
 export async function GET(request: Request) {
