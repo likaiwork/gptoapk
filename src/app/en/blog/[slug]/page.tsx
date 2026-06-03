@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import Script from "next/script";
 import { enPosts20260601 } from "@/lib/blog/posts-2026-06-01";
 import { enPosts20260602 } from "@/lib/blog/posts-2026-06-02";
+import { enPosts20260603 } from "@/lib/blog/posts-2026-06-03";
 
 interface BlogPost {
   slug: string;
@@ -18,6 +19,7 @@ interface BlogPost {
 const posts: BlogPost[] = [
   ...enPosts20260601,
   ...enPosts20260602,
+  ...enPosts20260603,
   {
     slug: "apk-parse-error-fix-2026",
     title: "APK Parse Error Fix: There Was a Problem Parsing the Package (2026)",

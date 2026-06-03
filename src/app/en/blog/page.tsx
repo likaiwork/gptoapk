@@ -3,6 +3,7 @@ import Link from "next/link";
 import Script from "next/script";
 import { enPosts20260601List } from "@/lib/blog/posts-2026-06-01";
 import { enPosts20260602List } from "@/lib/blog/posts-2026-06-02";
+import { enPosts20260603List } from "@/lib/blog/posts-2026-06-03";
 
 export const metadata: Metadata = {
   title: "Blog - APK Downloader Guides & Tutorials | gptoapk.com",
@@ -28,6 +29,7 @@ interface BlogPost {
 const posts: BlogPost[] = [
   ...enPosts20260601List,
   ...enPosts20260602List,
+  ...enPosts20260603List,
   {
     slug: "apk-parse-error-fix-2026",
     title: "APK Parse Error Fix: There Was a Problem Parsing the Package (2026)",
