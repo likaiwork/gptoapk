@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-01T04:10:39.792Z",
+  "updatedAt": "2026-06-04T05:45:44.079Z",
   "today": {
     "date": "2026-05-26",
     "locale": "zh",
@@ -61,6 +61,12 @@
       "note": "",
       "publishedUrl": "https://www.gptoapk.com/zh/blog/install-telegram-without-gms",
       "at": "2026-06-01T04:10:39.792Z"
+    },
+    "2026-06-04": {
+      "status": "published",
+      "note": "",
+      "publishedUrl": "https://www.gptoapk.com/zh/blog/apk-signature-verify-practical",
+      "at": "2026-06-04T05:45:44.079Z"
     }
   }
 }
