@@ -1740,6 +1740,24 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
     ],
   },
   {
+    appIds: [
+      "com.sec.android.app.music",
+      "com.spotify.music",
+      "com.google.android.apps.youtube.music",
+      "com.soundcloud.android",
+      "com.netease.cloudmusic",
+      "com.tencent.qqmusic",
+      "com.kugou.android",
+    ],
+    aliases: [
+      "音乐播放器",
+      "android音乐播放器",
+      "安卓音乐播放器",
+      "music player",
+      "android music player",
+    ],
+  },
+  {
     appIds: ["com.openai.chatgpt"],
     aliases: ["codex", "openai codex"],
   },
