@@ -2,7 +2,7 @@ import gplay, { type IAppItem } from "google-play-scraper";
 import { normalizeUserSearchQuery } from "@/lib/normalize-user-search-query";
 import { gplayRequestOptions as requestOptions } from "@/lib/proxy";
 import { resolvePlayPackageIdAlias, resolveSearchAliasAppIds } from "@/lib/search-aliases";
-import { isVpnSearchKeyword, stripSearchQueryNoise } from "@/lib/search-query-normalize";
+import { isVpnSearchKeyword, stripSearchQueryNoise, applySearchTypoCorrection } from "@/lib/search-query-normalize";
 import { isUnsupportedNoMirrorApp } from "@/lib/unsupported-no-mirror-apps";
 import {
   getPendingMissingAppFeedbacks,
@@ -222,19 +222,20 @@ async function applyDiscoveryForQuery(params: {
   country: string;
   sourceLabel: string;
 }): Promise<{ resolved: boolean; aliasesCreated: number; searchFailuresResolved: number }> {
-  const staticIds = resolveSearchAliasAppIds(params.query);
+  const normalizedQuery = applySearchTypoCorrection(params.query.trim());
+  const staticIds = resolveSearchAliasAppIds(normalizedQuery);
   if (staticIds?.length) {
     const aliasesCreated = await saveSearchAliasOverrideForQuery({
       query: params.query,
       appIds: [...staticIds],
-      sourceQuery: params.query,
+      sourceQuery: normalizedQuery,
       sourceLabel: `${params.sourceLabel}-static`,
     });
     const searchFailuresResolved = await resolveSearchFailuresForQuery(params.query);
     return { resolved: true, aliasesCreated, searchFailuresResolved };
   }
 
-  const appIds = await discoverAppIdsForQuery(params.query, params.lang, params.country);
+  const appIds = await discoverAppIdsForQuery(normalizedQuery, params.lang, params.country);
   if (!appIds?.length) {
     return { resolved: false, aliasesCreated: 0, searchFailuresResolved: 0 };
   }

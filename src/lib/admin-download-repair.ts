@@ -32,7 +32,7 @@ function siteOrigin(): string {
 async function prepareDownload(appId: string): Promise<{ ok: boolean; success: boolean }> {
   const origin = siteOrigin();
   const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), 45_000);
+  const timer = setTimeout(() => controller.abort(), 90_000);
   try {
     const res = await fetch(`${origin}/api/download-apk`, {
       method: "POST",

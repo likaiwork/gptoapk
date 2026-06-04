@@ -800,6 +800,49 @@ const CHINESE_RETAIL_PRIORITY_IDS = new Set([
   "com.eg.android.alipaygphone",
 ]);
 
+const PREPARE_MIRROR_TIMEOUT_MS = Number(process.env.APK_PREPARE_MIRROR_TIMEOUT_MS ?? 12000);
+
+function buildExternalSourceResult(
+  appId: string,
+  external: { url: string; source: string },
+): SourceResult {
+  return {
+    downloadUrl: external.url,
+    fileName: `${appId}.apk`,
+    version: null,
+    size: null,
+    md5: null,
+    source: external.source,
+    type: "APK",
+    preferredDelivery: "direct",
+    externalPage: true,
+    trustedManual: false,
+  };
+}
+
+async function resolveDownloadSourceForPrepare(appId: string): Promise<SourceResult | null> {
+  const manual = await tryManualDownloadSource(appId);
+  if (manual) return manual;
+
+  const quickTimeout = createAbortSignal(PREPARE_MIRROR_TIMEOUT_MS);
+  try {
+    const quick = await Promise.all([
+      tryAptoide(appId, quickTimeout.signal),
+      tryApkPure(appId, quickTimeout.signal),
+      tryApkComboApp(appId, quickTimeout.signal),
+    ]);
+    const hit = quick.find((result) => result !== null);
+    if (hit) return hit;
+  } finally {
+    quickTimeout.clear();
+  }
+
+  const { getExternalMirrorPageForApp } = await import("@/lib/external-mirror-pages");
+  const external = getExternalMirrorPageForApp(appId);
+  if (!external) return null;
+  return buildExternalSourceResult(appId, external);
+}
+
 async function resolveDownloadSource(appId: string) {
   const manual = await tryManualDownloadSource(appId);
   if (manual) return manual;
@@ -840,18 +883,7 @@ async function resolveDownloadSource(appId: string) {
   const external = getExternalMirrorPageForApp(appId);
   if (!external) return null;
 
-  return {
-    downloadUrl: external.url,
-    fileName: `${appId}.apk`,
-    version: null,
-    size: null,
-    md5: null,
-    source: external.source,
-    type: "APK",
-    preferredDelivery: "direct",
-    externalPage: true,
-    trustedManual: false,
-  } satisfies SourceResult;
+  return buildExternalSourceResult(appId, external);
 }
 
 export async function GET(request: Request) {
@@ -1037,7 +1069,7 @@ export async function POST(request: Request) {
 
     // Try Aptoide first (simpler, has CORS, fast metadata).
     // Fall back to APKPure for region-locked or less-common apps.
-    const result = await resolveDownloadSource(cleanId);
+    const result = await resolveDownloadSourceForPrepare(cleanId);
 
     if (!result) {
       void recordDownloadPrepareFailure(

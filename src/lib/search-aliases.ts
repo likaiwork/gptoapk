@@ -1703,6 +1703,54 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
     appIds: ["xyz.bluesky.android"],
     aliases: ["bluesky", "blue sky", "bsky"],
   },
+  {
+    appIds: ["com.taobao.idlefish"],
+    aliases: ["闲鱼", "xianyu", "idlefish", "com.taobao.idlefish"],
+  },
+  {
+    appIds: ["uk.co.bbc.learningenglish"],
+    aliases: [
+      "bbc learning english",
+      "bbc learning",
+      "bbc english",
+      "bbc learn english",
+    ],
+  },
+  {
+    appIds: ["com.giffgaff.mobile"],
+    aliases: ["giffgaff"],
+  },
+  {
+    appIds: ["com.netgear.orbi"],
+    aliases: ["orbi", "netgear orbi"],
+  },
+  {
+    appIds: ["com.avira.android"],
+    aliases: ["小红伞", "avira", "avira antivirus", "小紅傘"],
+  },
+  {
+    appIds: ["com.kugou.android"],
+    aliases: [
+      "酷狗",
+      "酷狗音乐",
+      "酷狗车机版",
+      "酷狗音乐车机版",
+      "酷狗音乐车机版3.5",
+      "kugou",
+    ],
+  },
+  {
+    appIds: ["com.openai.chatgpt"],
+    aliases: ["codex", "openai codex"],
+  },
+  {
+    appIds: ["com.niksoftware.snapseed"],
+    aliases: ["snapseed", "snapseed 4.0", "snap seed"],
+  },
+  {
+    appIds: ["com.coros.coros"],
+    aliases: ["coros", "com.coros"],
+  },
 ];
 
 /** Wrong or truncated Play package ids from pasted URLs → canonical id */
@@ -1718,6 +1766,8 @@ const PLAY_PACKAGE_ID_ALIASES: Readonly<Record<string, string>> = {
   "com.zhangyue.ireader": "com.zhangyue.iReader",
   "com.apple.android.music_5.2.1": "com.apple.android.music",
   "com.eg.android.alipaygphone": "com.eg.android.alipaygphone",
+  "bluesky.app": "xyz.bluesky.android",
+  "com.coros": "com.coros.coros",
 };
 
 const SEARCH_ALIAS_APP_IDS = buildAliasMap();
