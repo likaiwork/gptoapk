@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getAdminApiKey, initDatabase, reconcileResolvableSearchFailures } from "@/lib/db";
+import { runSearchDiscoveryRepair } from "@/lib/admin-search-discovery";
+import { getAdminApiKey, initDatabase } from "@/lib/db";
 
 export async function POST(request: NextRequest): Promise<NextResponse> {
   try {
@@ -16,20 +17,38 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
       : typeof body.limit === "number"
         ? body.limit
         : 5000;
-    const batchSizeRaw = typeof body.batchSize === "number" ? body.batchSize : 500;
     const liveProbeLimitRaw = typeof body.liveProbeLimit === "number" ? body.liveProbeLimit : 40;
+    const feedbackLimitRaw = typeof body.feedbackLimit === "number" ? body.feedbackLimit : 80;
+    const searchFailureDiscoveryLimitRaw = typeof body.searchFailureDiscoveryLimit === "number"
+      ? body.searchFailureDiscoveryLimit
+      : 120;
     const maxChecks = Math.min(Math.max(maxChecksRaw, 1), 20000);
-    const batchSize = Math.min(Math.max(batchSizeRaw, 50), 1000);
     const liveProbeLimit = Math.min(Math.max(liveProbeLimitRaw, 0), 200);
+    const feedbackLimit = Math.min(Math.max(feedbackLimitRaw, 1), 100);
+    const searchFailureDiscoveryLimit = Math.min(Math.max(searchFailureDiscoveryLimitRaw, 1), 150);
 
     await initDatabase();
-    const result = await reconcileResolvableSearchFailures({ batchSize, maxChecks, liveProbeLimit });
+    const result = await runSearchDiscoveryRepair({
+      feedbackLimit,
+      searchFailureLimit: searchFailureDiscoveryLimit,
+      reconcileMaxChecks: maxChecks,
+      reconcileLiveProbeLimit: liveProbeLimit,
+    });
 
     return NextResponse.json(
       {
         success: true,
-        ...result,
-        totalResolved: result.resolved + result.dismissed,
+        feedbackProcessed: result.feedbackProcessed,
+        feedbackResolved: result.feedbackResolved,
+        aliasesCreated: result.aliasesCreated,
+        searchFailuresResolved: result.searchFailuresResolved,
+        discoveryAttempts: result.discoveryAttempts,
+        discoveryMisses: result.discoveryMisses,
+        checked: result.reconcile.checked,
+        resolved: result.reconcile.resolved,
+        dismissed: result.reconcile.dismissed,
+        liveResolved: result.reconcile.liveResolved,
+        totalResolved: result.searchFailuresResolved,
       },
       { headers: { "Cache-Control": "no-store" } },
     );

@@ -1705,7 +1705,7 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
   },
   {
     appIds: ["com.taobao.idlefish"],
-    aliases: ["闲鱼", "xianyu", "idlefish", "com.taobao.idlefish"],
+    aliases: ["闲鱼", "咸鱼", "xianyu", "idlefish", "com.taobao.idlefish"],
   },
   {
     appIds: ["uk.co.bbc.learningenglish"],
@@ -1750,6 +1750,84 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
   {
     appIds: ["com.coros.coros"],
     aliases: ["coros", "com.coros"],
+  },
+  {
+    appIds: ["org.moma.android"],
+    aliases: [
+      "moma",
+      "moma the museum of modern art",
+      "museum of modern art",
+      "the museum of modern art",
+      "org.moma.android",
+    ],
+  },
+  {
+    appIds: ["com.sirma.mobile.bible.android"],
+    aliases: [
+      "bible",
+      "bible app",
+      "youversion bible",
+      "youversion bible app",
+      "holy bible",
+      "圣经",
+      "com.sirma.mobile.bible.android",
+    ],
+  },
+  {
+    appIds: ["com.chrystianvieyra.physicstoolboxsuite"],
+    aliases: [
+      "physics toolbox",
+      "physics toolbox sensor suite",
+      "physics toolbox suite",
+      "physics sensor suite",
+      "com.chrystianvieyra.physicstoolboxsuite",
+    ],
+  },
+  {
+    appIds: ["com.magneticchen.daijishou"],
+    aliases: [
+      "daijisho",
+      "daijishō",
+      "daijishou",
+      "daijishou launcher",
+      "daijisho launcher",
+      "com.magneticchen.daijishou",
+    ],
+  },
+  {
+    appIds: ["com.sennheiser.control"],
+    aliases: [
+      "sennheiser smart control",
+      "smart control",
+      "sennheiser control",
+      "森海塞尔",
+      "com.sennheiser.control",
+    ],
+  },
+  {
+    appIds: ["com.hybe.njsapp"],
+    aliases: [
+      "newjeans official light stick",
+      "newjeans light stick",
+      "newjeans",
+      "뉴진스",
+      "com.hybe.njsapp",
+    ],
+  },
+  {
+    appIds: ["com.eumhana.mamamoo"],
+    aliases: ["mamamoo", "마마무", "com.eumhana.mamamoo"],
+  },
+  {
+    appIds: ["com.goplaycn.googleinstall"],
+    aliases: [
+      "go安装器",
+      "go谷歌安装器",
+      "google installer",
+      "google安装器",
+      "谷歌安装器",
+      "com.goplaycn.googleinstall",
+    ],
   },
 ];
 

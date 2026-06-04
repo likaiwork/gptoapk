@@ -1103,6 +1103,14 @@ function Dashboard({
           <h2 className="text-lg font-semibold text-gray-900">用户找不到 App 反馈</h2>
           <MetricPill label="待处理" value={data.pending_missing_app_feedback} />
           <MetricPill label="全部反馈" value={data.missing_app_feedback_total} />
+          <button
+            type="button"
+            disabled={busyTriage || data.pending_missing_app_feedback === 0}
+            onClick={() => { void onReconcileSearchFailures(); }}
+            className="ml-auto cursor-pointer rounded-lg border border-sky-200 bg-sky-50 px-3 py-1.5 text-xs font-medium text-sky-900 hover:bg-sky-100 disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            {reconcilingSearchFailures ? "修复中..." : "一键修复反馈"}
+          </button>
         </div>
         <div className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
           <table className="min-w-full divide-y divide-gray-200 text-sm">
@@ -1176,7 +1184,7 @@ function Dashboard({
           </div>
         </div>
         <p className="mt-2 text-xs text-gray-500">
-          用户在前台点击「立即反馈」后写入；请根据搜索词补充 search-aliases 或手动下载源。
+          用户在前台点击「立即反馈」后写入；一键修复会尝试自动发现 Google Play 包名并写入搜索别名，无法确认来源的反馈会保留待处理。
         </p>
       </div>
 
@@ -1793,6 +1801,12 @@ export default function AdminPage() {
       );
       const body = await res.json().catch(() => null) as {
         error?: string;
+        feedbackProcessed?: number;
+        feedbackResolved?: number;
+        aliasesCreated?: number;
+        searchFailuresResolved?: number;
+        discoveryAttempts?: number;
+        discoveryMisses?: number;
         checked?: number;
         resolved?: number;
         dismissed?: number;
@@ -1804,14 +1818,12 @@ export default function AdminPage() {
         return;
       }
       await fetchData(token, appliedDateStart, appliedDateEnd, getCurrentPages());
-      if (typeof body?.checked === "number") {
-        const total = body.totalResolved ?? body.resolved ?? 0;
-        setNotice(
-          total > 0
-            ? `搜索失败：已校验 ${body.checked} 条，结案 ${total} 条（别名/兜底 ${body.resolved ?? 0}，线上复测 ${body.liveResolved ?? 0}，无效请求 ${body.dismissed ?? 0}）。`
-            : `搜索失败：已校验 ${body.checked} 条，暂无新增可自动结案记录。`,
-        );
-      }
+      const total = body?.totalResolved ?? body?.searchFailuresResolved ?? body?.resolved ?? 0;
+      setNotice(
+        total > 0 || (body?.feedbackResolved ?? 0) > 0 || (body?.aliasesCreated ?? 0) > 0
+          ? `搜索/反馈修复：处理反馈 ${body?.feedbackProcessed ?? 0} 条，反馈解决 ${body?.feedbackResolved ?? 0} 条；新增别名 ${body?.aliasesCreated ?? 0} 个；搜索结案 ${total} 条（复测 ${body?.liveResolved ?? 0}，无效 ${body?.dismissed ?? 0}，未发现 ${body?.discoveryMisses ?? 0}）。`
+          : `搜索/反馈修复：校验 ${body?.checked ?? 0} 条，处理反馈 ${body?.feedbackProcessed ?? 0} 条，暂无新增可自动解决记录（未发现 ${body?.discoveryMisses ?? 0}）。`,
+      );
     } catch {
       setError("批量校验网络错误");
     } finally {
