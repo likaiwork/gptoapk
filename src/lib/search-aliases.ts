@@ -1052,7 +1052,7 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
   },
   {
     appIds: ["com.netease.cloudmusic"],
-    aliases: ["网易云音乐", "netease music", "cloudmusic"],
+    aliases: ["网易云", "网易云音乐", "netease music", "cloudmusic"],
   },
   {
     appIds: ["com.tencent.qqmusic"],
@@ -1061,6 +1061,17 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
   {
     appIds: ["com.kugou.android"],
     aliases: ["酷狗", "kugou"],
+  },
+  {
+    appIds: ["com.netease.cloudmusic.iot"],
+    aliases: [
+      "网易云车机",
+      "网易云车机版",
+      "网易云音乐车机",
+      "网易云音乐车机版",
+      "网易云音乐车载版",
+      "com.netease.cloudmusic.iot",
+    ],
   },
   {
     appIds: ["com.kuwo.kwmusiccar"],
