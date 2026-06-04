@@ -32,6 +32,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "best-free-vpn-android-apk-2026",
     "apk-safe-download-seo-geo-2026",
     "huawei-google-play-seo-geo-2026",
+    "xapk-apks-apkm-install-guide-2026",
+    "google-play-app-not-available-country-fix-2026",
   ];
 
   const zhBlogSlugs = [
@@ -77,6 +79,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "best-android-apk-2026-recommendation",
     "apk-download-security-seo-geo-2026",
     "android-apk-install-fix-seo-geo-2026",
+    "xapk-apks-apkm-install-guide-2026",
+    "google-play-app-not-available-country-fix-2026",
   ];
 
   // 检查：除 en/zh 外，其他语言只暴露首页 / FAQ / Blog 列表，blog 详情统一指向 en

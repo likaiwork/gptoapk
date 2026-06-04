@@ -7,6 +7,7 @@ import { zhPosts20260601 } from "@/lib/blog/posts-2026-06-01";
 import { zhPosts20260602Apk } from "@/lib/blog/posts-2026-06-02-apk";
 import { zhPosts20260603 } from "@/lib/blog/posts-2026-06-03";
 import { zhPosts20260604 } from "@/lib/blog/posts-2026-06-04";
+import { zhPosts20260605 } from "@/lib/blog/posts-2026-06-05";
 
 interface BlogPost {
   slug: string;
@@ -24,6 +25,7 @@ const zhPosts: BlogPost[] = [
   ...zhPosts20260602Apk,
   ...zhPosts20260603,
   ...zhPosts20260604,
+  ...zhPosts20260605,
   {
     slug: "china-broker-app-list",
     title: "国内券商APP下载指南：同花顺东财华泰国信中信招商等主流券商APP包名大全",
@@ -16478,6 +16480,7 @@ export async function generateMetadata({
       canonical: `https://www.gptoapk.com/zh/blog/${slug}`,
       languages: {
         en: `https://www.gptoapk.com/en/blog/${slug}`,
+        zh: `https://www.gptoapk.com/zh/blog/${slug}`,
         "x-default": `https://www.gptoapk.com/en/blog/${slug}`,
       },
     },

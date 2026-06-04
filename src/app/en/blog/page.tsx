@@ -5,6 +5,7 @@ import { enSeoGeoPostList } from "@/lib/blog/en-seo-geo-posts";
 import { enPosts20260601List } from "@/lib/blog/posts-2026-06-01";
 import { enPosts20260602List } from "@/lib/blog/posts-2026-06-02";
 import { enPosts20260603List } from "@/lib/blog/posts-2026-06-03";
+import { enPosts20260605List } from "@/lib/blog/posts-2026-06-05";
 
 export const metadata: Metadata = {
   title: "Blog - APK Downloader Guides & Tutorials | gptoapk.com",
@@ -32,6 +33,7 @@ const posts: BlogPost[] = [
   ...enPosts20260601List,
   ...enPosts20260602List,
   ...enPosts20260603List,
+  ...enPosts20260605List,
   {
     slug: "apk-parse-error-fix-2026",
     title: "APK Parse Error Fix: There Was a Problem Parsing the Package (2026)",
