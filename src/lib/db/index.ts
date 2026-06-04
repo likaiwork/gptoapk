@@ -1147,6 +1147,14 @@ export async function autoResolveDismissibleSearchFailures(): Promise<number> {
          OR (failure_kind = 'invalid_url' AND query ILIKE 'file:%')
          OR (query ILIKE 'http://%' AND query NOT ILIKE '%play.google.com%')
          OR (query ILIKE 'https://%' AND query NOT ILIKE '%play.google.com%')
+         OR (
+           regexp_replace(query, '[\u200B-\u200D\u2060\uFEFF]', '', 'g') ILIKE 'http://%'
+           AND regexp_replace(query, '[\u200B-\u200D\u2060\uFEFF]', '', 'g') NOT ILIKE '%play.google.com%'
+         )
+         OR (
+           regexp_replace(query, '[\u200B-\u200D\u2060\uFEFF]', '', 'g') ILIKE 'https://%'
+           AND regexp_replace(query, '[\u200B-\u200D\u2060\uFEFF]', '', 'g') NOT ILIKE '%play.google.com%'
+         )
          OR query ILIKE '%uptodown.com%'
          OR query ILIKE '%apps.evozi.com%'
        )

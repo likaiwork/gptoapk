@@ -229,6 +229,7 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
       "googleplay",
       "google play",
       "google play store",
+      "play",
       "play store",
       "playstore",
       "playstore.com",
@@ -251,6 +252,7 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
     appIds: ["com.google.android.inputmethod.latin"],
     aliases: [
       "gboard",
+      "board",
       "google keyboard",
       "google输入法",
       "谷歌输入法",
@@ -297,6 +299,7 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
       "openai",
       "openai gpt",
       "chat gpt",
+      "chagpt",
       "chatgpt",
       "chatgpt下载",
       "chatgpt怎么下载",
@@ -1845,6 +1848,25 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
   {
     appIds: ["com.coros.coros"],
     aliases: ["coros", "com.coros"],
+  },
+  {
+    appIds: ["com.flitiktv.clock"],
+    aliases: [
+      "flitik",
+      "flitik 翻页时钟 tv",
+      "flitik flip clock tv",
+      "com.flitiktv.clock",
+    ],
+  },
+  {
+    appIds: ["com.floatclock"],
+    aliases: [
+      "onscreenclock",
+      "on screen clock",
+      "floating clock",
+      "float clock",
+      "com.floatclock",
+    ],
   },
   {
     appIds: ["org.moma.android"],
