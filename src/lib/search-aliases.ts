@@ -160,7 +160,17 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
   },
   {
     appIds: ["ai.x.grok"],
-    aliases: ["grok", "x grok", "grok ai", "xai", "x ai"],
+    aliases: ["grok", "grok3", "grok 3", "x grok", "grok ai", "xai", "x ai"],
+  },
+  {
+    appIds: ["com.github.stenzek.duckstation"],
+    aliases: [
+      "duckstation",
+      "duckstation android",
+      "duckstation-android.apk",
+      "duckstation apk",
+      "com.github.stenzek.duckstation",
+    ],
   },
   {
     appIds: ["com.microsoft.copilot"],
