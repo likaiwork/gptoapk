@@ -95,6 +95,7 @@ function parseGooglePlayUrl(query: string) {
 }
 
 function getQueryType(query: string): QueryType {
+  if (/^https?:\/\//i.test(query)) return 'url';
   if (query.includes('play.google.com')) return 'url';
   if (PACKAGE_NAME_REGEX.test(query)) return 'package';
   return 'keyword';

@@ -1217,7 +1217,7 @@ function Dashboard({
             </thead>
             <tbody className="divide-y divide-gray-100">
               {data.download_failures.length === 0 && (
-                <tr><td colSpan={6} className="px-4 py-8 text-center text-sm text-gray-400">暂无下载失败记录</td></tr>
+                <tr><td colSpan={6} className="px-4 py-8 text-center text-sm text-gray-400">暂无未解决下载失败应用</td></tr>
               )}
               {data.download_failures.map((item) => {
                 const isPending = pendingFailureIds.has(item.app_id);
@@ -1319,8 +1319,10 @@ function Dashboard({
             </tbody>
           </table>
           <div className="flex items-center justify-between border-t border-gray-100 px-4 py-2">
-            <span className="text-xs text-gray-400">共 {data.download_failures_total} 个失败应用</span>
-            <PageControl page={failurePage} total={data.download_failures_total} onPageChange={onFailurePageChange} />
+            <span className="text-xs text-gray-400">
+              当前显示 {data.unresolved_download_failures} 个未解决，历史共 {data.download_failures_total} 个失败应用
+            </span>
+            <PageControl page={failurePage} total={data.unresolved_download_failures} onPageChange={onFailurePageChange} />
           </div>
         </div>
         <p className="mt-2 text-xs text-gray-500">

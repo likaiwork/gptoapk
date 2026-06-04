@@ -173,6 +173,37 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
     ],
   },
   {
+    appIds: ["com.bibleproject"],
+    aliases: [
+      "bibleproject",
+      "bible project",
+      "bibleproject app",
+      "bible project app",
+      "bibleproject android",
+      "com.bibleproject",
+    ],
+  },
+  {
+    appIds: ["com.ttxapps.onesyncv2"],
+    aliases: [
+      "onesync",
+      "one sync",
+      "onesync autosync",
+      "autosync onedrive",
+      "com.ttxapps.onesyncv2",
+    ],
+  },
+  {
+    appIds: ["com.pallo.passiontimerscoped"],
+    aliases: [
+      "ypt",
+      "yeolpumta",
+      "yeolpumta timer",
+      "열품타",
+      "com.pallo.passiontimerscoped",
+    ],
+  },
+  {
     appIds: ["com.microsoft.copilot"],
     aliases: ["copilot", "microsoft copilot", "ms copilot", "com.microsoft.copilot"],
   },
@@ -200,6 +231,8 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
       "google play store",
       "play store",
       "playstore",
+      "playstore.com",
+      "playstore. com",
       "googleplay商店",
       "谷歌play",
       "谷歌 play",
@@ -212,6 +245,29 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
       "play商店",
       "play 商店",
       "play商店下载",
+    ],
+  },
+  {
+    appIds: ["com.google.android.inputmethod.latin"],
+    aliases: [
+      "gboard",
+      "google keyboard",
+      "google输入法",
+      "谷歌输入法",
+      "输入法",
+      "android输入法",
+      "com.google.android.inputmethod.latin",
+    ],
+  },
+  {
+    appIds: ["com.google.android.gsf"],
+    aliases: [
+      "google服务框架",
+      "google 服务框架",
+      "google services framework",
+      "服务框架",
+      "谷歌服务框架",
+      "com.google.android.gsf",
     ],
   },
   {

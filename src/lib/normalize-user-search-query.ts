@@ -1,6 +1,9 @@
+import { stripInvisibleSearchChars } from "@/lib/search-query-normalize";
+
 /** Google Play search page URL → search term (e.g. store/search?q=schwab+mobile). */
 export function extractPlayStoreSearchTerm(query: string): string | null {
-  const candidate = /^https?:\/\//i.test(query) ? query : `https://${query}`;
+  const cleanQuery = stripInvisibleSearchChars(query);
+  const candidate = /^https?:\/\//i.test(cleanQuery) ? cleanQuery : `https://${cleanQuery}`;
 
   try {
     const url = new URL(candidate);
@@ -18,7 +21,7 @@ export function extractPlayStoreSearchTerm(query: string): string | null {
 
 /** Same URL / brand shortcuts as /api/search-apps before query-type detection. */
 export function normalizeUserSearchQuery(query: string): string {
-  const trimmed = query.trim();
+  const trimmed = stripInvisibleSearchChars(query).trim();
   const playSearchTerm = extractPlayStoreSearchTerm(trimmed);
   if (playSearchTerm) return playSearchTerm;
   if (/^https?:\/\/(www\.)?grok\.com\/?/i.test(trimmed)) return "grok";

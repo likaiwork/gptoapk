@@ -1,7 +1,11 @@
 /** Shared normalization for alias lookup and search-failure reconciliation. */
 
+export function stripInvisibleSearchChars(query: string): string {
+  return query.replace(/[\u200B-\u200D\u2060\uFEFF]/g, "");
+}
+
 export function normalizeAliasKey(query: string): string {
-  return query.trim().toLowerCase().replace(/\s+/g, " ");
+  return stripInvisibleSearchChars(query).trim().toLowerCase().replace(/\s+/g, " ");
 }
 
 const TRAILING_NOISE_PATTERNS: RegExp[] = [
@@ -18,7 +22,7 @@ const LEADING_NOISE_PATTERNS: RegExp[] = [
 
 /** Strip common download/install suffixes so "chatgpt apk" → "chatgpt". */
 export function stripSearchQueryNoise(query: string): string {
-  let q = query.trim();
+  let q = stripInvisibleSearchChars(query).trim();
   if (!q) return "";
 
   q = q.replace(/^https?:\/\//i, "");

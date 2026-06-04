@@ -8,7 +8,11 @@ import {
   resolveSearchAliasAppIds,
 } from "@/lib/search-aliases";
 import { resolveSearchAliasOverrideAppIds } from "@/lib/search-alias-overrides";
-import { isVpnSearchKeyword, stripSearchQueryNoise } from "@/lib/search-query-normalize";
+import {
+  isVpnSearchKeyword,
+  stripInvisibleSearchChars,
+  stripSearchQueryNoise,
+} from "@/lib/search-query-normalize";
 import { isUnsupportedNoMirrorApp } from "@/lib/unsupported-no-mirror-apps";
 
 const PACKAGE_NAME_REGEX = /^[a-zA-Z][a-zA-Z0-9_]*(?:\.[a-zA-Z][a-zA-Z0-9_]*)+$/;
@@ -30,6 +34,7 @@ function parseGooglePlayUrl(query: string) {
 }
 
 function getQueryType(query: string): "url" | "package" | "keyword" {
+  if (/^https?:\/\//i.test(query)) return "url";
   if (query.includes("play.google.com")) return "url";
   if (PACKAGE_NAME_REGEX.test(query)) return "package";
   return "keyword";
@@ -107,9 +112,10 @@ export function shouldPersistSearchFailure(
   query: string,
   failureKind: string,
 ): boolean {
-  const trimmed = query.trim();
+  const trimmed = stripInvisibleSearchChars(query).trim();
   if (!trimmed) return false;
   if (/^file:\/\//i.test(trimmed)) return false;
+  if (/^https?:\/\//i.test(trimmed) && !trimmed.includes("play.google.com")) return false;
   if (failureKind === "query_too_long") return false;
   return true;
 }

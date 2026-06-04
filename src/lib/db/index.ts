@@ -993,7 +993,8 @@ export async function getDownloadFailureApps(
          COALESCE(m.active, false) as manual_source_active
        FROM download_failure_apps f
        LEFT JOIN manual_download_sources m ON m.app_id = f.app_id
-       ORDER BY f.resolved ASC, f.last_failed_at DESC, f.failure_count DESC, f.app_id ASC
+       WHERE f.resolved = FALSE
+       ORDER BY f.last_failed_at DESC, f.failure_count DESC, f.app_id ASC
        LIMIT $1 OFFSET $2`,
       [limit, offset]
     ),
@@ -1112,7 +1113,8 @@ function normalizedQueriesForSearchIntent(query: string): string[] {
   return [...out];
 }
 
-export async function resolveSearchFailuresForQuery(query: string, _queryType?: string): Promise<number> {
+export async function resolveSearchFailuresForQuery(query: string, queryType?: string): Promise<number> {
+  void queryType;
   const normalizedQueries = normalizedQueriesForSearchIntent(query);
   if (!normalizedQueries.length) return 0;
 
@@ -1143,6 +1145,10 @@ export async function autoResolveDismissibleSearchFailures(): Promise<number> {
        AND (
          failure_kind = 'query_too_long'
          OR (failure_kind = 'invalid_url' AND query ILIKE 'file:%')
+         OR (query ILIKE 'http://%' AND query NOT ILIKE '%play.google.com%')
+         OR (query ILIKE 'https://%' AND query NOT ILIKE '%play.google.com%')
+         OR query ILIKE '%uptodown.com%'
+         OR query ILIKE '%apps.evozi.com%'
        )
      RETURNING query_key`,
   );

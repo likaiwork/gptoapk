@@ -1,4 +1,5 @@
 import { createHash } from "node:crypto";
+import { stripInvisibleSearchChars } from "@/lib/search-query-normalize";
 
 export type SearchFailureKind =
   | "no_results"
@@ -8,7 +9,7 @@ export type SearchFailureKind =
   | "client_error";
 
 export function normalizeSearchQuery(query: string): string {
-  return query.trim().toLowerCase().replace(/\s+/g, " ");
+  return stripInvisibleSearchChars(query).trim().toLowerCase().replace(/\s+/g, " ");
 }
 
 export function buildSearchFailureKey(
