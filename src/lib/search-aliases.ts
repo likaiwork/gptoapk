@@ -2066,6 +2066,30 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
     appIds: ["com.whatsapp"],
     aliases: ["whatapp", "whatsappp", "what app"],
   },
+  {
+    appIds: ["com.github.metacubex.clash.meta"],
+    aliases: ["clash meta", "clash meta for android", "clashmeta", "com.github.metacubex.clash.meta"],
+  },
+  {
+    appIds: ["com.google.android.gm"],
+    aliases: ["gemail", "gemil", "email", "gmail app"],
+  },
+  {
+    appIds: ["com.android.vending"],
+    aliases: ["app store", "app storr", "store", "application store"],
+  },
+  {
+    appIds: ["com.google.android.gms"],
+    aliases: ["gapps", "g apps", "google apps"],
+  },
+  {
+    appIds: ["com.panda.touch"],
+    aliases: ["panda touch", "pandatouch"],
+  },
+  {
+    appIds: ["com.mkvmux.app"],
+    aliases: ["mkv mux", "mkvmux"],
+  },
 ];
 
 /** Wrong or truncated Play package ids from pasted URLs → canonical id */

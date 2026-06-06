@@ -187,6 +187,14 @@ const SEARCH_TYPO_CORRECTIONS: Readonly<Record<string, string>> = {
   ergdata: "ergdata",
   小牛: "小牛",
   "bbc news": "bbc news",
+  gemail: "gmail",
+  gemil: "gmail",
+  "app storr": "google play",
+  "app store": "google play",
+  store: "google play",
+  gapps: "google play services",
+  "clash meta": "clash meta for android",
+  "clash meta for android": "clash meta for android",
 };
 
 export function applySearchTypoCorrection(query: string): string {
