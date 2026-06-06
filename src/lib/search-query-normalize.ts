@@ -4,6 +4,35 @@ export function stripInvisibleSearchChars(query: string): string {
   return query.replace(/[\u200B-\u200D\u2060\uFEFF]/g, "");
 }
 
+export function fixMalformedUrlQuery(query: string): string {
+  let q = stripInvisibleSearchChars(query).trim();
+  if (/^ttps:\/\//i.test(q)) q = `h${q}`;
+  if (/^h?t?tps:\/\//i.test(q) && !/^https?:\/\//i.test(q)) q = q.replace(/^h?t?tps:\/\//i, "https://");
+  if (/^play\.google\.com\//i.test(q)) q = `https://${q}`;
+  return q;
+}
+
+/** Extract package id from Play details URL even when scheme is broken (e.g. ttps://). */
+export function extractPlayStorePackageId(query: string): string | null {
+  const fixed = fixMalformedUrlQuery(query);
+  const withScheme = /^https?:\/\//i.test(fixed)
+    ? fixed
+    : fixed.includes("play.google.com") && fixed.includes("id=")
+      ? `https://${fixed.replace(/^\/+/, "")}`
+      : fixed;
+
+  if (!withScheme.includes("play.google.com")) return null;
+
+  try {
+    const url = new URL(withScheme);
+    const appId = url.searchParams.get("id")?.trim();
+    return appId || null;
+  } catch {
+    const match = withScheme.match(/[?&]id=([a-zA-Z][a-zA-Z0-9_]*(?:\.[a-zA-Z][a-zA-Z0-9_]*)+)/);
+    return match?.[1]?.trim() || null;
+  }
+}
+
 export function normalizeAliasKey(query: string): string {
   return stripInvisibleSearchChars(query).trim().toLowerCase().replace(/\s+/g, " ");
 }
@@ -62,6 +91,15 @@ const SEARCH_TYPO_CORRECTIONS: Readonly<Record<string, string>> = {
   口袋营地: "pocket camp",
   王者: "王者荣耀",
   "微信 输入法": "微信输入法",
+  tiktop: "tiktok",
+  tiptok: "tiktok",
+  titok: "tiktok",
+  goole: "google",
+  goga: "google",
+  "pla推特": "twitter",
+  "play服务": "google play services",
+  "play 服务": "google play services",
+  ergdata: "ergdata",
 };
 
 export function applySearchTypoCorrection(query: string): string {

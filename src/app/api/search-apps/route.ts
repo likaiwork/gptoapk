@@ -10,7 +10,7 @@ import {
   getKnownAppSearchMeta,
 } from '@/lib/curated-search-apps';
 import { resolvePlayPackageIdAlias, resolveSearchAliasAppIds } from '@/lib/search-aliases';
-import { isVpnSearchKeyword, stripSearchQueryNoise } from '@/lib/search-query-normalize';
+import { isVpnSearchKeyword, stripSearchQueryNoise, extractPlayStorePackageId, stripInvisibleSearchChars, fixMalformedUrlQuery } from '@/lib/search-query-normalize';
 import { recordSearchFailure, recordSearchSuccess } from '@/lib/record-search-failure';
 import type { SearchFailureKind } from '@/lib/search-failure-key';
 import { shouldPersistSearchFailure } from '@/lib/search-failure-reconcile';
@@ -75,29 +75,35 @@ function normalizeCountry(value: string | null, fallback: string) {
 }
 
 function parseGooglePlayUrl(query: string) {
-  const candidate = /^https?:\/\//i.test(query) ? query : `https://${query}`;
+  const appId = extractPlayStorePackageId(query);
+  if (!appId) return null;
+
+  const fixed = stripInvisibleSearchChars(query).trim();
+  const candidate = fixMalformedUrlQuery(fixed);
+  const withScheme = /^https?:\/\//i.test(candidate) ? candidate : `https://${candidate}`;
 
   try {
-    const url = new URL(candidate);
-    if (!url.hostname.endsWith('play.google.com')) return null;
-
-    const appId = url.searchParams.get('id')?.trim();
-    if (!appId) return null;
-
+    const url = new URL(withScheme);
     return {
       appId,
       lang: normalizeLocale(url.searchParams.get('hl'), 'en'),
       country: normalizeCountry(url.searchParams.get('gl'), 'us'),
     };
   } catch {
-    return null;
+    return {
+      appId,
+      lang: 'en',
+      country: 'us',
+    };
   }
 }
 
 function getQueryType(query: string): QueryType {
-  if (/^https?:\/\//i.test(query)) return 'url';
-  if (query.includes('play.google.com')) return 'url';
-  if (PACKAGE_NAME_REGEX.test(query)) return 'package';
+  const trimmed = stripInvisibleSearchChars(query).trim();
+  if (extractPlayStorePackageId(trimmed)) return 'url';
+  if (/^https?:\/\//i.test(trimmed)) return 'url';
+  if (trimmed.includes('play.google.com')) return 'url';
+  if (PACKAGE_NAME_REGEX.test(trimmed)) return 'package';
   return 'keyword';
 }
 

@@ -2,7 +2,7 @@ import gplay, { type IAppItem } from "google-play-scraper";
 import { normalizeUserSearchQuery } from "@/lib/normalize-user-search-query";
 import { gplayRequestOptions as requestOptions } from "@/lib/proxy";
 import { resolvePlayPackageIdAlias, resolveSearchAliasAppIds } from "@/lib/search-aliases";
-import { isVpnSearchKeyword, stripSearchQueryNoise, applySearchTypoCorrection } from "@/lib/search-query-normalize";
+import { isVpnSearchKeyword, stripSearchQueryNoise, applySearchTypoCorrection, extractPlayStorePackageId, stripInvisibleSearchChars } from "@/lib/search-query-normalize";
 import { isUnsupportedNoMirrorApp } from "@/lib/unsupported-no-mirror-apps";
 import {
   getPendingMissingAppFeedbacks,
@@ -33,22 +33,17 @@ export type SearchDiscoveryReport = {
 };
 
 function getQueryType(query: string): QueryType {
-  if (query.includes("play.google.com")) return "url";
-  if (PACKAGE_NAME_REGEX.test(query)) return "package";
+  const trimmed = stripInvisibleSearchChars(query).trim();
+  if (extractPlayStorePackageId(trimmed)) return "url";
+  if (trimmed.includes("play.google.com")) return "url";
+  if (PACKAGE_NAME_REGEX.test(trimmed)) return "package";
   return "keyword";
 }
 
 function parseGooglePlayUrl(query: string) {
-  const candidate = /^https?:\/\//i.test(query) ? query : `https://${query}`;
-  try {
-    const url = new URL(candidate);
-    if (!url.hostname.endsWith("play.google.com")) return null;
-    const appId = url.searchParams.get("id")?.trim();
-    if (!appId) return null;
-    return { appId: resolvePlayPackageIdAlias(appId) };
-  } catch {
-    return null;
-  }
+  const appId = extractPlayStorePackageId(query);
+  if (!appId) return null;
+  return { appId: resolvePlayPackageIdAlias(appId) };
 }
 
 function withTimeout<T>(promise: Promise<T>, timeoutMs: number, message: string) {
@@ -223,7 +218,9 @@ async function applyDiscoveryForQuery(params: {
   sourceLabel: string;
 }): Promise<{ resolved: boolean; aliasesCreated: number; searchFailuresResolved: number }> {
   const normalizedQuery = applySearchTypoCorrection(params.query.trim());
-  const staticIds = resolveSearchAliasAppIds(normalizedQuery);
+  const stripped = stripSearchQueryNoise(normalizedQuery);
+  const queryForLookup = stripped.length >= 2 ? stripped : normalizedQuery;
+  const staticIds = resolveSearchAliasAppIds(queryForLookup);
   if (staticIds?.length) {
     const aliasesCreated = await saveSearchAliasOverrideForQuery({
       query: params.query,
@@ -348,13 +345,14 @@ export async function reconcileStaticAliasSearchFailures(limit = 400): Promise<n
   let resolved = 0;
 
   for (const row of rows) {
-    const staticIds = resolveSearchAliasAppIds(row.query);
+    const corrected = applySearchTypoCorrection(row.query);
+    const staticIds = resolveSearchAliasAppIds(corrected);
     if (!staticIds?.length) continue;
 
     await saveSearchAliasOverrideForQuery({
       query: row.query,
       appIds: [...staticIds],
-      sourceQuery: row.query,
+      sourceQuery: corrected,
       sourceLabel: "static-alias-reconcile",
     });
     resolved += await resolveSearchFailuresForQuery(row.query);

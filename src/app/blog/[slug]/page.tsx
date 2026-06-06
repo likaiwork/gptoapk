@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import Script from "next/script";
 import { posts20260601 } from "@/lib/blog/posts-2026-06-01";
+import { zhPosts20260605, enPosts20260605 } from "@/lib/blog/posts-2026-06-05";
 
 interface BlogPost {
   slug: string;
@@ -16,6 +17,8 @@ interface BlogPost {
 
 const posts: BlogPost[] = [
   ...posts20260601,
+  ...zhPosts20260605,
+  ...enPosts20260605,
   {
     slug: "webull-vs-moomoo-vs-tiger-brokers",
     title: "Webull vs Moomoo vs Tiger Brokers: Which US Stock App Is Best in 2026?",

@@ -8,6 +8,7 @@ import {
 import { normalizeUserSearchQuery } from "@/lib/normalize-user-search-query";
 import { getAliasLookupKeys, stripSearchQueryNoise } from "@/lib/search-query-normalize";
 import { normalizeSearchQuery } from "@/lib/search-failure-key";
+import { extractPlayStorePackageId } from "@/lib/search-query-normalize";
 
 type Primitive = string | number | boolean | undefined | null;
 
@@ -1099,6 +1100,8 @@ function normalizedQueriesForSearchIntent(query: string): string[] {
   };
 
   add(trimmed);
+  const pkg = extractPlayStorePackageId(trimmed);
+  if (pkg) add(pkg);
   const canonical = normalizeUserSearchQuery(trimmed);
   if (canonical !== trimmed) add(canonical);
 

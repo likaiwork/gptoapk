@@ -9,6 +9,8 @@ import {
 } from "@/lib/search-aliases";
 import { resolveSearchAliasOverrideAppIds } from "@/lib/search-alias-overrides";
 import {
+  extractPlayStorePackageId,
+  fixMalformedUrlQuery,
   isVpnSearchKeyword,
   stripInvisibleSearchChars,
   stripSearchQueryNoise,
@@ -18,25 +20,17 @@ import { isUnsupportedNoMirrorApp } from "@/lib/unsupported-no-mirror-apps";
 const PACKAGE_NAME_REGEX = /^[a-zA-Z][a-zA-Z0-9_]*(?:\.[a-zA-Z][a-zA-Z0-9_]*)+$/;
 
 function parseGooglePlayUrl(query: string) {
-  const candidate = /^https?:\/\//i.test(query) ? query : `https://${query}`;
-
-  try {
-    const url = new URL(candidate);
-    if (!url.hostname.endsWith("play.google.com")) return null;
-
-    const appId = url.searchParams.get("id")?.trim();
-    if (!appId) return null;
-
-    return { appId: resolvePlayPackageIdAlias(appId) };
-  } catch {
-    return null;
-  }
+  const appId = extractPlayStorePackageId(query);
+  if (!appId) return null;
+  return { appId: resolvePlayPackageIdAlias(appId) };
 }
 
 function getQueryType(query: string): "url" | "package" | "keyword" {
-  if (/^https?:\/\//i.test(query)) return "url";
-  if (query.includes("play.google.com")) return "url";
-  if (PACKAGE_NAME_REGEX.test(query)) return "package";
+  const trimmed = stripInvisibleSearchChars(query).trim();
+  if (extractPlayStorePackageId(trimmed)) return "url";
+  if (/^https?:\/\//i.test(trimmed)) return "url";
+  if (trimmed.includes("play.google.com")) return "url";
+  if (PACKAGE_NAME_REGEX.test(trimmed)) return "package";
   return "keyword";
 }
 

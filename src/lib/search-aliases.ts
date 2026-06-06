@@ -957,7 +957,7 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
   },
   {
     appIds: ["com.zhiliaoapp.musically"],
-    aliases: ["titok", "titkok", "tiktok", "抖音国际版", "com.zhiliaoapp.musically"],
+    aliases: ["titok", "titkok", "tiktop", "tiptok", "tiktok", "抖音国际版", "com.zhiliaoapp.musically"],
   },
   {
     appIds: ["com.flar2.devcheck"],
@@ -1945,6 +1945,50 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
       "谷歌安装器",
       "com.goplaycn.googleinstall",
     ],
+  },
+  {
+    appIds: ["com.google.android.gms"],
+    aliases: [
+      "google play services",
+      "play services",
+      "play服务",
+      "play 服务",
+      "谷歌服务",
+      "gms",
+      "com.google.android.gms",
+    ],
+  },
+  {
+    appIds: ["com.google.android.googlequicksearchbox"],
+    aliases: ["google", "goole", "goga", "谷歌", "谷歌搜索"],
+  },
+  {
+    appIds: ["com.usps.app"],
+    aliases: ["usps", "usps mobile", "usps app", "com.usps.app"],
+  },
+  {
+    appIds: ["com.concept2.ergdata"],
+    aliases: ["ergdata", "erg data", "concept2 ergdata", "com.concept2.ergdata"],
+  },
+  {
+    appIds: ["com.sevegame.melonsandbox"],
+    aliases: ["melon sandbox", "melonsandbox", "melon playground"],
+  },
+  {
+    appIds: ["com.steinberg.cubasis3"],
+    aliases: ["cubase", "cubasis", "cubasis 3"],
+  },
+  {
+    appIds: ["com.verisec.mobile.frejaeid"],
+    aliases: ["frejaeid", "freja eid", "com.verisec.mobile.frejaeid"],
+  },
+  {
+    appIds: ["com.gan.cube"],
+    aliases: ["魔方", "魔方计时器", "gan cube"],
+  },
+  {
+    appIds: ["com.twitter.android"],
+    aliases: ["pla推特", "pla 推特"],
   },
 ];
 
