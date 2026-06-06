@@ -1,4 +1,11 @@
-import { stripInvisibleSearchChars, fixMalformedUrlQuery, extractPlayStorePackageId } from "@/lib/search-query-normalize";
+import {
+  stripInvisibleSearchChars,
+  fixMalformedUrlQuery,
+  extractPlayStorePackageId,
+  extractEmbeddedPackageId,
+  stripMarkdownAndCodeFences,
+  applySearchTypoCorrection,
+} from "@/lib/search-query-normalize";
 
 /** Google Play search page URL → search term (e.g. store/search?q=schwab+mobile). */
 export function extractPlayStoreSearchTerm(query: string): string | null {
@@ -21,9 +28,11 @@ export function extractPlayStoreSearchTerm(query: string): string | null {
 
 /** Same URL / brand shortcuts as /api/search-apps before query-type detection. */
 export function normalizeUserSearchQuery(query: string): string {
-  const trimmed = stripInvisibleSearchChars(query).trim();
+  const trimmed = stripMarkdownAndCodeFences(stripInvisibleSearchChars(query).trim());
   const playPackageId = extractPlayStorePackageId(trimmed);
   if (playPackageId) return playPackageId;
+  const embeddedPackage = extractEmbeddedPackageId(trimmed);
+  if (embeddedPackage) return embeddedPackage;
   const playSearchTerm = extractPlayStoreSearchTerm(trimmed);
   if (playSearchTerm) return playSearchTerm;
   if (/^https?:\/\/(www\.)?grok\.com\/?/i.test(trimmed)) return "grok";
@@ -68,5 +77,5 @@ export function normalizeUserSearchQuery(query: string): string {
   if (/^https?:\/\/(www\.)?copilot\.microsoft\.com\/?/i.test(trimmed)) return "copilot";
   if (/^https?:\/\/(www\.)?perplexity\.ai\/?/i.test(trimmed)) return "perplexity";
   if (/^https?:\/\/(www\.)?deepseek\.com\/?/i.test(trimmed)) return "deepseek";
-  return trimmed;
+  return applySearchTypoCorrection(trimmed);
 }

@@ -2,7 +2,7 @@ import gplay, { type IAppItem } from "google-play-scraper";
 import { normalizeUserSearchQuery } from "@/lib/normalize-user-search-query";
 import { gplayRequestOptions as requestOptions } from "@/lib/proxy";
 import { resolvePlayPackageIdAlias, resolveSearchAliasAppIds } from "@/lib/search-aliases";
-import { isVpnSearchKeyword, stripSearchQueryNoise, applySearchTypoCorrection, extractPlayStorePackageId, stripInvisibleSearchChars } from "@/lib/search-query-normalize";
+import { isVpnSearchKeyword, stripSearchQueryNoise, applySearchTypoCorrection, extractPlayStorePackageId, stripInvisibleSearchChars, extractEmbeddedPackageId } from "@/lib/search-query-normalize";
 import { isUnsupportedNoMirrorApp } from "@/lib/unsupported-no-mirror-apps";
 import {
   getPendingMissingAppFeedbacks,
@@ -35,6 +35,7 @@ export type SearchDiscoveryReport = {
 function getQueryType(query: string): QueryType {
   const trimmed = stripInvisibleSearchChars(query).trim();
   if (extractPlayStorePackageId(trimmed)) return "url";
+  if (extractEmbeddedPackageId(trimmed)) return "package";
   if (trimmed.includes("play.google.com")) return "url";
   if (PACKAGE_NAME_REGEX.test(trimmed)) return "package";
   return "keyword";
@@ -246,6 +247,27 @@ async function applyDiscoveryForQuery(params: {
 
   const searchFailuresResolved = await resolveSearchFailuresForQuery(params.query);
   return { resolved: true, aliasesCreated, searchFailuresResolved };
+}
+
+export async function tryResolveMissingAppFeedbackById(params: {
+  id: number;
+  query: string;
+  locale?: string;
+  country?: string;
+}): Promise<{ resolved: boolean; aliasesCreated: number }> {
+  await initDatabase();
+  const lang = params.locale || "en";
+  const country = params.country || (lang.startsWith("zh") ? "cn" : "us");
+  const result = await applyDiscoveryForQuery({
+    query: params.query,
+    lang,
+    country,
+    sourceLabel: "missing-app-feedback-immediate",
+  });
+  if (result.resolved) {
+    await updateMissingAppFeedbackStatus(params.id, "done");
+  }
+  return { resolved: result.resolved, aliasesCreated: result.aliasesCreated };
 }
 
 export async function repairMissingAppFeedback(options?: {

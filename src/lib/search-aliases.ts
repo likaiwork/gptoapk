@@ -1990,6 +1990,82 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
     appIds: ["com.twitter.android"],
     aliases: ["pla推特", "pla 推特"],
   },
+  {
+    appIds: ["ru.iiec.pydroid3"],
+    aliases: ["pydroid 3", "pydroid3", "pydroid", "pydriod", "ru.iiec.pydroid3"],
+  },
+  {
+    appIds: ["com.android.chrome"],
+    aliases: ["chrome", "chorme", "chroem", "google chrome", "com.android.chrome"],
+  },
+  {
+    appIds: ["com.nokoprint.nokoprint"],
+    aliases: ["nokoprint", "noko print", "com.nokoprint.nokoprint"],
+  },
+  {
+    appIds: ["com.dynamixsoftware.printhand"],
+    aliases: ["printhand", "print hand", "com.dynamixsoftware.printhand"],
+  },
+  {
+    appIds: ["com.gspace.android"],
+    aliases: ["gspace", "g space", "com.gspace.android"],
+  },
+  {
+    appIds: ["com.blackmagicdesign.blackmagiccam"],
+    aliases: ["blackmagic camera", "blackmagic", "black magic camera", "com.blackmagicdesign.blackmagiccam"],
+  },
+  {
+    appIds: ["jp.pxv.android"],
+    aliases: ["pixiv", "pivix", "pixvi", "jp.pxv.android"],
+  },
+  {
+    appIds: ["com.virtuallysports.aethric"],
+    aliases: ["hero of aethric", "aethric", "heroofaethric"],
+  },
+  {
+    appIds: ["com.sofascore.results"],
+    aliases: ["sofascore", "sofa score", "com.sofascore.results"],
+  },
+  {
+    appIds: ["co.benx.weverse"],
+    aliases: ["weverse", "co.benx.weverse"],
+  },
+  {
+    appIds: ["com.bumble.app"],
+    aliases: ["bumble", "bumblw", "bum"],
+  },
+  {
+    appIds: ["com.lazada.android"],
+    aliases: ["lazada", "com.lazada.android"],
+  },
+  {
+    appIds: ["com.xt.hypic"],
+    aliases: ["hypic", "hypic photo editor", "hypic photo", "com.xt.hypic"],
+  },
+  {
+    appIds: ["com.mladen.strelac.wearostoolbox"],
+    aliases: ["wear os toolbox", "wearos toolbox", "wear os"],
+  },
+  {
+    appIds: ["com.caffeinatedowl.oxidesurvivalisland"],
+    aliases: ["oxide", "oxide survival", "oxide survival island"],
+  },
+  {
+    appIds: ["com.gbox.android"],
+    aliases: ["gbox", "com.gbox.android"],
+  },
+  {
+    appIds: ["uk.co.bbc.news"],
+    aliases: ["bbc news", "bbc news app", "uk.co.bbc.news"],
+  },
+  {
+    appIds: ["com.niu.foreign"],
+    aliases: ["小牛", "niu", "niu scooter", "com.niu.foreign"],
+  },
+  {
+    appIds: ["com.whatsapp"],
+    aliases: ["whatapp", "whatsappp", "what app"],
+  },
 ];
 
 /** Wrong or truncated Play package ids from pasted URLs → canonical id */

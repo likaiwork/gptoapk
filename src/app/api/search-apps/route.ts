@@ -10,7 +10,7 @@ import {
   getKnownAppSearchMeta,
 } from '@/lib/curated-search-apps';
 import { resolvePlayPackageIdAlias, resolveSearchAliasAppIds } from '@/lib/search-aliases';
-import { isVpnSearchKeyword, stripSearchQueryNoise, extractPlayStorePackageId, stripInvisibleSearchChars, fixMalformedUrlQuery } from '@/lib/search-query-normalize';
+import { isVpnSearchKeyword, stripSearchQueryNoise, extractPlayStorePackageId, stripInvisibleSearchChars, fixMalformedUrlQuery, extractEmbeddedPackageId } from '@/lib/search-query-normalize';
 import { recordSearchFailure, recordSearchSuccess } from '@/lib/record-search-failure';
 import type { SearchFailureKind } from '@/lib/search-failure-key';
 import { shouldPersistSearchFailure } from '@/lib/search-failure-reconcile';
@@ -101,6 +101,7 @@ function parseGooglePlayUrl(query: string) {
 function getQueryType(query: string): QueryType {
   const trimmed = stripInvisibleSearchChars(query).trim();
   if (extractPlayStorePackageId(trimmed)) return 'url';
+  if (extractEmbeddedPackageId(trimmed)) return 'package';
   if (/^https?:\/\//i.test(trimmed)) return 'url';
   if (trimmed.includes('play.google.com')) return 'url';
   if (PACKAGE_NAME_REGEX.test(trimmed)) return 'package';
