@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-04T05:45:44.079Z",
+  "updatedAt": "2026-06-06T02:57:41.217Z",
   "today": {
     "date": "2026-05-26",
     "locale": "zh",
@@ -67,6 +67,18 @@
       "note": "",
       "publishedUrl": "https://www.gptoapk.com/zh/blog/apk-signature-verify-practical",
       "at": "2026-06-04T05:45:44.079Z"
+    },
+    "2026-06-06": {
+      "status": "published",
+      "note": "",
+      "publishedUrl": "https://www.gptoapk.com/en/blog/telegram-apk-safe-install",
+      "at": "2026-06-06T02:57:41.161Z"
+    },
+    "2026-06-05": {
+      "status": "published",
+      "note": "",
+      "publishedUrl": "https://www.gptoapk.com/zh/blog/gptoapk-how-to-use",
+      "at": "2026-06-06T02:57:41.216Z"
     }
   }
 }
