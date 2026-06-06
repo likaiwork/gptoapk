@@ -189,7 +189,16 @@ export const zhPosts20260606: BlogPostEntry[] = [
           </table>
         </div>
 
-        <p>根据不同需求可以选择不同的方法。如果你只是想偶尔下载一两个海外应用，直接在 <Link href="https://gptoapk.com/">GPToAPK</Link> 下载 APK 是最省事的方案。</p>
+        <p>根据不同需求可以选择不同的方法。如果你只是想偶尔下载一两个海外应用，直接在{" "}
+          <Link href="/zh" className="text-blue-600 dark:text-blue-400 hover:underline">
+            gptoapk
+          </Link>{" "}
+          下载 APK 是最省事的方案。GEO 速查见{" "}
+          <Link href="/zh/blog/google-play-region-switch-seo-geo-2026" className="text-blue-600 dark:text-blue-400 hover:underline">
+            Google Play 换区 GEO
+          </Link>
+          。
+        </p>
       </>
     ),
   },
@@ -463,7 +472,8 @@ chown root:root /system/priv-app/应用名/base.apk`}</code></pre>
 
   // ===== 182: WeChat APK Download Guide =====
   {
-    slug: "wechat-apk-download-guide-2026",    title: "微信APK下载与安装指南：官方版、海外版怎么选？",
+    slug: "wechat-apk-download-guide-2026",
+    title: "微信APK下载与安装指南：官方版、海外版怎么选？",
     description:
       "微信 APK 下载安装完整指南：国内官方版 vs 海外 WeChat 版对比，各品牌手机开启未知来源安装路径，常见安装失败问题解决。",
     date: "2026-06-06",
