@@ -1017,7 +1017,7 @@ function Dashboard({
               }}
               className="cursor-pointer rounded-lg border border-emerald-200 bg-emerald-50 px-3 py-1.5 text-xs font-medium text-emerald-900 hover:bg-emerald-100 disabled:cursor-not-allowed disabled:opacity-50"
             >
-              {busyTriage ? "处理中..." : "一键处理全部"}
+              {busyTriage ? "处理中..." : "搜索+下载一键处理"}
             </button>
             <button
               type="button"
@@ -1025,7 +1025,7 @@ function Dashboard({
               onClick={() => { void onReconcileSearchFailures(); }}
               className="cursor-pointer rounded-lg border border-amber-200 bg-amber-50 px-3 py-1.5 text-xs font-medium text-amber-900 hover:bg-amber-100 disabled:cursor-not-allowed disabled:opacity-50"
             >
-              {reconcilingSearchFailures ? "校验中..." : "仅校验搜索"}
+              {reconcilingSearchFailures ? "校验中..." : "校验并复测搜索失败"}
             </button>
           </div>
         </div>
