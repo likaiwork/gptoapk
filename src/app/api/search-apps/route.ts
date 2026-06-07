@@ -10,7 +10,7 @@ import {
   getKnownAppSearchMeta,
 } from '@/lib/curated-search-apps';
 import { resolvePlayPackageIdAlias, resolveSearchAliasAppIds } from '@/lib/search-aliases';
-import { isVpnSearchKeyword, stripSearchQueryNoise, extractPlayStorePackageId, stripInvisibleSearchChars, fixMalformedUrlQuery } from '@/lib/search-query-normalize';
+import { isVpnSearchKeyword, stripSearchQueryNoise, extractPlayStorePackageId, stripInvisibleSearchChars, fixMalformedUrlQuery, applySearchTypoCorrection } from '@/lib/search-query-normalize';
 import { recordSearchFailure, recordSearchSuccess } from '@/lib/record-search-failure';
 import type { SearchFailureKind } from '@/lib/search-failure-key';
 import { shouldPersistSearchFailure } from '@/lib/search-failure-reconcile';
@@ -206,27 +206,45 @@ async function searchByAliasApps(
       error instanceof Error ? error.message : error,
     );
   }
-  const appIds = overrideIds?.length ? overrideIds : resolveSearchAliasAppIds(query);
-  if (!appIds?.length) return [];
 
-  const blocked = new Set<string>();
-  const merged: SearchAppResult[] = [];
+  const candidateAppIds: string[][] = [];
+  const seenSets = new Set<string>();
 
-  const push = (item: SearchAppResult) => {
-    if (!item.appId || blocked.has(item.appId) || isUnsupportedNoMirrorApp(item.appId)) return;
-    blocked.add(item.appId);
-    merged.push(item);
+  const addCandidateSet = (appIds: readonly string[] | null | undefined) => {
+    if (!appIds?.length) return;
+    const key = appIds.join("\0");
+    if (seenSets.has(key)) return;
+    seenSets.add(key);
+    candidateAppIds.push([...appIds]);
   };
 
-  const curated = await Promise.allSettled(
-    appIds.map((appId) => fetchExactApp(appId, lang, country)),
-  );
+  addCandidateSet(overrideIds);
+  addCandidateSet(resolveSearchAliasAppIds(query));
 
-  for (const result of curated) {
-    if (result.status === 'fulfilled') push(result.value);
+  for (const appIds of candidateAppIds) {
+    const blocked = new Set<string>();
+    const merged: SearchAppResult[] = [];
+
+    const push = (item: SearchAppResult) => {
+      if (!item.appId || blocked.has(item.appId) || isUnsupportedNoMirrorApp(item.appId)) return;
+      blocked.add(item.appId);
+      merged.push(item);
+    };
+
+    const curated = await Promise.allSettled(
+      appIds.map((appId) => fetchExactApp(appId, lang, country)),
+    );
+
+    for (const result of curated) {
+      if (result.status === "fulfilled") push(result.value);
+    }
+
+    if (merged.length > 0) {
+      return merged.slice(0, SEARCH_RESULT_LIMIT);
+    }
   }
 
-  return merged.slice(0, SEARCH_RESULT_LIMIT);
+  return [];
 }
 
 async function searchApps(term: string, lang: string, country: string): Promise<SearchAppResult[]> {
@@ -396,7 +414,7 @@ function searchFailureResponse(
       country,
     });
   }
-  return NextResponse.json({ error }, { status });
+  return NextResponse.json({ error }, { status, headers: { "Cache-Control": "no-store" } });
 }
 
 export async function GET(request: Request) {
@@ -421,7 +439,7 @@ export async function GET(request: Request) {
     );
   }
 
-  const query = normalizeUserSearchQuery(rawQuery);
+  const query = applySearchTypoCorrection(normalizeUserSearchQuery(rawQuery));
   const queryType = getQueryType(query);
 
   if (query.length > MAX_QUERY_LENGTH) {
