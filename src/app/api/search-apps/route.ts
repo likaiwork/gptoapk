@@ -196,9 +196,17 @@ async function searchByAliasApps(
   lang: string,
   country: string,
 ): Promise<SearchAppResult[]> {
-  const { resolveSearchAliasOverrideAppIds } = await import("@/lib/search-alias-overrides");
-  const overrideIds = await resolveSearchAliasOverrideAppIds(query);
-  const appIds = overrideIds ?? resolveSearchAliasAppIds(query);
+  let overrideIds: string[] | null = null;
+  try {
+    const { resolveSearchAliasOverrideAppIds } = await import("@/lib/search-alias-overrides");
+    overrideIds = await resolveSearchAliasOverrideAppIds(query);
+  } catch (error) {
+    console.warn(
+      "[API search-apps] alias override lookup failed, using static aliases:",
+      error instanceof Error ? error.message : error,
+    );
+  }
+  const appIds = overrideIds?.length ? overrideIds : resolveSearchAliasAppIds(query);
   if (!appIds?.length) return [];
 
   const blocked = new Set<string>();
