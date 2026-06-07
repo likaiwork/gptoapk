@@ -2,7 +2,7 @@ import gplay, { type IAppItem } from "google-play-scraper";
 import { normalizeUserSearchQuery } from "@/lib/normalize-user-search-query";
 import { gplayRequestOptions as requestOptions } from "@/lib/proxy";
 import { resolvePlayPackageIdAlias, resolveSearchAliasAppIds } from "@/lib/search-aliases";
-import { isVpnSearchKeyword, stripSearchQueryNoise, applySearchTypoCorrection, extractPlayStorePackageId, stripInvisibleSearchChars, extractEmbeddedPackageId } from "@/lib/search-query-normalize";
+import { isVpnSearchKeyword, stripSearchQueryNoise, applySearchTypoCorrection, extractPlayStorePackageId, stripInvisibleSearchChars } from "@/lib/search-query-normalize";
 import { isUnsupportedNoMirrorApp } from "@/lib/unsupported-no-mirror-apps";
 import {
   getPendingMissingAppFeedbacks,
@@ -16,6 +16,7 @@ import {
   resolveSearchAliasOverrideAppIds,
   saveSearchAliasOverrideForQuery,
 } from "@/lib/search-alias-overrides";
+import { expandSearchQueryVariants } from "@/lib/search-query-variants";
 import { canResolveSearchQueryNow, canResolveSearchQueryNowAsync } from "@/lib/search-failure-reconcile";
 
 const PACKAGE_NAME_REGEX = /^[a-zA-Z][a-zA-Z0-9_]*(?:\.[a-zA-Z][a-zA-Z0-9_]*)+$/;
@@ -35,7 +36,6 @@ export type SearchDiscoveryReport = {
 function getQueryType(query: string): QueryType {
   const trimmed = stripInvisibleSearchChars(query).trim();
   if (extractPlayStorePackageId(trimmed)) return "url";
-  if (extractEmbeddedPackageId(trimmed)) return "package";
   if (trimmed.includes("play.google.com")) return "url";
   if (PACKAGE_NAME_REGEX.test(trimmed)) return "package";
   return "keyword";
@@ -131,6 +131,18 @@ export async function discoverAppIdsForQuery(
   lang: string,
   country: string,
 ): Promise<string[] | null> {
+  for (const query of expandSearchQueryVariants(rawQuery)) {
+    const result = await discoverAppIdsForNormalizedQuery(query, lang, country);
+    if (result?.length) return result;
+  }
+  return null;
+}
+
+async function discoverAppIdsForNormalizedQuery(
+  rawQuery: string,
+  lang: string,
+  country: string,
+): Promise<string[] | null> {
   const query = normalizeUserSearchQuery(rawQuery.trim());
   if (!query) return null;
 
@@ -218,56 +230,49 @@ async function applyDiscoveryForQuery(params: {
   country: string;
   sourceLabel: string;
 }): Promise<{ resolved: boolean; aliasesCreated: number; searchFailuresResolved: number }> {
+  for (const variant of expandSearchQueryVariants(params.query)) {
+    const result = await applyDiscoveryForQueryVariant({ ...params, query: variant, originalQuery: params.query });
+    if (result.resolved) return result;
+  }
+  return { resolved: false, aliasesCreated: 0, searchFailuresResolved: 0 };
+}
+
+async function applyDiscoveryForQueryVariant(params: {
+  query: string;
+  originalQuery: string;
+  lang: string;
+  country: string;
+  sourceLabel: string;
+}): Promise<{ resolved: boolean; aliasesCreated: number; searchFailuresResolved: number }> {
   const normalizedQuery = applySearchTypoCorrection(params.query.trim());
   const stripped = stripSearchQueryNoise(normalizedQuery);
   const queryForLookup = stripped.length >= 2 ? stripped : normalizedQuery;
   const staticIds = resolveSearchAliasAppIds(queryForLookup);
   if (staticIds?.length) {
     const aliasesCreated = await saveSearchAliasOverrideForQuery({
-      query: params.query,
+      query: params.originalQuery,
       appIds: [...staticIds],
       sourceQuery: normalizedQuery,
       sourceLabel: `${params.sourceLabel}-static`,
     });
-    const searchFailuresResolved = await resolveSearchFailuresForQuery(params.query);
+    const searchFailuresResolved = await resolveSearchFailuresForQuery(params.originalQuery);
     return { resolved: true, aliasesCreated, searchFailuresResolved };
   }
 
-  const appIds = await discoverAppIdsForQuery(normalizedQuery, params.lang, params.country);
+  const appIds = await discoverAppIdsForNormalizedQuery(normalizedQuery, params.lang, params.country);
   if (!appIds?.length) {
     return { resolved: false, aliasesCreated: 0, searchFailuresResolved: 0 };
   }
 
   const aliasesCreated = await saveSearchAliasOverrideForQuery({
-    query: params.query,
+    query: params.originalQuery,
     appIds,
     sourceQuery: params.query,
     sourceLabel: params.sourceLabel,
   });
 
-  const searchFailuresResolved = await resolveSearchFailuresForQuery(params.query);
+  const searchFailuresResolved = await resolveSearchFailuresForQuery(params.originalQuery);
   return { resolved: true, aliasesCreated, searchFailuresResolved };
-}
-
-export async function tryResolveMissingAppFeedbackById(params: {
-  id: number;
-  query: string;
-  locale?: string;
-  country?: string;
-}): Promise<{ resolved: boolean; aliasesCreated: number }> {
-  await initDatabase();
-  const lang = params.locale || "en";
-  const country = params.country || (lang.startsWith("zh") ? "cn" : "us");
-  const result = await applyDiscoveryForQuery({
-    query: params.query,
-    lang,
-    country,
-    sourceLabel: "missing-app-feedback-immediate",
-  });
-  if (result.resolved) {
-    await updateMissingAppFeedbackStatus(params.id, "done");
-  }
-  return { resolved: result.resolved, aliasesCreated: result.aliasesCreated };
 }
 
 export async function repairMissingAppFeedback(options?: {
@@ -317,7 +322,7 @@ export async function repairMissingAppFeedback(options?: {
 export async function repairSearchFailuresViaDiscovery(options?: {
   limit?: number;
 }): Promise<Pick<SearchDiscoveryReport, "aliasesCreated" | "searchFailuresResolved" | "discoveryAttempts" | "discoveryMisses">> {
-  const limit = Math.min(Math.max(options?.limit ?? 60, 1), 150);
+  const limit = Math.min(Math.max(options?.limit ?? 120, 1), 200);
   await initDatabase();
 
   const rows = await getUnresolvedSearchFailuresForDiscovery(limit);
@@ -367,17 +372,23 @@ export async function reconcileStaticAliasSearchFailures(limit = 400): Promise<n
   let resolved = 0;
 
   for (const row of rows) {
-    const corrected = applySearchTypoCorrection(row.query);
-    const staticIds = resolveSearchAliasAppIds(corrected);
-    if (!staticIds?.length) continue;
+    let matched = false;
+    for (const variant of expandSearchQueryVariants(row.query)) {
+      const corrected = applySearchTypoCorrection(variant);
+      const staticIds = resolveSearchAliasAppIds(corrected);
+      if (!staticIds?.length) continue;
 
-    await saveSearchAliasOverrideForQuery({
-      query: row.query,
-      appIds: [...staticIds],
-      sourceQuery: corrected,
-      sourceLabel: "static-alias-reconcile",
-    });
-    resolved += await resolveSearchFailuresForQuery(row.query);
+      await saveSearchAliasOverrideForQuery({
+        query: row.query,
+        appIds: [...staticIds],
+        sourceQuery: corrected,
+        sourceLabel: "static-alias-reconcile",
+      });
+      resolved += await resolveSearchFailuresForQuery(row.query);
+      matched = true;
+      break;
+    }
+    if (matched) continue;
   }
 
   return resolved;

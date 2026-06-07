@@ -10,11 +10,12 @@ import {
   getKnownAppSearchMeta,
 } from '@/lib/curated-search-apps';
 import { resolvePlayPackageIdAlias, resolveSearchAliasAppIds } from '@/lib/search-aliases';
-import { isVpnSearchKeyword, stripSearchQueryNoise, extractPlayStorePackageId, stripInvisibleSearchChars, fixMalformedUrlQuery, extractEmbeddedPackageId } from '@/lib/search-query-normalize';
+import { isVpnSearchKeyword, stripSearchQueryNoise, extractPlayStorePackageId, stripInvisibleSearchChars, fixMalformedUrlQuery } from '@/lib/search-query-normalize';
 import { recordSearchFailure, recordSearchSuccess } from '@/lib/record-search-failure';
 import type { SearchFailureKind } from '@/lib/search-failure-key';
 import { shouldPersistSearchFailure } from '@/lib/search-failure-reconcile';
 import { normalizeUserSearchQuery } from '@/lib/normalize-user-search-query';
+import { expandSearchQueryVariants } from '@/lib/search-query-variants';
 
 /**
  * Search pipeline (keyword):
@@ -101,7 +102,6 @@ function parseGooglePlayUrl(query: string) {
 function getQueryType(query: string): QueryType {
   const trimmed = stripInvisibleSearchChars(query).trim();
   if (extractPlayStorePackageId(trimmed)) return 'url';
-  if (extractEmbeddedPackageId(trimmed)) return 'package';
   if (/^https?:\/\//i.test(trimmed)) return 'url';
   if (trimmed.includes('play.google.com')) return 'url';
   if (PACKAGE_NAME_REGEX.test(trimmed)) return 'package';
@@ -456,18 +456,13 @@ export async function GET(request: Request) {
       return searchSuccessResponse(query, queryType, requestedLang, requestedCountry, [result]);
     }
 
-    let results = await searchByAliasApps(query, requestedLang, requestedCountry);
-    if (results.length === 0) {
-      results = await searchApps(query, requestedLang, requestedCountry);
-    }
-    if (results.length === 0) {
-      const stripped = stripSearchQueryNoise(query);
-      if (stripped && stripped !== query.trim().toLowerCase()) {
-        results = await searchByAliasApps(stripped, requestedLang, requestedCountry);
-        if (results.length === 0) {
-          results = await searchApps(stripped, requestedLang, requestedCountry);
-        }
+    let results: SearchAppResult[] = [];
+    for (const term of expandSearchQueryVariants(rawQuery)) {
+      results = await searchByAliasApps(term, requestedLang, requestedCountry);
+      if (results.length === 0) {
+        results = await searchApps(term, requestedLang, requestedCountry);
       }
+      if (results.length > 0) break;
     }
     results = results.filter((app) => !isUnsupportedNoMirrorApp(app.appId));
     if (results.length === 0) {

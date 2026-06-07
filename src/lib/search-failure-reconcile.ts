@@ -10,13 +10,10 @@ import {
 import { resolveSearchAliasOverrideAppIds } from "@/lib/search-alias-overrides";
 import {
   extractPlayStorePackageId,
-  fixMalformedUrlQuery,
-  isDismissibleSearchQuery,
   isVpnSearchKeyword,
   stripInvisibleSearchChars,
-  stripSearchQueryNoise,
-  extractEmbeddedPackageId,
 } from "@/lib/search-query-normalize";
+import { expandSearchQueryVariants } from "@/lib/search-query-variants";
 import { isUnsupportedNoMirrorApp } from "@/lib/unsupported-no-mirror-apps";
 
 const PACKAGE_NAME_REGEX = /^[a-zA-Z][a-zA-Z0-9_]*(?:\.[a-zA-Z][a-zA-Z0-9_]*)+$/;
@@ -30,7 +27,6 @@ function parseGooglePlayUrl(query: string) {
 function getQueryType(query: string): "url" | "package" | "keyword" {
   const trimmed = stripInvisibleSearchChars(query).trim();
   if (extractPlayStorePackageId(trimmed)) return "url";
-  if (extractEmbeddedPackageId(trimmed)) return "package";
   if (/^https?:\/\//i.test(trimmed)) return "url";
   if (trimmed.includes("play.google.com")) return "url";
   if (PACKAGE_NAME_REGEX.test(trimmed)) return "package";
@@ -54,10 +50,8 @@ function aliasWouldReturnResults(query: string): boolean {
 }
 
 function keywordWouldReturnResults(query: string): boolean {
-  if (aliasWouldReturnResults(query)) return true;
-  const stripped = stripSearchQueryNoise(query);
-  if (stripped.length >= 2 && stripped !== query.trim().toLowerCase()) {
-    return aliasWouldReturnResults(stripped);
+  for (const variant of expandSearchQueryVariants(query)) {
+    if (aliasWouldReturnResults(variant)) return true;
   }
   return false;
 }
@@ -111,7 +105,6 @@ export function shouldPersistSearchFailure(
 ): boolean {
   const trimmed = stripInvisibleSearchChars(query).trim();
   if (!trimmed) return false;
-  if (isDismissibleSearchQuery(trimmed)) return false;
   if (/^file:\/\//i.test(trimmed)) return false;
   if (/^https?:\/\//i.test(trimmed) && !trimmed.includes("play.google.com")) return false;
   if (failureKind === "query_too_long") return false;
@@ -132,7 +125,7 @@ export async function probeLiveSearchHasResults(
   query: string,
   options?: { lang?: string; country?: string; timeoutMs?: number },
 ): Promise<boolean> {
-  const trimmed = normalizeUserSearchQuery(query.trim());
+  const trimmed = query.trim();
   if (!trimmed || trimmed.length > 200) return false;
 
   const lang = (options?.lang || "en").slice(0, 8);

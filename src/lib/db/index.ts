@@ -5,8 +5,9 @@ import {
   canResolveSearchQueryNowAsync,
   probeLiveSearchHasResults,
 } from "@/lib/search-failure-reconcile";
+import { expandSearchQueryVariants } from "@/lib/search-query-variants";
 import { normalizeUserSearchQuery } from "@/lib/normalize-user-search-query";
-import { getAliasLookupKeys, stripSearchQueryNoise, applySearchTypoCorrection } from "@/lib/search-query-normalize";
+import { getAliasLookupKeys, stripSearchQueryNoise } from "@/lib/search-query-normalize";
 import { normalizeSearchQuery } from "@/lib/search-failure-key";
 import { extractPlayStorePackageId } from "@/lib/search-query-normalize";
 
@@ -1160,11 +1161,6 @@ export async function autoResolveDismissibleSearchFailures(): Promise<number> {
          )
          OR query ILIKE '%uptodown.com%'
          OR query ILIKE '%apps.evozi.com%'
-         OR query ILIKE '%apkshki%'
-         OR query ILIKE '%play.google.com/store/apps/collection%'
-         OR normalized_query LIKE '%破解%'
-         OR normalized_query IN ('submit', 'ph', 'bum')
-         OR char_length(trim(normalized_query)) <= 2
        )
      RETURNING query_key`,
   );
@@ -1212,15 +1208,14 @@ export async function reconcileResolvableSearchFailures(options?: {
     let resolvedInBatch = 0;
     for (const row of rows) {
       checked += 1;
-      const sanitized = normalizeUserSearchQuery(row.query);
-      const candidates = [row.query, sanitized, applySearchTypoCorrection(sanitized)];
+      const candidates = expandSearchQueryVariants(row.query);
       const unique = [...new Set(candidates.map((q) => q.trim()).filter(Boolean))];
       let didResolve = false;
 
       const lookupKeys = unique.flatMap((q) => getAliasLookupKeys(q));
       const overrideIds = lookupKeys.length ? await getSearchAliasOverrideAppIds(lookupKeys) : null;
       if (overrideIds?.length) {
-        const count = await resolveSearchFailuresForQuery(row.query);
+        const count = await resolveSearchFailuresForQuery(unique[0]!);
         if (count > 0) {
           resolved += count;
           resolvedInBatch += 1;
@@ -1231,7 +1226,7 @@ export async function reconcileResolvableSearchFailures(options?: {
       if (!didResolve) {
         for (const q of unique) {
           if (canResolveSearchQueryNow(q) || (await canResolveSearchQueryNowAsync(q))) {
-            const count = await resolveSearchFailuresForQuery(row.query);
+            const count = await resolveSearchFailuresForQuery(unique[0]!);
             if (count > 0) {
               resolved += count;
               resolvedInBatch += 1;
@@ -1249,16 +1244,10 @@ export async function reconcileResolvableSearchFailures(options?: {
       ) {
         liveProbes += 1;
         const lang = row.last_lang || "en";
-        const country = row.last_country || (lang.startsWith("zh") ? "cn" : "us");
-        let liveOk = false;
-        for (const q of unique) {
-          if (await probeLiveSearchHasResults(q, { lang, country })) {
-            liveOk = true;
-            break;
-          }
-        }
+        const country = row.last_country || (lang === "zh" ? "cn" : "us");
+        const liveOk = await probeLiveSearchHasResults(unique[0]!, { lang, country });
         if (liveOk) {
-          const count = await resolveSearchFailuresForQuery(row.query);
+          const count = await resolveSearchFailuresForQuery(unique[0]!);
           if (count > 0) {
             resolved += count;
             liveResolved += count;

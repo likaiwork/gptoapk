@@ -670,6 +670,9 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
       "facebook官方",
       "脸书",
       "fb",
+      "fackbook",
+      "facbook",
+      "facebok",
     ],
   },
   {
@@ -704,7 +707,7 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
   },
   {
     appIds: ["com.apkpure.aegon"],
-    aliases: ["apkpure", "apk pure", "com.apkpure.aegon"],
+    aliases: ["apkpure", "apk pure", "com.apkpure.aegon", "apk下载器", "apk下载", "apk downloader"],
   },
   {
     appIds: ["org.telegram.messenger"],
@@ -725,6 +728,10 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
       "org.telegram.messenger",
       "twlegram",
       "telegrame",
+      "telega",
+      "telegr",
+      "telegrm",
+      "telgram",
     ],
   },
   {
@@ -1788,13 +1795,41 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
     aliases: ["闲鱼", "咸鱼", "xianyu", "idlefish", "com.taobao.idlefish"],
   },
   {
-    appIds: ["uk.co.bbc.learningenglish"],
+    appIds: ["bbc.mobile.news.ww", "uk.co.bbc.news", "uk.co.bbc.learningenglish"],
     aliases: [
+      "bbc",
+      "bbc news",
+      "bbc news app",
+      "bbc app",
       "bbc learning english",
       "bbc learning",
       "bbc english",
       "bbc learn english",
     ],
+  },
+  {
+    appIds: ["com.strava"],
+    aliases: ["strava"],
+  },
+  {
+    appIds: ["eu.konami.pesam", "jp.konami.pesam"],
+    aliases: ["efootball", "e football", "pes mobile", "konami efootball"],
+  },
+  {
+    appIds: ["nl.sanoma.dumpert"],
+    aliases: ["dumpert"],
+  },
+  {
+    appIds: ["com.funplus.ts.global"],
+    aliases: ["tiles survive", "tiles survive!", "tile survive"],
+  },
+  {
+    appIds: ["ru.ToFlyDreams.ThePhenomenon", "com.ToFlyDreams.ThePhenomenonDemo"],
+    aliases: ["thephenomenon", "the phenomenon"],
+  },
+  {
+    appIds: ["com.android.settings"],
+    aliases: ["原生设置", "android settings", "系统设置"],
   },
   {
     appIds: ["com.giffgaff.mobile"],
@@ -1989,106 +2024,6 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
   {
     appIds: ["com.twitter.android"],
     aliases: ["pla推特", "pla 推特"],
-  },
-  {
-    appIds: ["ru.iiec.pydroid3"],
-    aliases: ["pydroid 3", "pydroid3", "pydroid", "pydriod", "ru.iiec.pydroid3"],
-  },
-  {
-    appIds: ["com.android.chrome"],
-    aliases: ["chrome", "chorme", "chroem", "google chrome", "com.android.chrome"],
-  },
-  {
-    appIds: ["com.nokoprint.nokoprint"],
-    aliases: ["nokoprint", "noko print", "com.nokoprint.nokoprint"],
-  },
-  {
-    appIds: ["com.dynamixsoftware.printhand"],
-    aliases: ["printhand", "print hand", "com.dynamixsoftware.printhand"],
-  },
-  {
-    appIds: ["com.gspace.android"],
-    aliases: ["gspace", "g space", "com.gspace.android"],
-  },
-  {
-    appIds: ["com.blackmagicdesign.blackmagiccam"],
-    aliases: ["blackmagic camera", "blackmagic", "black magic camera", "com.blackmagicdesign.blackmagiccam"],
-  },
-  {
-    appIds: ["jp.pxv.android"],
-    aliases: ["pixiv", "pivix", "pixvi", "jp.pxv.android"],
-  },
-  {
-    appIds: ["com.virtuallysports.aethric"],
-    aliases: ["hero of aethric", "aethric", "heroofaethric"],
-  },
-  {
-    appIds: ["com.sofascore.results"],
-    aliases: ["sofascore", "sofa score", "com.sofascore.results"],
-  },
-  {
-    appIds: ["co.benx.weverse"],
-    aliases: ["weverse", "co.benx.weverse"],
-  },
-  {
-    appIds: ["com.bumble.app"],
-    aliases: ["bumble", "bumblw", "bum"],
-  },
-  {
-    appIds: ["com.lazada.android"],
-    aliases: ["lazada", "com.lazada.android"],
-  },
-  {
-    appIds: ["com.xt.hypic"],
-    aliases: ["hypic", "hypic photo editor", "hypic photo", "com.xt.hypic"],
-  },
-  {
-    appIds: ["com.mladen.strelac.wearostoolbox"],
-    aliases: ["wear os toolbox", "wearos toolbox", "wear os"],
-  },
-  {
-    appIds: ["com.caffeinatedowl.oxidesurvivalisland"],
-    aliases: ["oxide", "oxide survival", "oxide survival island"],
-  },
-  {
-    appIds: ["com.gbox.android"],
-    aliases: ["gbox", "com.gbox.android"],
-  },
-  {
-    appIds: ["uk.co.bbc.news"],
-    aliases: ["bbc news", "bbc news app", "uk.co.bbc.news"],
-  },
-  {
-    appIds: ["com.niu.foreign"],
-    aliases: ["小牛", "niu", "niu scooter", "com.niu.foreign"],
-  },
-  {
-    appIds: ["com.whatsapp"],
-    aliases: ["whatapp", "whatsappp", "what app"],
-  },
-  {
-    appIds: ["com.github.metacubex.clash.meta"],
-    aliases: ["clash meta", "clash meta for android", "clashmeta", "com.github.metacubex.clash.meta"],
-  },
-  {
-    appIds: ["com.google.android.gm"],
-    aliases: ["gemail", "gemil", "email", "gmail app"],
-  },
-  {
-    appIds: ["com.android.vending"],
-    aliases: ["app store", "app storr", "store", "application store"],
-  },
-  {
-    appIds: ["com.google.android.gms"],
-    aliases: ["gapps", "g apps", "google apps"],
-  },
-  {
-    appIds: ["com.panda.touch"],
-    aliases: ["panda touch", "pandatouch"],
-  },
-  {
-    appIds: ["com.mkvmux.app"],
-    aliases: ["mkv mux", "mkvmux"],
   },
 ];
 
