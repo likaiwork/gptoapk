@@ -37,8 +37,6 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
       "盈透证券还能开吗",
       "ibkr是什么意思",
       "ibkr.com",
-      "盈利证劵",
-      "盈利证券",
     ],
   },
   {
@@ -68,8 +66,6 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
       "牛牛",
       "富途app下载",
       "富途证券app",
-      "致富证劵",
-      "致富证券",
     ],
   },
   {
@@ -123,8 +119,27 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
     aliases: ["尊嘉", "尊嘉证券", "尊嘉金融", "zinvest"],
   },
   {
-    appIds: ["com.usmart.stock"],
-    aliases: ["盈立", "盈立证券", "usmart"],
+    appIds: ["com.usmart.stock", "com.usmart.sg.stock"],
+    aliases: [
+      "盈立",
+      "盈立证券",
+      "香港盈立证券",
+      "usmart",
+      "盈利证劵",
+      "盈利证券",
+    ],
+  },
+  {
+    appIds: ["com.megahub.chief.mtrader.activity"],
+    aliases: [
+      "致富",
+      "致富证券",
+      "致富证劵",
+      "致富通",
+      "chief",
+      "chief securities",
+      "com.megahub.chief.mtrader.activity",
+    ],
   },
   {
     appIds: ["com.wlsec.app"],
