@@ -8,6 +8,7 @@ import { zhPosts20260603List } from "@/lib/blog/posts-2026-06-03";
 import { zhPosts20260604List } from "@/lib/blog/posts-2026-06-04";
 import { zhPosts20260605List } from "@/lib/blog/posts-2026-06-05";
 import { zhPosts20260606List } from "@/lib/blog/posts-2026-06-06-zh";
+import { zhPosts20260608GEOList } from "@/lib/blog/posts-2026-06-08-geo-zh";
 
 export const metadata: Metadata = {
   title: "博客 - APK 下载指南 | gptoapk.com",
@@ -29,6 +30,7 @@ const posts = [
   ...zhPosts20260604List,
   ...zhPosts20260605List,
   ...zhPosts20260606List,
+  ...zhPosts20260608GEOList,
   {
     slug: "china-broker-app-list",
     title: "国内券商APP下载指南：同花顺东财华泰国信中信招商等主流券商APP包名大全",

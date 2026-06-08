@@ -8,6 +8,7 @@ import { enPosts20260603List } from "@/lib/blog/posts-2026-06-03";
 import { enPosts20260605List } from "@/lib/blog/posts-2026-06-05";
 import { enPosts20260606List } from "@/lib/blog/posts-2026-06-06";
 import { enPosts20260606Batch2List } from "@/lib/blog/posts-2026-06-06-en-2";
+import { enPosts20260608GEOList } from "@/lib/blog/posts-2026-06-08-geo-en";
 
 export const metadata: Metadata = {
   title: "Blog - APK Downloader Guides & Tutorials | gptoapk.com",
@@ -38,6 +39,7 @@ const posts: BlogPost[] = [
   ...enPosts20260605List,
   ...enPosts20260606List,
   ...enPosts20260606Batch2List,
+  ...enPosts20260608GEOList,
   {
     slug: "apk-parse-error-fix-2026",
     title: "APK Parse Error Fix: There Was a Problem Parsing the Package (2026)",
