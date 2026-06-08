@@ -275,6 +275,27 @@ async function applyDiscoveryForQueryVariant(params: {
   return { resolved: true, aliasesCreated, searchFailuresResolved };
 }
 
+export async function tryResolveMissingAppFeedbackById(params: {
+  id: number;
+  query: string;
+  locale?: string;
+  country?: string;
+}): Promise<{ resolved: boolean; aliasesCreated: number }> {
+  await initDatabase();
+  const lang = params.locale || "en";
+  const country = params.country || (lang.startsWith("zh") ? "cn" : "us");
+  const result = await applyDiscoveryForQuery({
+    query: params.query,
+    lang,
+    country,
+    sourceLabel: "missing-app-feedback-immediate",
+  });
+  if (result.resolved) {
+    await updateMissingAppFeedbackStatus(params.id, "done");
+  }
+  return { resolved: result.resolved, aliasesCreated: result.aliasesCreated };
+}
+
 export async function repairMissingAppFeedback(options?: {
   limit?: number;
 }): Promise<Pick<SearchDiscoveryReport, "feedbackProcessed" | "feedbackResolved" | "aliasesCreated" | "searchFailuresResolved" | "discoveryAttempts" | "discoveryMisses">> {

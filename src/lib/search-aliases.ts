@@ -1985,6 +1985,8 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
     appIds: ["com.google.android.gms"],
     aliases: [
       "google play services",
+      "google play service",
+      "googleplayservice",
       "play services",
       "play服务",
       "play 服务",
@@ -2004,6 +2006,35 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
   {
     appIds: ["com.concept2.ergdata"],
     aliases: ["ergdata", "erg data", "concept2 ergdata", "com.concept2.ergdata"],
+  },
+  {
+    appIds: ["com.autonavi.amapauto"],
+    aliases: [
+      "amapauto",
+      "amap auto",
+      "高德车机",
+      "高德地图车机版",
+      "高德车机版",
+      "com.autonavi.amapauto",
+    ],
+  },
+  {
+    appIds: ["tv.douyu.live.android"],
+    aliases: ["douyu", "斗鱼", "douyu live", "tv.douyu.live.android"],
+  },
+  {
+    appIds: ["com.verisign.mvip.main"],
+    aliases: [
+      "symantec vip access",
+      "symantec vip",
+      "vip access",
+      "verisign vip",
+      "com.verisign.mvip.main",
+    ],
+  },
+  {
+    appIds: ["com.immomo.miraimind"],
+    aliases: ["miraimind", "mirai mind", "com.immomo.miraimind"],
   },
   {
     appIds: ["com.sevegame.melonsandbox"],

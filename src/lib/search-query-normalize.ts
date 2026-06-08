@@ -75,6 +75,29 @@ export function stripSearchQueryNoise(query: string): string {
   return normalizeAliasKey(q);
 }
 
+const PACKAGE_NAME_PATTERN = /[a-zA-Z][a-zA-Z0-9_]*(?:\.[a-zA-Z][a-zA-Z0-9_]*)+/g;
+
+/** Strip markdown bullets / code fences so `` `com.foo.bar` `` → com.foo.bar */
+export function stripMarkdownAndCodeFences(query: string): string {
+  return query
+    .replace(/```[\s\S]*?```/g, " ")
+    .replace(/`([^`]+)`/g, "$1")
+    .replace(/^[\s\-•*]+/gm, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+/** Pull the first plausible package id out of noisy admin / paste input. */
+export function extractEmbeddedPackageId(query: string): string | null {
+  const clean = stripMarkdownAndCodeFences(stripInvisibleSearchChars(query));
+  const matches = clean.match(PACKAGE_NAME_PATTERN) || [];
+  for (const id of matches) {
+    const parts = id.split(".");
+    if (parts.length >= 2 && parts.every((p) => p.length > 0)) return id;
+  }
+  return null;
+}
+
 /** Common typos → canonical term (matched against search-aliases). */
 const SEARCH_TYPO_CORRECTIONS: Readonly<Record<string, string>> = {
   陶宝: "淘宝",
@@ -119,6 +142,8 @@ const SEARCH_TYPO_CORRECTIONS: Readonly<Record<string, string>> = {
   "pla推特": "twitter",
   "play服务": "google play services",
   "play 服务": "google play services",
+  googleplayservice: "google play services",
+  "google play service": "google play services",
   ergdata: "ergdata",
 };
 
