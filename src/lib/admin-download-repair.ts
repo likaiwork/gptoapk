@@ -93,7 +93,7 @@ export async function runAdminDownloadFailureRepair(options?: {
   await initDatabase();
   const blockedResolved = await autoResolveBlockedDownloadFailures();
 
-  const candidates: Array<{ app_id: string; failure_count: number }> = [];
+  const candidates: Array<{ raw_app_id: string; app_id: string; failure_count: number }> = [];
   let page = 0;
   const pageSize = 100;
 
@@ -104,15 +104,15 @@ export async function runAdminDownloadFailureRepair(options?: {
       if (Number(row.failure_count) <= failureThreshold) continue;
       const appId = sanitizeAppId(row.app_id);
       if (!appId || getUnsupportedPaidApp(appId) || getUnsupportedNoMirrorApp(appId)) continue;
-      candidates.push({ app_id: appId, failure_count: row.failure_count });
+      candidates.push({ raw_app_id: row.app_id, app_id: appId, failure_count: row.failure_count });
       if (candidates.length >= maxApps) break;
     }
     if (rows.length < pageSize) break;
     page += 1;
   }
 
-  const markResolved = async (rawAppId: string) => {
-    const cleanId = sanitizeAppId(rawAppId);
+  const markResolved = async (rawAppId: string, resolvedAppId?: string) => {
+    const cleanId = sanitizeAppId(resolvedAppId ?? rawAppId);
     let ok = await updateDownloadFailureResolved(cleanId, true);
     if (!ok && cleanId !== rawAppId.trim()) {
       ok = await updateDownloadFailureResolved(rawAppId.trim(), true);
@@ -124,7 +124,7 @@ export async function runAdminDownloadFailureRepair(options?: {
   for (const item of candidates) {
     const result = await prepareDownload(item.app_id);
     if (result.success) {
-      const ok = await markResolved(item.app_id);
+      const ok = await markResolved(item.raw_app_id, item.app_id);
       if (ok) downloadMarkedResolved += 1;
       else errors.push(`mark resolved failed: ${item.app_id}`);
     }
