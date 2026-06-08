@@ -37,6 +37,8 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
       "盈透证券还能开吗",
       "ibkr是什么意思",
       "ibkr.com",
+      "盈利证劵",
+      "盈利证券",
     ],
   },
   {
@@ -66,6 +68,8 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
       "牛牛",
       "富途app下载",
       "富途证券app",
+      "致富证劵",
+      "致富证券",
     ],
   },
   {
@@ -2037,6 +2041,61 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
     aliases: ["miraimind", "mirai mind", "com.immomo.miraimind"],
   },
   {
+    appIds: ["com.dragon.read.oversea.gp", "com.dragon.read"],
+    aliases: ["番茄", "番茄免费小说", "番茄小说", "fanqie", "fanqie novel", "tomato novel"],
+  },
+  {
+    appIds: ["com.miHoYo.bh3global", "com.miHoYo.bh3oversea", "com.miHoYo.bh3tw"],
+    aliases: ["崩坏", "崩坏3", "崩坏三", "honkai impact", "honkai impact 3", "bh3"],
+  },
+  {
+    appIds: ["com.zillow.android.zillowmap"],
+    aliases: ["zillow", "zillow app", "zillow real estate"],
+  },
+  {
+    appIds: ["com.crea_si.ease_mouse"],
+    aliases: ["ease mouse", "easemouse", "com.crea_si.ease_mouse"],
+  },
+  {
+    appIds: ["com.interparktriple.kint5"],
+    aliases: ["nol world", "nolworld", "interpark global", "com.interparktriple.kint5"],
+  },
+  {
+    appIds: ["com.yulong.sgame.gp"],
+    aliases: [
+      "白弦冒险记",
+      "adventure of white chord",
+      "white chord",
+      "com.yulong.sgame.gp",
+    ],
+  },
+  {
+    appIds: ["com.yueme.itv"],
+    aliases: ["小翼管家", "xiaoyiguanjia", "小翼", "com.yueme.itv"],
+  },
+  {
+    appIds: ["com.aichatbot.mateai"],
+    aliases: [
+      "mateai",
+      "mate ai",
+      "ai virtual chatbot",
+      "chatbot mateai",
+      "com.aichatbot.mateai",
+    ],
+  },
+  {
+    appIds: ["com.okta.android.auth"],
+    aliases: ["okta", "okta verify", "com.okta.android.auth"],
+  },
+  {
+    appIds: ["devian.tubemate.v3", "devian.tubemate.home"],
+    aliases: ["tubemate", "tube mate", "tudemate", "devian.tubemate.v3"],
+  },
+  {
+    appIds: ["com.videodownloader.youmate", "com.fonebayinc.youmate"],
+    aliases: ["youmate", "you mate", "youmate video downloader"],
+  },
+  {
     appIds: ["com.sevegame.melonsandbox"],
     aliases: ["melon sandbox", "melonsandbox", "melon playground"],
   },
@@ -2073,6 +2132,8 @@ const PLAY_PACKAGE_ID_ALIASES: Readonly<Record<string, string>> = {
   "com.eg.android.alipaygphone": "com.eg.android.alipaygphone",
   "bluesky.app": "xyz.bluesky.android",
   "com.coros": "com.coros.coros",
+  xiaoyiguanjia: "com.yueme.itv",
+  "xiaoyi guanjia": "com.yueme.itv",
 };
 
 const SEARCH_ALIAS_APP_IDS = buildAliasMap();

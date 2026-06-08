@@ -144,6 +144,10 @@ const SEARCH_TYPO_CORRECTIONS: Readonly<Record<string, string>> = {
   "play 服务": "google play services",
   googleplayservice: "google play services",
   "google play service": "google play services",
+  盈利证劵: "盈透证券",
+  致富证劵: "富途证券",
+  tudemate: "tubemate",
+  xiaoyiguanjia: "小翼管家",
   ergdata: "ergdata",
 };
 
