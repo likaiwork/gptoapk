@@ -360,6 +360,8 @@ export async function repairMissingAppFeedback(options?: {
       await updateMissingAppFeedbackStatus(item.id, "done");
     } else {
       discoveryMisses += 1;
+      // Play 与镜像源均无匹配：结案避免反馈队列长期堆积
+      await updateMissingAppFeedbackStatus(item.id, "done");
     }
   }
 

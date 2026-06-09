@@ -1205,6 +1205,8 @@ export async function autoResolveDismissibleSearchFailures(): Promise<number> {
          OR query ILIKE '%badugi%'
          OR query ILIKE '%poker master%'
          OR query ILIKE '%pokermaster%'
+         OR query ~ '[\uFFFD]'
+         OR (query ~ '[\x80-\xFF]' AND query !~ '[\u4e00-\u9fff]')
        )
      RETURNING query_key`,
   );
