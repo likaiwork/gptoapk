@@ -1119,8 +1119,9 @@ function normalizedQueriesForSearchIntent(query: string): string[] {
 
 export async function resolveSearchFailuresForQuery(query: string, queryType?: string): Promise<number> {
   void queryType;
-  const normalizedQueries = normalizedQueriesForSearchIntent(query);
-  if (!normalizedQueries.length) return 0;
+  const trimmed = query.trim();
+  const normalizedQueries = normalizedQueriesForSearchIntent(trimmed);
+  if (!trimmed && !normalizedQueries.length) return 0;
 
   let resolved = 0;
   for (const normalized of normalizedQueries) {
@@ -1136,7 +1137,37 @@ export async function resolveSearchFailuresForQuery(query: string, queryType?: s
     );
     resolved += rows.length;
   }
+
+  if (trimmed) {
+    const rawRows = await sqlRaw<{ query_key: string }>(
+      `UPDATE search_failure_queries
+       SET resolved = TRUE,
+           resolved_at = NOW(),
+           updated_at = NOW()
+       WHERE resolved = FALSE
+         AND trim(query) = $1
+       RETURNING query_key`,
+      [trimmed],
+    );
+    resolved += rawRows.length;
+  }
+
   return resolved;
+}
+
+export async function resolveSearchFailureByQueryKey(queryKey: string): Promise<boolean> {
+  if (!queryKey.trim()) return false;
+  const rows = await sqlRaw<{ query_key: string }>(
+    `UPDATE search_failure_queries
+     SET resolved = TRUE,
+         resolved_at = NOW(),
+         updated_at = NOW()
+     WHERE resolved = FALSE
+       AND query_key = $1
+     RETURNING query_key`,
+    [queryKey.trim()],
+  );
+  return rows.length > 0;
 }
 
 export async function autoResolveDismissibleSearchFailures(): Promise<number> {
@@ -1199,11 +1230,12 @@ export async function reconcileResolvableSearchFailures(options?: {
     const rows = await sqlRaw<{
       query_key: string;
       query: string;
+      normalized_query: string;
       failure_kind: string;
       last_lang: string;
       last_country: string;
     }>(
-      `SELECT query_key, query, failure_kind,
+      `SELECT query_key, query, normalized_query, failure_kind,
               COALESCE(last_lang, '') as last_lang,
               COALESCE(last_country, '') as last_country
        FROM search_failure_queries
@@ -1224,24 +1256,28 @@ export async function reconcileResolvableSearchFailures(options?: {
 
       const lookupKeys = unique.flatMap((q) => getAliasLookupKeys(q));
       const overrideIds = lookupKeys.length ? await getSearchAliasOverrideAppIds(lookupKeys) : null;
-      if (overrideIds?.length) {
-        const count = await resolveSearchFailuresForQuery(row.query);
+      const markRowResolved = async (source: "alias" | "live") => {
+        let count = await resolveSearchFailuresForQuery(row.query);
+        if (count === 0) {
+          const byKey = await resolveSearchFailureByQueryKey(row.query_key);
+          if (byKey) count = 1;
+        }
         if (count > 0) {
           resolved += count;
           resolvedInBatch += 1;
+          if (source === "live") liveResolved += count;
           didResolve = true;
         }
+      };
+
+      if (overrideIds?.length) {
+        await markRowResolved("alias");
       }
 
       if (!didResolve) {
         for (const q of unique) {
           if (canResolveSearchQueryNow(q) || (await canResolveSearchQueryNowAsync(q))) {
-            const count = await resolveSearchFailuresForQuery(row.query);
-            if (count > 0) {
-              resolved += count;
-              resolvedInBatch += 1;
-              didResolve = true;
-            }
+            await markRowResolved("alias");
             break;
           }
         }
@@ -1257,12 +1293,7 @@ export async function reconcileResolvableSearchFailures(options?: {
         const country = row.last_country || (lang.startsWith("zh") ? "cn" : "us");
         const liveOk = await probeLiveSearchHasResults(row.query, { lang, country });
         if (liveOk) {
-          const count = await resolveSearchFailuresForQuery(row.query);
-          if (count > 0) {
-            resolved += count;
-            liveResolved += count;
-            resolvedInBatch += 1;
-          }
+          await markRowResolved("live");
         }
       }
     }

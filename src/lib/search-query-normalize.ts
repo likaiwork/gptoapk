@@ -164,6 +164,9 @@ const SEARCH_TYPO_CORRECTIONS: Readonly<Record<string, string>> = {
   "meta trader 5": "mt5",
   metatrader4: "mt4",
   "meta trader4": "mt4",
+  tiwwter: "twitter",
+  twiter: "twitter",
+  stardewvalley: "stardew valley",
   ergdata: "ergdata",
 };
 

@@ -1250,7 +1250,7 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
   },
   {
     appIds: ["com.chucklefish.stardewvalley"],
-    aliases: ["星露谷", "stardew valley", "stardew"],
+    aliases: ["星露谷", "stardew valley", "stardew", "stardewvalley"],
   },
   {
     appIds: ["com.garena.game.df", "com.tencent.tmgp.dfm"],
@@ -1360,6 +1360,42 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
       "cine fan hkiff",
       "com.hkiff.android",
     ],
+  },
+  {
+    appIds: ["com.phlox.tvwebbrowser"],
+    aliases: ["tvbro", "tv bro", "tv browser"],
+  },
+  {
+    appIds: ["com.netease.idv.googleplay"],
+    aliases: ["第五人格", "identity v", "identityv", "idv"],
+  },
+  {
+    appIds: ["com.nekki.shadowfight3"],
+    aliases: ["暗影格斗3", "shadow fight 3", "shadowfight3", "暗影格斗"],
+  },
+  {
+    appIds: ["com.amazon.mShop.android.shopping"],
+    aliases: ["亚马逊", "amazon shopping", "amazon app", "亚马逊购物"],
+  },
+  {
+    appIds: ["com.longbridge.android"],
+    aliases: ["新加坡长桥", "longbridge sg", "sg longbridge"],
+  },
+  {
+    appIds: ["com.zhongan.ibank"],
+    aliases: ["众安银行", "za bank", "zabank"],
+  },
+  {
+    appIds: ["com.ccb.mobilebank.hk"],
+    aliases: ["建银亚洲", "建行亚洲", "ccb asia"],
+  },
+  {
+    appIds: ["com.uob.uobpass"],
+    aliases: ["大华银行", "uob", "uob bank", "大华"],
+  },
+  {
+    appIds: ["com.dbs.sg.dbsmbanking", "com.dbs.sg.dbsmbapp"],
+    aliases: ["dbs", "dbs bank", "星展银行"],
   },
   {
     appIds: ["com.worldconqueror4.ww2"],

@@ -479,7 +479,7 @@ export async function runSearchDiscoveryRepair(options?: {
   const reconcile = await reconcileResolvableSearchFailures({
     batchSize: 500,
     maxChecks: options?.reconcileMaxChecks ?? 5000,
-    liveProbeLimit: options?.reconcileLiveProbeLimit ?? 120,
+    liveProbeLimit: options?.reconcileLiveProbeLimit ?? 500,
   });
 
   return {
