@@ -11,6 +11,7 @@ import { zhPosts20260606List } from "@/lib/blog/posts-2026-06-06-zh";
 import { zhPosts20260608GEOList } from "@/lib/blog/posts-2026-06-08-geo-zh";
 import { zhPosts20260609GEOList } from "@/lib/blog/posts-2026-06-09-geo-zh";
 import { zhPosts20260609SchemaList } from "@/lib/blog/posts-2026-06-09-schema-zh";
+import { zhPosts20260609V4List } from "@/lib/blog/posts-2026-06-09-v4-zh";
 import { zhPosts20260609List } from "@/lib/blog/posts-2026-06-09-zh";
 
 export const metadata: Metadata = {
@@ -36,6 +37,7 @@ const posts = [
   ...zhPosts20260608GEOList,
   ...zhPosts20260609GEOList,
   ...zhPosts20260609SchemaList,
+  ...zhPosts20260609V4List,
   ...zhPosts20260609List,
   {
     slug: "china-broker-app-list",
