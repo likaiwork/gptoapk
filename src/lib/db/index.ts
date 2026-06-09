@@ -1161,6 +1161,9 @@ export async function autoResolveDismissibleSearchFailures(): Promise<number> {
          )
          OR query ILIKE '%uptodown.com%'
          OR query ILIKE '%apps.evozi.com%'
+         OR query IN ('armeabi', 'arm64-v8a', 'armeabi-v7a', 'x86', 'x86_64', 'universal')
+         OR query ILIKE 'armeabi%'
+         OR query ILIKE 'arm64%'
        )
      RETURNING query_key`,
   );

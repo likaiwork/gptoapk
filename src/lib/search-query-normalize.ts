@@ -150,6 +150,8 @@ const SEARCH_TYPO_CORRECTIONS: Readonly<Record<string, string>> = {
   致富证券: "致富证券",
   tudemate: "tubemate",
   xiaoyiguanjia: "小翼管家",
+  googieplay: "google play",
+  "gooogle play": "google play",
   ergdata: "ergdata",
 };
 

@@ -2130,6 +2130,40 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
     appIds: ["com.twitter.android"],
     aliases: ["pla推特", "pla 推特"],
   },
+  {
+    appIds: ["com.samsung.android.app.watchmanager", "com.samsung.android.app.watchmanager2"],
+    aliases: ["三星智能穿戴", "galaxy wearable", "samsung wearable", "三星穿戴"],
+  },
+  {
+    appIds: ["com.netease.yysls", "com.netease.yyslscn"],
+    aliases: ["燕云十六声", "where winds meet", "yysls", "com.netease.yysls"],
+  },
+  {
+    appIds: ["com.blizzard.wowcompanion", "com.blizzard.wow"],
+    aliases: ["魔兽世界", "wow companion", "wow armory", "魔兽世界助手", "魔兽世界随身助手"],
+  },
+  {
+    appIds: ["com.github.tvbox.osc", "com.fongmi.android.tv"],
+    aliases: ["tvbox", "tv box", "电视盒子", "壳子", "fongmi", "fongmi tv", "com.github.tvbox.osc"],
+  },
+  {
+    appIds: ["money.boku.android"],
+    aliases: ["neverless", "never less", "neverless app"],
+  },
+  {
+    appIds: ["ai.parallelworld.chat", "com.llspace.pupu"],
+    aliases: [
+      "平行世界",
+      "平行世界ai",
+      "平行世界ai聊天",
+      "平行世界ai聊天软件",
+      "平行世界ai聊天软件最新版",
+    ],
+  },
+  {
+    appIds: ["com.android.vending"],
+    aliases: ["google play store app", "play store app"],
+  },
 ];
 
 /** Wrong or truncated Play package ids from pasted URLs → canonical id */
@@ -2296,4 +2330,31 @@ export const PRIORITY_STATIC_ALIAS_QUERIES = [
   "致富证劵",
   "盈立证券",
   "致富通",
+  "三星智能穿戴",
+  "燕云十六声",
+  "魔兽世界",
+  "tvbox",
+  "googieplay",
+  "neverless",
+  "平行世界AI聊天软件最新版",
 ] as const;
+
+export function listStaticSearchAliasBindings(): Array<{
+  aliasKey: string;
+  appIds: readonly string[];
+  alias: string;
+}> {
+  const bindings: Array<{ aliasKey: string; appIds: readonly string[]; alias: string }> = [];
+  const seen = new Set<string>();
+
+  for (const entry of SEARCH_ALIAS_ENTRIES) {
+    for (const alias of entry.aliases) {
+      const aliasKey = normalizeAliasKey(alias);
+      if (!aliasKey || seen.has(aliasKey)) continue;
+      seen.add(aliasKey);
+      bindings.push({ aliasKey, appIds: entry.appIds, alias });
+    }
+  }
+
+  return bindings;
+}

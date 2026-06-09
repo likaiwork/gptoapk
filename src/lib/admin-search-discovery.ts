@@ -1,7 +1,7 @@
 import gplay, { type IAppItem } from "google-play-scraper";
 import { normalizeUserSearchQuery } from "@/lib/normalize-user-search-query";
 import { gplayRequestOptions as requestOptions } from "@/lib/proxy";
-import { resolvePlayPackageIdAlias, resolveSearchAliasAppIds, PRIORITY_STATIC_ALIAS_QUERIES } from "@/lib/search-aliases";
+import { resolvePlayPackageIdAlias, resolveSearchAliasAppIds, PRIORITY_STATIC_ALIAS_QUERIES, listStaticSearchAliasBindings } from "@/lib/search-aliases";
 import { isVpnSearchKeyword, stripSearchQueryNoise, applySearchTypoCorrection, extractPlayStorePackageId, stripInvisibleSearchChars } from "@/lib/search-query-normalize";
 import { isUnsupportedNoMirrorApp } from "@/lib/unsupported-no-mirror-apps";
 import {
@@ -410,6 +410,23 @@ export async function syncPriorityStaticSearchAliasOverrides(): Promise<number> 
   return synced;
 }
 
+/** Overwrite all curated static alias keys in DB (fixes bad auto-learned overrides). */
+export async function syncAllStaticSearchAliasOverrides(): Promise<number> {
+  await initDatabase();
+  let synced = 0;
+
+  for (const binding of listStaticSearchAliasBindings()) {
+    synced += await saveSearchAliasOverrideForQuery({
+      query: binding.alias,
+      appIds: [...binding.appIds],
+      sourceQuery: binding.alias,
+      sourceLabel: "static-alias-full-sync",
+    });
+  }
+
+  return synced;
+}
+
 export async function reconcileStaticAliasSearchFailures(limit = 400): Promise<number> {
   await initDatabase();
   const rows = await getUnresolvedSearchFailuresForDiscovery(limit);
@@ -445,7 +462,8 @@ export async function runSearchDiscoveryRepair(options?: {
   reconcileLiveProbeLimit?: number;
 }): Promise<SearchDiscoveryReport & { reconcile: Awaited<ReturnType<typeof reconcileResolvableSearchFailures>> }> {
   await syncPriorityStaticSearchAliasOverrides();
-  const staticResolved = await reconcileStaticAliasSearchFailures(500);
+  await syncAllStaticSearchAliasOverrides();
+  const staticResolved = await reconcileStaticAliasSearchFailures(800);
   const feedback = await repairMissingAppFeedback({ limit: options?.feedbackLimit });
   const discovery = await repairSearchFailuresViaDiscovery({ limit: options?.searchFailureLimit });
   const reconcile = await reconcileResolvableSearchFailures({
