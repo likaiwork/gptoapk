@@ -11,6 +11,7 @@ import { zhPosts20260605 } from "@/lib/blog/posts-2026-06-05";
 import { zhPosts20260606 } from "@/lib/blog/posts-2026-06-06-zh";
 import { zhPosts20260608GEO } from "@/lib/blog/posts-2026-06-08-geo-zh";
 import { zhPosts20260609GEO } from "@/lib/blog/posts-2026-06-09-geo-zh";
+import { zhPosts20260609Schema } from "@/lib/blog/posts-2026-06-09-schema-zh";
 import { zhPosts20260609 } from "@/lib/blog/posts-2026-06-09-zh";
 
 interface BlogPost {
@@ -33,6 +34,7 @@ const zhPosts: BlogPost[] = [
   ...zhPosts20260606,
   ...zhPosts20260608GEO,
   ...zhPosts20260609GEO,
+  ...zhPosts20260609Schema,
   ...zhPosts20260609,
   {
     slug: "china-broker-app-list",
