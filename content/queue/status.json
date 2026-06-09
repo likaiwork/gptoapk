@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-06T02:57:41.217Z",
+  "updatedAt": "2026-06-09T02:35:07.455Z",
   "today": {
     "date": "2026-05-26",
     "locale": "zh",
@@ -79,6 +79,12 @@
       "note": "",
       "publishedUrl": "https://www.gptoapk.com/zh/blog/gptoapk-how-to-use",
       "at": "2026-06-06T02:57:41.216Z"
+    },
+    "2026-06-09": {
+      "status": "published",
+      "note": "",
+      "publishedUrl": "https://www.gptoapk.com/zh/blog/huawei-overseas-ai-apps",
+      "at": "2026-06-09T02:35:07.455Z"
     }
   }
 }
