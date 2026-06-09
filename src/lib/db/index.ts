@@ -1202,6 +1202,9 @@ export async function autoResolveDismissibleSearchFailures(): Promise<number> {
          OR query ~ '^id[0-9]+$'
          OR query ILIKE '%apkmirror%'
          OR query ILIKE 'apk mirror%'
+         OR query ILIKE '%badugi%'
+         OR query ILIKE '%poker master%'
+         OR query ILIKE '%pokermaster%'
        )
      RETURNING query_key`,
   );
@@ -1537,9 +1540,10 @@ export async function upsertSearchAliasOverrideKeys(params: {
 export async function getUnresolvedSearchFailuresForDiscovery(
   limit = 60,
   offset = 0,
-): Promise<Array<{ query: string; last_lang: string; last_country: string }>> {
+): Promise<Array<{ query_key: string; query: string; last_lang: string; last_country: string }>> {
   return sqlRaw(
-    `SELECT query,
+    `SELECT query_key,
+            query,
             COALESCE(last_lang, '') as last_lang,
             COALESCE(last_country, '') as last_country
      FROM search_failure_queries

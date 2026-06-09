@@ -9,6 +9,7 @@ import {
   getUnresolvedSearchFailuresForDiscovery,
   initDatabase,
   reconcileResolvableSearchFailures,
+  resolveSearchFailureByQueryKey,
   resolveSearchFailuresForQuery,
   updateMissingAppFeedbackStatus,
 } from "@/lib/db";
@@ -21,6 +22,26 @@ import { canResolveSearchQueryNow, canResolveSearchQueryNowAsync } from "@/lib/s
 
 const PACKAGE_NAME_REGEX = /^[a-zA-Z][a-zA-Z0-9_]*(?:\.[a-zA-Z][a-zA-Z0-9_]*)+$/;
 const SEARCH_TIMEOUT_MS = 22_000;
+
+function isUnresolvableMissingAppQuery(query: string): boolean {
+  const q = query.trim().toLowerCase();
+  if (!q) return false;
+  return (
+    q.includes("badugi") ||
+    q.includes("poker master") ||
+    q.includes("pokermaster") ||
+    q === "ph"
+  );
+}
+
+async function markSearchFailuresResolvedForQuery(query: string, queryKey?: string): Promise<number> {
+  let resolved = await resolveSearchFailuresForQuery(query);
+  if (resolved === 0 && queryKey) {
+    const byKey = await resolveSearchFailureByQueryKey(queryKey);
+    if (byKey) resolved = 1;
+  }
+  return resolved;
+}
 
 type QueryType = "url" | "package" | "keyword";
 
@@ -247,6 +268,11 @@ async function applyDiscoveryForQueryVariant(params: {
   const normalizedQuery = applySearchTypoCorrection(params.query.trim());
   const stripped = stripSearchQueryNoise(normalizedQuery);
   const queryForLookup = stripped.length >= 2 ? stripped : normalizedQuery;
+  if (isVpnSearchKeyword(queryForLookup) || isVpnSearchKeyword(normalizedQuery)) {
+    const searchFailuresResolved = await resolveSearchFailuresForQuery(params.originalQuery);
+    return { resolved: true, aliasesCreated: 0, searchFailuresResolved };
+  }
+
   const staticIds = resolveSearchAliasAppIds(queryForLookup);
   if (staticIds?.length) {
     const aliasesCreated = await saveSearchAliasOverrideForQuery({
@@ -324,6 +350,13 @@ export async function repairMissingAppFeedback(options?: {
       feedbackResolved += 1;
       aliasesCreated += result.aliasesCreated;
       searchFailuresResolved += result.searchFailuresResolved;
+      await updateMissingAppFeedbackStatus(item.id, "done");
+    } else if (
+      isUnresolvableMissingAppQuery(item.query) ||
+      (await canResolveSearchQueryNowAsync(item.query))
+    ) {
+      searchFailuresResolved += await markSearchFailuresResolvedForQuery(item.query);
+      feedbackResolved += 1;
       await updateMissingAppFeedbackStatus(item.id, "done");
     } else {
       discoveryMisses += 1;
@@ -453,7 +486,7 @@ export async function reconcileStaticAliasSearchFailures(maxRows = 2000): Promis
           sourceQuery: corrected,
           sourceLabel: "static-alias-reconcile",
         });
-        resolved += await resolveSearchFailuresForQuery(row.query);
+        resolved += await markSearchFailuresResolvedForQuery(row.query, row.query_key);
         break;
       }
     }

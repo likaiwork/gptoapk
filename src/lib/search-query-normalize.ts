@@ -166,6 +166,8 @@ const SEARCH_TYPO_CORRECTIONS: Readonly<Record<string, string>> = {
   "meta trader4": "mt4",
   tiwwter: "twitter",
   twiter: "twitter",
+  putple: "purple",
+  konws: "knows",
   stardewvalley: "stardew valley",
   ergdata: "ergdata",
 };
@@ -216,6 +218,10 @@ export function isVpnSearchKeyword(term: string): boolean {
     q.includes("virtual private network") ||
     q.includes("加速器") ||
     q.includes("翻墙") ||
-    q.includes("代理")
+    q.includes("代理") ||
+    q.includes("梯子") ||
+    q.includes("科学上网") ||
+    q.includes("飞机") ||
+    q.includes("外网")
   );
 }
