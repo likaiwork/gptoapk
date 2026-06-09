@@ -32,7 +32,7 @@ const MAX_QUERY_LENGTH = 200;
 const SEARCH_RESULT_LIMIT = 10;
 const PACKAGE_NAME_REGEX = /^[a-zA-Z][a-zA-Z0-9_]*(?:\.[a-zA-Z][a-zA-Z0-9_]*)+$/;
 const SUCCESS_CACHE_HEADERS = {
-  'Cache-Control': 'public, s-maxage=86400, stale-while-revalidate=604800',
+  'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=3600',
 };
 
 type QueryType = 'url' | 'package' | 'keyword';
@@ -218,8 +218,8 @@ async function searchByAliasApps(
     candidateAppIds.push([...appIds]);
   };
 
-  addCandidateSet(overrideIds);
   addCandidateSet(resolveSearchAliasAppIds(query));
+  addCandidateSet(overrideIds);
 
   for (const appIds of candidateAppIds) {
     const blocked = new Set<string>();

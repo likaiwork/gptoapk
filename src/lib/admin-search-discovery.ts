@@ -1,7 +1,7 @@
 import gplay, { type IAppItem } from "google-play-scraper";
 import { normalizeUserSearchQuery } from "@/lib/normalize-user-search-query";
 import { gplayRequestOptions as requestOptions } from "@/lib/proxy";
-import { resolvePlayPackageIdAlias, resolveSearchAliasAppIds } from "@/lib/search-aliases";
+import { resolvePlayPackageIdAlias, resolveSearchAliasAppIds, PRIORITY_STATIC_ALIAS_QUERIES } from "@/lib/search-aliases";
 import { isVpnSearchKeyword, stripSearchQueryNoise, applySearchTypoCorrection, extractPlayStorePackageId, stripInvisibleSearchChars } from "@/lib/search-query-normalize";
 import { isUnsupportedNoMirrorApp } from "@/lib/unsupported-no-mirror-apps";
 import {
@@ -387,6 +387,29 @@ export async function repairSearchFailuresViaDiscovery(options?: {
   return { aliasesCreated, searchFailuresResolved, discoveryAttempts, discoveryMisses };
 }
 
+/** Overwrite DB overrides for curated aliases so bad auto-discovery mappings cannot win. */
+export async function syncPriorityStaticSearchAliasOverrides(): Promise<number> {
+  await initDatabase();
+  let synced = 0;
+
+  for (const query of PRIORITY_STATIC_ALIAS_QUERIES) {
+    for (const variant of expandSearchQueryVariants(query)) {
+      const staticIds = resolveSearchAliasAppIds(applySearchTypoCorrection(variant));
+      if (!staticIds?.length) continue;
+
+      synced += await saveSearchAliasOverrideForQuery({
+        query: variant,
+        appIds: [...staticIds],
+        sourceQuery: applySearchTypoCorrection(variant),
+        sourceLabel: "static-alias-priority-sync",
+      });
+      break;
+    }
+  }
+
+  return synced;
+}
+
 export async function reconcileStaticAliasSearchFailures(limit = 400): Promise<number> {
   await initDatabase();
   const rows = await getUnresolvedSearchFailuresForDiscovery(limit);
@@ -421,6 +444,7 @@ export async function runSearchDiscoveryRepair(options?: {
   reconcileMaxChecks?: number;
   reconcileLiveProbeLimit?: number;
 }): Promise<SearchDiscoveryReport & { reconcile: Awaited<ReturnType<typeof reconcileResolvableSearchFailures>> }> {
+  await syncPriorityStaticSearchAliasOverrides();
   const staticResolved = await reconcileStaticAliasSearchFailures(500);
   const feedback = await repairMissingAppFeedback({ limit: options?.feedbackLimit });
   const discovery = await repairSearchFailuresViaDiscovery({ limit: options?.searchFailureLimit });

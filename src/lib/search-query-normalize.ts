@@ -147,6 +147,7 @@ const SEARCH_TYPO_CORRECTIONS: Readonly<Record<string, string>> = {
   盈利证劵: "盈立证券",
   盈利证券: "盈立证券",
   致富证劵: "致富证券",
+  致富证券: "致富证券",
   tudemate: "tubemate",
   xiaoyiguanjia: "小翼管家",
   ergdata: "ergdata",

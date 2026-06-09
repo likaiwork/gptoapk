@@ -2287,3 +2287,13 @@ export function resolveSearchAliasAppIds(query: string): readonly string[] | nul
 
   return resolveByUniquePrefixAlias(stripped);
 }
+
+/** Curated queries that must overwrite bad auto-learned DB overrides. */
+export const PRIORITY_STATIC_ALIAS_QUERIES = [
+  "盈利证券",
+  "盈利证劵",
+  "致富证券",
+  "致富证劵",
+  "盈立证券",
+  "致富通",
+] as const;
