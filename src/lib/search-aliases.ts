@@ -1285,6 +1285,14 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
     aliases: ["viu", "viu tv"],
   },
   {
+    appIds: ["com.tailscale.ipn"],
+    aliases: ["tailscale", "tail scale", "tailscale vpn"],
+  },
+  {
+    appIds: ["com.tencent.qqlivei18n"],
+    aliases: ["wetv", "we tv", "腾讯视频国际版", "tencent video"],
+  },
+  {
     appIds: ["com.tencent.mm"],
     aliases: [
       "微信8.0.7",
