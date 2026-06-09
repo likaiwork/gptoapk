@@ -1,7 +1,6 @@
-import gplay, { type IAppItem } from "google-play-scraper";
 import { normalizeUserSearchQuery } from "@/lib/normalize-user-search-query";
-import { gplayRequestOptions as requestOptions } from "@/lib/proxy";
 import { resolvePlayPackageIdAlias, resolveSearchAliasAppIds, PRIORITY_STATIC_ALIAS_QUERIES, listStaticSearchAliasBindings } from "@/lib/search-aliases";
+import { discoverAppIdsFromPlayStore } from "@/lib/search-auto-discover";
 import { isVpnSearchKeyword, stripSearchQueryNoise, applySearchTypoCorrection, extractPlayStorePackageId, stripInvisibleSearchChars } from "@/lib/search-query-normalize";
 import { isUnsupportedNoMirrorApp } from "@/lib/unsupported-no-mirror-apps";
 import {
@@ -21,7 +20,6 @@ import { expandSearchQueryVariants } from "@/lib/search-query-variants";
 import { canResolveSearchQueryNow, canResolveSearchQueryNowAsync } from "@/lib/search-failure-reconcile";
 
 const PACKAGE_NAME_REGEX = /^[a-zA-Z][a-zA-Z0-9_]*(?:\.[a-zA-Z][a-zA-Z0-9_]*)+$/;
-const SEARCH_TIMEOUT_MS = 22_000;
 
 function isUnresolvableMissingAppQuery(query: string): boolean {
   const q = query.trim().toLowerCase();
@@ -68,92 +66,13 @@ function parseGooglePlayUrl(query: string) {
   return { appId: resolvePlayPackageIdAlias(appId) };
 }
 
-function withTimeout<T>(promise: Promise<T>, timeoutMs: number, message: string) {
-  let timer: ReturnType<typeof setTimeout> | undefined;
-  const timeoutPromise = new Promise<never>((_, reject) => {
-    timer = setTimeout(() => reject(new Error(message)), timeoutMs);
-  });
-  return Promise.race([promise, timeoutPromise]).finally(() => {
-    if (timer) clearTimeout(timer);
-  });
-}
-
-function pickRelevantApps(term: string, apps: IAppItem[]): string[] {
-  const normalizedTerm = stripSearchQueryNoise(term) || term.trim().toLowerCase();
-  const tokens = normalizedTerm.split(/\s+/).filter((t) => t.length >= 2);
-
-  const scored = apps
-    .filter((app) => app.appId && !isUnsupportedNoMirrorApp(app.appId))
-    .map((app) => {
-      const haystack = `${app.title || ""} ${app.developer || ""} ${app.appId}`.toLowerCase();
-      let score = 0;
-      if (haystack.includes(normalizedTerm)) score += 10;
-      for (const token of tokens) {
-        if (haystack.includes(token)) score += 2;
-      }
-      if (app.appId.toLowerCase().includes(normalizedTerm.replace(/\s+/g, ""))) score += 4;
-      return { appId: app.appId, score };
-    })
-    .sort((a, b) => b.score - a.score);
-
-  const top = scored.filter((item) => item.score > 0).slice(0, 3);
-  if (top.length) return top.map((item) => item.appId);
-
-  return apps
-    .filter((app) => app.appId && !isUnsupportedNoMirrorApp(app.appId))
-    .slice(0, 1)
-    .map((app) => app.appId);
-}
-
-async function searchGooglePlay(term: string, lang: string, country: string): Promise<string[]> {
-  const gplayAny = gplay as typeof gplay & {
-    suggest: (opts: Record<string, unknown>) => Promise<Array<{ appId?: string }>>;
-  };
-
-  try {
-    const apps = await withTimeout(
-      gplay.search({
-        term,
-        num: 8,
-        lang,
-        country,
-        price: "all",
-        requestOptions,
-      } as Parameters<typeof gplay.search>[0] & { requestOptions?: typeof requestOptions }),
-      SEARCH_TIMEOUT_MS,
-      "Google Play search timeout",
-    );
-    if (apps.length) return pickRelevantApps(term, apps);
-  } catch {
-    // fall through to suggest
-  }
-
-  try {
-    const suggestions = await withTimeout(
-      gplayAny.suggest({ term, lang, country, requestOptions }),
-      SEARCH_TIMEOUT_MS,
-      "Google Play suggest timeout",
-    );
-    const appIds = suggestions.map((s) => s.appId || "").filter(Boolean).slice(0, 5);
-    if (appIds.length) {
-      return appIds
-        .map((id) => resolvePlayPackageIdAlias(id))
-        .filter((id) => id && !isUnsupportedNoMirrorApp(id));
-    }
-  } catch {
-    // no results
-  }
-
-  return [];
-}
-
 export async function discoverAppIdsForQuery(
   rawQuery: string,
   lang: string,
   country: string,
 ): Promise<string[] | null> {
   for (const query of expandSearchQueryVariants(rawQuery)) {
-    const result = await discoverAppIdsForNormalizedQuery(query, lang, country);
+    const result = await discoverAppIdsForNormalizedQuery(query, lang, country, "admin-discovery");
     if (result?.length) return result;
   }
   return null;
@@ -163,6 +82,7 @@ async function discoverAppIdsForNormalizedQuery(
   rawQuery: string,
   lang: string,
   country: string,
+  sourceLabel = "admin-discovery",
 ): Promise<string[] | null> {
   const query = normalizeUserSearchQuery(rawQuery.trim());
   if (!query) return null;
@@ -174,15 +94,6 @@ async function discoverAppIdsForNormalizedQuery(
   if (canResolveSearchQueryNow(query)) {
     const staticIds = resolveSearchAliasAppIds(query);
     if (staticIds?.length) return [...staticIds];
-  }
-
-  const viaApi = await discoverViaSearchAppsApi(query, lang, country);
-  if (viaApi?.length) return viaApi;
-
-  const stripped = stripSearchQueryNoise(query);
-  if (stripped && stripped !== query.trim().toLowerCase()) {
-    const viaStripped = await discoverViaSearchAppsApi(stripped, lang, country);
-    if (viaStripped?.length) return viaStripped;
   }
 
   const queryType = getQueryType(query);
@@ -199,50 +110,11 @@ async function discoverAppIdsForNormalizedQuery(
     return [parsed.appId];
   }
 
-  let appIds = await searchGooglePlay(query, lang, country);
-  if (!appIds.length) {
-    const stripped = stripSearchQueryNoise(query);
-    if (stripped && stripped !== query.trim().toLowerCase()) {
-      appIds = await searchGooglePlay(stripped, lang, country);
-    }
-  }
-
-  return appIds.length ? appIds : null;
-}
-
-function repairSiteOrigin(): string {
-  const host =
-    process.env.REPAIR_SITE_HOST ||
-    process.env.NEXT_PUBLIC_SITE_URL ||
-    (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "") ||
-    "https://www.gptoapk.com";
-  return host.replace(/\/$/, "");
-}
-
-async function discoverViaSearchAppsApi(
-  query: string,
-  lang: string,
-  country: string,
-): Promise<string[] | null> {
-  const params = new URLSearchParams({ q: query, hl: lang, gl: country });
-  const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), 25_000);
-  try {
-    const res = await fetch(`${repairSiteOrigin()}/api/search-apps?${params}`, {
-      signal: controller.signal,
-      cache: "no-store",
-      headers: { "User-Agent": "gptoapk-search-discovery/1.0" },
-    });
-    const data = (await res.json().catch(() => ({}))) as { results?: Array<{ appId?: string }> };
-    const appIds = (data.results || [])
-      .map((item) => item.appId?.trim())
-      .filter((id): id is string => Boolean(id && !isUnsupportedNoMirrorApp(id)));
-    return appIds.length ? [...new Set(appIds)] : null;
-  } catch {
-    return null;
-  } finally {
-    clearTimeout(timer);
-  }
+  return discoverAppIdsFromPlayStore(rawQuery, lang, country, {
+    strict: false,
+    persistAlias: true,
+    sourceLabel,
+  });
 }
 
 async function applyDiscoveryForQuery(params: {
@@ -285,7 +157,12 @@ async function applyDiscoveryForQueryVariant(params: {
     return { resolved: true, aliasesCreated, searchFailuresResolved };
   }
 
-  const appIds = await discoverAppIdsForNormalizedQuery(normalizedQuery, params.lang, params.country);
+  const appIds = await discoverAppIdsForNormalizedQuery(
+    normalizedQuery,
+    params.lang,
+    params.country,
+    params.sourceLabel,
+  );
   if (!appIds?.length) {
     return { resolved: false, aliasesCreated: 0, searchFailuresResolved: 0 };
   }

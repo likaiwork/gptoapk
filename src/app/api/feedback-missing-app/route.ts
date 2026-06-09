@@ -38,14 +38,18 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
       return NextResponse.json({ success: false, error: "Failed to save feedback" }, { status: 500 });
     }
 
-    void tryResolveMissingAppFeedbackById({ id, query, locale, country }).catch((error) => {
+    let resolved = false;
+    try {
+      const result = await tryResolveMissingAppFeedbackById({ id, query, locale, country });
+      resolved = result.resolved;
+    } catch (error) {
       console.warn(
         "[API feedback-missing-app] immediate resolve failed:",
         error instanceof Error ? error.message : error,
       );
-    });
+    }
 
-    return NextResponse.json({ success: true, id });
+    return NextResponse.json({ success: true, id, resolved });
   } catch (error) {
     console.error("[API feedback-missing-app] Error:", error);
     return NextResponse.json({ success: false, error: "Internal error" }, { status: 500 });

@@ -12,6 +12,7 @@ import {
 import { resolvePlayPackageIdAlias, resolveSearchAliasAppIds } from '@/lib/search-aliases';
 import { isVpnSearchKeyword, stripSearchQueryNoise, extractPlayStorePackageId, stripInvisibleSearchChars, fixMalformedUrlQuery, applySearchTypoCorrection } from '@/lib/search-query-normalize';
 import { recordSearchFailure, recordSearchSuccess } from '@/lib/record-search-failure';
+import { tryInlineSearchDiscovery } from '@/lib/search-auto-discover';
 import type { SearchFailureKind } from '@/lib/search-failure-key';
 import { shouldPersistSearchFailure } from '@/lib/search-failure-reconcile';
 import { normalizeUserSearchQuery } from '@/lib/normalize-user-search-query';
@@ -493,6 +494,31 @@ export async function GET(request: Request) {
     }
     results = results.filter((app) => !isUnsupportedNoMirrorApp(app.appId));
     if (results.length === 0) {
+      const discoveredIds = await tryInlineSearchDiscovery(rawQuery, requestedLang, requestedCountry);
+      if (discoveredIds?.length) {
+        const discoveredResults: SearchAppResult[] = [];
+        const blocked = new Set<string>();
+        for (const appId of discoveredIds) {
+          try {
+            const item = await fetchExactApp(appId, requestedLang, requestedCountry);
+            if (!item.appId || blocked.has(item.appId) || isUnsupportedNoMirrorApp(item.appId)) continue;
+            blocked.add(item.appId);
+            discoveredResults.push(item);
+          } catch {
+            // try next candidate
+          }
+        }
+        if (discoveredResults.length > 0) {
+          return searchSuccessResponse(
+            query,
+            queryType,
+            requestedLang,
+            requestedCountry,
+            discoveredResults,
+            rawQuery,
+          );
+        }
+      }
       return searchFailureResponse(query, queryType, 'no_results', 'No apps found', 404, requestedLang, requestedCountry);
     }
 

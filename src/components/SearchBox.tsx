@@ -466,12 +466,15 @@ export default function SearchBox() {
           pagePath: pathname,
         }),
       });
-      const body = (await res.json().catch(() => ({}))) as { success?: boolean };
+      const body = (await res.json().catch(() => ({}))) as { success?: boolean; resolved?: boolean };
       if (!res.ok || !body.success) {
         setFeedbackStatus("error");
         return;
       }
       setFeedbackStatus("sent");
+      if (body.resolved) {
+        void handleGenerate();
+      }
     } catch {
       setFeedbackStatus("error");
     }

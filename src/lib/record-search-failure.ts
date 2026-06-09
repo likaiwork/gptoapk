@@ -5,6 +5,7 @@ import {
   type SearchFailureKind,
 } from "@/lib/search-failure-key";
 import { shouldPersistSearchFailure } from "@/lib/search-failure-reconcile";
+import { scheduleSearchFailureAutoDiscovery } from "@/lib/search-auto-discover";
 import { expandSearchQueryVariants } from "@/lib/search-query-variants";
 
 export async function recordSearchFailure(params: {
@@ -30,6 +31,14 @@ export async function recordSearchFailure(params: {
       lang: params.lang,
       country: params.country,
     });
+
+    if (params.failureKind === "no_results" || params.failureKind === "search_error") {
+      scheduleSearchFailureAutoDiscovery({
+        query: trimmed,
+        lang: params.lang,
+        country: params.country,
+      });
+    }
   } catch (error) {
     console.warn(
       "[recordSearchFailure]",
