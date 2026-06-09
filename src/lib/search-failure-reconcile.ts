@@ -120,8 +120,7 @@ function repairSiteOrigin(): string {
   return host.replace(/\/$/, "");
 }
 
-/** Calls production search-apps to verify a keyword now returns results (for cron reconcile). */
-export async function probeLiveSearchHasResults(
+async function probeLiveSearchVariant(
   query: string,
   options?: { lang?: string; country?: string; timeoutMs?: number },
 ): Promise<boolean> {
@@ -129,7 +128,7 @@ export async function probeLiveSearchHasResults(
   if (!trimmed || trimmed.length > 200) return false;
 
   const lang = (options?.lang || "en").slice(0, 8);
-  const country = (options?.country || (lang === "zh" ? "cn" : "us")).slice(0, 8);
+  const country = (options?.country || (lang.startsWith("zh") ? "cn" : "us")).slice(0, 8);
   const params = new URLSearchParams({ q: trimmed, hl: lang, gl: country });
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), options?.timeoutMs ?? 22_000);
@@ -147,4 +146,15 @@ export async function probeLiveSearchHasResults(
   } finally {
     clearTimeout(timer);
   }
+}
+
+/** Calls production search-apps to verify a keyword now returns results (for cron reconcile). */
+export async function probeLiveSearchHasResults(
+  query: string,
+  options?: { lang?: string; country?: string; timeoutMs?: number },
+): Promise<boolean> {
+  for (const variant of expandSearchQueryVariants(query)) {
+    if (await probeLiveSearchVariant(variant, options)) return true;
+  }
+  return false;
 }

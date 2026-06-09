@@ -35,9 +35,9 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
       maxApps: num("maxApps", 150),
       searchMaxChecks: num("searchMaxChecks", 5000),
       searchBatchSize: num("searchBatchSize", 500),
-      searchLiveProbeLimit: num("searchLiveProbeLimit", 120),
-      feedbackLimit: num("feedbackLimit", 40),
-      searchFailureDiscoveryLimit: num("searchFailureDiscoveryLimit", 60),
+      searchLiveProbeLimit: num("searchLiveProbeLimit", 300),
+      feedbackLimit: num("feedbackLimit", 50),
+      searchFailureDiscoveryLimit: num("searchFailureDiscoveryLimit", 150),
       mirrorMaxApps: num("mirrorMaxApps", 80),
     });
     return NextResponse.json(

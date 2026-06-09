@@ -1100,19 +1100,19 @@ function normalizedQueriesForSearchIntent(query: string): string[] {
     if (key) out.add(key);
   };
 
-  add(trimmed);
-  const pkg = extractPlayStorePackageId(trimmed);
-  if (pkg) add(pkg);
-  const canonical = normalizeUserSearchQuery(trimmed);
-  if (canonical !== trimmed) add(canonical);
-
-  for (const aliasKey of getAliasLookupKeys(trimmed)) add(aliasKey);
-  for (const aliasKey of getAliasLookupKeys(canonical)) add(aliasKey);
-
-  const strippedCanonical = stripSearchQueryNoise(canonical);
-  if (strippedCanonical) add(strippedCanonical);
-  const strippedRaw = stripSearchQueryNoise(trimmed);
-  if (strippedRaw) add(strippedRaw);
+  for (const variant of expandSearchQueryVariants(trimmed)) {
+    add(variant);
+    const pkg = extractPlayStorePackageId(variant);
+    if (pkg) add(pkg);
+    const canonical = normalizeUserSearchQuery(variant);
+    if (canonical !== variant) add(canonical);
+    for (const aliasKey of getAliasLookupKeys(variant)) add(aliasKey);
+    for (const aliasKey of getAliasLookupKeys(canonical)) add(aliasKey);
+    const strippedCanonical = stripSearchQueryNoise(canonical);
+    if (strippedCanonical) add(strippedCanonical);
+    const strippedRaw = stripSearchQueryNoise(variant);
+    if (strippedRaw) add(strippedRaw);
+  }
 
   return [...out];
 }
@@ -1161,9 +1161,13 @@ export async function autoResolveDismissibleSearchFailures(): Promise<number> {
          )
          OR query ILIKE '%uptodown.com%'
          OR query ILIKE '%apps.evozi.com%'
-         OR query IN ('armeabi', 'arm64-v8a', 'armeabi-v7a', 'x86', 'x86_64', 'universal')
+         OR query IN ('armeabi', 'arm64-v8a', 'armeabi-v7a', 'x86', 'x86_64', 'universal', 'libmain')
          OR query ILIKE 'armeabi%'
          OR query ILIKE 'arm64%'
+         OR query ILIKE 'lib%.so'
+         OR query ILIKE '%直接下载.apk'
+         OR length(trim(query)) <= 1
+         OR query ~ '^[0-9]+(\\.[0-9]+)*$'
        )
      RETURNING query_key`,
   );
@@ -1177,7 +1181,7 @@ export async function reconcileResolvableSearchFailures(options?: {
 }): Promise<{ checked: number; resolved: number; dismissed: number; liveResolved: number }> {
   const batchSize = Math.min(Math.max(options?.batchSize ?? 500, 50), 1000);
   const maxChecks = Math.min(Math.max(options?.maxChecks ?? 5000, batchSize), 20000);
-  const liveProbeLimit = Math.min(Math.max(options?.liveProbeLimit ?? 40, 0), 200);
+  const liveProbeLimit = Math.min(Math.max(options?.liveProbeLimit ?? 120, 0), 500);
 
   await initDatabase();
   const dismissed = await autoResolveDismissibleSearchFailures();
@@ -1218,7 +1222,7 @@ export async function reconcileResolvableSearchFailures(options?: {
       const lookupKeys = unique.flatMap((q) => getAliasLookupKeys(q));
       const overrideIds = lookupKeys.length ? await getSearchAliasOverrideAppIds(lookupKeys) : null;
       if (overrideIds?.length) {
-        const count = await resolveSearchFailuresForQuery(unique[0]!);
+        const count = await resolveSearchFailuresForQuery(row.query);
         if (count > 0) {
           resolved += count;
           resolvedInBatch += 1;
@@ -1229,7 +1233,7 @@ export async function reconcileResolvableSearchFailures(options?: {
       if (!didResolve) {
         for (const q of unique) {
           if (canResolveSearchQueryNow(q) || (await canResolveSearchQueryNowAsync(q))) {
-            const count = await resolveSearchFailuresForQuery(unique[0]!);
+            const count = await resolveSearchFailuresForQuery(row.query);
             if (count > 0) {
               resolved += count;
               resolvedInBatch += 1;
@@ -1247,10 +1251,10 @@ export async function reconcileResolvableSearchFailures(options?: {
       ) {
         liveProbes += 1;
         const lang = row.last_lang || "en";
-        const country = row.last_country || (lang === "zh" ? "cn" : "us");
-        const liveOk = await probeLiveSearchHasResults(unique[0]!, { lang, country });
+        const country = row.last_country || (lang.startsWith("zh") ? "cn" : "us");
+        const liveOk = await probeLiveSearchHasResults(row.query, { lang, country });
         if (liveOk) {
-          const count = await resolveSearchFailuresForQuery(unique[0]!);
+          const count = await resolveSearchFailuresForQuery(row.query);
           if (count > 0) {
             resolved += count;
             liveResolved += count;

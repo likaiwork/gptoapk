@@ -33,7 +33,7 @@ export async function runAdminRepair(options?: {
     feedbackLimit: options?.feedbackLimit ?? 40,
     searchFailureLimit: options?.searchFailureDiscoveryLimit ?? 60,
     reconcileMaxChecks: options?.searchMaxChecks ?? 5000,
-    reconcileLiveProbeLimit: options?.searchLiveProbeLimit ?? 120,
+    reconcileLiveProbeLimit: options?.searchLiveProbeLimit ?? 300,
   });
 
   const mirror = await runDownloadMirrorRepair({

@@ -1225,6 +1225,99 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
     aliases: ["powerpoint", "ppt", "microsoft powerpoint"],
   },
   {
+    appIds: ["com.microsoft.office.onenote"],
+    aliases: ["onenote", "one note", "microsoft onenote", "微软onenote"],
+  },
+  {
+    appIds: ["com.microsoft.office.officehubrow"],
+    aliases: ["office", "microsoft office", "microsoft 365", "m365", "office app"],
+  },
+  {
+    appIds: ["com.hsbc.mobilebanking", "com.htsu.hsbcpersonalbanking"],
+    aliases: ["hsbc", "h s b c", "汇丰", "汇丰银行", "汇丰手机银行"],
+  },
+  {
+    appIds: ["com.taobao.litetao"],
+    aliases: ["淘宝lite", "淘宝 lite", "淘宝lte", "litetao", "淘特"],
+  },
+  {
+    appIds: ["com.smzdm.client.android"],
+    aliases: ["什么值得买", "smzdm", "值得买"],
+  },
+  {
+    appIds: ["com.tradingview.tradingviewapp"],
+    aliases: ["tradingview", "trading view", "tv chart"],
+  },
+  {
+    appIds: ["com.chucklefish.stardewvalley"],
+    aliases: ["星露谷", "stardew valley", "stardew"],
+  },
+  {
+    appIds: ["com.garena.game.df", "com.tencent.tmgp.dfm"],
+    aliases: ["三角洲行动", "delta force", "garena delta force", "三角洲"],
+  },
+  {
+    appIds: ["jp.konami.masterduel"],
+    aliases: ["游戏王大师决斗", "master duel", "yugioh master duel", "游戏王md"],
+  },
+  {
+    appIds: ["jp.konami.duellinks"],
+    aliases: ["yugioh", "duel links", "游戏王", "决斗链接"],
+  },
+  {
+    appIds: ["com.gameloft.android.ANMP.GloftM5HM"],
+    aliases: ["现代战争5", "现代战争五", "modern combat 5", "mc5"],
+  },
+  {
+    appIds: ["com.eshare.app"],
+    aliases: ["eshare", "e share", "易分享"],
+  },
+  {
+    appIds: ["com.vmos.google"],
+    aliases: ["vmos", "vmos pro", "vmos虚拟机"],
+  },
+  {
+    appIds: ["com.zangi.android"],
+    aliases: ["zangi", "zangi messenger"],
+  },
+  {
+    appIds: ["com.viu.phone"],
+    aliases: ["viu", "viu tv"],
+  },
+  {
+    appIds: ["com.tencent.mm"],
+    aliases: [
+      "微信8.0.7",
+      "微信8.0.33",
+      "wechat 8",
+      "wechat old",
+    ],
+  },
+  {
+    appIds: ["com.luna.music"],
+    aliases: ["汽水音乐", "qishui music", "luna music"],
+  },
+  {
+    appIds: ["com.chaozhang.iReaderFree", "com.chaozhang.iReader"],
+    aliases: ["掌阅", "掌阅墨水屏", "ireader", "掌阅iReader"],
+  },
+  {
+    appIds: ["com.worldconqueror4.ww2"],
+    aliases: ["世界征服者", "world conqueror", "world conqueror 4"],
+  },
+  {
+    appIds: ["com.miHoYo.GenshinImpact"],
+    aliases: ["原神国际服", "genshin global"],
+  },
+  {
+    appIds: ["com.nianticlabs.pokemongo"],
+    aliases: ["宝可梦go", "pokemon go", "宝可梦"],
+  },
+  {
+    appIds: ["com.ss.android.article.news"],
+    aliases: ["今日头条", "toutiao"],
+  },
+  {
     appIds: ["com.google.android.apps.docs"],
     aliases: ["google docs", "谷歌文档"],
   },
@@ -2330,6 +2423,18 @@ export const PRIORITY_STATIC_ALIAS_QUERIES = [
   "致富证劵",
   "盈立证券",
   "致富通",
+  "h s b c",
+  "hsbc",
+  "onenote",
+  "office",
+  "microsoft office",
+  "淘宝lite",
+  "什么值得买",
+  "tradingview",
+  "星露谷",
+  "三角洲行动",
+  "schwap",
+  "schwab",
   "三星智能穿戴",
   "燕云十六声",
   "魔兽世界",

@@ -381,8 +381,9 @@ function searchSuccessResponse(
   lang: string,
   country: string,
   results: SearchAppResult[],
+  rawQuery?: string,
 ) {
-  void recordSearchSuccess(query, queryType);
+  void recordSearchSuccess(query, queryType, rawQuery ?? query);
   return NextResponse.json(
     {
       query,
@@ -495,7 +496,7 @@ export async function GET(request: Request) {
       return searchFailureResponse(query, queryType, 'no_results', 'No apps found', 404, requestedLang, requestedCountry);
     }
 
-    return searchSuccessResponse(query, queryType, requestedLang, requestedCountry, results);
+    return searchSuccessResponse(query, queryType, requestedLang, requestedCountry, results, rawQuery);
   } catch (error) {
     console.error('[API search-apps] ERROR:', error instanceof Error ? error.message : error);
     const errorMsg = error instanceof Error ? error.message : 'Unknown error';

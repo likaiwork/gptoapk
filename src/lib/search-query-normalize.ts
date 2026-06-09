@@ -152,6 +152,13 @@ const SEARCH_TYPO_CORRECTIONS: Readonly<Record<string, string>> = {
   xiaoyiguanjia: "小翼管家",
   googieplay: "google play",
   "gooogle play": "google play",
+  schwap: "schwab",
+  "h s b c": "hsbc",
+  eshare: "eshare",
+  office: "microsoft office",
+  "淘宝lte": "淘宝lite",
+  "淘宝 lite": "淘宝lite",
+  taobaolite: "淘宝lite",
   ergdata: "ergdata",
 };
 

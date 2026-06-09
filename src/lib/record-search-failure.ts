@@ -5,6 +5,7 @@ import {
   type SearchFailureKind,
 } from "@/lib/search-failure-key";
 import { shouldPersistSearchFailure } from "@/lib/search-failure-reconcile";
+import { expandSearchQueryVariants } from "@/lib/search-query-variants";
 
 export async function recordSearchFailure(params: {
   query: string;
@@ -37,13 +38,26 @@ export async function recordSearchFailure(params: {
   }
 }
 
-export async function recordSearchSuccess(query: string, queryType: string): Promise<void> {
-  const trimmed = query.trim();
-  if (!trimmed) return;
+export async function recordSearchSuccess(
+  query: string,
+  queryType: string,
+  rawQuery?: string,
+): Promise<void> {
+  const seeds = new Set<string>();
+  for (const seed of [query, rawQuery?.trim()]) {
+    if (!seed) continue;
+    seeds.add(seed);
+    for (const variant of expandSearchQueryVariants(seed)) {
+      seeds.add(variant);
+    }
+  }
+  if (!seeds.size) return;
 
   try {
     await initDatabase();
-    await resolveSearchFailuresForQuery(trimmed, queryType);
+    for (const seed of seeds) {
+      await resolveSearchFailuresForQuery(seed, queryType);
+    }
   } catch (error) {
     console.warn(
       "[recordSearchSuccess]",
