@@ -427,29 +427,39 @@ export async function syncAllStaticSearchAliasOverrides(): Promise<number> {
   return synced;
 }
 
-export async function reconcileStaticAliasSearchFailures(limit = 400): Promise<number> {
+export async function reconcileStaticAliasSearchFailures(maxRows = 2000): Promise<number> {
   await initDatabase();
-  const rows = await getUnresolvedSearchFailuresForDiscovery(limit);
   let resolved = 0;
+  let offset = 0;
+  const batchSize = 200;
+  const cap = Math.min(Math.max(maxRows, batchSize), 5000);
 
-  for (const row of rows) {
-    let matched = false;
-    for (const variant of expandSearchQueryVariants(row.query)) {
-      const corrected = applySearchTypoCorrection(variant);
-      const staticIds = resolveSearchAliasAppIds(corrected);
-      if (!staticIds?.length) continue;
+  while (offset < cap) {
+    const rows = await getUnresolvedSearchFailuresForDiscovery(
+      Math.min(batchSize, cap - offset),
+      offset,
+    );
+    if (!rows.length) break;
 
-      await saveSearchAliasOverrideForQuery({
-        query: row.query,
-        appIds: [...staticIds],
-        sourceQuery: corrected,
-        sourceLabel: "static-alias-reconcile",
-      });
-      resolved += await resolveSearchFailuresForQuery(row.query);
-      matched = true;
-      break;
+    for (const row of rows) {
+      for (const variant of expandSearchQueryVariants(row.query)) {
+        const corrected = applySearchTypoCorrection(variant);
+        const staticIds = resolveSearchAliasAppIds(corrected);
+        if (!staticIds?.length) continue;
+
+        await saveSearchAliasOverrideForQuery({
+          query: row.query,
+          appIds: [...staticIds],
+          sourceQuery: corrected,
+          sourceLabel: "static-alias-reconcile",
+        });
+        resolved += await resolveSearchFailuresForQuery(row.query);
+        break;
+      }
     }
-    if (matched) continue;
+
+    offset += rows.length;
+    if (rows.length < batchSize) break;
   }
 
   return resolved;
@@ -463,7 +473,7 @@ export async function runSearchDiscoveryRepair(options?: {
 }): Promise<SearchDiscoveryReport & { reconcile: Awaited<ReturnType<typeof reconcileResolvableSearchFailures>> }> {
   await syncPriorityStaticSearchAliasOverrides();
   await syncAllStaticSearchAliasOverrides();
-  const staticResolved = await reconcileStaticAliasSearchFailures(800);
+  const staticResolved = await reconcileStaticAliasSearchFailures(3000);
   const feedback = await repairMissingAppFeedback({ limit: options?.feedbackLimit });
   const discovery = await repairSearchFailuresViaDiscovery({ limit: options?.searchFailureLimit });
   const reconcile = await reconcileResolvableSearchFailures({

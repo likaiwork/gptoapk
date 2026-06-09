@@ -1310,6 +1310,44 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
     aliases: ["掌阅", "掌阅墨水屏", "ireader", "掌阅iReader"],
   },
   {
+    appIds: ["net.metaquotes.metatrader5"],
+    aliases: [
+      "mt5",
+      "metatrader5",
+      "metatrader 5",
+      "meta trader5",
+      "meta trader 5",
+    ],
+  },
+  {
+    appIds: ["net.metaquotes.metatrader4"],
+    aliases: ["mt4", "metatrader4", "metatrader 4", "meta trader4", "metatrader4"],
+  },
+  {
+    appIds: ["md.obsidian"],
+    aliases: ["obsidian", "obsidian app", "obsidian mobile"],
+  },
+  {
+    appIds: ["com.qoder.android"],
+    aliases: ["qoder", "qoder ai", "qoder editor"],
+  },
+  {
+    appIds: ["com.animax.animaxtw"],
+    aliases: ["animates", "动画疯", "動畫瘋", "animax", "animax tw"],
+  },
+  {
+    appIds: ["org.geogebra.android"],
+    aliases: ["geogebra", "geo gebra"],
+  },
+  {
+    appIds: ["com.cloudmosa.puffintv"],
+    aliases: ["puffin tv", "puffintv"],
+  },
+  {
+    appIds: ["com.cloudmosa.puffinFree"],
+    aliases: ["puffin", "puffin browser"],
+  },
+  {
     appIds: ["com.worldconqueror4.ww2"],
     aliases: ["世界征服者", "world conqueror", "world conqueror 4"],
   },
@@ -2443,6 +2481,15 @@ export const PRIORITY_STATIC_ALIAS_QUERIES = [
   "三角洲行动",
   "schwap",
   "schwab",
+  "mt5",
+  "metatrader5",
+  "metatrader4",
+  "obsidian",
+  "qoder",
+  "geogebra",
+  "animates",
+  "動畫瘋",
+  "puffin tv",
   "三星智能穿戴",
   "燕云十六声",
   "魔兽世界",

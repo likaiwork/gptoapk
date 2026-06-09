@@ -30,8 +30,8 @@ export async function runAdminRepair(options?: {
   await initDatabase();
 
   const searchDiscovery = await runSearchDiscoveryRepair({
-    feedbackLimit: options?.feedbackLimit ?? 40,
-    searchFailureLimit: options?.searchFailureDiscoveryLimit ?? 60,
+    feedbackLimit: options?.feedbackLimit ?? 50,
+    searchFailureLimit: options?.searchFailureDiscoveryLimit ?? 150,
     reconcileMaxChecks: options?.searchMaxChecks ?? 5000,
     reconcileLiveProbeLimit: options?.searchLiveProbeLimit ?? 300,
   });

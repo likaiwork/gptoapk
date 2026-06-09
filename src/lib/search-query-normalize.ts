@@ -159,6 +159,11 @@ const SEARCH_TYPO_CORRECTIONS: Readonly<Record<string, string>> = {
   "淘宝lte": "淘宝lite",
   "淘宝 lite": "淘宝lite",
   taobaolite: "淘宝lite",
+  metatrader5: "mt5",
+  "meta trader5": "mt5",
+  "meta trader 5": "mt5",
+  metatrader4: "mt4",
+  "meta trader4": "mt4",
   ergdata: "ergdata",
 };
 

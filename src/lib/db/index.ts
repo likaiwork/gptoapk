@@ -1168,6 +1168,9 @@ export async function autoResolveDismissibleSearchFailures(): Promise<number> {
          OR query ILIKE '%直接下载.apk'
          OR length(trim(query)) <= 1
          OR query ~ '^[0-9]+(\\.[0-9]+)*$'
+         OR query ~ '^id[0-9]+$'
+         OR query ILIKE '%apkmirror%'
+         OR query ILIKE 'apk mirror%'
        )
      RETURNING query_key`,
   );
@@ -1502,6 +1505,7 @@ export async function upsertSearchAliasOverrideKeys(params: {
 
 export async function getUnresolvedSearchFailuresForDiscovery(
   limit = 60,
+  offset = 0,
 ): Promise<Array<{ query: string; last_lang: string; last_country: string }>> {
   return sqlRaw(
     `SELECT query,
@@ -1510,8 +1514,8 @@ export async function getUnresolvedSearchFailuresForDiscovery(
      FROM search_failure_queries
      WHERE resolved = FALSE
      ORDER BY failure_count DESC, last_failed_at DESC
-     LIMIT $1`,
-    [Math.min(Math.max(limit, 1), 200)],
+     LIMIT $1 OFFSET $2`,
+    [Math.min(Math.max(limit, 1), 500), Math.max(offset, 0)],
   );
 }
 
