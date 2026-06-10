@@ -6,7 +6,7 @@
     "url": "https://www.gptoapk.com",
     "languages": ["zh", "en", "ja", "ko", "ar", "ru", "fa", "de", "fr", "es", "pt", "tr", "th", "vi", "id", "hi", "ur", "tl", "bn", "cs", "da", "el", "fi", "he", "hu", "it", "ms", "nb", "nl", "pl", "ro", "sv", "uk"],
     "primaryLanguage": "zh",
-    "lastUpdated": "2026-05-21"
+    "lastUpdated": "2026-06-10"
   },
   "englishPages": [
     {
@@ -73,6 +73,27 @@
       "description": "国内用户下载 Instagram、TikTok、WhatsApp、Telegram、YouTube 等海外社交应用 APK 的完整指南",
       "type": "hub",
       "priority": 0.85
+    },
+    {
+      "path": "/zh/blog/apk-vs-aab-seo-geo-2026",
+      "title": "APK 和 AAB 有什么区别（GEO 速查）",
+      "description": "AAB 能否直接安装、侧载该下哪种、APK vs AAB 对照表与场景速查",
+      "type": "geo-guide",
+      "priority": 0.88
+    },
+    {
+      "path": "/zh/blog/apk-vs-aab-explained-zh",
+      "title": "APK 和 AAB 有什么区别？普通用户该下哪种",
+      "description": "APK 与 AAB 完整教程：格式区别、侧载建议、gptoapk 下载方式",
+      "type": "article",
+      "priority": 0.82
+    },
+    {
+      "path": "/zh/blog/apk-install-errors-seo-geo-2026",
+      "title": "APK 安装失败 GEO 速查",
+      "description": "INSTALL_FAILED、签名失败、Play 打不开按症状速查",
+      "type": "geo-guide",
+      "priority": 0.86
     }
   ],
   "aiAppGuides": [

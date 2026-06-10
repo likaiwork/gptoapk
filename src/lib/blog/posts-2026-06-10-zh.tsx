@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
+import type { BlogFaqItem } from "@/lib/blog/blog-jsonld";
 
 export type BlogPostEntry = {
   slug: string;
@@ -9,6 +10,7 @@ export type BlogPostEntry = {
   readTime: string;
   tags: string[];
   content: ReactNode;
+  faqs?: BlogFaqItem[];
 };
 
 export const posts20260610: BlogPostEntry[] = [
@@ -20,6 +22,25 @@ export const posts20260610: BlogPostEntry[] = [
     date: "2026-06-10",
     readTime: "9 分钟阅读",
     tags: ["APK", "AAB", "Android", "侧载", "GEO", "gptoapk"],
+    faqs: [
+      {
+        question: "AAB 能直接安装吗？",
+        answer:
+          "不能。AAB 是 Google Play 发布格式，需经 Play 或 bundletool 转成 APK 后才能安装。",
+      },
+      {
+        question: "普通用户侧载该下 APK 还是 AAB？",
+        answer: "只下 APK。看到裸 .aab 且无转换教程时，建议换渠道或在 gptoapk 重新下载。",
+      },
+      {
+        question: "APK 和 AAB 哪个更安全？",
+        answer: "安全取决于来源与签名，不是扩展名。安装前核对包名、开发者并验签。",
+      },
+      {
+        question: "gptoapk 下载的是 APK 还是 AAB？",
+        answer: "gptoapk 提供可直接安装的 APK，适合无 Play 商店或需侧载的场景。",
+      },
+    ],
     content: (
       <>
         <h1>APK 和 AAB 有什么区别？普通用户该下哪种</h1>

@@ -14,6 +14,7 @@ import { zhPosts20260609SchemaList } from "@/lib/blog/posts-2026-06-09-schema-zh
 import { zhPosts20260609V4List } from "@/lib/blog/posts-2026-06-09-v4-zh";
 import { zhPosts20260609List } from "@/lib/blog/posts-2026-06-09-zh";
 import { zhPosts20260610List } from "@/lib/blog/posts-2026-06-10-zh";
+import { getZhBlogBySlug, ZH_BLOG_TOPIC_CLUSTERS } from "@/lib/blog/zh-blog-index";
 
 export const metadata: Metadata = {
   title: "博客 - APK 下载指南 | gptoapk.com",
@@ -782,15 +783,23 @@ className="max-w-5xl mx-auto px-4 py-16">
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "CollectionPage",
-            "name": "Blog - gptoapk.com",
-            "description": "Latest articles about APK downloads, Android apps, and installation guides",
+            "name": "APK 下载博客 | gptoapk.com",
+            "description": "APK 下载、安装故障排查、GEO 速查与海外应用侧载指南",
             "url": "https://www.gptoapk.com/zh/blog",
             "inLanguage": "zh-Hans",
             "isPartOf": {
               "@type": "WebSite",
               "name": "gptoapk.com",
               "url": "https://www.gptoapk.com"
-            }
+            },
+            "hasPart": ZH_BLOG_TOPIC_CLUSTERS.map((cluster) => ({
+              "@type": "ItemList",
+              name: cluster.title,
+              description: cluster.description,
+              url: cluster.hubHref
+                ? `https://www.gptoapk.com${cluster.hubHref}`
+                : "https://www.gptoapk.com/zh/blog",
+            })),
           }),
         }}
       />
@@ -802,6 +811,48 @@ className="max-w-5xl mx-auto px-4 py-16">
           关于从 Google Play 下载 APK 文件的指南、教程和技巧。
         </p>
       </div>
+
+      <section className="mb-12" aria-labelledby="topic-clusters-heading">
+        <h2 id="topic-clusters-heading" className="text-2xl font-bold mb-2">
+          按主题浏览（SEO / GEO）
+        </h2>
+        <p className="text-slate-600 dark:text-slate-400 mb-6 text-sm">
+          每个主题含<strong>长文教程</strong>与<strong>GEO 速查页</strong>，便于搜索引擎与 AI 摘要引用。
+        </p>
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {ZH_BLOG_TOPIC_CLUSTERS.map((cluster) => (
+            <div
+              key={cluster.id}
+              className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800/50 p-5"
+            >
+              <h3 className="font-semibold text-lg mb-1">{cluster.title}</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-400 mb-3">{cluster.description}</p>
+              <div className="flex flex-wrap gap-2 text-sm">
+                {cluster.hubHref ? (
+                  <Link
+                    href={cluster.hubHref}
+                    className="text-blue-600 dark:text-blue-400 hover:underline font-medium"
+                  >
+                    专题 hub →
+                  </Link>
+                ) : null}
+                {cluster.slugs.slice(0, 2).map((slug) => {
+                  const meta = getZhBlogBySlug(slug);
+                  return (
+                    <Link
+                      key={slug}
+                      href={`/zh/blog/${slug}`}
+                      className="text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 hover:underline"
+                    >
+                      {meta?.title ?? slug}
+                    </Link>
+                  );
+                })}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
 
       <div className="grid gap-8 md:grid-cols-2">
         {[...posts].sort((a, b) => b.date.localeCompare(a.date)).map((post) => (

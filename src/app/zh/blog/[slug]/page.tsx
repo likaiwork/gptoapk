@@ -15,6 +15,14 @@ import { zhPosts20260609Schema } from "@/lib/blog/posts-2026-06-09-schema-zh";
 import { zhPosts20260609V4 } from "@/lib/blog/posts-2026-06-09-v4-zh";
 import { zhPosts20260609 } from "@/lib/blog/posts-2026-06-09-zh";
 import { zhPosts20260610 } from "@/lib/blog/posts-2026-06-10-zh";
+import {
+  buildBlogBreadcrumbJsonLd,
+  buildBlogPostingJsonLd,
+  buildFaqPageJsonLd,
+  defaultGeoFaqsForSlug,
+  type BlogFaqItem,
+} from "@/lib/blog/blog-jsonld";
+import { getRelatedZhBlogPosts } from "@/lib/blog/zh-blog-index";
 
 interface BlogPost {
   slug: string;
@@ -24,6 +32,7 @@ interface BlogPost {
   readTime: string;
   tags: string[];
   content: React.ReactNode;
+  faqs?: BlogFaqItem[];
 }
 
 const zhPosts: BlogPost[] = [
@@ -16513,59 +16522,26 @@ export default async function BlogPostPage({
     notFound();
   }
 
-    const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    "headline": post.title,
-    "description": post.description,
-    "datePublished": post.date,
-    "author": {
-      "@type": "Organization",
-      "name": "gptoapk.com",
-      "url": "https://www.gptoapk.com",
-    },
-    "publisher": {
-      "@type": "Organization",
-      "name": "gptoapk.com",
-      "url": "https://www.gptoapk.com",
-      "logo": {
-        "@type": "ImageObject",
-        "url": "https://www.gptoapk.com/favicon.ico",
-      },
-    },
-    "mainEntityOfPage": {
-      "@type": "WebPage",
-      "@id": `https://www.gptoapk.com/zh/blog/${slug}`,
-    },
-    "inLanguage": "zh-Hans",
-    "keywords": post.tags ? post.tags.join(", ") : "",
-    "about": post.tags ? post.tags.map((t) => ({ "@type": "Thing", name: t })) : [],
-  };
+  const pageUrl = `https://www.gptoapk.com/zh/blog/${slug}`;
+  const faqs = post.faqs ?? defaultGeoFaqsForSlug(slug);
 
-  const breadcrumbJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "首页",
-        item: "https://www.gptoapk.com/zh",
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: "博客",
-        item: "https://www.gptoapk.com/zh/blog",
-      },
-      {
-        "@type": "ListItem",
-        position: 3,
-        name: post.title,
-        item: `https://www.gptoapk.com/zh/blog/${slug}`,
-      },
-    ],
-  };
+  const jsonLd = buildBlogPostingJsonLd({
+    slug,
+    title: post.title,
+    description: post.description,
+    date: post.date,
+    tags: post.tags,
+    locale: "zh",
+  });
+
+  const breadcrumbJsonLd = buildBlogBreadcrumbJsonLd({
+    slug,
+    title: post.title,
+    locale: "zh",
+  });
+
+  const faqJsonLd = faqs?.length ? buildFaqPageJsonLd(faqs, pageUrl) : null;
+  const relatedPosts = getRelatedZhBlogPosts(slug, post.tags, 4);
 
   return (
     <>
@@ -16579,6 +16555,13 @@ export default async function BlogPostPage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
+      {faqJsonLd ? (
+        <Script
+          id="blog-faq-jsonld"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+        />
+      ) : null}
 
       <article className="max-w-3xl mx-auto px-4 py-12">
         <Link
@@ -16615,27 +16598,23 @@ export default async function BlogPostPage({
         </div>
 
         
-        {/* Related Posts */}
-        <div className="mt-8 p-6 bg-gray-50 dark:bg-gray-800/50 rounded-xl border border-gray-100 dark:border-gray-700">
-          <h2 className="text-xl font-bold mb-4">相关文章</h2>
-          <ul className="space-y-2">
-            <li>
-              <Link href="/zh/blog/safest-apk-download-sites-2026" className="text-blue-600 dark:text-blue-400 hover:underline">
-                十大APK下载网站推荐
-              </Link>
-            </li>
-            <li>
-              <Link href="/zh/blog/best-free-apk-downloaders-comparison-cn" className="text-blue-600 dark:text-blue-400 hover:underline">
-                APK下载站推荐
-              </Link>
-            </li>
-            <li>
-              <Link href="/zh/blog/safe-reliable-apk-download-sites" className="text-blue-600 dark:text-blue-400 hover:underline">
-                APKPure 平替推荐
-              </Link>
-            </li>
-          </ul>
-        </div>
+        {relatedPosts.length > 0 ? (
+          <div className="mt-8 p-6 bg-gray-50 dark:bg-gray-800/50 rounded-xl border border-gray-100 dark:border-gray-700">
+            <h2 className="text-xl font-bold mb-4">相关文章</h2>
+            <ul className="space-y-2">
+              {relatedPosts.map((related) => (
+                <li key={related.slug}>
+                  <Link
+                    href={`/zh/blog/${related.slug}`}
+                    className="text-blue-600 dark:text-blue-400 hover:underline"
+                  >
+                    {related.title}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ) : null}
 
 <div className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
           <Link

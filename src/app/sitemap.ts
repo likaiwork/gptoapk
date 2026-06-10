@@ -1,8 +1,14 @@
 import type { MetadataRoute } from "next";
+import { getZhBlogIndex } from "@/lib/blog/zh-blog-index";
 import { SITE_LOCALES } from "@/lib/site-locales";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://www.gptoapk.com";
+  const zhBlogIndex = getZhBlogIndex();
+  const zhBlogSlugs = zhBlogIndex.map((post) => post.slug);
+  const zhBlogLastModified = Object.fromEntries(
+    zhBlogIndex.map((post) => [post.slug, new Date(post.date)]),
+  );
 
   const enBlogSlugs = [
     "how-to-download-apk-from-google-play",
@@ -32,53 +38,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "best-free-vpn-android-apk-2026",
     "apk-safe-download-seo-geo-2026",
     "huawei-google-play-seo-geo-2026",
-    "xapk-apks-apkm-install-guide-2026",
-    "google-play-app-not-available-country-fix-2026",
-  ];
-
-  const zhBlogSlugs = [
-    "china-broker-apk-seo-geo-2026",
-    "china-broker-app-list",
-    "broker-app-download-guide",
-    "longbridge-download-seo-geo-2026",
-    "ibkr-broker-seo-geo-2026",
-    "tiger-futu-longbridge-broker-seo-geo-2026",
-    "zoom-download-seo-geo-2026",
-    "whatsapp-download-seo-geo-2026",
-    "twitter-download-seo-geo-2026",
-    "youtube-download-seo-geo-2026",
-    "tiktok-download-seo-geo-2026",
-    "facebook-download-seo-geo-2026",
-    "chatgpt-download-seo-geo-2026",
-    "apk-software-game-tv-download-2026",
-    "telegram-download-seo-geo-2026",
-    "install-telegram-without-gms",
-    "tiktok-apk-china-install",
-    "instagram-download-seo-geo-2026",
-    "google-play-compatibility-seo-geo-2026",
-    "apk-install-errors-seo-geo-2026",
-    "android-google-play-compatibility-check-guide",
-    "apk-signature-verification-failed-fix",
-    "google-play-not-opening-fix",
-    "apk-install-failed-error-codes",
-    "longbridge-securities-guide",
-    "longbridge-securities-advanced",
-    "how-to-download-apk-from-google-play",
-    "apk-downloader-tool-comparison",
-    "what-is-an-apk-file",
-    "how-to-install-apk-on-android",
-    "google-play-link-to-apk-troubleshooting",
-    "google-play-link-to-apk-tips",
-    "google-play-link-to-apk-step-by-step",
-    "google-play-cannot-open-fixes-2026",
-    "apk-install-failed-error-codes-guide",
-    "whatsapp-tips-features-guide-2026",
-    "apk-safe-download-security-guide-2026",
-    "android-apk-install-error-fix-2026",
-    "telegram-group-channel-guide-2026",
-    "best-android-apk-2026-recommendation",
-    "apk-download-security-seo-geo-2026",
-    "android-apk-install-fix-seo-geo-2026",
     "xapk-apks-apkm-install-guide-2026",
     "google-play-app-not-available-country-fix-2026",
   ];
@@ -187,9 +146,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     ...zhBlogSlugs.map((slug) => ({
       url: `${baseUrl}/zh/blog/${slug}` as const,
-      lastModified: new Date("2026-05-11"),
+      lastModified: zhBlogLastModified[slug] ?? new Date("2026-05-11"),
       changeFrequency: "monthly" as const,
-      priority: 0.6 as const,
+      priority: slug.includes("seo-geo") ? (0.75 as const) : (0.6 as const),
       ...(enBlogSlugs.includes(slug) ? {
         alternates: {
           languages: blogDetailAlternates(slug),

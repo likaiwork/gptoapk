@@ -6,16 +6,7 @@ import { useState, useRef, useEffect } from "react";
 import { LANGUAGE_SWITCHER_ITEMS } from "@/lib/language-menu";
 import { isRtlLocale, localePathRegex, type SiteLocale } from "@/lib/site-locales";
 import { dispatchSearchReset } from "@/lib/search-cache";
-
-const zhBlogSlugs = new Set([
-  "how-to-download-apk-from-google-play",
-  "apk-downloader-tool-comparison",
-  "what-is-an-apk-file",
-  "how-to-install-apk-on-android",
-  "google-play-link-to-apk-troubleshooting",
-  "google-play-link-to-apk-tips",
-  "google-play-link-to-apk-step-by-step",
-]);
+import { ZH_BLOG_SLUG_SET } from "@/lib/blog/zh-blog-index";
 
 const localesWithFullContent = new Set<SiteLocale>(["en", "zh"]); // 检查：仅 en/zh 拥有完整 blog 详情和 app 详情页
 
@@ -35,7 +26,7 @@ function getSwitchHref(target: SiteLocale, currentPath: string): string {
     const slug = blogSlugMatch[1];
     if (target === "en") return `/en/blog/${slug}`;
     if (target === "zh") {
-      return zhBlogSlugs.has(slug) ? `/zh/blog/${slug}` : `/zh/blog`;
+      return ZH_BLOG_SLUG_SET.has(slug) ? `/zh/blog/${slug}` : `/zh/blog`;
     }
     return `/${target}/blog`; // 检查：其他语言无 blog 详情，回退到列表
   }
