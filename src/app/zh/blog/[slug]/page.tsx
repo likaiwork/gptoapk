@@ -14,6 +14,7 @@ import { zhPosts20260609GEO } from "@/lib/blog/posts-2026-06-09-geo-zh";
 import { zhPosts20260609Schema } from "@/lib/blog/posts-2026-06-09-schema-zh";
 import { zhPosts20260609V4 } from "@/lib/blog/posts-2026-06-09-v4-zh";
 import { zhPosts20260609 } from "@/lib/blog/posts-2026-06-09-zh";
+import { zhPosts20260610 } from "@/lib/blog/posts-2026-06-10-zh";
 
 interface BlogPost {
   slug: string;
@@ -38,6 +39,7 @@ const zhPosts: BlogPost[] = [
   ...zhPosts20260609Schema,
   ...zhPosts20260609V4,
   ...zhPosts20260609,
+  ...zhPosts20260610,
   {
     slug: "china-broker-app-list",
     title: "国内券商APP下载指南：同花顺东财华泰国信中信招商等主流券商APP包名大全",

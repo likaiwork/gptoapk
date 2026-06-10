@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-09T02:35:07.455Z",
+  "updatedAt": "2026-06-10T11:40:33.864Z",
   "today": {
     "date": "2026-05-26",
     "locale": "zh",
@@ -85,6 +85,12 @@
       "note": "",
       "publishedUrl": "https://www.gptoapk.com/zh/blog/huawei-overseas-ai-apps",
       "at": "2026-06-09T02:35:07.455Z"
+    },
+    "2026-06-10": {
+      "status": "drafted",
+      "note": "",
+      "publishedUrl": "https://www.gptoapk.com/zh/blog/apk-vs-aab-explained-zh",
+      "at": "2026-06-10T11:40:33.864Z"
     }
   }
 }

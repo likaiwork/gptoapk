@@ -39,6 +39,8 @@ const problemGuides = [
   { title: "无 GMS 手机安装 Telegram 步骤", href: "/zh/blog/install-telegram-without-gms" },
   { title: "Google Play 设备不兼容 / 兼容性 GEO（2026）", href: "/zh/blog/google-play-compatibility-seo-geo-2026" },
   { title: "APK 安装失败 / 签名 / Play 打不开 GEO（2026）", href: "/zh/blog/apk-install-errors-seo-geo-2026" },
+  { title: "APK 和 AAB 有什么区别？侧载该下哪种（2026 GEO）", href: "/zh/blog/apk-vs-aab-seo-geo-2026" },
+  { title: "APK vs AAB 完整教程（普通用户长文）", href: "/zh/blog/apk-vs-aab-explained-zh" },
   { title: "Android 兼容性检查与设备不兼容解决", href: "/zh/blog/android-google-play-compatibility-check-guide" },
   { title: "Google Play 打不开 11 种解决方法", href: "/zh/blog/google-play-not-opening-fix" },
   { title: "APK 安装失败错误代码大全（INSTALL_FAILED）", href: "/zh/blog/apk-install-failed-error-codes" },
