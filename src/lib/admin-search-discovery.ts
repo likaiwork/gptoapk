@@ -266,15 +266,13 @@ export async function repairSearchFailuresViaDiscovery(options?: {
 
   for (const row of rows) {
     if (canResolveSearchQueryNow(row.query) || (await canResolveSearchQueryNowAsync(row.query))) {
-      const count = await resolveSearchFailuresForQuery(row.query);
-      if (count > 0) searchFailuresResolved += count;
+      searchFailuresResolved += await markSearchFailuresResolvedForQuery(row.query, row.query_key);
       continue;
     }
 
     const override = await resolveSearchAliasOverrideAppIds(row.query);
     if (override?.length) {
-      const count = await resolveSearchFailuresForQuery(row.query);
-      if (count > 0) searchFailuresResolved += count;
+      searchFailuresResolved += await markSearchFailuresResolvedForQuery(row.query, row.query_key);
       continue;
     }
 

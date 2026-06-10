@@ -88,6 +88,10 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
       "long bridge",
       "longbridge securities",
       "富途老虎长桥",
+      "长桥新加坡",
+      "longbridge sg",
+      "longbridgesg",
+      "新加坡长桥",
     ],
   },
   {
@@ -2386,6 +2390,40 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
     appIds: ["com.android.vending"],
     aliases: ["google play store app", "play store app"],
   },
+  {
+    appIds: ["moe.shizuku.privileged.api"],
+    aliases: ["shizuku", "shizuku app"],
+  },
+  {
+    appIds: ["org.videolan.vlc"],
+    aliases: ["vlc", "vlc player", "vlc media player"],
+  },
+  {
+    appIds: ["com.zoiper.android.app"],
+    aliases: ["zoiper", "zoiper app"],
+  },
+  {
+    appIds: ["net.openvpn.openvpn"],
+    aliases: ["openvpn", "open vpn", "openvpn connect"],
+  },
+  {
+    appIds: ["com.easy.abroad"],
+    aliases: ["出境易", "出境易虚拟器", "出境易app", "chujingyi", "chu jing yi"],
+  },
+  {
+    appIds: ["uk.gov.HomeOffice.ho2"],
+    aliases: [
+      "uk immigration",
+      "uk immigration id check",
+      "uk immigration: id check",
+      "id check",
+      "home office id check",
+    ],
+  },
+  {
+    appIds: ["com.google.android.googlequicksearchbox"],
+    aliases: ["google app", "google search"],
+  },
 ];
 
 /** Wrong or truncated Play package ids from pasted URLs → canonical id */
@@ -2591,6 +2629,14 @@ export const PRIORITY_STATIC_ALIAS_QUERIES = [
   "palpay",
   "tik ttom",
   "bear",
+  "shizuku",
+  "vlc",
+  "zoiper",
+  "openvpn",
+  "出境易",
+  "goodle",
+  "uk immigration",
+  "longbridgesg",
 ] as const;
 
 export function listStaticSearchAliasBindings(): Array<{
