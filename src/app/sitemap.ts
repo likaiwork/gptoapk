@@ -1,46 +1,21 @@
 import type { MetadataRoute } from "next";
+import { getEnBlogIndex } from "@/lib/blog/en-blog-index";
 import { getZhBlogIndex } from "@/lib/blog/zh-blog-index";
 import { SITE_LOCALES } from "@/lib/site-locales";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://www.gptoapk.com";
   const zhBlogIndex = getZhBlogIndex();
+  const enBlogIndex = getEnBlogIndex();
   const zhBlogSlugs = zhBlogIndex.map((post) => post.slug);
+  const enBlogSlugs = enBlogIndex.map((post) => post.slug);
   const zhBlogLastModified = Object.fromEntries(
     zhBlogIndex.map((post) => [post.slug, new Date(post.date)]),
   );
-
-  const enBlogSlugs = [
-    "how-to-download-apk-from-google-play",
-    "apk-downloader-tool-comparison",
-    "what-is-an-apk-file",
-    "how-to-install-apk-on-android",
-    "google-play-link-to-apk-troubleshooting",
-    "google-play-link-to-apk-tips",
-    "google-play-link-to-apk-step-by-step",
-    "download-apk-from-google-play-on-pc-mac",
-    "best-free-apk-downloader-tools-2026-comparison",
-    "install-apk-files-samsung-google-pixel-xiaomi",
-    "is-downloading-apk-from-google-play-safe",
-    "google-play-apk-downloader-not-working-7-fixes",
-    "google-play-not-working-10-fixes-2026",
-    "apk-install-failed-error-code-guide",
-    "apk-parse-error-fix-2026",
-    "chatgpt-apk-without-google-play",
-    "fix-device-not-compatible-google-play",
-    "fix-apk-signature-verification-failed",
-    "fix-google-play-not-opening",
-    "apk-install-failed-error-codes-guide",
-    "how-to-download-apk-safely-2026",
-    "whatsapp-telegram-signal-wechat-comparison-2026",
-    "install-apk-android-tv-fire-tv-china-2026",
-    "install-google-play-huawei-honor-phone-2026",
-    "best-free-vpn-android-apk-2026",
-    "apk-safe-download-seo-geo-2026",
-    "huawei-google-play-seo-geo-2026",
-    "xapk-apks-apkm-install-guide-2026",
-    "google-play-app-not-available-country-fix-2026",
-  ];
+  const enBlogLastModified = Object.fromEntries(
+    enBlogIndex.map((post) => [post.slug, new Date(post.date)]),
+  );
+  const bilingualBlogSlugs = new Set(enBlogSlugs.filter((slug) => zhBlogSlugs.includes(slug)));
 
   // 检查：除 en/zh 外，其他语言只暴露首页 / FAQ / Blog 列表，blog 详情统一指向 en
   const shellLocales = SITE_LOCALES.filter((l) => l !== "en" && l !== "zh");
@@ -108,10 +83,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     ...enBlogSlugs.map((slug) => ({
       url: `${baseUrl}/en/blog/${slug}` as const,
-      lastModified: new Date("2026-05-11"),
+      lastModified: enBlogLastModified[slug] ?? new Date("2026-05-11"),
       changeFrequency: "monthly" as const,
-      priority: 0.7 as const,
-      ...(zhBlogSlugs.includes(slug) ? {
+      priority: slug.includes("seo-geo") ? (0.78 as const) : (0.7 as const),
+      ...(bilingualBlogSlugs.has(slug) ? {
         alternates: {
           languages: blogDetailAlternates(slug),
         },
@@ -149,7 +124,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: zhBlogLastModified[slug] ?? new Date("2026-05-11"),
       changeFrequency: "monthly" as const,
       priority: slug.includes("seo-geo") ? (0.75 as const) : (0.6 as const),
-      ...(enBlogSlugs.includes(slug) ? {
+      ...(bilingualBlogSlugs.has(slug) ? {
         alternates: {
           languages: blogDetailAlternates(slug),
         },
