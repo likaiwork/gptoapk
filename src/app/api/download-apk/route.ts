@@ -120,6 +120,11 @@ const APKCOMBO_SOURCE_PAGES: Record<string, { pageUrl: string; fileName: string;
     fileName: 'Pinduoduo.apk',
     type: 'APK',
   },
+  'com.netshort.abroad': {
+    pageUrl: 'https://apkcombo.com/netshort/com.netshort.abroad/download/apk',
+    fileName: 'NetShort.apk',
+    type: 'APK',
+  },
   'com.jingdong.app.mall': {
     pageUrl: 'https://apkcombo.com/jd-com-jingdong/com.jingdong.app.mall/download/apk',
     fileName: 'JD.apk',
@@ -830,6 +835,7 @@ async function resolveDownloadSourceForPrepare(appId: string): Promise<SourceRes
       tryAptoide(appId, quickTimeout.signal),
       tryApkPure(appId, quickTimeout.signal),
       tryApkComboApp(appId, quickTimeout.signal),
+      tryOnlineApkDownloader(appId),
     ]);
     const hit = quick.find((result) => result !== null);
     if (hit) return hit;

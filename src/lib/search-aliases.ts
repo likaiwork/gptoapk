@@ -1991,6 +1991,10 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
     aliases: ["reelshort", "reel short"],
   },
   {
+    appIds: ["com.netshort.abroad"],
+    aliases: ["netshort", "net short", "netshort app", "com.netshort.abroad"],
+  },
+  {
     appIds: ["com.mobilshobe.birbank"],
     aliases: ["birbank", "bir bank"],
   },
@@ -2549,6 +2553,7 @@ export const PRIORITY_STATIC_ALIAS_QUERIES = [
   "googieplay",
   "neverless",
   "平行世界AI聊天软件最新版",
+  "netshort",
 ] as const;
 
 export function listStaticSearchAliasBindings(): Array<{

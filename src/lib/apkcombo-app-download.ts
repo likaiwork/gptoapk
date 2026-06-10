@@ -24,6 +24,7 @@ const APKCOMBO_ORG_BY_APP_ID: Readonly<Record<string, string>> = {
   "com.whatsapp": "whatsapp",
   "com.smile.gifmaker": "kuaishou",
   "com.kwai.video": "kwai",
+  "com.netshort.abroad": "netshort",
 };
 
 function apkComboOrgForAppId(appId: string): string {
