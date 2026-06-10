@@ -1205,6 +1205,9 @@ export async function autoResolveDismissibleSearchFailures(): Promise<number> {
          OR query ILIKE '%badugi%'
          OR query ILIKE '%poker master%'
          OR query ILIKE '%pokermaster%'
+         OR query ILIKE '%xapk%'
+         OR query ILIKE '%apks%installer%'
+         OR query ILIKE '%c=apps%'
          OR query ~ '[\uFFFD]'
          OR (query ~ '[\x80-\xFF]' AND query !~ '[\u4e00-\u9fff]')
        )

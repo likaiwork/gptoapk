@@ -1,9 +1,11 @@
 import {
   getDownloadFailureApps,
+  getManualDownloadSource,
   initDatabase,
   updateDownloadFailureMetadata,
   updateDownloadFailureResolved,
 } from "@/lib/db";
+import { isAllowedDownloadUrl } from "@/lib/download-url-allowlist";
 import {
   MIRROR_UNAVAILABLE_ADMIN_ERROR,
   PAID_APP_UNSUPPORTED_ADMIN_ERROR,
@@ -93,24 +95,6 @@ export async function runAdminDownloadFailureRepair(options?: {
   await initDatabase();
   const blockedResolved = await autoResolveBlockedDownloadFailures();
 
-  const candidates: Array<{ raw_app_id: string; app_id: string; failure_count: number }> = [];
-  let page = 0;
-  const pageSize = 100;
-
-  while (candidates.length < maxApps) {
-    const { rows } = await getDownloadFailureApps(pageSize, page * pageSize);
-    for (const row of rows) {
-      if (row.resolved) continue;
-      if (Number(row.failure_count) <= failureThreshold) continue;
-      const appId = sanitizeAppId(row.app_id);
-      if (!appId || getUnsupportedPaidApp(appId) || getUnsupportedNoMirrorApp(appId)) continue;
-      candidates.push({ raw_app_id: row.app_id, app_id: appId, failure_count: row.failure_count });
-      if (candidates.length >= maxApps) break;
-    }
-    if (rows.length < pageSize) break;
-    page += 1;
-  }
-
   const markResolved = async (rawAppId: string, resolvedAppId?: string) => {
     const cleanId = sanitizeAppId(resolvedAppId ?? rawAppId);
     let ok = await updateDownloadFailureResolved(cleanId, true);
@@ -120,7 +104,32 @@ export async function runAdminDownloadFailureRepair(options?: {
     return ok;
   };
 
+  const candidates: Array<{ raw_app_id: string; app_id: string; failure_count: number }> = [];
+  let page = 0;
+  const pageSize = 100;
   let downloadMarkedResolved = 0;
+
+  while (candidates.length < maxApps) {
+    const { rows } = await getDownloadFailureApps(pageSize, page * pageSize);
+    for (const row of rows) {
+      if (row.resolved) continue;
+      if (Number(row.failure_count) <= failureThreshold) continue;
+      const appId = sanitizeAppId(row.app_id);
+      if (!appId || getUnsupportedPaidApp(appId) || getUnsupportedNoMirrorApp(appId)) continue;
+
+      const manual = await getManualDownloadSource(appId);
+      if (manual?.active && isAllowedDownloadUrl(manual.download_url)) {
+        if (await markResolved(row.app_id, appId)) downloadMarkedResolved += 1;
+        continue;
+      }
+
+      candidates.push({ raw_app_id: row.app_id, app_id: appId, failure_count: row.failure_count });
+      if (candidates.length >= maxApps) break;
+    }
+    if (rows.length < pageSize) break;
+    page += 1;
+  }
+
   for (const item of candidates) {
     const result = await prepareDownload(item.app_id);
     if (result.success) {

@@ -156,6 +156,12 @@ const SEARCH_TYPO_CORRECTIONS: Readonly<Record<string, string>> = {
   "h s b c": "hsbc",
   eshare: "eshare",
   office: "microsoft office",
+  offiec: "office",
+  offce: "office",
+  "tik ttom": "tiktok",
+  tikttom: "tiktok",
+  palpay: "paypal",
+  paypall: "paypal",
   "淘宝lte": "淘宝lite",
   "淘宝 lite": "淘宝lite",
   taobaolite: "淘宝lite",
@@ -222,6 +228,9 @@ export function isVpnSearchKeyword(term: string): boolean {
     q.includes("梯子") ||
     q.includes("科学上网") ||
     q.includes("飞机") ||
-    q.includes("外网")
+    q.includes("外网") ||
+    q === "tunnel" ||
+    q.includes("tunnel") ||
+    q.includes("隧道")
   );
 }

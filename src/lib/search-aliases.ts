@@ -1995,6 +1995,35 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
     aliases: ["netshort", "net short", "netshort app", "com.netshort.abroad"],
   },
   {
+    appIds: ["com.netshort.abroad", "com.newleaf.app.android.victor", "com.storymatrix.drama.android"],
+    aliases: ["短剧", "短剧app", "竖屏短剧"],
+  },
+  {
+    appIds: ["org.microg.gms", "com.google.android.gms"],
+    aliases: [
+      "microg",
+      "microg services",
+      "microg services hw",
+      "micro g",
+      "谷歌框架",
+      "谷歌服务框架",
+      "google play services",
+      "gms",
+    ],
+  },
+  {
+    appIds: ["com.tunnelbear.android"],
+    aliases: ["bear", "tunnelbear", "tunnel bear"],
+  },
+  {
+    appIds: ["com.yoodli.mobile"],
+    aliases: ["yoodli", "yoodli app"],
+  },
+  {
+    appIds: ["com.apkpure.installer"],
+    aliases: ["xapk installer", "apkpure installer"],
+  },
+  {
     appIds: ["com.mobilshobe.birbank"],
     aliases: ["birbank", "bir bank"],
   },
@@ -2554,6 +2583,14 @@ export const PRIORITY_STATIC_ALIAS_QUERIES = [
   "neverless",
   "平行世界AI聊天软件最新版",
   "netshort",
+  "offiec",
+  "tunnel",
+  "microg services",
+  "谷歌框架",
+  "短剧",
+  "palpay",
+  "tik ttom",
+  "bear",
 ] as const;
 
 export function listStaticSearchAliasBindings(): Array<{
