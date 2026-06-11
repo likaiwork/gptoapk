@@ -9,6 +9,8 @@ import { isApkLandingPaidApp } from "@/lib/apk-landing/is-paid-app";
 import { isUnsupportedNoMirrorApp } from "@/lib/unsupported-no-mirror-apps";
 import { getMirrorUnavailableMessage } from "@/lib/download-errors";
 import { apkLandingUi } from "@/lib/apk-landing/ui-strings";
+import { analyticsEvents } from "@/lib/analytics-events";
+import { trackEvent } from "@/lib/client-analytics";
 
 type AppResult = {
   appId: string;
@@ -154,6 +156,13 @@ export default function ApkLandingInlineApp({
         target="_blank"
         rel="noopener noreferrer"
         className={heroBtnClass}
+        onClick={() =>
+          trackEvent(analyticsEvents.playStoreClick, {
+            app_id: config.packageName,
+            landing_slug: config.slug,
+            locale: config.locale,
+          })
+        }
       >
         <DownloadIcon className="h-6 w-6" />
         {ui.playStoreInstall}

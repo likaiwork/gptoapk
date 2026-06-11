@@ -43,3 +43,9 @@ jobs:
           BAIDU_SITE_PARAM: ${{ vars.BAIDU_SITE_PARAM || 'gptoapk.com' }}
           BAIDU_SITEMAPS: ${{ vars.BAIDU_SITEMAPS || 'https://gptoapk.com/sitemap-zh.xml,https://gptoapk.com/sitemap-ai.xml' }}
         run: npm run baidu-submit
+
+      - name: 📡 IndexNow — India APK cluster
+        env:
+          INDEXNOW_HOST: https://www.gptoapk.com
+          INDEXNOW_SITEMAP_HOST: https://www.gptoapk.com
+        run: npm run indexnow:india || echo "::warning::IndexNow india cluster submit failed (non-blocking)"

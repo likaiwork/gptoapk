@@ -111,14 +111,17 @@
 
 ---
 
-### Phase 4 — 索引与监控（持续）
+### Phase 4 — 索引与监控（持续）【已上线自动化 2026-06-12】
 
-| 任务 | 频率 |
-|------|------|
-| IndexNow 提交新 URL | 每次 deploy |
-| GSC / Ahrefs 看 `minecraft apk` / `capcut apk` 展现 | 每周 |
-| Admin 搜索失败词 → 补 alias | 每周 |
-| 印度集群 CTR：Download 点击 vs Play 点击 | 每月 |
+| 任务 | 频率 | 实现 |
+|------|------|------|
+| IndexNow 印度集群 | 每次 deploy | `deploy.yml` → `npm run indexnow:india` |
+| IndexNow 博客 | 发布日 | `content-post-publish.yml` |
+| GSC 关键词复盘 | 每周一 | `phase4-weekly-reminder.yml` Issue + `phase4:checklist` |
+| Admin 失败词 → alias | 每周 | Runbook §4；已补 bgmi/truecaller/snapchat |
+| Download vs Play CTR | 每月 GA4 | 事件 `download_click` / `play_store_click` + `landing_slug` |
+
+**文档：** `content/seo/phase4-monitoring-2026.md` · URL 清单 `content/seo/india-cluster-urls.json`
 
 ---
 
@@ -177,4 +180,4 @@ Ongoing
 
 ---
 
-**下一步（待你确认后执行）：** **Phase 4** — IndexNow 监控、GSC 复盘、admin 搜索失败词补 alias。
+**下一步（持续运维）：** 每周跑 `npm run phase4:checklist`；GSC/GA4 填 runbook 表格；admin 新失败词补 alias。

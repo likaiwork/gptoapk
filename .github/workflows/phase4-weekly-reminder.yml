@@ -1,0 +1,46 @@
+name: 📊 Phase 4 Weekly SEO Checklist
+
+on:
+  schedule:
+    # Monday 10:00 Asia/Shanghai = 02:00 UTC
+    - cron: "0 2 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  reminder:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Build checklist body
+        id: body
+        run: |
+          node scripts/phase4-weekly-checklist.mjs > /tmp/phase4-checklist.md
+          DATE=$(node -e "
+            console.log(new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Shanghai', year:'numeric', month:'2-digit', day:'2-digit' }).format(new Date()));
+          ")
+          echo "date=$DATE" >> "$GITHUB_OUTPUT"
+
+      - name: Ensure label exists
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh label create "seo-weekly" --color "0E8A16" --description "Phase 4 weekly GSC/GA4 checklist" 2>/dev/null || true
+
+      - name: Create weekly SEO issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+          DATE: ${{ steps.body.outputs.date }}
+        run: |
+          gh issue create \
+            --title "📊 Phase 4 SEO 周报 ${DATE} · GSC / GA4 / Admin failures" \
+            --label "seo-weekly" \
+            --body-file /tmp/phase4-checklist.md

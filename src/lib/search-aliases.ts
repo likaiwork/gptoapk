@@ -849,7 +849,14 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
   },
   {
     appIds: ["com.snapchat.android"],
-    aliases: ["snapchat", "snap", "snapchat下载", "com.snapchat.android"],
+    aliases: [
+      "snapchat",
+      "snap",
+      "snapchat下载",
+      "snapchat apk",
+      "snapchat apk download",
+      "com.snapchat.android",
+    ],
   },
   {
     appIds: ["com.pinterest"],
@@ -1539,6 +1546,26 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
       "free fire apk",
       "free fire apk download",
       "com.dts.freefireth",
+    ],
+  },
+  {
+    appIds: ["com.pubg.imobile"],
+    aliases: [
+      "bgmi",
+      "battlegrounds mobile india",
+      "pubg india",
+      "bgmi apk",
+      "bgmi apk download",
+      "com.pubg.imobile",
+    ],
+  },
+  {
+    appIds: ["com.truecaller"],
+    aliases: [
+      "truecaller",
+      "truecaller apk",
+      "truecaller apk download",
+      "com.truecaller",
     ],
   },
   {

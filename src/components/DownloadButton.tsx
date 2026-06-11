@@ -70,8 +70,12 @@ export default function DownloadButton({
   const handleDownload = async () => {
     const startedAt = performance.now();
 
+    const landingMatch = pathname.match(/\/(hi|id|en)\/([^/]+-apk)\/?$/);
     trackEvent(analyticsEvents.downloadClick, {
       app_id: appId,
+      ...(landingMatch
+        ? { landing_slug: landingMatch[2], locale: landingMatch[1] }
+        : { path: pathname }),
     });
 
     setStatus("preparing");

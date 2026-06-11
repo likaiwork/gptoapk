@@ -4,6 +4,7 @@ export const analyticsEvents = {
   parseSuccess: 'parse_success',
   parseFailed: 'parse_failed',
   downloadClick: 'download_click',
+  playStoreClick: 'play_store_click',
   downloadPrepareSuccess: 'download_prepare_success',
   downloadPrepareFailed: 'download_prepare_failed',
   downloadStart: 'download_start',

@@ -7,6 +7,8 @@
     "build": "next build",
     "baidu-submit": "node scripts/baidu-submit.mjs",
     "indexnow": "node scripts/indexnow-submit.mjs",
+    "indexnow:india": "node scripts/indexnow-india-cluster.mjs",
+    "phase4:checklist": "node scripts/phase4-weekly-checklist.mjs",
     "content:today": "node scripts/content-queue.mjs today",
     "content:reminder": "node scripts/content-queue.mjs reminder",
     "content:syndication": "node scripts/generate-syndication-pack.mjs",

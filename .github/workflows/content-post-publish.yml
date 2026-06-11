@@ -8,6 +8,8 @@ on:
       - "content/queue/status.json"
       - "src/app/zh/blog/**"
       - "src/app/en/blog/**"
+      - "src/app/hi/blog/**"
+      - "src/lib/blog/posts-*-india*.tsx"
       - "seo-articles/**"
   workflow_dispatch:
     inputs:
@@ -68,6 +70,12 @@ jobs:
             console.log('https://www.gptoapk.com'+item.canonicalPath);
           ")
           if [ -n "$URL" ]; then npm run indexnow -- "$URL"; else echo "[indexnow] Skip: not marked published today"; fi
+
+      - name: IndexNow India cluster (hi blog / GEO posts)
+        if: ${{ github.event.inputs.url == '' }}
+        env:
+          INDEXNOW_HOST: https://www.gptoapk.com
+        run: npm run indexnow:india || true
 
   external-publish:
     runs-on: ubuntu-latest
