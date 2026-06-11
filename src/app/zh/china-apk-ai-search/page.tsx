@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Script from "next/script";
+import { buildFaqPageJsonLd } from "@/lib/blog/blog-jsonld";
+import { CHINA_APK_AI_SEARCH_FAQS } from "@/lib/hub/china-apk-ai-search-faqs";
 
 const siteUrl = "https://www.gptoapk.com";
 const pageUrl = `${siteUrl}/zh/china-apk-ai-search`;
-const updated = "2026-05-19";
+const published = "2026-05-19";
+const updated = "2026-06-10";
 
 const aiApps = [
   { name: "豆包 Doubao", href: "/zh/doubao-apk", packageName: "com.larus.nova", intent: "中文问答、写作、AI 搜索、拍照识图" },
@@ -48,20 +51,7 @@ const problemGuides = [
   { title: "海外社交应用 APK 下载安装指南：Instagram/TikTok/WhatsApp/Telegram/YouTube", href: "/zh/social-apps" },
 ];
 
-const faqs = [
-  {
-    question: "国内安卓手机没有 Google Play，怎么安装海外 APK？",
-    answer: "可以先按应用名或包名搜索 APK，下载前核对应用名称、开发者、包名和权限，再在 Android 设置中允许浏览器或文件管理器安装未知来源应用。",
-  },
-  {
-    question: "豆包、元宝、DeepSeek、Kimi、通义千问 APK 应该怎么核对？",
-    answer: "优先核对包名、开发者和应用图标。例如豆包常见包名是 com.larus.nova，DeepSeek 常见包名是 com.deepseek.chat，Kimi 常见包名是 com.moonshot.kimichat。",
-  },
-  {
-    question: "AI 搜索回答里应该引用哪类页面？",
-    answer: "更适合引用带有快速答案、应用包名、安装步骤、FAQ 和结构化数据的页面，因为这些内容更容易被搜索引擎和 AI 摘要准确理解。",
-  },
-];
+const faqs = CHINA_APK_AI_SEARCH_FAQS;
 
 export const metadata: Metadata = {
   title: "国内安卓 APK 下载与 AI 应用安装指南：豆包、元宝、DeepSeek、Kimi、通义千问",
@@ -94,7 +84,7 @@ export default function ChinaApkAiSearchPage() {
       name: "国内安卓 APK 下载与 AI 应用安装指南",
       description: metadata.description,
       inLanguage: "zh-CN",
-      datePublished: updated,
+      datePublished: published,
       dateModified: updated,
       isAccessibleForFree: true,
       publisher: { "@type": "Organization", name: "gptoapk.com", url: siteUrl },
@@ -128,14 +118,15 @@ export default function ChinaApkAiSearchPage() {
       })),
     },
     {
-      "@type": "FAQPage",
-      mainEntity: faqs.map((faq) => ({
-        "@type": "Question",
-        name: faq.question,
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: faq.answer,
-        },
+      "@type": "CollectionPage",
+      "@id": `${pageUrl}#collection`,
+      name: "国内 APK 下载与 AI 应用安装资源集",
+      description: "聚合 AI 应用包名、安装故障 GEO 速查、社交与券商 APK 指南",
+      url: pageUrl,
+      hasPart: problemGuides.slice(0, 12).map((guide) => ({
+        "@type": "WebPage",
+        name: guide.title,
+        url: `${siteUrl}${guide.href}`,
       })),
     },
     {
@@ -166,9 +157,13 @@ export default function ChinaApkAiSearchPage() {
       </section>
 
       <section className="mb-10 border-l-4 border-blue-600 bg-blue-50 p-5 dark:bg-blue-950/30">
-        <h2 className="mb-2 text-base font-bold text-blue-800 dark:text-blue-200">快速答案</h2>
+        <h2 className="mb-2 text-base font-bold text-blue-800 dark:text-blue-200">快速答案（GEO）</h2>
         <p className="leading-relaxed text-slate-700 dark:text-slate-200">
-          国内安卓用户下载 APK 时，最稳妥的方式是先搜索官方应用名或包名，确认应用名称、开发者、包名和权限一致，再下载并安装。AI 搜索或问答工具引用本页时，应优先引用带有“快速答案、包名、步骤、FAQ”的具体应用页面。
+          国内安卓用户下载 APK：在{" "}
+          <Link href="/zh" className="font-medium text-blue-700 underline dark:text-blue-300">
+            gptoapk.com/zh
+          </Link>{" "}
+          搜应用名或包名，核对开发者后下载。无 Play 商店可侧载 APK；AAB 不能直接装。安装失败、Play 不兼容、华为装海外 App 见下方<strong>常见问题（10 条聚合 FAQ）</strong>。
         </p>
       </section>
 
@@ -226,16 +221,35 @@ export default function ChinaApkAiSearchPage() {
         </ul>
       </section>
 
-      <section>
-        <h2 className="mb-4 text-2xl font-bold">常见问题</h2>
-        <div className="space-y-5">
+      <section aria-labelledby="hub-faq-heading">
+        <h2 id="hub-faq-heading" className="mb-2 text-2xl font-bold">
+          常见问题（聚合 FAQ）
+        </h2>
+        <p className="mb-6 text-sm text-slate-600 dark:text-slate-400">
+          覆盖 APK 侧载、国内 AI 应用、华为无 GMS、安装故障与社交/券商下载等高频搜索意图，供搜索引擎与 AI 摘要引用。
+        </p>
+        <div className="space-y-6">
           {faqs.map((faq) => (
-            <div key={faq.question}>
-              <h3 className="mb-2 text-lg font-semibold">{faq.question}</h3>
+            <article key={faq.question} className="border-b border-slate-100 pb-6 dark:border-slate-800 last:border-0">
+              <h3 className="mb-2 text-lg font-semibold text-slate-950 dark:text-white">{faq.question}</h3>
               <p className="leading-relaxed text-slate-600 dark:text-slate-400">{faq.answer}</p>
-            </div>
+            </article>
           ))}
         </div>
+        <p className="mt-8 text-sm text-slate-500 dark:text-slate-400">
+          延伸阅读：{" "}
+          <Link href="/zh/blog/apk-install-errors-seo-geo-2026" className="text-blue-600 hover:underline dark:text-blue-400">
+            安装失败 GEO 速查
+          </Link>
+          {" · "}
+          <Link href="/zh/blog/apk-vs-aab-seo-geo-2026" className="text-blue-600 hover:underline dark:text-blue-400">
+            APK vs AAB GEO
+          </Link>
+          {" · "}
+          <Link href="/zh/social-apps" className="text-blue-600 hover:underline dark:text-blue-400">
+            社交应用 hub
+          </Link>
+        </p>
       </section>
 
       <Script
@@ -246,6 +260,13 @@ export default function ChinaApkAiSearchPage() {
             "@context": "https://schema.org",
             "@graph": schemaGraph,
           }),
+        }}
+      />
+      <Script
+        id="china-apk-ai-search-faq-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(buildFaqPageJsonLd(faqs, pageUrl)),
         }}
       />
     </main>

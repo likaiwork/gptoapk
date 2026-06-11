@@ -217,7 +217,7 @@ export async function tryInlineSearchDiscovery(
   country: string,
 ): Promise<string[] | null> {
   return discoverAppIdsFromPlayStore(rawQuery, lang, country, {
-    strict: true,
+    strict: false,
     persistAlias: true,
     sourceLabel: "inline-search-discovery",
   });
@@ -236,7 +236,7 @@ export function scheduleSearchFailureAutoDiscovery(params: {
   const country = (params.country || (lang.startsWith("zh") ? "cn" : "us")).slice(0, 8);
 
   void discoverAppIdsFromPlayStore(trimmed, lang, country, {
-    strict: true,
+    strict: false,
     persistAlias: true,
     sourceLabel: "search-failure-auto-discovery",
   }).catch((error) => {

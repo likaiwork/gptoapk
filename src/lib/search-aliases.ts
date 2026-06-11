@@ -448,7 +448,7 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
   },
   {
     appIds: ["com.xingin.xhs"],
-    aliases: ["小红书", "xiaohongshu", "红书", "com.xingin.xhs"],
+    aliases: ["小红书", "xiaohongshu", "红书", "rednote", "red note", "com.xingin.xhs"],
   },
   {
     appIds: ["com.tencent.qqmusic"],
@@ -1619,11 +1619,11 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
   },
   {
     appIds: ["com.android.chrome"],
-    aliases: ["chrome", "谷歌浏览器"],
+    aliases: ["chrome", "谷歌浏览器", "google浏览器", "google chrome", "google 浏览器", "google浏览器"],
   },
   {
     appIds: ["org.mozilla.firefox"],
-    aliases: ["firefox", "火狐"],
+    aliases: ["firefox", "火狐", "火狐浏览器", "mozilla firefox"],
   },
   {
     appIds: ["com.brave.browser"],
@@ -2422,7 +2422,146 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
   },
   {
     appIds: ["com.google.android.googlequicksearchbox"],
-    aliases: ["google app", "google search"],
+    aliases: ["google app", "google search", "gogoogle", "gooka", "gtok"],
+  },
+  {
+    appIds: ["net.dinglisch.android.taskerm"],
+    aliases: ["tasker", "tasker app", "net.dinglisch.android.taskerm"],
+  },
+  {
+    appIds: ["com.arlosoft.macrodroid"],
+    aliases: ["macrodroid", "macro droid", "com.arlosoft.macrodroid"],
+  },
+  {
+    appIds: ["com.maxmpz.audioplayer"],
+    aliases: ["poweramp", "power amp", "com.maxmpz.audioplayer"],
+  },
+  {
+    appIds: ["com.zerotier.one"],
+    aliases: ["zerotier", "zerotier one", "zero tier", "com.zerotier.one"],
+  },
+  {
+    appIds: ["com.cloudflare.onedotonedotonedotone"],
+    aliases: [
+      "cloudflare one",
+      "cloudflare one agent",
+      "cloudflare 1.1.1.1",
+      "1.1.1.1",
+      "warp",
+      "com.cloudflare.onedotonedotonedotone",
+    ],
+  },
+  {
+    appIds: ["com.github.metacubex.clash.meta"],
+    aliases: [
+      "clash",
+      "clash meta",
+      "clash verge",
+      "clash meta for android",
+      "flclash",
+      "fl clash",
+      "com.github.metacubex.clash.meta",
+    ],
+  },
+  {
+    appIds: ["com.neowizgames.game.browndust2"],
+    aliases: ["brown dust", "brown dust 2", "棕色尘埃", "棕色尘埃2", "browndust2"],
+  },
+  {
+    appIds: ["com.getmimo"],
+    aliases: [
+      "mimo",
+      "mimo learn coding",
+      "mimo: learn coding",
+      "learn coding",
+      "mimo app",
+      "com.getmimo",
+    ],
+  },
+  {
+    appIds: ["com.ProjectMoon.LimBusCompany"],
+    aliases: ["limbus company", "limbus", "com.projectmoon.limbuscompany"],
+  },
+  {
+    appIds: ["jp.pokemon.pokemonhome"],
+    aliases: ["pokemon home", "pokémon home", "pokemonhome", "宝可梦home"],
+  },
+  {
+    appIds: ["com.samsung.android.app.sharelive"],
+    aliases: ["quick share", "quickshare", "samsung quick share"],
+  },
+  {
+    appIds: ["com.eco.atracker"],
+    aliases: ["atracker", "atracker pro", "a tracker", "com.eco.atracker"],
+  },
+  {
+    appIds: ["org.khankids.android"],
+    aliases: ["khan academy kids", "khan kids", "可汗学院儿童版"],
+  },
+  {
+    appIds: ["com.Qunar"],
+    aliases: ["qunar", "去哪儿", "去哪儿旅行", "com.qunar"],
+  },
+  {
+    appIds: ["com.mi.health"],
+    aliases: ["mi fitness", "小米运动健康", "小米健康", "com.mi.health"],
+  },
+  {
+    appIds: ["jp.co.panasonic.avc.cng.imageapp"],
+    aliases: [
+      "lumix lab",
+      "lumix_lab",
+      "panasonic lumix lab",
+      "panasonic lumix",
+      "lumix",
+    ],
+  },
+  {
+    appIds: ["com.brickit.brickit"],
+    aliases: ["brickit", "com.brickit.brickit"],
+  },
+  {
+    appIds: ["com.goplaycn.googleinstallers"],
+    aliases: ["gms安装器", "谷歌安装器", "google安装器", "gms installer", "google installer"],
+  },
+  {
+    appIds: ["com.android.vending"],
+    aliases: [
+      "googleplaystore",
+      "google playstore",
+      "googlepaly",
+      "googlepaly store",
+      "google play store",
+      "playstore",
+    ],
+  },
+  {
+    appIds: ["com.google.android.gms"],
+    aliases: ["googleplayservices", "google play services app"],
+  },
+  {
+    appIds: ["com.dragon.read"],
+    aliases: ["番茄免费小说", "番茄小说", "fanqie", "番茄"],
+  },
+  {
+    appIds: ["com.zillow.android.zillowmap"],
+    aliases: ["zillow", "zillow app", "com.zillow.android.zillowmap"],
+  },
+  {
+    appIds: ["ru.iiec.pydroid3"],
+    aliases: ["pydroid 3", "pydroid3", "pydroid", "ru.iiec.pydroid3"],
+  },
+  {
+    appIds: ["com.concept2.ergdata"],
+    aliases: ["ergdata", "concept2 ergdata", "concept2"],
+  },
+  {
+    appIds: ["com.globe.gcash.android"],
+    aliases: ["gcash", "g cash", "com.globe.gcash.android"],
+  },
+  {
+    appIds: ["com.whatsapp"],
+    aliases: ["what's app", "whats app", "whats'app"],
   },
 ];
 
@@ -2637,6 +2776,24 @@ export const PRIORITY_STATIC_ALIAS_QUERIES = [
   "goodle",
   "uk immigration",
   "longbridgesg",
+  "tasker",
+  "macrodroid",
+  "macrodrpid",
+  "poweramp",
+  "zerotier",
+  "cloudflare one",
+  "clash verge",
+  "clash",
+  "google浏览器",
+  "火狐浏览器",
+  "gms安装器",
+  "rednote",
+  "番茄免费小说",
+  "gcash",
+  "zillow",
+  "pydroid 3",
+  "googlepaly",
+  "gogoogle",
 ] as const;
 
 export function listStaticSearchAliasBindings(): Array<{

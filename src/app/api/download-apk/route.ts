@@ -929,6 +929,12 @@ export async function GET(request: Request) {
       reason: 'source_not_available',
       duration_ms: Date.now() - startedAt,
     });
+    void recordDownloadPrepareFailure(
+      request,
+      appId,
+      'This APK is not available from our sources.',
+      'get-source-resolution',
+    );
 
     return NextResponse.json(
       { success: false, error: 'This APK is not available from our sources.' },
@@ -950,6 +956,7 @@ export async function GET(request: Request) {
 
     if (!upstream.ok || !upstream.body) {
       timeout.clear();
+      const upstreamError = `Upstream download failed (${upstream.status})`;
       void trackServerEvent(request, analyticsEvents.downloadFailed, {
         app_id: appId,
         source: result.source,
@@ -957,9 +964,10 @@ export async function GET(request: Request) {
         upstream_status: upstream.status,
         duration_ms: Date.now() - startedAt,
       });
+      void recordDownloadPrepareFailure(request, appId, upstreamError, result.source);
 
       return NextResponse.json(
-        { success: false, error: `Upstream download failed (${upstream.status})` },
+        { success: false, error: upstreamError },
         { status: 502 }
       );
     }
@@ -1040,10 +1048,13 @@ export async function GET(request: Request) {
       duration_ms: Date.now() - startedAt,
     });
 
+    const proxyError = isAbort ? 'Download timed out. Please try again.' : 'Download proxy failed.';
+    void recordDownloadPrepareFailure(request, appId, proxyError, result.source);
+
     return NextResponse.json(
       {
         success: false,
-        error: isAbort ? 'Download timed out. Please try again.' : 'Download proxy failed.',
+        error: proxyError,
         source: result.source,
       },
       { status: 502 }

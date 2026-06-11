@@ -178,6 +178,19 @@ const SEARCH_TYPO_CORRECTIONS: Readonly<Record<string, string>> = {
   konws: "knows",
   stardewvalley: "stardew valley",
   ergdata: "ergdata",
+  macrodrpid: "macrodroid",
+  googlepaly: "google play",
+  googleplaystore: "google play",
+  gogoogle: "google",
+  gooka: "google",
+  gtok: "google",
+  "what's app": "whatsapp",
+  "whats app": "whatsapp",
+  google浏览器: "谷歌浏览器",
+  火狐浏览器: "火狐",
+  pydroid3: "pydroid 3",
+  fanqie: "番茄免费小说",
+  番茄: "番茄免费小说",
 };
 
 export function applySearchTypoCorrection(query: string): string {

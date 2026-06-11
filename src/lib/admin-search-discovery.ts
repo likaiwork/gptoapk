@@ -119,12 +119,18 @@ async function discoverAppIdsForNormalizedQuery(
 
 async function applyDiscoveryForQuery(params: {
   query: string;
+  queryKey?: string;
   lang: string;
   country: string;
   sourceLabel: string;
 }): Promise<{ resolved: boolean; aliasesCreated: number; searchFailuresResolved: number }> {
   for (const variant of expandSearchQueryVariants(params.query)) {
-    const result = await applyDiscoveryForQueryVariant({ ...params, query: variant, originalQuery: params.query });
+    const result = await applyDiscoveryForQueryVariant({
+      ...params,
+      query: variant,
+      originalQuery: params.query,
+      queryKey: params.queryKey,
+    });
     if (result.resolved) return result;
   }
   return { resolved: false, aliasesCreated: 0, searchFailuresResolved: 0 };
@@ -133,6 +139,7 @@ async function applyDiscoveryForQuery(params: {
 async function applyDiscoveryForQueryVariant(params: {
   query: string;
   originalQuery: string;
+  queryKey?: string;
   lang: string;
   country: string;
   sourceLabel: string;
@@ -141,7 +148,10 @@ async function applyDiscoveryForQueryVariant(params: {
   const stripped = stripSearchQueryNoise(normalizedQuery);
   const queryForLookup = stripped.length >= 2 ? stripped : normalizedQuery;
   if (isVpnSearchKeyword(queryForLookup) || isVpnSearchKeyword(normalizedQuery)) {
-    const searchFailuresResolved = await resolveSearchFailuresForQuery(params.originalQuery);
+    const searchFailuresResolved = await markSearchFailuresResolvedForQuery(
+      params.originalQuery,
+      params.queryKey,
+    );
     return { resolved: true, aliasesCreated: 0, searchFailuresResolved };
   }
 
@@ -153,7 +163,10 @@ async function applyDiscoveryForQueryVariant(params: {
       sourceQuery: normalizedQuery,
       sourceLabel: `${params.sourceLabel}-static`,
     });
-    const searchFailuresResolved = await resolveSearchFailuresForQuery(params.originalQuery);
+    const searchFailuresResolved = await markSearchFailuresResolvedForQuery(
+      params.originalQuery,
+      params.queryKey,
+    );
     return { resolved: true, aliasesCreated, searchFailuresResolved };
   }
 
@@ -174,7 +187,10 @@ async function applyDiscoveryForQueryVariant(params: {
     sourceLabel: params.sourceLabel,
   });
 
-  const searchFailuresResolved = await resolveSearchFailuresForQuery(params.originalQuery);
+  const searchFailuresResolved = await markSearchFailuresResolvedForQuery(
+    params.originalQuery,
+    params.queryKey,
+  );
   return { resolved: true, aliasesCreated, searchFailuresResolved };
 }
 
@@ -237,8 +253,7 @@ export async function repairMissingAppFeedback(options?: {
       await updateMissingAppFeedbackStatus(item.id, "done");
     } else {
       discoveryMisses += 1;
-      // Play 与镜像源均无匹配：结案避免反馈队列长期堆积
-      await updateMissingAppFeedbackStatus(item.id, "done");
+      // 保持 pending，便于后台继续重试并在管理面板可见
     }
   }
 
@@ -281,6 +296,7 @@ export async function repairSearchFailuresViaDiscovery(options?: {
     const country = row.last_country || (lang.startsWith("zh") ? "cn" : "us");
     const result = await applyDiscoveryForQuery({
       query: row.query,
+      queryKey: row.query_key,
       lang,
       country,
       sourceLabel: "search-failure-discovery",
