@@ -22,6 +22,9 @@ type UiStrings = {
   relatedTitle: string;
   trustVerified: string;
   trustSources: string;
+  downloadApk: string;
+  viewAppPage: string;
+  aboutVersion: string;
 };
 
 const UI: Record<ApkLandingLocale, UiStrings> = {
@@ -47,6 +50,9 @@ const UI: Record<ApkLandingLocale, UiStrings> = {
     relatedTitle: "Related guides",
     trustVerified: "Play-sourced metadata",
     trustSources: "APK files are fetched from Google Play–linked sources, not third-party mod sites.",
+    downloadApk: "Download APK",
+    viewAppPage: "Open full app page",
+    aboutVersion: "About this version",
   },
   hi: {
     home: "होम",
@@ -70,6 +76,9 @@ const UI: Record<ApkLandingLocale, UiStrings> = {
     relatedTitle: "संबंधित गाइड",
     trustVerified: "Play-स्रोत मेटाडेटा",
     trustSources: "APK Google Play–लिंक्ड स्रोतों से मिलता है, मॉड साइटों से नहीं।",
+    downloadApk: "APK डाउनलोड करें",
+    viewAppPage: "पूरा ऐप पेज खोलें",
+    aboutVersion: "इस संस्करण के बारे में",
   },
   id: {
     home: "Beranda",
@@ -93,6 +102,9 @@ const UI: Record<ApkLandingLocale, UiStrings> = {
     relatedTitle: "Panduan terkait",
     trustVerified: "Metadata dari Play",
     trustSources: "APK diambil dari sumber terkait Google Play, bukan situs mod.",
+    downloadApk: "Unduh APK",
+    viewAppPage: "Buka halaman aplikasi",
+    aboutVersion: "Tentang versi ini",
   },
   zh: {
     home: "首页",
@@ -116,6 +128,9 @@ const UI: Record<ApkLandingLocale, UiStrings> = {
     relatedTitle: "相关指南",
     trustVerified: "Play 来源元数据",
     trustSources: "APK 来自 Google Play 关联源，非第三方魔改站。",
+    downloadApk: "下载 APK",
+    viewAppPage: "打开完整应用页",
+    aboutVersion: "版本信息",
   },
 };
 
