@@ -37,9 +37,16 @@ type DownloadButtonProps = {
   appId: string;
   appName?: string;
   compact?: boolean;
+  /** Appteka-style large primary CTA for APK landing heroes */
+  variant?: "default" | "hero";
 };
 
-export default function DownloadButton({ appId, appName, compact = false }: DownloadButtonProps) {
+export default function DownloadButton({
+  appId,
+  appName,
+  compact = false,
+  variant = "default",
+}: DownloadButtonProps) {
   const pathname = usePathname();
   const localeMatch = pathname.match(localePathRegex);
   const locale = (localeMatch?.[1] as SiteLocale | undefined) ?? "en";
@@ -183,13 +190,18 @@ export default function DownloadButton({ appId, appName, compact = false }: Down
   const isPreparing = status === "preparing";
   const isStarted = status === "started";
   const isFallback = status === "fallback";
-  const buttonClassName = compact
-    ? "bg-green-600 hover:bg-green-700 disabled:opacity-75 disabled:cursor-not-allowed text-white font-bold py-3 px-5 rounded-xl transition-colors shadow-md flex items-center justify-center gap-2 text-sm w-full sm:w-auto active:scale-95 transform"
-    : "bg-green-600 hover:bg-green-700 disabled:opacity-75 disabled:cursor-not-allowed text-white font-bold py-4 px-8 rounded-xl transition-colors shadow-lg flex items-center justify-center sm:justify-start gap-3 text-lg w-full sm:w-auto hover:scale-[1.02] active:scale-95 transform";
-  const iconClassName = compact ? "h-5 w-5" : "h-6 w-6";
+  const buttonClassName =
+    variant === "hero"
+      ? "w-full bg-slate-900 hover:bg-black disabled:opacity-75 disabled:cursor-not-allowed text-white font-bold py-4 px-6 rounded-xl transition-all shadow-xl flex items-center justify-center gap-2.5 text-lg active:scale-[0.98]"
+      : compact
+        ? "bg-green-600 hover:bg-green-700 disabled:opacity-75 disabled:cursor-not-allowed text-white font-bold py-3 px-5 rounded-xl transition-colors shadow-md flex items-center justify-center gap-2 text-sm w-full sm:w-auto active:scale-95 transform"
+        : "bg-green-600 hover:bg-green-700 disabled:opacity-75 disabled:cursor-not-allowed text-white font-bold py-4 px-8 rounded-xl transition-colors shadow-lg flex items-center justify-center sm:justify-start gap-3 text-lg w-full sm:w-auto hover:scale-[1.02] active:scale-95 transform";
+  const iconClassName = variant === "hero" ? "h-6 w-6" : compact ? "h-5 w-5" : "h-6 w-6";
+  const wrapperClassName =
+    variant === "hero" ? "flex w-full flex-col gap-2" : "flex flex-col items-start gap-2 w-full sm:w-auto";
 
   return (
-    <div className="flex flex-col items-start gap-2 w-full sm:w-auto">
+    <div className={wrapperClassName}>
       <iframe name="gptoapk-direct-download" className="hidden" title="APK direct download" />
 
       <button

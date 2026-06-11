@@ -25,6 +25,8 @@ type AppResult = {
 type Props = {
   config: ApkLandingConfig;
   onIconUrl?: (url: string | null) => void;
+  onAppLoaded?: (app: AppResult | null) => void;
+  variant?: "default" | "hero";
 };
 
 function buildPlayStoreHref(appId: string, locale: string, country: string) {
@@ -32,7 +34,27 @@ function buildPlayStoreHref(appId: string, locale: string, country: string) {
   return `https://play.google.com/store/apps/details?${params.toString()}`;
 }
 
-export default function ApkLandingInlineApp({ config, onIconUrl }: Props) {
+function DownloadIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      strokeWidth={2}
+    >
+      <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+    </svg>
+  );
+}
+
+export default function ApkLandingInlineApp({
+  config,
+  onIconUrl,
+  onAppLoaded,
+  variant = "hero",
+}: Props) {
   const [app, setApp] = useState<AppResult | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -41,7 +63,9 @@ export default function ApkLandingInlineApp({ config, onIconUrl }: Props) {
   const isPaidListed = config.packageName in unsupportedPaidApps;
   const mirrorBlocked = isUnsupportedNoMirrorApp(config.packageName);
   const onIconUrlRef = useRef(onIconUrl);
+  const onAppLoadedRef = useRef(onAppLoaded);
   onIconUrlRef.current = onIconUrl;
+  onAppLoadedRef.current = onAppLoaded;
 
   useEffect(() => {
     let cancelled = false;
@@ -65,13 +89,20 @@ export default function ApkLandingInlineApp({ config, onIconUrl }: Props) {
             if (!cancelled) {
               setApp(match);
               onIconUrlRef.current?.(proxyImageUrl(match.icon));
+              onAppLoadedRef.current?.(match);
             }
             return;
           }
         }
-        if (!cancelled) setError("No apps found");
+        if (!cancelled) {
+          setError("No apps found");
+          onAppLoadedRef.current?.(null);
+        }
       } catch {
-        if (!cancelled) setError("Failed to load app info");
+        if (!cancelled) {
+          setError("Failed to load app info");
+          onAppLoadedRef.current?.(null);
+        }
       } finally {
         if (!cancelled) setLoading(false);
       }
@@ -83,68 +114,50 @@ export default function ApkLandingInlineApp({ config, onIconUrl }: Props) {
     };
   }, [config.packageName, config.searchQuery, config.locale, country]);
 
+  const playHref = buildPlayStoreHref(config.packageName, config.locale, country);
+  const showPlayPrimary = isPaidListed || mirrorBlocked || (app?.free === false);
+  const heroBtnClass =
+    "flex w-full items-center justify-center gap-2.5 rounded-xl bg-slate-900 px-6 py-4 text-lg font-bold text-white shadow-xl transition-all hover:bg-black active:scale-[0.98]";
+
   if (loading) {
     return (
-      <div className="flex w-full flex-col gap-3 lg:w-72">
-        <div className="h-14 animate-pulse rounded-xl bg-slate-200 dark:bg-slate-700" />
-        <div className="h-10 animate-pulse rounded-xl bg-slate-100 dark:bg-slate-800" />
+      <div className="w-full">
+        <div className="h-[60px] w-full animate-pulse rounded-xl bg-slate-300 dark:bg-slate-600" />
       </div>
     );
   }
 
-  const playHref = buildPlayStoreHref(config.packageName, config.locale, country);
-  const showPlayPrimary = isPaidListed || mirrorBlocked || (app?.free === false);
-
   return (
-    <div className="flex w-full flex-col gap-3 lg:w-72">
-      {app && (
-        <div className="rounded-xl border border-slate-200 bg-slate-50 p-3 text-left dark:border-slate-600 dark:bg-slate-900/50">
-          <p className="truncate text-sm font-bold text-slate-900 dark:text-white">{app.title}</p>
-          {app.developer && (
-            <p className="truncate text-xs text-blue-600 dark:text-blue-400">{app.developer}</p>
-          )}
-          <p className="mt-1 break-all text-xs text-slate-500">{app.appId}</p>
-        </div>
-      )}
-
+    <div className="w-full">
       {showPlayPrimary ? (
-        <div className="space-y-2 rounded-xl border border-amber-200 bg-amber-50 p-4 dark:border-amber-900/50 dark:bg-amber-950/30">
-          <p className="text-sm text-amber-900 dark:text-amber-100">
-            {isPaidListed
-              ? config.locale === "hi"
-                ? "Minecraft एक पेड गेम है — Google Play से खरीदें और इंस्टॉल करें।"
-                : "This is a paid app — purchase and install from Google Play."
-              : getMirrorUnavailableMessage(config.locale)}
-          </p>
+        <div className="space-y-2">
           <a
             href={playHref}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex w-full items-center justify-center rounded-xl bg-green-600 px-4 py-3.5 text-base font-bold text-white shadow-lg hover:bg-green-700"
+            className={heroBtnClass}
           >
+            <DownloadIcon className="h-6 w-6" />
             {ui.playStoreInstall}
           </a>
+          <p className="text-center text-xs text-slate-500 dark:text-slate-400">
+            {isPaidListed
+              ? config.locale === "hi"
+                ? "पेड ऐप — Google Play से खरीदें"
+                : "Paid app — purchase on Google Play"
+              : getMirrorUnavailableMessage(config.locale)}
+          </p>
         </div>
       ) : (
         <DownloadButton
           appId={config.packageName}
           appName={app?.title ?? config.appName}
+          variant={variant}
         />
       )}
 
-      {!showPlayPrimary && app?.free !== false && (
-        <a
-          href={playHref}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="block rounded-xl border border-slate-200 px-4 py-2.5 text-center text-sm font-medium text-slate-700 hover:bg-slate-50 dark:border-slate-600 dark:text-slate-200 dark:hover:bg-slate-700/50"
-        >
-          {ui.playStoreInstall}
-        </a>
-      )}
-
       {error && !app && (
-        <p className="text-center text-sm text-red-600 dark:text-red-400">{error}</p>
+        <p className="mt-2 text-center text-sm text-red-600 dark:text-red-400">{error}</p>
       )}
     </div>
   );
