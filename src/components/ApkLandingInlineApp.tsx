@@ -5,7 +5,7 @@ import DownloadButton from "@/components/DownloadButton";
 import { getApkLandingCountry } from "@/lib/apk-landing/build-app-href";
 import type { ApkLandingConfig } from "@/lib/apk-landing/types";
 import { proxyImageUrl } from "@/lib/image-proxy";
-import unsupportedPaidApps from "@/lib/unsupported-paid-apps.json";
+import { isApkLandingPaidApp } from "@/lib/apk-landing/is-paid-app";
 import { isUnsupportedNoMirrorApp } from "@/lib/unsupported-no-mirror-apps";
 import { getMirrorUnavailableMessage } from "@/lib/download-errors";
 import { apkLandingUi } from "@/lib/apk-landing/ui-strings";
@@ -55,13 +55,15 @@ export default function ApkLandingInlineApp({
   onAppLoaded,
   variant = "hero",
 }: Props) {
+  const isPaidListed = isApkLandingPaidApp(config.packageName);
+  const mirrorBlocked = isUnsupportedNoMirrorApp(config.packageName);
+  const knownPlayOnly = isPaidListed || mirrorBlocked;
+
   const [app, setApp] = useState<AppResult | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(!knownPlayOnly);
   const [error, setError] = useState("");
   const country = getApkLandingCountry(config.locale);
   const ui = apkLandingUi(config.locale);
-  const isPaidListed = config.packageName in unsupportedPaidApps;
-  const mirrorBlocked = isUnsupportedNoMirrorApp(config.packageName);
   const onIconUrlRef = useRef(onIconUrl);
   const onAppLoadedRef = useRef(onAppLoaded);
   onIconUrlRef.current = onIconUrl;
@@ -115,11 +117,30 @@ export default function ApkLandingInlineApp({
   }, [config.packageName, config.searchQuery, config.locale, country]);
 
   const playHref = buildPlayStoreHref(config.packageName, config.locale, country);
-  const showPlayPrimary = isPaidListed || mirrorBlocked || (app?.free === false);
+  const showPlayPrimary = knownPlayOnly || (app?.free === false);
   const heroBtnClass =
     "flex w-full items-center justify-center gap-2.5 rounded-xl bg-slate-900 px-6 py-4 text-lg font-bold text-white shadow-xl transition-all hover:bg-black active:scale-[0.98]";
 
-  if (loading) {
+  const playCta = (
+    <div className="space-y-2">
+      <a
+        href={playHref}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={heroBtnClass}
+      >
+        <DownloadIcon className="h-6 w-6" />
+        {ui.playStoreInstall}
+      </a>
+      <p className="text-center text-xs text-slate-500 dark:text-slate-400">
+        {isPaidListed
+          ? ui.paidAppNoApk
+          : getMirrorUnavailableMessage(config.locale)}
+      </p>
+    </div>
+  );
+
+  if (loading && !knownPlayOnly) {
     return (
       <div className="w-full">
         <div className="h-[60px] w-full animate-pulse rounded-xl bg-slate-300 dark:bg-slate-600" />
@@ -130,24 +151,7 @@ export default function ApkLandingInlineApp({
   return (
     <div className="w-full">
       {showPlayPrimary ? (
-        <div className="space-y-2">
-          <a
-            href={playHref}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={heroBtnClass}
-          >
-            <DownloadIcon className="h-6 w-6" />
-            {ui.playStoreInstall}
-          </a>
-          <p className="text-center text-xs text-slate-500 dark:text-slate-400">
-            {isPaidListed
-              ? config.locale === "hi"
-                ? "पेड ऐप — Google Play से खरीदें"
-                : "Paid app — purchase on Google Play"
-              : getMirrorUnavailableMessage(config.locale)}
-          </p>
-        </div>
+        playCta
       ) : (
         <DownloadButton
           appId={config.packageName}

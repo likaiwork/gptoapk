@@ -3,6 +3,7 @@
 import { useState } from "react";
 import ApkLandingInlineApp from "@/components/ApkLandingInlineApp";
 import { buildApkLandingH1 } from "@/lib/apk-landing/build-metadata";
+import { isApkLandingPaidApp } from "@/lib/apk-landing/is-paid-app";
 import { apkLandingUi } from "@/lib/apk-landing/ui-strings";
 import type { ApkLandingConfig } from "@/lib/apk-landing/types";
 
@@ -36,6 +37,7 @@ export default function ApkLandingHero({ config }: Props) {
   const h1 = buildApkLandingH1(config);
   const [iconUrl, setIconUrl] = useState<string | null>(null);
   const [loadedApp, setLoadedApp] = useState<LoadedApp | null>(null);
+  const isPaid = isApkLandingPaidApp(config.packageName);
 
   const displayVersion = loadedApp?.version ?? config.version;
   const displaySize = loadedApp?.size ?? config.apkSize;
@@ -116,6 +118,12 @@ export default function ApkLandingHero({ config }: Props) {
             />
           </div>
         </div>
+
+        {isPaid && (
+          <div className="mt-5 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm leading-relaxed text-amber-950 dark:border-amber-800/50 dark:bg-amber-950/30 dark:text-amber-100">
+            {ui.paidAppBanner}
+          </div>
+        )}
 
         {/* Stats strip — Appteka-style */}
         <div className="mt-6 grid grid-cols-3 divide-x divide-slate-200 border-t border-slate-200 pt-5 dark:divide-slate-600 dark:border-slate-600">

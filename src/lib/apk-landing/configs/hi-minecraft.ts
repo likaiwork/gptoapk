@@ -21,7 +21,7 @@ export const hiMinecraftApkConfig: ApkLandingConfig = {
     "minecraft pe apk",
   ],
   quickAnswer:
-    "भारत में Minecraft (PE) APK के लिए gptoapk पर Minecraft खोजें — पैकेज com.mojang.minecraftpe। यह पेज आधिकारिक Play संस्करण के लिए है; mod/patch फ़ाइलें नहीं।",
+    "Minecraft (com.mojang.minecraftpe) Google Play पर पेड गेम है। gptoapk मुफ्त APK नहीं दे सकता — ऊपर Google Play बटन उपयोग करें। हम unofficial patch/mod APK होस्ट नहीं करते।",
   aiSummary:
     "Minecraft Pocket Edition (Bedrock) भारत में सबसे अधिक खोजे जाने वाले गेम APK में से एक है। Appteka जैसी साइटें patch/mod ट्रैफ़िक लेती हैं; gptoapk आधिकारिक Mojang पैकेज से APK मेटाडेटा और डाउनलोड लिंक देता है।",
   intro:
@@ -29,9 +29,9 @@ export const hiMinecraftApkConfig: ApkLandingConfig = {
   aboutApp:
     "Minecraft — Mojang का ब्लॉक-बिल्डिंग सैंडबॉक्स गेम। सरवाइवल, क्रिएटिव मोड, मल्टीप्लेयर और नियमित अपडेट। भारत में Play Store पर उपलब्ध; APK साइडलोड के लिए gptoapk उपयोग करें।",
   downloadSteps: [
-    "gptoapk.com/hi पर Minecraft या com.mojang.minecraftpe खोजें।",
-    "सही Mojang परिणाम चुनें और APK डाउनलोड शुरू करें।",
-    "बड़े फ़ाइल आकार के लिए Wi‑Fi उपयोग करें।",
+    "इस पेज पर Google Play से इंस्टॉल करें बटन टैप करें (Minecraft पेड है)।",
+    "Google Play पर खरीदारी पूरी करें और इंस्टॉल करें।",
+    "Minecraft खोलें और Microsoft/Xbox खाते से साइन इन करें।",
   ],
   installSteps: [
     "सेटिंग्स में अज्ञात स्रोतों से इंस्टॉल की अनुमति दें।",

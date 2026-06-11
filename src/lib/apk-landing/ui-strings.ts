@@ -26,6 +26,8 @@ type UiStrings = {
   viewAppPage: string;
   aboutVersion: string;
   playStoreInstall: string;
+  paidAppNoApk: string;
+  paidAppBanner: string;
 };
 
 const UI: Record<ApkLandingLocale, UiStrings> = {
@@ -55,6 +57,9 @@ const UI: Record<ApkLandingLocale, UiStrings> = {
     viewAppPage: "Open full app page",
     aboutVersion: "About this version",
     playStoreInstall: "Install from Google Play",
+    paidAppNoApk: "Paid app — no direct APK download; purchase on Google Play",
+    paidAppBanner:
+      "This is a paid app on Google Play. gptoapk does not host paid or mod APK files — use the button above to install from Play.",
   },
   hi: {
     home: "होम",
@@ -82,6 +87,9 @@ const UI: Record<ApkLandingLocale, UiStrings> = {
     viewAppPage: "पूरा ऐप पेज खोलें",
     aboutVersion: "इस संस्करण के बारे में",
     playStoreInstall: "Google Play से इंस्टॉल करें",
+    paidAppNoApk: "पेड ऐप — सीधा APK नहीं; Google Play से खरीदें",
+    paidAppBanner:
+      "यह Google Play पर पेड ऐप है। gptoapk पेड/mod APK होस्ट नहीं करता — ऊपर बटन से Play पर इंस्टॉल करें।",
   },
   id: {
     home: "Beranda",
@@ -109,6 +117,9 @@ const UI: Record<ApkLandingLocale, UiStrings> = {
     viewAppPage: "Buka halaman aplikasi",
     aboutVersion: "Tentang versi ini",
     playStoreInstall: "Instal dari Google Play",
+    paidAppNoApk: "Aplikasi berbayar — tidak ada APK langsung; beli di Google Play",
+    paidAppBanner:
+      "Ini aplikasi berbayar di Google Play. gptoapk tidak menyediakan APK berbayar/mod — gunakan tombol di atas.",
   },
   zh: {
     home: "首页",
@@ -136,6 +147,9 @@ const UI: Record<ApkLandingLocale, UiStrings> = {
     viewAppPage: "打开完整应用页",
     aboutVersion: "版本信息",
     playStoreInstall: "前往 Google Play 安装",
+    paidAppNoApk: "付费应用 — 无法直接下载 APK，请通过 Google Play 购买",
+    paidAppBanner:
+      "该应用在 Google Play 为付费应用。gptoapk 不提供付费/破解 APK，请使用上方按钮前往 Play 安装。",
   },
 };
 

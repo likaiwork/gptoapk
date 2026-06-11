@@ -21,7 +21,7 @@ export const enMinecraftApkConfig: ApkLandingConfig = {
     "download minecraft android",
   ],
   quickAnswer:
-    "Search Minecraft on gptoapk to get the official Bedrock edition APK (com.mojang.minecraftpe). This page covers the official app — not unofficial patch or mod files.",
+    "Minecraft (com.mojang.minecraftpe) is a paid game on Google Play. gptoapk cannot provide a free APK download — use the Install from Google Play button above. We do not host unofficial patch/mod files like some APK sites.",
   aiSummary:
     "Minecraft PE is one of the highest-volume APK queries globally, especially in India. Sites like Appteka capture traffic from patch/mod keywords; gptoapk focuses on official Play-sourced metadata for com.mojang.minecraftpe.",
   intro:
@@ -29,9 +29,9 @@ export const enMinecraftApkConfig: ApkLandingConfig = {
   aboutApp:
     "Minecraft is Mojang's sandbox building game with survival, creative mode, multiplayer, and regular updates. Available on Google Play; use gptoapk to sideload the APK when Play is unavailable.",
   downloadSteps: [
-    "Open gptoapk.com and search for Minecraft or com.mojang.minecraftpe.",
-    "Select the correct Mojang result and download the APK.",
-    "Use Wi‑Fi — the file can be large.",
+    "Tap Install from Google Play on this page (Minecraft is paid — no direct APK here).",
+    "Complete purchase on Google Play, then install.",
+    "Open Minecraft and sign in with your Microsoft/Xbox account.",
   ],
   installSteps: [
     "Enable install from unknown sources in Settings.",
@@ -47,9 +47,14 @@ export const enMinecraftApkConfig: ApkLandingConfig = {
         "Often refers to game updates or unofficial mod files. gptoapk only surfaces official com.mojang.minecraftpe sources, not mod patches.",
     },
     {
+      question: "Why is there no Download APK button for Minecraft?",
+      answer:
+        "Minecraft is a paid title on Google Play. Public APK mirrors do not host installable copies, and gptoapk does not distribute paid or cracked APKs. Use Install from Google Play above.",
+    },
+    {
       question: "Is Minecraft APK free?",
       answer:
-        "Demo/trial may be limited; full game requires purchase on Play. Sideloading does not bypass licensing.",
+        "No — the full game requires purchase on Play. Sites offering free Minecraft patch/mod APKs are unofficial and often unsafe.",
     },
     {
       question: "What is the Minecraft package name?",
