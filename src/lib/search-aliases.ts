@@ -1198,7 +1198,18 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
   },
   {
     appIds: ["com.lemon.lvoverseas"],
-    aliases: ["capcut", "剪映国际版", "jianying"],
+    aliases: [
+      "capcut",
+      "capcut apk",
+      "capcut apk download",
+      "download capcut",
+      "剪映国际版",
+      "jianying",
+    ],
+  },
+  {
+    appIds: ["com.coco.drive"],
+    aliases: ["cocobox", "coco box", "cocobox apk", "coco box apk", "cocobox downloader"],
   },
   {
     appIds: ["com.lemon.lv"],
@@ -1479,7 +1490,16 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
   },
   {
     appIds: ["com.mojang.minecraftpe"],
-    aliases: ["minecraft", "我的世界"],
+    aliases: [
+      "minecraft",
+      "我的世界",
+      "minecraft apk",
+      "minecraft apk download",
+      "minecraft patch download",
+      "minecraft patch",
+      "minecraft pe",
+      "minecraft pe apk",
+    ],
   },
   {
     appIds: ["com.supercell.clashofclans"],

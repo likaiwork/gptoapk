@@ -133,6 +133,16 @@ function isVpnKeywordQuery(query: string) {
   return q === "vpn" || q.includes("vpn") || q.includes("加速器") || q.includes("代理");
 }
 
+function resolveApkLandingLocale(slug: string, locale: SiteLocale): SiteLocale {
+  if (slug === "cocobox-apk") return "hi";
+  if (slug === "capcut-apk") return locale === "id" ? "id" : "hi";
+  if (slug === "minecraft-apk") {
+    if (locale === "hi") return "hi";
+    return "en";
+  }
+  return locale;
+}
+
 function getSearchFallback(query: string, locale: SiteLocale): SearchFallback | null {
   const q = query.trim().toLowerCase();
   const stripped = q
@@ -147,6 +157,22 @@ function getSearchFallback(query: string, locale: SiteLocale): SearchFallback | 
     { match: (s) => s.includes("instagram") || s === "ins", slug: "instagram-apk", label: "Instagram APK" },
     { match: (s) => s.includes("whatsapp"), slug: "whatsapp-apk", label: "WhatsApp APK" },
     { match: (s) => s.includes("tiktok") || s.includes("抖音国际"), slug: "tiktok-apk", label: "TikTok APK" },
+    {
+      match: (s) =>
+        s.includes("minecraft") || s.includes("我的世界") || s.includes("minecraft patch"),
+      slug: "minecraft-apk",
+      label: "Minecraft APK",
+    },
+    {
+      match: (s) => s.includes("cocobox") || s.includes("coco box") || s.includes("coco.drive"),
+      slug: "cocobox-apk",
+      label: "CoCoBox APK",
+    },
+    {
+      match: (s) => s.includes("capcut") || s.includes("剪映"),
+      slug: "capcut-apk",
+      label: "CapCut APK",
+    },
     { match: (s) => s.includes("twitter") || s.includes("推特") || s === "x", slug: "twitter-apk", label: "Twitter / X APK" },
     { match: (s) => s.includes("gemini"), slug: "gemini-apk", label: "Gemini APK" },
     { match: (s) => s.includes("claude"), slug: "claude-apk", label: "Claude APK" },
@@ -159,7 +185,8 @@ function getSearchFallback(query: string, locale: SiteLocale): SearchFallback | 
 
   for (const { match, slug, label } of pageFallbacks) {
     if (match(q) || match(stripped)) {
-      return { href: `/${locale}/${slug}`, label };
+      const landingLocale = resolveApkLandingLocale(slug, locale);
+      return { href: `/${landingLocale}/${slug}`, label };
     }
   }
 

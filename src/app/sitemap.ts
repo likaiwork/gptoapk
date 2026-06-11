@@ -201,6 +201,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly" as const,
       priority: 0.7 as const,
     })),
+    // English APK landing (en) — global high-volume
+    {
+      url: `${baseUrl}/en/minecraft-apk`,
+      lastModified: new Date("2026-06-11"),
+      changeFrequency: "weekly" as const,
+      priority: 0.85,
+    },
     // Russian SEO pages
     ...([
       { slug: "telegram-apk", priority: 0.7 as const },
@@ -319,13 +326,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...([
       { slug: "telegram-apk", priority: 0.7 as const },
       { slug: "chatgpt-apk", priority: 0.7 as const },
+      { slug: "capcut-apk", priority: 0.85 as const, lastModified: "2026-06-11" },
       { slug: "vpn-apk", priority: 0.7 as const },
       { slug: "tiktok-apk", priority: 0.7 as const },
       { slug: "whatsapp-apk", priority: 0.7 as const },
       { slug: "google-play-not-working", priority: 0.7 as const },
-    ]).map(({ slug, priority }) => ({
+    ]).map(({ slug, priority, lastModified }) => ({
       url: `${baseUrl}/id/${slug}` as const,
-      lastModified: new Date("2026-05-14"),
+      lastModified: new Date(lastModified ?? "2026-05-14"),
       changeFrequency: "weekly" as const,
       priority,
     })),
@@ -345,13 +353,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...([
       { slug: "whatsapp-apk", priority: 0.7 as const },
       { slug: "chatgpt-apk", priority: 0.7 as const },
+      { slug: "minecraft-apk", priority: 0.85 as const, lastModified: "2026-06-11" },
+      { slug: "cocobox-apk", priority: 0.85 as const, lastModified: "2026-06-11" },
+      { slug: "capcut-apk", priority: 0.85 as const, lastModified: "2026-06-11" },
       { slug: "telegram-apk", priority: 0.7 as const },
       { slug: "tiktok-apk", priority: 0.7 as const },
       { slug: "google-play-not-working", priority: 0.7 as const },
       { slug: "vpn-apk", priority: 0.7 as const },
-    ]).map(({ slug, priority }) => ({
+    ]).map(({ slug, priority, lastModified }) => ({
       url: `${baseUrl}/hi/${slug}` as const,
-      lastModified: new Date("2026-05-14"),
+      lastModified: new Date(lastModified ?? "2026-05-14"),
       changeFrequency: "weekly" as const,
       priority,
     })),
