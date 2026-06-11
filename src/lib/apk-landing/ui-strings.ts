@@ -28,6 +28,12 @@ type UiStrings = {
   playStoreInstall: string;
   paidAppNoApk: string;
   paidAppBanner: string;
+  delistedBannerTitle: string;
+  delistedBannerDefault: string;
+  screenshotsTitle: string;
+  permissionsTitle: string;
+  permissionsHint: string;
+  permissionsPlayLink: string;
 };
 
 const UI: Record<ApkLandingLocale, UiStrings> = {
@@ -60,6 +66,14 @@ const UI: Record<ApkLandingLocale, UiStrings> = {
     paidAppNoApk: "Paid app — no direct APK download; purchase on Google Play",
     paidAppBanner:
       "This is a paid app on Google Play. gptoapk does not host paid or mod APK files — use the button above to install from Play.",
+    delistedBannerTitle: "No longer on Google Play",
+    delistedBannerDefault:
+      "This app was removed from Google Play. Mirror APKs may be outdated or unavailable — use trusted sources only.",
+    screenshotsTitle: "Screenshots",
+    permissionsTitle: "App permissions",
+    permissionsHint:
+      "Review what this app can access on your device. We link to Google Play's official data safety page — no fake scan reports.",
+    permissionsPlayLink: "View permissions on Google Play",
   },
   hi: {
     home: "होम",
@@ -90,6 +104,14 @@ const UI: Record<ApkLandingLocale, UiStrings> = {
     paidAppNoApk: "पेड ऐप — सीधा APK नहीं; Google Play से खरीदें",
     paidAppBanner:
       "यह Google Play पर पेड ऐप है। gptoapk पेड/mod APK होस्ट नहीं करता — ऊपर बटन से Play पर इंस्टॉल करें।",
+    delistedBannerTitle: "Google Play पर अब उपलब्ध नहीं",
+    delistedBannerDefault:
+      "यह ऐप Play Store से हटा दिया गया। मिरर APK पुराने या अनुपलब्ध हो सकते हैं — केवल विश्वसनीय स्रोत उपयोग करें।",
+    screenshotsTitle: "स्क्रीनशॉट",
+    permissionsTitle: "ऐप अनुमतियाँ",
+    permissionsHint:
+      "देखें यह ऐप आपके डिवाइस पर क्या एक्सेस कर सकता है। हम Google Play के आधिकारिक डेटा सेफ्टी पेज से लिंक करते हैं।",
+    permissionsPlayLink: "Google Play पर अनुमतियाँ देखें",
   },
   id: {
     home: "Beranda",
@@ -120,6 +142,14 @@ const UI: Record<ApkLandingLocale, UiStrings> = {
     paidAppNoApk: "Aplikasi berbayar — tidak ada APK langsung; beli di Google Play",
     paidAppBanner:
       "Ini aplikasi berbayar di Google Play. gptoapk tidak menyediakan APK berbayar/mod — gunakan tombol di atas.",
+    delistedBannerTitle: "Tidak lagi di Google Play",
+    delistedBannerDefault:
+      "Aplikasi ini dihapus dari Google Play. APK mirror mungkin usang atau tidak tersedia — gunakan sumber tepercaya.",
+    screenshotsTitle: "Tangkapan layar",
+    permissionsTitle: "Izin aplikasi",
+    permissionsHint:
+      "Tinjau apa yang dapat diakses aplikasi di perangkat Anda. Kami menaut ke halaman data safety resmi Google Play.",
+    permissionsPlayLink: "Lihat izin di Google Play",
   },
   zh: {
     home: "首页",
@@ -150,6 +180,14 @@ const UI: Record<ApkLandingLocale, UiStrings> = {
     paidAppNoApk: "付费应用 — 无法直接下载 APK，请通过 Google Play 购买",
     paidAppBanner:
       "该应用在 Google Play 为付费应用。gptoapk 不提供付费/破解 APK，请使用上方按钮前往 Play 安装。",
+    delistedBannerTitle: "已从 Google Play 下架",
+    delistedBannerDefault:
+      "该应用已从 Google Play 移除。镜像 APK 可能过时或无法获取，请仅使用可信来源。",
+    screenshotsTitle: "应用截图",
+    permissionsTitle: "应用权限",
+    permissionsHint:
+      "查看该应用可访问的设备权限。我们链接到 Google Play 官方数据安全页，不提供虚假扫描报告。",
+    permissionsPlayLink: "在 Google Play 查看权限",
   },
 };
 

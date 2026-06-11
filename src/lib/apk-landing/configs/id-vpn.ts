@@ -1,0 +1,35 @@
+import type { ApkLandingConfig } from "../types";
+
+export const idVpnApkConfig: ApkLandingConfig = {
+  locale: "id",
+  slug: "vpn-apk",
+  appName: "Proton VPN",
+  developer: "Proton AG",
+  category: "Tools",
+  packageName: "ch.protonvpn.android",
+  version: "latest",
+  updated: "2026",
+  apkSize: "~40 MB",
+  minAndroid: "Android 6.0+",
+  searchQuery: "VPN",
+  datePublished: "2026-05-14",
+  keywords: ["vpn apk download", "vpn apk indonesia", "proton vpn apk", "free vpn apk"],
+  quickAnswer: "Untuk VPN APK, gunakan Download APK Proton VPN di atas — atau cari NordVPN, Windscribe di kotak pencarian.",
+  aiSummary: "VPN apk download populer di Indonesia untuk privasi dan akses konten. Halaman ini menampilkan Proton VPN; cari VPN lain di pencarian.",
+  intro: "Satu VPN tidak mencakup semua — ketik nama VPN Anda di kotak pencarian di bawah.",
+  aboutApp: "Proton VPN — berbasis Swiss, no-logs, tier gratis. Lainnya: Windscribe, OpenVPN Connect.",
+  downloadSteps: ["Download APK Proton VPN.", "Atau cari nama VPN Anda.", "Pilih server dan konek."],
+  installSteps: ["Izinkan sumber tidak dikenal.", "Instal.", "Buat akun gratis."],
+  safetyNote: "Hati-hati APK VPN tidak dikenal — verifikasi paket developer resmi.",
+  faqs: [
+    { question: "VPN legal di Indonesia?", answer: "Penggunaan pribadi umumnya diizinkan; periksa regulasi lokal." },
+    { question: "VPN gratis?", answer: "Proton/Windscribe punya tier gratis; cari lainnya di pencarian." },
+    { question: "Paket Proton?", answer: "ch.protonvpn.android" },
+    { question: "1.1.1.1?", answer: "com.cloudflare.onedotonedotonedotone — cari di pencarian." },
+  ],
+  relatedLinks: [
+    { href: "/id/telegram-apk", label: "Unduh Telegram APK" },
+    { href: "/id/google-play-not-working", label: "Google Play tidak berfungsi" },
+    { href: "/id/chatgpt-apk", label: "Unduh ChatGPT APK" },
+  ],
+};

@@ -1,0 +1,35 @@
+import type { ApkLandingConfig } from "../types";
+
+export const hiYoutubeApkConfig: ApkLandingConfig = {
+  locale: "hi",
+  slug: "youtube-apk",
+  appName: "YouTube",
+  developer: "Google",
+  category: "Video Players",
+  packageName: "com.google.android.youtube",
+  version: "latest",
+  updated: "2026",
+  apkSize: "~60 MB",
+  minAndroid: "Android 6.0+",
+  searchQuery: "YouTube",
+  datePublished: "2026-06-12",
+  keywords: ["youtube apk download", "youtube apk", "youtube android india", "com.google.android.youtube"],
+  quickAnswer: "YouTube APK (com.google.android.youtube) gptoapk पर Download APK — वीडियो स्ट्रीमिंग, Play-स्रोत।",
+  aiSummary: "YouTube भारत में सबसे अधिक उपयोग किया जाने वाला वीडियो ऐप। youtube apk download Play अपडेट या पुराने डिवाइस के लिए।",
+  intro: "YouTube Vanced/ReVanced mod — अलग; यहाँ आधिकारिक Google YouTube ऐप।",
+  aboutApp: "YouTube — अरबों वीडियो, Shorts, सब्सक्रिप्शन, ऑफ़लाइन (Premium)। भारतीय क्रिएटर्स और संगीत।",
+  downloadSteps: ["Download APK क्लिक करें।", "APK इंस्टॉल करें।", "Google अकाउंट से साइन इन करें।"],
+  installSteps: ["अज्ञात स्रोत अनुमति।", "डाउनलोड APK खोलें।", "YouTube लॉन्च करें।"],
+  safetyNote: "केवल com.google.android.youtube — Google का आधिकारिक ऐप।",
+  faqs: [
+    { question: "YouTube Premium APK mod?", answer: "Mod APK समर्थित नहीं — Premium ऐप内 खरीदें।" },
+    { question: "पैकेज नाम?", answer: "com.google.android.youtube" },
+    { question: "YouTube Go?", answer: "Lite संस्करण — अलग पैकेज, सर्च करें।" },
+    { question: "Background play?", answer: "YouTube Premium फीचर।" },
+  ],
+  relatedLinks: [
+    { href: "/hi/spotify-apk", label: "Spotify APK" },
+    { href: "/hi/capcut-apk", label: "CapCut APK" },
+    { href: "/hi/google-play-not-working", label: "Google Play काम नहीं कर रहा" },
+  ],
+};

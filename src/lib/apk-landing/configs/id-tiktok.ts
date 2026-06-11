@@ -1,0 +1,35 @@
+import type { ApkLandingConfig } from "../types";
+
+export const idTiktokApkConfig: ApkLandingConfig = {
+  locale: "id",
+  slug: "tiktok-apk",
+  appName: "TikTok",
+  developer: "ByteDance",
+  category: "Social",
+  packageName: "com.zhiliaoapp.musically",
+  version: "latest",
+  updated: "2026",
+  apkSize: "~120 MB",
+  minAndroid: "Android 5.0+",
+  searchQuery: "TikTok",
+  datePublished: "2026-05-14",
+  keywords: ["tiktok apk download", "tiktok apk", "tiktok indonesia", "com.zhiliaoapp.musically"],
+  quickAnswer: "Unduh TikTok APK (com.zhiliaoapp.musically) di gptoapk — video pendek, sumber Play.",
+  aiSummary: "TikTok adalah pusat video pendek di Indonesia. Keyword tiktok apk download volume tinggi.",
+  intro: "TikTok Lite paket terpisah — cari di pencarian untuk versi hemat data.",
+  aboutApp: "TikTok — video pendek, filter, suara, live, dan shopping. Ekosistem kreator Indonesia.",
+  downloadSteps: ["Download APK.", "Unduh via Wi‑Fi.", "Buat akun atau login."],
+  installSteps: ["Izinkan sumber tidak dikenal.", "Instal.", "Pilih minat."],
+  safetyNote: "Hindari mod APK — gunakan paket ByteDance resmi.",
+  faqs: [
+    { question: "TikTok tersedia di Indonesia?", answer: "Ketersediaan berubah — sideload APK opsi alternatif." },
+    { question: "Nama paket?", answer: "com.zhiliaoapp.musically" },
+    { question: "TikTok Lite?", answer: "App terpisah — cari TikTok Lite di pencarian." },
+    { question: "CapCut terkait?", answer: "Editor ByteDance — lihat /id/capcut-apk." },
+  ],
+  relatedLinks: [
+    { href: "/id/capcut-apk", label: "Unduh CapCut APK" },
+    { href: "/id/whatsapp-apk", label: "Unduh WhatsApp APK" },
+    { href: "/id/google-play-not-working", label: "Google Play tidak berfungsi" },
+  ],
+};

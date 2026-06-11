@@ -1,0 +1,35 @@
+import type { ApkLandingConfig } from "../types";
+
+export const idTelegramApkConfig: ApkLandingConfig = {
+  locale: "id",
+  slug: "telegram-apk",
+  appName: "Telegram",
+  developer: "Telegram FZ-LLC",
+  category: "Communication",
+  packageName: "org.telegram.messenger",
+  version: "latest",
+  updated: "2026",
+  apkSize: "~45 MB",
+  minAndroid: "Android 6.0+",
+  searchQuery: "Telegram",
+  datePublished: "2026-05-14",
+  keywords: ["telegram apk download", "telegram apk", "telegram indonesia", "org.telegram.messenger"],
+  quickAnswer: "Unduh Telegram APK (org.telegram.messenger) di gptoapk — pesan cepat, sumber Play.",
+  aiSummary: "Telegram populer di Indonesia untuk channel, bot, dan berbagi file besar.",
+  intro: "Telegram X adalah app terpisah — halaman ini untuk Telegram Messenger utama.",
+  aboutApp: "Telegram — chat cloud, file hingga 2GB, channel, grup besar, dan bot API.",
+  downloadSteps: ["Klik Download APK.", "Instal.", "Login dengan nomor telepon."],
+  installSteps: ["Izinkan sumber tidak dikenal.", "Instal APK.", "Verifikasi OTP."],
+  safetyNote: "Hanya org.telegram.messenger resmi.",
+  faqs: [
+    { question: "Telegram diblokir di Indonesia?", answer: "Ketersediaan berubah — sideload APK alternatif." },
+    { question: "Nama paket?", answer: "org.telegram.messenger" },
+    { question: "Telegram X?", answer: "Paket terpisah org.thunderdog.challegram." },
+    { question: "Desktop?", answer: "Unduh dari telegram.org — ini panduan APK mobile." },
+  ],
+  relatedLinks: [
+    { href: "/id/whatsapp-apk", label: "Unduh WhatsApp APK" },
+    { href: "/id/vpn-apk", label: "Unduh VPN APK" },
+    { href: "/id/google-play-not-working", label: "Google Play tidak berfungsi" },
+  ],
+};

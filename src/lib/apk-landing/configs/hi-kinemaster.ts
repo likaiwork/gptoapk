@@ -1,0 +1,35 @@
+import type { ApkLandingConfig } from "../types";
+
+export const hiKinemasterApkConfig: ApkLandingConfig = {
+  locale: "hi",
+  slug: "kinemaster-apk",
+  appName: "KineMaster",
+  developer: "NexStreaming",
+  category: "Video Players & Editors",
+  packageName: "com.nexstreaming.app.kinemasterfree",
+  version: "latest",
+  updated: "2026",
+  apkSize: "~100 MB",
+  minAndroid: "Android 6.0+",
+  searchQuery: "KineMaster",
+  datePublished: "2026-06-12",
+  keywords: ["kinemaster apk", "kinemaster apk download", "kinemaster india", "com.nexstreaming.app.kinemasterfree"],
+  quickAnswer: "KineMaster APK (com.nexstreaming.app.kinemasterfree) भारत में gptoapk Download APK — वीडियो एडिटर, Play-स्रोत।",
+  aiSummary: "KineMaster भारत में CapCut से पहले सबसे लोकप्रिय मोबाइल वीडियो एडिटर था। kinemaster apk अभी भी उच्च खोज मात्रा।",
+  intro: "Pro/mod APK नहीं — मुफ्त संस्करण। वॉटरमार्क हटाने के लिए सब्सक्रिप्शन।",
+  aboutApp: "KineMaster — मल्टी-लेयर टाइमलाइन, ट्रांज़िशन, वॉइसओवर, इफ़ेक्ट। YouTube/Reels क्रिएटर्स के लिए।",
+  downloadSteps: ["Download APK दबाएँ।", "इंस्टॉल करें।", "प्रोजेक्ट बनाकर एडिट शुरू करें।"],
+  installSteps: ["अज्ञात स्रोत अनुमति।", "APK इंस्टॉल।", "KineMaster खोलें।"],
+  safetyNote: "KineMaster Pro mod APK बैन और मैलवेयर जोखिम — आधिकारिक free पैकेज लें।",
+  faqs: [
+    { question: "KineMaster मुफ्त?", answer: "हाँ — वॉटरमार्क के साथ; Pro सब्सक्रिप्शन वैकल्पिक।" },
+    { question: "पैकेज नाम?", answer: "com.nexstreaming.app.kinemasterfree" },
+    { question: "CapCut vs KineMaster?", answer: "दोनों लोकप्रिय — CapCut टेम्पलेट-फर्स्ट; KineMaster टाइमलाइन-फर्स्ट।" },
+    { question: "वॉटरमार्क हटाना?", answer: "KineMaster Premium सब्सक्रिप्शन।" },
+  ],
+  relatedLinks: [
+    { href: "/hi/capcut-apk", label: "CapCut APK" },
+    { href: "/hi/tiktok-apk", label: "TikTok APK" },
+    { href: "/hi/google-play-not-working", label: "Google Play काम नहीं कर रहा" },
+  ],
+};

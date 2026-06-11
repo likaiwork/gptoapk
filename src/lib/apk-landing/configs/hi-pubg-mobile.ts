@@ -1,0 +1,35 @@
+import type { ApkLandingConfig } from "../types";
+
+export const hiPubgMobileApkConfig: ApkLandingConfig = {
+  locale: "hi",
+  slug: "pubg-mobile-apk",
+  appName: "PUBG Mobile",
+  developer: "Tencent",
+  category: "Action",
+  packageName: "com.tencent.ig",
+  version: "latest",
+  updated: "2026",
+  apkSize: "~700 MB+",
+  minAndroid: "Android 5.1+",
+  searchQuery: "PUBG Mobile",
+  datePublished: "2026-06-12",
+  keywords: ["pubg mobile apk download", "pubg apk", "pubg mobile india", "com.tencent.ig"],
+  quickAnswer: "PUBG Mobile (com.tencent.ig) APK भारत में gptoapk पर ऊपर Download APK से या सर्च से — बड़ी फ़ाइल, Wi‑Fi उपयोग करें।",
+  aiSummary: "PUBG Mobile भारत में सबसे लोकप्रिय बैटल रॉयल गेम में से एक। pubg mobile apk download गेमिंग खोजों में शीर्ष पर।",
+  intro: "आधिकारिक Tencent पैकेज — mod/unlock APK से बचें। इंस्टॉल के बाद गेम अपडेट डाउनलोड हो सकता है।",
+  aboutApp: "PUBG Mobile — 100-प्लेयर बैटल रॉयल, Erangel/Miramar मैप, रैंक्ड मोड और इवेंट। भारतीय गेमर्स के लिए लोकप्रिय।",
+  downloadSteps: ["Download APK बटन दबाएँ।", "डाउनलोड पूरा होने तक Wi‑Fi पर रहें।", "APK इंस्टॉल करें और गेम खोलें।"],
+  installSteps: ["स्टोरेज खाली करें (1 GB+)।", "अज्ञात स्रोत अनुमति दें।", "इंस्टॉल करें, अकाउंट से लॉगिन करें।"],
+  safetyNote: "केवल com.tencent.ig। तीसरे पक्ष के mod APK बैन और मैलवेयर जोखिम ला सकते हैं।",
+  faqs: [
+    { question: "PUBG Mobile भारत में बैन है?", answer: "BGMI (com.pubg.imobile) अलग भारतीय संस्करण है — सर्च में BGMI भी आज़माएँ।" },
+    { question: "पैकेज नाम?", answer: "com.tencent.ig — अंतर्राष्ट्रीय PUBG Mobile।" },
+    { question: "फ़ाइल इतनी बड़ी क्यों?", answer: "गेम एसेट्स — पहली बार इंस्टॉल के बाद इन-गेम अपडेट भी डाउनलोड होते हैं।" },
+    { question: "Mod APK सुरक्षित?", answer: "नहीं — आधिकारिक स्रोत या gptoapk उपयोग करें।" },
+  ],
+  relatedLinks: [
+    { href: "/hi/free-fire-apk", label: "Free Fire APK" },
+    { href: "/hi/minecraft-apk", label: "Minecraft APK" },
+    { href: "/hi/google-play-not-working", label: "Google Play काम नहीं कर रहा" },
+  ],
+};

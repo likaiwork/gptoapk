@@ -1,0 +1,35 @@
+import type { ApkLandingConfig } from "../types";
+
+export const hiVpnApkConfig: ApkLandingConfig = {
+  locale: "hi",
+  slug: "vpn-apk",
+  appName: "Proton VPN",
+  developer: "Proton AG",
+  category: "Tools",
+  packageName: "ch.protonvpn.android",
+  version: "latest",
+  updated: "2026",
+  apkSize: "~40 MB",
+  minAndroid: "Android 6.0+",
+  searchQuery: "VPN",
+  datePublished: "2026-05-14",
+  keywords: ["vpn apk download", "vpn apk india", "proton vpn apk", "free vpn apk"],
+  quickAnswer: "VPN APK के लिए ऊपर Proton VPN Download APK — या नीचे सर्च में NordVPN, Windscribe आदि खोजें।",
+  aiSummary: "भारत में VPN apk download प्राइवेसी और कंटेंट एक्सेस के लिए। यह पेज Proton VPN दिखाता है; सर्च से अन्य VPN भी मिलेंगे।",
+  intro: "एक ही VPN से सभी ऐप कवर नहीं — नीचे सर्च बॉक्स में अपना VPN नाम टाइप करें।",
+  aboutApp: "Proton VPN — स्विस-आधारित, no-logs नीति, मुफ्त टियर, भारत सर्वर। अन्य लोकप्रिय: Windscribe, OpenVPN Connect।",
+  downloadSteps: ["Proton VPN Download APK।", "या सर्च में अपना VPN नाम।", "सर्वर चुनकर कनेक्ट।"],
+  installSteps: ["अज्ञात स्रोत।", "इंस्टॉल।", "अकाउंट बनाएं (मुफ्त)।"],
+  safetyNote: "अज्ञात VPN APK पर सावधान — आधिकारिक डेवलपर पैकेज जाँचें।",
+  faqs: [
+    { question: "भारत में VPN कानूनी?", answer: "व्यक्तिगत उपयोग आमतौर पर; स्थानीय कानून देखें।" },
+    { question: "मुफ्त VPN?", answer: "Proton/Windscribe मुफ्त टियर; सर्च से और खोजें।" },
+    { question: "Proton पैकेज?", answer: "ch.protonvpn.android" },
+    { question: "1.1.1.1?", answer: "com.cloudflare.onedotonedotonedotone — सर्च करें।" },
+  ],
+  relatedLinks: [
+    { href: "/hi/telegram-apk", label: "Telegram APK" },
+    { href: "/hi/google-play-not-working", label: "Google Play काम नहीं कर रहा" },
+    { href: "/hi/chatgpt-apk", label: "ChatGPT APK" },
+  ],
+};

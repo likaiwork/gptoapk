@@ -1,0 +1,35 @@
+import type { ApkLandingConfig } from "../types";
+
+export const idWhatsappApkConfig: ApkLandingConfig = {
+  locale: "id",
+  slug: "whatsapp-apk",
+  appName: "WhatsApp",
+  developer: "Meta",
+  category: "Communication",
+  packageName: "com.whatsapp",
+  version: "latest",
+  updated: "2026",
+  apkSize: "~50 MB",
+  minAndroid: "Android 5.0+",
+  searchQuery: "WhatsApp",
+  datePublished: "2026-05-14",
+  keywords: ["whatsapp apk download", "whatsapp apk", "download whatsapp apk indonesia", "com.whatsapp"],
+  quickAnswer: "Unduh WhatsApp APK (com.whatsapp) di gptoapk — versi terbaru, sumber terkait Play Store.",
+  aiSummary: "WhatsApp adalah aplikasi pesan #1 di Indonesia. Keyword whatsapp apk download populer saat Play Store lambat update.",
+  intro: "Hindari WhatsApp GB/Plus mod — risiko ban dan privasi. Gunakan paket resmi Meta.",
+  aboutApp: "WhatsApp — chat, panggilan suara/video, status, grup, dan enkripsi end-to-end.",
+  downloadSteps: ["Ketuk Download APK di atas.", "Verifikasi nomor telepon.", "Pulihkan backup chat jika ada."],
+  installSteps: ["Izinkan sumber tidak dikenal.", "Instal APK.", "Verifikasi OTP."],
+  safetyNote: "Hanya com.whatsapp resmi dari Meta.",
+  faqs: [
+    { question: "WhatsApp Business berbeda?", answer: "Ya — com.whatsapp.w4b; cari WhatsApp Business di pencarian." },
+    { question: "Nama paket?", answer: "com.whatsapp" },
+    { question: "Backup?", answer: "Atur di Pengaturan → Chat → Cadangan Google Drive." },
+    { question: "Dua WhatsApp di satu HP?", answer: "Gunakan WhatsApp Business sebagai app kedua." },
+  ],
+  relatedLinks: [
+    { href: "/id/tiktok-apk", label: "Unduh TikTok APK" },
+    { href: "/id/telegram-apk", label: "Unduh Telegram APK" },
+    { href: "/id/google-play-not-working", label: "Google Play tidak berfungsi" },
+  ],
+};

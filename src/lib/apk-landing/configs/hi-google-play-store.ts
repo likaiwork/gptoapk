@@ -1,0 +1,35 @@
+import type { ApkLandingConfig } from "../types";
+
+export const hiGooglePlayStoreApkConfig: ApkLandingConfig = {
+  locale: "hi",
+  slug: "google-play-store-apk",
+  appName: "Google Play Store",
+  developer: "Google",
+  category: "Tools",
+  packageName: "com.android.vending",
+  version: "latest",
+  updated: "2026",
+  apkSize: "~30 MB",
+  minAndroid: "Android 6.0+",
+  searchQuery: "Google Play Store",
+  datePublished: "2026-06-12",
+  keywords: ["google play store apk", "play store apk download", "com.android.vending", "google play apk india"],
+  quickAnswer: "Google Play Store APK (com.android.vending) — डिवाइस पर Play अपडेट या रीइंस्टॉल के लिए gptoapk Download APK।",
+  aiSummary: "google play store apk भारत में Huawei/पुराने डिवाइस या Play क्रैश होने पर खोजा जाता है। आधिकारिक vending पैकेज।",
+  intro: "Play Store APK से अन्य ऐप APK डाउनलोड नहीं होते — केवल Store ऐप अपडेट/रीइंस्टॉल।",
+  aboutApp: "Google Play Store — Android ऐप/गेम डिस्ट्रिब्यूशन, अपडेट, खरीदारी। सिस्टम ऐप के रूप में प्रीइंस्टॉल।",
+  downloadSteps: ["Download APK दबाएँ।", "पुराना Play Store ओवरराइट होगा।", "Play Store खोलकर अपडेट चेक करें।"],
+  installSteps: ["अज्ञात स्रोत अनुमति (यदि Play खुल नहीं रहा)।", "APK इंस्टॉल।", "Google अकाउंट से Play साइन इन।"],
+  safetyNote: "केवल com.android.vending — तीसरे पक्ष के fake Play Store APK से बचें।",
+  faqs: [
+    { question: "Play Store APK क्यों चाहिए?", answer: "क्रैश, अपडेट फ़ेल, या Huawei जैसे GMS-रहित डिवाइस।" },
+    { question: "पैकेज नाम?", answer: "com.android.vending" },
+    { question: "क्या इससे बैन होगा?", answer: "आधिकारिक APK से नहीं — fake/mod से जोखिम।" },
+    { question: "Play Services भी चाहिए?", answer: "हाँ — अक्सर com.google.android.gms भी अपडेट करें।" },
+  ],
+  relatedLinks: [
+    { href: "/hi/google-play-not-working", label: "Google Play काम नहीं कर रहा" },
+    { href: "/hi/whatsapp-apk", label: "WhatsApp APK" },
+    { href: "/hi/instagram-apk", label: "Instagram APK" },
+  ],
+};

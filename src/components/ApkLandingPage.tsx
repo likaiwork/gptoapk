@@ -1,7 +1,10 @@
 import Link from "next/link";
 import ApkLandingHero from "@/components/ApkLandingHero";
+import ApkLandingPermissionsNote from "@/components/ApkLandingPermissionsNote";
+import ApkLandingScreenshots from "@/components/ApkLandingScreenshots";
 import SearchBox from "@/components/SearchBox";
 import { buildApkLandingJsonLd } from "@/lib/apk-landing/build-jsonld";
+import { fetchApkLandingPlayApp } from "@/lib/apk-landing/fetch-play-app";
 import { apkLandingUi } from "@/lib/apk-landing/ui-strings";
 import type { ApkLandingConfig } from "@/lib/apk-landing/types";
 
@@ -9,7 +12,8 @@ type Props = {
   config: ApkLandingConfig;
 };
 
-export default function ApkLandingPage({ config }: Props) {
+export default async function ApkLandingPage({ config }: Props) {
+  const playApp = await fetchApkLandingPlayApp(config);
   const ui = apkLandingUi(config.locale);
   const jsonLd = buildApkLandingJsonLd(config);
   const homeHref = `/${config.locale}`;
@@ -48,7 +52,13 @@ export default function ApkLandingPage({ config }: Props) {
         <span className="text-slate-700 dark:text-slate-300">{displayName} APK</span>
       </nav>
 
-      <ApkLandingHero config={config} />
+      <ApkLandingHero config={config} playApp={playApp} />
+
+      <ApkLandingScreenshots
+        locale={config.locale}
+        appName={playApp?.title ?? config.appName}
+        screenshots={playApp?.screenshots ?? []}
+      />
 
       <section className="mb-8 rounded-xl border border-amber-200 bg-amber-50 p-5 dark:border-amber-800/50 dark:bg-amber-950/30">
         <h2 className="text-sm font-semibold uppercase tracking-wide text-amber-900 dark:text-amber-200">
@@ -76,11 +86,11 @@ export default function ApkLandingPage({ config }: Props) {
           <h2 className="text-lg font-semibold text-slate-900 dark:text-white">{ui.aboutVersion}</h2>
           <dl className="mt-4 space-y-3 text-sm">
             {[
-              [ui.version, config.version],
-              [ui.size, config.apkSize],
+              [ui.version, playApp?.version ?? config.version],
+              [ui.size, playApp?.size ?? config.apkSize],
               [ui.android, config.minAndroid],
               [ui.package, config.packageName],
-              [ui.developer, config.developer],
+              [ui.developer, playApp?.developer ?? config.developer],
               [ui.updated, config.updated],
             ].map(([label, value]) => (
               <div key={label}>
@@ -91,6 +101,8 @@ export default function ApkLandingPage({ config }: Props) {
           </dl>
         </aside>
       </div>
+
+      <ApkLandingPermissionsNote config={config} />
 
       <section className="mb-10 rounded-xl border border-slate-200 bg-slate-50 p-6 dark:border-slate-700 dark:bg-slate-800/50">
         <h2 className="text-lg font-semibold text-slate-900 dark:text-white">{ui.searchCta}</h2>

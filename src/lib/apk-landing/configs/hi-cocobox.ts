@@ -7,6 +7,9 @@ export const hiCocoboxApkConfig: ApkLandingConfig = {
   developer: "CoCo Group",
   category: "Tools",
   packageName: "com.coco.drive",
+  delisted: true,
+  delistedNote:
+    "नवंबर 2023 में Google Play से हटा दिया गया। APK मिरर पुराने या अनुपलब्ध हो सकते हैं — केवल विश्वसनीय स्रोत उपयोग करें।",
   version: "5.2.1",
   updated: "2023",
   apkSize: "~46 MB",

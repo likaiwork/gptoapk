@@ -1,0 +1,35 @@
+import type { ApkLandingConfig } from "../types";
+
+export const hiTiktokApkConfig: ApkLandingConfig = {
+  locale: "hi",
+  slug: "tiktok-apk",
+  appName: "TikTok",
+  developer: "ByteDance",
+  category: "Social",
+  packageName: "com.zhiliaoapp.musically",
+  version: "latest",
+  updated: "2026",
+  apkSize: "~120 MB",
+  minAndroid: "Android 5.0+",
+  searchQuery: "TikTok",
+  datePublished: "2026-05-14",
+  keywords: ["tiktok apk download", "tiktok apk", "tiktok india", "com.zhiliaoapp.musically"],
+  quickAnswer: "TikTok APK (com.zhiliaoapp.musically) भारत gptoapk Download APK — शॉर्ट वीडियो, Play-स्रोत।",
+  aiSummary: "TikTok भारत में शॉर्ट-फॉर्म वीडियो का केंद्र। tiktok apk download क्रिएटर्स और दर्शकों दोनों के लिए।",
+  intro: "TikTok Lite अलग पैकेज — कम डेटा के लिए सर्च करें।",
+  aboutApp: "TikTok — शॉर्ट वीडियो, फ़िल्टर, साउंड, लाइव, शॉपिंग। भारतीय क्रिएटर इकोसिस्टम।",
+  downloadSteps: ["Download APK।", "Wi‑Fi पर डाउनलोड।", "अकाउंट बनाएं या लॉगिन।"],
+  installSteps: ["अज्ञात स्रोत।", "इंस्टॉल।", "इंटरेस्ट चुनें।"],
+  safetyNote: "Mod APK से बचें — आधिकारिक ByteDance पैकेज।",
+  faqs: [
+    { question: "TikTok भारत में?", answer: "उपलब्धता बदलती रहती — APK साइडलोड विकल्प।" },
+    { question: "पैकेज?", answer: "com.zhiliaoapp.musically" },
+    { question: "TikTok Lite?", answer: "अलग ऐप — सर्च में TikTok Lite।" },
+    { question: "CapCut लिंक?", answer: "ByteDance का एडिटर — /hi/capcut-apk देखें।" },
+  ],
+  relatedLinks: [
+    { href: "/hi/capcut-apk", label: "CapCut APK" },
+    { href: "/hi/instagram-apk", label: "Instagram APK" },
+    { href: "/hi/google-play-not-working", label: "Google Play काम नहीं कर रहा" },
+  ],
+};

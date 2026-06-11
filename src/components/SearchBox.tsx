@@ -140,6 +140,22 @@ function resolveApkLandingLocale(slug: string, locale: SiteLocale): SiteLocale {
     if (locale === "hi") return "hi";
     return "en";
   }
+  if (
+    slug === "pubg-mobile-apk" ||
+    slug === "free-fire-apk" ||
+    slug === "kinemaster-apk" ||
+    slug === "google-play-store-apk"
+  ) {
+    return "hi";
+  }
+  if (
+    slug === "instagram-apk" ||
+    slug === "spotify-apk" ||
+    slug === "youtube-apk"
+  ) {
+    if (locale === "hi" || locale === "id") return locale;
+    return "hi";
+  }
   return locale;
 }
 
@@ -172,6 +188,42 @@ function getSearchFallback(query: string, locale: SiteLocale): SearchFallback | 
       match: (s) => s.includes("capcut") || s.includes("剪映"),
       slug: "capcut-apk",
       label: "CapCut APK",
+    },
+    {
+      match: (s) => s.includes("pubg") || s.includes("bgmi"),
+      slug: "pubg-mobile-apk",
+      label: "PUBG Mobile APK",
+    },
+    {
+      match: (s) => s.includes("free fire") || s.includes("freefire") || s.includes("garena free fire"),
+      slug: "free-fire-apk",
+      label: "Free Fire APK",
+    },
+    {
+      match: (s) => s.includes("spotify"),
+      slug: "spotify-apk",
+      label: "Spotify APK",
+    },
+    {
+      match: (s) =>
+        (s.includes("youtube") && !s.includes("music") && !s.includes("kids") && !s.includes("studio")) ||
+        s.includes("油管"),
+      slug: "youtube-apk",
+      label: "YouTube APK",
+    },
+    {
+      match: (s) => s.includes("kinemaster") || s.includes("kine master"),
+      slug: "kinemaster-apk",
+      label: "KineMaster APK",
+    },
+    {
+      match: (s) =>
+        s.includes("play store") ||
+        s.includes("google play store") ||
+        s.includes("playstore") ||
+        s === "google play",
+      slug: "google-play-store-apk",
+      label: "Google Play Store APK",
     },
     { match: (s) => s.includes("twitter") || s.includes("推特") || s === "x", slug: "twitter-apk", label: "Twitter / X APK" },
     { match: (s) => s.includes("gemini"), slug: "gemini-apk", label: "Gemini APK" },

@@ -765,6 +765,7 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
       "ig",
       "instagram下载",
       "instagram apk",
+      "instagram apk download",
       "instagram安卓下载",
       "instagram官方下载",
       "instagram官网",
@@ -829,7 +830,14 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
   },
   {
     appIds: ["com.spotify.music"],
-    aliases: ["spotify", "spotify下载", "spotify apk", "声破天", "com.spotify.music"],
+    aliases: [
+      "spotify",
+      "spotify下载",
+      "spotify apk",
+      "spotify apk download",
+      "声破天",
+      "com.spotify.music",
+    ],
   },
   {
     appIds: ["jp.naver.line.android"],
@@ -1511,7 +1519,37 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
   },
   {
     appIds: ["com.tencent.ig"],
-    aliases: ["pubg", "和平精英", "pubg mobile"],
+    aliases: [
+      "pubg",
+      "和平精英",
+      "pubg mobile",
+      "pubg mobile apk",
+      "pubg mobile apk download",
+      "pubg apk download",
+      "pubg apk",
+      "com.tencent.ig",
+    ],
+  },
+  {
+    appIds: ["com.dts.freefireth"],
+    aliases: [
+      "free fire",
+      "freefire",
+      "garena free fire",
+      "free fire apk",
+      "free fire apk download",
+      "com.dts.freefireth",
+    ],
+  },
+  {
+    appIds: ["com.nexstreaming.app.kinemasterfree"],
+    aliases: [
+      "kinemaster",
+      "kine master",
+      "kinemaster apk",
+      "kinemaster apk download",
+      "com.nexstreaming.app.kinemasterfree",
+    ],
   },
   {
     appIds: ["com.garena.game.codm"],

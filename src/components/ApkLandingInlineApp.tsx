@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import DownloadButton from "@/components/DownloadButton";
 import { getApkLandingCountry } from "@/lib/apk-landing/build-app-href";
-import type { ApkLandingConfig } from "@/lib/apk-landing/types";
+import type { ApkLandingConfig, ApkLandingPlayApp } from "@/lib/apk-landing/types";
 import { proxyImageUrl } from "@/lib/image-proxy";
 import { isApkLandingPaidApp } from "@/lib/apk-landing/is-paid-app";
 import { isUnsupportedNoMirrorApp } from "@/lib/unsupported-no-mirror-apps";
@@ -22,8 +22,23 @@ type AppResult = {
   free: boolean | null;
 };
 
+function playAppToResult(playApp: ApkLandingPlayApp): AppResult {
+  return {
+    appId: playApp.appId,
+    title: playApp.title,
+    summary: null,
+    developer: playApp.developer,
+    icon: playApp.icon,
+    scoreText: playApp.scoreText,
+    version: playApp.version,
+    size: playApp.size,
+    free: playApp.free,
+  };
+}
+
 type Props = {
   config: ApkLandingConfig;
+  prefetchedApp?: ApkLandingPlayApp | null;
   onIconUrl?: (url: string | null) => void;
   onAppLoaded?: (app: AppResult | null) => void;
   variant?: "default" | "hero";
@@ -51,6 +66,7 @@ function DownloadIcon({ className }: { className?: string }) {
 
 export default function ApkLandingInlineApp({
   config,
+  prefetchedApp = null,
   onIconUrl,
   onAppLoaded,
   variant = "hero",
@@ -58,9 +74,10 @@ export default function ApkLandingInlineApp({
   const isPaidListed = isApkLandingPaidApp(config.packageName);
   const mirrorBlocked = isUnsupportedNoMirrorApp(config.packageName);
   const knownPlayOnly = isPaidListed || mirrorBlocked;
+  const initialApp = prefetchedApp ? playAppToResult(prefetchedApp) : null;
 
-  const [app, setApp] = useState<AppResult | null>(null);
-  const [loading, setLoading] = useState(!knownPlayOnly);
+  const [app, setApp] = useState<AppResult | null>(initialApp);
+  const [loading, setLoading] = useState(!knownPlayOnly && !initialApp);
   const [error, setError] = useState("");
   const country = getApkLandingCountry(config.locale);
   const ui = apkLandingUi(config.locale);
@@ -70,6 +87,15 @@ export default function ApkLandingInlineApp({
   onAppLoadedRef.current = onAppLoaded;
 
   useEffect(() => {
+    if (prefetchedApp) {
+      const result = playAppToResult(prefetchedApp);
+      setApp(result);
+      setLoading(false);
+      onIconUrlRef.current?.(proxyImageUrl(result.icon));
+      onAppLoadedRef.current?.(result);
+      return;
+    }
+
     let cancelled = false;
 
     async function load() {
@@ -114,7 +140,7 @@ export default function ApkLandingInlineApp({
     return () => {
       cancelled = true;
     };
-  }, [config.packageName, config.searchQuery, config.locale, country]);
+  }, [prefetchedApp, config.packageName, config.searchQuery, config.locale, country]);
 
   const playHref = buildPlayStoreHref(config.packageName, config.locale, country);
   const showPlayPrimary = knownPlayOnly || (app?.free === false);

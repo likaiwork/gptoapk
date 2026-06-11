@@ -1,14 +1,18 @@
 "use client";
 
 import { useState } from "react";
+import ApkLandingDelistedBanner from "@/components/ApkLandingDelistedBanner";
 import ApkLandingInlineApp from "@/components/ApkLandingInlineApp";
+import ApkLandingPaidBanner from "@/components/ApkLandingPaidBanner";
 import { buildApkLandingH1 } from "@/lib/apk-landing/build-metadata";
+import { isApkLandingDelistedApp } from "@/lib/apk-landing/is-delisted-app";
 import { isApkLandingPaidApp } from "@/lib/apk-landing/is-paid-app";
 import { apkLandingUi } from "@/lib/apk-landing/ui-strings";
-import type { ApkLandingConfig } from "@/lib/apk-landing/types";
+import type { ApkLandingConfig, ApkLandingPlayApp } from "@/lib/apk-landing/types";
 
 type Props = {
   config: ApkLandingConfig;
+  playApp: ApkLandingPlayApp | null;
 };
 
 type LoadedApp = {
@@ -32,27 +36,41 @@ function StatCell({ label, value }: { label: string; value: string }) {
   );
 }
 
-export default function ApkLandingHero({ config }: Props) {
+function playAppToLoaded(playApp: ApkLandingPlayApp | null): LoadedApp | null {
+  if (!playApp) return null;
+  return {
+    scoreText: playApp.scoreText,
+    version: playApp.version,
+    size: playApp.size,
+  };
+}
+
+export default function ApkLandingHero({ config, playApp }: Props) {
   const ui = apkLandingUi(config.locale);
   const h1 = buildApkLandingH1(config);
-  const [iconUrl, setIconUrl] = useState<string | null>(null);
-  const [loadedApp, setLoadedApp] = useState<LoadedApp | null>(null);
+  const [iconUrl, setIconUrl] = useState<string | null>(playApp?.icon ?? null);
+  const [loadedApp, setLoadedApp] = useState<LoadedApp | null>(playAppToLoaded(playApp));
   const isPaid = isApkLandingPaidApp(config.packageName);
+  const isDelisted =
+    config.delisted === true ||
+    isApkLandingDelistedApp(config.packageName) ||
+    (playApp !== null && !playApp.available);
 
   const displayVersion = loadedApp?.version ?? config.version;
   const displaySize = loadedApp?.size ?? config.apkSize;
   const displayAndroid = config.minAndroid.replace(/^Android\s*/i, "");
+  const displayIcon = iconUrl ?? playApp?.icon ?? null;
+  const displayScore = loadedApp?.scoreText ?? playApp?.scoreText ?? null;
 
   return (
     <section className="mb-10 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-md dark:border-slate-700 dark:bg-slate-800">
       <div className="p-5 sm:p-6 lg:p-8">
-        {/* Appteka-style: icon + meta on left, big Download on right (stacked on mobile) */}
         <div className="flex flex-col gap-5 lg:flex-row lg:items-start lg:gap-8">
           <div className="flex min-w-0 flex-1 gap-4 sm:gap-5">
             <div className="h-[72px] w-[72px] shrink-0 overflow-hidden rounded-2xl border border-slate-100 shadow-md dark:border-slate-600 sm:h-20 sm:w-20">
-              {iconUrl ? (
+              {displayIcon ? (
                 <img
-                  src={iconUrl}
+                  src={displayIcon}
                   alt={`${config.appName} icon`}
                   className="h-full w-full object-cover"
                   referrerPolicy="no-referrer"
@@ -73,7 +91,7 @@ export default function ApkLandingHero({ config }: Props) {
               </h1>
               <p className="mt-1 text-sm text-slate-600 dark:text-slate-300 sm:text-base">
                 <span className="font-medium text-slate-800 dark:text-slate-100">
-                  {config.developer}
+                  {playApp?.developer ?? config.developer}
                 </span>
                 <span className="mx-1.5 text-slate-400">·</span>
                 <span>{config.category}</span>
@@ -89,19 +107,19 @@ export default function ApkLandingHero({ config }: Props) {
                   </svg>
                   {ui.trustVerified}
                 </span>
-                {loadedApp?.scoreText && (
+                {displayScore && (
                   <span className="rounded-full bg-amber-50 px-2.5 py-1 text-xs font-medium text-amber-800 dark:bg-amber-900/40 dark:text-amber-200">
-                    ★ {loadedApp.scoreText}
+                    ★ {displayScore}
                   </span>
                 )}
               </div>
             </div>
           </div>
 
-          {/* Primary CTA — full width on mobile, fixed column on desktop */}
           <div className="w-full shrink-0 lg:w-64 xl:w-72">
             <ApkLandingInlineApp
               config={config}
+              prefetchedApp={playApp}
               variant="hero"
               onIconUrl={setIconUrl}
               onAppLoaded={(app) =>
@@ -112,7 +130,7 @@ export default function ApkLandingHero({ config }: Props) {
                         version: app.version,
                         size: app.size,
                       }
-                    : null,
+                    : playAppToLoaded(playApp),
                 )
               }
             />
@@ -120,12 +138,17 @@ export default function ApkLandingHero({ config }: Props) {
         </div>
 
         {isPaid && (
-          <div className="mt-5 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm leading-relaxed text-amber-950 dark:border-amber-800/50 dark:bg-amber-950/30 dark:text-amber-100">
-            {ui.paidAppBanner}
+          <div className="mt-5">
+            <ApkLandingPaidBanner locale={config.locale} />
           </div>
         )}
 
-        {/* Stats strip — Appteka-style */}
+        {isDelisted && !isPaid && (
+          <div className="mt-5">
+            <ApkLandingDelistedBanner config={config} />
+          </div>
+        )}
+
         <div className="mt-6 grid grid-cols-3 divide-x divide-slate-200 border-t border-slate-200 pt-5 dark:divide-slate-600 dark:border-slate-600">
           <StatCell label={ui.version} value={displayVersion} />
           <StatCell label={ui.size} value={displaySize} />

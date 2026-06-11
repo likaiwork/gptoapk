@@ -1,0 +1,35 @@
+import type { ApkLandingConfig } from "../types";
+
+export const idChatgptApkConfig: ApkLandingConfig = {
+  locale: "id",
+  slug: "chatgpt-apk",
+  appName: "ChatGPT",
+  developer: "OpenAI",
+  category: "Productivity",
+  packageName: "com.openai.chatgpt",
+  version: "latest",
+  updated: "2026",
+  apkSize: "~45 MB",
+  minAndroid: "Android 6.0+",
+  searchQuery: "ChatGPT",
+  datePublished: "2026-05-14",
+  keywords: ["chatgpt apk download", "chatgpt apk", "download chatgpt apk indonesia", "com.openai.chatgpt"],
+  quickAnswer: "Unduh ChatGPT APK (com.openai.chatgpt) di gptoapk — tanpa VPN, sumber terkait Play Store.",
+  aiSummary: "ChatGPT adalah chatbot AI OpenAI — jawaban, kode, gambar, dan mode suara. Populer di Indonesia saat Play Store terbatas.",
+  intro: "Halaman landing Appteka-style dengan versi, paket, dan langkah instal. Bukan mod atau cracked APK.",
+  aboutApp: "ChatGPT — AI chatbot OpenAI dengan GPT-4o, mode suara, DALL-E, dan upload file.",
+  downloadSteps: ["Buka gptoapk.com/id atau cari ChatGPT di bawah.", "Pilih com.openai.chatgpt dan unduh APK.", "Buka APK setelah unduhan selesai."],
+  installSteps: ["Izinkan instal dari sumber tidak dikenal.", "Buka APK ChatGPT.", "Instal dan login."],
+  safetyNote: "Hanya com.openai.chatgpt resmi. Hindari APK mod premium.",
+  faqs: [
+    { question: "ChatGPT gratis di Indonesia?", answer: "Tier gratis tersedia; Plus berlangganan." },
+    { question: "Nama paket?", answer: "com.openai.chatgpt" },
+    { question: "Tanpa Google Play?", answer: "Ya — sideload APK dari gptoapk." },
+    { question: "Perlu VPN?", answer: "Biasanya tidak untuk APK resmi di Indonesia." },
+  ],
+  relatedLinks: [
+    { href: "/id/google-play-not-working", label: "Google Play tidak berfungsi" },
+    { href: "/id/capcut-apk", label: "Unduh CapCut APK" },
+    { href: "/id/telegram-apk", label: "Unduh Telegram APK" },
+  ],
+};

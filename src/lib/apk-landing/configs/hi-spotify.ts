@@ -1,0 +1,35 @@
+import type { ApkLandingConfig } from "../types";
+
+export const hiSpotifyApkConfig: ApkLandingConfig = {
+  locale: "hi",
+  slug: "spotify-apk",
+  appName: "Spotify",
+  developer: "Spotify AB",
+  category: "Music & Audio",
+  packageName: "com.spotify.music",
+  version: "latest",
+  updated: "2026",
+  apkSize: "~50 MB",
+  minAndroid: "Android 5.0+",
+  searchQuery: "Spotify",
+  datePublished: "2026-06-12",
+  keywords: ["spotify apk download", "spotify apk", "spotify india android", "com.spotify.music"],
+  quickAnswer: "Spotify APK (com.spotify.music) भारत में gptoapk पर Download APK — म्यूज़िक स्ट्रीमिंग, Play-स्रोत।",
+  aiSummary: "Spotify भारत में सबसे बड़ी म्यूज़िक स्ट्रीमिंग सेवाओं में से एक। spotify apk download उन उपयोगकर्ताओं के लिए जिन्हें Play अपडेट नहीं मिलता।",
+  intro: "Premium mod APK नहीं — आधिकारिक Spotify ऐप। Premium के लिए ऐप内 सब्सक्रिप्शन।",
+  aboutApp: "Spotify — करोड़ों गाने, पॉडकास्ट, प्लेलिस्ट और Discover Weekly। भारत में हिंदी/अंग्रेज़ी कंटेंट।",
+  downloadSteps: ["Download APK दबाएँ।", "इंस्टॉल करें।", "Google/Facebook/ईमेल से साइन अप करें।"],
+  installSteps: ["अज्ञात स्रोत अनुमति।", "APK इंस्टॉल।", "Spotify खोलें और लॉगिन करें।"],
+  safetyNote: "Spotify Premium mod APK असुरक्षित — केवल com.spotify.music।",
+  faqs: [
+    { question: "Spotify भारत में मुफ्त?", answer: "हाँ — ads के साथ फ्री टियर; Premium सब्सक्रिप्शन वैकल्पिक।" },
+    { question: "पैकेज नाम?", answer: "com.spotify.music" },
+    { question: "Spotify Lite?", answer: "अलग ऐप — सर्च में Spotify Lite खोजें।" },
+    { question: "ऑफ़लाइन सुनना?", answer: "Premium सब्सक्रिप्शन पर डाउनलोड फीचर।" },
+  ],
+  relatedLinks: [
+    { href: "/hi/youtube-apk", label: "YouTube APK" },
+    { href: "/hi/instagram-apk", label: "Instagram APK" },
+    { href: "/hi/google-play-not-working", label: "Google Play काम नहीं कर रहा" },
+  ],
+};

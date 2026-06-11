@@ -18,23 +18,23 @@
 | 1 | minecraft patch download | 40K+ | IN | com.mojang.minecraftpe | `/hi/minecraft-apk` `/en/minecraft-apk` ✅ | P0 | Appteka #1 流量词；只做**官方/预览版**说明，不做魔改 patch |
 | 2 | minecraft apk download | 25K+ | IN, ID | com.mojang.minecraftpe | 同上 ✅ | P0 | 与 patch 共用 hub，H1 区分 intent |
 | 3 | cocobox apk | 11K+ | IN | com.coco.drive | `/hi/cocobox-apk` ✅ | P0 | Appteka #3；Play 已下架，包名实为 com.coco.drive |
-| 4 | whatsapp apk download | 80K+ | IN, BR, ID | com.whatsapp | `/hi/whatsapp-apk` ✅已有 | P1 | 已有 hi 页，补 Appteka 式 title |
-| 5 | instagram apk download | 60K+ | IN, BR | com.instagram.android | `/hi/instagram-apk` | P1 | 新建 hi 页 |
-| 6 | telegram apk download | 45K+ | IN, RU | org.telegram.messenger | `/hi/telegram-apk` ✅已有 | P1 | |
-| 7 | tiktok apk download | 50K+ | IN, ID | com.zhiliaoapp.musically | `/hi/tiktok-apk` ✅已有 | P1 | |
+| 4 | whatsapp apk download | 80K+ | IN, BR, ID | com.whatsapp | `/hi/whatsapp-apk` ✅ | P1 | 已迁 ApkLanding 模板 |
+| 5 | instagram apk download | 60K+ | IN, BR | com.instagram.android | `/hi/instagram-apk` ✅ | P1 | Phase 1A |
+| 6 | telegram apk download | 45K+ | IN, RU | org.telegram.messenger | `/hi/telegram-apk` ✅ | P1 | 已迁模板 |
+| 7 | tiktok apk download | 50K+ | IN, ID | com.zhiliaoapp.musically | `/hi/tiktok-apk` ✅ | P1 | hi/id 已迁模板 |
 | 8 | capcut apk download | 35K+ | IN, ID | com.lemon.lvoverseas | `/hi/capcut-apk` `/id/capcut-apk` ✅ | P0 | 南亚剪辑刚需 |
-| 9 | pubg mobile apk download | 30K+ | IN | com.tencent.ig | `/hi/pubg-mobile-apk` | P1 | 游戏大类 |
-| 10 | free fire apk download | 28K+ | IN, BR | com.dts.freefireth | `/hi/free-fire-apk` | P1 | |
-| 11 | spotify apk download | 25K+ | IN, BR | com.spotify.music | `/hi/spotify-apk` | P1 | 免费版侧载需求 |
-| 12 | youtube apk download | 22K+ | IN | com.google.android.youtube | `/hi/youtube-apk` | P1 | 可与现有页合并 |
-| 13 | vpn apk download | 20K+ | IN, RU | (多包名) | `/hi/vpn-apk` ✅已有 | P1 | |
+| 9 | pubg mobile apk download | 30K+ | IN | com.tencent.ig | `/hi/pubg-mobile-apk` ✅ | P1 | Phase 1A |
+| 10 | free fire apk download | 28K+ | IN, BR | com.dts.freefireth | `/hi/free-fire-apk` ✅ | P1 | Phase 1A |
+| 11 | spotify apk download | 25K+ | IN, BR | com.spotify.music | `/hi/spotify-apk` ✅ | P1 | Phase 1A |
+| 12 | youtube apk download | 22K+ | IN | com.google.android.youtube | `/hi/youtube-apk` ✅ | P1 | Phase 1A |
+| 13 | vpn apk download | 20K+ | IN, RU | (多包名) | `/hi/vpn-apk` ✅ | P1 | 已迁模板 |
 | 14 | gcash apk download | 15K+ | PH, IN diaspora | com.globe.gcash.android | `/en/gcash-apk` | P2 | 菲律宾钱包 |
 | 15 | chatgpt apk download | 18K+ | IN, Global | com.openai.chatgpt | `/hi/chatgpt-apk` ✅ | P0 | 模板试点页 |
 | 16 | minecraft beta download | 8K+ | IN | com.mojang.minecraftpe | `/en/minecraft-beta-apk` | P1 | 版本长尾 |
-| 17 | kinemaster apk | 12K+ | IN, ID | com.nexstreaming.app.kinemasterfree | `/hi/kinemaster-apk` | P1 | 视频剪辑 |
+| 17 | kinemaster apk | 12K+ | IN, ID | com.nexstreaming.app.kinemasterfree | `/hi/kinemaster-apk` ✅ | P1 | Phase 1A |
 | 18 | truecaller apk download | 10K+ | IN | com.truecaller | `/hi/truecaller-apk` | P2 | 印度本地超级 App |
 | 19 | snapchat apk download | 12K+ | IN, US | com.snapchat.android | `/hi/snapchat-apk` | P2 | |
-| 20 | google play store apk | 15K+ | IN | com.android.vending | `/hi/google-play-store-apk` | P1 | Play 本身侧载 |
+| 20 | google play store apk | 15K+ | IN | com.android.vending | `/hi/google-play-store-apk` ✅ | P1 | Phase 1A |
 
 ## 区域策略摘要
 

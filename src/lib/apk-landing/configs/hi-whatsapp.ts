@@ -1,0 +1,35 @@
+import type { ApkLandingConfig } from "../types";
+
+export const hiWhatsappApkConfig: ApkLandingConfig = {
+  locale: "hi",
+  slug: "whatsapp-apk",
+  appName: "WhatsApp",
+  developer: "Meta",
+  category: "Communication",
+  packageName: "com.whatsapp",
+  version: "latest",
+  updated: "2026",
+  apkSize: "~50 MB",
+  minAndroid: "Android 5.0+",
+  searchQuery: "WhatsApp",
+  datePublished: "2026-05-14",
+  keywords: ["whatsapp apk download", "whatsapp apk", "whatsapp latest apk india", "com.whatsapp"],
+  quickAnswer: "WhatsApp APK (com.whatsapp) भारत में gptoapk पर Download APK — नवीनतम संस्करण, Play-स्रोत।",
+  aiSummary: "WhatsApp भारत की #1 मैसेजिंग ऐप। whatsapp apk download तब जब Play अपडेट देर से आए या पुराने फ़ोन पर नया वर्जन चाहिए।",
+  intro: "WhatsApp GB/Plus mod APK से बचें — बैन और गोपनीयता जोखिम।",
+  aboutApp: "WhatsApp — चैट, वॉइस/वीडियो कॉल, स्टेटस, ग्रुप और end-to-end एन्क्रिप्शन।",
+  downloadSteps: ["Download APK दबाएँ।", "नंबर वेरिफ़ाई करें।", "चैट बैकअप रिस्टोर करें (यदि हो)।"],
+  installSteps: ["अज्ञात स्रोत अनुमति।", "APK इंस्टॉल।", "फ़ोन नंबर से OTP वेरिफ़ाई।"],
+  safetyNote: "केवल com.whatsapp — Meta आधिकारिक। GB WhatsApp असुरक्षित।",
+  faqs: [
+    { question: "WhatsApp Business अलग है?", answer: "हाँ — com.whatsapp.w4b; सर्च में WhatsApp Business खोजें।" },
+    { question: "पैकेज नाम?", answer: "com.whatsapp" },
+    { question: "बैकअप?", answer: "Google Drive बैकअप सेटिंग्स में।" },
+    { question: "दो WhatsApp एक फ़ोन?", answer: "WhatsApp Business दूसरे ऐप के रूप में।" },
+  ],
+  relatedLinks: [
+    { href: "/hi/instagram-apk", label: "Instagram APK" },
+    { href: "/hi/telegram-apk", label: "Telegram APK" },
+    { href: "/hi/google-play-not-working", label: "Google Play काम नहीं कर रहा" },
+  ],
+};

@@ -1,0 +1,35 @@
+import type { ApkLandingConfig } from "../types";
+
+export const hiTelegramApkConfig: ApkLandingConfig = {
+  locale: "hi",
+  slug: "telegram-apk",
+  appName: "Telegram",
+  developer: "Telegram FZ-LLC",
+  category: "Communication",
+  packageName: "org.telegram.messenger",
+  version: "latest",
+  updated: "2026",
+  apkSize: "~45 MB",
+  minAndroid: "Android 6.0+",
+  searchQuery: "Telegram",
+  datePublished: "2026-05-14",
+  keywords: ["telegram apk download", "telegram apk", "telegram india", "org.telegram.messenger"],
+  quickAnswer: "Telegram APK (org.telegram.messenger) gptoapk Download APK — तेज़ मैसेजिंग, Play-स्रोत।",
+  aiSummary: "Telegram भारत में WhatsApp के बाद दूसरा सबसे लोकप्रिय मैसेजर — चैनल, बॉट, बड़ी फ़ाइल शेयरिंग।",
+  intro: "Telegram X अलग ऐप है — यहाँ मुख्य Telegram Messenger।",
+  aboutApp: "Telegram — क्लाउड चैट, 2GB फ़ाइल, चैनल, ग्रुप 200K सदस्य, बॉट API।",
+  downloadSteps: ["Download APK क्लिक।", "इंस्टॉल।", "फ़ोन नंबर से लॉगिन।"],
+  installSteps: ["अज्ञात स्रोत अनुमति।", "APK इंस्टॉल।", "OTP वेरिफ़ाई।"],
+  safetyNote: "केवल org.telegram.messenger आधिकारिक।",
+  faqs: [
+    { question: "Telegram भारत में बैन?", answer: "समय-समय पर प्रतिबंध — APK साइडलोड वैकल्पिक।" },
+    { question: "पैकेज नाम?", answer: "org.telegram.messenger" },
+    { question: "Telegram X?", answer: "अलग पैकेज org.thunderdog.challegram।" },
+    { question: "डेस्कटॉप?", answer: "telegram.org से अलग — यह मोबाइल APK गाइड।" },
+  ],
+  relatedLinks: [
+    { href: "/hi/whatsapp-apk", label: "WhatsApp APK" },
+    { href: "/hi/vpn-apk", label: "VPN APK" },
+    { href: "/hi/google-play-not-working", label: "Google Play काम नहीं कर रहा" },
+  ],
+};

@@ -1,0 +1,35 @@
+import type { ApkLandingConfig } from "../types";
+
+export const hiFreeFireApkConfig: ApkLandingConfig = {
+  locale: "hi",
+  slug: "free-fire-apk",
+  appName: "Free Fire",
+  developer: "Garena",
+  category: "Action",
+  packageName: "com.dts.freefireth",
+  version: "latest",
+  updated: "2026",
+  apkSize: "~300 MB+",
+  minAndroid: "Android 4.4+",
+  searchQuery: "Free Fire",
+  datePublished: "2026-06-12",
+  keywords: ["free fire apk download", "free fire apk", "garena free fire india", "com.dts.freefireth"],
+  quickAnswer: "Free Fire APK (com.dts.freefireth) भारत में gptoapk पर ऊपर Download APK से तुरंत — Play-स्रोत APK।",
+  aiSummary: "Garena Free Fire भारत और लैटिन अमेरिका में अत्यधिक लोकप्रिय मोबाइल बैटल रॉयल। free fire apk download गेमिंग कीवर्ड में शीर्ष।",
+  intro: "कम एंड्रॉइड डिवाइस पर भी चलने वाला बैटल रॉयल — आधिकारिक Garena पैकेज उपयोग करें।",
+  aboutApp: "Free Fire — 50-प्लेयर मैच, कैरेक्टर क्षमताएँ, रैंक्ड और इवेंट मोड। भारतीय मिड-रेंज फ़ोन पर लोकप्रिय।",
+  downloadSteps: ["Download APK क्लिक करें।", "Wi‑Fi पर डाउनलोड करें।", "इंस्टॉल करके Garena ID से लॉगिन करें।"],
+  installSteps: ["अज्ञात स्रोत अनुमति।", "APK इंस्टॉल।", "गेम खोलें और ट्यूटोरियल पूरा करें।"],
+  safetyNote: "Mod/unlimited diamonds APK से बचें — खाता बैन और सुरक्षा जोखिम।",
+  faqs: [
+    { question: "Free Fire vs Free Fire MAX?", answer: "अलग पैकेज — MAX के लिए सर्च में Free Fire MAX खोजें।" },
+    { question: "पैकेज नाम?", answer: "com.dts.freefireth" },
+    { question: "क्या मुफ्त है?", answer: "हाँ — इन-ऐप खरीदारी वैकल्पिक।" },
+    { question: "भारत में उपलब्ध?", answer: "हाँ — Play और APK साइडलोड दोनों से।" },
+  ],
+  relatedLinks: [
+    { href: "/hi/pubg-mobile-apk", label: "PUBG Mobile APK" },
+    { href: "/hi/minecraft-apk", label: "Minecraft APK" },
+    { href: "/hi/google-play-not-working", label: "Google Play काम नहीं कर रहा" },
+  ],
+};

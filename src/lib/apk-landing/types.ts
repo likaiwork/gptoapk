@@ -5,6 +5,20 @@ export type ApkLandingFaq = {
   answer: string;
 };
 
+export type ApkLandingPlayApp = {
+  appId: string;
+  title: string;
+  developer: string;
+  icon: string | null;
+  scoreText: string | null;
+  version: string | null;
+  size: string | null;
+  updated: string | null;
+  screenshots: string[];
+  available: boolean;
+  free: boolean;
+};
+
 export type ApkLandingConfig = {
   locale: ApkLandingLocale;
   slug: string;
@@ -34,4 +48,7 @@ export type ApkLandingConfig = {
   title?: string;
   description?: string;
   datePublished?: string;
+  /** Play delisted / unavailable — show DelistedAppBanner */
+  delisted?: boolean;
+  delistedNote?: string;
 };
