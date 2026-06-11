@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Script from "next/script";
+import { hiPosts20260612IndiaList } from "@/lib/blog/posts-2026-06-12-india-hi";
 
 export const metadata: Metadata = {
   title: "ब्लॉग - APK डाउनलोडर गाइड और ट्यूटोरियल | gptoapk.com",
@@ -18,6 +19,7 @@ export const metadata: Metadata = {
 };
 
 const posts = [
+    ...hiPosts20260612IndiaList,
     {
       slug: "safe-apk-download-guide-2026",
       title: "Google Play से सुरक्षित APK डाउनलोड गाइड — 2026",

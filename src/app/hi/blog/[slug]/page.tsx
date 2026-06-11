@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import Script from "next/script";
+import { hiPosts20260612India } from "@/lib/blog/posts-2026-06-12-india-hi";
 
 interface BlogPost {
   slug: string;
@@ -2073,8 +2074,8 @@ apksigner verify --print-certs app.apk
 <p><em>Originally published on gptoapk.com.</em></p>
       </>
     ),
-  }
-
+  },
+  ...hiPosts20260612India,
 ];
 
 export async function generateStaticParams() {

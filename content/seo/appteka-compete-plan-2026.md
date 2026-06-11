@@ -97,16 +97,17 @@
 
 ---
 
-### Phase 3 — 内容与 GEO（P1 博客，约 1 周）
+### Phase 3 — 内容与 GEO（P1 博客）【✅ 已完成 2026-06-12】
 
-| 类型 | 示例 | 目的 |
-|------|------|------|
-| hi 博客 | `minecraft-apk-india-2026` | 承接 patch 意图 → 引导官方/Play |
-| hi 博客 | `capcut-apk-without-play-store` | 南亚剪辑场景 |
-| en 博客 | `install-apk-india-guide` | 安装失败 GEO |
-| 内链 | 每篇 3 链到 `*-apk` + `google-play-not-working` | 权重传递 |
+| 类型 | URL | 状态 |
+|------|-----|------|
+| hi 博客 | `/hi/blog/minecraft-apk-india-2026` | ✅ |
+| hi 博客 | `/hi/blog/capcut-apk-without-play-store` | ✅ |
+| en 博客 | `/en/blog/install-apk-india-guide` | ✅ |
+| 内链 | 每篇 ≥3 链到 `*-apk` + `google-play-not-working` | ✅ |
+| syndication | `content/syndication/{en,hi}/2026-06-12.md` | ✅ |
 
-**验收：** 2 篇 hi + 1 篇 en 发布；syndication pack 生成。
+**验收：** ✅ 2 hi + 1 en 发布；draft + syndication pack 已生成。
 
 ---
 
@@ -176,4 +177,4 @@ Ongoing
 
 ---
 
-**下一步（待你确认后执行）：** **Phase 3** — hi/en 博客 GEO 文章 + syndication pack。
+**下一步（待你确认后执行）：** **Phase 4** — IndexNow 监控、GSC 复盘、admin 搜索失败词补 alias。
