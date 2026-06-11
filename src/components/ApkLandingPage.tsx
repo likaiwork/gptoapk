@@ -1,8 +1,6 @@
 import Link from "next/link";
-import DownloadButton from "@/components/DownloadButton";
+import ApkLandingHero from "@/components/ApkLandingHero";
 import SearchBox from "@/components/SearchBox";
-import { buildApkAppPageHref } from "@/lib/apk-landing/build-app-href";
-import { buildApkLandingH1 } from "@/lib/apk-landing/build-metadata";
 import { buildApkLandingJsonLd } from "@/lib/apk-landing/build-jsonld";
 import { apkLandingUi } from "@/lib/apk-landing/ui-strings";
 import type { ApkLandingConfig } from "@/lib/apk-landing/types";
@@ -11,16 +9,10 @@ type Props = {
   config: ApkLandingConfig;
 };
 
-function appInitial(name: string): string {
-  return name.trim().charAt(0).toUpperCase() || "A";
-}
-
 export default function ApkLandingPage({ config }: Props) {
   const ui = apkLandingUi(config.locale);
-  const h1 = buildApkLandingH1(config);
   const jsonLd = buildApkLandingJsonLd(config);
   const homeHref = `/${config.locale}`;
-  const appPageHref = buildApkAppPageHref(config);
   const displayName = config.variantLabel
     ? `${config.appName} (${config.variantLabel})`
     : config.appName;
@@ -56,52 +48,7 @@ export default function ApkLandingPage({ config }: Props) {
         <span className="text-slate-700 dark:text-slate-300">{displayName} APK</span>
       </nav>
 
-      {/* Appteka-style hero: icon + meta + Download APK CTA */}
-      <section className="mb-10 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm dark:border-slate-700 dark:bg-slate-800">
-        <div className="flex flex-col gap-6 p-6 lg:flex-row lg:items-start lg:justify-between lg:p-8">
-          <div className="flex flex-1 gap-5">
-            <div
-              className="flex h-20 w-20 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 text-3xl font-bold text-white shadow-md sm:h-24 sm:w-24"
-              aria-hidden
-            >
-              {appInitial(config.appName)}
-            </div>
-            <div className="min-w-0 flex-1">
-              <h1 className="text-2xl font-extrabold leading-tight text-slate-900 dark:text-white sm:text-3xl">
-                {h1}
-              </h1>
-              <p className="mt-1 text-base font-medium text-blue-600 dark:text-blue-400">
-                {config.developer}
-              </p>
-              <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">{config.category}</p>
-              <div className="mt-3 flex flex-wrap gap-2">
-                <span className="rounded-full bg-emerald-50 px-3 py-1 text-xs font-medium text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-200">
-                  {ui.trustVerified}
-                </span>
-                <span className="rounded-full bg-slate-100 px-3 py-1 text-xs text-slate-700 dark:bg-slate-700 dark:text-slate-200">
-                  v{config.version}
-                </span>
-                <span className="rounded-full bg-slate-100 px-3 py-1 text-xs text-slate-700 dark:bg-slate-700 dark:text-slate-200">
-                  {config.apkSize}
-                </span>
-                <span className="rounded-full bg-slate-100 px-3 py-1 text-xs text-slate-700 dark:bg-slate-700 dark:text-slate-200">
-                  {config.minAndroid}
-                </span>
-              </div>
-            </div>
-          </div>
-
-          <div className="flex w-full flex-col gap-3 lg:w-72 lg:shrink-0">
-            <DownloadButton appId={config.packageName} appName={config.appName} />
-            <Link
-              href={appPageHref}
-              className="block rounded-xl border border-slate-200 px-4 py-2.5 text-center text-sm font-medium text-slate-700 hover:bg-slate-50 dark:border-slate-600 dark:text-slate-200 dark:hover:bg-slate-700/50"
-            >
-              {ui.viewAppPage}
-            </Link>
-          </div>
-        </div>
-      </section>
+      <ApkLandingHero config={config} />
 
       <section className="mb-8 rounded-xl border border-amber-200 bg-amber-50 p-5 dark:border-amber-800/50 dark:bg-amber-950/30">
         <h2 className="text-sm font-semibold uppercase tracking-wide text-amber-900 dark:text-amber-200">
@@ -151,7 +98,7 @@ export default function ApkLandingPage({ config }: Props) {
           {ui.searchHint(config.appName)}
         </p>
         <div className="mt-4">
-          <SearchBox />
+          <SearchBox initialQuery={config.packageName} autoSearch />
         </div>
       </section>
 

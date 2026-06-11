@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import { localePathRegex } from "@/lib/site-locales";
 import type { SiteLocale } from "@/lib/site-locales";
 import { searchUi } from "@/lib/search-ui";
@@ -278,8 +278,20 @@ function clearSearchCache(cacheKey: string) {
   }
 }
 
-export default function SearchBox() {
-  const [url, setUrl] = useState("");
+type SearchBoxProps = {
+  /** Prefill the search input (e.g. from landing page config). */
+  initialQuery?: string;
+  /** Run search automatically on mount when a query is present. */
+  autoSearch?: boolean;
+};
+
+function SearchBoxInner({ initialQuery = "", autoSearch = false }: SearchBoxProps) {
+  const searchParams = useSearchParams();
+  const queryFromUrl = searchParams.get("q")?.trim() ?? "";
+  const seedQuery = (initialQuery.trim() || queryFromUrl).trim();
+  const shouldAutoSearch = autoSearch || Boolean(queryFromUrl);
+
+  const [url, setUrl] = useState(seedQuery);
   const [isFetching, setIsFetching] = useState(false);
   const [error, setError] = useState("");
   const [results, setResults] = useState<SearchResult[]>([]);
@@ -294,6 +306,7 @@ export default function SearchBox() {
   const ui = searchUi[locale] ?? searchUi.en;
   const copy = getLocalizedCopy(locale);
   const cacheKey = getSearchCacheKey(pathname);
+  const autoSearchDone = useRef(false);
 
   const resetSearchState = () => {
     setUrl("");
@@ -349,131 +362,144 @@ export default function SearchBox() {
     return () => window.removeEventListener("pageshow", onPageShow);
   }, [cacheKey]);
 
-  const handleGenerate = async () => {
-    const query = url.trim();
-    const inputType = getInputType(query);
+  const runSearch = useCallback(
+    async (rawQuery: string) => {
+      const query = rawQuery.trim();
+      const inputType = getInputType(query);
 
-    trackEvent(analyticsEvents.searchSubmit, {
-      locale,
-      input_type: inputType,
-      path: pathname,
-    });
+      trackEvent(analyticsEvents.searchSubmit, {
+        locale,
+        input_type: inputType,
+        path: pathname,
+      });
 
-    if (!query) {
-      setError(copy.emptyError);
+      if (!query) {
+        setError(copy.emptyError);
+        setResults([]);
+        setFallback(null);
+        clearSearchCache(cacheKey);
+        trackEvent(analyticsEvents.parseFailed, {
+          locale,
+          reason: "empty_input",
+        });
+        return;
+      }
+
+      setUrl(query);
+      setIsFetching(true);
+      setError("");
       setResults([]);
       setFallback(null);
-      clearSearchCache(cacheKey);
-      trackEvent(analyticsEvents.parseFailed, {
-        locale,
-        reason: "empty_input",
-      });
-      return;
-    }
+      setFeedbackStatus("idle");
 
-    setIsFetching(true);
-    setError("");
-    setResults([]);
-    setFallback(null);
-    setFeedbackStatus("idle");
+      try {
+        let { res, data, country: searchCountry } = await fetchSearchApps(query, locale);
 
-    try {
-      let { res, data, country: searchCountry } = await fetchSearchApps(query, locale);
-
-      if ((!res.ok || !data.results?.length) && inputType === "app_name") {
-        const stripped = stripSearchQueryNoise(query);
-        if (stripped.length >= 2 && stripped !== query.trim().toLowerCase()) {
-          const retry = await fetchSearchApps(stripped, locale);
-          if (retry.res.ok && retry.data.results?.length) {
-            res = retry.res;
-            data = retry.data;
-            searchCountry = retry.country;
+        if ((!res.ok || !data.results?.length) && inputType === "app_name") {
+          const stripped = stripSearchQueryNoise(query);
+          if (stripped.length >= 2 && stripped !== query.trim().toLowerCase()) {
+            const retry = await fetchSearchApps(stripped, locale);
+            if (retry.res.ok && retry.data.results?.length) {
+              res = retry.res;
+              data = retry.data;
+              searchCountry = retry.country;
+            }
           }
         }
-      }
 
-      if (!res.ok || !data.results?.length) {
-        throw new Error(data.error || "No apps found");
-      }
+        if (!res.ok || !data.results?.length) {
+          throw new Error(data.error || "No apps found");
+        }
 
-      const nextQueryType = data.queryType ?? "keyword";
-      const nextLang = data.lang ?? locale;
-      const nextCountry = data.country ?? searchCountry;
+        const nextQueryType = data.queryType ?? "keyword";
+        const nextLang = data.lang ?? locale;
+        const nextCountry = data.country ?? searchCountry;
 
-      setResults(data.results);
-      setQueryType(nextQueryType);
-      setResultLang(nextLang);
-      setResultCountry(nextCountry);
-      setFallback(null);
-      writeSearchCache(cacheKey, {
-        query,
-        queryType: nextQueryType,
-        resultLang: nextLang,
-        resultCountry: nextCountry,
-        results: data.results,
-      });
+        setResults(data.results);
+        setQueryType(nextQueryType);
+        setResultLang(nextLang);
+        setResultCountry(nextCountry);
+        setFallback(null);
+        writeSearchCache(cacheKey, {
+          query,
+          queryType: nextQueryType,
+          resultLang: nextLang,
+          resultCountry: nextCountry,
+          results: data.results,
+        });
 
-      trackEvent(analyticsEvents.parseSuccess, {
-        app_id: data.results[0]?.appId,
-        locale,
-        lang: data.lang,
-        country: data.country,
-        input_type: inputType,
-        query_type: data.queryType,
-        result_count: data.results.length,
-      });
+        trackEvent(analyticsEvents.parseSuccess, {
+          app_id: data.results[0]?.appId,
+          locale,
+          lang: data.lang,
+          country: data.country,
+          input_type: inputType,
+          query_type: data.queryType,
+          result_count: data.results.length,
+        });
 
-      // 记录搜索到数据库
-      if (data.results[0]?.appId) {
-        fetch('/api/track-search', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+        if (data.results[0]?.appId) {
+          fetch("/api/track-search", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              query,
+              queryType: nextQueryType,
+              appId: data.results[0].appId,
+              appTitle: data.results[0].title,
+            }),
+          }).catch(() => {});
+        }
+      } catch (err: unknown) {
+        const rawMessage = err instanceof Error ? err.message : "No apps found";
+        const message =
+          /^no apps found/i.test(rawMessage) ? copy.noResultsError : rawMessage;
+        trackEvent(analyticsEvents.parseFailed, {
+          locale,
+          input_type: inputType,
+          reason: message,
+        });
+        const queryTypeForLog =
+          inputType === "google_play_url" ? "url" : inputType === "package_name" ? "package" : "keyword";
+        const isLikelyNetwork =
+          err instanceof TypeError ||
+          /failed to fetch|networkerror|load failed/i.test(message);
+        const failureKind = isLikelyNetwork
+          ? "client_error"
+          : /^no apps found/i.test(rawMessage) || message === copy.noResultsError
+            ? "no_results"
+            : "search_error";
+        fetch("/api/track-search-failure", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             query,
-            queryType: nextQueryType,
-            appId: data.results[0].appId,
-            appTitle: data.results[0].title,
+            queryType: queryTypeForLog,
+            failureKind,
+            error: message,
+            lang: locale,
+            country: getDefaultSearchCountry(locale),
           }),
         }).catch(() => {});
+        setError(message);
+        setFallback(getSearchFallback(query, locale));
+        clearSearchCache(cacheKey);
+      } finally {
+        setIsFetching(false);
       }
-    } catch (err: unknown) {
-      const rawMessage = err instanceof Error ? err.message : "No apps found";
-      const message =
-        /^no apps found/i.test(rawMessage) ? copy.noResultsError : rawMessage;
-      trackEvent(analyticsEvents.parseFailed, {
-        locale,
-        input_type: inputType,
-        reason: message,
-      });
-      const queryTypeForLog =
-        inputType === "google_play_url" ? "url" : inputType === "package_name" ? "package" : "keyword";
-      const isLikelyNetwork =
-        err instanceof TypeError ||
-        /failed to fetch|networkerror|load failed/i.test(message);
-      const failureKind = isLikelyNetwork
-        ? "client_error"
-        : /^no apps found/i.test(rawMessage) || message === copy.noResultsError
-          ? "no_results"
-          : "search_error";
-      fetch("/api/track-search-failure", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          query,
-          queryType: queryTypeForLog,
-          failureKind,
-          error: message,
-          lang: locale,
-          country: getDefaultSearchCountry(locale),
-        }),
-      }).catch(() => {});
-      setError(message);
-      setFallback(getSearchFallback(query, locale));
-      clearSearchCache(cacheKey);
-    } finally {
-      setIsFetching(false);
-    }
+    },
+    [cacheKey, copy.emptyError, copy.noResultsError, locale, pathname],
+  );
+
+  const handleGenerate = () => {
+    void runSearch(url);
   };
+
+  useEffect(() => {
+    if (!shouldAutoSearch || !seedQuery || autoSearchDone.current) return;
+    autoSearchDone.current = true;
+    void runSearch(seedQuery);
+  }, [shouldAutoSearch, seedQuery, runSearch]);
 
   const handleMissingAppFeedback = async () => {
     const query = url.trim();
@@ -500,7 +526,7 @@ export default function SearchBox() {
       }
       setFeedbackStatus("sent");
       if (body.resolved) {
-        void handleGenerate();
+        void runSearch(url);
       }
     } catch {
       setFeedbackStatus("error");
@@ -717,5 +743,19 @@ export default function SearchBox() {
         </>
       )}
     </div>
+  );
+}
+
+function SearchBoxFallback() {
+  return (
+    <div className="h-[72px] w-full animate-pulse rounded-2xl bg-slate-100 dark:bg-slate-800" />
+  );
+}
+
+export default function SearchBox(props: SearchBoxProps = {}) {
+  return (
+    <Suspense fallback={<SearchBoxFallback />}>
+      <SearchBoxInner {...props} />
+    </Suspense>
   );
 }

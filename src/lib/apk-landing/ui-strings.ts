@@ -25,6 +25,7 @@ type UiStrings = {
   downloadApk: string;
   viewAppPage: string;
   aboutVersion: string;
+  playStoreInstall: string;
 };
 
 const UI: Record<ApkLandingLocale, UiStrings> = {
@@ -53,6 +54,7 @@ const UI: Record<ApkLandingLocale, UiStrings> = {
     downloadApk: "Download APK",
     viewAppPage: "Open full app page",
     aboutVersion: "About this version",
+    playStoreInstall: "Install from Google Play",
   },
   hi: {
     home: "होम",
@@ -79,6 +81,7 @@ const UI: Record<ApkLandingLocale, UiStrings> = {
     downloadApk: "APK डाउनलोड करें",
     viewAppPage: "पूरा ऐप पेज खोलें",
     aboutVersion: "इस संस्करण के बारे में",
+    playStoreInstall: "Google Play से इंस्टॉल करें",
   },
   id: {
     home: "Beranda",
@@ -105,6 +108,7 @@ const UI: Record<ApkLandingLocale, UiStrings> = {
     downloadApk: "Unduh APK",
     viewAppPage: "Buka halaman aplikasi",
     aboutVersion: "Tentang versi ini",
+    playStoreInstall: "Instal dari Google Play",
   },
   zh: {
     home: "首页",
@@ -131,6 +135,7 @@ const UI: Record<ApkLandingLocale, UiStrings> = {
     downloadApk: "下载 APK",
     viewAppPage: "打开完整应用页",
     aboutVersion: "版本信息",
+    playStoreInstall: "前往 Google Play 安装",
   },
 };
 
