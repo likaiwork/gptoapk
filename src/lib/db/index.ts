@@ -7,7 +7,11 @@ import {
 } from "@/lib/search-failure-reconcile";
 import { expandSearchQueryVariants } from "@/lib/search-query-variants";
 import { normalizeUserSearchQuery } from "@/lib/normalize-user-search-query";
-import { getAliasLookupKeys, stripSearchQueryNoise } from "@/lib/search-query-normalize";
+import {
+  applySearchTypoCorrection,
+  getAliasLookupKeys,
+  stripSearchQueryNoise,
+} from "@/lib/search-query-normalize";
 import { normalizeSearchQuery } from "@/lib/search-failure-key";
 import { extractPlayStorePackageId } from "@/lib/search-query-normalize";
 
@@ -1244,20 +1248,44 @@ export async function autoResolveDismissibleSearchFailures(): Promise<number> {
            AND query NOT ILIKE '%?%id%'
          )
          OR lower(trim(query)) IN ('goole商店', 'googieplay', 'googlepaly', 'goodle', 'gogole', 'playstore')
+         OR (
+           failure_kind IN ('no_results', 'search_error')
+           AND length(trim(query)) <= 3
+           AND query !~ '^[a-zA-Z][a-zA-Z0-9_]*(?:\\.[a-zA-Z][a-zA-Z0-9_]*)+$'
+         )
+         OR (
+           failure_kind = 'no_results'
+           AND lower(trim(query)) IN (
+             'map', 'jm', 'kmt', 'ph', 'gridnr', 'googleservice', 'uutool', 'tools', 'tool',
+             'apk', 'app', 'apps', 'android', 'download', 'video', 'game', 'games'
+           )
+         )
+         OR query ILIKE '%智博%'
+         OR query ILIKE '%1919智博%'
+         OR query ILIKE '%工具站%'
+         OR query ILIKE '%cladue%'
+         OR lower(trim(query)) IN ('redpanda', 'red panda', 'ibreathe', 'adhd focus pro')
        )
      RETURNING query_key`,
   );
   return rows.length;
 }
 
+/** Resolve a single failure row by primary key (most reliable during reconcile). */
+export async function resolveSearchFailureRow(queryKey: string): Promise<boolean> {
+  return resolveSearchFailureByQueryKey(queryKey);
+}
+
 export async function reconcileResolvableSearchFailures(options?: {
   batchSize?: number;
   maxChecks?: number;
   liveProbeLimit?: number;
+  liveProbeTimeoutMs?: number;
 }): Promise<{ checked: number; resolved: number; dismissed: number; liveResolved: number }> {
   const batchSize = Math.min(Math.max(options?.batchSize ?? 500, 50), 1000);
   const maxChecks = Math.min(Math.max(options?.maxChecks ?? 5000, batchSize), 20000);
-  const liveProbeLimit = Math.min(Math.max(options?.liveProbeLimit ?? 120, 0), 500);
+  const liveProbeLimit = Math.min(Math.max(options?.liveProbeLimit ?? 120, 0), 2000);
+  const liveProbeTimeoutMs = Math.min(Math.max(options?.liveProbeTimeoutMs ?? 12_000, 3000), 25_000);
 
   await initDatabase();
   const dismissed = await autoResolveDismissibleSearchFailures();
@@ -1299,11 +1327,14 @@ export async function reconcileResolvableSearchFailures(options?: {
       const lookupKeys = unique.flatMap((q) => getAliasLookupKeys(q));
       const overrideIds = lookupKeys.length ? await getSearchAliasOverrideAppIds(lookupKeys) : null;
       const markRowResolved = async (source: "alias" | "live") => {
-        let count = await resolveSearchFailuresForQuery(row.query);
-        if (count === 0) {
-          const byKey = await resolveSearchFailureByQueryKey(row.query_key);
-          if (byKey) count = 1;
+        if (await resolveSearchFailureByQueryKey(row.query_key)) {
+          resolved += 1;
+          resolvedInBatch += 1;
+          if (source === "live") liveResolved += 1;
+          didResolve = true;
+          return;
         }
+        const count = await resolveSearchFailuresForQuery(row.query);
         if (count > 0) {
           resolved += count;
           resolvedInBatch += 1;
@@ -1317,7 +1348,13 @@ export async function reconcileResolvableSearchFailures(options?: {
       }
 
       if (!didResolve) {
-        for (const q of unique) {
+        const aliasCandidates = [
+          ...unique,
+          row.normalized_query,
+          applySearchTypoCorrection(row.query.trim()),
+          stripSearchQueryNoise(row.query),
+        ].filter((q, i, arr) => q.trim() && arr.indexOf(q) === i);
+        for (const q of aliasCandidates) {
           if (canResolveSearchQueryNow(q) || (await canResolveSearchQueryNowAsync(q))) {
             await markRowResolved("alias");
             break;
@@ -1333,7 +1370,11 @@ export async function reconcileResolvableSearchFailures(options?: {
         liveProbes += 1;
         const lang = row.last_lang || "en";
         const country = row.last_country || (lang.startsWith("zh") ? "cn" : "us");
-        const liveOk = await probeLiveSearchHasResults(row.query, { lang, country });
+        const liveOk = await probeLiveSearchHasResults(row.query, {
+          lang,
+          country,
+          timeoutMs: liveProbeTimeoutMs,
+        });
         if (liveOk) {
           await markRowResolved("live");
         }

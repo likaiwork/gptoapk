@@ -14,7 +14,8 @@ const SEARCH_LIVE_PROBE_LIMIT = Number(process.env.REPAIR_SEARCH_LIVE_PROBE_LIMI
 const FEEDBACK_LIMIT = Number(process.env.REPAIR_FEEDBACK_LIMIT ?? 40);
 const SEARCH_DISCOVERY_LIMIT = Number(process.env.REPAIR_SEARCH_DISCOVERY_LIMIT ?? 40);
 const MIRROR_MAX_APPS = Number(process.env.REPAIR_MIRROR_MAX_APPS ?? 60);
-const RECONCILE_ROUNDS = Number(process.env.REPAIR_RECONCILE_ROUNDS ?? 8);
+const RECONCILE_ROUNDS = Number(process.env.REPAIR_RECONCILE_ROUNDS ?? 10);
+const RECONCILE_LIVE_TIMEOUT_MS = Number(process.env.REPAIR_RECONCILE_LIVE_TIMEOUT_MS ?? 12_000);
 const RUN_DEEP_DOWNLOAD_SCRIPT = process.env.REPAIR_RUN_DEEP_SCRIPT !== "0";
 
 function adminUrl(path, params = {}) {
@@ -44,7 +45,10 @@ async function postJson(url, body) {
 }
 
 async function runSearchReconcileRound(body) {
-  return postJson(adminUrl("/api/admin/search-failures/reconcile"), body);
+  return postJson(adminUrl("/api/admin/search-failures/reconcile"), {
+    liveProbeTimeoutMs: RECONCILE_LIVE_TIMEOUT_MS,
+    ...body,
+  });
 }
 
 async function runBatchedSearchRepair() {
@@ -55,8 +59,8 @@ async function runBatchedSearchRepair() {
   let totalDiscoveryMiss = 0;
 
   const first = await runSearchReconcileRound({
-    maxChecks: SEARCH_MAX_CHECKS,
-    liveProbeLimit: SEARCH_LIVE_PROBE_LIMIT,
+    maxChecks: Math.max(SEARCH_MAX_CHECKS, 2000),
+    liveProbeLimit: Math.max(SEARCH_LIVE_PROBE_LIMIT, 200),
     feedbackLimit: FEEDBACK_LIMIT,
     searchFailureDiscoveryLimit: SEARCH_DISCOVERY_LIMIT,
     skipStaticSync: false,

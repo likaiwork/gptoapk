@@ -115,7 +115,6 @@ function repairSiteOrigin(): string {
   const host =
     process.env.REPAIR_SITE_HOST ||
     process.env.NEXT_PUBLIC_SITE_URL ||
-    (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "") ||
     "https://www.gptoapk.com";
   return host.replace(/\/$/, "");
 }
@@ -153,7 +152,11 @@ export async function probeLiveSearchHasResults(
   query: string,
   options?: { lang?: string; country?: string; timeoutMs?: number },
 ): Promise<boolean> {
-  for (const variant of expandSearchQueryVariants(query)) {
+  const variants = [
+    ...expandSearchQueryVariants(query),
+    query.trim(),
+  ].filter((v, i, arr) => v && arr.indexOf(v) === i);
+  for (const variant of variants) {
     if (await probeLiveSearchVariant(variant, options)) return true;
   }
   return false;

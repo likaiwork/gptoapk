@@ -396,6 +396,7 @@ export async function runSearchDiscoveryRepair(options?: {
   searchFailureLimit?: number;
   reconcileMaxChecks?: number;
   reconcileLiveProbeLimit?: number;
+  reconcileLiveProbeTimeoutMs?: number;
   /** Skip expensive static-alias DB sync (use on batched reconcile rounds after the first). */
   skipStaticSync?: boolean;
   /** Skip Play Store discovery (slow); reconcile + feedback only. */
@@ -429,6 +430,7 @@ export async function runSearchDiscoveryRepair(options?: {
     batchSize: 500,
     maxChecks: options?.reconcileMaxChecks ?? 5000,
     liveProbeLimit: options?.reconcileLiveProbeLimit ?? 500,
+    liveProbeTimeoutMs: options?.reconcileLiveProbeTimeoutMs ?? 12_000,
   });
 
   return {

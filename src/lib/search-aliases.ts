@@ -2691,6 +2691,26 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
       "io.github.romanvht.byedpi",
     ],
   },
+  {
+    appIds: ["com.animohub.pro"],
+    aliases: ["animohub", "animo hub", "com.animohub.pro"],
+  },
+  {
+    appIds: ["com.pcf.formatfactory"],
+    aliases: ["格式工厂", "format factory", "formatfactory", "com.pcf.formatfactory"],
+  },
+  {
+    appIds: ["com.facer.facer"],
+    aliases: ["facer", "facer watch faces", "com.facer.facer"],
+  },
+  {
+    appIds: ["de.iotmqttpanel"],
+    aliases: ["iot mqtt panel", "iotmqttpanel", "iot mqtt", "de.iotmqttpanel"],
+  },
+  {
+    appIds: ["com.rotato.app"],
+    aliases: ["rotato video compressor", "rotato", "com.rotato.app"],
+  },
 ];
 
 /** Wrong or truncated Play package ids from pasted URLs → canonical id */
@@ -2795,6 +2815,10 @@ function resolveByLongestContainedAlias(stripped: string): readonly string[] | n
     if (stripped.startsWith(alias)) {
       const rest = stripped.slice(alias.length).trim();
       if (!rest || stripSearchQueryNoise(rest) === "") {
+        return SEARCH_ALIAS_APP_IDS[alias];
+      }
+      // Brand + CJK/version suffix (e.g. "waze导航与实时交通 5.19.0.2")
+      if (!isCjkAlias(alias) && /^[\d.\s\u4e00-\u9fff]/.test(rest)) {
         return SEARCH_ALIAS_APP_IDS[alias];
       }
     }
