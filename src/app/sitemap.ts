@@ -208,6 +208,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly" as const,
       priority: 0.85,
     },
+    {
+      url: `${baseUrl}/en/bkash-apk`,
+      lastModified: new Date("2026-06-12"),
+      changeFrequency: "weekly" as const,
+      priority: 0.85,
+    },
     // Russian SEO pages
     ...([
       { slug: "telegram-apk", priority: 0.7 as const },
@@ -220,9 +226,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
       { slug: "install-apk-without-google-play", priority: 0.7 as const },
       { slug: "claude-apk", priority: 0.6 as const },
       { slug: "gemini-apk", priority: 0.6 as const },
-    ]).map(({ slug, priority }) => ({
+      { slug: "bye-bye-dpi-apk", priority: 0.85 as const, lastModified: "2026-06-12" },
+    ]).map(({ slug, priority, lastModified }) => ({
       url: `${baseUrl}/ru/${slug}` as const,
-      lastModified: new Date("2026-05-14"),
+      lastModified: new Date(lastModified ?? "2026-05-14"),
       changeFrequency: "weekly" as const,
       priority,
     })),
@@ -367,6 +374,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
       { slug: "tiktok-apk", priority: 0.85 as const, lastModified: "2026-06-12" },
       { slug: "google-play-not-working", priority: 0.7 as const },
       { slug: "vpn-apk", priority: 0.85 as const, lastModified: "2026-06-12" },
+      { slug: "freecine-apk", priority: 0.85 as const, lastModified: "2026-06-12" },
+      { slug: "cine-tv-apk", priority: 0.85 as const, lastModified: "2026-06-12" },
+      { slug: "winlator-apk", priority: 0.85 as const, lastModified: "2026-06-12" },
     ]).map(({ slug, priority, lastModified }) => ({
       url: `${baseUrl}/hi/${slug}` as const,
       lastModified: new Date(lastModified ?? "2026-05-14"),

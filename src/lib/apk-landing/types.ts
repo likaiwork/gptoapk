@@ -1,4 +1,4 @@
-export type ApkLandingLocale = "en" | "hi" | "id" | "zh";
+export type ApkLandingLocale = "en" | "hi" | "id" | "zh" | "ru";
 
 export type ApkLandingFaq = {
   question: string;

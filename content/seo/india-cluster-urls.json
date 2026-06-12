@@ -1,5 +1,5 @@
 {
-  "description": "India/Indonesia APK cluster URLs for IndexNow batch submit (Phase 4)",
+  "description": "India/Indonesia/RU/BD APK cluster URLs for IndexNow batch submit (Phase 4–5)",
   "updated": "2026-06-12",
   "paths": [
     "/hi/minecraft-apk",
@@ -27,6 +27,11 @@
     "/id/telegram-apk",
     "/id/tiktok-apk",
     "/id/vpn-apk",
-    "/id/chatgpt-apk"
+    "/id/chatgpt-apk",
+    "/hi/freecine-apk",
+    "/hi/cine-tv-apk",
+    "/hi/winlator-apk",
+    "/en/bkash-apk",
+    "/ru/bye-bye-dpi-apk"
   ]
 }

@@ -2656,6 +2656,41 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
     appIds: ["org.localsend.localsend_app"],
     aliases: ["localsend", "local send", "localsend app", "org.localsend.localsend_app"],
   },
+  {
+    appIds: ["com.wx.freecine"],
+    aliases: ["freecine", "free cine", "freecine apk", "freecine app", "com.wx.freecine"],
+  },
+  {
+    appIds: ["com.cinefffflix.com"],
+    aliases: [
+      "cine tv",
+      "cine tv apk",
+      "film tv",
+      "film tv apk",
+      "cine tv app",
+      "film tv app",
+      "com.cinefffflix.com",
+    ],
+  },
+  {
+    appIds: ["com.bkash.customerapp"],
+    aliases: ["bkash", "bkash apk", "bkash ekyc", "bkash ekyc app", "bkash app", "com.bkash.customerapp"],
+  },
+  {
+    appIds: ["com.winlator"],
+    aliases: ["winlator", "winlator apk", "winlator cmod", "winlator app", "com.winlator"],
+  },
+  {
+    appIds: ["io.github.romanvht.byedpi"],
+    aliases: [
+      "bye bye dpi",
+      "byebyedpi",
+      "bye bye dpi vpn",
+      "скачать bye bye dpi",
+      "byebyedpi скачать",
+      "io.github.romanvht.byedpi",
+    ],
+  },
 ];
 
 /** Wrong or truncated Play package ids from pasted URLs → canonical id */
@@ -2889,6 +2924,12 @@ export const PRIORITY_STATIC_ALIAS_QUERIES = [
   "gogoogle",
   "grindr",
   "localsend",
+  "freecine",
+  "cine tv",
+  "film tv apk",
+  "bkash ekyc",
+  "winlator",
+  "bye bye dpi",
 ] as const;
 
 export function listStaticSearchAliasBindings(): Array<{

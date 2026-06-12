@@ -181,3 +181,20 @@ Ongoing
 ---
 
 **下一步（持续运维）：** 每周跑 `npm run phase4:checklist`；GSC/GA4 填 runbook 表格；admin 新失败词补 alias。
+
+---
+
+## 八、Phase 5 — 海外关键词扩量【✅ 2026-06-12】
+
+> 详表：`content/seo/appteka-phase5-overseas-keywords-2026.md`（Semrush 竞品词：印度娱乐/游戏、孟加拉 bKash、俄罗斯 ByeByeDPI）
+
+| URL | 包名 | 市场 |
+|-----|------|------|
+| `/hi/freecine-apk` | com.wx.freecine | IN/PH |
+| `/hi/cine-tv-apk` | com.cinefffflix.com | IN |
+| `/hi/winlator-apk` | com.winlator | IN |
+| `/en/bkash-apk` | com.bkash.customerapp | BD |
+| `/ru/bye-bye-dpi-apk` | io.github.romanvht.byedpi | RU |
+
+**不学 Appteka：** Minecraft Patch 页（`com.mojang.minecraftpe.patch`）、成人 APK 词族。  
+**验收：** aliases + sitemap + IndexNow 清单已更新；`ApkLandingLocale` 含 `ru`。
