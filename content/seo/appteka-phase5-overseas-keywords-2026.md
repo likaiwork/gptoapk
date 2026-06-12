@@ -79,11 +79,18 @@
 | `/hi/snapchat-apk` | com.snapchat.android | 社交 |
 | `/hi/animohub-apk` | com.animohub.pro | Appteka 娱乐词 |
 
-## 七、后续
+## 八、Phase 8【✅ 2026-06-12】
+
+| URL | 包名 | 说明 |
+|-----|------|------|
+| `/en/gcash-apk` | com.globe.gcash.android | 菲律宾钱包 |
+| `/en/minecraft-beta-apk` | com.mojang.minecraftpreview | Beta/Preview 长尾 |
+
+## 九、后续
 
 | 任务 | 说明 |
 |------|------|
-| `en/gcash-apk` | 菲律宾 P2 |
+| `id/` 补量 | 印尼社交/剪辑长尾 |
 | 持续 | `run-admin-repair.mjs` 维护搜索失败队列 |
 
 ---

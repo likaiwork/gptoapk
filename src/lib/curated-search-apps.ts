@@ -161,6 +161,24 @@ const CURATED_BY_APP_ID: Readonly<Record<string, CuratedSearchAppMeta>> = {
     iconUrl: "",
     playUrl: "https://play.google.com/store/apps/details?id=com.animohub.pro",
   },
+  "com.globe.gcash.android": {
+    appId: "com.globe.gcash.android",
+    title: "GCash",
+    summary: "Philippines mobile wallet — send money, pay bills, scan QR.",
+    developer: "Mynt - Globe Fintech Innovations, Inc.",
+    developerId: "Mynt+-+Globe+Fintech+Innovations,+Inc.",
+    iconUrl: "",
+    playUrl: "https://play.google.com/store/apps/details?id=com.globe.gcash.android",
+  },
+  "com.mojang.minecraftpreview": {
+    appId: "com.mojang.minecraftpreview",
+    title: "Minecraft Preview",
+    summary: "Official Minecraft beta/preview builds for Android.",
+    developer: "Mojang",
+    developerId: "Mojang",
+    iconUrl: "",
+    playUrl: "https://play.google.com/store/apps/details?id=com.mojang.minecraftpreview",
+  },
 };
 
 export function getCuratedSearchAppMeta(appId: string): CuratedSearchAppMeta | null {

@@ -28,9 +28,9 @@
 | 11 | spotify apk download | 25K+ | IN, BR | com.spotify.music | `/hi/spotify-apk` ✅ | P1 | Phase 1A |
 | 12 | youtube apk download | 22K+ | IN | com.google.android.youtube | `/hi/youtube-apk` ✅ | P1 | Phase 1A |
 | 13 | vpn apk download | 20K+ | IN, RU | (多包名) | `/hi/vpn-apk` ✅ | P1 | 已迁模板 |
-| 14 | gcash apk download | 15K+ | PH, IN diaspora | com.globe.gcash.android | `/en/gcash-apk` | P2 | 菲律宾钱包 |
+| 14 | gcash apk download | 15K+ | PH, IN diaspora | com.globe.gcash.android | `/en/gcash-apk` ✅ | P2 | 菲律宾钱包 |
 | 15 | chatgpt apk download | 18K+ | IN, Global | com.openai.chatgpt | `/hi/chatgpt-apk` ✅ | P0 | 模板试点页 |
-| 16 | minecraft beta download | 8K+ | IN | com.mojang.minecraftpe | `/en/minecraft-beta-apk` | P1 | 版本长尾 |
+| 16 | minecraft beta download | 8K+ | IN | com.mojang.minecraftpreview | `/en/minecraft-beta-apk` ✅ | P1 | 官方 Preview 包 |
 | 17 | kinemaster apk | 12K+ | IN, ID | com.nexstreaming.app.kinemasterfree | `/hi/kinemaster-apk` ✅ | P1 | Phase 1A |
 | 18 | truecaller apk download | 10K+ | IN | com.truecaller | `/hi/truecaller-apk` ✅ | P2 | 印度本地超级 App |
 | 19 | snapchat apk download | 12K+ | IN, US | com.snapchat.android | `/hi/snapchat-apk` ✅ | P2 | |

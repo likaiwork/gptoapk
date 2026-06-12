@@ -214,6 +214,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly" as const,
       priority: 0.85,
     },
+    {
+      url: `${baseUrl}/en/gcash-apk`,
+      lastModified: new Date("2026-06-12"),
+      changeFrequency: "weekly" as const,
+      priority: 0.85,
+    },
+    {
+      url: `${baseUrl}/en/minecraft-beta-apk`,
+      lastModified: new Date("2026-06-12"),
+      changeFrequency: "weekly" as const,
+      priority: 0.85,
+    },
     // Russian SEO pages
     ...([
       { slug: "telegram-apk", priority: 0.7 as const },

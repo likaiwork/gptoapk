@@ -1517,6 +1517,17 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
     ],
   },
   {
+    appIds: ["com.mojang.minecraftpreview"],
+    aliases: [
+      "minecraft beta",
+      "minecraft beta download",
+      "minecraft beta apk",
+      "minecraft preview",
+      "minecraft preview apk",
+      "com.mojang.minecraftpreview",
+    ],
+  },
+  {
     appIds: ["com.supercell.clashofclans"],
     aliases: ["clash of clans", "部落冲突"],
   },
@@ -2985,6 +2996,8 @@ export const PRIORITY_STATIC_ALIAS_QUERIES = [
   "truecaller",
   "snapchat",
   "animohub",
+  "minecraft beta",
+  "minecraft preview",
 ] as const;
 
 export function listStaticSearchAliasBindings(): Array<{

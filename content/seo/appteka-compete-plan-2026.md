@@ -220,3 +220,12 @@ Ongoing
 | `/hi/truecaller-apk` | com.truecaller |
 | `/hi/snapchat-apk` | com.snapchat.android |
 | `/hi/animohub-apk` | com.animohub.pro |
+
+---
+
+## 十一、Phase 8 — GCash / Minecraft Beta【✅ 2026-06-12】
+
+| URL | 包名 |
+|-----|------|
+| `/en/gcash-apk` | com.globe.gcash.android |
+| `/en/minecraft-beta-apk` | com.mojang.minecraftpreview |

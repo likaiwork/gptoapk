@@ -154,7 +154,7 @@ function resolveApkLandingLocale(slug: string, locale: SiteLocale): SiteLocale {
   ) {
     return "hi";
   }
-  if (slug === "bkash-apk") return "en";
+  if (slug === "bkash-apk" || slug === "gcash-apk" || slug === "minecraft-beta-apk") return "en";
   if (slug === "bye-bye-dpi-apk" || slug === "vpn-apk") return locale === "ru" ? "ru" : locale;
   if (slug === "freecine-apk") {
     if (locale === "tl") return "tl";
@@ -185,6 +185,14 @@ function getSearchFallback(query: string, locale: SiteLocale): SearchFallback | 
     { match: (s) => s.includes("instagram") || s === "ins", slug: "instagram-apk", label: "Instagram APK" },
     { match: (s) => s.includes("whatsapp"), slug: "whatsapp-apk", label: "WhatsApp APK" },
     { match: (s) => s.includes("tiktok") || s.includes("抖音国际"), slug: "tiktok-apk", label: "TikTok APK" },
+    {
+      match: (s) =>
+        s.includes("minecraft beta") ||
+        s.includes("minecraft preview") ||
+        s.includes("minecraftpreview"),
+      slug: "minecraft-beta-apk",
+      label: "Minecraft Beta APK",
+    },
     {
       match: (s) =>
         s.includes("minecraft") || s.includes("我的世界") || s.includes("minecraft patch"),
@@ -254,6 +262,11 @@ function getSearchFallback(query: string, locale: SiteLocale): SearchFallback | 
       match: (s) => s.includes("bkash"),
       slug: "bkash-apk",
       label: "bKash APK",
+    },
+    {
+      match: (s) => s.includes("gcash") || s.includes("g cash"),
+      slug: "gcash-apk",
+      label: "GCash APK",
     },
     {
       match: (s) => s.includes("winlator"),
