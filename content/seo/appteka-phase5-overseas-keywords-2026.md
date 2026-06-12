@@ -62,14 +62,21 @@
 
 ---
 
-## 四、Phase 6 建议（下一步）
+## 四、Phase 6【✅ 2026-06-12】
+
+| 任务 | URL | 状态 |
+|------|-----|------|
+| 菲律宾 FreeCine | `/tl/freecine-apk` | ✅ |
+| 俄罗斯 VPN 模板迁移 | `/ru/vpn-apk` | ✅ ApkLanding + 链 ByeByeDPI |
+| 英文 patch 意图博客 | `/en/blog/minecraft-patch-download-official-2026` | ✅ |
+| hi patch 博客 | `/hi/blog/minecraft-apk-india-2026` | ✅ Phase 3 |
+
+## 五、Phase 7 建议（下一步）
 
 | 优先级 | 任务 | 说明 |
 |--------|------|------|
-| P1 | 迁移 `ru/vpn-apk` → ApkLanding 模板 | 与 bye-bye-dpi 内链 |
-| P1 | `en/freecine-apk` 或 `tl/freecine-apk` | 菲律宾 18K 词重叠 |
 | P2 | `hi/truecaller-apk` / `hi/snapchat-apk` | 清单 P2 |
-| P2 | 博客：`minecraft patch vs official`（hi） | 截获 patch 意图，导官方 |
+| P2 | `hi/animohub-apk` | Appteka IN 娱乐词 |
 | 持续 | admin repair + alias | 每周 `run-admin-repair.mjs` |
 
 ---

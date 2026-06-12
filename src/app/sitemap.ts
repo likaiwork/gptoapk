@@ -217,7 +217,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // Russian SEO pages
     ...([
       { slug: "telegram-apk", priority: 0.7 as const },
-      { slug: "vpn-apk", priority: 0.7 as const },
+      { slug: "vpn-apk", priority: 0.85 as const, lastModified: "2026-06-12" },
       { slug: "chatgpt-apk", priority: 0.7 as const },
       { slug: "youtube-apk", priority: 0.7 as const },
       { slug: "tiktok-apk", priority: 0.7 as const },
@@ -350,9 +350,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
       { slug: "chatgpt-apk", priority: 0.7 as const },
       { slug: "tiktok-apk", priority: 0.7 as const },
       { slug: "google-play-not-working", priority: 0.7 as const },
-    ]).map(({ slug, priority }) => ({
+      { slug: "freecine-apk", priority: 0.85 as const, lastModified: "2026-06-12" },
+    ]).map(({ slug, priority, lastModified }) => ({
       url: `${baseUrl}/tl/${slug}` as const,
-      lastModified: new Date("2026-05-14"),
+      lastModified: new Date(lastModified ?? "2026-05-14"),
       changeFrequency: "weekly" as const,
       priority,
     })),

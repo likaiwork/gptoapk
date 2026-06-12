@@ -198,3 +198,15 @@ Ongoing
 
 **不学 Appteka：** Minecraft Patch 页（`com.mojang.minecraftpe.patch`）、成人 APK 词族。  
 **验收：** aliases + sitemap + IndexNow 清单已更新；`ApkLandingLocale` 含 `ru`。
+
+---
+
+## 九、Phase 6 — TL/RU 扩量 + patch 博客【✅ 2026-06-12】
+
+| URL | 说明 |
+|-----|------|
+| `/tl/freecine-apk` | 菲律宾 freecine 词 |
+| `/ru/vpn-apk` | 迁 ApkLanding，内链 ByeByeDPI |
+| `/en/blog/minecraft-patch-download-official-2026` | 截获 patch 搜索，对比 Appteka |
+
+`ApkLandingLocale` 现含 `tl`。

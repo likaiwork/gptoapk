@@ -46,6 +46,10 @@ export function buildApkLandingH1(config: ApkLandingConfig): string {
       return `Download ${name} APK untuk Android`;
     case "zh":
       return `${name} APK 下载安装教程`;
+    case "ru":
+      return `Скачать ${name} APK для Android`;
+    case "tl":
+      return `I-download ang ${name} APK para sa Android`;
     default:
       return `Download ${name} APK for Android`;
   }

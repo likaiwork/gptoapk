@@ -152,7 +152,11 @@ function resolveApkLandingLocale(slug: string, locale: SiteLocale): SiteLocale {
     return "hi";
   }
   if (slug === "bkash-apk") return "en";
-  if (slug === "bye-bye-dpi-apk") return "ru";
+  if (slug === "bye-bye-dpi-apk" || slug === "vpn-apk") return locale === "ru" ? "ru" : locale;
+  if (slug === "freecine-apk") {
+    if (locale === "tl") return "tl";
+    return "hi";
+  }
   if (
     slug === "instagram-apk" ||
     slug === "spotify-apk" ||
