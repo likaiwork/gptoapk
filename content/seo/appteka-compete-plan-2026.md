@@ -242,4 +242,6 @@ Ongoing
 | `/id/spotify-apk` | com.spotify.music |
 | `/id/kinemaster-apk` | com.nexstreaming.app.kinemasterfree |
 
-`id/*-apk` 集群现 **11 页**（含 CapCut/TikTok/WhatsApp 等存量）。
+| `/id/youtube-apk` | com.google.android.youtube |
+
+`id/*-apk` 集群现 **12 页**（含 CapCut/TikTok/WhatsApp/YouTube 等）。

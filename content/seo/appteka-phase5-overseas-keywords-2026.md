@@ -95,12 +95,12 @@
 | `/id/pubg-mobile-apk` | com.tencent.ig | 游戏 |
 | `/id/spotify-apk` | com.spotify.music | 音乐 |
 | `/id/kinemaster-apk` | com.nexstreaming.app.kinemasterfree | 剪辑 |
+| `/id/youtube-apk` | com.google.android.youtube | 视频 |
 
 ## 十、后续
 
 | 任务 | 说明 |
 |------|------|
-| `id/youtube-apk` | 印尼视频长尾 |
 | 持续 | `run-admin-repair.mjs` 维护搜索失败队列 |
 
 ---

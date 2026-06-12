@@ -354,6 +354,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       { slug: "pubg-mobile-apk", priority: 0.85 as const, lastModified: "2026-06-12" },
       { slug: "spotify-apk", priority: 0.85 as const, lastModified: "2026-06-12" },
       { slug: "kinemaster-apk", priority: 0.85 as const, lastModified: "2026-06-12" },
+      { slug: "youtube-apk", priority: 0.85 as const, lastModified: "2026-06-12" },
       { slug: "google-play-not-working", priority: 0.7 as const },
     ]).map(({ slug, priority, lastModified }) => ({
       url: `${baseUrl}/id/${slug}` as const,

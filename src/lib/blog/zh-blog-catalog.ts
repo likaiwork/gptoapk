@@ -1224,5 +1224,21 @@ export const zhBlogCatalog: ZhBlogCatalogEntry[] = [
       "文件管理",
       "gptoapk"
     ]
+  },
+  {
+    "slug": "第三方应用商店安全评测-2026",
+    "title": "第三方安卓应用商店安全评测 2026：Appteka、Aptoide、APKPure 等 7 家横评",
+    "description": "不用 Google Play 的话，Aptoide、Appteka、APKPure、F-Droid 这些第三方商店到底安不安全？我们花了三天把主流选择全部测了一遍，附完整对比表和安全建议。",
+    "date": "2026-06-12",
+    "readTime": "15 分钟阅读",
+    "tags": ["第三方应用商店", "安卓应用商店", "APK下载", "APKPure安全", "Appteka", "gptoapk"]
+  },
+  {
+    "slug": "android-侧载APK安全指南-从下载到安装-2026",
+    "title": "Android 侧载 APK 安全指南 2026：从下载到安装的完整流程",
+    "description": "侧载 APK 安不安全？取决于你怎么做。这篇指南覆盖来源选择、VirusTotal验毒、签名检查、各品牌手机权限设置、安装错误解决，非常实用。",
+    "date": "2026-06-12",
+    "readTime": "10 分钟阅读",
+    "tags": ["APK侧载", "APK安装", "安卓侧载", "APK安全", "VirusTotal", "gptoapk"]
   }
 ];
