@@ -97,7 +97,16 @@
 | `/id/kinemaster-apk` | com.nexstreaming.app.kinemasterfree | 剪辑 |
 | `/id/youtube-apk` | com.google.android.youtube | 视频 |
 
-## 十、后续
+## 十、Phase 10 — 菲律宾 tl 集群【✅ 2026-06-12】
+
+| URL | 包名 | 说明 |
+|-----|------|------|
+| `/tl/gcash-apk` | com.globe.gcash.android | 钱包（Tagalog） |
+| `/tl/instagram-apk` | com.instagram.android | 社交 |
+| `/tl/capcut-apk` | com.lemon.lvoverseas | 剪辑 |
+| `/tl/whatsapp-apk` | com.whatsapp | 通讯 |
+
+## 十一、后续
 
 | 任务 | 说明 |
 |------|------|

@@ -135,7 +135,11 @@ function isVpnKeywordQuery(query: string) {
 
 function resolveApkLandingLocale(slug: string, locale: SiteLocale): SiteLocale {
   if (slug === "cocobox-apk") return "hi";
-  if (slug === "capcut-apk") return locale === "id" ? "id" : "hi";
+  if (slug === "capcut-apk") {
+    if (locale === "tl") return "tl";
+    if (locale === "id") return "id";
+    return "hi";
+  }
   if (slug === "minecraft-apk") {
     if (locale === "hi") return "hi";
     return "en";
@@ -146,15 +150,16 @@ function resolveApkLandingLocale(slug: string, locale: SiteLocale): SiteLocale {
     slug === "kinemaster-apk" ||
     slug === "instagram-apk" ||
     slug === "spotify-apk" ||
-    slug === "youtube-apk"
+    slug === "youtube-apk" ||
+    slug === "whatsapp-apk"
   ) {
+    if (locale === "tl") return "tl";
     if (locale === "id") return "id";
     if (locale === "hi") return "hi";
     return "hi";
   }
   if (
     slug === "google-play-store-apk" ||
-    slug === "freecine-apk" ||
     slug === "cine-tv-apk" ||
     slug === "winlator-apk" ||
     slug === "truecaller-apk" ||
@@ -163,12 +168,16 @@ function resolveApkLandingLocale(slug: string, locale: SiteLocale): SiteLocale {
   ) {
     return "hi";
   }
-  if (slug === "bkash-apk" || slug === "gcash-apk" || slug === "minecraft-beta-apk") return "en";
-  if (slug === "bye-bye-dpi-apk" || slug === "vpn-apk") return locale === "ru" ? "ru" : locale;
   if (slug === "freecine-apk") {
     if (locale === "tl") return "tl";
     return "hi";
   }
+  if (slug === "gcash-apk") {
+    if (locale === "tl") return "tl";
+    return "en";
+  }
+  if (slug === "bkash-apk" || slug === "minecraft-beta-apk") return "en";
+  if (slug === "bye-bye-dpi-apk" || slug === "vpn-apk") return locale === "ru" ? "ru" : locale;
   return locale;
 }
 

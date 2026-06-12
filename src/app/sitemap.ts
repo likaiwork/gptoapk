@@ -369,6 +369,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
       { slug: "tiktok-apk", priority: 0.7 as const },
       { slug: "google-play-not-working", priority: 0.7 as const },
       { slug: "freecine-apk", priority: 0.85 as const, lastModified: "2026-06-12" },
+      { slug: "gcash-apk", priority: 0.85 as const, lastModified: "2026-06-12" },
+      { slug: "instagram-apk", priority: 0.85 as const, lastModified: "2026-06-12" },
+      { slug: "capcut-apk", priority: 0.85 as const, lastModified: "2026-06-12" },
+      { slug: "whatsapp-apk", priority: 0.85 as const, lastModified: "2026-06-12" },
     ]).map(({ slug, priority, lastModified }) => ({
       url: `${baseUrl}/tl/${slug}` as const,
       lastModified: new Date(lastModified ?? "2026-05-14"),

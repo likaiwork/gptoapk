@@ -245,3 +245,16 @@ Ongoing
 | `/id/youtube-apk` | com.google.android.youtube |
 
 `id/*-apk` 集群现 **12 页**（含 CapCut/TikTok/WhatsApp/YouTube 等）。
+
+---
+
+## 十三、Phase 10 — 菲律宾 tl 补量【✅ 2026-06-12】
+
+| URL | 包名 |
+|-----|------|
+| `/tl/gcash-apk` | com.globe.gcash.android |
+| `/tl/instagram-apk` | com.instagram.android |
+| `/tl/capcut-apk` | com.lemon.lvoverseas |
+| `/tl/whatsapp-apk` | com.whatsapp |
+
+`tl/*-apk` 集群现 **9 页**（含 FreeCine/TikTok/Telegram 等存量）。

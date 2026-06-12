@@ -42,7 +42,7 @@
 |------|-------------------|--------------|
 | 印度 (IN) | ~55% | **hi/** 着陆页 + 游戏/社交 APK 为主 |
 | 印尼 (ID) | ~12% | **id/** 11 页：CapCut/TikTok/IG/FF/PUBG/Spotify/KineMaster 等 ✅ |
-| 菲律宾 (PH) | ~5% | GCash、社交；可用 en 页 |
+| 菲律宾 (PH) | ~5% | **tl/** 9 页 + `/en/gcash-apk` ✅ |
 | 孟加拉 (BD) | ~5% | 与 IN 词重叠，hi/en 即可 |
 | 俄罗斯 (RU) | ~4% | 已有 ru/*-apk，Telegram / VPN |
 
