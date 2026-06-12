@@ -210,3 +210,13 @@ Ongoing
 | `/en/blog/minecraft-patch-download-official-2026` | 截获 patch 搜索，对比 Appteka |
 
 `ApkLandingLocale` 现含 `tl`。
+
+---
+
+## 十、Phase 7 — Truecaller / Snapchat / AnimoHub【✅ 2026-06-12】
+
+| URL | 包名 |
+|-----|------|
+| `/hi/truecaller-apk` | com.truecaller |
+| `/hi/snapchat-apk` | com.snapchat.android |
+| `/hi/animohub-apk` | com.animohub.pro |

@@ -71,13 +71,20 @@
 | 英文 patch 意图博客 | `/en/blog/minecraft-patch-download-official-2026` | ✅ |
 | hi patch 博客 | `/hi/blog/minecraft-apk-india-2026` | ✅ Phase 3 |
 
-## 五、Phase 7 建议（下一步）
+## 六、Phase 7【✅ 2026-06-12】
 
-| 优先级 | 任务 | 说明 |
-|--------|------|------|
-| P2 | `hi/truecaller-apk` / `hi/snapchat-apk` | 清单 P2 |
-| P2 | `hi/animohub-apk` | Appteka IN 娱乐词 |
-| 持续 | admin repair + alias | 每周 `run-admin-repair.mjs` |
+| URL | 包名 | 说明 |
+|-----|------|------|
+| `/hi/truecaller-apk` | com.truecaller | 印度 caller ID |
+| `/hi/snapchat-apk` | com.snapchat.android | 社交 |
+| `/hi/animohub-apk` | com.animohub.pro | Appteka 娱乐词 |
+
+## 七、后续
+
+| 任务 | 说明 |
+|------|------|
+| `en/gcash-apk` | 菲律宾 P2 |
+| 持续 | `run-admin-repair.mjs` 维护搜索失败队列 |
 
 ---
 

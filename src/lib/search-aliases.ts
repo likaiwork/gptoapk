@@ -2982,6 +2982,9 @@ export const PRIORITY_STATIC_ALIAS_QUERIES = [
   "bkash ekyc",
   "winlator",
   "bye bye dpi",
+  "truecaller",
+  "snapchat",
+  "animohub",
 ] as const;
 
 export function listStaticSearchAliasBindings(): Array<{

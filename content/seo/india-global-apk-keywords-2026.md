@@ -32,8 +32,8 @@
 | 15 | chatgpt apk download | 18K+ | IN, Global | com.openai.chatgpt | `/hi/chatgpt-apk` ✅ | P0 | 模板试点页 |
 | 16 | minecraft beta download | 8K+ | IN | com.mojang.minecraftpe | `/en/minecraft-beta-apk` | P1 | 版本长尾 |
 | 17 | kinemaster apk | 12K+ | IN, ID | com.nexstreaming.app.kinemasterfree | `/hi/kinemaster-apk` ✅ | P1 | Phase 1A |
-| 18 | truecaller apk download | 10K+ | IN | com.truecaller | `/hi/truecaller-apk` | P2 | 印度本地超级 App |
-| 19 | snapchat apk download | 12K+ | IN, US | com.snapchat.android | `/hi/snapchat-apk` | P2 | |
+| 18 | truecaller apk download | 10K+ | IN | com.truecaller | `/hi/truecaller-apk` ✅ | P2 | 印度本地超级 App |
+| 19 | snapchat apk download | 12K+ | IN, US | com.snapchat.android | `/hi/snapchat-apk` ✅ | P2 | |
 | 20 | google play store apk | 15K+ | IN | com.android.vending | `/hi/google-play-store-apk` ✅ | P1 | Phase 1A |
 
 ## 区域策略摘要

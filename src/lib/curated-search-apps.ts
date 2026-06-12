@@ -134,6 +134,33 @@ const CURATED_BY_APP_ID: Readonly<Record<string, CuratedSearchAppMeta>> = {
     iconUrl: "",
     playUrl: "https://github.com/romanvht/ByeByeDPI",
   },
+  "com.truecaller": {
+    appId: "com.truecaller",
+    title: "Truecaller",
+    summary: "Caller ID, spam blocking, and messaging.",
+    developer: "Truecaller International LLP",
+    developerId: "Truecaller+International+LLP",
+    iconUrl: "",
+    playUrl: "https://play.google.com/store/apps/details?id=com.truecaller",
+  },
+  "com.snapchat.android": {
+    appId: "com.snapchat.android",
+    title: "Snapchat",
+    summary: "Share moments with friends through photos and videos.",
+    developer: "Snap Inc",
+    developerId: "Snap+Inc",
+    iconUrl: "",
+    playUrl: "https://play.google.com/store/apps/details?id=com.snapchat.android",
+  },
+  "com.animohub.pro": {
+    appId: "com.animohub.pro",
+    title: "AnimoHub",
+    summary: "Anime and entertainment streaming app.",
+    developer: "AnimoHub",
+    developerId: "AnimoHub",
+    iconUrl: "",
+    playUrl: "https://play.google.com/store/apps/details?id=com.animohub.pro",
+  },
 };
 
 export function getCuratedSearchAppMeta(appId: string): CuratedSearchAppMeta | null {

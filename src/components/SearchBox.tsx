@@ -147,7 +147,10 @@ function resolveApkLandingLocale(slug: string, locale: SiteLocale): SiteLocale {
     slug === "google-play-store-apk" ||
     slug === "freecine-apk" ||
     slug === "cine-tv-apk" ||
-    slug === "winlator-apk"
+    slug === "winlator-apk" ||
+    slug === "truecaller-apk" ||
+    slug === "snapchat-apk" ||
+    slug === "animohub-apk"
   ) {
     return "hi";
   }
@@ -264,6 +267,21 @@ function getSearchFallback(query: string, locale: SiteLocale): SearchFallback | 
         s.includes("bye dpi"),
       slug: "bye-bye-dpi-apk",
       label: "ByeByeDPI APK",
+    },
+    {
+      match: (s) => s.includes("truecaller") || s.includes("true caller"),
+      slug: "truecaller-apk",
+      label: "Truecaller APK",
+    },
+    {
+      match: (s) => s.includes("snapchat") || s === "snap",
+      slug: "snapchat-apk",
+      label: "Snapchat APK",
+    },
+    {
+      match: (s) => s.includes("animohub") || s.includes("animo hub"),
+      slug: "animohub-apk",
+      label: "AnimoHub APK",
     },
     { match: (s) => s.includes("twitter") || s.includes("推特") || s === "x", slug: "twitter-apk", label: "Twitter / X APK" },
     { match: (s) => s.includes("gemini"), slug: "gemini-apk", label: "Gemini APK" },

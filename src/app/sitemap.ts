@@ -378,6 +378,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
       { slug: "freecine-apk", priority: 0.85 as const, lastModified: "2026-06-12" },
       { slug: "cine-tv-apk", priority: 0.85 as const, lastModified: "2026-06-12" },
       { slug: "winlator-apk", priority: 0.85 as const, lastModified: "2026-06-12" },
+      { slug: "truecaller-apk", priority: 0.85 as const, lastModified: "2026-06-12" },
+      { slug: "snapchat-apk", priority: 0.85 as const, lastModified: "2026-06-12" },
+      { slug: "animohub-apk", priority: 0.85 as const, lastModified: "2026-06-12" },
     ]).map(({ slug, priority, lastModified }) => ({
       url: `${baseUrl}/hi/${slug}` as const,
       lastModified: new Date(lastModified ?? "2026-05-14"),
