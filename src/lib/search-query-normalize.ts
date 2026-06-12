@@ -141,6 +141,8 @@ const SEARCH_TYPO_CORRECTIONS: Readonly<Record<string, string>> = {
   goodle: "google",
   goole商店: "google play",
   cladue: "claude",
+  chatgtp: "chatgpt",
+  singbox: "sing-box",
   goga: "google",
   "firefox.": "firefox",
   "pla推特": "twitter",

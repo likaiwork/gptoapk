@@ -2711,6 +2711,26 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
     appIds: ["com.rotato.app"],
     aliases: ["rotato video compressor", "rotato", "com.rotato.app"],
   },
+  {
+    appIds: ["com.gojek.gopay"],
+    aliases: ["gopay", "go pay", "com.gojek.gopay"],
+  },
+  {
+    appIds: ["com.github.sagernet.sing-box"],
+    aliases: ["sing-box", "singbox", "sing box", "com.github.sagernet.sing-box"],
+  },
+  {
+    appIds: ["app.hiddify.com"],
+    aliases: ["hiddify", "app.hiddify.com"],
+  },
+  {
+    appIds: ["com.digibites.accubattery"],
+    aliases: ["accubattery", "accu battery", "com.digibites.accubattery"],
+  },
+  {
+    appIds: ["com.alightcreative.motion"],
+    aliases: ["alight motion", "alightmotion", "com.alightcreative.motion"],
+  },
 ];
 
 /** Wrong or truncated Play package ids from pasted URLs → canonical id */

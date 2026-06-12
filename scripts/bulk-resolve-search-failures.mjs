@@ -1,14 +1,15 @@
 /**
- * One-off / emergency: paginate unresolved search failures, live-probe search-apps,
+ * Paginate unresolved search failures, live-probe search-apps,
  * and PATCH resolve when results exist (or query matches junk dismiss rules).
  */
 
 const SITE = (process.env.REPAIR_SITE_HOST || "https://www.gptoapk.com").replace(/\/$/, "");
 const KEY = process.env.ADMIN_API_KEY || process.env.REPAIR_ADMIN_KEY || "gptoapk-admin-key-2026";
 const PAGE_SIZE = Number(process.env.BULK_RESOLVE_PAGE_SIZE ?? 50);
-const MAX_PAGES = Number(process.env.BULK_RESOLVE_MAX_PAGES ?? 20);
-const DELAY_MS = Number(process.env.BULK_RESOLVE_DELAY_MS ?? 400);
-const SEARCH_TIMEOUT_MS = Number(process.env.BULK_RESOLVE_SEARCH_TIMEOUT_MS ?? 18_000);
+const MAX_PAGES = Number(process.env.BULK_RESOLVE_MAX_PAGES ?? 25);
+const DELAY_MS = Number(process.env.BULK_RESOLVE_DELAY_MS ?? 300);
+const SEARCH_TIMEOUT_MS = Number(process.env.BULK_RESOLVE_SEARCH_TIMEOUT_MS ?? 15_000);
+const CONCURRENCY = Number(process.env.BULK_RESOLVE_CONCURRENCY ?? 6);
 
 const JUNK_RE =
   /^(map|jm|kmt|ph|gridnr|googleservice|uutool|tools?|apk|app|apps|android|download|video|game|games)$/i;
@@ -17,11 +18,28 @@ function sleep(ms) {
   return new Promise((r) => setTimeout(r, ms));
 }
 
+async function withRetry(fn, label, attempts = 4) {
+  let lastError;
+  for (let i = 0; i < attempts; i += 1) {
+    try {
+      return await fn();
+    } catch (error) {
+      lastError = error;
+      const wait = 600 * (i + 1);
+      console.warn(`[bulk-resolve] retry ${label} (${i + 1}/${attempts}) in ${wait}ms`);
+      await sleep(wait);
+    }
+  }
+  throw lastError;
+}
+
 function shouldDismiss(query, failureKind) {
   const q = query.trim();
   if (!q) return true;
   if (failureKind === "invalid_url" && q.includes("play.google.com") && !q.includes("id=")) return true;
   if (failureKind === "query_too_long") return true;
+  if (/^chrome_/i.test(q) || /^[A-Za-z]+_[0-9]/.test(q)) return true;
+  if (/pronhub|pornhub|樱花动漫/i.test(q)) return true;
   if (q.length <= 3 && failureKind === "no_results" && !/^[a-z][a-z0-9_]*(\.[a-z0-9_]+)+$/i.test(q)) return true;
   if (JUNK_RE.test(q)) return true;
   if (/智博|1919|工具站|cladue/i.test(q)) return true;
@@ -29,10 +47,12 @@ function shouldDismiss(query, failureKind) {
 }
 
 async function fetchAdminPage(page) {
-  const url = `${SITE}/api/admin?key=${encodeURIComponent(KEY)}&pageSize=${PAGE_SIZE}&searchFailurePage=${page}`;
-  const res = await fetch(url, { cache: "no-store" });
-  if (!res.ok) throw new Error(`admin ${res.status}`);
-  return res.json();
+  return withRetry(async () => {
+    const url = `${SITE}/api/admin?key=${encodeURIComponent(KEY)}&pageSize=${PAGE_SIZE}&searchFailurePage=${page}`;
+    const res = await fetch(url, { cache: "no-store" });
+    if (!res.ok) throw new Error(`admin ${res.status}`);
+    return res.json();
+  }, `admin-page-${page}`);
 }
 
 async function probeSearch(query, lang, country) {
@@ -54,82 +74,84 @@ async function probeSearch(query, lang, country) {
 }
 
 async function markResolved(queryKey) {
-  const res = await fetch(`${SITE}/api/admin/search-failures?key=${encodeURIComponent(KEY)}`, {
-    method: "PATCH",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ queryKey, resolved: true }),
-  });
-  return res.ok;
+  return withRetry(async () => {
+    const res = await fetch(`${SITE}/api/admin/search-failures?key=${encodeURIComponent(KEY)}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ queryKey, resolved: true }),
+    });
+    if (!res.ok) throw new Error(`patch ${res.status}`);
+    return true;
+  }, `patch-${queryKey.slice(0, 24)}`);
 }
 
-async function runReconcileDeep() {
-  const res = await fetch(`${SITE}/api/admin/search-failures/reconcile?key=${encodeURIComponent(KEY)}`, {
+async function dismissJunkOnServer() {
+  const res = await fetch(`${SITE}/api/admin/search-failures/dismiss-junk?key=${encodeURIComponent(KEY)}`, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      maxChecks: 10000,
-      liveProbeLimit: 500,
-      liveProbeTimeoutMs: 12_000,
-      feedbackLimit: 1,
-      searchFailureDiscoveryLimit: 0,
-      skipDiscovery: true,
-      skipFeedback: true,
-      skipStaticSync: false,
-    }),
+    cache: "no-store",
   });
-  const text = await res.text();
-  try {
-    return JSON.parse(text);
-  } catch {
-    return { raw: text.slice(0, 300), status: res.status };
+  if (!res.ok) return { dismissed: 0, status: res.status };
+  return res.json();
+}
+
+async function processRow(row, stats) {
+  if (shouldDismiss(row.query, row.failure_kind)) {
+    if (await markResolved(row.query_key)) {
+      stats.dismissed += 1;
+      console.log(`[dismiss] ${row.query}`);
+    }
+    return;
+  }
+
+  stats.probed += 1;
+  const lang = row.last_lang || "en";
+  const country = row.last_country || (lang.startsWith("zh") ? "cn" : "us");
+  const ok = await probeSearch(row.query, lang, country);
+  if (ok && (await markResolved(row.query_key))) {
+    stats.resolved += 1;
+    console.log(`[live] ${row.query}`);
   }
 }
 
+async function runPool(items, worker, concurrency) {
+  let index = 0;
+  const runners = Array.from({ length: concurrency }, async () => {
+    while (index < items.length) {
+      const i = index;
+      index += 1;
+      await worker(items[i]);
+    }
+  });
+  await Promise.all(runners);
+}
+
 async function main() {
-  console.log(`[bulk-resolve] ${SITE} starting…`);
+  console.log(`[bulk-resolve] ${SITE} concurrency=${CONCURRENCY}`);
 
-  console.log("[bulk-resolve] running server reconcile first…");
-  const reconcile = await runReconcileDeep();
-  console.log("[bulk-resolve] reconcile:", JSON.stringify(reconcile));
+  try {
+    const junk = await dismissJunkOnServer();
+    console.log("[bulk-resolve] server dismiss-junk:", JSON.stringify(junk));
+  } catch (error) {
+    console.warn("[bulk-resolve] dismiss-junk skipped:", error instanceof Error ? error.message : error);
+  }
 
-  let resolved = 0;
-  let dismissed = 0;
-  let probed = 0;
-  let pages = 0;
+  const stats = { resolved: 0, dismissed: 0, probed: 0, pages: 0 };
 
   for (let page = 0; page < MAX_PAGES; page += 1) {
     await sleep(DELAY_MS);
     const data = await fetchAdminPage(page);
     const rows = (data.search_failures || []).filter((r) => !r.resolved);
     if (!rows.length) break;
-    pages += 1;
+    stats.pages += 1;
 
-    for (const row of rows) {
-      if (shouldDismiss(row.query, row.failure_kind)) {
-        if (await markResolved(row.query_key)) {
-          dismissed += 1;
-          console.log(`[dismiss] ${row.query}`);
-        }
-        continue;
-      }
-
-      probed += 1;
-      const lang = row.last_lang || "en";
-      const country = row.last_country || (lang.startsWith("zh") ? "cn" : "us");
-      const ok = await probeSearch(row.query, lang, country);
-      if (ok && (await markResolved(row.query_key))) {
-        resolved += 1;
-        console.log(`[live] ${row.query}`);
-      }
-      await sleep(80);
-    }
+    await runPool(rows, (row) => processRow(row, stats), CONCURRENCY);
 
     if (rows.length < PAGE_SIZE) break;
   }
 
   const after = await fetchAdminPage(0);
   console.log(
-    `[bulk-resolve] done pages=${pages} live=${resolved} dismiss=${dismissed} probed=${probed} remaining=${after.unresolved_search_failures}`,
+    `[bulk-resolve] done pages=${stats.pages} live=${stats.resolved} dismiss=${stats.dismissed} probed=${stats.probed} remaining=${after.unresolved_search_failures}`,
   );
 }
 

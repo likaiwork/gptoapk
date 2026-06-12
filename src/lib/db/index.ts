@@ -1265,6 +1265,11 @@ export async function autoResolveDismissibleSearchFailures(): Promise<number> {
          OR query ILIKE '%工具站%'
          OR query ILIKE '%cladue%'
          OR lower(trim(query)) IN ('redpanda', 'red panda', 'ibreathe', 'adhd focus pro')
+         OR query ILIKE 'chrome\\_%' ESCAPE '\\'
+         OR query ILIKE '%pronhub%'
+         OR query ILIKE '%pornhub%'
+         OR query ILIKE '%樱花动漫%'
+         OR query ~ '^[A-Za-z]+_[0-9]'
        )
      RETURNING query_key`,
   );

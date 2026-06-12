@@ -51,7 +51,19 @@ async function runSearchReconcileRound(body) {
   });
 }
 
+async function dismissJunkFailures() {
+  const res = await postJson(adminUrl("/api/admin/search-failures/dismiss-junk"), {});
+  if (res.ok && res.json?.success) {
+    console.log(`[admin-repair] dismiss-junk: ${res.json.dismissed ?? 0}`);
+    return Number(res.json.dismissed ?? 0);
+  }
+  console.warn(`[admin-repair] dismiss-junk unavailable (${res.status})`);
+  return 0;
+}
+
 async function runBatchedSearchRepair() {
+  await dismissJunkFailures();
+
   let totalResolved = 0;
   let totalDismissed = 0;
   let totalFeedbackResolved = 0;
