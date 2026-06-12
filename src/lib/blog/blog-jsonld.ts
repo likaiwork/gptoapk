@@ -146,3 +146,17 @@ export function defaultGeoFaqsForSlug(slug: string): BlogFaqItem[] | undefined {
 
   return map[slug];
 }
+
+/** Decode percent-encoded blog slugs (non-ASCII titles) from dynamic route params. */
+export function resolveBlogSlug(raw: string): string {
+  if (!raw) return raw;
+  let slug = raw;
+  if (/%[0-9A-Fa-f]{2}/.test(slug)) {
+    try {
+      slug = decodeURIComponent(slug);
+    } catch {
+      return raw;
+    }
+  }
+  return slug.normalize("NFC");
+}

@@ -22,6 +22,7 @@ import {
   buildBlogPostingJsonLd,
   buildFaqPageJsonLd,
   defaultGeoFaqsForSlug,
+  resolveBlogSlug,
   type BlogFaqItem,
 } from "@/lib/blog/blog-jsonld";
 import { getRelatedZhBlogPosts } from "@/lib/blog/zh-blog-index";
@@ -16485,6 +16486,14 @@ apksigner verify --verbose app.apk`}</code></pre>
   },
 ];
 
+/** Modular posts (2026-06-12+) — resolved first; huge inline zhPosts may omit them at runtime. */
+const zhModularPosts: BlogPost[] = [...zhPosts20260612Appteka, ...zhPosts20260612Vpn];
+
+function findZhBlogPost(rawSlug: string): BlogPost | undefined {
+  const slug = resolveBlogSlug(rawSlug);
+  return zhModularPosts.find((p) => p.slug === slug) ?? zhPosts.find((p) => p.slug === slug);
+}
+
 export async function generateStaticParams() {
   return zhPosts.map((post) => ({
     slug: post.slug,
@@ -16496,9 +16505,10 @@ export async function generateMetadata({
 }: {
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
-  const { slug } = await params;
-  const post = zhPosts.find((p) => p.slug === slug);
+  const { slug: rawSlug } = await params;
+  const post = findZhBlogPost(rawSlug);
   if (!post) return {};
+  const slug = resolveBlogSlug(rawSlug);
 
   return {
     title: `${post.title} | gptoapk.com`,
@@ -16519,13 +16529,14 @@ export default async function BlogPostPage({
 }: {
   params: Promise<{ slug: string }>;
 }) {
-  const { slug } = await params;
-  const post = zhPosts.find((p) => p.slug === slug);
+  const { slug: rawSlug } = await params;
+  const post = findZhBlogPost(rawSlug);
 
   if (!post) {
     notFound();
   }
 
+  const slug = resolveBlogSlug(rawSlug);
   const pageUrl = `https://www.gptoapk.com/zh/blog/${slug}`;
   const faqs = post.faqs ?? defaultGeoFaqsForSlug(slug);
 
