@@ -11,6 +11,7 @@ import { enPosts20260609GEOList } from "@/lib/blog/posts-2026-06-09-geo-en";
 import { enPosts20260609SchemaList } from "@/lib/blog/posts-2026-06-09-schema-en";
 import { enPosts20260609V4List } from "@/lib/blog/posts-2026-06-09-v4-en";
 import { enPosts20260612IndiaList } from "@/lib/blog/posts-2026-06-12-india-en";
+import { enPosts20260612ApptekaList } from "@/lib/blog/posts-2026-06-12-appteka-en";
 
 export type EnBlogMeta = EnBlogCatalogEntry;
 
@@ -27,6 +28,7 @@ const MODULE_LISTS: EnBlogMeta[][] = [
   enPosts20260609SchemaList,
   enPosts20260609V4List,
   enPosts20260612IndiaList,
+  enPosts20260612ApptekaList,
 ];
 
 /** Single source of truth for en blog metadata (sitemap, hreflang). */
