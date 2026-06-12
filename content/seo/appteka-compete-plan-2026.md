@@ -229,3 +229,17 @@ Ongoing
 |-----|------|
 | `/en/gcash-apk` | com.globe.gcash.android |
 | `/en/minecraft-beta-apk` | com.mojang.minecraftpreview |
+
+---
+
+## 十二、Phase 9 — 印尼集群补量【✅ 2026-06-12】
+
+| URL | 包名 |
+|-----|------|
+| `/id/instagram-apk` | com.instagram.android |
+| `/id/free-fire-apk` | com.dts.freefireth |
+| `/id/pubg-mobile-apk` | com.tencent.ig |
+| `/id/spotify-apk` | com.spotify.music |
+| `/id/kinemaster-apk` | com.nexstreaming.app.kinemasterfree |
+
+`id/*-apk` 集群现 **11 页**（含 CapCut/TikTok/WhatsApp 等存量）。

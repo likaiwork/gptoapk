@@ -349,6 +349,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       { slug: "vpn-apk", priority: 0.85 as const, lastModified: "2026-06-12" },
       { slug: "tiktok-apk", priority: 0.85 as const, lastModified: "2026-06-12" },
       { slug: "whatsapp-apk", priority: 0.85 as const, lastModified: "2026-06-12" },
+      { slug: "instagram-apk", priority: 0.85 as const, lastModified: "2026-06-12" },
+      { slug: "free-fire-apk", priority: 0.85 as const, lastModified: "2026-06-12" },
+      { slug: "pubg-mobile-apk", priority: 0.85 as const, lastModified: "2026-06-12" },
+      { slug: "spotify-apk", priority: 0.85 as const, lastModified: "2026-06-12" },
+      { slug: "kinemaster-apk", priority: 0.85 as const, lastModified: "2026-06-12" },
       { slug: "google-play-not-working", priority: 0.7 as const },
     ]).map(({ slug, priority, lastModified }) => ({
       url: `${baseUrl}/id/${slug}` as const,

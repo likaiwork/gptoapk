@@ -86,11 +86,21 @@
 | `/en/gcash-apk` | com.globe.gcash.android | 菲律宾钱包 |
 | `/en/minecraft-beta-apk` | com.mojang.minecraftpreview | Beta/Preview 长尾 |
 
-## 九、后续
+## 九、Phase 9 — 印尼补量【✅ 2026-06-12】
+
+| URL | 包名 | 说明 |
+|-----|------|------|
+| `/id/instagram-apk` | com.instagram.android | 社交 |
+| `/id/free-fire-apk` | com.dts.freefireth | 游戏 |
+| `/id/pubg-mobile-apk` | com.tencent.ig | 游戏 |
+| `/id/spotify-apk` | com.spotify.music | 音乐 |
+| `/id/kinemaster-apk` | com.nexstreaming.app.kinemasterfree | 剪辑 |
+
+## 十、后续
 
 | 任务 | 说明 |
 |------|------|
-| `id/` 补量 | 印尼社交/剪辑长尾 |
+| `id/youtube-apk` | 印尼视频长尾 |
 | 持续 | `run-admin-repair.mjs` 维护搜索失败队列 |
 
 ---

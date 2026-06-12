@@ -144,6 +144,15 @@ function resolveApkLandingLocale(slug: string, locale: SiteLocale): SiteLocale {
     slug === "pubg-mobile-apk" ||
     slug === "free-fire-apk" ||
     slug === "kinemaster-apk" ||
+    slug === "instagram-apk" ||
+    slug === "spotify-apk" ||
+    slug === "youtube-apk"
+  ) {
+    if (locale === "id") return "id";
+    if (locale === "hi") return "hi";
+    return "hi";
+  }
+  if (
     slug === "google-play-store-apk" ||
     slug === "freecine-apk" ||
     slug === "cine-tv-apk" ||
@@ -158,14 +167,6 @@ function resolveApkLandingLocale(slug: string, locale: SiteLocale): SiteLocale {
   if (slug === "bye-bye-dpi-apk" || slug === "vpn-apk") return locale === "ru" ? "ru" : locale;
   if (slug === "freecine-apk") {
     if (locale === "tl") return "tl";
-    return "hi";
-  }
-  if (
-    slug === "instagram-apk" ||
-    slug === "spotify-apk" ||
-    slug === "youtube-apk"
-  ) {
-    if (locale === "hi" || locale === "id") return locale;
     return "hi";
   }
   return locale;
