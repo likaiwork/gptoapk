@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-12T09:43:32.105Z",
+  "updatedAt": "2026-06-12T09:45:53.384Z",
   "today": {
     "date": "2026-05-26",
     "locale": "zh",
@@ -93,10 +93,10 @@
       "at": "2026-06-10T11:40:33.864Z"
     },
     "2026-06-12": {
-      "status": "drafted",
+      "status": "published",
       "note": "",
       "publishedUrl": "https://www.gptoapk.com/zh/blog/vpn-apk-risk-notice-zh",
-      "at": "2026-06-12T09:43:32.104Z"
+      "at": "2026-06-12T09:45:53.384Z"
     }
   }
 }
