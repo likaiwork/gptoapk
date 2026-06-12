@@ -10,6 +10,8 @@ const MAX_PAGES = Number(process.env.BULK_RESOLVE_MAX_PAGES ?? 25);
 const DELAY_MS = Number(process.env.BULK_RESOLVE_DELAY_MS ?? 300);
 const SEARCH_TIMEOUT_MS = Number(process.env.BULK_RESOLVE_SEARCH_TIMEOUT_MS ?? 15_000);
 const CONCURRENCY = Number(process.env.BULK_RESOLVE_CONCURRENCY ?? 6);
+const ARCHIVE_FAILED = process.env.BULK_ARCHIVE_FAILED !== "0";
+const PACKAGE_RE = /^[a-zA-Z][a-zA-Z0-9_]*(?:\.[a-zA-Z][a-zA-Z0-9_]*)+$/;
 
 const JUNK_RE =
   /^(map|jm|kmt|ph|gridnr|googleservice|uutool|tools?|apk|app|apps|android|download|video|game|games)$/i;
@@ -39,7 +41,11 @@ function shouldDismiss(query, failureKind) {
   if (failureKind === "invalid_url" && q.includes("play.google.com") && !q.includes("id=")) return true;
   if (failureKind === "query_too_long") return true;
   if (/^chrome_/i.test(q) || /^[A-Za-z]+_[0-9]/.test(q)) return true;
-  if (/pronhub|pornhub|樱花动漫/i.test(q)) return true;
+  if (/pronhub|pornhub|樱花|魅魔|onlyfans|deepfake/i.test(q)) return true;
+  if (/^(trader|browser|purple|knows|velo|volvoonroad|u er|damm|dazmm|ainoon|zymix)$/i.test(q)) return true;
+  if (/^goole\s*play|gooleplay|googieplay|goodle\s*pay$/i.test(q)) return true;
+  if (/^fake\s*gps$/i.test(q)) return true;
+  if (/^hiddiy$/i.test(q)) return false;
   if (q.length <= 3 && failureKind === "no_results" && !/^[a-z][a-z0-9_]*(\.[a-z0-9_]+)+$/i.test(q)) return true;
   if (JUNK_RE.test(q)) return true;
   if (/智博|1919|工具站|cladue/i.test(q)) return true;
@@ -110,6 +116,19 @@ async function processRow(row, stats) {
   if (ok && (await markResolved(row.query_key))) {
     stats.resolved += 1;
     console.log(`[live] ${row.query}`);
+    return;
+  }
+
+  if (
+    ARCHIVE_FAILED &&
+    row.failure_kind === "no_results" &&
+    !PACKAGE_RE.test(row.query.trim()) &&
+    row.query.trim().length <= 80
+  ) {
+    if (await markResolved(row.query_key)) {
+      stats.archived += 1;
+      console.log(`[archive] ${row.query}`);
+    }
   }
 }
 
@@ -135,7 +154,7 @@ async function main() {
     console.warn("[bulk-resolve] dismiss-junk skipped:", error instanceof Error ? error.message : error);
   }
 
-  const stats = { resolved: 0, dismissed: 0, probed: 0, pages: 0 };
+  const stats = { resolved: 0, dismissed: 0, archived: 0, probed: 0, pages: 0 };
 
   for (let page = 0; page < MAX_PAGES; page += 1) {
     await sleep(DELAY_MS);
@@ -151,7 +170,7 @@ async function main() {
 
   const after = await fetchAdminPage(0);
   console.log(
-    `[bulk-resolve] done pages=${stats.pages} live=${stats.resolved} dismiss=${stats.dismissed} probed=${stats.probed} remaining=${after.unresolved_search_failures}`,
+    `[bulk-resolve] done pages=${stats.pages} live=${stats.resolved} dismiss=${stats.dismissed} archived=${stats.archived} probed=${stats.probed} remaining=${after.unresolved_search_failures}`,
   );
 }
 

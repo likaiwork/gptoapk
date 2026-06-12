@@ -2731,6 +2731,14 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
     appIds: ["com.alightcreative.motion"],
     aliases: ["alight motion", "alightmotion", "com.alightcreative.motion"],
   },
+  {
+    appIds: ["com.lexa.fakegps"],
+    aliases: ["fake gps", "fakegps", "com.lexa.fakegps"],
+  },
+  {
+    appIds: ["com.polymarket.android"],
+    aliases: ["polymarket", "poly market", "com.polymarket.android"],
+  },
 ];
 
 /** Wrong or truncated Play package ids from pasted URLs → canonical id */

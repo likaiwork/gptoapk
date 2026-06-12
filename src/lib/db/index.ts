@@ -1270,6 +1270,13 @@ export async function autoResolveDismissibleSearchFailures(): Promise<number> {
          OR query ILIKE '%pornhub%'
          OR query ILIKE '%樱花动漫%'
          OR query ~ '^[A-Za-z]+_[0-9]'
+         OR query ILIKE '%onlyfans%'
+         OR query ILIKE '%deepfake%'
+         OR query ILIKE '%魅魔%'
+         OR lower(trim(query)) IN (
+           'trader', 'browser', 'purple', 'knows', 'velo', 'volvoonroad', 'ainoon', 'zymix',
+           'gooleplay', 'googieplay', 'goodle pay'
+         )
        )
      RETURNING query_key`,
   );
