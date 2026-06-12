@@ -396,12 +396,35 @@ export async function runSearchDiscoveryRepair(options?: {
   searchFailureLimit?: number;
   reconcileMaxChecks?: number;
   reconcileLiveProbeLimit?: number;
+  /** Skip expensive static-alias DB sync (use on batched reconcile rounds after the first). */
+  skipStaticSync?: boolean;
+  /** Skip Play Store discovery (slow); reconcile + feedback only. */
+  skipDiscovery?: boolean;
+  /** Skip missing-app feedback queue. */
+  skipFeedback?: boolean;
 }): Promise<SearchDiscoveryReport & { reconcile: Awaited<ReturnType<typeof reconcileResolvableSearchFailures>> }> {
-  await syncPriorityStaticSearchAliasOverrides();
-  await syncAllStaticSearchAliasOverrides();
-  const staticResolved = await reconcileStaticAliasSearchFailures(3000);
-  const feedback = await repairMissingAppFeedback({ limit: options?.feedbackLimit });
-  const discovery = await repairSearchFailuresViaDiscovery({ limit: options?.searchFailureLimit });
+  let staticResolved = 0;
+  if (!options?.skipStaticSync) {
+    await syncPriorityStaticSearchAliasOverrides();
+    await syncAllStaticSearchAliasOverrides();
+    staticResolved = await reconcileStaticAliasSearchFailures(3000);
+  }
+
+  const feedback = options?.skipFeedback
+    ? {
+        feedbackProcessed: 0,
+        feedbackResolved: 0,
+        aliasesCreated: 0,
+        searchFailuresResolved: 0,
+        discoveryAttempts: 0,
+        discoveryMisses: 0,
+      }
+    : await repairMissingAppFeedback({ limit: options?.feedbackLimit });
+
+  const discovery = options?.skipDiscovery
+    ? { aliasesCreated: 0, searchFailuresResolved: 0, discoveryAttempts: 0, discoveryMisses: 0 }
+    : await repairSearchFailuresViaDiscovery({ limit: options?.searchFailureLimit });
+
   const reconcile = await reconcileResolvableSearchFailures({
     batchSize: 500,
     maxChecks: options?.reconcileMaxChecks ?? 5000,

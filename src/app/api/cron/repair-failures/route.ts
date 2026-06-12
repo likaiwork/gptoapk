@@ -30,15 +30,18 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
       return Number.isFinite(parsed) ? parsed : fallback;
     };
 
+    const skipSearch = searchParams.get("skipSearch") === "1" || num("searchMaxChecks", 800) <= 0;
+
     const summary = await runAdminRepair({
       failureThreshold: num("failureThreshold", 0),
       maxApps: num("maxApps", 150),
-      searchMaxChecks: num("searchMaxChecks", 5000),
+      searchMaxChecks: num("searchMaxChecks", 800),
       searchBatchSize: num("searchBatchSize", 500),
-      searchLiveProbeLimit: num("searchLiveProbeLimit", 300),
-      feedbackLimit: num("feedbackLimit", 50),
-      searchFailureDiscoveryLimit: num("searchFailureDiscoveryLimit", 150),
-      mirrorMaxApps: num("mirrorMaxApps", 80),
+      searchLiveProbeLimit: num("searchLiveProbeLimit", 80),
+      feedbackLimit: num("feedbackLimit", 40),
+      searchFailureDiscoveryLimit: num("searchFailureDiscoveryLimit", 40),
+      mirrorMaxApps: num("mirrorMaxApps", 60),
+      skipSearch,
     });
     return NextResponse.json(
       { success: true, ...summary, ranAt: new Date().toISOString() },

@@ -2648,6 +2648,14 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
     appIds: ["com.whatsapp"],
     aliases: ["what's app", "whats app", "whats'app"],
   },
+  {
+    appIds: ["com.grindrapp.android"],
+    aliases: ["grindr", "grindr app", "com.grindrapp.android"],
+  },
+  {
+    appIds: ["org.localsend.localsend_app"],
+    aliases: ["localsend", "local send", "localsend app", "org.localsend.localsend_app"],
+  },
 ];
 
 /** Wrong or truncated Play package ids from pasted URLs → canonical id */
@@ -2879,6 +2887,8 @@ export const PRIORITY_STATIC_ALIAS_QUERIES = [
   "pydroid 3",
   "googlepaly",
   "gogoogle",
+  "grindr",
+  "localsend",
 ] as const;
 
 export function listStaticSearchAliasBindings(): Array<{

@@ -71,6 +71,24 @@ const CURATED_BY_APP_ID: Readonly<Record<string, CuratedSearchAppMeta>> = {
     iconUrl: "",
     playUrl: "https://play.google.com/store/apps/details?id=com.moomoo.trade",
   },
+  "com.grindrapp.android": {
+    appId: "com.grindrapp.android",
+    title: "Grindr",
+    summary: "Social networking app for the LGBTQ+ community.",
+    developer: "Grindr LLC",
+    developerId: "Grindr+LLC",
+    iconUrl: "",
+    playUrl: "https://play.google.com/store/apps/details?id=com.grindrapp.android",
+  },
+  "org.localsend.localsend_app": {
+    appId: "org.localsend.localsend_app",
+    title: "LocalSend",
+    summary: "Share files to nearby devices on your local network.",
+    developer: "Tien Do Nam",
+    developerId: "Tien+Do+Nam",
+    iconUrl: "",
+    playUrl: "https://play.google.com/store/apps/details?id=org.localsend.localsend_app",
+  },
 };
 
 export function getCuratedSearchAppMeta(appId: string): CuratedSearchAppMeta | null {

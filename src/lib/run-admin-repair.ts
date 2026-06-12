@@ -26,15 +26,26 @@ export async function runAdminRepair(options?: {
   feedbackLimit?: number;
   searchFailureDiscoveryLimit?: number;
   mirrorMaxApps?: number;
+  skipSearch?: boolean;
 }): Promise<AdminRepairSummary> {
   await initDatabase();
 
-  const searchDiscovery = await runSearchDiscoveryRepair({
-    feedbackLimit: options?.feedbackLimit ?? 50,
-    searchFailureLimit: options?.searchFailureDiscoveryLimit ?? 150,
-    reconcileMaxChecks: options?.searchMaxChecks ?? 5000,
-    reconcileLiveProbeLimit: options?.searchLiveProbeLimit ?? 500,
-  });
+  const searchDiscovery = options?.skipSearch
+    ? {
+        feedbackProcessed: 0,
+        feedbackResolved: 0,
+        aliasesCreated: 0,
+        searchFailuresResolved: 0,
+        discoveryAttempts: 0,
+        discoveryMisses: 0,
+        reconcile: { checked: 0, resolved: 0, dismissed: 0, liveResolved: 0 },
+      }
+    : await runSearchDiscoveryRepair({
+        feedbackLimit: options?.feedbackLimit ?? 50,
+        searchFailureLimit: options?.searchFailureDiscoveryLimit ?? 80,
+        reconcileMaxChecks: options?.searchMaxChecks ?? 800,
+        reconcileLiveProbeLimit: options?.searchLiveProbeLimit ?? 80,
+      });
 
   const mirror = await runDownloadMirrorRepair({
     maxApps: options?.mirrorMaxApps ?? 80,

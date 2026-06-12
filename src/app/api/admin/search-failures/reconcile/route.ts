@@ -11,7 +11,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const body = await request.json().catch(() => ({}));
+    const body = (await request.json().catch(() => ({}))) as Record<string, unknown>;
     const maxChecksRaw = typeof body.maxChecks === "number"
       ? body.maxChecks
       : typeof body.limit === "number"
@@ -26,6 +26,9 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     const liveProbeLimit = Math.min(Math.max(liveProbeLimitRaw, 0), 200);
     const feedbackLimit = Math.min(Math.max(feedbackLimitRaw, 1), 100);
     const searchFailureDiscoveryLimit = Math.min(Math.max(searchFailureDiscoveryLimitRaw, 1), 150);
+    const skipStaticSync = body.skipStaticSync === true;
+    const skipDiscovery = body.skipDiscovery === true;
+    const skipFeedback = body.skipFeedback === true;
 
     await initDatabase();
     const result = await runSearchDiscoveryRepair({
@@ -33,6 +36,9 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
       searchFailureLimit: searchFailureDiscoveryLimit,
       reconcileMaxChecks: maxChecks,
       reconcileLiveProbeLimit: liveProbeLimit,
+      skipStaticSync,
+      skipDiscovery,
+      skipFeedback,
     });
 
     return NextResponse.json(

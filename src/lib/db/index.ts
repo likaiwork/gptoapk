@@ -1224,6 +1224,26 @@ export async function autoResolveDismissibleSearchFailures(): Promise<number> {
          OR query ILIKE '%六合%'
          OR query ILIKE '%六合影%'
          OR query ILIKE '%rutracker%'
+         OR (
+           failure_kind = 'invalid_url'
+           AND lower(regexp_replace(trim(query), '[\u200B-\u200D\u2060\uFEFF]', '', 'g')) IN (
+             'play.google.com',
+             'https://play.google.com',
+             'http://play.google.com',
+             'https://play.google.com/',
+             'http://play.google.com/',
+             'www.play.google.com',
+             'https://www.play.google.com',
+             'http://www.play.google.com'
+           )
+         )
+         OR (
+           failure_kind = 'invalid_url'
+           AND query ILIKE '%play.google.com%'
+           AND query NOT ILIKE '%id=%'
+           AND query NOT ILIKE '%?%id%'
+         )
+         OR lower(trim(query)) IN ('goole商店', 'googieplay', 'googlepaly', 'goodle', 'gogole', 'playstore')
        )
      RETURNING query_key`,
   );
