@@ -343,13 +343,14 @@ async function fetchSearchApps(query: string, locale: SiteLocale) {
   return { res, data, country };
 }
 
-function buildAppHref(appId: string, lang?: string, country?: string) {
+function buildAppHref(appId: string, lang?: string, country?: string, locale: SiteLocale = "en") {
   const queryParams = new URLSearchParams();
   if (lang && lang !== "en") queryParams.append("hl", lang);
   if (country && country !== "us") queryParams.append("gl", country);
 
   const queryString = queryParams.toString() ? `?${queryParams.toString()}` : "";
-  return `/app/${encodeURIComponent(appId)}${queryString}`;
+  const prefix = locale === "zh" ? "/zh/app/" : "/app/";
+  return `${prefix}${encodeURIComponent(appId)}${queryString}`;
 }
 
 function buildDeveloperHref(developerId: string | null, developer: string | null, lang?: string, country?: string) {
@@ -860,7 +861,7 @@ function SearchBoxInner({ initialQuery = "", autoSearch = false }: SearchBoxProp
                         <DownloadButton appId={app.appId} appName={app.title} compact />
                       )}
                       <Link
-                        href={buildAppHref(app.appId, resultLang, resultCountry)}
+                        href={buildAppHref(app.appId, resultLang, resultCountry, locale)}
                         onClick={saveCurrentSearchPosition}
                         className="text-center text-sm font-medium text-slate-500 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400 sm:text-right"
                       >

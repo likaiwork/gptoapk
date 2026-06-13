@@ -1,44 +1,22 @@
 import type { Metadata } from "next";
-import gplay, { type IAppItemFullDetail } from "google-play-scraper";
 import Link from "next/link";
-import { notFound } from "next/navigation";
 import Script from "next/script";
 import DownloadButton from "@/components/DownloadButton";
-import { gplayRequestOptions as requestOptions } from "@/lib/proxy";
-import { proxyImageUrl } from "@/lib/image-proxy";
+import { fetchAppDetailForPage } from "@/lib/app-detail-fetch";
 
-// Next.js page component for dynamic route /app/[appId]
-export default async function AppDownloadPage(props: { params: Promise<{ appId: string }>, searchParams?: Promise<{ hl?: string, gl?: string }> }) {
+export default async function AppDownloadPage(props: {
+  params: Promise<{ appId: string }>;
+  searchParams?: Promise<{ hl?: string; gl?: string }>;
+}) {
   const params = await props.params;
   const searchParams = props.searchParams ? await props.searchParams : {};
   const appId = params.appId;
-  const lang = searchParams.hl || 'zh';
-  const country = searchParams.gl || 'us';
+  const lang = searchParams.hl || "zh";
+  const country = searchParams.gl || "cn";
 
-  let appInfo: IAppItemFullDetail;
-  console.log(`\n======================================`);
-  console.log(`[Page AppDownloadPage] Rendering page for appId: "${appId}", lang: "${lang}", country: "${country}"`);
-  console.log(`======================================`);
-  
-  try {
-    console.log(`[Page AppDownloadPage] Fetching info from Google Play (timeout: 8s)...`);
-    const fetchPromise = gplay.app({ appId, lang, country, requestOptions } as Parameters<typeof gplay.app>[0]).then(res => {
-      console.log(`[Page AppDownloadPage] Fetch SUCCESS for ${appId}`);
-      return res;
-    });
-    const timeoutPromise = new Promise((_, reject) => 
-      setTimeout(() => reject(new Error('Network timeout')), 8000)
-    );
-    appInfo = await Promise.race([fetchPromise, timeoutPromise]) as IAppItemFullDetail;
-  } catch (error: unknown) {
-    console.error(
-      `[Page AppDownloadPage] ERROR: Failed to fetch app details -`,
-      error instanceof Error ? error.message : error
-    );
-    notFound();
-  }
+  const appInfo = await fetchAppDetailForPage(appId, lang, country);
 
-  const iconUrl = proxyImageUrl(appInfo.icon);
+  const iconUrl = appInfo.icon;
   const canonicalUrl = `https://www.gptoapk.com/zh/app/${appId}`;
   const enUrl = `https://www.gptoapk.com/app/${appId}`;
   const updatedDate = appInfo.updated ? new Date(appInfo.updated).toISOString() : undefined;
@@ -71,7 +49,7 @@ export default async function AppDownloadPage(props: { params: Promise<{ appId: 
           offers: {
             "@type": "Offer",
             price: "0",
-            priceCurrency: appInfo.currency || "USD",
+            priceCurrency: appInfo.currency || "CNY",
             availability: appInfo.available ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
           },
         }
@@ -105,11 +83,8 @@ export default async function AppDownloadPage(props: { params: Promise<{ appId: 
         <span className="mx-2">›</span>
         <span className="text-slate-700 dark:text-slate-300">{appInfo.title}</span>
       </nav>
-      
-      {/* App Details Card */}
+
       <div className="bg-white dark:bg-slate-800 p-6 sm:p-10 rounded-3xl shadow-xl border border-slate-200 dark:border-slate-700 w-full flex flex-col sm:flex-row gap-8 items-center sm:items-start">
-        
-        {/* App Icon */}
         <div className="shrink-0">
           {iconUrl ? (
             <img
@@ -123,7 +98,6 @@ export default async function AppDownloadPage(props: { params: Promise<{ appId: 
           )}
         </div>
 
-        {/* App Info */}
         <div className="flex-1 text-center sm:text-left space-y-4">
           <div>
             <h1 className="text-2xl sm:text-4xl font-bold text-slate-900 dark:text-white leading-tight">
@@ -140,16 +114,16 @@ export default async function AppDownloadPage(props: { params: Promise<{ appId: 
               <code className="rounded bg-slate-100 px-1.5 py-0.5 text-xs dark:bg-slate-700">{appId}</code>
             </div>
             <div className="flex items-center gap-1">
-              <span className="font-semibold text-slate-800 dark:text-slate-200">Version:</span> 
-              {appInfo.version || "Varies with device"}
+              <span className="font-semibold text-slate-800 dark:text-slate-200">版本:</span>
+              {appInfo.version || "因设备而异"}
             </div>
             <div className="flex items-center gap-1">
-              <span className="font-semibold text-slate-800 dark:text-slate-200">Size:</span> 
-              {appInfo.size || "Varies with device"}
+              <span className="font-semibold text-slate-800 dark:text-slate-200">大小:</span>
+              {appInfo.size || "因设备而异"}
             </div>
             <div className="flex items-center gap-1">
-              <span className="font-semibold text-slate-800 dark:text-slate-200">Updated:</span> 
-              {appInfo.updated ? new Date(appInfo.updated).toLocaleDateString() : "Unknown"}
+              <span className="font-semibold text-slate-800 dark:text-slate-200">更新:</span>
+              {appInfo.updated ? new Date(appInfo.updated).toLocaleDateString("zh-CN") : "未知"}
             </div>
             <div className="flex items-center gap-1">
               <span className="font-semibold text-slate-800 dark:text-slate-200">价格:</span>
@@ -167,70 +141,63 @@ export default async function AppDownloadPage(props: { params: Promise<{ appId: 
         </div>
       </div>
 
-      {/* Description Section */}
-      <div className="mt-12 w-full">
-        <h2 className="text-2xl font-bold mb-4">About {appInfo.title}</h2>
-        <div 
-          className="prose prose-slate dark:prose-invert max-w-none bg-white dark:bg-slate-800 p-6 sm:p-8 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 line-clamp-[10] overflow-hidden hover:line-clamp-none transition-all duration-500"
-          dangerouslySetInnerHTML={{ __html: appInfo.descriptionHTML || appInfo.description }}
-        />
-      </div>
-
+      {(appInfo.descriptionHTML || appInfo.description) && (
+        <div className="mt-12 w-full">
+          <h2 className="text-2xl font-bold mb-4">{appInfo.title} 简介</h2>
+          {appInfo.descriptionHTML ? (
+            <div
+              className="prose prose-slate dark:prose-invert max-w-none bg-white dark:bg-slate-800 p-6 sm:p-8 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 line-clamp-[10] overflow-hidden hover:line-clamp-none transition-all duration-500"
+              dangerouslySetInnerHTML={{ __html: appInfo.descriptionHTML }}
+            />
+          ) : (
+            <div className="prose prose-slate dark:prose-invert max-w-none bg-white dark:bg-slate-800 p-6 sm:p-8 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700">
+              <p>{appInfo.description}</p>
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 }
 
-// Generate metadata for SEO
-export async function generateMetadata(props: { params: Promise<{ appId: string }>, searchParams?: Promise<{ hl?: string, gl?: string }> }) {
+export async function generateMetadata(props: {
+  params: Promise<{ appId: string }>;
+  searchParams?: Promise<{ hl?: string; gl?: string }>;
+}): Promise<Metadata> {
   const params = await props.params;
   const searchParams = props.searchParams ? await props.searchParams : {};
   const appId = params.appId;
-  const lang = searchParams.hl || 'zh';
-  const country = searchParams.gl || 'us';
-  
-  console.log(`[Page generateMetadata] Fetching metadata for appId: "${appId}"...`);
-  
-  try {
-    const fetchPromise = gplay.app({ appId, lang, country, requestOptions } as Parameters<typeof gplay.app>[0]).then(res => {
-      console.log(`[Page generateMetadata] Fetch SUCCESS for ${appId}`);
-      return res;
-    });
-    const timeoutPromise = new Promise((_, reject) => 
-      setTimeout(() => reject(new Error('Network timeout')), 8000)
-    );
-    const appInfo = await Promise.race([fetchPromise, timeoutPromise]) as IAppItemFullDetail;
-    const canonicalUrl = `https://www.gptoapk.com/zh/app/${appId}`;
-    const enUrl = `https://www.gptoapk.com/app/${appId}`;
-    const description = `下载 ${appInfo.title} Android APK。包名：${appId}。开发者：${appInfo.developer}。${appInfo.summary || ""}`.trim();
-    return {
+  const lang = searchParams.hl || "zh";
+  const country = searchParams.gl || "cn";
+
+  const appInfo = await fetchAppDetailForPage(appId, lang, country);
+  const canonicalUrl = `https://www.gptoapk.com/zh/app/${appId}`;
+  const enUrl = `https://www.gptoapk.com/app/${appId}`;
+  const description = `下载 ${appInfo.title} Android APK。包名：${appId}。开发者：${appInfo.developer}。${appInfo.summary || ""}`.trim();
+
+  return {
+    title: `${appInfo.title} APK 下载 - Android`,
+    description,
+    alternates: {
+      canonical: canonicalUrl,
+      languages: {
+        zh: canonicalUrl,
+        en: enUrl,
+        "x-default": enUrl,
+      },
+    },
+    openGraph: {
       title: `${appInfo.title} APK 下载 - Android`,
       description,
-      alternates: {
-        canonical: canonicalUrl,
-        languages: {
-          zh: canonicalUrl,
-          en: enUrl,
-          "x-default": enUrl,
-        },
-      },
-      openGraph: {
-        title: `${appInfo.title} APK 下载 - Android`,
-        description,
-        url: canonicalUrl,
-        type: "website",
-        images: appInfo.icon ? [{ url: appInfo.icon, alt: `${appInfo.title} icon` }] : undefined,
-      },
-      twitter: {
-        card: "summary",
-        title: `${appInfo.title} APK 下载 - Android`,
-        description,
-        images: appInfo.icon ? [appInfo.icon] : undefined,
-      },
-    } satisfies Metadata;
-  } catch (e: unknown) {
-    console.error(`[Page generateMetadata] ERROR: ${e instanceof Error ? e.message : e}`);
-    return {
-      title: "App Not Found - APK Downloader",
-    };
-  }
+      url: canonicalUrl,
+      type: "website",
+      images: appInfo.icon ? [{ url: appInfo.icon, alt: `${appInfo.title} icon` }] : undefined,
+    },
+    twitter: {
+      card: "summary",
+      title: `${appInfo.title} APK 下载 - Android`,
+      description,
+      images: appInfo.icon ? [appInfo.icon] : undefined,
+    },
+  };
 }

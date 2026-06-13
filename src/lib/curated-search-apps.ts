@@ -206,6 +206,24 @@ const CURATED_BY_APP_ID: Readonly<Record<string, CuratedSearchAppMeta>> = {
     iconUrl: "",
     playUrl: "https://play.google.com/store/apps/details?id=com.asxkkc.jbz",
   },
+  "com.dragon.read": {
+    appId: "com.dragon.read",
+    title: "番茄免费小说",
+    summary: "字节跳动旗下免费小说阅读应用，海量正版小说免费读。",
+    developer: "北京臻鼎科技有限公司",
+    developerId: "北京臻鼎科技有限公司",
+    iconUrl: "",
+    playUrl: "https://play.google.com/store/apps/details?id=com.dragon.read",
+  },
+  "com.dragon.read.oversea.gp": {
+    appId: "com.dragon.read.oversea.gp",
+    title: "番茄免费小说",
+    summary: "Free novel reading app by ByteDance.",
+    developer: "Beijing Zhending Technology Co., Ltd.",
+    developerId: "Beijing+Zhending+Technology+Co.+Ltd.",
+    iconUrl: "",
+    playUrl: "https://play.google.com/store/apps/details?id=com.dragon.read.oversea.gp",
+  },
 };
 
 export function getCuratedSearchAppMeta(appId: string): CuratedSearchAppMeta | null {

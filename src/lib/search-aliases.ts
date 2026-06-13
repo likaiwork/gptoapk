@@ -2381,7 +2381,7 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
   },
   {
     appIds: ["com.dragon.read.oversea.gp", "com.dragon.read"],
-    aliases: ["番茄", "番茄免费小说", "番茄小说", "fanqie", "fanqie novel", "tomato novel"],
+    aliases: ["番茄免费小说", "番茄小说", "番茄", "fanqie", "fanqie novel", "tomato novel"],
   },
   {
     appIds: ["com.miHoYo.bh3global", "com.miHoYo.bh3oversea", "com.miHoYo.bh3tw"],
@@ -2638,10 +2638,6 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
     aliases: ["googleplayservices", "google play services app"],
   },
   {
-    appIds: ["com.dragon.read"],
-    aliases: ["番茄免费小说", "番茄小说", "fanqie", "番茄"],
-  },
-  {
     appIds: ["com.zillow.android.zillowmap"],
     aliases: ["zillow", "zillow app", "com.zillow.android.zillowmap"],
   },
@@ -2892,12 +2888,17 @@ const SORTED_ALIAS_KEYS = Object.keys(SEARCH_ALIAS_APP_IDS).sort(
 const PACKAGE_LIKE_ALIAS = /^[a-z][a-z0-9_]*(?:\.[a-z][a-z0-9_]*)+$/i;
 
 function pickAliasDisplayLabel(aliases: readonly string[]): string {
-  const human = aliases.find(
+  const human = aliases.filter(
     (alias) => alias.length >= 2 && !PACKAGE_LIKE_ALIAS.test(alias.trim()),
   );
-  if (!human) return aliases[0] ?? "";
-  const trimmed = human.trim();
-  if (/^[\u4e00-\u9fff]/.test(trimmed)) return trimmed;
+  if (!human.length) return aliases[0] ?? "";
+
+  const cjk = human.filter((alias) => /[\u4e00-\u9fff]/.test(alias));
+  if (cjk.length) {
+    return cjk.sort((a, b) => b.length - a.length)[0]!.trim();
+  }
+
+  const trimmed = human[0]!.trim();
   return trimmed
     .split(/\s+/)
     .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
