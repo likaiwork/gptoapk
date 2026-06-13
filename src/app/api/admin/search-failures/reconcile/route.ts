@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { runSearchDiscoveryRepair } from "@/lib/admin-search-discovery";
 import { getAdminApiKey, initDatabase } from "@/lib/db";
 
+export const maxDuration = 300;
+
 export async function POST(request: NextRequest): Promise<NextResponse> {
   try {
     const { searchParams } = new URL(request.url);

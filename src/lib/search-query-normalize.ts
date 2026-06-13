@@ -54,6 +54,8 @@ export function stripSearchQueryNoise(query: string): string {
   let q = stripInvisibleSearchChars(query).trim();
   if (!q) return "";
 
+  q = q.replace(/[（(][^）)]*[）)]/g, " ").replace(/\s+/g, " ").trim();
+
   q = q.replace(/\.apk$/i, "").trim();
 
   q = q.replace(/^https?:\/\//i, "");
@@ -144,7 +146,26 @@ const SEARCH_TYPO_CORRECTIONS: Readonly<Record<string, string>> = {
   chatgtp: "chatgpt",
   singbox: "sing-box",
   hiddiy: "hiddify",
-  "goodle pay": "google pay",
+  hiddfy: "hiddify",
+  chome: "chrome",
+  swcwab: "schwab",
+  schwap: "schwab",
+  kwauapk: "kwai",
+  ibbrk: "ibkr",
+  ibrk: "ibkr",
+  ibkr: "ibkr",
+  tandam: "tandem",
+  airplanechef: "airplane chef",
+  airplanechefs: "airplane chef",
+  "playstation app": "playstation",
+  hope: "hopegoo",
+  "emotn browser": "emotn browser",
+  谷歌基础服务: "google play services",
+  华为助手: "huawei ai life",
+  华侨银行: "ocbc",
+  龙卷风收音机: "tornado radio",
+  "build driver 模拟器": "build driver",
+  mymu: "moomoo",
   gooleplay: "google play",
   goga: "google",
   "firefox.": "firefox",
@@ -160,7 +181,6 @@ const SEARCH_TYPO_CORRECTIONS: Readonly<Record<string, string>> = {
   tudemate: "tubemate",
   xiaoyiguanjia: "小翼管家",
   "gooogle play": "google play",
-  schwap: "schwab",
   "h s b c": "hsbc",
   eshare: "eshare",
   office: "microsoft office",

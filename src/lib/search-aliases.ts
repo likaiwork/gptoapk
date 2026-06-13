@@ -574,7 +574,7 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
   },
   {
     appIds: ["com.ocbc.mobile"],
-    aliases: ["ocbc", "ocbc bank", "com.ocbc.mobile"],
+    aliases: ["ocbc", "ocbc bank", "华侨银行", "华侨银行新加坡", "com.ocbc.mobile"],
   },
   {
     appIds: ["com.maybank2u.life"],
@@ -1493,7 +1493,7 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
   },
   {
     appIds: ["com.coinbase.android"],
-    aliases: ["coinbase"],
+    aliases: ["coinbase", "base", "base apk", "coinbase base", "base app"],
   },
   {
     appIds: ["com.binance.dev"],
@@ -2108,6 +2108,8 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
       "谷歌框架",
       "谷歌服务框架",
       "google play services",
+      "谷歌基础服务",
+      "谷歌服务",
       "gms",
     ],
   },
@@ -2750,6 +2752,117 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
     appIds: ["com.polymarket.android"],
     aliases: ["polymarket", "poly market", "com.polymarket.android"],
   },
+  {
+    appIds: ["com.scee.psx.android"],
+    aliases: [
+      "playstation",
+      "playstation app",
+      "ps app",
+      "ps5 app",
+      "com.scee.psx.android",
+    ],
+  },
+  {
+    appIds: ["com.teamspeak.ts3client"],
+    aliases: ["teamspeak", "teamspeak 3", "ts3", "com.teamspeak.ts3client"],
+  },
+  {
+    appIds: ["com.robinhood.android"],
+    aliases: ["robinhood", "robinhood app", "com.robinhood.android"],
+  },
+  {
+    appIds: ["com.nordcurrent.airplanechef"],
+    aliases: [
+      "airplane chef",
+      "airplanechef",
+      "airplanechefs",
+      "airplane chefs",
+      "com.nordcurrent.airplanechef",
+    ],
+  },
+  {
+    appIds: ["com.lute.momcozy"],
+    aliases: ["momcozy", "mom cozy", "com.lute.momcozy"],
+  },
+  {
+    appIds: ["com.transferwise.android"],
+    aliases: ["wise", "wise app", "transferwise", "com.transferwise.android"],
+  },
+  {
+    appIds: ["ru.dublgis.dgismobile"],
+    aliases: ["2gis", "2 gis", "ru.dublgis.dgismobile"],
+  },
+  {
+    appIds: ["com.ctrip.hopegoo"],
+    aliases: ["hopegoo", "hope goo", "com.ctrip.hopegoo"],
+  },
+  {
+    appIds: ["com.emotn.browser"],
+    aliases: ["emotn browser", "emotn", "com.emotn.browser"],
+  },
+  {
+    appIds: ["com.vrdesktop.client"],
+    aliases: ["virtual desktop", "vr desktop", "com.vrdesktop.client"],
+  },
+  {
+    appIds: ["com.huawei.smarthome"],
+    aliases: [
+      "huawei ai life",
+      "huawei hilink",
+      "华为助手",
+      "华为智慧生活",
+      "com.huawei.smarthome",
+    ],
+  },
+  {
+    appIds: ["com.itings.myradio"],
+    aliases: ["tornado radio", "龙卷风收音机", "龙卷风网络收音机", "com.itings.myradio"],
+  },
+  {
+    appIds: ["com.percent.aos.btdriver"],
+    aliases: [
+      "build driver",
+      "build driver 模拟器",
+      "build driver simulator",
+      "com.percent.aos.btdriver",
+    ],
+  },
+  {
+    appIds: ["com.primefactor.tt"],
+    aliases: ["turing tumble", "com.primefactor.tt"],
+  },
+  {
+    appIds: ["com.zable.credit"],
+    aliases: ["zable", "zable credit", "com.zable.credit"],
+  },
+  {
+    appIds: ["pl.conference4me.client"],
+    aliases: ["conference4me", "conference 4 me", "pl.conference4me.client"],
+  },
+  {
+    appIds: ["tw.com.mycard"],
+    aliases: ["mycard", "my card", "tw.com.mycard"],
+  },
+  {
+    appIds: ["com.eskimo.credit"],
+    aliases: ["eskimo", "eskimo credit", "com.eskimo.credit"],
+  },
+  {
+    appIds: ["io.quackr.app"],
+    aliases: ["quackr", "quackr app", "io.quackr.app"],
+  },
+  {
+    appIds: ["com.asxkkc.jbz"],
+    aliases: ["星影视频", "星影视频app", "xysp", "com.asxkkc.jbz"],
+  },
+  {
+    appIds: ["net.tandem"],
+    aliases: ["tandem", "tandem app", "net.tandem"],
+  },
+  {
+    appIds: ["com.zhiliaoapp.musically"],
+    aliases: ["大小姐tik", "大小姐 tik"],
+  },
 ];
 
 /** Wrong or truncated Play package ids from pasted URLs → canonical id */
@@ -2998,6 +3111,36 @@ export const PRIORITY_STATIC_ALIAS_QUERIES = [
   "animohub",
   "minecraft beta",
   "minecraft preview",
+  "playstation",
+  "playstation app",
+  "teamspeak",
+  "robinhood",
+  "airplane chef",
+  "airplanechef",
+  "momcozy",
+  "wise",
+  "2gis",
+  "hopegoo",
+  "emotn browser",
+  "virtual desktop",
+  "huawei ai life",
+  "华侨银行",
+  "谷歌基础服务",
+  "hiddfy",
+  "chome",
+  "swcwab",
+  "kwauapk",
+  "tandam",
+  "base apk",
+  "base",
+  "build driver",
+  "龙卷风收音机",
+  "quackr",
+  "conference4me",
+  "zable",
+  "turing tumble",
+  "mycard",
+  "eskimo",
 ] as const;
 
 export function listStaticSearchAliasBindings(): Array<{

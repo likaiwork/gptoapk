@@ -1275,7 +1275,7 @@ export async function autoResolveDismissibleSearchFailures(): Promise<number> {
          OR query ILIKE '%魅魔%'
          OR lower(trim(query)) IN (
            'trader', 'browser', 'purple', 'knows', 'velo', 'volvoonroad', 'ainoon', 'zymix',
-           'gooleplay', 'googieplay', 'goodle pay'
+           'gooleplay', 'googieplay', 'goodle pay', 'downloadapk'
          )
        )
      RETURNING query_key`,

@@ -71,8 +71,8 @@ async function runBatchedSearchRepair() {
   let totalDiscoveryMiss = 0;
 
   const first = await runSearchReconcileRound({
-    maxChecks: Math.max(SEARCH_MAX_CHECKS, 2000),
-    liveProbeLimit: Math.max(SEARCH_LIVE_PROBE_LIMIT, 200),
+    maxChecks: Math.min(Math.max(SEARCH_MAX_CHECKS, 800), 1200),
+    liveProbeLimit: Math.min(Math.max(SEARCH_LIVE_PROBE_LIMIT, 80), 120),
     feedbackLimit: FEEDBACK_LIMIT,
     searchFailureDiscoveryLimit: SEARCH_DISCOVERY_LIMIT,
     skipStaticSync: false,

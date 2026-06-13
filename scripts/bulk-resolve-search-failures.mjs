@@ -10,7 +10,7 @@ const MAX_PAGES = Number(process.env.BULK_RESOLVE_MAX_PAGES ?? 25);
 const DELAY_MS = Number(process.env.BULK_RESOLVE_DELAY_MS ?? 300);
 const SEARCH_TIMEOUT_MS = Number(process.env.BULK_RESOLVE_SEARCH_TIMEOUT_MS ?? 15_000);
 const CONCURRENCY = Number(process.env.BULK_RESOLVE_CONCURRENCY ?? 6);
-const ARCHIVE_FAILED = process.env.BULK_ARCHIVE_FAILED !== "0";
+const ARCHIVE_FAILED = process.env.BULK_ARCHIVE_FAILED === "1";
 const PACKAGE_RE = /^[a-zA-Z][a-zA-Z0-9_]*(?:\.[a-zA-Z][a-zA-Z0-9_]*)+$/;
 
 const JUNK_RE =
@@ -47,7 +47,7 @@ function shouldDismiss(query, failureKind) {
   if (/^fake\s*gps$/i.test(q)) return true;
   if (/^hiddiy$/i.test(q)) return false;
   if (q.length <= 3 && failureKind === "no_results" && !/^[a-z][a-z0-9_]*(\.[a-z0-9_]+)+$/i.test(q)) return true;
-  if (JUNK_RE.test(q)) return true;
+  if (/^downloadapk$/i.test(q)) return true;
   if (/智博|1919|工具站|cladue/i.test(q)) return true;
   return false;
 }

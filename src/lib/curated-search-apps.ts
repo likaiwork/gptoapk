@@ -179,6 +179,33 @@ const CURATED_BY_APP_ID: Readonly<Record<string, CuratedSearchAppMeta>> = {
     iconUrl: "",
     playUrl: "https://play.google.com/store/apps/details?id=com.mojang.minecraftpreview",
   },
+  "com.scee.psx.android": {
+    appId: "com.scee.psx.android",
+    title: "PlayStation App",
+    summary: "Connect to your PlayStation console and manage games.",
+    developer: "PlayStation Mobile Inc.",
+    developerId: "PlayStation+Mobile+Inc.",
+    iconUrl: "",
+    playUrl: "https://play.google.com/store/apps/details?id=com.scee.psx.android",
+  },
+  "com.teamspeak.ts3client": {
+    appId: "com.teamspeak.ts3client",
+    title: "TeamSpeak 3",
+    summary: "Voice chat for gaming and teams.",
+    developer: "TeamSpeak Systems GmbH",
+    developerId: "TeamSpeak+Systems+GmbH",
+    iconUrl: "",
+    playUrl: "https://play.google.com/store/apps/details?id=com.teamspeak.ts3client",
+  },
+  "com.asxkkc.jbz": {
+    appId: "com.asxkkc.jbz",
+    title: "星影视频",
+    summary: "Free video streaming app.",
+    developer: "",
+    developerId: "",
+    iconUrl: "",
+    playUrl: "https://play.google.com/store/apps/details?id=com.asxkkc.jbz",
+  },
 };
 
 export function getCuratedSearchAppMeta(appId: string): CuratedSearchAppMeta | null {
