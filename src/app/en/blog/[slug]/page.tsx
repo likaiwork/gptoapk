@@ -15,6 +15,7 @@ import { enPosts20260609Schema } from "@/lib/blog/posts-2026-06-09-schema-en";
 import { enPosts20260609V4 } from "@/lib/blog/posts-2026-06-09-v4-en";
 import { enPosts20260612India } from "@/lib/blog/posts-2026-06-12-india-en";
 import { enPosts20260612Appteka } from "@/lib/blog/posts-2026-06-12-appteka-en";
+import { enPosts20260613UnknownSources } from "@/lib/blog/posts-2026-06-13-en-unknown-sources";
 
 interface BlogPost {
   slug: string;
@@ -40,6 +41,7 @@ const posts: BlogPost[] = [
   ...enPosts20260609V4,
   ...enPosts20260612India,
   ...enPosts20260612Appteka,
+  ...enPosts20260613UnknownSources,
   {
     slug: "apk-parse-error-fix-2026",
     title: "APK Parse Error Fix: There Was a Problem Parsing the Package (2026)",
