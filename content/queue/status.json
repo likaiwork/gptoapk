@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-12T09:45:53.384Z",
+  "updatedAt": "2026-06-13T11:00:35.496Z",
   "today": {
     "date": "2026-05-26",
     "locale": "zh",
@@ -97,6 +97,12 @@
       "note": "",
       "publishedUrl": "https://www.gptoapk.com/zh/blog/vpn-apk-risk-notice-zh",
       "at": "2026-06-12T09:45:53.384Z"
+    },
+    "2026-06-13": {
+      "status": "published",
+      "note": "zh Ahrefs GEO article",
+      "publishedUrl": "https://www.gptoapk.com/zh/blog/global-apk-search-trends-june-2026-zh",
+      "at": "2026-06-13T11:00:35.496Z"
     }
   }
 }
