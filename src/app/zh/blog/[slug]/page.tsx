@@ -16497,9 +16497,14 @@ function findZhBlogPost(rawSlug: string): BlogPost | undefined {
 }
 
 export async function generateStaticParams() {
-  return zhPosts.map((post) => ({
-    slug: post.slug,
-  }));
+  const seen = new Set<string>();
+  const params: { slug: string }[] = [];
+  for (const post of [...zhModularPosts, ...zhPosts]) {
+    if (seen.has(post.slug)) continue;
+    seen.add(post.slug);
+    params.push({ slug: post.slug });
+  }
+  return params;
 }
 
 export async function generateMetadata({
