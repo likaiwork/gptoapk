@@ -1221,7 +1221,7 @@ export async function autoResolveDismissibleSearchFailures(): Promise<number> {
          OR query ILIKE '%ok 影视%'
          OR query ~ '[\uFFFD]'
          OR (query ~ '[\x80-\xFF]' AND query !~ '[\u4e00-\u9fff]')
-         OR lower(trim(query)) IN ('apk', 'apks', 'xapk', 'app', 'apps', 'android', 'download')
+         OR lower(trim(query)) IN ('cmaf', 'map', 'apk', 'apks', 'xapk', 'app', 'apps', 'android', 'download')
          OR query ILIKE 'apk安装包%'
          OR query ILIKE '%apk安装包'
          OR query ILIKE 'jmcomic%'

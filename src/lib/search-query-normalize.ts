@@ -58,7 +58,7 @@ export function stripSearchQueryNoise(query: string): string {
 
   q = q.replace(/[''`´]/g, "");
 
-  q = q.replace(/\.apk$/i, "").trim();
+  q = q.replace(/[&]+$/g, "").replace(/[-–—]+/g, " ").replace(/\s+/g, " ").trim();
 
   q = q.replace(/^https?:\/\//i, "");
   q = q.replace(/^www\./i, "");
@@ -190,6 +190,16 @@ const SEARCH_TYPO_CORRECTIONS: Readonly<Record<string, string>> = {
   英为财经: "英为财情",
   musicgptai: "musicgpt",
   aisonggenerator: "ai song generator",
+  googleg: "google",
+  wrap: "warp",
+  "cloud flar": "cloudflare one",
+  "cloud flare": "cloudflare one",
+  "fiery browser fast": "fiery browser",
+  "fiery browser fast private": "fiery browser",
+  spacedesk: "spacedesk",
+  "hms core": "hms core",
+  谷歌应用: "google play services",
+  胖系捏脸: "捏脸酱",
   gooleplay: "google play",
   goga: "google",
   "firefox.": "firefox",

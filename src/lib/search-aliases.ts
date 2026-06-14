@@ -2967,6 +2967,97 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
       "ai song maker",
     ],
   },
+  {
+    appIds: ["com.google.android.googlequicksearchbox"],
+    aliases: ["googleg", "google g"],
+  },
+  {
+    appIds: ["com.mobirate.deadaheadtactical", "com.mobirate.DeadAheadTactical"],
+    aliases: ["dead ahead", "dead ahead zombie", "deadahead"],
+  },
+  {
+    appIds: ["com.MA.Polyfield"],
+    aliases: ["方块战场", "polyfield", "com.ma.polyfield"],
+  },
+  {
+    appIds: ["com.huawei.hwid"],
+    aliases: ["hms core", "huawei hms", "华为hms", "com.huawei.hwid"],
+  },
+  {
+    appIds: ["cloud.hosenso.maui"],
+    aliases: ["hosenso", "hsen boxx", "cloud.hosenso.maui"],
+  },
+  {
+    appIds: ["ph.spacedesk.beta"],
+    aliases: ["spacedesk", "space desk", "ph.spacedesk.beta"],
+  },
+  {
+    appIds: ["hot.fiery.browser"],
+    aliases: [
+      "fiery browser",
+      "fiery browser fast",
+      "fiery browser fast private",
+      "firey browser",
+      "hot.fiery.browser",
+    ],
+  },
+  {
+    appIds: ["com.google.android.gms", "com.android.vending"],
+    aliases: ["谷歌应用", "google apps", "google应用"],
+  },
+  {
+    appIds: ["cambodiaarrivalform.immigration.gov.kh"],
+    aliases: [
+      "cambodia e-arrival",
+      "cambodia earrival",
+      "cambodia e arrival",
+      "cambodia arrival",
+    ],
+  },
+  {
+    appIds: ["com.nebula.karing"],
+    aliases: ["karing", "karing vpn", "com.nebula.karing"],
+  },
+  {
+    appIds: ["zombie.survival.craft.z"],
+    aliases: ["地球末日生存", "last day on earth", "ldoe", "zombie.survival.craft.z"],
+  },
+  {
+    appIds: [
+      "com.ggonggee.avatarmakercreator3d",
+      "com.bopfun.avatarcreator",
+      "com.GreenGoGames.CustomFemaleCreator3D",
+    ],
+    aliases: ["character creator 3d", "avatar creator 3d", "avatar maker creator 3d"],
+  },
+  {
+    appIds: ["com.ahsj.kneadface", "com.make_me_fat.fat_face", "net.pixiv.vroid.android"],
+    aliases: ["胖系捏脸", "捏脸酱", "捏脸", "kneadface"],
+  },
+  {
+    appIds: ["breastenlarger.bodyeditor.photoeditor", "bodyeditor.bodyshapeeditor.photoeditor"],
+    aliases: ["anime body editor", "body editor", "face body editor"],
+  },
+  {
+    appIds: ["com.kinomap.training"],
+    aliases: ["kinomap", "com.kinomap.training"],
+  },
+  {
+    appIds: ["com.glgjing.marvel"],
+    aliases: ["强力监测", "powerful monitor", "com.glgjing.marvel"],
+  },
+  {
+    appIds: ["com.heytap.market", "com.oppo.market"],
+    aliases: ["oppo商城", "oppo store", "oppo app store", "欢太软件商店"],
+  },
+  {
+    appIds: ["com.heytap.market", "com.oppo.market", "com.oppo.usercenter"],
+    aliases: ["oppo"],
+  },
+  {
+    appIds: ["com.neverland.alreader", "com.neverland.alreaderext"],
+    aliases: ["alreader", "alreaderx", "al reader", "com.neverland.alreaderext"],
+  },
 ];
 
 /** Wrong or truncated Play package ids from pasted URLs → canonical id */
