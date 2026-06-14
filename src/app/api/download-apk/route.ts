@@ -180,6 +180,11 @@ const APKCOMBO_SOURCE_PAGES: Record<string, { pageUrl: string; fileName: string;
     fileName: 'Grafana IRM.apk',
     type: 'APK',
   },
+  'com.android.vending': {
+    pageUrl: 'https://apkcombo.com/google-play-store/com.android.vending/download/apk',
+    fileName: 'Google Play Store.apk',
+    type: 'APK',
+  },
 };
 const ONLINE_APK_DOWNLOADER_PACKAGE_OVERRIDES: Record<string, { fileName: string; type: string }> = {
   'com.anthropic.claude': {

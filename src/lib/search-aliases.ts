@@ -2953,6 +2953,20 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
     appIds: ["in.thebase.base"],
     aliases: ["pay id", "payid", "pay id app", "in.thebase.base"],
   },
+  {
+    appIds: [
+      "sun.jake.aisonggeneratorlksdbfg",
+      "com.musicgpt.app.android",
+      "com.suno.android",
+      "net.magictool.aisong",
+    ],
+    aliases: [
+      "ai song generator",
+      "aisonggenerator",
+      "ai music generator",
+      "ai song maker",
+    ],
+  },
 ];
 
 /** Wrong or truncated Play package ids from pasted URLs → canonical id */

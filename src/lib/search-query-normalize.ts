@@ -189,6 +189,7 @@ const SEARCH_TYPO_CORRECTIONS: Readonly<Record<string, string>> = {
   番茄免蹹小说: "番茄免费小说",
   英为财经: "英为财情",
   musicgptai: "musicgpt",
+  aisonggenerator: "ai song generator",
   gooleplay: "google play",
   goga: "google",
   "firefox.": "firefox",
