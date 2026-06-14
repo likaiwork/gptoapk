@@ -40,13 +40,7 @@ function packageWouldReturnResults(appId: string): boolean {
 }
 
 function aliasWouldReturnResults(query: string): boolean {
-  const appIds = resolveSearchAliasAppIds(query);
-  if (!appIds?.length) return false;
-  return appIds.some((id) => {
-    const resolved = resolvePlayPackageIdAlias(id);
-    if (getKnownAppSearchMeta(resolved)) return true;
-    return !isUnsupportedNoMirrorApp(resolved);
-  });
+  return Boolean(resolveSearchAliasAppIds(query)?.length);
 }
 
 function keywordWouldReturnResults(query: string): boolean {

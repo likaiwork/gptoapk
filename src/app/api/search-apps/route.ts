@@ -245,7 +245,7 @@ async function searchByAliasApps(
     const merged: SearchAppResult[] = [];
 
     const push = (item: SearchAppResult) => {
-      if (!item.appId || blocked.has(item.appId) || isUnsupportedNoMirrorApp(item.appId)) return;
+      if (!item.appId || blocked.has(item.appId)) return;
       blocked.add(item.appId);
       merged.push(item);
     };
@@ -503,14 +503,20 @@ export async function GET(request: Request) {
     }
 
     let results: SearchAppResult[] = [];
+    let fromAlias = false;
     for (const term of expandSearchQueryVariants(rawQuery)) {
-      results = await searchByAliasApps(term, requestedLang, requestedCountry);
-      if (results.length === 0) {
-        results = await searchApps(term, requestedLang, requestedCountry);
+      const aliasResults = await searchByAliasApps(term, requestedLang, requestedCountry);
+      if (aliasResults.length > 0) {
+        results = aliasResults;
+        fromAlias = true;
+        break;
       }
+      results = await searchApps(term, requestedLang, requestedCountry);
       if (results.length > 0) break;
     }
-    results = results.filter((app) => !isUnsupportedNoMirrorApp(app.appId));
+    if (!fromAlias) {
+      results = results.filter((app) => !isUnsupportedNoMirrorApp(app.appId));
+    }
     if (results.length === 0) {
       const discoveredIds = await tryInlineSearchDiscovery(rawQuery, requestedLang, requestedCountry);
       if (discoveredIds?.length) {
