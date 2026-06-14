@@ -130,6 +130,36 @@ const APKCOMBO_SOURCE_PAGES: Record<string, { pageUrl: string; fileName: string;
     fileName: 'JD.apk',
     type: 'APK',
   },
+  'com.biyaglobal.www': {
+    pageUrl: 'https://apkcombo.com/biyapay/com.BIYAGlobal.www/download/apk',
+    fileName: 'BiyaPay.apk',
+    type: 'APK',
+  },
+  'org.readera': {
+    pageUrl: 'https://apkcombo.com/readera/org.readera/download/apk',
+    fileName: 'ReadEra.apk',
+    type: 'APK',
+  },
+  'com.minitech.miniworld': {
+    pageUrl: 'https://apkcombo.com/mini-world/com.minitech.miniworld/download/apk',
+    fileName: 'Mini World.apk',
+    type: 'APK',
+  },
+  'com.fds.infiniteflight': {
+    pageUrl: 'https://apkcombo.com/infinite-flight/com.fds.infiniteflight/download/apk',
+    fileName: 'Infinite Flight.apk',
+    type: 'APK',
+  },
+  'jp.softether.vpngate': {
+    pageUrl: 'https://apkcombo.com/vpn-gate-client/jp.softether.vpngate/download/apk',
+    fileName: 'VPN Gate Client.apk',
+    type: 'APK',
+  },
+  'com.vuuu.tinyterraces': {
+    pageUrl: 'https://apkcombo.com/tiny-terraces/com.VuVuu.TinyTerraces/download/apk',
+    fileName: 'Tiny Terraces.apk',
+    type: 'APK',
+  },
 };
 const ONLINE_APK_DOWNLOADER_PACKAGE_OVERRIDES: Record<string, { fileName: string; type: string }> = {
   'com.anthropic.claude': {

@@ -1213,6 +1213,7 @@ export async function autoResolveDismissibleSearchFailures(): Promise<number> {
          OR query ILIKE '%apks%installer%'
          OR query ILIKE '%c=apps%'
          OR query ILIKE '%禁漫%'
+         OR query ILIKE '%极道无赖%'
          OR query ILIKE '%麻豆%'
          OR query ILIKE '%jm天堂%'
          OR query ILIKE '%天堂1.%'

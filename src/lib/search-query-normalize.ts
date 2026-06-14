@@ -56,6 +56,8 @@ export function stripSearchQueryNoise(query: string): string {
 
   q = q.replace(/[（(][^）)]*[）)]/g, " ").replace(/\s+/g, " ").trim();
 
+  q = q.replace(/[''`´]/g, "");
+
   q = q.replace(/\.apk$/i, "").trim();
 
   q = q.replace(/^https?:\/\//i, "");
@@ -166,6 +168,18 @@ const SEARCH_TYPO_CORRECTIONS: Readonly<Record<string, string>> = {
   龙卷风收音机: "tornado radio",
   "build driver 模拟器": "build driver",
   mymu: "moomoo",
+  chatdpt: "chatgpt",
+  infinitefligh: "infinite flight",
+  infiniteflighf: "infinite flight",
+  infiniteflight: "infinite flight",
+  biyagl: "biyapay",
+  biyag: "biyapay",
+  biyaglobal: "biyapay",
+  biya: "biyapay",
+  tinyterraces: "tiny terraces",
+  terraces: "tiny terraces",
+  xbeta: "twitter",
+  face: "facebook",
   gooleplay: "google play",
   goga: "google",
   "firefox.": "firefox",

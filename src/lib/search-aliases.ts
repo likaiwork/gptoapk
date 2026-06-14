@@ -2859,6 +2859,66 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
     appIds: ["com.zhiliaoapp.musically"],
     aliases: ["大小姐tik", "大小姐 tik"],
   },
+  {
+    appIds: ["com.BIYAGlobal.www"],
+    aliases: [
+      "biyapay",
+      "biya pay",
+      "biyaglobal",
+      "biya global",
+      "biyagl",
+      "biyag",
+      "biya",
+      "com.biyaglobal.www",
+      "com.BIYAGlobal.www",
+    ],
+  },
+  {
+    appIds: ["com.xarxzht.ybdc.app"],
+    aliases: ["易背单词", "易背单词app", "ybdc", "com.xarxzht.ybdc.app"],
+  },
+  {
+    appIds: ["org.readera"],
+    aliases: ["readera", "read era", "org.readera"],
+  },
+  {
+    appIds: ["com.minitech.miniworld"],
+    aliases: ["迷你世界", "mini world", "miniworld", "com.minitech.miniworld"],
+  },
+  {
+    appIds: ["com.fds.infiniteflight"],
+    aliases: [
+      "infinite flight",
+      "infiniteflight",
+      "infinite fligh",
+      "com.fds.infiniteflight",
+    ],
+  },
+  {
+    appIds: ["com.scottgames.fnaf4", "com.scottgames.fnaf2", "com.clickteam.freddyfazbear"],
+    aliases: [
+      "five nights at freddys",
+      "five nights at freddy's",
+      "fnaf",
+      "freddy fazbear",
+    ],
+  },
+  {
+    appIds: ["com.VuVuu.TinyTerraces"],
+    aliases: ["tiny terraces", "tinyterraces", "tiny terrace", "com.vuuu.tinyterraces"],
+  },
+  {
+    appIds: ["jp.softether.vpngate"],
+    aliases: ["softether", "soft ether", "vpngate", "jp.softether.vpngate"],
+  },
+  {
+    appIds: ["com.threeplususa.p1", "com.zjw.apps3pluspro"],
+    aliases: ["3plus hybrid", "3plus", "3 plus hybrid", "com.threeplususa.p1"],
+  },
+  {
+    appIds: ["com.facebook.katana"],
+    aliases: ["facebook", "fb app"],
+  },
 ];
 
 /** Wrong or truncated Play package ids from pasted URLs → canonical id */
@@ -2878,6 +2938,7 @@ const PLAY_PACKAGE_ID_ALIASES: Readonly<Record<string, string>> = {
   "com.coros": "com.coros.coros",
   xiaoyiguanjia: "com.yueme.itv",
   "xiaoyi guanjia": "com.yueme.itv",
+  "com.biyaglobal.www": "com.BIYAGlobal.www",
 };
 
 const SEARCH_ALIAS_APP_IDS = buildAliasMap();
@@ -3142,6 +3203,17 @@ export const PRIORITY_STATIC_ALIAS_QUERIES = [
   "turing tumble",
   "mycard",
   "eskimo",
+  "biyapay",
+  "biyaglobal",
+  "readera",
+  "迷你世界",
+  "infinite flight",
+  "softether",
+  "tiny terraces",
+  "易背单词",
+  "chatdpt",
+  "five nights at freddys",
+  "3plus",
 ] as const;
 
 export function listStaticSearchAliasBindings(): Array<{
