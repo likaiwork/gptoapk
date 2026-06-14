@@ -1086,7 +1086,7 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
   },
   {
     appIds: ["com.instagram.android"],
-    aliases: ["instagram", "ins", "ig"],
+    aliases: ["instagram", "ins", "ig", "instr", "ints", "insta"],
   },
   {
     appIds: ["com.twitter.android"],
@@ -2381,7 +2381,7 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
   },
   {
     appIds: ["com.dragon.read.oversea.gp", "com.dragon.read"],
-    aliases: ["番茄免费小说", "番茄小说", "番茄", "fanqie", "fanqie novel", "tomato novel"],
+    aliases: ["番茄免费小说", "番茄小说", "番茄", "番茄免蹹小说", "fanqie", "fanqie novel", "tomato novel"],
   },
   {
     appIds: ["com.miHoYo.bh3global", "com.miHoYo.bh3oversea", "com.miHoYo.bh3tw"],
@@ -2556,6 +2556,8 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
       "clash meta",
       "clash verge",
       "clash meta for android",
+      "clashmeta",
+      "clash meta android",
       "flclash",
       "fl clash",
       "com.github.metacubex.clash.meta",
@@ -2919,6 +2921,38 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
     appIds: ["com.facebook.katana"],
     aliases: ["facebook", "fb app"],
   },
+  {
+    appIds: ["com.netease.party", "com.netease.partyglobal"],
+    aliases: ["蛋仔派对", "蛋仔", "eggy party", "egg party", "com.netease.party"],
+  },
+  {
+    appIds: ["com.grafana.oncall.prod"],
+    aliases: ["grafana", "grafana irm", "grafana oncall", "com.grafana.oncall.prod"],
+  },
+  {
+    appIds: ["com.avast.android.mobilesecurity"],
+    aliases: ["avast", "avast mobile security", "com.avast.android.mobilesecurity"],
+  },
+  {
+    appIds: ["com.fusionmedia.investing"],
+    aliases: ["investing", "investing.com", "英为财情", "英为财经", "com.fusionmedia.investing"],
+  },
+  {
+    appIds: ["com.microsoft.whiteboard.live"],
+    aliases: ["whiteboard", "microsoft whiteboard", "com.microsoft.whiteboard.live"],
+  },
+  {
+    appIds: ["com.nintendo.znca"],
+    aliases: ["fire emblem", "fire emblem heroes", "feh", "com.nintendo.znca"],
+  },
+  {
+    appIds: ["com.musicgpt.app.android"],
+    aliases: ["musicgpt", "music gpt", "musicgpt ai", "com.musicgpt.app.android"],
+  },
+  {
+    appIds: ["in.thebase.base"],
+    aliases: ["pay id", "payid", "pay id app", "in.thebase.base"],
+  },
 ];
 
 /** Wrong or truncated Play package ids from pasted URLs → canonical id */
@@ -3214,6 +3248,12 @@ export const PRIORITY_STATIC_ALIAS_QUERIES = [
   "chatdpt",
   "five nights at freddys",
   "3plus",
+  "蛋仔派对",
+  "grafana",
+  "avast",
+  "musicgpt",
+  "clashmeta",
+  "英为财经",
 ] as const;
 
 export function listStaticSearchAliasBindings(): Array<{

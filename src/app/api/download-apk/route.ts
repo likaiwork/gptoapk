@@ -160,6 +160,26 @@ const APKCOMBO_SOURCE_PAGES: Record<string, { pageUrl: string; fileName: string;
     fileName: 'Tiny Terraces.apk',
     type: 'APK',
   },
+  'com.netease.partyglobal': {
+    pageUrl: 'https://apkcombo.com/eggy-party/com.netease.partyglobal/download/apk',
+    fileName: 'Eggy Party.apk',
+    type: 'APK',
+  },
+  'com.avast.android.mobilesecurity': {
+    pageUrl: 'https://apkcombo.com/avast/com.avast.android.mobilesecurity/download/apk',
+    fileName: 'Avast.apk',
+    type: 'APK',
+  },
+  'com.musicgpt.app.android': {
+    pageUrl: 'https://apkcombo.com/musicgpt-ai-song-generator/com.musicgpt.app.android/download/apk',
+    fileName: 'MusicGPT.apk',
+    type: 'APK',
+  },
+  'com.grafana.oncall.prod': {
+    pageUrl: 'https://apkcombo.com/grafana-irm/com.grafana.oncall.prod/download/apk',
+    fileName: 'Grafana IRM.apk',
+    type: 'APK',
+  },
 };
 const ONLINE_APK_DOWNLOADER_PACKAGE_OVERRIDES: Record<string, { fileName: string; type: string }> = {
   'com.anthropic.claude': {

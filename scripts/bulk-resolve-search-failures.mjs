@@ -5,7 +5,7 @@
 
 const SITE = (process.env.REPAIR_SITE_HOST || "https://www.gptoapk.com").replace(/\/$/, "");
 const KEY = process.env.ADMIN_API_KEY || process.env.REPAIR_ADMIN_KEY || "gptoapk-admin-key-2026";
-const PAGE_SIZE = Number(process.env.BULK_RESOLVE_PAGE_SIZE ?? 50);
+const PAGE_SIZE = Number(process.env.BULK_RESOLVE_PAGE_SIZE ?? 100);
 const MAX_PAGES = Number(process.env.BULK_RESOLVE_MAX_PAGES ?? 25);
 const DELAY_MS = Number(process.env.BULK_RESOLVE_DELAY_MS ?? 300);
 const SEARCH_TIMEOUT_MS = Number(process.env.BULK_RESOLVE_SEARCH_TIMEOUT_MS ?? 15_000);

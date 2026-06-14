@@ -161,6 +161,24 @@ async function fetchExactApp(appId: string, lang: string, country: string) {
   }
 }
 
+/** Alias hits should return quickly even when Play is slow or blocked. */
+async function fetchExactAppForAliasSearch(appId: string, lang: string, country: string) {
+  const resolvedAppId = resolvePlayPackageIdAlias(appId);
+  const knownMeta = getKnownAppSearchMeta(resolvedAppId);
+  if (knownMeta) return buildCuratedSearchResult(knownMeta);
+
+  try {
+    const appInfo = await withTimeout(
+      gplay.app({ appId: resolvedAppId, lang, country, requestOptions } as Parameters<typeof gplay.app>[0]),
+      6000,
+      'Network timeout: Cannot connect to Google Play'
+    );
+    return toSearchResult(appInfo);
+  } catch {
+    return buildMinimalFallbackSearchResult(resolvedAppId);
+  }
+}
+
 async function searchDownloadableVpnApps(
   lang: string,
   country: string,
@@ -233,7 +251,7 @@ async function searchByAliasApps(
     };
 
     const curated = await Promise.allSettled(
-      appIds.map((appId) => fetchExactApp(appId, lang, country)),
+      appIds.map((appId) => fetchExactAppForAliasSearch(appId, lang, country)),
     );
 
     for (const result of curated) {
