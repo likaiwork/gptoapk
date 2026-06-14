@@ -1,4 +1,3 @@
-import { getKnownAppSearchMeta } from "@/lib/curated-search-apps";
 import {
   extractPlayStoreSearchTerm,
   normalizeUserSearchQuery,
