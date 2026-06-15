@@ -258,6 +258,9 @@ const SEARCH_TYPO_CORRECTIONS: Readonly<Record<string, string>> = {
   pydroid3: "pydroid 3",
   fanqie: "番茄免费小说",
   番茄: "番茄免费小说",
+  gmaul: "gmail",
+  "apple store": "apple music",
+  dive: "dive+",
 };
 
 export function applySearchTypoCorrection(query: string): string {

@@ -1219,6 +1219,12 @@ export async function autoResolveDismissibleSearchFailures(): Promise<number> {
          OR query ILIKE '%天堂1.%'
          OR query ILIKE '%ok影视%'
          OR query ILIKE '%ok 影视%'
+         OR query ILIKE '%沧海%tv%'
+         OR query ILIKE '%沧海tv%'
+         OR query ILIKE '%一起tv%'
+         OR query ILIKE '%一起 tv%'
+         OR query ~ '^[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+'
+         OR lower(trim(query)) ~ '^[0-9]+\\.[0-9]+.*\\.apk$'
          OR query ~ '[\uFFFD]'
          OR (query ~ '[\x80-\xFF]' AND query !~ '[\u4e00-\u9fff]')
          OR lower(trim(query)) IN ('cmaf', 'map', 'apk', 'apks', 'xapk', 'app', 'apps', 'android', 'download')

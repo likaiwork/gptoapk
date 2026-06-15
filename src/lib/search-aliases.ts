@@ -912,7 +912,7 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
   },
   {
     appIds: ["com.google.android.gm"],
-    aliases: ["gmail", "google mail", "谷歌邮箱", "gmail下载", "com.google.android.gm"],
+    aliases: ["gmail", "gmaul", "google mail", "谷歌邮箱", "gmail下载", "com.google.android.gm"],
   },
   {
     appIds: ["com.xunmeng.pinduoduo"],
@@ -1027,7 +1027,7 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
   },
   {
     appIds: ["com.apple.android.music"],
-    aliases: ["apple music", "苹果音乐", "com.apple.android.music"],
+    aliases: ["apple music", "apple store", "苹果音乐", "苹果商店", "com.apple.android.music"],
   },
   {
     appIds: ["bin.mt.plus"],
@@ -3101,6 +3101,34 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
   {
     appIds: ["za.co.euphoria.gomobile.android"],
     aliases: ["euphoria", "euphoria softphone", "euphoria telecom", "za.co.euphoria.gomobile.android"],
+  },
+  {
+    appIds: ["cn.com.sina.finance"],
+    aliases: ["新浪财经", "新浪財經", "sina finance", "cn.com.sina.finance"],
+  },
+  {
+    appIds: ["com.lifeplus.diveplus"],
+    aliases: ["dive+", "dive plus", "diveplus", "com.lifeplus.diveplus"],
+  },
+  {
+    appIds: ["com.unduruho.wakey"],
+    aliases: ["wakey", "wakey screen", "com.unduruho.wakey"],
+  },
+  {
+    appIds: ["de.florianisme.wakeonlan", "co.uk.mrwebb.wakeonlan"],
+    aliases: ["wake on lan", "wake-on-lan", "wol", "wakeonlan"],
+  },
+  {
+    appIds: ["com.mykronoz.app.universal", "com.mykronoz.zetime"],
+    aliases: ["mykronoz", "my kronoz", "kronoz"],
+  },
+  {
+    appIds: ["com.com.sounthern.nlauncher", "com.com.color.nlauncher"],
+    aliases: ["nokia phone launcher", "nokia launcher", "nokia old phone launcher"],
+  },
+  {
+    appIds: ["it.rortos.realflightsimulator"],
+    aliases: ["rfs", "real flight simulator", "real flightsimulator", "it.rortos.realflightsimulator"],
   },
 ];
 
