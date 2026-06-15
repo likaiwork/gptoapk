@@ -3130,6 +3130,10 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
     appIds: ["it.rortos.realflightsimulator"],
     aliases: ["rfs", "real flight simulator", "real flightsimulator", "it.rortos.realflightsimulator"],
   },
+  {
+    appIds: ["com.myvodafoneapp", "com.myvodafone.android"],
+    aliases: ["my vodafone", "vodafone", "com.myvodafoneapp"],
+  },
 ];
 
 /** Wrong or truncated Play package ids from pasted URLs → canonical id */
