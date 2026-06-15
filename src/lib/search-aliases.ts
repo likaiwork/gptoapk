@@ -3061,6 +3061,47 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
     appIds: ["com.neverland.alreader", "com.neverland.alreaderext"],
     aliases: ["alreader", "alreaderx", "al reader", "com.neverland.alreaderext"],
   },
+  {
+    appIds: ["eu.darken.sdmmaid", "eu.darken.sdmmaid.se"],
+    aliases: ["sd maid", "sdmaid", "sd maid1", "sd maid pro", "eu.darken.sdmmaid"],
+  },
+  {
+    appIds: ["com.teamlava.bakerystory"],
+    aliases: ["bakery story", "bakery story 2", "com.teamlava.bakerystory"],
+  },
+  {
+    appIds: ["jp.pxv.android"],
+    aliases: ["pixiv", "pixiv inc", "pixiv inc.", "jp.pxv.android"],
+  },
+  {
+    appIds: ["org.thoughtcrime.securesms"],
+    aliases: ["signal", "signal messenger", "signal app", "org.thoughtcrime.securesms"],
+  },
+  {
+    appIds: ["jp.co.drecom.wizardry.daphne"],
+    aliases: [
+      "wizardry variants daphne",
+      "wizardry daphne",
+      "wiz daphne",
+      "jp.co.drecom.wizardry.daphne",
+    ],
+  },
+  {
+    appIds: ["com.hush.yamby"],
+    aliases: ["yamby", "emby client", "com.hush.yamby"],
+  },
+  {
+    appIds: ["com.mada.madapay"],
+    aliases: ["mada pay", "madapay", "mada", "com.mada.madapay"],
+  },
+  {
+    appIds: ["com.avalon.rpg"],
+    aliases: ["aethric", "hero of aethric", "hero aethric", "com.avalon.rpg"],
+  },
+  {
+    appIds: ["za.co.euphoria.gomobile.android"],
+    aliases: ["euphoria", "euphoria softphone", "euphoria telecom", "za.co.euphoria.gomobile.android"],
+  },
 ];
 
 /** Wrong or truncated Play package ids from pasted URLs → canonical id */

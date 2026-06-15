@@ -56,6 +56,8 @@ export function stripSearchQueryNoise(query: string): string {
 
   q = q.replace(/[（(][^）)]*[）)]/g, " ").replace(/\s+/g, " ").trim();
 
+  q = q.replace(/[、，。！？；：]/g, " ").replace(/\s+/g, " ").trim();
+
   q = q.replace(/[''`´]/g, "");
 
   q = q.replace(/[&]+$/g, "").replace(/[-–—]+/g, " ").replace(/\s+/g, " ").trim();
@@ -200,6 +202,11 @@ const SEARCH_TYPO_CORRECTIONS: Readonly<Record<string, string>> = {
   "hms core": "hms core",
   谷歌应用: "google play services",
   胖系捏脸: "捏脸酱",
+  goodleplay: "google play",
+  ttuite: "twitter",
+  sdmmaid: "sd maid",
+  "sd maid1": "sd maid",
+  aethric: "hero of aethric",
   gooleplay: "google play",
   goga: "google",
   "firefox.": "firefox",

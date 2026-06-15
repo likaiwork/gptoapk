@@ -185,6 +185,21 @@ const APKCOMBO_SOURCE_PAGES: Record<string, { pageUrl: string; fileName: string;
     fileName: 'Google Play Store.apk',
     type: 'APK',
   },
+  'org.thoughtcrime.securesms': {
+    pageUrl: 'https://apkcombo.com/signal-private-messenger/org.thoughtcrime.securesms/download/apk',
+    fileName: 'Signal.apk',
+    type: 'APK',
+  },
+  'eu.darken.sdmmaid': {
+    pageUrl: 'https://apkcombo.com/sd-maid/eu.darken.sdmmaid/download/apk',
+    fileName: 'SD Maid.apk',
+    type: 'APK',
+  },
+  'jp.co.drecom.wizardry.daphne': {
+    pageUrl: 'https://apkcombo.com/wizardry-variants-daphne/jp.co.drecom.wizardry.daphne/download/apk',
+    fileName: 'Wizardry Variants Daphne.apk',
+    type: 'APK',
+  },
 };
 const ONLINE_APK_DOWNLOADER_PACKAGE_OVERRIDES: Record<string, { fileName: string; type: string }> = {
   'com.anthropic.claude': {
