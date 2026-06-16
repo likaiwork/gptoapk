@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-16T12:30:36.340Z",
+  "updatedAt": "2026-06-16T12:31:46.295Z",
   "today": {
     "date": "2026-05-26",
     "locale": "zh",
@@ -105,16 +105,16 @@
       "at": "2026-06-13T11:00:35.496Z"
     },
     "2026-06-15": {
-      "status": "drafted",
+      "status": "published",
       "note": "",
       "publishedUrl": "https://www.gptoapk.com/zh/blog/china-ai-assistant-compare-2026",
-      "at": "2026-06-15T02:21:48.747Z"
+      "at": "2026-06-16T12:31:46.243Z"
     },
     "2026-06-16": {
-      "status": "drafted",
+      "status": "published",
       "note": "",
       "publishedUrl": "https://www.gptoapk.com/zh/blog/instagram-apk-install-zh",
-      "at": "2026-06-16T12:30:36.340Z"
+      "at": "2026-06-16T12:31:46.295Z"
     }
   }
 }
