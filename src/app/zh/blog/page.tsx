@@ -19,6 +19,7 @@ import { zhPosts20260612VpnList } from "@/lib/blog/posts-2026-06-12-vpn-zh";
 import { zhPosts20260613KeywordsList } from "@/lib/blog/posts-2026-06-13-zh-keywords";
 import { zhPosts20260615AiAssistantList } from "@/lib/blog/posts-2026-06-15-zh-ai-assistant";
 import { zhPosts20260616InstagramList } from "@/lib/blog/posts-2026-06-16-zh-instagram";
+import { zhPosts20260617ApptekaKeywordsList } from "@/lib/blog/posts-2026-06-17-zh-appteka-keywords";
 import { getZhBlogBySlug, ZH_BLOG_TOPIC_CLUSTERS } from "@/lib/blog/zh-blog-index";
 
 export const metadata: Metadata = {
@@ -52,6 +53,7 @@ const posts = [
   ...zhPosts20260613KeywordsList,
   ...zhPosts20260615AiAssistantList,
   ...zhPosts20260616InstagramList,
+  ...zhPosts20260617ApptekaKeywordsList,
   {
     slug: "china-broker-app-list",
     title: "国内券商APP下载指南：同花顺东财华泰国信中信招商等主流券商APP包名大全",
