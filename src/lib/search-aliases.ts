@@ -770,6 +770,8 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
       "instagram官方下载",
       "instagram官网",
       "com.instagram.android",
+      "instergam",
+      "instagarm",
     ],
   },
   {
@@ -1086,7 +1088,7 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
   },
   {
     appIds: ["com.instagram.android"],
-    aliases: ["instagram", "ins", "ig", "instr", "ints", "insta"],
+    aliases: ["instagram", "ins", "ig", "instr", "ints", "insta", "instergam", "instagarm"],
   },
   {
     appIds: ["com.twitter.android"],
@@ -3133,6 +3135,42 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
   {
     appIds: ["com.myvodafoneapp", "com.myvodafone.android"],
     aliases: ["my vodafone", "vodafone", "com.myvodafoneapp"],
+  },
+  {
+    appIds: ["org.amnezia.vpn"],
+    aliases: ["amnezia", "amnezia vpn", "amneziawg", "amnezia wg", "org.amnezia.vpn"],
+  },
+  {
+    appIds: ["moe.nb4a"],
+    aliases: ["nekobox", "neko box", "nekobook", "neko", "moe.nb4a"],
+  },
+  {
+    appIds: ["com.samsung.android.goodlock"],
+    aliases: ["goodlock", "good lock", "com.samsung.android.goodlock"],
+  },
+  {
+    appIds: ["io.homeassistant.companion.android"],
+    aliases: ["home assistant", "homeassistant", "home assistant companion", "io.homeassistant.companion.android"],
+  },
+  {
+    appIds: ["com.surfshark.vpnclient.android"],
+    aliases: ["surfshark", "surfshark vpn", "com.surfshark.vpnclient.android"],
+  },
+  {
+    appIds: ["com.xverse.aistory"],
+    aliases: ["saylo", "saylo ai", "com.xverse.aistory"],
+  },
+  {
+    appIds: ["com.hermes.h1game"],
+    aliases: ["one piece fighting path", "one piece: fighting path", "海贼王格斗", "com.hermes.h1game"],
+  },
+  {
+    appIds: ["com.readygo.barrel.gp"],
+    aliases: ["last z", "last z survival", "lastz", "com.readygo.barrel.gp"],
+  },
+  {
+    appIds: ["com.hbadkj.flu.glzx"],
+    aliases: ["股灵智选", "com.hbadkj.flu.glzx"],
   },
 ];
 

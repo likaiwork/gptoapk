@@ -41,6 +41,8 @@ function shouldDismiss(query, failureKind) {
   if (failureKind === "invalid_url" && q.includes("play.google.com") && !q.includes("id=")) return true;
   if (failureKind === "query_too_long") return true;
   if (/^chrome_/i.test(q) || /^[A-Za-z]+_[0-9]/.test(q)) return true;
+  if (/^[A-Za-z0-9+/]{20,}={0,2}$/.test(q)) return true;
+  if (/性感按摩|你就不要想起我|你离开之后/.test(q)) return true;
   if (/pronhub|pornhub|樱花|魅魔|onlyfans|deepfake/i.test(q)) return true;
   if (/^(trader|browser|purple|knows|velo|volvoonroad|u er|damm|dazmm|ainoon|zymix)$/i.test(q)) return true;
   if (/^goole\s*play|gooleplay|googieplay|goodle\s*pay$/i.test(q)) return true;

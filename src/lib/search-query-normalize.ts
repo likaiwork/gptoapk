@@ -261,6 +261,10 @@ const SEARCH_TYPO_CORRECTIONS: Readonly<Record<string, string>> = {
   gmaul: "gmail",
   "apple store": "apple music",
   dive: "dive+",
+  instergam: "instagram",
+  instagarm: "instagram",
+  amneziawg: "amnezia",
+  nekobook: "nekobox",
 };
 
 export function applySearchTypoCorrection(query: string): string {

@@ -200,6 +200,51 @@ const APKCOMBO_SOURCE_PAGES: Record<string, { pageUrl: string; fileName: string;
     fileName: 'Wizardry Variants Daphne.apk',
     type: 'APK',
   },
+  'org.amnezia.vpn': {
+    pageUrl: 'https://apkcombo.com/amnezia-vpn/org.amnezia.vpn/download/apk',
+    fileName: 'Amnezia VPN.apk',
+    type: 'APK',
+  },
+  'moe.nb4a': {
+    pageUrl: 'https://apkcombo.com/nekobox-for-android/moe.nb4a/download/apk',
+    fileName: 'NekoBox.apk',
+    type: 'APK',
+  },
+  'io.homeassistant.companion.android': {
+    pageUrl: 'https://apkcombo.com/home-assistant/io.homeassistant.companion.android/download/apk',
+    fileName: 'Home Assistant.apk',
+    type: 'APK',
+  },
+  'com.samsung.android.goodlock': {
+    pageUrl: 'https://apkcombo.com/good-lock/com.samsung.android.goodlock/download/apk',
+    fileName: 'Good Lock.apk',
+    type: 'APK',
+  },
+  'com.surfshark.vpnclient.android': {
+    pageUrl: 'https://apkcombo.com/surfshark-vpn/com.surfshark.vpnclient.android/download/apk',
+    fileName: 'Surfshark VPN.apk',
+    type: 'APK',
+  },
+  'com.xverse.aistory': {
+    pageUrl: 'https://apkcombo.com/saylo/com.xverse.aistory/download/apk',
+    fileName: 'Saylo.apk',
+    type: 'APK',
+  },
+  'com.hermes.h1game': {
+    pageUrl: 'https://apkcombo.com/one-piece-fighting-path/com.hermes.h1game/download/apk',
+    fileName: 'One Piece Fighting Path.xapk',
+    type: 'XAPK',
+  },
+  'com.readygo.barrel.gp': {
+    pageUrl: 'https://apkcombo.com/last-z-survival-shooter/com.readygo.barrel.gp/download/apk',
+    fileName: 'Last Z.xapk',
+    type: 'XAPK',
+  },
+  'com.hbadkj.flu.glzx': {
+    pageUrl: 'https://apkcombo.com/glzx/com.hbadkj.flu.glzx/download/apk',
+    fileName: '股灵智选.apk',
+    type: 'APK',
+  },
 };
 const ONLINE_APK_DOWNLOADER_PACKAGE_OVERRIDES: Record<string, { fileName: string; type: string }> = {
   'com.anthropic.claude': {
