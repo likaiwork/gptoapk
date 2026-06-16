@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { zhPosts20260612ApptekaList } from "@/lib/blog/posts-2026-06-12-appteka-zh";
+import { enPosts20260612ApptekaList } from "@/lib/blog/posts-2026-06-12-appteka-en";
+import { zhPosts20260615List, enPosts20260615List } from "@/lib/blog/posts-2026-06-15";
 
 export const metadata: Metadata = {
   title: "Blog - APK Downloader Guides & Tutorials | gptoapk.com",
@@ -352,6 +355,12 @@ const posts: BlogPost[] = [
     readTime: "12 min read",
     tags: ["APK Update","Sideloading","App Updates","Android Apps","Google Play Alternative"],
   },
+  // === 2026-06-12: Appteka 第三方商店评测文章 ===
+  ...zhPosts20260612ApptekaList,
+  ...enPosts20260612ApptekaList,
+  // === 2026-06-15: 应用商店横向对比文章 ===
+  ...zhPosts20260615List,
+  ...enPosts20260615List,
 ];
 
 export default function BlogPage() {
