@@ -263,8 +263,16 @@ const SEARCH_TYPO_CORRECTIONS: Readonly<Record<string, string>> = {
   dive: "dive+",
   instergam: "instagram",
   instagarm: "instagram",
+  instgtame: "instagram",
   amneziawg: "amnezia",
   nekobook: "nekobox",
+  treadingview: "tradingview",
+  "g p t": "chatgpt",
+  "duo mibile": "duo mobile",
+  hifier: "hifier",
+  "sol: enchant": "sol enchant",
+  "免费Ⅴpn": "vpn",
+  "免费ⅴpn": "vpn",
 };
 
 export function applySearchTypoCorrection(query: string): string {

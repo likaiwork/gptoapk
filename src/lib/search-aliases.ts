@@ -3172,6 +3172,55 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
     appIds: ["com.hbadkj.flu.glzx"],
     aliases: ["股灵智选", "com.hbadkj.flu.glzx"],
   },
+  {
+    appIds: ["com.supercell.boombeach"],
+    aliases: ["boom beach", "boombeach", "boombeach game"],
+  },
+  {
+    appIds: ["com.google.android.keep"],
+    aliases: ["keep", "google keep", "keep notes", "google keep notes"],
+  },
+  {
+    appIds: ["top.mediacare.hifier"],
+    aliases: ["hifier", "hifier"],
+  },
+  {
+    appIds: ["com.netmarble.sol"],
+    aliases: ["sol enchant", "sol: enchant", "sol enchant game"],
+  },
+  {
+    appIds: ["io.tixngo.app.fifatickets"],
+    aliases: [
+      "fwc2026 mobile tickets",
+      "fwc2026 mobile ticket",
+      "fifa world cup 2026 mobile tickets",
+      "mobile tickets",
+    ],
+  },
+  {
+    appIds: ["capital.scalable.droid"],
+    aliases: ["scalable", "scalable capital"],
+  },
+  {
+    appIds: ["com.zoolaxEuro.games.seaOfGiants"],
+    aliases: ["sea of giants", "sea of giants lost island", "sea of giants: lost island"],
+  },
+  {
+    appIds: ["com.duosecurity.duomobile"],
+    aliases: ["duo mobile", "duomobile"],
+  },
+  {
+    appIds: ["com.phoenix.read", "com.phoenix.read.oversea.gp"],
+    aliases: ["红果短剧", "红果免费短剧", "红果短剧app", "hongguo short drama", "hongguo duanju"],
+  },
+  {
+    appIds: ["com.heysocks.android"],
+    aliases: ["heysocks", "hey socks", "heysocks vpn", "heysocks vpn fast"],
+  },
+  {
+    appIds: ["com.zaglab.dartsmind"],
+    aliases: ["dartsmind", "darts mind", "dartsmind ai"],
+  },
 ];
 
 /** Wrong or truncated Play package ids from pasted URLs → canonical id */
