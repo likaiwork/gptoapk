@@ -1268,7 +1268,8 @@ export async function autoResolveDismissibleSearchFailures(): Promise<number> {
            failure_kind = 'no_results'
            AND lower(trim(query)) IN (
              'map', 'jm', 'kmt', 'ph', 'gridnr', 'googleservice', 'uutool', 'tools', 'tool',
-             'apk', 'app', 'apps', 'android', 'download', 'video', 'game', 'games'
+             'apk', 'app', 'apps', 'android', 'download', 'video', 'game', 'games',
+             'smart', 'poly'
            )
          )
          OR query ILIKE '%智博%'

@@ -3221,6 +3221,93 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
     appIds: ["com.zaglab.dartsmind"],
     aliases: ["dartsmind", "darts mind", "dartsmind ai"],
   },
+  {
+    appIds: [
+      "com.nianticlabs.pokemongo",
+      "jp.pokemon.pokemonsleep",
+      "jp.pokemon.pokemonchampions",
+      "com.nianticlabs.pokemontcg",
+    ],
+    aliases: ["pokemon", "pokémon", "宝可梦"],
+  },
+  {
+    appIds: ["jp.pokemon.pokemonsleep"],
+    aliases: ["pokemon sleep", "pokémon sleep", "宝可梦sleep"],
+  },
+  {
+    appIds: ["jp.pokemon.pokemonchampions"],
+    aliases: ["pokemon champions", "pokémon champions", "宝可梦冠军"],
+  },
+  {
+    appIds: ["com.humble.SlayTheSpire"],
+    aliases: ["slay the spire", "杀戮尖塔", "com.humble.slaythespire"],
+  },
+  {
+    appIds: ["com.achievo.vipshop"],
+    aliases: ["vipshop", "唯品会", "com.achievo.vipshop"],
+  },
+  {
+    appIds: ["studio.com.techriz.andronix"],
+    aliases: ["andronix", "andronix linux", "studio.com.techriz.andronix"],
+  },
+  {
+    appIds: ["com.cisco.anyconnect.vpn.android.avf"],
+    aliases: [
+      "cisco",
+      "cisco secure client",
+      "cisco anyconnect",
+      "anyconnect",
+      "cisco vpn",
+      "com.cisco.anyconnect.vpn.android.avf",
+    ],
+  },
+  {
+    appIds: ["com.ex3ndr.happy"],
+    aliases: ["happy coder", "happycoder", "happy-coder", "com.ex3ndr.happy"],
+  },
+  {
+    appIds: ["com.bungieinc.bungiemobile"],
+    aliases: ["bungie", "destiny 2 companion", "destiny companion", "com.bungieinc.bungiemobile"],
+  },
+  {
+    appIds: ["net.omobio.smartsc"],
+    aliases: ["smartnas", "smart nas", "net.omobio.smartsc"],
+  },
+  {
+    appIds: ["canvasm.myo2"],
+    aliases: ["mein o2", "mein o", "my o2", "canvasm.myo2"],
+  },
+  {
+    appIds: ["com.microsoft.appmanager"],
+    aliases: [
+      "windows app",
+      "windows link",
+      "link to windows",
+      "phone link",
+      "window app",
+      "windows",
+      "window",
+      "com.microsoft.appmanager",
+    ],
+  },
+  {
+    appIds: ["com.duolingo"],
+    aliases: ["duolingo: language lessons", "duolingo language lessons"],
+  },
+  {
+    appIds: ["com.n3twork.tetris"],
+    aliases: ["俄罗斯方块", "tetris", "tetris game", "com.n3twork.tetris"],
+  },
+  {
+    appIds: ["air.jp.co.MitsubishiElectric.KirigamineRemote"],
+    aliases: [
+      "霧ヶ峰remote",
+      "霧ヶ峰 remote",
+      "kirigamine remote",
+      "雾峰remote",
+      "air.jp.co.mitsubishielectric.kirigamineremote",
+    ],
+  },
 ];
 
 /** Wrong or truncated Play package ids from pasted URLs → canonical id */
@@ -3522,6 +3609,22 @@ export const PRIORITY_STATIC_ALIAS_QUERIES = [
   "musicgpt",
   "clashmeta",
   "英为财经",
+  "pokemon",
+  "pokemon sleep",
+  "pokemon champions",
+  "slay the spire",
+  "杀戮尖塔",
+  "vipshop",
+  "andronix",
+  "cisco secure client",
+  "happy coder",
+  "bungie",
+  "smartnas",
+  "mein o2",
+  "windows app",
+  "duolingo: language lessons",
+  "俄罗斯方块",
+  "霧ヶ峰remote",
 ] as const;
 
 export function listStaticSearchAliasBindings(): Array<{

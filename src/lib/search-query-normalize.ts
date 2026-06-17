@@ -56,6 +56,12 @@ export function stripSearchQueryNoise(query: string): string {
 
   q = q.replace(/[（(][^）)]*[）)]/g, " ").replace(/\s+/g, " ").trim();
 
+  // Play Store list titles: "Duolingo: Language Lessons" → "Duolingo" (keep "sol: enchant" etc.)
+  if (/^[^:]+:\s+[A-Za-z]/.test(q) && !/^sol:\s/i.test(q)) {
+    const base = q.replace(/^([^:]+):\s*.+$/, "$1").trim();
+    if (base.length >= 2) q = base;
+  }
+
   q = q.replace(/[、，。！？；：]/g, " ").replace(/\s+/g, " ").trim();
 
   q = q.replace(/[''`´]/g, "");
@@ -159,6 +165,9 @@ const SEARCH_TYPO_CORRECTIONS: Readonly<Record<string, string>> = {
   ibrk: "ibkr",
   ibkr: "ibkr",
   tandam: "tandem",
+  "mein 噢": "mein o2",
+  "mein o": "mein o2",
+  happycoder: "happy coder",
   airplanechef: "airplane chef",
   airplanechefs: "airplane chef",
   "playstation app": "playstation",
