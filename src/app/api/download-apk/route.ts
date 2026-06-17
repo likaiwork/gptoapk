@@ -355,6 +355,16 @@ function shouldProxyApkPureDownload(downloadUrl: string) {
   }
 }
 
+/** Aptoide CDN is often blocked in mainland China; stream via our proxy instead of 302 to pool.apk.aptoide.com */
+function shouldProxyAptoideDownload(downloadUrl: string) {
+  try {
+    const hostname = new URL(downloadUrl).hostname.toLowerCase();
+    return hostname.includes('aptoide.com');
+  } catch {
+    return false;
+  }
+}
+
 function encodeUpstreamUrl(downloadUrl: string) {
   return Buffer.from(downloadUrl, 'utf-8').toString('base64url');
 }
@@ -615,6 +625,7 @@ async function tryAptoide(appId: string, parentSignal?: AbortSignal): Promise<So
       size: file?.filesize ?? null,
       md5: file?.md5sum ?? null,
       source: 'aptoide',
+      preferredDelivery: shouldProxyAptoideDownload(path) ? 'proxy' : undefined,
     };
   } catch {
     return null;
@@ -918,6 +929,12 @@ const CHINESE_RETAIL_PRIORITY_IDS = new Set([
   "com.xunmeng.pinduoduo",
   "com.jingdong.app.mall",
   "com.eg.android.alipaygphone",
+  "com.tencent.mobileqq",
+  "com.tencent.mm",
+  "com.ss.android.ugc.aweme",
+  "com.sina.weibo",
+  "com.tencent.qqlive",
+  "com.baidu.searchbox",
 ]);
 
 const PREPARE_MIRROR_TIMEOUT_MS = Number(process.env.APK_PREPARE_MIRROR_TIMEOUT_MS ?? 12000);
@@ -943,6 +960,25 @@ function buildExternalSourceResult(
 async function resolveDownloadSourceForPrepare(appId: string): Promise<SourceResult | null> {
   const manual = await tryManualDownloadSource(appId);
   if (manual) return manual;
+
+  const id = appId.toLowerCase();
+  if (CHINESE_RETAIL_PRIORITY_IDS.has(id)) {
+    const retailTimeout = createAbortSignal(CHINESE_RETAIL_TIMEOUT_MS);
+    try {
+      const retailSources = await Promise.all([
+        tryUptodown(appId, retailTimeout.signal),
+        tryApkComboApp(appId, retailTimeout.signal),
+        tryApkCombo(appId, retailTimeout.signal),
+        tryApkComboDownloader(appId, retailTimeout.signal),
+        tryApkPure(appId, retailTimeout.signal),
+        tryAptoide(appId, retailTimeout.signal),
+      ]);
+      const retailHit = retailSources.find((result) => result !== null);
+      if (retailHit) return retailHit;
+    } finally {
+      retailTimeout.clear();
+    }
+  }
 
   const quickTimeout = createAbortSignal(PREPARE_MIRROR_TIMEOUT_MS);
   try {

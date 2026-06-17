@@ -110,6 +110,17 @@ export default function DownloadButton({
 
       const fileName = data.fileName || `${appId}.apk`;
 
+      let primaryUrl = data.downloadUrl;
+      let secondaryUrl = data.fallbackDownloadUrl || "";
+      // Mainland users often cannot reach Aptoide/APKPure CDNs directly; prefer site proxy.
+      if (
+        locale === "zh" &&
+        primaryUrl.includes("delivery=direct") &&
+        secondaryUrl.includes("delivery=proxy")
+      ) {
+        [primaryUrl, secondaryUrl] = [secondaryUrl, primaryUrl];
+      }
+
       trackEvent(analyticsEvents.downloadPrepareSuccess, {
         app_id: appId,
         source: data.source,
@@ -137,10 +148,10 @@ export default function DownloadButton({
       };
 
       if (data.externalPage) {
-        window.open(data.downloadUrl, "_blank", "noopener,noreferrer");
+        window.open(primaryUrl, "_blank", "noopener,noreferrer");
       } else {
         const a = document.createElement("a");
-        a.href = data.downloadUrl;
+        a.href = primaryUrl;
         a.download = fileName;
         a.rel = "noopener";
         a.target = "gptoapk-direct-download";
@@ -148,8 +159,8 @@ export default function DownloadButton({
         a.click();
         a.remove();
       }
-      setLastDownloadUrl(data.downloadUrl);
-      setFallbackDownloadUrl(data.fallbackDownloadUrl || "");
+      setLastDownloadUrl(primaryUrl);
+      setFallbackDownloadUrl(secondaryUrl);
       setLastFileName(fileName);
 
       // 记录下载

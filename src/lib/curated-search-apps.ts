@@ -80,6 +80,15 @@ const CURATED_BY_APP_ID: Readonly<Record<string, CuratedSearchAppMeta>> = {
     iconUrl: "",
     playUrl: "https://play.google.com/store/apps/details?id=com.grindrapp.android",
   },
+  "com.tencent.mobileqq": {
+    appId: "com.tencent.mobileqq",
+    title: "QQ",
+    summary: "Tencent QQ instant messaging for mobile.",
+    developer: "Tencent Technology (Shenzhen) Company Ltd.",
+    developerId: "Tencent+Technology+(Shenzhen)+Company+Ltd.",
+    iconUrl: "",
+    playUrl: "https://play.google.com/store/apps/details?id=com.tencent.mobileqq",
+  },
   "org.localsend.localsend_app": {
     appId: "org.localsend.localsend_app",
     title: "LocalSend",
