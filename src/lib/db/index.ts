@@ -1277,6 +1277,9 @@ export async function autoResolveDismissibleSearchFailures(): Promise<number> {
          OR query ILIKE '%工具站%'
          OR query ILIKE '%cladue%'
          OR lower(trim(query)) IN ('redpanda', 'red panda', 'ibreathe', 'adhd focus pro')
+         OR lower(trim(query)) IN ('move', 'mentplus', 'toutb', 'https', 'csgo', 'bundletool', 'omcsa', 'gpsurfer', 'xsection', 'wheretoknow')
+         OR query ILIKE '%小蓝视频%'
+         OR query ILIKE '%csgo%mobile%'
          OR query ILIKE 'chrome\\_%' ESCAPE '\\'
          OR query ILIKE '%pronhub%'
          OR query ILIKE '%pornhub%'

@@ -50,7 +50,8 @@ function shouldDismiss(query, failureKind) {
   if (/^hiddiy$/i.test(q)) return false;
   if (q.length <= 3 && failureKind === "no_results" && !/^[a-z][a-z0-9_]*(\.[a-z0-9_]+)+$/i.test(q)) return true;
   if (/^downloadapk$/i.test(q)) return true;
-  if (/^(smart|poly)$/i.test(q) && failureKind === "no_results") return true;
+  if (/^(smart|poly|move|mentplus|toutb|https|csgo|bundletool|omcsa|gpsurfer|xsection|wheretoknow)$/i.test(q) && failureKind === "no_results") return true;
+  if (/小蓝视频|csgo\s*mobile/i.test(q)) return true;
   if (/智博|1919|工具站|cladue/i.test(q)) return true;
   return false;
 }

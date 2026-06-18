@@ -3308,6 +3308,131 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
       "air.jp.co.mitsubishielectric.kirigamineremote",
     ],
   },
+  {
+    appIds: ["com.flipkart.android"],
+    aliases: ["flipkart", "flipkart app", "com.flipkart.android"],
+  },
+  {
+    appIds: ["net.osmand", "net.osmand.plus"],
+    aliases: ["osmand", "osmand maps", "osmand+", "com.osmand"],
+  },
+  {
+    appIds: ["com.adobe.scan.android"],
+    aliases: ["adobe scan", "adobe scanner", "com.adobe.scan.android"],
+  },
+  {
+    appIds: ["com.sololearn"],
+    aliases: [
+      "sololearn",
+      "sololearn:learn to code",
+      "sololearn learn to code",
+      "solo learn",
+      "com.sololearn",
+    ],
+  },
+  {
+    appIds: ["com.mtr.mtrmobile"],
+    aliases: ["mtr mobile", "mtr", "港铁", "com.mtr.mtrmobile"],
+  },
+  {
+    appIds: ["io.sourcereader.app"],
+    aliases: ["源阅读", "源阅读 apk", "sourcereader", "io.sourcereader.app"],
+  },
+  {
+    appIds: ["uni.UNI11C08EF"],
+    aliases: ["错题星", "错题星app", "uni.uni11c08ef"],
+  },
+  {
+    appIds: ["com.zuoyebang.bangbangshizi"],
+    aliases: ["帮帮识字", "帮帮学字", "bangbang shizi", "com.zuoyebang.bangbangshizi"],
+  },
+  {
+    appIds: ["com.firigames.phoenix2"],
+    aliases: ["phoenix 2", "phoenix2", "phoenix", "com.firigames.phoenix2"],
+  },
+  {
+    appIds: ["com.pdfeditor.pdfeditorandriod"],
+    aliases: ["pdfgear", "pdf gear", "com.pdfeditor.pdfeditorandriod"],
+  },
+  {
+    appIds: ["com.antivirus"],
+    aliases: ["avg", "avg antivirus", "avg anti virus", "com.antivirus"],
+  },
+  {
+    appIds: ["org.chromium.chrome"],
+    aliases: ["chromium", "chromium browser", "org.chromium.chrome"],
+  },
+  {
+    appIds: ["com.google.android.apps.pixelstudio"],
+    aliases: ["pixel studio", "google pixel studio", "com.google.android.apps.pixelstudio"],
+  },
+  {
+    appIds: ["tunein.player"],
+    aliases: ["tunein", "tuneln", "tune in", "tunein radio", "tunein.player"],
+  },
+  {
+    appIds: ["com.dayoneapp.dayone"],
+    aliases: ["day one", "dayone", "day one journal", "com.dayoneapp.dayone"],
+  },
+  {
+    appIds: ["com.gamesworkshop.w40k"],
+    aliases: ["warhammer", "warhammer 40k", "warhammer 40000", "com.gamesworkshop.w40k"],
+  },
+  {
+    appIds: ["com.quesera.kalpa"],
+    aliases: ["kalpa", "kalpa rhythm", "com.quesera.kalpa"],
+  },
+  {
+    appIds: ["hd.fun.yecao.helper", "app.yecao"],
+    aliases: ["小草助手", "野草助手", "yecao helper", "hd.fun.yecao.helper"],
+  },
+  {
+    appIds: ["org.potato.messenger.web"],
+    aliases: ["土豆电话", "土豆聊天", "potato", "potato messenger", "org.potato.messenger.web"],
+  },
+  {
+    appIds: ["nl.innovalor.nfciddocshowcase"],
+    aliases: ["readid me", "readid", "nfc passport reader", "nl.innovalor.nfciddocshowcase"],
+  },
+  {
+    appIds: ["com.amarin.naiin.NaiinReader"],
+    aliases: ["naiin reader", "naiin", "com.amarin.naiin.naiinreader"],
+  },
+  {
+    appIds: ["com.ruotogames.pocketcrafteridle"],
+    aliases: ["pocketcraft", "pocket crafter", "idle pocket crafter", "com.ruotogames.pocketcrafteridle"],
+  },
+  {
+    appIds: ["com.droid27.transparentclockweather"],
+    aliases: [
+      "transparent weather clock",
+      "透明时钟",
+      "transparent clock",
+      "com.droid27.transparentclockweather",
+    ],
+  },
+  {
+    appIds: ["com.mxtech.videoplayer.ad"],
+    aliases: ["万能视频播放器", "mx player", "mxplayer", "com.mxtech.videoplayer.ad"],
+  },
+  {
+    appIds: ["com.anyvideo.videoconverter"],
+    aliases: ["any video", "any vidio", "anyvideo", "any video converter"],
+  },
+  {
+    appIds: ["studio.stream.apps.ndiscreenshare"],
+    aliases: [
+      "screen sharing for ndi",
+      "ndi screenshare",
+      "ndi screen share",
+      "ndi obs screenshare",
+      "studio.stream.apps.ndiscreenshare",
+    ],
+  },
+  {
+    appIds: ["com.lenovo.anyshare.gps"],
+    aliases: ["anyshare", "shareit", "com.lenovo.anyshare.gps"],
+  },
 ];
 
 /** Wrong or truncated Play package ids from pasted URLs → canonical id */
@@ -3625,6 +3750,30 @@ export const PRIORITY_STATIC_ALIAS_QUERIES = [
   "duolingo: language lessons",
   "俄罗斯方块",
   "霧ヶ峰remote",
+  "flipkart",
+  "osmand",
+  "adobe scan",
+  "sololearn",
+  "mtr mobile",
+  "源阅读",
+  "错题星",
+  "帮帮学字",
+  "phoenix 2",
+  "pdfgear",
+  "avg",
+  "chromium",
+  "pixel studio",
+  "tuneln",
+  "day one",
+  "warhammer",
+  "kalpa",
+  "小草助手",
+  "土豆电话",
+  "readid me",
+  "naiin reader",
+  "pocketcraft",
+  "透明时钟",
+  "万能视频播放器",
 ] as const;
 
 export function listStaticSearchAliasBindings(): Array<{

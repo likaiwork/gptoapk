@@ -28,7 +28,8 @@ function isUnresolvableMissingAppQuery(query: string): boolean {
     q.includes("badugi") ||
     q.includes("poker master") ||
     q.includes("pokermaster") ||
-    q === "ph"
+    q === "ph" ||
+    q.includes("小蓝视频")
   );
 }
 
