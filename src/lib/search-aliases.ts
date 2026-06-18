@@ -3430,6 +3430,15 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
     ],
   },
   {
+    appIds: ["ai.music.tune.release"],
+    aliases: [
+      "music tune ai",
+      "musictune ai",
+      "music tune",
+      "ai.music.tune.release",
+    ],
+  },
+  {
     appIds: ["com.lenovo.anyshare.gps"],
     aliases: ["anyshare", "shareit", "com.lenovo.anyshare.gps"],
   },
