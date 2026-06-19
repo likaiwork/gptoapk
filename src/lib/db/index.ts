@@ -1259,6 +1259,9 @@ export async function autoResolveDismissibleSearchFailures(): Promise<number> {
            AND query NOT ILIKE '%?%id%'
          )
          OR lower(trim(query)) IN ('goole商店', 'googieplay', 'googlepaly', 'goodle', 'gogole', 'playstore')
+         OR lower(trim(query)) IN ('https://play.google.com/store/apps', 'https://play.google.com/store/apps/')
+         OR query ~ '##[^#]+##'
+         OR query ~ '^/?\\?'
          OR (
            failure_kind IN ('no_results', 'search_error')
            AND length(trim(query)) <= 3
