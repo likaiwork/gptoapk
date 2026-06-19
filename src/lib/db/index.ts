@@ -1278,6 +1278,10 @@ export async function autoResolveDismissibleSearchFailures(): Promise<number> {
          OR query ILIKE '%cladue%'
          OR lower(trim(query)) IN ('redpanda', 'red panda', 'ibreathe', 'adhd focus pro')
          OR lower(trim(query)) IN ('move', 'mentplus', 'toutb', 'https', 'csgo', 'bundletool', 'omcsa', 'gpsurfer', 'xsection', 'wheretoknow', 'ee钱包')
+         OR lower(trim(query)) IN (
+           'cartoon', 'mcsever', 'mcpaper', 'droidrender', 'vop access',
+           'itap cleaner', 'i tap cleaner', '河南iptv'
+         )
          OR query ILIKE '%ee钱包%'
          OR query ILIKE '%小蓝视频%'
          OR query ILIKE '%csgo%mobile%'

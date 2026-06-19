@@ -183,7 +183,7 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
   },
   {
     appIds: ["ai.x.grok"],
-    aliases: ["grok", "grok3", "grok 3", "x grok", "grok ai", "xai", "x ai"],
+    aliases: ["grok", "grok3", "grok 3", "x grok", "grok ai", "xai", "x ai", "gork"],
   },
   {
     appIds: ["com.github.stenzek.duckstation"],
@@ -610,6 +610,8 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
       "twitter中文版",
       "twitter中文",
       "twitter网站",
+      "twitterapk",
+      "twitter apk",
       "推特",
       "推特下载",
       "x",
@@ -3228,7 +3230,7 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
       "jp.pokemon.pokemonchampions",
       "com.nianticlabs.pokemontcg",
     ],
-    aliases: ["pokemon", "pokémon", "宝可梦"],
+    aliases: ["pokemon", "pokémon", "pokem", "pokenmon", "宝可梦", "恐龙神奇宝贝"],
   },
   {
     appIds: ["jp.pokemon.pokemonsleep"],
@@ -3236,7 +3238,12 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
   },
   {
     appIds: ["jp.pokemon.pokemonchampions"],
-    aliases: ["pokemon champions", "pokémon champions", "宝可梦冠军"],
+    aliases: [
+      "pokemon champions",
+      "pokémon champions",
+      "pokenmon champions",
+      "宝可梦冠军",
+    ],
   },
   {
     appIds: ["com.humble.SlayTheSpire"],
@@ -3441,6 +3448,84 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
   {
     appIds: ["com.lenovo.anyshare.gps"],
     aliases: ["anyshare", "shareit", "com.lenovo.anyshare.gps"],
+  },
+  {
+    appIds: ["leyi.westgame"],
+    aliases: ["west game", "westgame", "leyi.westgame"],
+  },
+  {
+    appIds: ["com.kylecorry.trail_sense"],
+    aliases: ["trail sense", "trailsense", "com.kylecorry.trail_sense"],
+  },
+  {
+    appIds: ["org.zwanoo.android.speedtest"],
+    aliases: ["speed test", "speedtest", "ookla speedtest", "org.zwanoo.android.speedtest"],
+  },
+  {
+    appIds: ["com.windyty.android"],
+    aliases: ["windy", "windy weather", "windy.com", "com.windyty.android"],
+  },
+  {
+    appIds: ["com.vitorpamplona.amethyst"],
+    aliases: ["nostr", "amethyst", "com.vitorpamplona.amethyst"],
+  },
+  {
+    appIds: ["com.tapas.heroesrestaurant"],
+    aliases: ["勇士食堂", "heroes restaurant", "com.tapas.heroesrestaurant"],
+  },
+  {
+    appIds: ["com.trampolinetales.lbal"],
+    aliases: [
+      "trampolinetales",
+      "trampoline tales",
+      "trampoline",
+      "幸运房东",
+      "landlord simulator",
+      "com.trampolinetales.lbal",
+    ],
+  },
+  {
+    appIds: ["com.GameCoaster.DungeonWithin"],
+    aliases: ["地牢深处", "dungeon within", "com.gamecoaster.dungeonwithin"],
+  },
+  {
+    appIds: ["com.google.android.GoogleCamera"],
+    aliases: ["谷歌相机", "google camera", "gcam", "com.google.android.googlecamera"],
+  },
+  {
+    appIds: ["com.typeless.mobile"],
+    aliases: ["typeless", "typeless keyboard", "com.typeless.mobile"],
+  },
+  {
+    appIds: ["cn.dictcn.android.digitize.sw_gjcydcd_10011"],
+    aliases: ["成语大词典", "idiom dictionary", "cn.dictcn.android.digitize.sw_gjcydcd_10011"],
+  },
+  {
+    appIds: ["hssb.android.free.app", "hotspotshield.android.vpn"],
+    aliases: [
+      "hotspot shield",
+      "hotspot shield vpn",
+      "hotspot shild",
+      "hotspot shild vpn",
+      "hssb.android.free.app",
+    ],
+  },
+  {
+    appIds: ["com.google.android.apps.googleassistant"],
+    aliases: [
+      "google assistant",
+      "android assistant",
+      "android assisstanf",
+      "com.google.android.apps.googleassistant",
+    ],
+  },
+  {
+    appIds: ["com.rhythm.hexise.inst.pro"],
+    aliases: ["installer pro", "installer pro apk", "com.rhythm.hexise.inst.pro"],
+  },
+  {
+    appIds: ["com.takeapps88.jiggle_bounce"],
+    aliases: ["jiggle bounce", "jiggle bounce wobble", "com.takeapps88.jiggle_bounce"],
   },
 ];
 
@@ -3783,6 +3868,28 @@ export const PRIORITY_STATIC_ALIAS_QUERIES = [
   "pocketcraft",
   "透明时钟",
   "万能视频播放器",
+  "west game",
+  "trail sense",
+  "speed test",
+  "windy",
+  "nostr",
+  "勇士食堂",
+  "trampolinetales",
+  "幸运房东",
+  "地牢深处",
+  "dungeon within",
+  "谷歌相机",
+  "typeless",
+  "成语大词典",
+  "hotspot shild",
+  "hotspot shield",
+  "installer pro",
+  "jiggle bounce",
+  "pokem",
+  "pokenmon",
+  "twitterapk",
+  "gork",
+  "android assisstanf",
 ] as const;
 
 export function listStaticSearchAliasBindings(): Array<{

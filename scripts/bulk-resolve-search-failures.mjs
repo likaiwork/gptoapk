@@ -51,7 +51,8 @@ function shouldDismiss(query, failureKind) {
   if (q.length <= 3 && failureKind === "no_results" && !/^[a-z][a-z0-9_]*(\.[a-z0-9_]+)+$/i.test(q)) return true;
   if (/^downloadapk$/i.test(q)) return true;
   if (/^(smart|poly|move|mentplus|toutb|https|csgo|bundletool|omcsa|gpsurfer|xsection|wheretoknow|ee钱包)$/i.test(q) && failureKind === "no_results") return true;
-  if (/小蓝视频|csgo\s*mobile|ee钱包/i.test(q)) return true;
+  if (/^(cartoon|mcsever|mcpaper|droidrender|vop access|itap cleaner|i tap cleaner|河南iptv|كرتون)$/i.test(q)) return true;
+  if (/小蓝视频|csgo\s*mobile|ee钱包|河南iptv/i.test(q)) return true;
   if (/智博|1919|工具站|cladue/i.test(q)) return true;
   return false;
 }

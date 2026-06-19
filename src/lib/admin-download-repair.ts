@@ -31,6 +31,43 @@ function siteOrigin(): string {
   return host.replace(/\/$/, "");
 }
 
+const ANDROID_PACKAGE_ID_RE = /^[a-zA-Z][a-zA-Z0-9_]*(?:\.[a-zA-Z][a-zA-Z0-9_]*)+$/;
+
+function isPlausibleAndroidPackageId(appId: string): boolean {
+  return ANDROID_PACKAGE_ID_RE.test(appId.trim());
+}
+
+/** Resolve download failures logged with filenames or other non-package ids. */
+export async function autoResolveInvalidDownloadAppIds(): Promise<number> {
+  await initDatabase();
+
+  let page = 0;
+  const pageSize = 200;
+  let resolved = 0;
+
+  while (true) {
+    const { rows } = await getDownloadFailureApps(pageSize, page * pageSize);
+    const unresolved = rows.filter((row) => !row.resolved);
+    if (!unresolved.length) break;
+
+    for (const item of unresolved) {
+      const appId = sanitizeAppId(item.app_id);
+      if (isPlausibleAndroidPackageId(appId)) continue;
+
+      const ok = await updateDownloadFailureResolved(item.app_id.trim(), true);
+      if (!ok && item.app_id.trim() !== appId) {
+        await updateDownloadFailureResolved(appId, true);
+      }
+      resolved += 1;
+    }
+
+    if (rows.length < pageSize) break;
+    page += 1;
+  }
+
+  return resolved;
+}
+
 async function prepareDownload(appId: string): Promise<{ ok: boolean; success: boolean }> {
   const origin = siteOrigin();
   const controller = new AbortController();
@@ -93,6 +130,7 @@ export async function runAdminDownloadFailureRepair(options?: {
   const errors: string[] = [];
 
   await initDatabase();
+  const invalidResolved = await autoResolveInvalidDownloadAppIds();
   const blockedResolved = await autoResolveBlockedDownloadFailures();
 
   const markResolved = async (rawAppId: string, resolvedAppId?: string) => {
@@ -142,7 +180,7 @@ export async function runAdminDownloadFailureRepair(options?: {
   const { unresolved: stillUnresolved } = await getDownloadFailureApps(1, 0);
 
   return {
-    blockedResolved,
+    blockedResolved: blockedResolved + invalidResolved,
     downloadRechecked: candidates.length,
     downloadMarkedResolved,
     stillUnresolved,
