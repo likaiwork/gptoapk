@@ -55,6 +55,11 @@ function shouldDismiss(query, failureKind) {
   if (/^https:\/\/play\.google\.com\/store\/apps\/?$/i.test(q)) return true;
   if (/^play\.google\.com$/i.test(q)) return true;
   if (/##[^#]+##/.test(q) || /^\/?\?/.test(q)) return true;
+  if (/^\{search_term_string\}$/i.test(q)) return true;
+  if (/^(launcher|gallery|omegle|webview|sync|anymore|champions|sounds|portugues|routers)$/i.test(q)) return true;
+  if (/^\d+\s*fps$/i.test(q)) return true;
+  if (/^text$/i.test(q)) return true;
+  if (/exfo|digital phoropter|parker device/i.test(q)) return true;
   if (/小蓝视频|csgo\s*mobile|ee钱包|河南iptv/i.test(q)) return true;
   if (/智博|1919|工具站|cladue/i.test(q)) return true;
   return false;

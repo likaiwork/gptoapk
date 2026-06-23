@@ -1298,8 +1298,13 @@ export async function autoResolveDismissibleSearchFailures(): Promise<number> {
          OR query ILIKE '%魅魔%'
          OR lower(trim(query)) IN (
            'trader', 'browser', 'purple', 'knows', 'velo', 'volvoonroad', 'ainoon', 'zymix',
-           'gooleplay', 'googieplay', 'goodle pay', 'downloadapk'
+           'gooleplay', 'googieplay', 'goodle pay', 'downloadapk', 'launcher', 'gallery',
+           'omegle', 'webview', 'sync', 'anymore', 'champions', 'sounds', 'portugues', 'routers',
+           '90 fps', '120 fps', '{search_term_string}', 'text'
          )
+         OR query ILIKE '%exfo%'
+         OR query ILIKE '%digital phoropter%'
+         OR query ILIKE '%parker device%'
        )
      RETURNING query_key`,
   );

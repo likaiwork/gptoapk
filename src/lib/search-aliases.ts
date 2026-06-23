@@ -1035,7 +1035,7 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
   },
   {
     appIds: ["bin.mt.plus"],
-    aliases: ["mt管理器", "mt manager", "mt管理器2", "mt", "bin.mt.plus"],
+    aliases: ["mt管理器", "mt manager", "mt管理器2", "mt文件管理", "mt", "bin.mt.plus"],
   },
   {
     appIds: ["com.chaozh.iReaderFree", "com.zhangyue.iReader"],
@@ -1158,7 +1158,7 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
   },
   {
     appIds: ["com.kuaishou.nebula"],
-    aliases: ["快手", "kuaishou"],
+    aliases: ["快手", "快手极速版", "快手极速", "kuaishou"],
   },
   {
     appIds: ["com.bilibili.app.in"],
@@ -3440,6 +3440,7 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
     appIds: ["ai.music.tune.release"],
     aliases: [
       "music tune ai",
+      "music rune ai",
       "musictune ai",
       "music tune",
       "ai.music.tune.release",
@@ -3526,6 +3527,227 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
   {
     appIds: ["com.takeapps88.jiggle_bounce"],
     aliases: ["jiggle bounce", "jiggle bounce wobble", "com.takeapps88.jiggle_bounce"],
+  },
+  {
+    appIds: [
+      "com.supercell.clashofclans",
+      "com.supercell.clashroyale",
+      "com.supercell.brawlstars",
+      "com.supercell.boombeach",
+      "com.supercell.squad",
+      "com.supercell.hayday",
+    ],
+    aliases: ["supercell", "suoercell"],
+  },
+  {
+    appIds: ["com.taptap"],
+    aliases: ["taptap", "tap tap"],
+  },
+  {
+    appIds: ["com.miniclip.plagueinc"],
+    aliases: ["瘟疫公司", "plague inc", "plagueinc"],
+  },
+  {
+    appIds: ["com.dragonnest.yeswriter"],
+    aliases: ["吾绘写作", "yeswriter", "com.dragonnest.yeswriter"],
+  },
+  {
+    appIds: ["com.and.games505.TerrariaPaid"],
+    aliases: ["泰拉瑞亚", "terraria", "com.and.games505.terrariapaid"],
+  },
+  {
+    appIds: ["com.douban.frodo"],
+    aliases: ["douban", "豆瓣", "com.douban.frodo"],
+  },
+  {
+    appIds: ["com.coolapk.market"],
+    aliases: ["coolapk", "酷安", "com.coolapk.market"],
+  },
+  {
+    appIds: ["net.mullvad.mullvad"],
+    aliases: ["mullvad", "mullvad vpn", "net.mullvad.mullvad"],
+  },
+  {
+    appIds: ["com.YoStarEN.AzurLane"],
+    aliases: ["azur lane", "azurlane", "碧蓝航线", "com.yostaren.azurlane"],
+  },
+  {
+    appIds: ["com.ea.gp.fifamobile", "com.ea.gp.easportsfc"],
+    aliases: ["ea sports", "eat sports", "fc26", "ea fc", "fifa mobile", "football"],
+  },
+  {
+    appIds: ["life.nextchat.nextchat"],
+    aliases: ["nextchat", "life.nextchat.nextchat"],
+  },
+  {
+    appIds: ["com.disney.dclapp"],
+    aliases: ["disneycruise", "disney cruise", "com.disney.dclapp"],
+  },
+  {
+    appIds: ["com.thomsonreuters.reuters"],
+    aliases: ["reuters", "reuters news", "com.thomsonreuters.reuters"],
+  },
+  {
+    appIds: ["com.pinger.textfree"],
+    aliases: ["text free", "textfree", "text free second phone", "com.pinger.textfree"],
+  },
+  {
+    appIds: ["com.racechrono.app"],
+    aliases: ["racechrono", "race chrono", "race chrono pro", "com.racechrono.app"],
+  },
+  {
+    appIds: ["com.microsoft.store"],
+    aliases: ["microsoft store", "com.microsoft.store"],
+  },
+  {
+    appIds: ["com.google.android.apps.healthdata"],
+    aliases: ["health connect", "com.google.android.apps.healthdata"],
+  },
+  {
+    appIds: ["com.waymo.carapp"],
+    aliases: ["waymo", "com.waymo.carapp"],
+  },
+  {
+    appIds: ["com.crestron.andromeda"],
+    aliases: ["crestron", "crestron go", "com.crestron.andromeda"],
+  },
+  {
+    appIds: ["com.qnap.qmanager"],
+    aliases: ["qmanager", "qmanag", "qmana", "qmedia", "com.qnap.qmanager"],
+  },
+  {
+    appIds: ["com.shadowera.shadow"],
+    aliases: ["shadow era", "shadowera", "com.shadowera.shadow"],
+  },
+  {
+    appIds: ["com.google.android.apps.docs"],
+    aliases: ["谷歌网盘", "google drive", "google drive apk", "com.google.android.apps.docs"],
+  },
+  {
+    appIds: ["com.mojang.minecraftpe"],
+    aliases: ["minecroft", "minecraft pe", "com.mojang.minecraftpe"],
+  },
+  {
+    appIds: ["com.rhmsoft.edit"],
+    aliases: ["quickedit", "quick edit", "com.rhmsoft.edit"],
+  },
+  {
+    appIds: ["com.yetimall2023.brickcoltd"],
+    aliases: ["yetimall", "com.yetimall2023.brickcoltd"],
+  },
+  {
+    appIds: ["com.google.android.inputmethod.latin"],
+    aliases: ["googleinput", "gboard", "google input", "com.google.android.inputmethod.latin"],
+  },
+  {
+    appIds: ["com.v2ray.ang"],
+    aliases: ["v2rayng", "v2ray ng", "com.v2ray.ang"],
+  },
+  {
+    appIds: ["com.forunaveen.autoanswercall"],
+    aliases: [
+      "auto answer",
+      "autoanswer",
+      "auto answer call",
+      "auto answer call forunaveen",
+      "com.forunaveen.autoanswercall",
+    ],
+  },
+  {
+    appIds: ["com.beats.by.dre.connect"],
+    aliases: ["beats", "beats app", "com.beats.by.dre.connect"],
+  },
+  {
+    appIds: ["com.sec.android.app.soundalive"],
+    aliases: ["soundalive", "com.sec.android.app.soundalive"],
+  },
+  {
+    appIds: ["com.roamless.app"],
+    aliases: ["roamless", "com.roamless.app"],
+  },
+  {
+    appIds: ["com.blackmagicdesign.blackmagiccam"],
+    aliases: ["black magic camera", "blackmagic camera", "com.blackmagicdesign.blackmagiccam"],
+  },
+  {
+    appIds: ["com.expressvpn.vpn"],
+    aliases: ["expressvpn", "express vpn", "com.expressvpn.vpn"],
+  },
+  {
+    appIds: ["com.tencent.mm"],
+    aliases: ["微信谷歌", "wechat google", "com.tencent.mm"],
+  },
+  {
+    appIds: ["com.google.android.apps.maps"],
+    aliases: ["geogle", "googel", "com.google.android.apps.maps"],
+  },
+  {
+    appIds: ["com.britishcouncil.learnenglishsoundsright"],
+    aliases: [
+      "learnenglish sounds right",
+      "sounds: the pronunciation",
+      "com.britishcouncil.learnenglishsoundsright",
+    ],
+  },
+  {
+    appIds: ["com.desktopsms.lite"],
+    aliases: ["desktopsms", "desktopsms lite", "com.desktopsms.lite"],
+  },
+  {
+    appIds: ["com.bstage.consumer"],
+    aliases: ["bstage", "bttage", "com.bstage.consumer"],
+  },
+  {
+    appIds: ["com.dictogo.dictogo"],
+    aliases: ["dictogo", "com.dictogo.dictogo"],
+  },
+  {
+    appIds: ["com.aaaudi.wordnet"],
+    aliases: ["dicio", "com.aaaudi.wordnet"],
+  },
+  {
+    appIds: ["com.gamma.app"],
+    aliases: ["gamma", "gamma app", "com.gamma.app"],
+  },
+  {
+    appIds: ["com.packtpub.packtlib"],
+    aliases: ["packt", "packtlib", "com.packtpub.packtlib"],
+  },
+  {
+    appIds: ["com.doo.financial.au"],
+    aliases: ["doo financial au", "doo financial", "com.doo.financial.au"],
+  },
+  {
+    appIds: ["com.iccoa.carlink"],
+    aliases: ["iccoa", "car link", "car player", "com.iccoa.carlink"],
+  },
+  {
+    appIds: ["com.tenhou.mahjong"],
+    aliases: ["tenhou", "com.tenhou.mahjong"],
+  },
+  {
+    appIds: ["com.google.android.apps.docs"],
+    aliases: ["dirve", "drive"],
+  },
+  {
+    appIds: ["com.antiy.avl"],
+    aliases: ["极光杀毒", "com.antiy.avl"],
+  },
+  {
+    appIds: ["com.miui.weather2"],
+    aliases: ["极速天气", "com.miui.weather2"],
+  },
+  {
+    appIds: ["com.tencent.tmgp.yqqskz"],
+    aliases: ["原始传奇", "com.tencent.tmgp.yqqskz"],
+  },
+  {
+    appIds: ["com.igg.android.airportcity"],
+    aliases: ["机场世界", "airport city", "com.igg.android.airportcity"],
+  },
+  {
+    appIds: ["com.tencent.mm"],
+    aliases: ["微信手表", "微信手表版", "wechat watch"],
   },
 ];
 
@@ -3890,6 +4112,28 @@ export const PRIORITY_STATIC_ALIAS_QUERIES = [
   "twitterapk",
   "gork",
   "android assisstanf",
+  "payapl",
+  "chatgbt",
+  "supercell",
+  "taptap",
+  "瘟疫公司",
+  "泰拉瑞亚",
+  "douban",
+  "coolapk",
+  "mullvad",
+  "azur lane",
+  "ea sports",
+  "fc26",
+  "nextchat",
+  "快手极速版",
+  "reuters",
+  "text free",
+  "吾绘写作",
+  "music rune ai",
+  "mt文件管理",
+  "minecroft",
+  "quickedit",
+  "yetimall",
 ] as const;
 
 export function listStaticSearchAliasBindings(): Array<{

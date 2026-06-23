@@ -72,6 +72,10 @@ export function stripSearchQueryNoise(query: string): string {
   q = q.replace(/^www\./i, "");
   q = q.replace(/\.(com|cn|net|org|io|app|us|me)(?:\/.*)?$/i, "");
 
+  if (/^v2ray\s*ng/i.test(q)) {
+    q = "v2rayng";
+  }
+
   let prev = "";
   while (q !== prev) {
     prev = q;
@@ -296,6 +300,16 @@ const SEARCH_TYPO_CORRECTIONS: Readonly<Record<string, string>> = {
   "sol: enchant": "sol enchant",
   "免费Ⅴpn": "vpn",
   "免费ⅴpn": "vpn",
+  payapl: "paypal",
+  chatgbt: "chatgpt",
+  suoercell: "supercell",
+  geogle: "google",
+  minecroft: "minecraft",
+  "eat sports": "ea sports",
+  dirve: "google drive",
+  azurlane: "azur lane",
+  dictogo: "dictogo",
+  routers: "reuters",
 };
 
 export function applySearchTypoCorrection(query: string): string {
