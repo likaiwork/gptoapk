@@ -57,8 +57,14 @@ function shouldDismiss(query, failureKind) {
   if (/##[^#]+##/.test(q) || /^\/?\?/.test(q)) return true;
   if (/^\{search_term_string\}$/i.test(q)) return true;
   if (/^(launcher|gallery|omegle|webview|sync|anymore|champions|sounds|portugues|routers)$/i.test(q)) return true;
+  if (/^(player|blood|puzzle|piano|messages|clone|testflight|star force)$/i.test(q)) return true;
   if (/^\d+\s*fps$/i.test(q)) return true;
   if (/^text$/i.test(q)) return true;
+  if (/^javascript:/i.test(q)) return true;
+  if (/^ucfp:/i.test(q)) return true;
+  if (/^(telage|celebchamp|ibetter|easybox|洋葱商城|动漫共和国|寶時證券|氢桌面车机版|dinkum together)$/i.test(q)) return true;
+  if (/^(videonotes|vidnotes|video notes|video painter|videopainter)$/i.test(q)) return false;
+  if (/^stop king/i.test(q) || q.includes("时停之王")) return true;
   if (/exfo|digital phoropter|parker device/i.test(q)) return true;
   if (/小蓝视频|csgo\s*mobile|ee钱包|河南iptv/i.test(q)) return true;
   if (/智博|1919|工具站|cladue/i.test(q)) return true;

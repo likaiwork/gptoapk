@@ -1066,7 +1066,7 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
   },
   {
     appIds: ["com.google.android.apps.maps"],
-    aliases: ["google maps", "谷歌地图", "com.google.android.apps.maps"],
+    aliases: ["google maps", "谷歌地图", "maps", "googlemaps", "com.google.android.apps.maps"],
   },
   {
     appIds: ["com.google.android.gm"],
@@ -1090,7 +1090,7 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
   },
   {
     appIds: ["com.instagram.android"],
-    aliases: ["instagram", "ins", "ig", "instr", "ints", "insta", "instergam", "instagarm"],
+    aliases: ["instagram", "ins", "ig", "instr", "ints", "insta", "instergam", "instagarm", "instragm"],
   },
   {
     appIds: ["com.twitter.android"],
@@ -1197,7 +1197,7 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
   },
   {
     appIds: ["com.UCMobile"],
-    aliases: ["uc浏览器", "uc browser"],
+    aliases: ["uc浏览器", "uc browser", "ucweb", "com.ucmobile"],
   },
   {
     appIds: ["com.qiyi.video"],
@@ -2064,7 +2064,7 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
   },
   {
     appIds: ["com.nhn.android.nmap"],
-    aliases: ["naver map", "naver maps", "네이버지도", "韩国地图"],
+    aliases: ["naver map", "naver maps", "navermap", "네이버지도", "韩国地图"],
   },
   {
     appIds: ["com.naver.labs.translator"],
@@ -3009,8 +3009,8 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
     ],
   },
   {
-    appIds: ["com.google.android.gms", "com.android.vending"],
-    aliases: ["谷歌应用", "google apps", "google应用"],
+    appIds: ["com.google.android.gms", "com.android.vending", "com.google.android.gsf"],
+    aliases: ["谷歌应用", "google apps", "google应用", "谷歌三件套", "google三件套", "gms三件套"],
   },
   {
     appIds: ["cambodiaarrivalform.immigration.gov.kh"],
@@ -3589,7 +3589,7 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
   },
   {
     appIds: ["com.pinger.textfree"],
-    aliases: ["text free", "textfree", "text free second phone", "com.pinger.textfree"],
+    aliases: ["text free", "textfree", "text free second phone", "text free:", "com.pinger.textfree"],
   },
   {
     appIds: ["com.racechrono.app"],
@@ -3748,6 +3748,109 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
   {
     appIds: ["com.tencent.mm"],
     aliases: ["微信手表", "微信手表版", "wechat watch"],
+  },
+  {
+    appIds: ["com.netease.newspike"],
+    aliases: ["blood strike", "bloodstrike", "com.netease.newspike"],
+  },
+  {
+    appIds: ["com.datawide.speakometer"],
+    aliases: ["speakometer", "speakeometer", "com.datawide.speakometer"],
+  },
+  {
+    appIds: ["io.keybase.ossifrage"],
+    aliases: ["keybase", "io.keybase.ossifrage"],
+  },
+  {
+    appIds: ["org.telegram.group"],
+    aliases: ["turrit", "org.telegram.group"],
+  },
+  {
+    appIds: ["org.zotero.android"],
+    aliases: ["zotero", "zote", "zotreo", "zote o", "org.zotero.android"],
+  },
+  {
+    appIds: ["omegle.tv"],
+    aliases: ["ometv", "ome tv", "ome.tv", "omegle.tv"],
+  },
+  {
+    appIds: ["com.applisto.appcloner"],
+    aliases: ["app cloner", "appcloner", "com.applisto.appcloner"],
+  },
+  {
+    appIds: ["com.olzhas.carparking.multyplayer"],
+    aliases: ["car parking", "cae parking", "carparking", "com.olzhas.carparking.multyplayer"],
+  },
+  {
+    appIds: ["com.dreame.reader"],
+    aliases: ["dreame", "dreame reader", "com.dreame.reader"],
+  },
+  {
+    appIds: ["e.books.reading.apps"],
+    aliases: ["fizzo", "fizzo novel", "e.books.reading.apps"],
+  },
+  {
+    appIds: ["sg.com.transitlink"],
+    aliases: ["simplygo", "sg.com.transitlink"],
+  },
+  {
+    appIds: ["de.hafas.android.db"],
+    aliases: ["db navigator", "deutsche bahn", "deutch bahn", "de.hafas.android.db"],
+  },
+  {
+    appIds: ["ru.yandex.searchplugin"],
+    aliases: ["yandex", "yandex search", "ru.yandex.searchplugin"],
+  },
+  {
+    appIds: ["com.chinamworld.bocmbci"],
+    aliases: ["中国银行", "bank of china", "boc", "com.chinamworld.bocmbci"],
+  },
+  {
+    appIds: ["com.sinovatech.unicom.ui"],
+    aliases: ["中国联通", "china unicom", "unicom", "com.sinovatech.unicom.ui"],
+  },
+  {
+    appIds: ["com.sec.android.app.myfiles"],
+    aliases: ["三星我的文件", "samsung my files", "com.sec.android.app.myfiles"],
+  },
+  {
+    appIds: ["com.google.android.apps.nbu.files"],
+    aliases: ["我的文件", "my files", "files by google", "com.google.android.apps.nbu.files"],
+  },
+  {
+    appIds: ["com.truedevelopersstudio.automatictap.autoclicker"],
+    aliases: ["自动点击器", "auto clicker", "autoclicker", "com.truedevelopersstudio.automatictap.autoclicker"],
+  },
+  {
+    appIds: ["com.mikegrant.goxel"],
+    aliases: ["goxel", "com.mikegrant.goxel"],
+  },
+  {
+    appIds: ["com.aldin.dawnbreaker"],
+    aliases: ["waltz of the wizard", "com.aldin.dawnbreaker"],
+  },
+  {
+    appIds: ["com.dotabyss.game"],
+    aliases: ["dot abyss", "dotabyss", "com.dotabyss.game"],
+  },
+  {
+    appIds: ["com.miramind.miramind"],
+    aliases: ["miramind", "mirai mind", "com.miramind.miramind"],
+  },
+  {
+    appIds: ["com.videonotes.android"],
+    aliases: [
+      "videonotes",
+      "vidnotes",
+      "video notes",
+      "video painter",
+      "videopainter",
+      "com.videonotes.android",
+    ],
+  },
+  {
+    appIds: ["com.skipads.adblock"],
+    aliases: ["跳过广告", "skip ads", "ad skip", "com.skipads.adblock"],
   },
 ];
 
@@ -4134,6 +4237,17 @@ export const PRIORITY_STATIC_ALIAS_QUERIES = [
   "minecroft",
   "quickedit",
   "yetimall",
+  "maps",
+  "googlemaps",
+  "zotero",
+  "blood strike",
+  "keybase",
+  "turrit",
+  "ometv",
+  "app cloner",
+  "谷歌三件套",
+  "instragm",
+  "mimecraft",
 ] as const;
 
 export function listStaticSearchAliasBindings(): Array<{

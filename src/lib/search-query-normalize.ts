@@ -72,6 +72,8 @@ export function stripSearchQueryNoise(query: string): string {
   q = q.replace(/^www\./i, "");
   q = q.replace(/\.(com|cn|net|org|io|app|us|me)(?:\/.*)?$/i, "");
 
+  q = q.replace(/:+\s*$/g, "").trim();
+
   if (/^v2ray\s*ng/i.test(q)) {
     q = "v2rayng";
   }
@@ -310,6 +312,15 @@ const SEARCH_TYPO_CORRECTIONS: Readonly<Record<string, string>> = {
   azurlane: "azur lane",
   dictogo: "dictogo",
   routers: "reuters",
+  mimecraft: "minecraft",
+  googlemaps: "google maps",
+  zotreo: "zotero",
+  "zote o": "zotero",
+  instragm: "instagram",
+  "cae parking": "car parking",
+  "deutch bahn": "db navigator",
+  navermap: "naver map",
+  ucweb: "uc browser",
 };
 
 export function applySearchTypoCorrection(query: string): string {

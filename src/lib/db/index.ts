@@ -1300,11 +1300,20 @@ export async function autoResolveDismissibleSearchFailures(): Promise<number> {
            'trader', 'browser', 'purple', 'knows', 'velo', 'volvoonroad', 'ainoon', 'zymix',
            'gooleplay', 'googieplay', 'goodle pay', 'downloadapk', 'launcher', 'gallery',
            'omegle', 'webview', 'sync', 'anymore', 'champions', 'sounds', 'portugues', 'routers',
-           '90 fps', '120 fps', '{search_term_string}', 'text'
+           '90 fps', '120 fps', '{search_term_string}', 'text', 'player', 'blood', 'puzzle', 'piano',
+           'messages', 'clone', 'testflight', 'star force'
          )
          OR query ILIKE '%exfo%'
          OR query ILIKE '%digital phoropter%'
          OR query ILIKE '%parker device%'
+         OR query ILIKE 'javascript:%'
+         OR query ILIKE 'ucfp:%'
+         OR lower(trim(query)) IN (
+           'telage', 'celebchamp', 'ibetter', 'easybox', '洋葱商城', '动漫共和国',
+           '寶時證券', '氢桌面车机版', 'dinkum together'
+         )
+         OR query ILIKE 'stop king%'
+         OR query ILIKE '%时停之王%'
        )
      RETURNING query_key`,
   );
