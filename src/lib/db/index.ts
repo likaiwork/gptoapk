@@ -1,5 +1,5 @@
-import { createPool } from "@vercel/postgres";
 import type { QueryResultRow } from "@vercel/postgres";
+import { getDbPool } from "@/lib/db/pool";
 import {
   canResolveSearchQueryNow,
   canResolveSearchQueryNowAsync,
@@ -241,22 +241,14 @@ function getAdminApiKey(): string {
 }
 export { getAdminApiKey };
 
-let pool: ReturnType<typeof createPool> | null = null;
 let initialized = false;
 const DOWNLOAD_LOG_DEDUPE_SECONDS = Number(process.env.DOWNLOAD_LOG_DEDUPE_SECONDS ?? 120);
-
-function getPool() {
-  if (!pool) {
-    pool = createPool();
-  }
-  return pool;
-}
 
 async function sql<T extends QueryResultRow = QueryResultRow>(
   strings: TemplateStringsArray,
   ...values: Primitive[]
 ) {
-  const p = getPool();
+  const p = getDbPool();
   const client = await p.connect();
   try {
     return await client.sql<T>(strings, ...values);
@@ -270,7 +262,7 @@ async function sqlRaw<T extends QueryResultRow = QueryResultRow>(
   text: string,
   params: Primitive[] = []
 ): Promise<T[]> {
-  const p = getPool();
+  const p = getDbPool();
   const client = await p.connect();
   try {
     const result = await client.query<T>(text, params);
