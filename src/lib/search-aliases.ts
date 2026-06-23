@@ -3852,6 +3852,14 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
     appIds: ["com.skipads.adblock"],
     aliases: ["跳过广告", "skip ads", "ad skip", "com.skipads.adblock"],
   },
+  {
+    appIds: ["cura.com.cura"],
+    aliases: ["curovate", "acl knee physical therapy", "cura.com.cura"],
+  },
+  {
+    appIds: ["com.healncure.rom_checker"],
+    aliases: ["smart goniometer", "goniometer", "com.healncure.rom_checker"],
+  },
 ];
 
 /** Wrong or truncated Play package ids from pasted URLs → canonical id */
