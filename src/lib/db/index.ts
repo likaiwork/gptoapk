@@ -1306,6 +1306,11 @@ export async function autoResolveDismissibleSearchFailures(): Promise<number> {
          )
          OR query ILIKE 'stop king%'
          OR query ILIKE '%时停之王%'
+         OR query ILIKE '%stripchat%'
+         OR query ILIKE '%海特洛%'
+         OR query ILIKE '%人民检察院%'
+         OR query ILIKE '%冬日狂想曲%'
+         OR lower(trim(query)) IN ('prounrub', 'ponton', 'bubit', 'inside', 'twee', 'hga010', 'webtoapp')
        )
      RETURNING query_key`,
   );

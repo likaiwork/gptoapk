@@ -321,6 +321,16 @@ const SEARCH_TYPO_CORRECTIONS: Readonly<Record<string, string>> = {
   "deutch bahn": "db navigator",
   navermap: "naver map",
   ucweb: "uc browser",
+  weveres: "weverse",
+  chathpt: "chatgpt",
+  insargam: "instagram",
+  instrumen: "instagram",
+  trustwallet: "trust wallet",
+  "super svm": "super svn",
+  "ac infinty": "ac infinity",
+  "com-android-vending": "google play",
+  webtoapp: "webtoon",
+  worldcup: "kalshi",
 };
 
 export function applySearchTypoCorrection(query: string): string {

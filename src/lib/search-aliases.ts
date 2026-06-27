@@ -3860,6 +3860,295 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
     appIds: ["com.healncure.rom_checker"],
     aliases: ["smart goniometer", "goniometer", "com.healncure.rom_checker"],
   },
+  {
+    appIds: ["com.wallet.crypto.trustapp"],
+    aliases: ["trust wallet", "trustwallet", "com.wallet.crypto.trustapp"],
+  },
+  {
+    appIds: ["app.alextran.immich"],
+    aliases: ["immich", "app.alextran.immich"],
+  },
+  {
+    appIds: ["com.ebay.mobile"],
+    aliases: ["ebay", "e bay", "com.ebay.mobile"],
+  },
+  {
+    appIds: ["com.naver.linewebtoon"],
+    aliases: [
+      "webtoon",
+      "webtoon manga comics manhwa",
+      "linewebtoon",
+      "com.naver.linewebtoon",
+    ],
+  },
+  {
+    appIds: ["com.storymatrix.drama"],
+    aliases: ["dramabox", "dramabox stream", "story matrix", "com.storymatrix.drama"],
+  },
+  {
+    appIds: ["com.mobisystems.office"],
+    aliases: [
+      "officesuite",
+      "officesuite pro",
+      "officesuite pro pdf",
+      "office suite",
+      "com.mobisystems.office",
+    ],
+  },
+  {
+    appIds: ["com.termius"],
+    aliases: [
+      "termius",
+      "termius modern ssh",
+      "termius modern ssh clien",
+      "termius ssh",
+      "com.termius",
+    ],
+  },
+  {
+    appIds: ["com.microsoft.rdc.android"],
+    aliases: [
+      "microsoft remote desktop",
+      "microsoft remote",
+      "microsoft 远程桌面",
+      "微软远程",
+      "windowsapp",
+      "remote desktop",
+      "com.microsoft.rdc.android",
+    ],
+  },
+  {
+    appIds: ["com.touchtype.swiftkey"],
+    aliases: ["swiftkey", "microsoft swiftkey", "com.touchtype.swiftkey"],
+  },
+  {
+    appIds: ["co.benx.weverse"],
+    aliases: [
+      "weverse",
+      "weveres",
+      "weaone",
+      "weverse connect with artists",
+      "connect with artists",
+      "co.benx.weverse",
+    ],
+  },
+  {
+    appIds: ["com.qooapp.qoohelper"],
+    aliases: ["qooapp", "qoo app", "com.qooapp.qoohelper"],
+  },
+  {
+    appIds: ["com.kalshi.mobile"],
+    aliases: [
+      "kalshi",
+      "kalshi trade the world cup",
+      "worldcup",
+      "com.kalshi.mobile",
+    ],
+  },
+  {
+    appIds: ["com.devsisters.cookiepuzzle"],
+    aliases: ["cookie run", "cookierun", "cookie run classic", "com.devsisters.cookiepuzzle"],
+  },
+  {
+    appIds: ["com.nexon.mdnf"],
+    aliases: ["mdnf", "dungeon fighter mobile", "com.nexon.mdnf"],
+  },
+  {
+    appIds: ["com.flickr.android"],
+    aliases: ["flickr", "com.flickr.android"],
+  },
+  {
+    appIds: ["com.pixlr.express"],
+    aliases: ["pixlr", "com.pixlr.express"],
+  },
+  {
+    appIds: ["com.aefyr.sai"],
+    aliases: ["sai", "split apks", "split apk", "com.aefyr.sai"],
+  },
+  {
+    appIds: ["hide.me.vpn"],
+    aliases: ["hide me", "hide me vpn", "hideme", "hide.me vpn"],
+  },
+  {
+    appIds: ["com.microsoft.bing"],
+    aliases: ["bing", "必应", "必应搜索", "com.microsoft.bing"],
+  },
+  {
+    appIds: ["cn.soulapp.android"],
+    aliases: ["soul", "soul app", "cn.soulapp.android"],
+  },
+  {
+    appIds: ["jp.kyash"],
+    aliases: ["kyash", "jp.kyash"],
+  },
+  {
+    appIds: ["com.amazingtalker"],
+    aliases: ["amazing talker", "amazingtalker", "com.amazingtalker"],
+  },
+  {
+    appIds: ["com.github.metacubex.clash.meta"],
+    aliases: ["clashmi", "clashbox", "clash mi", "com.github.metacubex.clash.meta"],
+  },
+  {
+    appIds: ["com.openai.chatgpt"],
+    aliases: ["chathpt", "chat hpt", "com.openai.chatgpt"],
+  },
+  {
+    appIds: ["com.instagram.android"],
+    aliases: ["insargam", "instramen", "instrumen", "com.instagram.android"],
+  },
+  {
+    appIds: ["com.android.vending"],
+    aliases: ["谷歌商城", "google play store", "com-android-vending", "com.android.vending"],
+  },
+  {
+    appIds: ["com.hybe.rhythmhive"],
+    aliases: ["rhythmhive", "rhythm hive", "com.hybe.rhythmhive"],
+  },
+  {
+    appIds: ["com.kards.mobile"],
+    aliases: ["kards", "kards mobile", "com.kards.mobile"],
+  },
+  {
+    appIds: ["com.istomgames.android"],
+    aliases: ["绝对赛车", "absolute racing", "real fly", "com.istomgames.android"],
+  },
+  {
+    appIds: ["com.giantssoftware.fs24"],
+    aliases: ["模拟农场26", "farming simulator 26", "fs26", "com.giantssoftware.fs24"],
+  },
+  {
+    appIds: ["com.clickworker.clickworkerapp"],
+    aliases: ["clickworker", "com.clickworker.clickworkerapp"],
+  },
+  {
+    appIds: ["com.BeingAI.Chai"],
+    aliases: ["chai", "chai app", "com.beingai.chai"],
+  },
+  {
+    appIds: ["com.google.android.GoogleCamera"],
+    aliases: ["pixel camera", "pixel 相机", "google camera", "com.google.android.googlecamera"],
+  },
+  {
+    appIds: ["com.acinfinity.cloud"],
+    aliases: ["ac infinity", "ac infinty", "acinfinity", "com.acinfinity.cloud"],
+  },
+  {
+    appIds: ["com.nine.monster"],
+    aliases: ["9monster", "nine monster", "com.nine.monster"],
+  },
+  {
+    appIds: ["com.termux"],
+    aliases: ["termux", "terminal", "com.termux"],
+  },
+  {
+    appIds: ["com.dangbei.remotecontroller"],
+    aliases: ["沙发管家", "dangbei remote", "com.dangbei.remotecontroller"],
+  },
+  {
+    appIds: ["com.svw.sc.dvr"],
+    aliases: ["上汽大众", "上汽大众行车记录仪", "上汽大众行车记录仪客户端", "svw dvr"],
+  },
+  {
+    appIds: ["com.fromm.fan"],
+    aliases: ["fromm", "com.fromm.fan"],
+  },
+  {
+    appIds: ["com.freeshort.drama"],
+    aliases: ["freeshort", "free short", "com.freeshort.drama"],
+  },
+  {
+    appIds: ["com.garaku.kemofriends3"],
+    aliases: ["けものフレンズ", "けものフレンズ3", "kemono friends", "kemono friends 3"],
+  },
+  {
+    appIds: ["com.supervpn.vpn"],
+    aliases: ["super svn", "super svm", "supersvn", "super vpn"],
+  },
+  {
+    appIds: ["com.bangdream.garupa"],
+    aliases: ["bang dream", "bang dream girls band party", "bandori"],
+  },
+  {
+    appIds: ["com.nexon.bluearchive"],
+    aliases: ["碧蓝档案", "blue archive"],
+  },
+  {
+    appIds: ["com.hxcx.driver"],
+    aliases: ["慧学车", "com.hxcx.driver"],
+  },
+  {
+    appIds: ["com.xiaogu.toolbox"],
+    aliases: ["小谷工具箱", "xiaogu toolbox"],
+  },
+  {
+    appIds: ["com.yuedong.boy"],
+    aliases: ["跃动小子", "yuedong"],
+  },
+  {
+    appIds: ["com.bolor.toli"],
+    aliases: ["bolor toli", "bolor", "com.bolor.toli"],
+  },
+  {
+    appIds: ["com.shadowrocket"],
+    aliases: ["shadowx", "shadow rocket", "com.shadowrocket"],
+  },
+  {
+    appIds: ["com.winacam.app"],
+    aliases: ["winacam", "wina cam", "com.winacam.app"],
+  },
+  {
+    appIds: ["com.strike.strike"],
+    aliases: ["strike", "strike app", "com.strike.strike"],
+  },
+  {
+    appIds: ["com.inside.app"],
+    aliases: ["inside", "inside app"],
+  },
+  {
+    appIds: ["com.ponton.app"],
+    aliases: ["ponton"],
+  },
+  {
+    appIds: ["com.bubit.app"],
+    aliases: ["bubit"],
+  },
+  {
+    appIds: ["com.twee.app"],
+    aliases: ["twee"],
+  },
+  {
+    appIds: ["com.hga010.app"],
+    aliases: ["hga010"],
+  },
+  {
+    appIds: ["com.supermapping.app"],
+    aliases: ["supermapping", "super mapping"],
+  },
+  {
+    appIds: ["com.mymqtt.client"],
+    aliases: ["mymqtt", "my mqtt", "com.mymqtt.client"],
+  },
+  {
+    appIds: ["com.ostrichvpn.android"],
+    aliases: ["ostrich", "ostrich vpn"],
+  },
+  {
+    appIds: ["com.patato.app"],
+    aliases: ["patato", "potato app"],
+  },
+  {
+    appIds: ["com.switchbot.switchbot"],
+    aliases: ["开关控制", "switchbot", "com.switchbot.switchbot"],
+  },
+  {
+    appIds: ["com.netease.party"],
+    aliases: ["蛋仔派对", "eggy party"],
+  },
+  {
+    appIds: ["com.tencent.mm"],
+    aliases: ["weixin", "微信", "com.tencent.mm"],
+  },
 ];
 
 /** Wrong or truncated Play package ids from pasted URLs → canonical id */
@@ -4256,6 +4545,34 @@ export const PRIORITY_STATIC_ALIAS_QUERIES = [
   "谷歌三件套",
   "instragm",
   "mimecraft",
+  "instragm",
+  "trust wallet",
+  "weverse",
+  "webtoon",
+  "ebay",
+  "immich",
+  "termius",
+  "swiftkey",
+  "kalshi",
+  "mdnf",
+  "dramabox",
+  "rhythmhive",
+  "kards",
+  "weveres",
+  "chathpt",
+  "insargam",
+  "clashmi",
+  "clashbox",
+  "必应搜索",
+  "谷歌商城",
+  "绝对赛车",
+  "模拟农场26",
+  "慧学车",
+  "小谷工具箱",
+  "跃动小子",
+  "super svn",
+  "ac infinity",
+  "hide me",
 ] as const;
 
 export function listStaticSearchAliasBindings(): Array<{
