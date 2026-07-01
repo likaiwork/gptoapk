@@ -6,6 +6,7 @@
  */
 
 const SITE_HOST = (process.env.REPAIR_SITE_HOST || process.env.SITE_HOST || "https://www.gptoapk.com").replace(/\/$/, "");
+const IS_LOCAL_REPAIR = /127\.0\.0\.1|localhost/.test(SITE_HOST);
 const ADMIN_KEY = process.env.ADMIN_API_KEY || process.env.REPAIR_ADMIN_KEY || "gptoapk-admin-key-2026";
 const FAILURE_THRESHOLD = Number(process.env.REPAIR_FAILURE_THRESHOLD ?? 0);
 const MAX_APPS = Number(process.env.REPAIR_MAX_APPS ?? 150);
@@ -44,7 +45,10 @@ async function postJson(url, body) {
   return { ok: res.ok, status: res.status, json, text };
 }
 
-async function runSearchReconcileRound(body) {
+async function runSearchReconcileRound(body, roundLabel = "") {
+  if (roundLabel) {
+    console.log(`[admin-repair] reconcile ${roundLabel} starting...`);
+  }
   return postJson(adminUrl("/api/admin/search-failures/reconcile"), {
     liveProbeTimeoutMs: RECONCILE_LIVE_TIMEOUT_MS,
     ...body,
@@ -70,15 +74,19 @@ async function runBatchedSearchRepair() {
   let totalAliases = 0;
   let totalDiscoveryMiss = 0;
 
-  const first = await runSearchReconcileRound({
-    maxChecks: Math.min(Math.max(SEARCH_MAX_CHECKS, 400), 600),
-    liveProbeLimit: Math.min(Math.max(SEARCH_LIVE_PROBE_LIMIT, 40), 60),
-    feedbackLimit: FEEDBACK_LIMIT,
-    searchFailureDiscoveryLimit: SEARCH_DISCOVERY_LIMIT,
-    skipStaticSync: false,
-    skipDiscovery: false,
-    skipFeedback: false,
-  });
+  const first = await runSearchReconcileRound(
+    {
+      maxChecks: Math.min(Math.max(SEARCH_MAX_CHECKS, 400), 600),
+      liveProbeLimit: Math.min(Math.max(SEARCH_LIVE_PROBE_LIMIT, 40), 60),
+      feedbackLimit: FEEDBACK_LIMIT,
+      searchFailureDiscoveryLimit: SEARCH_DISCOVERY_LIMIT,
+      // Static alias DB sync is very slow on 2GB VPS; code aliases already ship in build.
+      skipStaticSync: IS_LOCAL_REPAIR || process.env.REPAIR_SKIP_STATIC_SYNC === "1",
+      skipDiscovery: false,
+      skipFeedback: false,
+    },
+    "round 1",
+  );
 
   if (!first.ok || !first.json?.success) {
     console.warn(
@@ -105,15 +113,18 @@ async function runBatchedSearchRepair() {
   for (let round = 2; round <= RECONCILE_ROUNDS; round += 1) {
     if (lastResolved === 0 && round > 3) break;
 
-    const res = await runSearchReconcileRound({
-      maxChecks: SEARCH_MAX_CHECKS,
-      liveProbeLimit: SEARCH_LIVE_PROBE_LIMIT,
-      feedbackLimit: Math.min(FEEDBACK_LIMIT, 25),
-      searchFailureDiscoveryLimit: round <= 4 ? SEARCH_DISCOVERY_LIMIT : 0,
-      skipStaticSync: true,
-      skipDiscovery: round > 4,
-      skipFeedback: round > 6,
-    });
+    const res = await runSearchReconcileRound(
+      {
+        maxChecks: SEARCH_MAX_CHECKS,
+        liveProbeLimit: SEARCH_LIVE_PROBE_LIMIT,
+        feedbackLimit: Math.min(FEEDBACK_LIMIT, 25),
+        searchFailureDiscoveryLimit: round <= 4 ? SEARCH_DISCOVERY_LIMIT : 0,
+        skipStaticSync: true,
+        skipDiscovery: round > 4,
+        skipFeedback: round > 6,
+      },
+      `round ${round}`,
+    );
 
     if (!res.ok || !res.json?.success) {
       console.warn(
