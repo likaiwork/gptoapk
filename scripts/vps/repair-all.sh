@@ -12,11 +12,18 @@ if [[ -f .env.production ]]; then
   set +a
 fi
 
-export REPAIR_SITE_HOST="${REPAIR_SITE_HOST:-http://127.0.0.1:3000}"
+# Always hit local Next.js — .env.production sets REPAIR_SITE_HOST for public URL.
+export REPAIR_SITE_HOST="http://127.0.0.1:3000"
 export ADMIN_API_KEY="${ADMIN_API_KEY:?Set ADMIN_API_KEY in .env.production}"
 
-echo "[repair-all] host=$REPAIR_SITE_HOST"
+echo "[repair-all] host=$REPAIR_SITE_HOST (forced localhost)"
 echo "[repair-all] git=$(git rev-parse --short HEAD 2>/dev/null || echo unknown)"
+
+sleep 3
+if ! curl -sf "http://127.0.0.1:3000/api/health" >/dev/null 2>&1; then
+  echo "[repair-all] waiting for app on :3000..."
+  sleep 5
+fi
 
 node scripts/run-admin-repair.mjs
 node scripts/bulk-resolve-search-failures.mjs
