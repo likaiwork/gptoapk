@@ -4149,6 +4149,50 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
     appIds: ["com.tencent.mm"],
     aliases: ["weixin", "微信", "com.tencent.mm"],
   },
+  {
+    appIds: ["com.hellotalk"],
+    aliases: ["hellotalk", "hello talk", "helltalk", "hello talk language", "com.hellotalk"],
+  },
+  {
+    appIds: ["com.openai.chatgpt"],
+    aliases: ["cheatgpt", "cheat gpt", "cheatgpt app"],
+  },
+  {
+    appIds: ["com.brave.browser_nightly"],
+    aliases: ["brave nightly", "brave browser nightly", "com.brave.browser_nightly"],
+  },
+  {
+    appIds: ["jp.co.omronsoft.android.voicetra"],
+    aliases: ["voicetra", "voice tra", "jp.co.omronsoft.android.voicetra"],
+  },
+  {
+    appIds: ["edu.cuhk.mobile"],
+    aliases: ["cuhk mobile", "cuhk", "cuhk app", "edu.cuhk.mobile"],
+  },
+  {
+    appIds: ["com.bangdream.garupa"],
+    aliases: ["bangdream", "bang dream", "bandori", "com.bangdream.garupa"],
+  },
+  {
+    appIds: ["com.speakapp.android"],
+    aliases: ["speak ai", "speakai", "com.speakapp.android"],
+  },
+  {
+    appIds: ["com.rocks.music.videoplayer"],
+    aliases: ["lossless video cut", "lossless cut", "com.rocks.music.videoplayer"],
+  },
+  {
+    appIds: ["video.player.videoplayer"],
+    aliases: ["xplayer", "x player", "video.player.videoplayer"],
+  },
+  {
+    appIds: ["com.love.excelsior.speedometer"],
+    aliases: ["gps speedometer", "gps车速表", "gps 车速表", "com.love.excelsior.speedometer"],
+  },
+  {
+    appIds: ["com.brave.browser"],
+    aliases: ["brave", "brave browser", "com.brave.browser"],
+  },
 ];
 
 /** Wrong or truncated Play package ids from pasted URLs → canonical id */
@@ -4573,6 +4617,15 @@ export const PRIORITY_STATIC_ALIAS_QUERIES = [
   "super svn",
   "ac infinity",
   "hide me",
+  "hellotalk",
+  "hello talk",
+  "cheatgpt",
+  "brave nightly",
+  "voicetra",
+  "bangdream",
+  "cuhk mobile",
+  "speak ai",
+  "xplayer",
 ] as const;
 
 export function listStaticSearchAliasBindings(): Array<{

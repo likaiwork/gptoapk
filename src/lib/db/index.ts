@@ -1310,7 +1310,12 @@ export async function autoResolveDismissibleSearchFailures(): Promise<number> {
          OR query ILIKE '%海特洛%'
          OR query ILIKE '%人民检察院%'
          OR query ILIKE '%冬日狂想曲%'
-         OR lower(trim(query)) IN ('prounrub', 'ponton', 'bubit', 'inside', 'twee', 'hga010', 'webtoapp')
+         OR lower(trim(query)) IN ('prounrub', 'ponton', 'bubit', 'inside', 'twee', 'hga010', 'webtoapp', 'tk', 'ave', 'aev')
+         OR query ILIKE '%play.google.com/store/apps/details?id%'
+           AND query NOT ILIKE '%id=com.%'
+           AND query NOT ILIKE '%id=org.%'
+           AND query NOT ILIKE '%id=net.%'
+           AND query NOT ILIKE '%id=app.%'
        )
      RETURNING query_key`,
   );

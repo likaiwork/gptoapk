@@ -331,6 +331,9 @@ const SEARCH_TYPO_CORRECTIONS: Readonly<Record<string, string>> = {
   "com-android-vending": "google play",
   webtoapp: "webtoon",
   worldcup: "kalshi",
+  helltalk: "hello talk",
+  cheatgpt: "chatgpt",
+  bangdream: "bang dream",
 };
 
 export function applySearchTypoCorrection(query: string): string {
