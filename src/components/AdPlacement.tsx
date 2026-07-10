@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { hasAdvertisingConsent } from "@/lib/cookie-consent";
 import { COOKIE_CONSENT_STORAGE_KEY } from "@/lib/cookie-consent";
-import { isMobileAdViewport, MONETAG_MAIN_ZONE } from "@/lib/monetag";
+import { MONETAG_MAIN_ZONE } from "@/lib/monetag";
 import { injectMonetagTagScript } from "@/lib/monetag-inpage";
 
 type AdPlacementProps = {
@@ -42,7 +42,6 @@ export default function AdPlacement({
 
   useEffect(() => {
     if (!loadTag || !hasConsent || tagRequested) return;
-    if (isMobileAdViewport()) return;
 
     setTagRequested(true);
     requestAnimationFrame(() => injectMonetagTagScript());

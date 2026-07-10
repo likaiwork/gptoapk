@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 # Run full admin repair on VPS via localhost (avoids Cloudflare timeouts).
+#
+# Detached (survives SSH logout):
+#   setsid bash scripts/vps/repair-all.sh >> /tmp/repair-all.log 2>&1 < /dev/null &
 set -euo pipefail
+trap '' HUP
 
 APP_DIR="${APP_DIR:-/var/www/gptoapk}"
 cd "$APP_DIR"

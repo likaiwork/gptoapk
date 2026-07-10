@@ -7,7 +7,7 @@ export const MONETAG_MAIN_ZONE = 242821;
 /** Site tag from Monetag “Get tag” (Sharp-witted / MultiTag). Re-copy if Monetag rotates CDN. */
 export const MONETAG_TAG_SCRIPT_SRC = "https://quge5.com/88/tag.min.js";
 
-/** Viewports at or below this width skip MultiTag (in-page push / vignette / onclick). */
+/** Breakpoint used for responsive ad slot layout (not for blocking ads). */
 export const MOBILE_AD_BREAKPOINT_PX = 768;
 
 export function isMobileUserAgent(userAgent: string): boolean {

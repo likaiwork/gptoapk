@@ -7,9 +7,7 @@ import Footer from "@/components/layout/Footer";
 import AnalyticsRouteEvents from "@/components/AnalyticsRouteEvents";
 import CookieConsent from "@/components/CookieConsent";
 import MonetagLoader from "@/components/MonetagLoader";
-import MonetagMobileGuard from "@/components/MonetagMobileGuard";
 import SiteAdStrip from "@/components/SiteAdStrip";
-import { isMobileUserAgent } from "@/lib/monetag";
 import "./globals.css";
 import { SITE_LOCALES, isRtlLocale } from "@/lib/site-locales";
 
@@ -115,8 +113,6 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const requestHeaders = await headers();
-  const userAgent = requestHeaders.get("user-agent") ?? "";
-  const isMobileDevice = isMobileUserAgent(userAgent);
   const localeHeader = requestHeaders.get("x-locale");
   const htmlLang = localeHeader && supportedHtmlLocales.has(localeHeader) ? localeHeader : "en"; // 检查：proxy 没识别到时回落英文，避免错误的 lang 属性
   const htmlDir = isRtlLocale(htmlLang) ? "rtl" : "ltr";
@@ -185,28 +181,6 @@ gtag('consent', 'default', {
 });`,
           }}
         />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `(function(){
-var ua=navigator.userAgent||'';
-var mobile=/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile/i.test(ua)
-||window.matchMedia('(max-width:768px)').matches
-||(window.matchMedia('(pointer:coarse)').matches&&window.matchMedia('(hover:none)').matches&&window.matchMedia('(max-width:1024px)').matches);
-if(!mobile)return;
-if('serviceWorker' in navigator){
-navigator.serviceWorker.getRegistrations().then(function(regs){regs.forEach(function(r){r.unregister();});});
-var sw=navigator.serviceWorker;
-if(!sw.__gptoapkBlocked){
-var orig=sw.register.bind(sw);
-sw.register=function(url){if(String(url).indexOf('sw.js')>=0)return Promise.reject();return orig.apply(sw,arguments);};
-sw.__gptoapkBlocked=true;
-}
-}
-document.querySelectorAll('script[src*="tag.min.js"],script[src*="quge5.com"],script[src*="3nbf4.com"]').forEach(function(s){s.remove();});
-})();`,
-          }}
-        />
-
         {/* Hreflang tags for all 33 languages */}
         {HREFLANG_LOCALES.map((locale) => (
           <link
@@ -255,14 +229,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           />
         </noscript>
 
-        <MonetagMobileGuard />
         <Header />
         <main className="flex-1">{children}</main>
-        {!isMobileDevice && <SiteAdStrip />}
+        <SiteAdStrip />
         <Footer />
         <AnalyticsRouteEvents />
         <CookieConsent />
-        {!isMobileDevice && <MonetagLoader />}
+        <MonetagLoader />
 
         <Script
           id="ga4-src"
