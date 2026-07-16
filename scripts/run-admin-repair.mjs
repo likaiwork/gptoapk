@@ -167,9 +167,10 @@ async function main() {
   const search = await runBatchedSearchRepair();
   if (!search.ok) process.exitCode = 1;
 
+  // Server-side /download-failures/repair often hits Cloudflare 524 from GitHub runners.
+  // Prefer the deep client script when enabled; treat API 524 as soft failure.
   const download = await runDownloadRepair();
-  if (!download.ok) process.exitCode = 1;
-
+  let deepOk = !RUN_DEEP_DOWNLOAD_SCRIPT;
   if (RUN_DEEP_DOWNLOAD_SCRIPT) {
     const { spawnSync } = await import("node:child_process");
     const deep = spawnSync(
@@ -187,9 +188,16 @@ async function main() {
         stdio: "inherit",
       },
     );
-    if (deep.status !== 0 && deep.status !== 2) {
+    deepOk = deep.status === 0 || deep.status === 2;
+    if (!deepOk) {
       process.exitCode = deep.status || 1;
     }
+  } else if (!download.ok) {
+    process.exitCode = 1;
+  }
+
+  if (!download.ok && deepOk) {
+    console.warn("[admin-repair] server download repair timed out/failed, but deep script succeeded");
   }
 
   console.log(`[admin-repair] done ${new Date().toISOString()}`);
