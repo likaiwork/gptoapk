@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-17T03:53:22.112Z",
+  "updatedAt": "2026-07-16T04:05:02.531Z",
   "today": {
     "date": "2026-05-26",
     "locale": "zh",
@@ -121,6 +121,30 @@
       "note": "",
       "publishedUrl": "https://www.gptoapk.com/zh/blog/whatsapp-apk-update-failed",
       "at": "2026-06-17T03:53:22.112Z"
+    },
+    "2026-07-16": {
+      "status": "published",
+      "note": "",
+      "publishedUrl": "https://www.gptoapk.com/zh/blog/clear-play-cache-not-working",
+      "at": "2026-07-16T04:05:02.374Z"
+    },
+    "2026-07-17": {
+      "status": "published",
+      "note": "",
+      "publishedUrl": "https://www.gptoapk.com/zh/blog/fake-apk-how-to-spot",
+      "at": "2026-07-16T04:05:02.427Z"
+    },
+    "2026-07-18": {
+      "status": "published",
+      "note": "",
+      "publishedUrl": "https://www.gptoapk.com/en/blog/google-play-not-working-fixes",
+      "at": "2026-07-16T04:05:02.479Z"
+    },
+    "2026-07-19": {
+      "status": "published",
+      "note": "",
+      "publishedUrl": "https://www.gptoapk.com/en/blog/apk-obb-games-install",
+      "at": "2026-07-16T04:05:02.531Z"
     }
   }
 }
