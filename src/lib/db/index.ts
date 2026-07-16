@@ -1311,6 +1311,20 @@ export async function autoResolveDismissibleSearchFailures(): Promise<number> {
          OR query ILIKE '%人民检察院%'
          OR query ILIKE '%冬日狂想曲%'
          OR lower(trim(query)) IN ('prounrub', 'ponton', 'bubit', 'inside', 'twee', 'hga010', 'webtoapp', 'tk', 'ave', 'aev')
+         OR lower(trim(query)) IN (
+           'photoo', 'instead', 'ikura', 'xapp', 'ikura_mu corp', 'ysclaude', 'mrs. green apple',
+           'furry', 'browsehere', 'rush', 'docs', 'instagary', 'youtou', '软件仓库', 'fuck book',
+           'a r k', 'archiveofourown', 'buff buff', 'turbo', 'kirta', 'monster', 'nico', 'train',
+           'reading', 'safair', 'weves', 'iptv', 'googlep', 'chorme', 'gemail', 'fantheone',
+           'apk安装工具', '装逼生成器', 'apktool', '付款记录生成器', 'apk文件提取', '快喵vnp',
+           '学起plus', '电视专用apk', '小牛直播', '亿家直播'
+         )
+         OR query ILIKE '%ミルアウ%'
+         OR query ILIKE '%vampir%'
+         OR query ILIKE '%糖心%'
+         OR query ILIKE '%装逼生成器%'
+         OR query ILIKE '%付款记录%'
+         OR query ILIKE 'weverse\\_v%' ESCAPE '\\'
          OR query ILIKE '%play.google.com/store/apps/details?id%'
            AND query NOT ILIKE '%id=com.%'
            AND query NOT ILIKE '%id=org.%'
@@ -1333,8 +1347,12 @@ export async function reconcileResolvableSearchFailures(options?: {
   liveProbeLimit?: number;
   liveProbeTimeoutMs?: number;
 }): Promise<{ checked: number; resolved: number; dismissed: number; liveResolved: number }> {
-  const batchSize = Math.min(Math.max(options?.batchSize ?? 500, 50), 1000);
-  const maxChecks = Math.min(Math.max(options?.maxChecks ?? 5000, batchSize), 20000);
+  // Keep batchSize ≤ maxChecks so small Cloudflare-safe rounds actually stay small.
+  const maxChecks = Math.min(Math.max(options?.maxChecks ?? 5000, 1), 20000);
+  const batchSize = Math.min(
+    Math.max(options?.batchSize ?? Math.min(500, maxChecks), 1),
+    Math.min(1000, maxChecks),
+  );
   const liveProbeLimit = Math.min(Math.max(options?.liveProbeLimit ?? 120, 0), 2000);
   const liveProbeTimeoutMs = Math.min(Math.max(options?.liveProbeTimeoutMs ?? 12_000, 3000), 25_000);
 

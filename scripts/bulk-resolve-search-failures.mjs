@@ -74,9 +74,15 @@ function shouldDismiss(query, failureKind) {
 async function fetchAdminPage(page) {
   return withRetry(async () => {
     const url = `${SITE}/api/admin?key=${encodeURIComponent(KEY)}&pageSize=${PAGE_SIZE}&searchFailurePage=${page}`;
-    const res = await fetch(url, { cache: "no-store" });
-    if (!res.ok) throw new Error(`admin ${res.status}`);
-    return res.json();
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), Math.max(SEARCH_TIMEOUT_MS, 20_000));
+    try {
+      const res = await fetch(url, { cache: "no-store", signal: controller.signal });
+      if (!res.ok) throw new Error(`admin ${res.status}`);
+      return res.json();
+    } finally {
+      clearTimeout(timer);
+    }
   }, `admin-page-${page}`);
 }
 

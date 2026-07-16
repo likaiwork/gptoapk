@@ -30,7 +30,17 @@ function isUnresolvableMissingAppQuery(query: string): boolean {
     q.includes("pokermaster") ||
     q === "ph" ||
     q.includes("小蓝视频") ||
-    q.includes("ee钱包")
+    q.includes("ee钱包") ||
+    q.includes("pornhub") ||
+    q.includes("pronhub") ||
+    q.includes("糖心") ||
+    q.includes("海特洛") ||
+    q.includes("人民检察院") ||
+    q.includes("onlyfans") ||
+    q.includes("deepfake") ||
+    /^\d{8,}$/.test(q) ||
+    q.length <= 2 ||
+    /下载andr|andr[σⅰ]|android安装包/i.test(query)
   );
 }
 
@@ -428,9 +438,11 @@ export async function runSearchDiscoveryRepair(options?: {
     ? { aliasesCreated: 0, searchFailuresResolved: 0, discoveryAttempts: 0, discoveryMisses: 0 }
     : await repairSearchFailuresViaDiscovery({ limit: options?.searchFailureLimit });
 
+  const reconcileMaxChecks = options?.reconcileMaxChecks ?? 5000;
   const reconcile = await reconcileResolvableSearchFailures({
-    batchSize: 500,
-    maxChecks: options?.reconcileMaxChecks ?? 5000,
+    // Never force batchSize above maxChecks (Cloudflare-safe small rounds).
+    batchSize: Math.min(500, reconcileMaxChecks),
+    maxChecks: reconcileMaxChecks,
     liveProbeLimit: options?.reconcileLiveProbeLimit ?? 500,
     liveProbeTimeoutMs: options?.reconcileLiveProbeTimeoutMs ?? 12_000,
   });

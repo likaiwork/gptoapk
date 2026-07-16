@@ -4193,6 +4193,145 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
     appIds: ["com.brave.browser"],
     aliases: ["brave", "brave browser", "com.brave.browser"],
   },
+  {
+    appIds: ["com.microsoft.xboxone.smartglass"],
+    aliases: ["xbox", "xbox app", "xbox game pass", "xbox手机", "com.microsoft.xboxone.smartglass"],
+  },
+  {
+    appIds: ["com.google.earth"],
+    aliases: ["googleearth", "google earth", "谷歌地球", "google earth apk", "com.google.earth"],
+  },
+  {
+    appIds: ["com.ChillyRoom.DungeonShooter"],
+    aliases: ["元气骑士", "soul knight", "元气骑士下载", "com.ChillyRoom.DungeonShooter"],
+  },
+  {
+    appIds: ["com.bumble.app"],
+    aliases: ["bumble", "bumble dating", "com.bumble.app"],
+  },
+  {
+    appIds: ["com.dev47apps.droidcam"],
+    aliases: ["droidcam", "droidcam wireless webcam", "droid cam", "com.dev47apps.droidcam"],
+  },
+  {
+    appIds: ["com.britishcouncil.englishscore"],
+    aliases: ["englishscore", "english score", "british council englishscore", "com.britishcouncil.englishscore"],
+  },
+  {
+    appIds: ["space.everskies.app"],
+    aliases: ["everskies", "ever skies", "space.everskies.app"],
+  },
+  {
+    appIds: ["com.maxgames.stickwarlegacy"],
+    aliases: ["stick war: legacy", "stick war legacy", "stick war", "com.maxgames.stickwarlegacy"],
+  },
+  {
+    appIds: ["com.rockstargames.gtasa"],
+    aliases: ["gta: sa", "gta sa", "gta san andreas", "侠盗猎车手圣安地列斯", "com.rockstargames.gtasa"],
+  },
+  {
+    appIds: ["com.microsoft.amp.apps.bingnews"],
+    aliases: ["msn", "msn news", "microsoft start", "com.microsoft.amp.apps.bingnews"],
+  },
+  {
+    appIds: ["com.coze.android"],
+    aliases: ["coze", "扣子", "coze ai", "com.coze.android"],
+  },
+  {
+    appIds: ["com.epicgames.realityscan"],
+    aliases: ["realityscan", "reality scan", "com.epicgames.realityscan"],
+  },
+  {
+    appIds: ["com.unicostudio.bentorush"],
+    aliases: ["bento rush", "bentorush", "com.unicostudio.bentorush"],
+  },
+  {
+    appIds: ["com.playdigious.balatro"],
+    aliases: ["balatro", "com.playdigious.balatro"],
+  },
+  {
+    appIds: ["com.oplay.musicolet"],
+    aliases: ["musicolet", "musicolet music player", "com.oplay.musicolet"],
+  },
+  {
+    appIds: ["com.aimp.player"],
+    aliases: ["aimp", "aimp music player", "com.aimp.player"],
+  },
+  {
+    appIds: ["com.tencent.tmgp.cod"],
+    aliases: ["使命召唤", "cod mobile", "call of duty mobile", "使命召唤手游"],
+  },
+  {
+    appIds: ["com.cisco.webex.meetings"],
+    aliases: ["webex", "cisco webex", "webex meetings", "com.cisco.webex.meetings"],
+  },
+  {
+    appIds: ["com.einnovation.temu"],
+    aliases: ["temu", "temu购物", "com.einnovation.temu"],
+  },
+  {
+    appIds: ["cc.forestapp"],
+    aliases: ["forest", "forest专注森林", "专注森林", "cc.forestapp"],
+  },
+  {
+    appIds: ["com.rovio.angrybirds"],
+    aliases: ["愤怒小鸟", "angry birds", "com.rovio.angrybirds"],
+  },
+  {
+    appIds: ["com.google.android.apps.authenticator2"],
+    aliases: ["authenticator", "google authenticator", "谷歌验证器", "com.google.android.apps.authenticator2"],
+  },
+  {
+    appIds: ["com.ubercab.eats"],
+    aliases: ["ubereat", "uber eats", "ubereats", "uber eat", "com.ubercab.eats"],
+  },
+  {
+    appIds: ["com.thetrainline"],
+    aliases: ["trainline", "train line", "com.thetrainline"],
+  },
+  {
+    appIds: ["com.traveloka.android"],
+    aliases: ["traveloka", "com.traveloka.android"],
+  },
+  {
+    appIds: ["com.ustwo.monumentvalley"],
+    aliases: ["纪念碑谷", "monument valley", "monument", "com.ustwo.monumentvalley"],
+  },
+  {
+    appIds: ["com.tencent.lolm"],
+    aliases: ["英雄联盟", "英雄联盟手游", "lol手游", "wild rift"],
+  },
+  {
+    appIds: ["com.tencent.mm"],
+    aliases: ["微信play", "weixin play"],
+  },
+  {
+    appIds: ["com.google.android.apps.maps"],
+    aliases: ["gooplemaps", "goolemaps", "googlemaps typo"],
+  },
+  {
+    appIds: ["com.instagram.android"],
+    aliases: ["instragarm", "instagam", "instagarm"],
+  },
+  {
+    appIds: ["com.tuya.smartlife"],
+    aliases: [
+      "tuya - smart life, smart living",
+      "tuya smart life, smart living",
+      "tuya smart life",
+      "tuya",
+      "smart life",
+      "com.tuya.smartlife",
+    ],
+  },
+  {
+    appIds: ["com.revolut.revolut"],
+    aliases: ["revolut", "com.revolut.revolut"],
+  },
+  {
+    appIds: ["app.phantom"],
+    aliases: ["phantom", "phantom wallet", "app.phantom"],
+  },
 ];
 
 /** Wrong or truncated Play package ids from pasted URLs → canonical id */

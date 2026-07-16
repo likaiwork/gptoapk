@@ -24,15 +24,16 @@ jobs:
           ADMIN_API_KEY: ${{ secrets.ADMIN_API_KEY }}
           REPAIR_SITE_HOST: "https://www.gptoapk.com"
           REPAIR_FAILURE_THRESHOLD: "0"
-          REPAIR_MAX_APPS: "150"
-          REPAIR_SEARCH_MAX_CHECKS: "5000"
-          REPAIR_SEARCH_BATCH_SIZE: "500"
-          REPAIR_SEARCH_LIVE_PROBE_LIMIT: "80"
-          REPAIR_FEEDBACK_LIMIT: "40"
-          REPAIR_SEARCH_DISCOVERY_LIMIT: "40"
-          REPAIR_MIRROR_MAX_APPS: "60"
-          REPAIR_RECONCILE_ROUNDS: "10"
+          REPAIR_MAX_APPS: "40"
+          REPAIR_SEARCH_MAX_CHECKS: "80"
+          REPAIR_SEARCH_BATCH_SIZE: "80"
+          REPAIR_SEARCH_LIVE_PROBE_LIMIT: "12"
+          REPAIR_FEEDBACK_LIMIT: "25"
+          REPAIR_SEARCH_DISCOVERY_LIMIT: "15"
+          REPAIR_MIRROR_MAX_APPS: "20"
+          REPAIR_RECONCILE_ROUNDS: "8"
           REPAIR_RUN_DEEP_SCRIPT: "1"
+          REPAIR_SKIP_STATIC_SYNC: "1"
         run: |
           set -euo pipefail
           node scripts/run-admin-repair.mjs
