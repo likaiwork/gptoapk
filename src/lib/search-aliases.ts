@@ -4332,6 +4332,245 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
     appIds: ["app.phantom"],
     aliases: ["phantom", "phantom wallet", "app.phantom"],
   },
+  {
+    appIds: ["com.citymapper.app.release"],
+    aliases: ["citymapper", "city mapper", "com.citymapper.app.release"],
+  },
+  {
+    appIds: ["com.instagram.android"],
+    aliases: ["instagraminstagram", "instagram Instagram"],
+  },
+  {
+    appIds: ["moe.low.arc"],
+    aliases: ["arcaea", "arccreate", "moe.low.arc"],
+  },
+  {
+    appIds: ["im.token.app"],
+    aliases: ["imtoken", "im token", "im.token.app"],
+  },
+  {
+    appIds: ["com.nianticlabs.scaniverse"],
+    aliases: [
+      "scaniverse",
+      "scaniverse free 3d scanner",
+      "scaniverse - free 3d scanner",
+      "com.nianticlabs.scaniverse",
+    ],
+  },
+  {
+    appIds: ["com.aurora.store"],
+    aliases: ["aurorastore", "aurora store", "com.aurora.store"],
+  },
+  {
+    appIds: ["com.finalwire.aida64"],
+    aliases: ["aida64", "aida 64", "com.finalwire.aida64"],
+  },
+  {
+    appIds: ["com.ichi2.anki"],
+    aliases: ["ankidroid", "anki", "ankidroid 记忆卡片", "com.ichi2.anki"],
+  },
+  {
+    appIds: ["ru.ostrovok.android"],
+    aliases: ["ostrovok", "ru.ostrovok.android"],
+  },
+  {
+    appIds: ["com.whoop.android"],
+    aliases: ["whoop", "com.whoop.android"],
+  },
+  {
+    appIds: ["com.pinterest"],
+    aliases: ["pinterst", "pintererst", "pintrest"],
+  },
+  {
+    appIds: ["pl.solidexplorer2"],
+    aliases: ["solidexplorer", "solid explorer", "pl.solidexplorer2"],
+  },
+  {
+    appIds: ["com.kurogame.wutheringwaves.global"],
+    aliases: ["wuthering waves", "wutheringwaves", "鸣潮", "com.kurogame.wutheringwaves.global"],
+  },
+  {
+    appIds: ["com.disney.disneyplus"],
+    aliases: ["disney+", "disney plus", "disneyplus", "com.disney.disneyplus"],
+  },
+  {
+    appIds: ["com.psiphon3"],
+    aliases: ["psiphon", "com.psiphon3"],
+  },
+  {
+    appIds: ["com.google.android.apps.translate"],
+    aliases: ["googletranslate", "google translate", "谷歌翻譯", "谷歌翻译"],
+  },
+  {
+    appIds: ["com.google.android.apps.maps"],
+    aliases: ["goolgle 地图", "goolgle地图", "goolgle map", "谷歌地圖", "goolmaps"],
+  },
+  {
+    appIds: ["bitpit.launcher"],
+    aliases: ["niagara launcher", "niagara", "bitpit.launcher"],
+  },
+  {
+    appIds: ["ee.mtakso.client"],
+    aliases: ["bolt", "bolt taxi", "ee.mtakso.client"],
+  },
+  {
+    appIds: ["com.thehomedepot"],
+    aliases: ["the home depot", "home depot", "com.thehomedepot"],
+  },
+  {
+    appIds: ["com.google.android.apps.walletnfcrel"],
+    aliases: ["googl pay", "google pay", "gpay"],
+  },
+  {
+    appIds: ["com.valvesoftware.steamlink"],
+    aliases: ["steam link", "steamlink", "com.valvesoftware.steamlink"],
+  },
+  {
+    appIds: ["com.flightradar24free"],
+    aliases: ["flightradar24", "fligjtradar24", "flightradar24free", "com.flightradar24free"],
+  },
+  {
+    appIds: ["com.plexapp.android"],
+    aliases: ["plex", "com.plexapp.android"],
+  },
+  {
+    appIds: ["com.riotgames.league.teamfighttactics"],
+    aliases: ["teamfight tactics", "teamfighttactics", "tft", "云顶之弈"],
+  },
+  {
+    appIds: ["com.tencent.mtt"],
+    aliases: ["qq浏览器", "qq browser", "com.tencent.mtt"],
+  },
+  {
+    appIds: ["app.nicegram"],
+    aliases: ["nicegram", "app.nicegram"],
+  },
+  {
+    appIds: ["com.github.android"],
+    aliases: ["githubmobile", "github mobile", "github", "com.github.android"],
+  },
+  {
+    appIds: ["org.xbmc.kodi"],
+    aliases: ["kodi", "org.xbmc.kodi"],
+  },
+  {
+    appIds: ["com.ionitech.airscreen"],
+    aliases: ["airscreen", "air screen", "com.ionitech.airscreen"],
+  },
+  {
+    appIds: ["com.appicguys.tricount"],
+    aliases: ["tricount", "com.appicguys.tricount"],
+  },
+  {
+    appIds: ["com.teslamotors.tesla"],
+    aliases: ["tesla", "com.teslamotors.tesla"],
+  },
+  {
+    appIds: ["com.ximalaya.ting.android"],
+    aliases: ["喜马拉雅", "ximalaya", "com.ximalaya.ting.android"],
+  },
+  {
+    appIds: ["com.motiontwin.deadcells.mobile"],
+    aliases: ["重生细胞", "dead cells", "com.motiontwin.deadcells.mobile"],
+  },
+  {
+    appIds: ["com.gaijinent.wtm"],
+    aliases: ["war thunder", "war thundernder", "com.gaijinent.wtm"],
+  },
+  {
+    appIds: ["com.amtrak.rider"],
+    aliases: ["amtrak", "com.amtrak.rider"],
+  },
+  {
+    appIds: ["com.apple.atve.androidtv.appletv"],
+    aliases: ["apple tv", "appletv", "com.apple.atve.androidtv.appletv"],
+  },
+  {
+    appIds: ["com.orux.oruxmaps"],
+    aliases: ["oruxmaps", "orux maps", "com.orux.oruxmaps"],
+  },
+  {
+    appIds: ["cz.mobilesoft.appblock"],
+    aliases: ["appblock", "app block", "cz.mobilesoft.appblock"],
+  },
+  {
+    appIds: ["com.fingersoft.hcr2"],
+    aliases: ["hcr2", "hill climb racing 2", "com.fingersoft.hcr2"],
+  },
+  {
+    appIds: ["com.mkarpenko.worldbox"],
+    aliases: [
+      "worldbox",
+      "worldbox sandbox god simulator",
+      "worldbox - sandbox god simulator",
+      "世界盒子",
+      "com.mkarpenko.worldbox",
+    ],
+  },
+  {
+    appIds: ["app.symfonium"],
+    aliases: ["symfonium", "app.symfonium"],
+  },
+  {
+    appIds: ["com.kleientertainment.dontstarve"],
+    aliases: ["dont stave", "don't stave", "don't starve", "饥困荒野", "com.kleientertainment.dontstarve"],
+  },
+  {
+    appIds: ["com.openai.chatgpt"],
+    aliases: ["chatjpt", "chat gpt typo"],
+  },
+  {
+    appIds: ["com.bilibili.app.in"],
+    aliases: ["blibli", "bilibili国际"],
+  },
+  {
+    appIds: ["com.innersloth.spacemafia"],
+    aliases: ["am ongus", "among us", "com.innersloth.spacemafia"],
+  },
+  {
+    appIds: ["com.roblox.client"],
+    aliases: ["ro blex", "roblox", "com.roblox.client"],
+  },
+  {
+    appIds: ["ch.threema.app"],
+    aliases: ["threema", "ch.threema.app"],
+  },
+  {
+    appIds: ["com.wire"],
+    aliases: ["wire", "wire app", "com.wire"],
+  },
+  {
+    appIds: ["com.everysing.bubble"],
+    aliases: ["dear u bubble", "dearu bubble", "bubble dearu"],
+  },
+  {
+    appIds: ["com.sony.songpal.mdr"],
+    aliases: ["sound connect", "sony sound connect", "com.sony.songpal.mdr"],
+  },
+  {
+    appIds: ["com.cisco.wireless.linksys"],
+    aliases: ["linksys", "linksys app"],
+  },
+  {
+    appIds: ["com.orcascan.android"],
+    aliases: ["orca scan", "orcascan", "com.orcascan.android"],
+  },
+  {
+    appIds: ["jp.co.pioneer.android.carremote"],
+    aliases: ["pioneer remote", "pioneer remote app", "pioneerremote", "pioneer"],
+  },
+  {
+    appIds: ["com.digibites.batteryguru"],
+    aliases: ["battery guru", "batteryguru", "com.digibites.batteryguru"],
+  },
+  {
+    appIds: ["com.nintendo.zaba"],
+    aliases: ["火焰纹章", "fire emblem heroes", "feh", "com.nintendo.zaba"],
+  },
+  {
+    appIds: ["com.bitaksi.passenger"],
+    aliases: ["bitaksi", "bi taksi", "com.bitaksi.passenger"],
+  },
 ];
 
 /** Wrong or truncated Play package ids from pasted URLs → canonical id */

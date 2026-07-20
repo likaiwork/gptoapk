@@ -1317,7 +1317,27 @@ export async function autoResolveDismissibleSearchFailures(): Promise<number> {
            'a r k', 'archiveofourown', 'buff buff', 'turbo', 'kirta', 'monster', 'nico', 'train',
            'reading', 'safair', 'weves', 'iptv', 'googlep', 'chorme', 'gemail', 'fantheone',
            'apk安装工具', '装逼生成器', 'apktool', '付款记录生成器', 'apk文件提取', '快喵vnp',
-           '学起plus', '电视专用apk', '小牛直播', '亿家直播'
+           '学起plus', '电视专用apk', '小牛直播', '亿家直播',
+           'porn hub', 'generat download link', 'generate download link',
+           '磁力搜索', 'good', 'universal', 'battery', 'timer', 'project',
+           'com.0', 'keepnude', 'keepnud', '抢先体验', 'wallpapers',
+           'bubble', 'lins', 'velop', 'formm', 'alibi', 'reex', 'gtab',
+           'apk安装器', '软件包安装程序', 'chorme浏览器', 'hidden sei'
+         )
+         OR query ILIKE '%porn%hub%'
+         OR query ILIKE '%磁力搜索%'
+         OR query ILIKE '%generat%download%link%'
+         OR query ILIKE 'top 10 apk download%'
+         OR query ILIKE '%archive of our own%'
+         OR query ILIKE '%archive of home%'
+         OR query ILIKE '%keepnud%'
+         OR query ILIKE '：https://%'
+         OR query ILIKE '%2828.io%'
+         OR query ILIKE '%gptalkapplink%'
+         OR query ILIKE '%lay 服务%'
+         OR query ILIKE '%apktoolm%'
+         OR lower(trim(query)) IN (
+           'v2box', 'lvcha', '飞鱼加速', '飞鱼', 'sakuracat', 'shortpro'
          )
          OR query ILIKE '%ミルアウ%'
          OR query ILIKE '%vampir%'
