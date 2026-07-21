@@ -19,6 +19,7 @@ import { enPosts20260613UnknownSources } from "@/lib/blog/posts-2026-06-13-en-un
 import { enPosts20260702 } from "@/lib/blog/posts-2026-07-02-en";
 import { enPosts20260710 } from "@/lib/blog/posts-2026-07-10-en";
 import { enPosts20260716 } from "@/lib/blog/posts-2026-07-16-en";
+import { enPosts20260721 } from "@/lib/blog/posts-2026-07-21-en";
 
 interface BlogPost {
   slug: string;
@@ -48,6 +49,7 @@ const posts: BlogPost[] = [
   ...enPosts20260702,
   ...enPosts20260710,
   ...enPosts20260716,
+  ...enPosts20260721,
   {
     slug: "apk-parse-error-fix-2026",
     title: "APK Parse Error Fix: There Was a Problem Parsing the Package (2026)",
