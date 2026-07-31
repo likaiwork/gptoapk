@@ -4,6 +4,10 @@ import { zhPosts20260612ApptekaList } from "@/lib/blog/posts-2026-06-12-appteka-
 import { enPosts20260612ApptekaList } from "@/lib/blog/posts-2026-06-12-appteka-en";
 import { zhPosts20260615List, enPosts20260615List } from "@/lib/blog/posts-2026-06-15";
 import { zhPosts20260722List, enPosts20260722List } from "@/lib/blog/posts-2026-07-22";
+import { zhPosts20260727List } from "@/lib/blog/posts-2026-07-27-zh";
+import { enPosts20260727List } from "@/lib/blog/posts-2026-07-27-en";
+import { zhPosts20260731List } from "@/lib/blog/posts-2026-07-31-zh";
+import { enPosts20260731List } from "@/lib/blog/posts-2026-07-31-en";
 
 export const metadata: Metadata = {
   title: "Blog - APK Downloader Guides & Tutorials | gptoapk.com",
@@ -365,6 +369,12 @@ const posts: BlogPost[] = [
   // === 2026-07-22: 跨版本更新、提取资源、网络问题、Android 16 ===
   ...zhPosts20260722List,
   ...enPosts20260722List,
+  // === 2026-07-27: APK完整性校验、Android 14/15侧载变化 ===
+  ...zhPosts20260727List,
+  ...enPosts20260727List,
+  // === 2026-07-31: APK安全下载、Google Play APK到PC、华为安装APK、APK科普 ===
+  ...zhPosts20260731List,
+  ...enPosts20260731List,
 ];
 
 export default function BlogPage() {
