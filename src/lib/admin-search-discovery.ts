@@ -38,6 +38,11 @@ function isUnresolvableMissingAppQuery(query: string): boolean {
     q.includes("人民检察院") ||
     q.includes("onlyfans") ||
     q.includes("deepfake") ||
+    q.includes("lovense") ||
+    q.includes("wallpaper engine") ||
+    q.includes("壁纸引擎") ||
+    q.includes("gagaoolala") ||
+    q.includes("top 10 apk download") ||
     /^\d{8,}$/.test(q) ||
     q.length <= 2 ||
     /下载andr|andr[σⅰ]|android安装包/i.test(query)

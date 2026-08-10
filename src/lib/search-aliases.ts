@@ -4571,6 +4571,76 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
     appIds: ["com.bitaksi.passenger"],
     aliases: ["bitaksi", "bi taksi", "com.bitaksi.passenger"],
   },
+  {
+    appIds: ["com.chess"],
+    aliases: ["chess", "chess.com", "chess play and learn", "com.chess"],
+  },
+  {
+    appIds: ["org.lichess.mobileapp"],
+    aliases: ["lichess", "lichess.org", "org.lichess.mobileapp"],
+  },
+  {
+    appIds: ["com.teslacoilsw.launcher"],
+    aliases: ["nova launcher", "nova", "nova launcher prime", "com.teslacoilsw.launcher"],
+  },
+  {
+    appIds: ["com.azure.authenticator"],
+    aliases: [
+      "microsoft authenticator",
+      "微软authenticator",
+      "微软验证器",
+      "azure authenticator",
+      "com.azure.authenticator",
+    ],
+  },
+  {
+    appIds: ["com.duolingo"],
+    aliases: ["doulingo", "duolingo typo", "多邻国拼写"],
+  },
+  {
+    appIds: ["com.global.foodpanda.android"],
+    aliases: ["foodpanda", "food panda", "com.global.foodpanda.android"],
+  },
+  {
+    appIds: ["com.lumoslabs.lumosity"],
+    aliases: ["lumosity", "com.lumoslabs.lumosity"],
+  },
+  {
+    appIds: ["com.vicsoft.flipaclip"],
+    aliases: ["flipaclip", "flipaclip: cartoon animation", "flip a clip", "com.vicsoft.flipaclip"],
+  },
+  {
+    appIds: ["com.jundroo.SimplePlanes"],
+    aliases: ["simpleplanes", "simple planes", "com.jundroo.SimplePlanes"],
+  },
+  {
+    appIds: ["nextapp.fx"],
+    aliases: ["fx file explorer", "fx explorer", "nextapp.fx"],
+  },
+  {
+    appIds: ["com.tynker.Tynker"],
+    aliases: ["tynker", "tynker - learn to code", "com.tynker.Tynker"],
+  },
+  {
+    appIds: ["com.maxgames.stickwarlegacy"],
+    aliases: ["stick war:legacy", "stickwar legacy"],
+  },
+  {
+    appIds: ["com.rockstargames.gta3"],
+    aliases: ["gta3", "gta iii", "gta 3", "com.rockstargames.gta3"],
+  },
+  {
+    appIds: ["com.rockstargames.gtasa"],
+    aliases: ["gta5", "gta 5", "gta v mobile"],
+  },
+  {
+    appIds: ["com.splashtop.streamer.installer.droid2w"],
+    aliases: ["splashtop wired xdisplay", "wired xdisplay", "com.splashtop.streamer.installer.droid2w"],
+  },
+  {
+    appIds: ["com.Luoteng.SchoolGirlsSimulator"],
+    aliases: ["sakura school simulator", "樱花校园模拟器", "com.Luoteng.SchoolGirlsSimulator"],
+  },
 ];
 
 /** Wrong or truncated Play package ids from pasted URLs → canonical id */

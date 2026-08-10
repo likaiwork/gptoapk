@@ -29,13 +29,13 @@ const JUNK_EXACT = new Set(
 );
 
 const JUNK_RE =
-  /pornhub|pronhub|onlyfans|deepfake|糖心|装逼生成器|付款记录|apk安装|apktool|快喵|vnp|ミルアウ|vampir|魅魔|海特洛|人民检察院|weverse_v|aptoide/i;
+  /pornhub|pronhub|onlyfans|deepfake|糖心|装逼生成器|付款记录|apk安装|apktool|快喵|vnp|ミルアウ|vampir|魅魔|海特洛|人民检察院|weverse_v|aptoide|wallpaper engine|壁纸引擎|lovense|gagaoolala|电脑版下载|ai search engine/i;
 
 const KEEP_RE =
   /xbox|googleearth|元气骑士|bumble|temu|webex|forest|愤怒小鸟|使命召唤|stick war|gta|coze|balatro|musicolet|everskies|droidcam|englishscore|weverse|traveloka|纪念碑谷|trainline|ubereat|authenticator|ventusky|lingokids|zynga|wsop|singtel|owntracks|star walk|moboreader|今日水印|英雄联盟|kazumi|realityscan|revolut|tuya/i;
 
 const FEEDBACK_DONE_RE =
-  /pornhub|糖心|海特洛|人民检察院|下载andr|andr[σⅰ]|安装包|openproject|elevenlabs|hellolive|地理猜猜猜|whoears|蝙蝠|aion2|gamestruggles|visio|^wvs$|^糖$/i;
+  /pornhub|糖心|海特洛|人民检察院|下载andr|andr[σⅰ]|安装包|openproject|elevenlabs|hellolive|地理猜猜猜|whoears|蝙蝠|aion2|gamestruggles|visio|lovense|gagaoolala|top 10 apk download|wallpaper engine|壁纸引擎|hidden settings|^wvs$|^糖$/i;
 
 const BAD_DOWNLOAD_RE = /^(www\.|com\.an\.cl\.)|apkmirror|gptoapk\.com|baidu\.com|juxiaomao|txt\.top|\bvpn\b|v2ray|openvpn|wireguard/i;
 
