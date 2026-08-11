@@ -27,6 +27,11 @@ import { zhPosts20260713 } from "@/lib/blog/posts-2026-07-13-zh";
 import { zhPosts20260716 } from "@/lib/blog/posts-2026-07-16-zh";
 import { zhPosts20260717 } from "@/lib/blog/posts-2026-07-17-zh";
 import { zhPosts20260721 } from "@/lib/blog/posts-2026-07-21-zh";
+import { zhPosts20260731 } from "@/lib/blog/posts-2026-07-31-zh";
+import { zhPosts20260803 } from "@/lib/blog/posts-2026-08-03-zh";
+import { zhPosts20260804 } from "@/lib/blog/posts-2026-08-04-zh";
+import { zhPosts20260810 } from "@/lib/blog/posts-2026-08-10-zh";
+import { zhPosts20260811 } from "@/lib/blog/posts-2026-08-11-zh";
 import {
   buildBlogBreadcrumbJsonLd,
   buildBlogPostingJsonLd,
@@ -74,6 +79,11 @@ const zhPosts: BlogPost[] = [
   ...zhPosts20260716,
   ...zhPosts20260717,
   ...zhPosts20260721,
+  ...zhPosts20260731,
+  ...zhPosts20260803,
+  ...zhPosts20260804,
+  ...zhPosts20260810,
+  ...zhPosts20260811,
   {
     slug: "china-broker-app-list",
     title: "国内券商APP下载指南：同花顺东财华泰国信中信招商等主流券商APP包名大全",

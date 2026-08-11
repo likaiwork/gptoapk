@@ -10,6 +10,12 @@ import { zhPosts20260731List } from "@/lib/blog/posts-2026-07-31-zh";
 import { enPosts20260731List } from "@/lib/blog/posts-2026-07-31-en";
 import { zhPosts20260803List } from "@/lib/blog/posts-2026-08-03-zh";
 import { enPosts20260803List } from "@/lib/blog/posts-2026-08-03-en";
+import { zhPosts20260804List } from "@/lib/blog/posts-2026-08-04-zh";
+import { enPosts20260804List } from "@/lib/blog/posts-2026-08-04-en";
+import { zhPosts20260810List } from "@/lib/blog/posts-2026-08-10-zh";
+import { enPosts20260810List } from "@/lib/blog/posts-2026-08-10-en";
+import { zhPosts20260811List } from "@/lib/blog/posts-2026-08-11-zh";
+import { enPosts20260811List } from "@/lib/blog/posts-2026-08-11-en";
 
 export const metadata: Metadata = {
   title: "Blog - APK Downloader Guides & Tutorials | gptoapk.com",
@@ -380,6 +386,15 @@ const posts: BlogPost[] = [
   // === 2026-08-03: APK下载站对比、小米装谷歌商店 ===
   ...zhPosts20260803List,
   ...enPosts20260803List,
+  // === 2026-08-04: 华为装APK、APK科普、APK安全下载、Google Play APK到PC ===
+  ...zhPosts20260804List,
+  ...enPosts20260804List,
+  // === 2026-08-10: 华为APK报错排查、APK结构科普、APK安全下载清单、Google Play APK到PC ===
+  ...zhPosts20260810List,
+  ...enPosts20260810List,
+  // === 2026-08-11: 小米装谷歌商店、YouTube APK最新版、APK安全下载入门、Google Play APK下载工具对比 ===
+  ...zhPosts20260811List,
+  ...enPosts20260811List,
 ];
 
 export default function BlogPage() {
