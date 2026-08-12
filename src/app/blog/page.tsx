@@ -16,6 +16,8 @@ import { zhPosts20260810List } from "@/lib/blog/posts-2026-08-10-zh";
 import { enPosts20260810List } from "@/lib/blog/posts-2026-08-10-en";
 import { zhPosts20260811List } from "@/lib/blog/posts-2026-08-11-zh";
 import { enPosts20260811List } from "@/lib/blog/posts-2026-08-11-en";
+import { zhPosts20260812List } from "@/lib/blog/posts-2026-08-12-zh";
+import { enPosts20260812List } from "@/lib/blog/posts-2026-08-12-en";
 
 export const metadata: Metadata = {
   title: "Blog - APK Downloader Guides & Tutorials | gptoapk.com",
@@ -395,6 +397,8 @@ const posts: BlogPost[] = [
   // === 2026-08-11: 小米装谷歌商店、YouTube APK最新版、APK安全下载入门、Google Play APK下载工具对比 ===
   ...zhPosts20260811List,
   ...enPosts20260811List,
+  ...zhPosts20260812List,
+  ...enPosts20260812List,
 ];
 
 export default function BlogPage() {
