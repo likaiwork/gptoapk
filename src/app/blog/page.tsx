@@ -26,6 +26,8 @@ import { zhPosts20260817List } from "@/lib/blog/posts-2026-08-17-zh";
 import { enPosts20260817List } from "@/lib/blog/posts-2026-08-17-en";
 import { zhPosts20260818List } from "@/lib/blog/posts-2026-08-18-zh";
 import { enPosts20260818List } from "@/lib/blog/posts-2026-08-18-en";
+import { zhPosts20260819List } from "@/lib/blog/posts-2026-08-19-zh";
+import { enPosts20260819List } from "@/lib/blog/posts-2026-08-19-en";
 
 export const metadata: Metadata = {
   title: "Blog - APK Downloader Guides & Tutorials | gptoapk.com",
@@ -417,6 +419,9 @@ const posts: BlogPost[] = [
   // === 2026-08-18: 华为安装APK排查表、APK新手10问、APK安全分级清单、Google Play下载方法选择 ===
   ...zhPosts20260818List,
   ...enPosts20260818List,
+  // === 2026-08-19: 应用未安装报错、APK下载提速、App not installed、APK兼容性检查 ===
+  ...zhPosts20260819List,
+  ...enPosts20260819List,
 ];
 
 export default function BlogPage() {
