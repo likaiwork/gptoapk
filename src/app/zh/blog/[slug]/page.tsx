@@ -35,6 +35,9 @@ import { zhPosts20260811 } from "@/lib/blog/posts-2026-08-11-zh";
 import { zhPosts20260812 } from "@/lib/blog/posts-2026-08-12-zh";
 import { zhPosts20260813 } from "@/lib/blog/posts-2026-08-13-zh";
 import { zhPosts20260814 } from "@/lib/blog/posts-2026-08-14-zh";
+import { zhPosts20260817 } from "@/lib/blog/posts-2026-08-17-zh";
+import { zhPosts20260818 } from "@/lib/blog/posts-2026-08-18-zh";
+import { zhPosts20260819 } from "@/lib/blog/posts-2026-08-19-zh";
 import {
   buildBlogBreadcrumbJsonLd,
   buildBlogPostingJsonLd,
@@ -90,6 +93,9 @@ const zhPosts: BlogPost[] = [
   ...zhPosts20260812,
   ...zhPosts20260813,
   ...zhPosts20260814,
+  ...zhPosts20260817,
+  ...zhPosts20260818,
+  ...zhPosts20260819,
   {
     slug: "china-broker-app-list",
     title: "国内券商APP下载指南：同花顺东财华泰国信中信招商等主流券商APP包名大全",
@@ -16523,7 +16529,14 @@ apksigner verify --verbose app.apk`}</code></pre>
 ];
 
 /** Modular posts (2026-06-12+) — resolved first; huge inline zhPosts may omit them at runtime. */
-const zhModularPosts: BlogPost[] = [...zhPosts20260613Keywords, ...zhPosts20260612Appteka, ...zhPosts20260612Vpn];
+const zhModularPosts: BlogPost[] = [
+  ...zhPosts20260613Keywords,
+  ...zhPosts20260612Appteka,
+  ...zhPosts20260612Vpn,
+  ...zhPosts20260817,
+  ...zhPosts20260818,
+  ...zhPosts20260819,
+];
 
 function findZhBlogPost(rawSlug: string): BlogPost | undefined {
   const slug = resolveBlogSlug(rawSlug);
