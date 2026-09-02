@@ -42,6 +42,8 @@ import { zhPosts20260831List } from "@/lib/blog/posts-2026-08-31-zh";
 import { enPosts20260831List } from "@/lib/blog/posts-2026-08-31-en";
 import { zhPosts20260901List } from "@/lib/blog/posts-2026-09-01-zh";
 import { enPosts20260901List } from "@/lib/blog/posts-2026-09-01-en";
+import { zhPosts20260902List } from "@/lib/blog/posts-2026-09-02-zh";
+import { enPosts20260902List } from "@/lib/blog/posts-2026-09-02-en";
 
 export const metadata: Metadata = {
   title: "Blog - APK Downloader Guides & Tutorials | gptoapk.com",
@@ -457,6 +459,9 @@ const posts: BlogPost[] = [
   // === 2026-09-01: OPPO手机安装Google Play、APK下载器哪个好用、恶意APK结构威胁指南、Play-APK下载器辟谣 ===
   ...zhPosts20260901List,
   ...enPosts20260901List,
+  // === 2026-09-02: Google Play更新无法下载排查、安卓APK双开多开方法、小白向APK安全下载场景指南、Play-APK下载后验证与转存 ===
+  ...zhPosts20260902List,
+  ...enPosts20260902List,
 ];
 
 export default function BlogPage() {
