@@ -46,6 +46,8 @@ import { zhPosts20260902List } from "@/lib/blog/posts-2026-09-02-zh";
 import { enPosts20260902List } from "@/lib/blog/posts-2026-09-02-en";
 import { zhPosts20260903List } from "@/lib/blog/posts-2026-09-03-zh";
 import { enPosts20260903List } from "@/lib/blog/posts-2026-09-03-en";
+import { zhPosts20260904List } from "@/lib/blog/posts-2026-09-04-zh";
+import { enPosts20260904List } from "@/lib/blog/posts-2026-09-04-en";
 
 export const metadata: Metadata = {
   title: "Blog - APK Downloader Guides & Tutorials | gptoapk.com",
@@ -467,6 +469,9 @@ const posts: BlogPost[] = [
   // === 2026-09-03: vivo手机APK安装失败排查、APK应用跨品牌跨地区迁移、安装前权限审查、无Google服务手机侧载 ===
   ...zhPosts20260903List,
   ...enPosts20260903List,
+  // === 2026-09-04: APK多渠道打包原理、APK下载速度慢排查、共享/儿童/老人手机APK安全锁定、Play-APK到PC文件不装(ABI/拆包/签名) ===
+  ...zhPosts20260904List,
+  ...enPosts20260904List,
 ];
 
 export default function BlogPage() {
