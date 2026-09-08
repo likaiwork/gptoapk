@@ -50,6 +50,8 @@ import { zhPosts20260904List } from "@/lib/blog/posts-2026-09-04-zh";
 import { enPosts20260904List } from "@/lib/blog/posts-2026-09-04-en";
 import { zhPosts20260907List } from "@/lib/blog/posts-2026-09-07-zh";
 import { enPosts20260907List } from "@/lib/blog/posts-2026-09-07-en";
+import { zhPosts20260908List } from "@/lib/blog/posts-2026-09-08-zh";
+import { enPosts20260908List } from "@/lib/blog/posts-2026-09-08-en";
 
 export const metadata: Metadata = {
   title: "Blog - APK Downloader Guides & Tutorials | gptoapk.com",
@@ -477,6 +479,9 @@ const posts: BlogPost[] = [
   // === 2026-09-07: 手机空间不足APK/缓存清理、换机APK应用+数据迁移、safely-download长线卫生与已装清理、Play-APK下载到PC的版本/签名/可更新 ===
   ...zhPosts20260907List,
   ...enPosts20260907List,
+  // === 2026-09-08: APK体积太大瘦身(选对来源/拆对架构)、Google Play缓存清理、safely-download为工作侧载威胁建模四查、Play-APK下载到PC建本地APK归档离线用 ===
+  ...zhPosts20260908List,
+  ...enPosts20260908List,
 ];
 
 export default function BlogPage() {
