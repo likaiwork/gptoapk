@@ -52,6 +52,8 @@ import { zhPosts20260907List } from "@/lib/blog/posts-2026-09-07-zh";
 import { enPosts20260907List } from "@/lib/blog/posts-2026-09-07-en";
 import { zhPosts20260908List } from "@/lib/blog/posts-2026-09-08-zh";
 import { enPosts20260908List } from "@/lib/blog/posts-2026-09-08-en";
+import { zhPosts20260909List } from "@/lib/blog/posts-2026-09-09-zh";
+import { enPosts20260909List } from "@/lib/blog/posts-2026-09-09-en";
 
 export const metadata: Metadata = {
   title: "Blog - APK Downloader Guides & Tutorials | gptoapk.com",
@@ -482,6 +484,9 @@ const posts: BlogPost[] = [
   // === 2026-09-08: APK体积太大瘦身(选对来源/拆对架构)、Google Play缓存清理、safely-download为工作侧载威胁建模四查、Play-APK下载到PC建本地APK归档离线用 ===
   ...zhPosts20260908List,
   ...enPosts20260908List,
+  // === 2026-09-09: 安卓APK投屏/镜像到电视(有线无线协议)、APK签名指纹识别二次打包改包、safely-download用签名指纹识别被重签的盗版壳、Play-APK下载到PC拉对文件并离线侧载到无Play设备 ===
+  ...zhPosts20260909List,
+  ...enPosts20260909List,
 ];
 
 export default function BlogPage() {
