@@ -54,6 +54,8 @@ import { zhPosts20260908List } from "@/lib/blog/posts-2026-09-08-zh";
 import { enPosts20260908List } from "@/lib/blog/posts-2026-09-08-en";
 import { zhPosts20260909List } from "@/lib/blog/posts-2026-09-09-zh";
 import { enPosts20260909List } from "@/lib/blog/posts-2026-09-09-en";
+import { zhPosts20260910List } from "@/lib/blog/posts-2026-09-10-zh";
+import { enPosts20260910List } from "@/lib/blog/posts-2026-09-10-en";
 
 export const metadata: Metadata = {
   title: "Blog - APK Downloader Guides & Tutorials | gptoapk.com",
@@ -487,6 +489,9 @@ const posts: BlogPost[] = [
   // === 2026-09-09: 安卓APK投屏/镜像到电视(有线无线协议)、APK签名指纹识别二次打包改包、safely-download用签名指纹识别被重签的盗版壳、Play-APK下载到PC拉对文件并离线侧载到无Play设备 ===
   ...zhPosts20260909List,
   ...enPosts20260909List,
+  // === 2026-09-10: 签名不匹配/无法安装(覆盖安装失败排查)、APK传到手机打不开(后缀/权限/打开方式)、en等效两篇 ===
+  ...zhPosts20260910List,
+  ...enPosts20260910List,
 ];
 
 export default function BlogPage() {
