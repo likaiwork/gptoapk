@@ -64,6 +64,8 @@ import { zhPosts20260915List } from "@/lib/blog/posts-2026-09-15-zh";
 import { enPosts20260915List } from "@/lib/blog/posts-2026-09-15-en";
 import { zhPosts20260916List } from "@/lib/blog/posts-2026-09-16-zh";
 import { enPosts20260916List } from "@/lib/blog/posts-2026-09-16-en";
+import { zhPosts20260917List } from "@/lib/blog/posts-2026-09-17-zh";
+import { enPosts20260917List } from "@/lib/blog/posts-2026-09-17-en";
 
 export const metadata: Metadata = {
   title: "Blog - APK Downloader Guides & Tutorials | gptoapk.com",
@@ -512,6 +514,8 @@ const posts: BlogPost[] = [
   // === 2026-09-16: APK安装被系统拦截怎么解除(全机型排查)、APK下载后自动删除怎么办、英文等效两篇(install blocked/文件消失) ===
   ...zhPosts20260916List,
   ...enPosts20260916List,
+  ...zhPosts20260917List,
+  ...enPosts20260917List,
 ];
 
 export default function BlogPage() {
