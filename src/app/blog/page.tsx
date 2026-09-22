@@ -70,6 +70,8 @@ import { zhPosts20260918List } from "@/lib/blog/posts-2026-09-18-zh";
 import { enPosts20260918List } from "@/lib/blog/posts-2026-09-18-en";
 import { zhPosts20260921List } from "@/lib/blog/posts-2026-09-21-zh";
 import { enPosts20260921List } from "@/lib/blog/posts-2026-09-21-en";
+import { zhPosts20260922List } from "@/lib/blog/posts-2026-09-22-zh";
+import { enPosts20260922List } from "@/lib/blog/posts-2026-09-22-en";
 
 export const metadata: Metadata = {
   title: "Blog - APK Downloader Guides & Tutorials | gptoapk.com",
@@ -524,6 +526,8 @@ const posts: BlogPost[] = [
   ...enPosts20260918List,
   ...zhPosts20260921List,
   ...enPosts20260921List,
+  ...zhPosts20260922List,
+  ...enPosts20260922List,
 ];
 
 export default function BlogPage() {
