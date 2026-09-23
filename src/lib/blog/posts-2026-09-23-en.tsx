@@ -448,6 +448,365 @@ const FAQS2: BlogFaqItem[] = [
   },
 ];
 
+const ARTICLE3 = (
+  <>
+    <p className="lead">
+      A flashlight app that asks for your contacts. A wallpaper app that wants your precise location. A
+      calculator that requests SMS access. If you tap &quot;Install&quot; without reading the permission
+      list, you just handed a stranger the keys to your phone.
+    </p>
+    <p>
+      Here&apos;s the bottom line:{" "}
+      <strong>
+        checking permissions before you install is the cheapest, most effective privacy protection you
+        have.
+      </strong>{" "}
+      This guide gives you a 3-minute audit process and a list of permissions that should make you stop
+      and think.
+    </p>
+    <blockquote>
+      <p>
+        <strong>Core idea:</strong>{" "}
+        <strong>
+          When an app&apos;s permissions don&apos;t match its function, that&apos;s the biggest red flag.
+        </strong>{" "}
+        A flashlight wanting your contacts, a calculator wanting SMS, a wallpaper wanting location —
+        anything beyond the job is suspicious by default.
+      </p>
+    </blockquote>
+
+    <h2>Why checking before install beats fixing after</h2>
+    <ul>
+      <li>
+        <strong>Install-time permissions (legacy):</strong> A list is shown once on the install screen.
+        Tapping &quot;Install&quot; grants them all.
+      </li>
+      <li>
+        <strong>Runtime permissions (modern):</strong> The app asks when it first needs a permission.
+      </li>
+    </ul>
+    <p>
+      Either way, <strong>reading that list before the app lands on your phone</strong> is your one clean
+      chance to decide. Once it&apos;s installed, some background and data access can happen even if you
+      never tap &quot;Allow&quot; on a specific prompt.
+    </p>
+
+    <h2>The 3-minute permission audit</h2>
+    <h3>Step 1: Ask &quot;does this match what the app should do?&quot;</h3>
+    <ul>
+      <li>
+        <strong>Flashlight / Calculator:</strong> Reasonable is camera (for flashlight); be suspicious of
+        contacts, SMS, location, phone.
+      </li>
+      <li>
+        <strong>Wallpaper / Theme:</strong> Reasonable is storage; watch for location, contacts, SMS.
+      </li>
+      <li>
+        <strong>Games:</strong> Reasonable is storage, network; watch for SMS, call log, contacts.
+      </li>
+      <li>
+        <strong>Keyboard:</strong> Reasonable is network (dictionaries); watch for location, contacts, SMS.
+      </li>
+      <li>
+        <strong>Banking / Payments:</strong> Reasonable is network, camera, storage; watch for SMS unless
+        explicitly for OTP.
+      </li>
+    </ul>
+    <p>
+      <strong>The rule: the simpler the function, the less sensitive the permissions should be.</strong>
+    </p>
+
+    <h3>Step 2: Watch for these high-risk permissions</h3>
+    <ul>
+      <li>
+        <strong>SMS (READ_SMS / RECEIVE_SMS):</strong> Can read one-time codes and bank alerts. Unless
+        it&apos;s the SMS app or an explicit 2FA tool, refuse.
+      </li>
+      <li>
+        <strong>Contacts (READ_CONTACTS):</strong> Necessary for social and messaging apps; suspicious for
+        utilities.
+      </li>
+      <li>
+        <strong>Call log / Phone (CALL_LOG / CALL_PHONE):</strong> Almost never justified outside dialer
+        and call apps.
+      </li>
+      <li>
+        <strong>Precise location (ACCESS_FINE_LOCATION):</strong> Maps, ride-hailing, and delivery need it;
+        tools and games should be questioned.
+      </li>
+      <li>
+        <strong>Accessibility Service:</strong> The <strong>king of permissions</strong> — it can read
+        everything on screen, simulate taps, and automate actions. Outside screen-reader apps, treat any
+        request with extreme suspicion.
+      </li>
+      <li>
+        <strong>Device Admin:</strong> Can lock, wipe, or change your password. Normal apps almost never
+        need it.
+      </li>
+      <li>
+        <strong>Install unknown apps (REQUEST_INSTALL_PACKAGES):</strong> Can silently install things
+        outside the store — a favorite trick of malware.
+      </li>
+    </ul>
+
+    <h3>Step 3: Static-check permissions with a tool (advanced)</h3>
+    <ol>
+      <li>
+        Use an online tool like <Link href="/">gptoapk.com</Link> to parse the APK&apos;s{" "}
+        <code>AndroidManifest.xml</code>.
+      </li>
+      <li>
+        Or use APK Analyzer / Apktool / aapt to list permissions.
+      </li>
+      <li>
+        Key comparison: <strong>what the store listing claims</strong> vs{" "}
+        <strong>what the APK actually requests</strong>.
+      </li>
+    </ol>
+
+    <h2>5 practical principles</h2>
+    <ol>
+      <li>
+        <strong>Least privilege:</strong> Grant only what the function needs. Runtime permissions can be
+        revoked anytime in Settings → Apps → Permissions.
+      </li>
+      <li>
+        <strong>Don&apos;t bulk-allow:</strong> Judge each permission request — don&apos;t just hit
+        &quot;Allow always.&quot;
+      </li>
+      <li>
+        <strong>Use &quot;Only this time&quot; for location:</strong> Prefer &quot;While using the
+        app&quot; over &quot;Allow all the time.&quot;
+      </li>
+      <li>
+        <strong>Source first:</strong> Prefer Google Play or the official site. Cracked or &quot;mod&quot;
+        builds from third-party sites often have altered permissions.
+      </li>
+      <li>
+        <strong>Review regularly:</strong> A week or two after installing, check the permission usage log
+        and revoke anything odd — or uninstall.
+      </li>
+    </ol>
+
+    <h2>Common myths</h2>
+    <ul>
+      <li>
+        <strong>&quot;Big brands are always safe&quot;:</strong> Brand trust helps, but a repackaged
+        &quot;same app&quot; from a third-party source may not be safe. Verify the official package name
+        and signature.
+      </li>
+      <li>
+        <strong>&quot;If I don&apos;t tap Allow, nothing happens&quot;:</strong> Some legacy apps grant
+        permissions at install time. Filter them out before installing.
+      </li>
+      <li>
+        <strong>&quot;Granting everything saves time&quot;:</strong> You save seconds and risk your
+        contacts, location, and one-time codes.
+      </li>
+    </ul>
+
+    <h2>Summary</h2>
+    <p>
+      Checking APK permissions before installing needs no expertise — just{" "}
+      <strong>3 minutes and a little common sense</strong>: read the list, zero in on the sensitive
+      permissions, statically analyze when you can, and re-check after install.
+      <strong>
+        Permissions are the hands an app reaches into your data with. Check which hand it&apos;s reaching
+        with — and what it&apos;s grabbing — before you install, not after you regret it.
+      </strong>
+    </p>
+  </>
+);
+
+const FAQS3: BlogFaqItem[] = [
+  {
+    question: "How do I check which permissions an APK requests before installing?",
+    answer:
+      "Two ways: (1) The install screen lists the permissions the app requests — look for anything beyond its function. (2) For an APK file you haven't installed yet, parse AndroidManifest.xml using gptoapk.com, APK Analyzer, Apktool, or aapt to see the full declared permission list. Then compare what the store listing claims against what the APK actually requests — a mismatch is a red flag.",
+  },
+  {
+    question: "Which permissions are the most dangerous to grant?",
+    answer:
+      "Watch these closely: SMS (reads one-time codes and bank alerts), contacts, call log/phone, precise location, Accessibility Service (the 'king of permissions' — reads everything on screen and simulates taps, used by many trojans), Device Admin (can lock or wipe), and Install unknown apps (silent installs). When any of these don't match the app's function, refuse or skip the install entirely.",
+  },
+  {
+    question: "Why is it suspicious when a flashlight app asks for contacts?",
+    answer:
+      "Because the permission doesn't match the function. A flashlight only needs camera access to control the flash; asking for contacts, SMS, location, or phone has no legitimate reason. Apps that request sensitive permissions beyond their purpose are likely harvesting your data or bundling ad/malicious SDKs — best not to install them at all.",
+  },
+  {
+    question: "Can I revoke permissions from an app I already installed?",
+    answer:
+      "Yes. Runtime permissions can be revoked anytime in Settings → Apps → Permissions, and most individual permissions can be toggled off. The app will simply re-request when it next needs it. Review the permission usage log a week or two after installing; if an unrelated app has been quietly using location or the microphone, revoke it or uninstall.",
+  },
+];
+
+const ARTICLE4 = (
+  <>
+    <p className="lead">
+      Do you recognize every app on your phone? Open your app list and every so often there&apos;s one
+      with a strange name, a rough icon, and no memory of installing it — promotional apps silently
+      installed when you tapped an ad, bundleware dragged in by another app, or outright suspicious
+      software.
+    </p>
+    <p>
+      Here&apos;s the bottom line:{" "}
+      <strong>
+        unknown-source apps are a potential doorway to your privacy and your money — find them, identify
+        them, and deal with them.
+      </strong>{" "}
+      This guide shows you how to audit, confirm, and remove unknown apps, and stop them from sneaking
+      back in.
+    </p>
+    <blockquote>
+      <p>
+        <strong>Core idea:</strong>{" "}
+        <strong>An app you have no memory of installing is almost never a good thing.</strong> Better to
+        remove an unused app by mistake than to keep something you can&apos;t account for.
+      </p>
+    </blockquote>
+
+    <h2>What counts as an &quot;unknown&quot; app?</h2>
+    <ul>
+      <li>
+        <strong>The system-level &quot;install unknown apps&quot; setting:</strong> allows installing from
+        outside the store. The switch itself isn&apos;t evil, but it&apos;s the doorway for sideloaded
+        apps.
+      </li>
+      <li>
+        <strong>Apps you personally don&apos;t recognize:</strong> already on your phone, but you know
+        nothing about their origin or purpose.
+      </li>
+    </ul>
+
+    <h2>Step 1: Audit what&apos;s actually installed</h2>
+    <h3>Method A: Full app list</h3>
+    <p>
+      Open Settings → Apps → See all apps. Scan for unknown names, no localized name, garbled or numeric
+      names, crude icons, and things you thought you uninstalled but are still there.
+    </p>
+    <h3>Method B: Sort by install date (most effective)</h3>
+    <p>
+      Most Android phones let you sort by install time. Recall what ads you tapped or sideloaded APKs you
+      installed recently and inspect apps that appeared in that window.
+    </p>
+    <h3>Method C: See who holds &quot;Install unknown apps&quot;</h3>
+    <p>
+      Settings → Apps → Special access → Install unknown apps. See which apps are allowed to install apps.
+      Change everything except apps you trust to &quot;Not allowed.&quot;
+    </p>
+
+    <h2>Step 2: Identify the suspicious app</h2>
+    <ol>
+      <li>
+        <strong>Check the package name:</strong> the details page usually shows the package name (e.g.,{" "}
+        <code>com.xxx.yyy</code>). Search it online to find the real identity.
+      </li>
+      <li>
+        <strong>Check permissions:</strong> an unknown small app asking for SMS, contacts, and location is
+        almost certainly malicious or junkware.
+      </li>
+      <li>
+        <strong>Check install source:</strong> Some systems show &quot;Installed from,&quot; which can
+        trace the origin.
+      </li>
+      <li>
+        <strong>Check usage and battery:</strong> an unknown app with abnormal background drain is highly
+        suspicious.
+      </li>
+    </ol>
+    <blockquote>
+      <p>
+        If the package name yields no positive information, the permissions are sensitive, and the origin
+        is a total mystery — just handle it. Don&apos;t hesitate.
+      </p>
+    </blockquote>
+
+    <h2>Step 3: Remove and clean up</h2>
+    <h3>1. Normal uninstall</h3>
+    <p>Settings → Apps → tap the app → Uninstall.</p>
+    <h3>2. The uninstall button is grayed out / won&apos;t work</h3>
+    <ul>
+      <li>
+        <strong>Turn off Device Admin:</strong> Settings → Security → Device admin apps, uncheck the app,
+        then uninstall.
+      </li>
+      <li>
+        <strong>Turn off Accessibility:</strong> Settings → Accessibility, find the app and turn it off,
+        then uninstall.
+      </li>
+      <li>
+        <strong>Safe Mode uninstall:</strong> Long-press Power → long-press &quot;Power off&quot; → enter
+        Safe Mode, uninstall normally, then restart to exit.
+      </li>
+    </ul>
+    <h3>3. Revoke &quot;Install unknown apps&quot;</h3>
+    <p>Block all untrusted apps, closing the door on silent reinstalls.</p>
+    <h3>4. Final checks</h3>
+    <p>
+      Check whether your default browser homepage or search engine was hijacked, for persistent
+      notifications from unknown apps, and whether a new suspicious keyboard or launcher was installed.
+    </p>
+
+    <h2>How to stop unknown apps from coming back</h2>
+    <ol>
+      <li>
+        <strong>Turn off unnecessary &quot;unknown source installs&quot;:</strong> tighten it app by app.
+      </li>
+      <li>
+        <strong>Don&apos;t tap sketchy ads or &quot;Download&quot; buttons:</strong> most silent installs
+        start with a single mis-tap.
+      </li>
+      <li>
+        <strong>Prefer official channels:</strong> use a tool like <Link href="/">gptoapk.com</Link> to
+        pull the official build from the Play side — far safer than a random third-party site.
+      </li>
+      <li>
+        <strong>Review monthly:</strong> spend one minute scanning your app list and the &quot;Install
+        unknown apps&quot; permission.
+      </li>
+      <li>
+        <strong>Don&apos;t delay system updates:</strong> many sideload holes get patched through updates.
+      </li>
+    </ol>
+
+    <h2>Summary</h2>
+    <p>
+      Auditing unknown apps comes down to three steps: <strong>find → identify → remove</strong>. Use the
+      app list, install dates, and permission holders to surface suspects; use package name, permissions,
+      source, and battery use to confirm whether it&apos;s bad; uninstall what you can, and if you
+      can&apos;t, disable Device Admin/Accessibility or use Safe Mode; then lock down the permission to
+      seal the entrance.
+      <strong>
+        Every app in your list you can&apos;t explain is an open question — answer it, or remove it.
+      </strong>
+    </p>
+  </>
+);
+
+const FAQS4: BlogFaqItem[] = [
+  {
+    question: "How do I know if an unknown app was secretly installed on my phone?",
+    answer:
+      "Three methods: (1) Open Settings → Apps → See all apps and check each name and icon for something strange, garbled, or unfamiliar. (2) Sort by install date (most phones support this) and check the window when you last mis-tapped an ad or installed a shady APK. (3) Check which apps hold the 'Install unknown apps' permission. Combining all three usually surfaces the culprits.",
+  },
+  {
+    question: "The uninstall button for an unknown app is grayed out. How do I remove it?",
+    answer:
+      "This usually means it's locked by Device Admin or Accessibility. Fixes: (1) Settings → Security → Device admin apps, uncheck the app, then uninstall. (2) Settings → Accessibility, find the app, turn it off, then uninstall. (3) Long-press Power → long-press 'Power off' to boot into Safe Mode, where third-party apps don't run, uninstall normally, then restart to exit Safe Mode.",
+  },
+  {
+    question: "How do I tell if a strange app is malicious?",
+    answer:
+      "Check four things: (1) Package name — search it online to see if it has any legitimate presence. (2) Permissions — an unknown small app asking for SMS, contacts, location, or accessibility is almost certainly malicious or junkware. (3) Install source — some systems show 'Installed from,' tracing the origin. (4) Battery — abnormal background drain in battery settings is suspicious. If all four are unexplained, remove it.",
+  },
+  {
+    question: "How do I prevent apps from being secretly installed again?",
+    answer:
+      "Focus on closing the entrance: (1) Settings → Security → Install unknown apps, disable it for browsers, file managers, and third-party markets, keeping only trusted apps. (2) Don't tap sketchy ads or 'Download' buttons. (3) Get apps from Google Play or official sites. (4) Spend a minute each month reviewing your app list and that permission. (5) Keep your system updated to patch sideload holes.",
+  },
+];
+
 export const enPosts20260923: BlogPostEntry[] = [
   {
     slug: "how-to-safely-download-apk-files-on-android",
@@ -470,6 +829,28 @@ export const enPosts20260923: BlogPostEntry[] = [
     tags: ["android", "apk", "compatibility", "troubleshooting", "guides"],
     content: ARTICLE2,
     faqs: FAQS2,
+  },
+  {
+    slug: "how-to-check-apk-permissions-before-installing",
+    title: "How to Check APK Permissions Before Installing: A 2026 Safety Guide",
+    description:
+      "A flashlight that wants your contacts? A calculator that asks for SMS? Tapping Install without reading the permission list hands a stranger the keys to your phone. This 2026 guide gives you a 3-minute permission audit: how to tell if permissions match the function, the high-risk permissions to watch (SMS, contacts, call log, location, accessibility, device admin, install-unknown-apps), how to statically inspect an APK, and 5 practical principles.",
+    date: "2026-09-23",
+    readTime: "7 min read",
+    tags: ["android", "apk", "permissions", "privacy", "security"],
+    content: ARTICLE3,
+    faqs: FAQS3,
+  },
+  {
+    slug: "find-remove-unknown-hidden-apps-android",
+    title: "How to Find and Remove Unknown or Hidden Apps on Android (2026 Guide)",
+    description:
+      "Ever spot an app on your phone you have no memory of installing? It might be a silently installed promotion, bundleware, or something suspicious. This guide walks through three steps: audit installed apps using the app list, install dates, and the 'install unknown apps' permission; identify suspects via package name, permissions, source, and battery use; and remove stubborn apps via device admin, accessibility, or Safe Mode — then lock down the entrance.",
+    date: "2026-09-23",
+    readTime: "7 min read",
+    tags: ["android", "apk", "security", "troubleshooting", "guides"],
+    content: ARTICLE4,
+    faqs: FAQS4,
   },
 ];
 
