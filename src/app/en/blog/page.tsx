@@ -20,6 +20,23 @@ import { enPosts20260702List } from "@/lib/blog/posts-2026-07-02-en";
 import { enPosts20260710List } from "@/lib/blog/posts-2026-07-10-en";
 import { enPosts20260716List } from "@/lib/blog/posts-2026-07-16-en";
 import { enPosts20260721List } from "@/lib/blog/posts-2026-07-21-en";
+import { enPosts20260901List } from "@/lib/blog/posts-2026-09-01-en";
+import { enPosts20260902List } from "@/lib/blog/posts-2026-09-02-en";
+import { enPosts20260903List } from "@/lib/blog/posts-2026-09-03-en";
+import { enPosts20260904List } from "@/lib/blog/posts-2026-09-04-en";
+import { enPosts20260907List } from "@/lib/blog/posts-2026-09-07-en";
+import { enPosts20260908List } from "@/lib/blog/posts-2026-09-08-en";
+import { enPosts20260909List } from "@/lib/blog/posts-2026-09-09-en";
+import { enPosts20260910List } from "@/lib/blog/posts-2026-09-10-en";
+import { enPosts20260911List } from "@/lib/blog/posts-2026-09-11-en";
+import { enPosts20260914List } from "@/lib/blog/posts-2026-09-14-en";
+import { enPosts20260915List } from "@/lib/blog/posts-2026-09-15-en";
+import { enPosts20260916List } from "@/lib/blog/posts-2026-09-16-en";
+import { enPosts20260917List } from "@/lib/blog/posts-2026-09-17-en";
+import { enPosts20260918List } from "@/lib/blog/posts-2026-09-18-en";
+import { enPosts20260921List } from "@/lib/blog/posts-2026-09-21-en";
+import { enPosts20260922List } from "@/lib/blog/posts-2026-09-22-en";
+import { enPosts20260923List } from "@/lib/blog/posts-2026-09-23-en";
 
 export const metadata: Metadata = {
   title: "Blog - APK Downloader Guides & Tutorials | gptoapk.com",
@@ -62,6 +79,23 @@ const posts: BlogPost[] = [
   ...enPosts20260710List,
   ...enPosts20260716List,
   ...enPosts20260721List,
+  ...enPosts20260901List,
+  ...enPosts20260902List,
+  ...enPosts20260903List,
+  ...enPosts20260904List,
+  ...enPosts20260907List,
+  ...enPosts20260908List,
+  ...enPosts20260909List,
+  ...enPosts20260910List,
+  ...enPosts20260911List,
+  ...enPosts20260914List,
+  ...enPosts20260915List,
+  ...enPosts20260916List,
+  ...enPosts20260917List,
+  ...enPosts20260918List,
+  ...enPosts20260921List,
+  ...enPosts20260922List,
+  ...enPosts20260923List,
   {
     slug: "apk-parse-error-fix-2026",
     title: "APK Parse Error Fix: There Was a Problem Parsing the Package (2026)",
