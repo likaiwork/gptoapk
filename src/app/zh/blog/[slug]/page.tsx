@@ -38,6 +38,23 @@ import { zhPosts20260814 } from "@/lib/blog/posts-2026-08-14-zh";
 import { zhPosts20260817 } from "@/lib/blog/posts-2026-08-17-zh";
 import { zhPosts20260818 } from "@/lib/blog/posts-2026-08-18-zh";
 import { zhPosts20260819 } from "@/lib/blog/posts-2026-08-19-zh";
+import { zhPosts20260901 } from "@/lib/blog/posts-2026-09-01-zh";
+import { zhPosts20260902 } from "@/lib/blog/posts-2026-09-02-zh";
+import { zhPosts20260903 } from "@/lib/blog/posts-2026-09-03-zh";
+import { zhPosts20260904 } from "@/lib/blog/posts-2026-09-04-zh";
+import { zhPosts20260907 } from "@/lib/blog/posts-2026-09-07-zh";
+import { zhPosts20260908 } from "@/lib/blog/posts-2026-09-08-zh";
+import { zhPosts20260909 } from "@/lib/blog/posts-2026-09-09-zh";
+import { zhPosts20260910 } from "@/lib/blog/posts-2026-09-10-zh";
+import { zhPosts20260911 } from "@/lib/blog/posts-2026-09-11-zh";
+import { zhPosts20260914 } from "@/lib/blog/posts-2026-09-14-zh";
+import { zhPosts20260915 } from "@/lib/blog/posts-2026-09-15-zh";
+import { zhPosts20260916 } from "@/lib/blog/posts-2026-09-16-zh";
+import { zhPosts20260917 } from "@/lib/blog/posts-2026-09-17-zh";
+import { zhPosts20260918 } from "@/lib/blog/posts-2026-09-18-zh";
+import { zhPosts20260921 } from "@/lib/blog/posts-2026-09-21-zh";
+import { zhPosts20260922 } from "@/lib/blog/posts-2026-09-22-zh";
+import { zhPosts20260923 } from "@/lib/blog/posts-2026-09-23-zh";
 import {
   buildBlogBreadcrumbJsonLd,
   buildBlogPostingJsonLd,
@@ -96,6 +113,23 @@ const zhPosts: BlogPost[] = [
   ...zhPosts20260817,
   ...zhPosts20260818,
   ...zhPosts20260819,
+  ...zhPosts20260901,
+  ...zhPosts20260902,
+  ...zhPosts20260903,
+  ...zhPosts20260904,
+  ...zhPosts20260907,
+  ...zhPosts20260908,
+  ...zhPosts20260909,
+  ...zhPosts20260910,
+  ...zhPosts20260911,
+  ...zhPosts20260914,
+  ...zhPosts20260915,
+  ...zhPosts20260916,
+  ...zhPosts20260917,
+  ...zhPosts20260918,
+  ...zhPosts20260921,
+  ...zhPosts20260922,
+  ...zhPosts20260923,
   {
     slug: "china-broker-app-list",
     title: "国内券商APP下载指南：同花顺东财华泰国信中信招商等主流券商APP包名大全",
@@ -16536,6 +16570,23 @@ const zhModularPosts: BlogPost[] = [
   ...zhPosts20260817,
   ...zhPosts20260818,
   ...zhPosts20260819,
+  ...zhPosts20260901,
+  ...zhPosts20260902,
+  ...zhPosts20260903,
+  ...zhPosts20260904,
+  ...zhPosts20260907,
+  ...zhPosts20260908,
+  ...zhPosts20260909,
+  ...zhPosts20260910,
+  ...zhPosts20260911,
+  ...zhPosts20260914,
+  ...zhPosts20260915,
+  ...zhPosts20260916,
+  ...zhPosts20260917,
+  ...zhPosts20260918,
+  ...zhPosts20260921,
+  ...zhPosts20260922,
+  ...zhPosts20260923,
 ];
 
 function findZhBlogPost(rawSlug: string): BlogPost | undefined {
