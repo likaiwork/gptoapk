@@ -55,6 +55,7 @@ import { zhPosts20260918 } from "@/lib/blog/posts-2026-09-18-zh";
 import { zhPosts20260921 } from "@/lib/blog/posts-2026-09-21-zh";
 import { zhPosts20260922 } from "@/lib/blog/posts-2026-09-22-zh";
 import { zhPosts20260923 } from "@/lib/blog/posts-2026-09-23-zh";
+import { zhPosts20260924 } from "@/lib/blog/posts-2026-09-24-zh";
 import {
   buildBlogBreadcrumbJsonLd,
   buildBlogPostingJsonLd,
@@ -130,6 +131,7 @@ const zhPosts: BlogPost[] = [
   ...zhPosts20260921,
   ...zhPosts20260922,
   ...zhPosts20260923,
+  ...zhPosts20260924,
   {
     slug: "china-broker-app-list",
     title: "国内券商APP下载指南：同花顺东财华泰国信中信招商等主流券商APP包名大全",
@@ -16587,6 +16589,7 @@ const zhModularPosts: BlogPost[] = [
   ...zhPosts20260921,
   ...zhPosts20260922,
   ...zhPosts20260923,
+  ...zhPosts20260924,
 ];
 
 function findZhBlogPost(rawSlug: string): BlogPost | undefined {

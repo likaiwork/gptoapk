@@ -57,6 +57,7 @@ import { zhPosts20260918List } from "@/lib/blog/posts-2026-09-18-zh";
 import { zhPosts20260921List } from "@/lib/blog/posts-2026-09-21-zh";
 import { zhPosts20260922List } from "@/lib/blog/posts-2026-09-22-zh";
 import { zhPosts20260923List } from "@/lib/blog/posts-2026-09-23-zh";
+import { zhPosts20260924List } from "@/lib/blog/posts-2026-09-24-zh";
 
 export type ZhBlogMeta = ZhBlogCatalogEntry;
 
@@ -119,6 +120,7 @@ const MODULE_LISTS: ZhBlogMeta[][] = [
   zhPosts20260921List,
   zhPosts20260922List,
   zhPosts20260923List,
+  zhPosts20260924List,
 ];
 
 /** Single source of truth for zh blog metadata (sitemap, hubs, related posts). */
