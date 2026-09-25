@@ -12,6 +12,7 @@ import {
 } from "@/lib/search-query-normalize";
 import { isUnsupportedNoMirrorApp } from "@/lib/unsupported-no-mirror-apps";
 import { expandSearchQueryVariants } from "@/lib/search-query-variants";
+import { searchApkComboAppIds } from "@/lib/apkcombo-search";
 
 const SEARCH_TIMEOUT_MS = 12_000;
 const STRICT_MIN_SCORE = 4;
@@ -104,6 +105,10 @@ export async function searchPlayStoreAppIds(
   } catch {
     // no results
   }
+
+  // Fallback: apkcombo 搜索（数据中心 IP 访问 Google Play 被拦截时仍可用）
+  const apkcomboIds = await searchApkComboAppIds(term, strict);
+  if (apkcomboIds.length) return apkcomboIds;
 
   return [];
 }

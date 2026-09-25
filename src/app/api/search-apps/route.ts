@@ -13,6 +13,7 @@ import { resolvePlayPackageIdAlias, resolveSearchAliasAppIds } from '@/lib/searc
 import { isVpnSearchKeyword, stripSearchQueryNoise, extractPlayStorePackageId, stripInvisibleSearchChars, fixMalformedUrlQuery, applySearchTypoCorrection } from '@/lib/search-query-normalize';
 import { recordSearchFailure, recordSearchSuccess } from '@/lib/record-search-failure';
 import { tryInlineSearchDiscovery } from '@/lib/search-auto-discover';
+import { searchApkComboAppIds } from '@/lib/apkcombo-search';
 import type { SearchFailureKind } from '@/lib/search-failure-key';
 import { shouldPersistSearchFailure } from '@/lib/search-failure-reconcile';
 import { normalizeUserSearchQuery } from '@/lib/normalize-user-search-query';
@@ -389,6 +390,19 @@ async function searchApps(term: string, lang: string, country: string): Promise<
     }
   } catch (e) {
     console.error('[API search-apps] direct scrape fallback also failed:', e instanceof Error ? e.message : e);
+  }
+
+  // Fallback 4: apkcombo 搜索（不依赖 Google Play，数据中心 IP 下仍可用）
+  console.error('[API search-apps] all Google Play fallbacks failed, trying apkcombo search');
+  const apkcomboIds = await searchApkComboAppIds(term, false);
+  if (apkcomboIds.length > 0) {
+    const apkcomboResults = await Promise.allSettled(
+      apkcomboIds.map((appId: string) => fetchExactAppForAliasSearch(appId, lang, country)),
+    );
+    const merged = apkcomboResults
+      .filter((r) => r.status === 'fulfilled')
+      .map((r) => (r as PromiseFulfilledResult<SearchAppResult>).value);
+    if (merged.length > 0) return merged;
   }
 
   return [];

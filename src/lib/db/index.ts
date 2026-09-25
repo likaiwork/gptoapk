@@ -431,6 +431,7 @@ export async function initDatabase(): Promise<void> {
     "ALTER TABLE manual_download_sources ADD COLUMN IF NOT EXISTS active BOOLEAN NOT NULL DEFAULT TRUE",
     "ALTER TABLE manual_download_sources ADD COLUMN IF NOT EXISTS created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()",
     "ALTER TABLE manual_download_sources ADD COLUMN IF NOT EXISTS updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()",
+    "ALTER TABLE search_failure_queries ADD COLUMN IF NOT EXISTS ignored BOOLEAN NOT NULL DEFAULT FALSE",
   ];
   for (const q of migrationQueries) {
     try { await sqlRaw(q); } catch {}
