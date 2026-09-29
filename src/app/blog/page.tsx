@@ -80,6 +80,8 @@ import { zhPosts20260925List } from "@/lib/blog/posts-2026-09-25-zh";
 import { enPosts20260925List } from "@/lib/blog/posts-2026-09-25-en";
 import { zhPosts20260928List } from "@/lib/blog/posts-2026-09-28-zh";
 import { enPosts20260928List } from "@/lib/blog/posts-2026-09-28-en";
+import { zhPosts20260929List } from "@/lib/blog/posts-2026-09-29-zh";
+import { enPosts20260929List } from "@/lib/blog/posts-2026-09-29-en";
 
 export const metadata: Metadata = {
   title: "Blog - APK Downloader Guides & Tutorials | gptoapk.com",
@@ -545,6 +547,9 @@ const posts: BlogPost[] = [
   // === 2026-09-28: Android 15 变化对 APK 的影响、APK 跨版本升级兼容性排查 ===
   ...zhPosts20260928List,
   ...enPosts20260928List,
+  // === 2026-09-29: 安卓应用安装教程、Google Play APK 下载工具推荐 ===
+  ...zhPosts20260929List,
+  ...enPosts20260929List,
 ];
 
 export default function BlogPage() {
