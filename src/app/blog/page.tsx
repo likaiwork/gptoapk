@@ -86,6 +86,8 @@ import { zhPosts20260930List } from "@/lib/blog/posts-2026-09-30-zh";
 import { enPosts20260930List } from "@/lib/blog/posts-2026-09-30-en";
 import { zhPosts20261002List } from "@/lib/blog/posts-2026-10-02-zh";
 import { enPosts20261002List } from "@/lib/blog/posts-2026-10-02-en";
+import { zhPosts20261005List } from "@/lib/blog/posts-2026-10-05-zh";
+import { enPosts20261005List } from "@/lib/blog/posts-2026-10-05-en";
 
 export const metadata: Metadata = {
   title: "Blog - APK Downloader Guides & Tutorials | gptoapk.com",
@@ -560,6 +562,9 @@ const posts: BlogPost[] = [
   // === 2026-10-02: APKPure vs APKMirror、小米安装谷歌商店 / 安全下载APK、APK兼容性检查 ===
   ...zhPosts20261002List,
   ...enPosts20261002List,
+  // === 2026-10-05: YouTube APK 安装失败修复、APK 签名验证失败修复 / APK 签名验证、无 Play 手动更新 APK ===
+  ...zhPosts20261005List,
+  ...enPosts20261005List,
 ];
 
 export default function BlogPage() {
