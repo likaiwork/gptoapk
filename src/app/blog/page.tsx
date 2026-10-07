@@ -88,6 +88,8 @@ import { zhPosts20261002List } from "@/lib/blog/posts-2026-10-02-zh";
 import { enPosts20261002List } from "@/lib/blog/posts-2026-10-02-en";
 import { zhPosts20261005List } from "@/lib/blog/posts-2026-10-05-zh";
 import { enPosts20261005List } from "@/lib/blog/posts-2026-10-05-en";
+import { zhPosts20261007List } from "@/lib/blog/posts-2026-10-07-zh";
+import { enPosts20261007List } from "@/lib/blog/posts-2026-10-07-en";
 
 export const metadata: Metadata = {
   title: "Blog - APK Downloader Guides & Tutorials | gptoapk.com",
@@ -565,6 +567,9 @@ const posts: BlogPost[] = [
   // === 2026-10-05: YouTube APK 安装失败修复、APK 签名验证失败修复 / APK 签名验证、无 Play 手动更新 APK ===
   ...zhPosts20261005List,
   ...enPosts20261005List,
+  // === 2026-10-07: APK 文件完整性校验、Android targetSdkVersion 说明 / APK integrity check、targetSdkVersion ===
+  ...zhPosts20261007List,
+  ...enPosts20261007List,
 ];
 
 export default function BlogPage() {
