@@ -90,6 +90,8 @@ import { zhPosts20261005List } from "@/lib/blog/posts-2026-10-05-zh";
 import { enPosts20261005List } from "@/lib/blog/posts-2026-10-05-en";
 import { zhPosts20261007List } from "@/lib/blog/posts-2026-10-07-zh";
 import { enPosts20261007List } from "@/lib/blog/posts-2026-10-07-en";
+import { zhPosts20261008List } from "@/lib/blog/posts-2026-10-08-zh";
+import { enPosts20261008List } from "@/lib/blog/posts-2026-10-08-en";
 
 export const metadata: Metadata = {
   title: "Blog - APK Downloader Guides & Tutorials | gptoapk.com",
@@ -570,6 +572,8 @@ const posts: BlogPost[] = [
   // === 2026-10-07: APK 文件完整性校验、Android targetSdkVersion 说明 / APK integrity check、targetSdkVersion ===
   ...zhPosts20261007List,
   ...enPosts20261007List,
+  ...zhPosts20261008List,
+  ...enPosts20261008List,
 ];
 
 export default function BlogPage() {
