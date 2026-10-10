@@ -53,6 +53,13 @@ import { enPosts20260924 } from "@/lib/blog/posts-2026-09-24-en";
 import { enPosts20260925 } from "@/lib/blog/posts-2026-09-25-en";
 import { enPosts20260928 } from "@/lib/blog/posts-2026-09-28-en";
 import { enPosts20260929 } from "@/lib/blog/posts-2026-09-29-en";
+import { enPosts20260930 } from "@/lib/blog/posts-2026-09-30-en";
+import { enPosts20261002 } from "@/lib/blog/posts-2026-10-02-en";
+import { enPosts20261005 } from "@/lib/blog/posts-2026-10-05-en";
+import { enPosts20261007 } from "@/lib/blog/posts-2026-10-07-en";
+import { enPosts20261008 } from "@/lib/blog/posts-2026-10-08-en";
+import { enPosts20261009 } from "@/lib/blog/posts-2026-10-09-en";
+import { enPosts20261010 } from "@/lib/blog/posts-2026-10-10-en";
 
 interface BlogPost {
   slug: string;
@@ -116,6 +123,13 @@ const posts: BlogPost[] = [
   ...enPosts20260925,
   ...enPosts20260928,
   ...enPosts20260929,
+  ...enPosts20260930,
+  ...enPosts20261002,
+  ...enPosts20261005,
+  ...enPosts20261007,
+  ...enPosts20261008,
+  ...enPosts20261009,
+  ...enPosts20261010,
   {
     slug: "apk-parse-error-fix-2026",
     title: "APK Parse Error Fix: There Was a Problem Parsing the Package (2026)",
