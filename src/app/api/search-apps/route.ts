@@ -103,6 +103,8 @@ function parseGooglePlayUrl(query: string) {
 
 function getQueryType(query: string): QueryType {
   const trimmed = stripInvisibleSearchChars(query).trim();
+  // Play search pages are keywords (q=…), not app detail URLs.
+  if (/play\.google\.com\/store\/search/i.test(trimmed)) return 'keyword';
   if (extractPlayStorePackageId(trimmed)) return 'url';
   if (/^https?:\/\//i.test(trimmed)) return 'url';
   if (trimmed.includes('play.google.com')) return 'url';
@@ -518,7 +520,9 @@ export async function GET(request: Request) {
 
     let results: SearchAppResult[] = [];
     let fromAlias = false;
-    for (const term of expandSearchQueryVariants(rawQuery)) {
+    // Prefer normalized query (e.g. Play search URL → "Beads Out") then raw variants.
+    const searchTerms = [...new Set([...expandSearchQueryVariants(query), ...expandSearchQueryVariants(rawQuery)])];
+    for (const term of searchTerms) {
       const aliasResults = await searchByAliasApps(term, requestedLang, requestedCountry);
       if (aliasResults.length > 0) {
         results = aliasResults;
@@ -532,7 +536,7 @@ export async function GET(request: Request) {
       results = results.filter((app) => !isUnsupportedNoMirrorApp(app.appId));
     }
     if (results.length === 0) {
-      const discoveredIds = await tryInlineSearchDiscovery(rawQuery, requestedLang, requestedCountry);
+      const discoveredIds = await tryInlineSearchDiscovery(query || rawQuery, requestedLang, requestedCountry);
       if (discoveredIds?.length) {
         const discoveredResults: SearchAppResult[] = [];
         const blocked = new Set<string>();

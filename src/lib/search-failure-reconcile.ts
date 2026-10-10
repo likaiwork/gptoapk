@@ -25,6 +25,7 @@ function parseGooglePlayUrl(query: string) {
 
 function getQueryType(query: string): "url" | "package" | "keyword" {
   const trimmed = stripInvisibleSearchChars(query).trim();
+  if (/play\.google\.com\/store\/search/i.test(trimmed)) return "keyword";
   if (extractPlayStorePackageId(trimmed)) return "url";
   if (/^https?:\/\//i.test(trimmed)) return "url";
   if (trimmed.includes("play.google.com")) return "url";

@@ -105,11 +105,23 @@ export function stripMarkdownAndCodeFences(query: string): string {
     .trim();
 }
 
+/** Hostnames that look like package ids but are not Android packages. */
+function isLikelyWebHostname(id: string): boolean {
+  const lower = id.toLowerCase();
+  if (lower === "play.google.com" || lower.endsWith(".google.com")) return true;
+  if (/^(www\.|m\.)/.test(lower)) return true;
+  if (/^(github|gitlab|apkpure|apkmirror|uptodown|google|youtube|facebook|instagram)\./i.test(lower)) {
+    return true;
+  }
+  return false;
+}
+
 /** Pull the first plausible package id out of noisy admin / paste input. */
 export function extractEmbeddedPackageId(query: string): string | null {
   const clean = stripMarkdownAndCodeFences(stripInvisibleSearchChars(query));
   const matches = clean.match(PACKAGE_NAME_PATTERN) || [];
   for (const id of matches) {
+    if (isLikelyWebHostname(id)) continue;
     const parts = id.split(".");
     if (parts.length >= 2 && parts.every((p) => p.length > 0)) return id;
   }

@@ -29,12 +29,14 @@ export function extractPlayStoreSearchTerm(query: string): string | null {
 /** Same URL / brand shortcuts as /api/search-apps before query-type detection. */
 export function normalizeUserSearchQuery(query: string): string {
   const trimmed = stripMarkdownAndCodeFences(stripInvisibleSearchChars(query).trim());
+  // details?id=… first, then store/search?q=… — before embedded package mining,
+  // otherwise "play.google.com" is mistaken for a package id and search URLs 400.
   const playPackageId = extractPlayStorePackageId(trimmed);
   if (playPackageId) return playPackageId;
-  const embeddedPackage = extractEmbeddedPackageId(trimmed);
-  if (embeddedPackage) return embeddedPackage;
   const playSearchTerm = extractPlayStoreSearchTerm(trimmed);
   if (playSearchTerm) return playSearchTerm;
+  const embeddedPackage = extractEmbeddedPackageId(trimmed);
+  if (embeddedPackage) return embeddedPackage;
   if (/^https?:\/\/(www\.)?grok\.com\/?/i.test(trimmed)) return "grok";
   if (/^https?:\/\/(www\.)?facebook\.com\/?/i.test(trimmed)) return "facebook";
   if (/^https?:\/\/(www\.)?messenger\.com\/?/i.test(trimmed)) return "facebook messenger";
