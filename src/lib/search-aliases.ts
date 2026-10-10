@@ -4641,6 +4641,66 @@ const SEARCH_ALIAS_ENTRIES: readonly SearchAliasEntry[] = [
     appIds: ["com.Luoteng.SchoolGirlsSimulator"],
     aliases: ["sakura school simulator", "樱花校园模拟器", "com.Luoteng.SchoolGirlsSimulator"],
   },
+  {
+    appIds: ["com.anthropic.claude"],
+    aliases: ["cluade", "cluade code", "claude code typo"],
+  },
+  {
+    appIds: ["com.android.chrome"],
+    aliases: ["googlechrome", "google chrome typo", "谷歌chrome"],
+  },
+  {
+    appIds: ["com.apple.android.music"],
+    aliases: ["applemusic", "apple music apk"],
+  },
+  {
+    appIds: ["io.legado.app.release"],
+    aliases: ["legado", "gedoorlegado", "gedoor/legado", "阅读legado"],
+  },
+  {
+    appIds: ["org.swiftapps.swiftbackup"],
+    aliases: ["swiftbackup", "swift backup"],
+  },
+  {
+    appIds: ["com.enflick.android.TextNow"],
+    aliases: ["textnow", "text now"],
+  },
+  {
+    appIds: ["net.thunderbird.android"],
+    aliases: ["thunderbird", "thunderbird email"],
+  },
+  {
+    appIds: ["com.iloen.melon"],
+    aliases: ["멜론", "melon music", "melon"],
+  },
+  {
+    appIds: ["com.xhey.xcamera"],
+    aliases: ["今日水印相机", "今日水印"],
+  },
+  {
+    appIds: ["com.softmaker.freeoffice"],
+    aliases: ["freeoffice", "softmaker freeoffice"],
+  },
+  {
+    appIds: ["com.carxtech.carxstreet"],
+    aliases: ["carxstreet", "cartxstreet", "carx street"],
+  },
+  {
+    appIds: ["com.citibank.mobile.cn"],
+    aliases: ["citidirect", "citibank mobile cn", "花旗银行"],
+  },
+  {
+    appIds: ["com.google.android.GoogleCamera"],
+    aliases: ["pixel相机", "pixel camera", "pixel 相机"],
+  },
+  {
+    appIds: ["com.gopro.smarty"],
+    aliases: ["gopro quok", "gopro quik", "gopro quick"],
+  },
+  {
+    appIds: ["org.telegram.messenger"],
+    aliases: ["телеграм", "телеграмм"],
+  },
 ];
 
 /** Wrong or truncated Play package ids from pasted URLs → canonical id */

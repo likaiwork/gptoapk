@@ -29,7 +29,7 @@ const JUNK_EXACT = new Set(
 );
 
 const JUNK_RE =
-  /pornhub|pronhub|onlyfans|deepfake|糖心|装逼生成器|付款记录|apk安装|apktool|快喵|vnp|ミルアウ|vampir|魅魔|海特洛|人民检察院|weverse_v|aptoide|wallpaper engine|壁纸引擎|lovense|gagaoolala|电脑版下载|ai search engine/i;
+  /pornhub|pronhub|onlyfans|deepfake|糖心|装逼生成器|付款记录|apk安装|apktool|快喵|vnp|ミルアウ|vampir|魅魔|海特洛|人民检察院|weverse_v|aptoide|wallpaper engine|壁纸引擎|lovense|gagaoolala|电脑版下载|ai search engine|\{search_term|javascript:|yun\.139\.com|熊出没.*后宫|^gptoapk$/i;
 
 const KEEP_RE =
   /xbox|googleearth|元气骑士|bumble|temu|webex|forest|愤怒小鸟|使命召唤|stick war|gta|coze|balatro|musicolet|everskies|droidcam|englishscore|weverse|traveloka|纪念碑谷|trainline|ubereat|authenticator|ventusky|lingokids|zynga|wsop|singtel|owntracks|star walk|moboreader|今日水印|英雄联盟|kazumi|realityscan|revolut|tuya/i;

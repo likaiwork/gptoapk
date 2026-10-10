@@ -43,9 +43,12 @@ function isUnresolvableMissingAppQuery(query: string): boolean {
     q.includes("壁纸引擎") ||
     q.includes("gagaoolala") ||
     q.includes("top 10 apk download") ||
+    q.includes("{search_term") ||
+    q.includes("javascript:") ||
+    q.includes("yun.139.com") ||
     /^\d{8,}$/.test(q) ||
     q.length <= 2 ||
-    /下载andr|andr[σⅰ]|android安装包/i.test(query)
+    /下载andr|andr[σⅰ]|android安装包|熊出没.*后宫/i.test(query)
   );
 }
 
