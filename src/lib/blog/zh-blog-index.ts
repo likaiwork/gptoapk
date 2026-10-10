@@ -14,6 +14,11 @@ import { zhPosts20260609List } from "@/lib/blog/posts-2026-06-09-zh";
 import { zhPosts20260610List } from "@/lib/blog/posts-2026-06-10-zh";
 import { zhPosts20260612ApptekaList } from "@/lib/blog/posts-2026-06-12-appteka-zh";
 import { zhPosts20260612VpnList } from "@/lib/blog/posts-2026-06-12-vpn-zh";
+import { zhPosts20260613KeywordsList } from "@/lib/blog/posts-2026-06-13-zh-keywords";
+import { zhPosts20260615AiAssistantList } from "@/lib/blog/posts-2026-06-15-zh-ai-assistant";
+import { zhPosts20260616InstagramList } from "@/lib/blog/posts-2026-06-16-zh-instagram";
+import { zhPosts20260617ApptekaKeywordsList } from "@/lib/blog/posts-2026-06-17-zh-appteka-keywords";
+import { zhPosts20260617WhatsappUpdateList } from "@/lib/blog/posts-2026-06-17-zh-whatsapp-update";
 import { zhPosts20260618List } from "@/lib/blog/posts-2026-06-18-zh";
 import { zhPosts20260623List } from "@/lib/blog/posts-2026-06-23-zh";
 import { zhPosts20260629List } from "@/lib/blog/posts-2026-06-29-zh";
@@ -22,6 +27,7 @@ import { zhPosts20260710List } from "@/lib/blog/posts-2026-07-10-zh";
 import { zhPosts20260713List } from "@/lib/blog/posts-2026-07-13-zh";
 import { zhPosts20260716List } from "@/lib/blog/posts-2026-07-16-zh";
 import { zhPosts20260717List } from "@/lib/blog/posts-2026-07-17-zh";
+import { zhPosts20260721List } from "@/lib/blog/posts-2026-07-21-zh";
 import { zhPosts20260727List } from "@/lib/blog/posts-2026-07-27-zh";
 import { zhPosts20260731List } from "@/lib/blog/posts-2026-07-31-zh";
 import { zhPosts20260803List } from "@/lib/blog/posts-2026-08-03-zh";
@@ -87,6 +93,11 @@ const MODULE_LISTS: ZhBlogMeta[][] = [
   zhPosts20260610List,
   zhPosts20260612ApptekaList,
   zhPosts20260612VpnList,
+  zhPosts20260613KeywordsList,
+  zhPosts20260615AiAssistantList,
+  zhPosts20260616InstagramList,
+  zhPosts20260617ApptekaKeywordsList,
+  zhPosts20260617WhatsappUpdateList,
   zhPosts20260618List,
   zhPosts20260623List,
   zhPosts20260629List,
@@ -95,6 +106,7 @@ const MODULE_LISTS: ZhBlogMeta[][] = [
   zhPosts20260713List,
   zhPosts20260716List,
   zhPosts20260717List,
+  zhPosts20260721List,
   zhPosts20260727List,
   zhPosts20260731List,
   zhPosts20260803List,
