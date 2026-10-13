@@ -67,6 +67,7 @@ import { enPosts20261008List } from "@/lib/blog/posts-2026-10-08-en";
 import { enPosts20261009List } from "@/lib/blog/posts-2026-10-09-en";
 import { enPosts20261010List } from "@/lib/blog/posts-2026-10-10-en";
 import { enPosts20261012List } from "@/lib/blog/posts-2026-10-12-en";
+import { enPosts20261013List } from "@/lib/blog/posts-2026-10-13-en";
 
 export type EnBlogMeta = EnBlogCatalogEntry;
 
@@ -139,6 +140,7 @@ const MODULE_LISTS: EnBlogMeta[][] = [
   enPosts20261009List,
   enPosts20261010List,
   enPosts20261012List,
+  enPosts20261013List,
 ];
 /** Single source of truth for en blog metadata (sitemap, hreflang). */
 export function getEnBlogIndex(): EnBlogMeta[] {
