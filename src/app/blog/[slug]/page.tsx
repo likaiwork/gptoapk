@@ -14,6 +14,14 @@ import { zhPosts20260731 } from "@/lib/blog/posts-2026-07-31-zh";
 import { enPosts20260731 } from "@/lib/blog/posts-2026-07-31-en";
 import { zhPosts20260803 } from "@/lib/blog/posts-2026-08-03-zh";
 import { enPosts20260803 } from "@/lib/blog/posts-2026-08-03-en";
+import { zhPosts20261013 } from "@/lib/blog/posts-2026-10-13-zh";
+import { enPosts20261013 } from "@/lib/blog/posts-2026-10-13-en";
+import { zhPosts20261014 } from "@/lib/blog/posts-2026-10-14-zh";
+import { enPosts20261014 } from "@/lib/blog/posts-2026-10-14-en";
+import { zhPosts20261015 } from "@/lib/blog/posts-2026-10-15-zh";
+import { enPosts20261015 } from "@/lib/blog/posts-2026-10-15-en";
+import { zhPosts20261016 } from "@/lib/blog/posts-2026-10-16-zh";
+import { enPosts20261016 } from "@/lib/blog/posts-2026-10-16-en";
 
 interface BlogPost {
   slug: string;
@@ -41,6 +49,14 @@ const posts: BlogPost[] = [
   ...enPosts20260731,
   ...zhPosts20260803,
   ...enPosts20260803,
+  ...zhPosts20261013,
+  ...enPosts20261013,
+  ...zhPosts20261014,
+  ...enPosts20261014,
+  ...zhPosts20261015,
+  ...enPosts20261015,
+  ...zhPosts20261016,
+  ...enPosts20261016,
   {
     slug: "webull-vs-moomoo-vs-tiger-brokers",
     title: "Webull vs Moomoo vs Tiger Brokers: Which US Stock App Is Best in 2026?",
