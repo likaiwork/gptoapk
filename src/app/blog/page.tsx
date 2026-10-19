@@ -103,9 +103,11 @@ import { enPosts20261013List } from "@/lib/blog/posts-2026-10-13-en";
 import { zhPosts20261014List } from "@/lib/blog/posts-2026-10-14-zh";
 import { zhPosts20261015List } from "@/lib/blog/posts-2026-10-15-zh";
 import { zhPosts20261016List } from "@/lib/blog/posts-2026-10-16-zh";
+import { zhPosts20261019List } from "@/lib/blog/posts-2026-10-19-zh";
 import { enPosts20261014List } from "@/lib/blog/posts-2026-10-14-en";
 import { enPosts20261015List } from "@/lib/blog/posts-2026-10-15-en";
 import { enPosts20261016List } from "@/lib/blog/posts-2026-10-16-en";
+import { enPosts20261019List } from "@/lib/blog/posts-2026-10-19-en";
 
 export const metadata: Metadata = {
   title: "Blog - APK Downloader Guides & Tutorials | gptoapk.com",
@@ -608,7 +610,9 @@ const posts: BlogPost[] = [
   ...enPosts20261015List,
   // === 2026-10-16: Google Play 提取 APK 方法、Split APK 安装指南 / extract APK from Google Play、install Split APKs ===
   ...zhPosts20261016List,
+  ...zhPosts20261019List,
   ...enPosts20261016List,
+  ...enPosts20261019List,
 ];
 
 export default function BlogPage() {
