@@ -104,10 +104,12 @@ import { zhPosts20261014List } from "@/lib/blog/posts-2026-10-14-zh";
 import { zhPosts20261015List } from "@/lib/blog/posts-2026-10-15-zh";
 import { zhPosts20261016List } from "@/lib/blog/posts-2026-10-16-zh";
 import { zhPosts20261019List } from "@/lib/blog/posts-2026-10-19-zh";
+import { zhPosts20261020List } from "@/lib/blog/posts-2026-10-20-zh";
 import { enPosts20261014List } from "@/lib/blog/posts-2026-10-14-en";
 import { enPosts20261015List } from "@/lib/blog/posts-2026-10-15-en";
 import { enPosts20261016List } from "@/lib/blog/posts-2026-10-16-en";
 import { enPosts20261019List } from "@/lib/blog/posts-2026-10-19-en";
+import { enPosts20261020List } from "@/lib/blog/posts-2026-10-20-en";
 
 export const metadata: Metadata = {
   title: "Blog - APK Downloader Guides & Tutorials | gptoapk.com",
@@ -613,6 +615,9 @@ const posts: BlogPost[] = [
   ...zhPosts20261019List,
   ...enPosts20261016List,
   ...enPosts20261019List,
+  // === 2026-10-20: APK 提取工具对比、安卓安全防护清单 / APK download risk tiers、APK compatibility decision table ===
+  ...zhPosts20261020List,
+  ...enPosts20261020List,
 ];
 
 export default function BlogPage() {

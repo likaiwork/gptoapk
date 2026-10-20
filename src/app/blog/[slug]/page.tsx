@@ -24,6 +24,8 @@ import { zhPosts20261016 } from "@/lib/blog/posts-2026-10-16-zh";
 import { enPosts20261016 } from "@/lib/blog/posts-2026-10-16-en";
 import { zhPosts20261019 } from "@/lib/blog/posts-2026-10-19-zh";
 import { enPosts20261019 } from "@/lib/blog/posts-2026-10-19-en";
+import { zhPosts20261020 } from "@/lib/blog/posts-2026-10-20-zh";
+import { enPosts20261020 } from "@/lib/blog/posts-2026-10-20-en";
 
 interface BlogPost {
   slug: string;
@@ -61,6 +63,8 @@ const posts: BlogPost[] = [
   ...enPosts20261016,
   ...zhPosts20261019,
   ...enPosts20261019,
+  ...zhPosts20261020,
+  ...enPosts20261020,
   {
     slug: "webull-vs-moomoo-vs-tiger-brokers",
     title: "Webull vs Moomoo vs Tiger Brokers: Which US Stock App Is Best in 2026?",
