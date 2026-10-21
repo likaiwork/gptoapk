@@ -105,11 +105,13 @@ import { zhPosts20261015List } from "@/lib/blog/posts-2026-10-15-zh";
 import { zhPosts20261016List } from "@/lib/blog/posts-2026-10-16-zh";
 import { zhPosts20261019List } from "@/lib/blog/posts-2026-10-19-zh";
 import { zhPosts20261020List } from "@/lib/blog/posts-2026-10-20-zh";
+import { zhPosts20261021List } from "@/lib/blog/posts-2026-10-21-zh";
 import { enPosts20261014List } from "@/lib/blog/posts-2026-10-14-en";
 import { enPosts20261015List } from "@/lib/blog/posts-2026-10-15-en";
 import { enPosts20261016List } from "@/lib/blog/posts-2026-10-16-en";
 import { enPosts20261019List } from "@/lib/blog/posts-2026-10-19-en";
 import { enPosts20261020List } from "@/lib/blog/posts-2026-10-20-en";
+import { enPosts20261021List } from "@/lib/blog/posts-2026-10-21-en";
 
 export const metadata: Metadata = {
   title: "Blog - APK Downloader Guides & Tutorials | gptoapk.com",
@@ -618,6 +620,9 @@ const posts: BlogPost[] = [
   // === 2026-10-20: APK 提取工具对比、安卓安全防护清单 / APK download risk tiers、APK compatibility decision table ===
   ...zhPosts20261020List,
   ...enPosts20261020List,
+  // === 2026-10-21: OPPO 安装 Google Play、Twitter(X) APK 下载 / APK mirror red flags、APK compatibility diagnosis ===
+  ...zhPosts20261021List,
+  ...enPosts20261021List,
 ];
 
 export default function BlogPage() {
