@@ -107,12 +107,14 @@ import { zhPosts20261019List } from "@/lib/blog/posts-2026-10-19-zh";
 import { zhPosts20261020List } from "@/lib/blog/posts-2026-10-20-zh";
 import { zhPosts20261021List } from "@/lib/blog/posts-2026-10-21-zh";
 import { zhPosts20261021BList } from "@/lib/blog/posts-2026-10-21b-zh";
+import { zhPosts20261022List } from "@/lib/blog/posts-2026-10-22-zh";
 import { enPosts20261014List } from "@/lib/blog/posts-2026-10-14-en";
 import { enPosts20261015List } from "@/lib/blog/posts-2026-10-15-en";
 import { enPosts20261016List } from "@/lib/blog/posts-2026-10-16-en";
 import { enPosts20261019List } from "@/lib/blog/posts-2026-10-19-en";
 import { enPosts20261020List } from "@/lib/blog/posts-2026-10-20-en";
 import { enPosts20261021List } from "@/lib/blog/posts-2026-10-21-en";
+import { enPosts20261022List } from "@/lib/blog/posts-2026-10-22-en";
 
 export const metadata: Metadata = {
   title: "Blog - APK Downloader Guides & Tutorials | gptoapk.com",
@@ -625,6 +627,9 @@ const posts: BlogPost[] = [
   ...zhPosts20261021List,
   ...zhPosts20261021BList,
   ...enPosts20261021List,
+  // === 2026-10-22: APK 闪退日志查看、APK 装完无法联网 / read Android crash logs、app no internet after install ===
+  ...zhPosts20261022List,
+  ...enPosts20261022List,
 ];
 
 export default function BlogPage() {
