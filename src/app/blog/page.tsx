@@ -117,6 +117,8 @@ import { enPosts20261021List } from "@/lib/blog/posts-2026-10-21-en";
 import { enPosts20261022List } from "@/lib/blog/posts-2026-10-22-en";
 import { zhPosts20261023List } from "@/lib/blog/posts-2026-10-23-zh";
 import { enPosts20261023List } from "@/lib/blog/posts-2026-10-23-en";
+import { zhPosts20261026List } from "@/lib/blog/posts-2026-10-26-zh";
+import { enPosts20261026List } from "@/lib/blog/posts-2026-10-26-en";
 
 export const metadata: Metadata = {
   title: "Blog - APK Downloader Guides & Tutorials | gptoapk.com",
@@ -635,6 +637,9 @@ const posts: BlogPost[] = [
   // === 2026-10-23: 第三方应用商店推荐、vivo APK 安装失败 / safe APK download checklist、APK compatibility check ===
   ...zhPosts20261023List,
   ...enPosts20261023List,
+  // === 2026-10-26: 安卓APK安全风险自查清单 / safely download APK source-to-uninstall audit ===
+  ...zhPosts20261026List,
+  ...enPosts20261026List,
 ];
 
 export default function BlogPage() {
