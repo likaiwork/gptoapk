@@ -119,6 +119,8 @@ import { zhPosts20261023List } from "@/lib/blog/posts-2026-10-23-zh";
 import { enPosts20261023List } from "@/lib/blog/posts-2026-10-23-en";
 import { zhPosts20261026List } from "@/lib/blog/posts-2026-10-26-zh";
 import { enPosts20261026List } from "@/lib/blog/posts-2026-10-26-en";
+import { zhPosts20261027List } from "@/lib/blog/posts-2026-10-27-zh";
+import { enPosts20261027List } from "@/lib/blog/posts-2026-10-27-en";
 
 export const metadata: Metadata = {
   title: "Blog - APK Downloader Guides & Tutorials | gptoapk.com",
@@ -640,6 +642,9 @@ const posts: BlogPost[] = [
   // === 2026-10-26: 安卓APK安全风险自查清单 / safely download APK source-to-uninstall audit ===
   ...zhPosts20261026List,
   ...enPosts20261026List,
+  // === 2026-10-27: 安卓APK文件是什么、targetSdkVersion说明 / safe APK download tiers、APK compatibility gates ===
+  ...zhPosts20261027List,
+  ...enPosts20261027List,
 ];
 
 export default function BlogPage() {
