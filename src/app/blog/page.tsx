@@ -123,6 +123,8 @@ import { zhPosts20261027List } from "@/lib/blog/posts-2026-10-27-zh";
 import { enPosts20261027List } from "@/lib/blog/posts-2026-10-27-en";
 import { zhPosts20261028List } from "@/lib/blog/posts-2026-10-28-zh";
 import { enPosts20261028List } from "@/lib/blog/posts-2026-10-28-en";
+import { zhPosts20261029List } from "@/lib/blog/posts-2026-10-29-zh";
+import { enPosts20261029List } from "@/lib/blog/posts-2026-10-29-en";
 
 export const metadata: Metadata = {
   title: "Blog - APK Downloader Guides & Tutorials | gptoapk.com",
@@ -650,6 +652,9 @@ const posts: BlogPost[] = [
   // === 2026-10-28: Instagram APK 下载更新、APK 完整性校验 / Samsung sideload (One UI)、online APK extractors ===
   ...zhPosts20261028List,
   ...enPosts20261028List,
+  // === 2026-10-29: APK 下载后找不到文件、反编译分析工具选型 / APK download aftermath verification、install failure diagnosis ===
+  ...zhPosts20261029List,
+  ...enPosts20261029List,
 ];
 
 export default function BlogPage() {
