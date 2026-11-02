@@ -127,6 +127,8 @@ import { zhPosts20261029List } from "@/lib/blog/posts-2026-10-29-zh";
 import { enPosts20261029List } from "@/lib/blog/posts-2026-10-29-en";
 import { zhPosts20261030List } from "@/lib/blog/posts-2026-10-30-zh";
 import { enPosts20261030List } from "@/lib/blog/posts-2026-10-30-en";
+import { zhPosts20261102List } from "@/lib/blog/posts-2026-11-02-zh";
+import { enPosts20261102List } from "@/lib/blog/posts-2026-11-02-en";
 
 export const metadata: Metadata = {
   title: "Blog - APK Downloader Guides & Tutorials | gptoapk.com",
@@ -660,6 +662,9 @@ const posts: BlogPost[] = [
   // === 2026-10-30: Facebook APK 下载安装、安卓模拟器 APK 安装 / safe APK download verification、APK compatibility check ===
   ...zhPosts20261030List,
   ...enPosts20261030List,
+  // === 2026-11-02: Google Play 更新无法下载、Play Protect 防护 / Play update stuck fix、Play Protect explained ===
+  ...zhPosts20261102List,
+  ...enPosts20261102List,
 ];
 
 export default function BlogPage() {
