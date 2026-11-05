@@ -89,6 +89,7 @@ import { zhPosts20261021B } from "@/lib/blog/posts-2026-10-21b-zh";
 import { zhPosts20261023 } from "@/lib/blog/posts-2026-10-23-zh";
 import { zhPosts20261104 } from "@/lib/blog/posts-2026-11-04-zh";
 import { zhPosts20261105 } from "@/lib/blog/posts-2026-11-05-zh";
+import { zhPosts20261105Geo } from "@/lib/blog/posts-2026-11-05-geo-zh";
 import {
   buildBlogBreadcrumbJsonLd,
   buildBlogPostingJsonLd,
@@ -16686,6 +16687,7 @@ const zhModularPosts: BlogPost[] = [
   ...zhPosts20261023,
   ...zhPosts20261104,
   ...zhPosts20261105,
+  ...zhPosts20261105Geo,
 ];
 
 function findZhBlogPost(rawSlug: string): BlogPost | undefined {
