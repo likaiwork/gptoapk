@@ -680,6 +680,9 @@ const posts: BlogPost[] = [
   // === 2026-11-05: APK 应用无响应排查、多渠道打包原理 / safe APK download workflow、APK compatibility decision table ===
   ...zhPosts20261105List,
   ...enPosts20261105List,
+  // === 2026-11-04: APK 通知不弹出排查、离线安装包方案 / offline APK installation、notifications not showing ===
+  ...zhPosts20261104List,
+  ...enPosts20261104List,
 ];
 
 export default function BlogPage() {
