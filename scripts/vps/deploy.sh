@@ -44,6 +44,11 @@ restore_next() {
   fi
 }
 
+# Stale lock from a crashed/concurrent build blocks the next deploy and leaves pm2 stopped.
+rm -f .next/lock
+pkill -f "next build" >/dev/null 2>&1 || true
+sleep 1
+
 echo "[deploy] build"
 if ! npm run build; then
   restore_next

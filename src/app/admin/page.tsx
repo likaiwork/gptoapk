@@ -2,7 +2,7 @@
 
 import { Fragment, useEffect, useState, useCallback, useRef } from "react";
 import { PAID_APP_UNSUPPORTED_CODE } from "@/lib/download-errors";
-import { formatSearchFailureKind } from "@/lib/search-failure-key";
+import { formatSearchFailureKind } from "@/lib/search-failure-format";
 
 // 国家代码 → 中文/英文 映射
 const COUNTRY_NAMES: Record<string, [string, string]> = {
