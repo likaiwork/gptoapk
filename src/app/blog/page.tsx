@@ -145,6 +145,8 @@ import { zhPosts20261110List } from "@/lib/blog/posts-2026-11-10-zh";
 import { enPosts20261110List } from "@/lib/blog/posts-2026-11-10-en";
 import { zhPosts20261111List } from "@/lib/blog/posts-2026-11-11-zh";
 import { enPosts20261111List } from "@/lib/blog/posts-2026-11-11-en";
+import { zhPosts20261111BList } from "@/lib/blog/posts-2026-11-11b-zh";
+import { enPosts20261111BList } from "@/lib/blog/posts-2026-11-11b-en";
 
 export const metadata: Metadata = {
   title: "Blog - APK Downloader Guides & Tutorials | gptoapk.com",
@@ -705,6 +707,9 @@ const posts: BlogPost[] = [
   // === 2026-11-11: APK 系统应用冲突、APK 批量安装 / safe APK download verification、APK compatibility check ===
   ...zhPosts20261111List,
   ...enPosts20261111List,
+  // === 2026-11-11B: APK手机传电脑、APK签名校验、APK闪退排查 / APK to PC、APK signature、APK launch crash ===
+  ...zhPosts20261111BList,
+  ...enPosts20261111BList,
   // === 2026-11-04: APK 通知不弹出排查、离线安装包方案 / offline APK installation、notifications not showing ===
   ...zhPosts20261104List,
   ...enPosts20261104List,
