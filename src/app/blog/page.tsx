@@ -149,6 +149,10 @@ import { zhPosts20261111BList } from "@/lib/blog/posts-2026-11-11b-zh";
 import { enPosts20261111BList } from "@/lib/blog/posts-2026-11-11b-en";
 import { zhPosts20261112List } from "@/lib/blog/posts-2026-11-12-zh";
 import { enPosts20261112List } from "@/lib/blog/posts-2026-11-12-en";
+import { zhPosts20261112BList } from "@/lib/blog/posts-2026-11-12b-zh";
+import { enPosts20261112BList } from "@/lib/blog/posts-2026-11-12b-en";
+import { zhPosts20261112CList } from "@/lib/blog/posts-2026-11-12c-zh";
+import { enPosts20261112CList } from "@/lib/blog/posts-2026-11-12c-en";
 
 export const metadata: Metadata = {
   title: "Blog - APK Downloader Guides & Tutorials | gptoapk.com",
@@ -715,6 +719,10 @@ const posts: BlogPost[] = [
   // === 2026-11-12: APK 占用空间过大、APK 数据迁移备份 / APK storage bloat、app data migration ===
   ...zhPosts20261112List,
   ...enPosts20261112List,
+  ...zhPosts20261112BList,
+  ...enPosts20261112BList,
+  ...zhPosts20261112CList,
+  ...enPosts20261112CList,
   // === 2026-11-04: APK 通知不弹出排查、离线安装包方案 / offline APK installation、notifications not showing ===
   ...zhPosts20261104List,
   ...enPosts20261104List,
