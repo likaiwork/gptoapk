@@ -159,6 +159,12 @@ import { zhPosts20261113BList } from "@/lib/blog/posts-2026-11-13b-zh";
 import { enPosts20261113BList } from "@/lib/blog/posts-2026-11-13b-en";
 import { zhPosts20261113CList } from "@/lib/blog/posts-2026-11-13c-zh";
 import { enPosts20261113CList } from "@/lib/blog/posts-2026-11-13c-en";
+import { zhPosts20261113DList } from "@/lib/blog/posts-2026-11-13d-zh";
+import { enPosts20261113DList } from "@/lib/blog/posts-2026-11-13d-en";
+import { zhPosts20261113EList } from "@/lib/blog/posts-2026-11-13e-zh";
+import { enPosts20261113EList } from "@/lib/blog/posts-2026-11-13e-en";
+import { zhPosts20261113FList } from "@/lib/blog/posts-2026-11-13f-zh";
+import { enPosts20261113FList } from "@/lib/blog/posts-2026-11-13f-en";
 
 export const metadata: Metadata = {
   title: "Blog - APK Downloader Guides & Tutorials | gptoapk.com",
@@ -183,6 +189,12 @@ interface BlogPost {
 }
 
 const posts: BlogPost[] = [
+  ...zhPosts20261113DList,
+  ...enPosts20261113DList,
+  ...zhPosts20261113EList,
+  ...enPosts20261113EList,
+  ...zhPosts20261113FList,
+  ...enPosts20261113FList,
   // === 2026-06-01: GEO + SEO 文章 ===
   { slug: "android-google-play-compatibility-check-guide", title: "Android 12/13/14/15 Google Play 兼容性检查指南：设备不兼容怎么办？2026最新解决方案", description: "Google Play显示设备不兼容？Android 12/13/14/15安装APK提示不兼容？本文详细梳理兼容性检查方法、targetSdkVersion、API级别、ABI架构、屏幕密度等核心概念，附6种解决设备不兼容的实操方案。", date: "2026-06-01", readTime: "10 min read", tags: ["Android兼容性", "Google Play不兼容", "APK安装失败", "设备不兼容"] },
   { slug: "apk-signature-verification-failed-fix", title: "APK签名验证失败怎么办？6种方法彻底解决安装签名错误 2026", description: "APK签名验证失败是Android安装应用时的常见报错。本文详解签名V1/V2/V3的区别、验证失败的根本原因，并提供6种解决方案。", date: "2026-06-01", readTime: "10 min read", tags: ["APK签名验证", "签名失败", "Android安装错误", "APK安装失败"] },

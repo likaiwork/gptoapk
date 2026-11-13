@@ -1,0 +1,45 @@
+{
+  "date": "2026-11-13",
+  "note": "Daily SEO batch. Keys d/e/f continue the a/b/c batch published earlier the same day. Replace this file for each new day (set date + new keys d/e/f or a/b/c).",
+  "groups": [
+    {
+      "key": "d",
+      "zh": {
+        "file": "442-侧载APK无障碍权限置灰解除.md",
+        "slug": "apk-accessibility-grayed-out-fix",
+        "tags": ["侧载APK", "无障碍权限", "受限设置", "故障排查", "gptoapk"]
+      },
+      "en": {
+        "file": "en-442-android-restricted-settings-sideloaded-apk.md",
+        "slug": "android-restricted-settings-accessibility-sideload",
+        "tags": ["android", "apk", "accessibility", "security", "howto"]
+      }
+    },
+    {
+      "key": "e",
+      "zh": {
+        "file": "443-无谷歌服务设备运行APK排查.md",
+        "slug": "apk-no-gms-login-push-fix",
+        "tags": ["无GMS", "侧载APK", "推送", "故障排查", "gptoapk"]
+      },
+      "en": {
+        "file": "en-443-running-apks-without-google-play-services.md",
+        "slug": "apk-without-google-play-services-dependency-map",
+        "tags": ["android", "apk", "gms", "troubleshooting", "howto"]
+      }
+    },
+    {
+      "key": "f",
+      "zh": {
+        "file": "444-APK下载链接403与失效排查.md",
+        "slug": "apk-link-403-404-retry-checklist",
+        "tags": ["APK下载", "403错误", "CDN", "校验", "gptoapk"]
+      },
+      "en": {
+        "file": "en-444-apk-download-403-404-expired-link-guide.md",
+        "slug": "apk-download-403-404-expired-link-guide",
+        "tags": ["android", "apk", "download", "cdn", "troubleshooting"]
+      }
+    }
+  ]
+}
