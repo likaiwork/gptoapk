@@ -1,4 +1,5 @@
 import SearchBox from "@/components/SearchBox";
+import AdsterraNativeBanner from "@/components/AdsterraNativeBanner";
 import Link from "next/link";
 
 export default function EnHome() {
@@ -57,6 +58,9 @@ export default function EnHome() {
           </p>
         </div>
       </div>
+
+      {/* Adsterra Native Banner — after the feature cards, before the guide section */}
+      <AdsterraNativeBanner />
 
       {/* How It Works */}
       <div className="mt-24 max-w-3xl w-full">
