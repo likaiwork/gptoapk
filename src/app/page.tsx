@@ -1,4 +1,5 @@
 import SearchBox from "@/components/SearchBox";
+import AdsterraNativeBanner from "@/components/AdsterraNativeBanner";
 import Link from "next/link";
 import Script from "next/script";
 
@@ -52,6 +53,9 @@ export default function HomeZh() {
           <p className="text-slate-600 dark:text-slate-400">完全免费使用，无需创建账号或下载任何扩展程序。</p>
         </div>
       </div>
+
+      {/* Adsterra Native Banner — after the feature cards, before the guide section */}
+      <AdsterraNativeBanner />
 
       {/* How It Works */}
       <div className="mt-24 max-w-3xl w-full">
