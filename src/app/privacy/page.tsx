@@ -55,7 +55,7 @@ export default function PrivacyPolicyPage() {
           body: (
             <>
               <p>
-                We display advertisements through third-party advertising partners (for example Monetag). These partners may use cookies or similar technologies to deliver ads, measure performance, and limit how often you see the same ad.
+                We display advertisements through third-party advertising partners (for example Adsterra). These partners may use cookies or similar technologies to deliver ads, measure performance, and limit how often you see the same ad.
               </p>
               <ul className="list-disc pl-6 space-y-2 mt-2">
                 <li>

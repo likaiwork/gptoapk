@@ -16,7 +16,7 @@ const SCRIPT_ELEMENT_ID = "adsterra-native-banner-script";
 /**
  * Homepage Adsterra Native Banner slot.
  *
- * - Only renders after advertising consent, matching AdPlacement / SiteAdStrip.
+ * - Only renders after advertising consent, matching the site's cookie-consent gate.
  * - Adsterra's async snippet expects its <script> immediately before the
  *   container element, so we inject it in place. next/script would append the
  *   script at the end of <body>, which breaks that ordering.

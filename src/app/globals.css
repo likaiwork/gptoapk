@@ -27,8 +27,7 @@ body {
 
 /* Keep ad slots from expanding over interactive UI */
 .ad-placement,
-.ad-unit,
-.monetag-slot {
+.ad-unit {
   position: relative;
   isolation: isolate;
   overflow: hidden;
