@@ -1,0 +1,32 @@
+{
+  "date": "2026-11-17",
+  "note": "2026-11-17 daily batch: 448 (throttling diagnosis) + 449 (deleted APK recovery), zh + en.",
+  "groups": [
+    {
+      "key": "a",
+      "zh": {
+        "file": "448-APK下载网速慢怎么办.md",
+        "slug": "apk-download-speed-throttling-diagnosis",
+        "tags": ["APK下载", "网速慢", "CDN限速", "镜像源", "故障排查", "gptoapk"]
+      },
+      "en": {
+        "file": "en-448-apk-download-throttling-speed-diagnosis.md",
+        "slug": "apk-download-throttling-speed-diagnosis",
+        "tags": ["android", "apk", "network", "download", "troubleshooting", "gptoapk"]
+      }
+    },
+    {
+      "key": "b",
+      "zh": {
+        "file": "449-APK文件误删恢复方法.md",
+        "slug": "apk-file-deleted-recovery-methods",
+        "tags": ["APK文件", "误删恢复", "adb pull", "安装包备份", "数据恢复", "gptoapk"]
+      },
+      "en": {
+        "file": "en-449-recover-deleted-apk-file.md",
+        "slug": "recover-deleted-apk-file",
+        "tags": ["android", "apk", "recovery", "adb", "troubleshooting", "gptoapk"]
+      }
+    }
+  ]
+}
