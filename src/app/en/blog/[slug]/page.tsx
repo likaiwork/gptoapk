@@ -92,6 +92,7 @@ import { enPosts20261116 } from "@/lib/blog/posts-2026-11-16-en";
 import { enPosts20261116G } from "@/lib/blog/posts-2026-11-16g-en";
 import { enPosts20261117A } from "@/lib/blog/posts-2026-11-17a-en";
 import { enPosts20261117B } from "@/lib/blog/posts-2026-11-17b-en";
+import { enPosts20261117C } from "@/lib/blog/posts-2026-11-17c-en";
 
 interface BlogPost {
   slug: string;
@@ -104,6 +105,7 @@ interface BlogPost {
 }
 
 const posts: BlogPost[] = [
+  ...enPosts20261117C,
   ...enPosts20261117A,
   ...enPosts20261117B,
   ...enPosts20261116,

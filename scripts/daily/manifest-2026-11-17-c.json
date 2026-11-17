@@ -1,0 +1,19 @@
+{
+  "date": "2026-11-17",
+  "note": "Third group for the 2026-11-17 batch. Groups a/b (448/449) were already generated, registered and pushed by the other daily pipeline; this manifest adds group c (450) via the reusable generator. zh and en share one slug.",
+  "groups": [
+    {
+      "key": "c",
+      "zh": {
+        "file": "450-APK下载完找不到文件排查.md",
+        "slug": "apk-downloaded-file-not-found-scoped-storage",
+        "tags": ["APK下载", "分区存储", "下载目录", "adb", "故障排查", "gptoapk"]
+      },
+      "en": {
+        "file": "en-450-apk-downloaded-file-not-found.md",
+        "slug": "apk-downloaded-file-not-found-scoped-storage",
+        "tags": ["android", "apk", "scoped storage", "adb", "troubleshooting", "gptoapk"]
+      }
+    }
+  ]
+}
