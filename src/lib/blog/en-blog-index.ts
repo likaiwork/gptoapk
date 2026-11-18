@@ -109,10 +109,12 @@ import { enPosts20261117BList } from "@/lib/blog/posts-2026-11-17b-en";
 import { enPosts20261117CList } from "@/lib/blog/posts-2026-11-17c-en";
 import { enPosts20261118AList } from "@/lib/blog/posts-2026-11-18a-en";
 import { enPosts20261118BList } from "@/lib/blog/posts-2026-11-18b-en";
+import { enPosts20261118CList } from "@/lib/blog/posts-2026-11-18c-en";
 
 export type EnBlogMeta = EnBlogCatalogEntry;
 
 const MODULE_LISTS: EnBlogMeta[][] = [
+  enPosts20261118CList,
   enPosts20261118BList,
   enPosts20261118AList,
   enPosts20261117CList,
