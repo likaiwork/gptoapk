@@ -108,6 +108,11 @@ import { zhPosts20261117C } from "@/lib/blog/posts-2026-11-17c-zh";
 import { zhPosts20261118A } from "@/lib/blog/posts-2026-11-18a-zh";
 import { zhPosts20261118B } from "@/lib/blog/posts-2026-11-18b-zh";
 import { zhPosts20261118C } from "@/lib/blog/posts-2026-11-18c-zh";
+import { zhPosts20261119A } from "@/lib/blog/posts-2026-11-19a-zh";
+import { zhPosts20261119B } from "@/lib/blog/posts-2026-11-19b-zh";
+import { zhPosts20261120A } from "@/lib/blog/posts-2026-11-20a-zh";
+import { zhPosts20261120B } from "@/lib/blog/posts-2026-11-20b-zh";
+import { zhPosts20261120C } from "@/lib/blog/posts-2026-11-20c-zh";
 import {
   buildBlogBreadcrumbJsonLd,
   buildBlogPostingJsonLd,
@@ -130,6 +135,11 @@ interface BlogPost {
 }
 
 const zhPosts: BlogPost[] = [
+  ...zhPosts20261120C,
+  ...zhPosts20261120B,
+  ...zhPosts20261120A,
+  ...zhPosts20261119B,
+  ...zhPosts20261119A,
   ...zhPosts20261118C,
   ...zhPosts20261118A,
   ...zhPosts20261118B,

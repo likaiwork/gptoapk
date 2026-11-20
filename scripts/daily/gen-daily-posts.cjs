@@ -32,7 +32,11 @@ const enc = (s) =>
     .replace(/&(?!(amp|lt|gt|quot|#\d+);)/g, "&amp;")
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;");
+    .replace(/"/g, "&quot;")
+    // Curly braces inside JSX text are parsed as expressions. Escape them as
+    // HTML entities so shell snippets like curl -w "%{http_code}" stay literal.
+    .replace(/\{/g, "&#123;")
+    .replace(/\}/g, "&#125;");
 
 const HOMEPAGE = { zh: "/zh", en: "/en" };
 
@@ -129,8 +133,15 @@ function convert(md, lang) {
         rows.push(lines[i].trim());
         i++;
       }
+      // A literal pipe inside a cell is written as \| (common in shell snippets).
+      // Protect it before splitting so the command is not torn into extra columns.
       const cells = (r) =>
-        r.replace(/^\|/, "").replace(/\|$/, "").split("|").map((c) => c.trim());
+        r
+          .replace(/^\|/, "")
+          .replace(/\|$/, "")
+          .replace(/\\\|/g, "\u0000")
+          .split("|")
+          .map((c) => c.trim().replace(/\u0000/g, "|"));
       const header = cells(rows[0]);
       const body = rows
         .slice(1)

@@ -96,6 +96,11 @@ import { enPosts20261117C } from "@/lib/blog/posts-2026-11-17c-en";
 import { enPosts20261118A } from "@/lib/blog/posts-2026-11-18a-en";
 import { enPosts20261118B } from "@/lib/blog/posts-2026-11-18b-en";
 import { enPosts20261118C } from "@/lib/blog/posts-2026-11-18c-en";
+import { enPosts20261119A } from "@/lib/blog/posts-2026-11-19a-en";
+import { enPosts20261119B } from "@/lib/blog/posts-2026-11-19b-en";
+import { enPosts20261120A } from "@/lib/blog/posts-2026-11-20a-en";
+import { enPosts20261120B } from "@/lib/blog/posts-2026-11-20b-en";
+import { enPosts20261120C } from "@/lib/blog/posts-2026-11-20c-en";
 
 interface BlogPost {
   slug: string;
@@ -108,6 +113,11 @@ interface BlogPost {
 }
 
 const posts: BlogPost[] = [
+  ...enPosts20261120C,
+  ...enPosts20261120B,
+  ...enPosts20261120A,
+  ...enPosts20261119B,
+  ...enPosts20261119A,
   ...enPosts20261118C,
   ...enPosts20261118A,
   ...enPosts20261118B,
