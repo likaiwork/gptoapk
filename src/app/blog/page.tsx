@@ -181,6 +181,10 @@ import { zhPosts20261118BList } from "@/lib/blog/posts-2026-11-18b-zh";
 import { enPosts20261118BList } from "@/lib/blog/posts-2026-11-18b-en";
 import { zhPosts20261118CList } from "@/lib/blog/posts-2026-11-18c-zh";
 import { enPosts20261118CList } from "@/lib/blog/posts-2026-11-18c-en";
+import { zhPosts20261120BList } from "@/lib/blog/posts-2026-11-20b-zh";
+import { enPosts20261120BList } from "@/lib/blog/posts-2026-11-20b-en";
+import { zhPosts20261120AList } from "@/lib/blog/posts-2026-11-20a-zh";
+import { enPosts20261120AList } from "@/lib/blog/posts-2026-11-20a-en";
 import { zhPosts20261119BList } from "@/lib/blog/posts-2026-11-19b-zh";
 import { enPosts20261119BList } from "@/lib/blog/posts-2026-11-19b-en";
 import { zhPosts20261119AList } from "@/lib/blog/posts-2026-11-19a-zh";
@@ -209,6 +213,10 @@ interface BlogPost {
 }
 
 const posts: BlogPost[] = [
+  ...zhPosts20261120BList,
+  ...enPosts20261120BList,
+  ...zhPosts20261120AList,
+  ...enPosts20261120AList,
   ...zhPosts20261119BList,
   ...enPosts20261119BList,
   ...zhPosts20261119AList,
