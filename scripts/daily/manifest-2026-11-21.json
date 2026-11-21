@@ -1,0 +1,45 @@
+{
+  "date": "2026-11-21",
+  "note": "Full 3 zh + 3 en batch for 2026-11-21. No articles, posts-*.tsx or manifest existed for this date at run start (previous batch was 2026-11-20 a/b/c, max num 459, HEAD f8c8cbb), so all three groups a/b/c are free and generated from scratch via the reusable generator. Three fresh, zero-collision technical topics (verified against all 436 existing slugs and seo-articles frontmatter/keywords): (a) blank embedded WebView / cleartext / mixed content, (b) Work Profile / multi-user isolation / pm install --user, (c) default app roles / RoleManager qualification. Each zh/en pair shares one slug. All in-site internal links were curl-verified 200 on their respective language side.",
+  "groups": [
+    {
+      "key": "a",
+      "zh": {
+        "file": "460-装完APK内嵌网页白屏排查.md",
+        "slug": "apk-embedded-webview-blank-cleartext-not-permitted",
+        "tags": ["WebView", "明文流量", "Network Security Config", "adb", "故障排查"]
+      },
+      "en": {
+        "file": "en-460-apk-embedded-webview-blank-cleartext-not-permitted.md",
+        "slug": "apk-embedded-webview-blank-cleartext-not-permitted",
+        "tags": ["WebView", "cleartext traffic", "Network Security Config", "adb", "troubleshooting"]
+      }
+    },
+    {
+      "key": "b",
+      "zh": {
+        "file": "461-工作资料手机分身装不进APK排查.md",
+        "slug": "apk-install-work-profile-multi-user-pm-user",
+        "tags": ["多用户", "工作资料", "pm install", "adb", "故障排查"]
+      },
+      "en": {
+        "file": "en-461-apk-install-work-profile-multi-user-pm-user.md",
+        "slug": "apk-install-work-profile-multi-user-pm-user",
+        "tags": ["multi-user", "Work Profile", "pm install", "adb", "troubleshooting"]
+      }
+    },
+    {
+      "key": "c",
+      "zh": {
+        "file": "462-侧载APK设为默认应用不生效排查.md",
+        "slug": "apk-default-app-role-not-sticking-rolemanager",
+        "tags": ["默认应用", "RoleManager", "intent-filter", "adb", "故障排查"]
+      },
+      "en": {
+        "file": "en-462-apk-default-app-role-not-sticking-rolemanager.md",
+        "slug": "apk-default-app-role-not-sticking-rolemanager",
+        "tags": ["default apps", "RoleManager", "intent-filter", "adb", "troubleshooting"]
+      }
+    }
+  ]
+}
