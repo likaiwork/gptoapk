@@ -118,10 +118,16 @@ import { enPosts20261120CList } from "@/lib/blog/posts-2026-11-20c-en";
 import { enPosts20261121AList } from "@/lib/blog/posts-2026-11-21a-en";
 import { enPosts20261121BList } from "@/lib/blog/posts-2026-11-21b-en";
 import { enPosts20261121CList } from "@/lib/blog/posts-2026-11-21c-en";
+import { enPosts20261122AList } from "@/lib/blog/posts-2026-11-22a-en";
+import { enPosts20261122BList } from "@/lib/blog/posts-2026-11-22b-en";
+import { enPosts20261122CList } from "@/lib/blog/posts-2026-11-22c-en";
 
 export type EnBlogMeta = EnBlogCatalogEntry;
 
 const MODULE_LISTS: EnBlogMeta[][] = [
+  enPosts20261122AList,
+  enPosts20261122BList,
+  enPosts20261122CList,
   enPosts20261121AList,
   enPosts20261121BList,
   enPosts20261121CList,

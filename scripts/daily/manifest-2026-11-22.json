@@ -1,0 +1,45 @@
+{
+  "date": "2026-11-22",
+  "note": "Full 3 zh + 3 en batch for 2026-11-22. At run start no .md, no posts-2026-11-22*.tsx and no manifest existed for this date (previous batch was 2026-11-21 a/b/c, max num 462, HEAD 443e7c3, .daily-tasks.json still stale at 2026-11-20), so groups a/b/c are all free and generated from scratch. Three fresh, zero-collision technical topics verified against all 464 existing slugs and the recent-topic avoid-list (download resume / battery drain / no icon / restricted settings / no GMS / 403-404 / signature / permission auto-revoke / rollback-keep-data / compatibility check): (a) Android 11 package visibility + queries + targetSdk 30, (b) SCHEDULE_EXACT_ALARM / USE_EXACT_ALARM / Doze exact alarms, (c) Android 13 per-app language + localeConfig + AAB language splits. Each zh/en pair shares one slug. All in-site internal links were curl-verified 200 on their own language side (the one same-batch cross-link resolves to 200 after this deploy).",
+  "groups": [
+    {
+      "key": "a",
+      "zh": {
+        "file": "463-装完APK拉不起别的应用排查.md",
+        "slug": "apk-package-visibility-queries-targetsdk30",
+        "tags": ["包可见性", "queries", "targetSdk", "adb", "故障排查"]
+      },
+      "en": {
+        "file": "en-463-apk-package-visibility-queries-targetsdk30.md",
+        "slug": "apk-package-visibility-queries-targetsdk30",
+        "tags": ["package visibility", "queries", "targetSdk", "adb", "troubleshooting"]
+      }
+    },
+    {
+      "key": "b",
+      "zh": {
+        "file": "464-侧载闹钟提醒APK到点不响排查.md",
+        "slug": "apk-exact-alarm-schedule-exact-alarm-not-firing",
+        "tags": ["精确闹钟", "SCHEDULE_EXACT_ALARM", "Doze", "adb", "故障排查"]
+      },
+      "en": {
+        "file": "en-464-apk-exact-alarm-schedule-exact-alarm-not-firing.md",
+        "slug": "apk-exact-alarm-schedule-exact-alarm-not-firing",
+        "tags": ["exact alarms", "SCHEDULE_EXACT_ALARM", "Doze", "adb", "troubleshooting"]
+      }
+    },
+    {
+      "key": "c",
+      "zh": {
+        "file": "465-侧载APK语言不跟随系统排查.md",
+        "slug": "apk-per-app-language-not-following-system-locale",
+        "tags": ["每应用语言", "localeConfig", "资源限定符", "adb", "故障排查"]
+      },
+      "en": {
+        "file": "en-465-apk-per-app-language-not-following-system-locale.md",
+        "slug": "apk-per-app-language-not-following-system-locale",
+        "tags": ["per-app language", "localeConfig", "resource qualifiers", "adb", "troubleshooting"]
+      }
+    }
+  ]
+}
