@@ -1,0 +1,32 @@
+{
+  "date": "2026-11-23",
+  "note": "2 zh + 2 en batch for 2026-11-23. Crawler returned duplicated zh topic 'APK下载安全检测方法' (already covered by 3 existing posts) and en topics 'how to safely download APK files on Android' (20+ existing posts) and 'Android APK compatibility check' (30+ existing posts) — all rejected as duplicates. Replaced with two fresh zero-collision technical angles verified against 465 existing slugs: (a) sideloaded game ignores controller / gamepad input chain (getevent, dumpsys input, XInput vs DInput, per-signer mapping profiles, stripped libs), (b) local APK security audit without third-party antivirus (apksigner, aapt permissions, exported components, packer signals, runtime logcat).",
+  "groups": [
+    {
+      "key": "a",
+      "zh": {
+        "file": "466-侧载APK游戏手柄映射不生效排查.md",
+        "slug": "sideloaded-game-controller-buttons-not-mapped",
+        "tags": ["游戏手柄", "HID描述符", "getevent", "adb", "故障排查"]
+      },
+      "en": {
+        "file": "en-466-sideloaded-game-controller-buttons-not-mapped.md",
+        "slug": "sideloaded-game-controller-buttons-not-mapped",
+        "tags": ["gamepad", "controller", "adb", "troubleshooting"]
+      }
+    },
+    {
+      "key": "b",
+      "zh": {
+        "file": "467-安卓APK本机安全扫描方法.md",
+        "slug": "scan-apk-for-malware-without-antivirus",
+        "tags": ["APK安全", "apksigner", "权限检查", "adb", "安全检查"]
+      },
+      "en": {
+        "file": "en-467-scan-apk-for-malware-without-antivirus.md",
+        "slug": "scan-apk-for-malware-without-antivirus",
+        "tags": ["apk", "security", "adb", "verification"]
+      }
+    }
+  ]
+}

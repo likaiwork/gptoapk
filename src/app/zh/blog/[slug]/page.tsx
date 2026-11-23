@@ -119,6 +119,8 @@ import { zhPosts20261121C } from "@/lib/blog/posts-2026-11-21c-zh";
 import { zhPosts20261122A } from "@/lib/blog/posts-2026-11-22a-zh";
 import { zhPosts20261122B } from "@/lib/blog/posts-2026-11-22b-zh";
 import { zhPosts20261122C } from "@/lib/blog/posts-2026-11-22c-zh";
+import { zhPosts20261123A } from "@/lib/blog/posts-2026-11-23a-zh";
+import { zhPosts20261123B } from "@/lib/blog/posts-2026-11-23b-zh";
 import {
   buildBlogBreadcrumbJsonLd,
   buildBlogPostingJsonLd,
@@ -141,6 +143,8 @@ interface BlogPost {
 }
 
 const zhPosts: BlogPost[] = [
+  ...zhPosts20261123A,
+  ...zhPosts20261123B,
   ...zhPosts20261122A,
   ...zhPosts20261122B,
   ...zhPosts20261122C,
