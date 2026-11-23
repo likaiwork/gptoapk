@@ -1,0 +1,19 @@
+{
+  "date": "2026-11-23",
+  "note": "Third pair (c) for 2026-11-23, complementing OpenClaw's a/b batch (466/467, 2 zh + 2 en). Topic: sideloaded APK fails to share files / open attachments - FileUriExposedException, FileProvider config, temporary content:// URI grants, authority collisions (INSTALL_FAILED_CONFLICTING_PROVIDER), scoped storage and package visibility. Zero collision verified against all 444 existing slugs; avoids the recent-topic exclusion list and the a/b topics (gamepad mapping, local APK security scan). zh/en share one slug.",
+  "groups": [
+    {
+      "key": "c",
+      "zh": {
+        "file": "468-侧载APK分享文件到别的应用失败排查.md",
+        "slug": "apk-fileprovider-share-attachment-fails-content-uri",
+        "tags": ["FileProvider", "content URI", "URI授权", "adb", "故障排查"]
+      },
+      "en": {
+        "file": "en-468-apk-fileprovider-share-attachment-fails-content-uri.md",
+        "slug": "apk-fileprovider-share-attachment-fails-content-uri",
+        "tags": ["FileProvider", "content URI", "URI grants", "adb", "troubleshooting"]
+      }
+    }
+  ]
+}
