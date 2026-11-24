@@ -1,0 +1,19 @@
+{
+  "date": "2026-11-24",
+  "note": "Third pair (g) for 2026-11-24, complementing OpenClaw's keyless a/b batch (469/470, 2 zh + 2 en, already live in posts-2026-11-24-{zh,en}.tsx with all 5 registrations). Topic: Android 14 foregroundServiceType / FOREGROUND_SERVICE_* type permissions causing sideloaded APK background services to fail (MissingForegroundServiceTypeException, while-in-use limits, Android 12 background start ban, Android 15 quotas). Zero collision verified against all 449 existing slugs; avoids the recent-topic exclusion list and the a/b topics (download safety workflow, safety myths, compatibility check). zh/en share one slug. Key g chosen because the a/b batch used keyless module names, leaving all single-letter gen keys free.",
+  "groups": [
+    {
+      "key": "g",
+      "zh": {
+        "file": "471-侧载APK后台服务起不来排查.md",
+        "slug": "apk-foreground-service-type-start-fails-android14",
+        "tags": ["前台服务", "foregroundServiceType", "Android 14", "adb", "故障排查"]
+      },
+      "en": {
+        "file": "en-471-apk-foreground-service-type-start-fails-android14.md",
+        "slug": "apk-foreground-service-type-start-fails-android14",
+        "tags": ["foreground service", "foregroundServiceType", "Android 14", "adb", "troubleshooting"]
+      }
+    }
+  ]
+}
