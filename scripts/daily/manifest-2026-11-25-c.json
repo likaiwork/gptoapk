@@ -1,0 +1,19 @@
+{
+  "date": "2026-11-25",
+  "note": "Third pair (c) for 2026-11-25, complementing OpenClaw's keyless a/b batch (472/473, 2 zh + 2 en, already live in posts-2026-11-25-{zh,en}.tsx with all 5 registrations, commit 2e362b1). Topic: Android 13/14 granular media permissions (READ_MEDIA_IMAGES / VIDEO / AUDIO), partial photo access (READ_MEDIA_VISUAL_USER_SELECTED), scoped storage and the zero-permission Photo Picker. Verified zero collision against all 454 existing slugs, no title-level duplicate in the whole article corpus, and clear of the recent-topic exclusion list plus today's a/b topics (post-install 48h audit, source trust tiers, compatibility flowchart). zh/en share one slug. Key c chosen because the a/b batch used keyless module names, leaving all single-letter gen keys free. Also normalized en-472/en-473 frontmatter to the 7 required fields (slug/date/keywords/canonical) without touching their bodies or regenerating their tsx.",
+  "groups": [
+    {
+      "key": "c",
+      "zh": {
+        "file": "474-侧载APK读不到相册细分媒体权限排查.md",
+        "slug": "apk-granular-media-permissions-partial-photo-access",
+        "tags": ["媒体权限", "分区存储", "照片选择器", "安卓排查", "侧载APK"]
+      },
+      "en": {
+        "file": "en-474-apk-granular-media-permissions-partial-photo-access.md",
+        "slug": "apk-granular-media-permissions-partial-photo-access",
+        "tags": ["media permissions", "scoped storage", "Photo Picker", "Android troubleshooting", "sideloading"]
+      }
+    }
+  ]
+}
