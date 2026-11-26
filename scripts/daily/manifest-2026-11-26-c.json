@@ -1,0 +1,19 @@
+{
+  "date": "2026-11-26",
+  "note": "Third pair (c) for 2026-11-26, complementing the earlier 475/476 batch (2 zh + 2 en, commit e2e0ba4, posts-2026-11-26-{zh,en}.tsx and posts-2026-11-26b-{zh,en}.tsx). Topic: forensic triage of a downloaded file that is not an APK at all (HTML interstitial / CDN verification page / truncated ZIP), based on ZIP magic bytes, EOCD trailer, HTTP Content-Type and the 302 redirect chain. Zero collision against all 484 existing slugs; clear of the recent-topic exclusion list and of today's earlier two topics (overwrite-install data preservation, post-update crash rollback). zh/en share one slug. Key c chosen because the earlier batch used keyless and b module names, leaving c free. The earlier batch was missing from both [slug] detail routes (list-visible but 404); this run also registers those four modules manually. Chinese 475/476 got the 7 required frontmatter fields added without changing their bodies or regenerating their tsx.",
+  "groups": [
+    {
+      "key": "c",
+      "zh": {
+        "file": "477-下载到假APK解析包错误取证排查.md",
+        "slug": "apk-downloaded-file-is-html-not-apk-diagnosis",
+        "tags": ["坏包排查", "解析软件包错误", "下载完整性", "HTTP响应头", "侧载APK"]
+      },
+      "en": {
+        "file": "en-477-apk-downloaded-file-is-html-not-apk-diagnosis.md",
+        "slug": "apk-downloaded-file-is-html-not-apk-diagnosis",
+        "tags": ["corrupt APK", "parse package error", "download integrity", "HTTP headers", "sideloading"]
+      }
+    }
+  ]
+}

@@ -138,10 +138,12 @@ import { zhPosts20261125List } from "@/lib/blog/posts-2026-11-25-zh";
 import { zhPosts20261125CList } from "@/lib/blog/posts-2026-11-25c-zh";
 import { zhPosts20261126List } from "@/lib/blog/posts-2026-11-26-zh";
 import { zhPosts20261126BList } from "@/lib/blog/posts-2026-11-26b-zh";
+import { zhPosts20261126CList } from "@/lib/blog/posts-2026-11-26c-zh";
 
 export type ZhBlogMeta = ZhBlogCatalogEntry;
 
 const MODULE_LISTS: ZhBlogMeta[][] = [
+  zhPosts20261126CList,
   zhPosts20261126BList,
   zhPosts20261126List,
   zhPosts20261125CList,
