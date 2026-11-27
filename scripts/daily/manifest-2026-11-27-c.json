@@ -1,0 +1,19 @@
+{
+  "date": "2026-11-27",
+  "note": "Third pair (c) for 2026-11-27, complementing OpenClaw's keyless A/B batch (478/479, 2 zh + 2 en, commit 47d44f2, already pushed; modules posts-2026-11-27-{zh,en}.tsx export zhPosts20261127A/B and enPosts20261127A/B). Topic: INSTALL_FAILED_MISSING_SHARED_LIBRARY and the <uses-library> / <uses-native-library> / <uses-sdk-library> device-dependency gate. Verified zero collision against all 487 existing slugs, zero dedicated article in the whole corpus (uses-library appears in 0 md files), clear of the recent-topic exclusion list and of today's A/B topics (installed-but-invisible icons, versionCode overwrite/downgrade). zh/en share one slug. Key c chosen because the A/B batch occupies variable names A and B; using a or b would collide. OpenClaw's batch registered only 3 of 5 entries: both [slug] detail routes are missing today's modules, so the 4 earlier articles currently 404 on their detail pages; this run registers A/B manually in both detail routes as well as generating the c pair.",
+  "groups": [
+    {
+      "key": "c",
+      "zh": {
+        "file": "480-APK装不上共享库依赖缺失排查.md",
+        "slug": "apk-install-failed-missing-shared-library-diagnosis",
+        "tags": ["共享库缺失", "uses-library", "INSTALL_FAILED_MISSING_SHARED_LIBRARY", "adb", "侧载排查"]
+      },
+      "en": {
+        "file": "en-480-apk-install-failed-missing-shared-library-diagnosis.md",
+        "slug": "apk-install-failed-missing-shared-library-diagnosis",
+        "tags": ["shared library", "uses-library", "INSTALL_FAILED_MISSING_SHARED_LIBRARY", "adb", "sideloading"]
+      }
+    }
+  ]
+}
