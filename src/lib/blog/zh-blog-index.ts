@@ -142,10 +142,16 @@ import { zhPosts20261126CList } from "@/lib/blog/posts-2026-11-26c-zh";
 import { zhPosts20261127AList } from "@/lib/blog/posts-2026-11-27-zh";
 import { zhPosts20261127BList } from "@/lib/blog/posts-2026-11-27-zh";
 import { zhPosts20261127CList } from "@/lib/blog/posts-2026-11-27c-zh";
+import { zhPosts20261128GList } from "@/lib/blog/posts-2026-11-28g-zh";
+import { zhPosts20261128HList } from "@/lib/blog/posts-2026-11-28h-zh";
+import { zhPosts20261128IList } from "@/lib/blog/posts-2026-11-28i-zh";
 
 export type ZhBlogMeta = ZhBlogCatalogEntry;
 
 const MODULE_LISTS: ZhBlogMeta[][] = [
+  zhPosts20261128GList,
+  zhPosts20261128HList,
+  zhPosts20261128IList,
   zhPosts20261127CList,
   zhPosts20261127BList,
   zhPosts20261127AList,

@@ -227,6 +227,12 @@ import { zhPosts20261127AList, zhPosts20261127BList } from "@/lib/blog/posts-202
 import { enPosts20261127AList, enPosts20261127BList } from "@/lib/blog/posts-2026-11-27-en";
 import { zhPosts20261127CList } from "@/lib/blog/posts-2026-11-27c-zh";
 import { enPosts20261127CList } from "@/lib/blog/posts-2026-11-27c-en";
+import { zhPosts20261128GList } from "@/lib/blog/posts-2026-11-28g-zh";
+import { enPosts20261128GList } from "@/lib/blog/posts-2026-11-28g-en";
+import { zhPosts20261128HList } from "@/lib/blog/posts-2026-11-28h-zh";
+import { enPosts20261128HList } from "@/lib/blog/posts-2026-11-28h-en";
+import { zhPosts20261128IList } from "@/lib/blog/posts-2026-11-28i-zh";
+import { enPosts20261128IList } from "@/lib/blog/posts-2026-11-28i-en";
 
 export const metadata: Metadata = {
   title: "Blog - APK Downloader Guides & Tutorials | gptoapk.com",
@@ -251,6 +257,12 @@ interface BlogPost {
 }
 
 const posts: BlogPost[] = [
+  ...zhPosts20261128GList,
+  ...enPosts20261128GList,
+  ...zhPosts20261128HList,
+  ...enPosts20261128HList,
+  ...zhPosts20261128IList,
+  ...enPosts20261128IList,
   ...zhPosts20261127CList,
   ...enPosts20261127CList,
   ...zhPosts20261127BList,

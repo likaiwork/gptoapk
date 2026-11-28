@@ -1,0 +1,45 @@
+{
+  "date": "2026-11-28",
+  "note": "Full 3 zh + 3 en batch for 2026-11-28, generated from scratch. At run start the day was completely blank: .daily-tasks.json still stale at 2026-11-27, no 481+ numbered .md in the SEO source dir (max num 480), no manifest-2026-11-28*.json, no posts-2026-11-28*.tsx, git worktree clean at HEAD=origin/main=265db9b. Group keys g/h/i chosen (per user example) so no single-letter a/b/c collision can occur if a parallel OpenClaw batch appears later. Three fresh zero-collision technical topics verified against all 481 existing slugs plus all 469 md frontmatter slugs and title-level corpus search, and clear of the recent-topic exclusion list (download resume / battery drain / no icon / restricted settings / no GMS / 403-404 / signature verification / permission auto-revoke / rollback-keep-data / compatibility check) and of the last six days' topics: (g) Android 7+ Data Saver / RESTRICT_BACKGROUND / metered-network + DownloadManager.WorkManager UNMETERED constraints, (h) SYSTEM_ALERT_WINDOW AppOps / TYPE_APPLICATION_OVERLAY / vendor floating-window switches, (i) API 24+ user-CA distrust / network_security_config trust-anchors + pin-set + debug-overrides. Each zh/en pair shares one slug; canonical points to /zh/blog/ and /en/blog/ respectively. Chinese 3169-3663 Han chars, English 3127-3355 words; each article has 5-6 runnable adb/curl/openssl command blocks, 51-53 mechanism/version/error table rows, a nine-step diagnostic path, 10 numbered FAQ items and 31-35 internal links. All 40 unique non-new internal links were curl-verified 200 on their own language side before generation (zh-only slugs such as apk-download-safety-full-workflow were replaced with real en slugs like how-to-safely-download-apk-files-android-full-verification-workflow on the en side); the 3 same-batch cross-links resolve after this deploy.",
+  "groups": [
+    {
+      "key": "g",
+      "zh": {
+        "file": "481-侧载APK只在WiFi下能联网排查.md",
+        "slug": "apk-network-works-only-on-wifi-data-saver-restrict-background",
+        "tags": ["Data Saver", "restrict-background", "计量网络", "网络策略", "侧载排查"]
+      },
+      "en": {
+        "file": "en-481-apk-network-works-only-on-wifi-data-saver-restrict-background.md",
+        "slug": "apk-network-works-only-on-wifi-data-saver-restrict-background",
+        "tags": ["Data Saver", "restrict-background", "metered network", "network policy", "troubleshooting"]
+      }
+    },
+    {
+      "key": "h",
+      "zh": {
+        "file": "482-侧载APK悬浮窗不显示排查.md",
+        "slug": "apk-overlay-not-showing-system-alert-window-appops",
+        "tags": ["悬浮窗", "SYSTEM_ALERT_WINDOW", "AppOps", "窗口类型", "侧载排查"]
+      },
+      "en": {
+        "file": "en-482-apk-overlay-not-showing-system-alert-window-appops.md",
+        "slug": "apk-overlay-not-showing-system-alert-window-appops",
+        "tags": ["overlay", "SYSTEM_ALERT_WINDOW", "AppOps", "window types", "troubleshooting"]
+      }
+    },
+    {
+      "key": "i",
+      "zh": {
+        "file": "483-侧载APK代理下HTTPS失败排查.md",
+        "slug": "apk-https-handshake-fails-untrusted-user-ca-pinning",
+        "tags": ["用户CA", "network_security_config", "证书锁定", "TLS", "侧载排查"]
+      },
+      "en": {
+        "file": "en-483-apk-https-handshake-fails-untrusted-user-ca-pinning.md",
+        "slug": "apk-https-handshake-fails-untrusted-user-ca-pinning",
+        "tags": ["user CA", "network_security_config", "certificate pinning", "TLS", "troubleshooting"]
+      }
+    }
+  ]
+}
